@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PackageSchema" targetNamespace="http://xpize.net/PackageSchema.xsd" elementFormDefault="qualified" xmlns="http://xpize.net/PackageSchema.xsd" xmlns:mstns="http://xpize.net/PackageSchema.xsd" xmlns:xs="http://xpize.net/PackageSchema.xsd">
+	
+	
+	
+</xs:schema>
