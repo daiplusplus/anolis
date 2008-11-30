@@ -13,15 +13,15 @@ Global
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs03.codeplex.com/
 		SccLocalPath0 = .
-		SccProjectUniqueName1 = Anolis.Core\\Anolis.Core.csproj
-		SccProjectName1 = Anolis.Core
-		SccLocalPath1 = Anolis.Core
-		SccProjectUniqueName2 = Anolis.Resourcer\\Anolis.Resourcer.csproj
-		SccProjectName2 = Anolis.Resourcer
-		SccLocalPath2 = Anolis.Resourcer
-		SccProjectUniqueName3 = Anolis.Console\\Anolis.Console.csproj
-		SccProjectName3 = Anolis.Console
-		SccLocalPath3 = Anolis.Console
+		SccProjectUniqueName1 = Anolis.Console\\Anolis.Console.csproj
+		SccProjectName1 = Anolis.Console
+		SccLocalPath1 = Anolis.Console
+		SccProjectUniqueName2 = Anolis.Core\\Anolis.Core.csproj
+		SccProjectName2 = Anolis.Core
+		SccLocalPath2 = Anolis.Core
+		SccProjectUniqueName3 = Anolis.Resourcer\\Anolis.Resourcer.csproj
+		SccProjectName3 = Anolis.Resourcer
+		SccLocalPath3 = Anolis.Resourcer
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
