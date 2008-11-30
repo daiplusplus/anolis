@@ -24,8 +24,10 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.@__split = new System.Windows.Forms.SplitContainer();
-			this.zoomPictureBoxWrapper1 = new Anolis.Resourcer.Controls.ZoomPictureBoxWrapper();
+			this.@__currentImage = new Anolis.Resourcer.Controls.ZoomPictureBoxWrapper();
+			this.@__images = new Anolis.Resourcer.Controls.ImageList();
 			this.@__split.Panel1.SuspendLayout();
+			this.@__split.Panel2.SuspendLayout();
 			this.@__split.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -39,22 +41,34 @@
 			// 
 			// __split.Panel1
 			// 
-			this.@__split.Panel1.Controls.Add(this.zoomPictureBoxWrapper1);
-			this.@__split.Size = new System.Drawing.Size(361, 228);
-			this.@__split.SplitterDistance = 151;
+			this.@__split.Panel1.Controls.Add(this.@__currentImage);
+			// 
+			// __split.Panel2
+			// 
+			this.@__split.Panel2.Controls.Add(this.@__images);
+			this.@__split.Size = new System.Drawing.Size(689, 420);
+			this.@__split.SplitterDistance = 285;
 			this.@__split.TabIndex = 0;
 			// 
-			// zoomPictureBoxWrapper1
+			// __currentImage
 			// 
-			this.zoomPictureBoxWrapper1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.zoomPictureBoxWrapper1.Image = null;
-			this.zoomPictureBoxWrapper1.Location = new System.Drawing.Point(0, 0);
-			this.zoomPictureBoxWrapper1.Name = "zoomPictureBoxWrapper1";
-			this.zoomPictureBoxWrapper1.ShowInterpolationDropDown = true;
-			this.zoomPictureBoxWrapper1.ShowToolbar = true;
-			this.zoomPictureBoxWrapper1.ShowToolbarText = true;
-			this.zoomPictureBoxWrapper1.Size = new System.Drawing.Size(361, 151);
-			this.zoomPictureBoxWrapper1.TabIndex = 0;
+			this.@__currentImage.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.@__currentImage.Image = null;
+			this.@__currentImage.Location = new System.Drawing.Point(0, 0);
+			this.@__currentImage.Name = "__currentImage";
+			this.@__currentImage.ShowInterpolationDropDown = true;
+			this.@__currentImage.ShowToolbar = true;
+			this.@__currentImage.ShowToolbarText = true;
+			this.@__currentImage.Size = new System.Drawing.Size(689, 285);
+			this.@__currentImage.TabIndex = 0;
+			// 
+			// __images
+			// 
+			this.@__images.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.@__images.Location = new System.Drawing.Point(0, 0);
+			this.@__images.Name = "__images";
+			this.@__images.Size = new System.Drawing.Size(689, 131);
+			this.@__images.TabIndex = 0;
 			// 
 			// IconCursorViewer
 			// 
@@ -62,8 +76,9 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.@__split);
 			this.Name = "IconCursorViewer";
-			this.Size = new System.Drawing.Size(361, 228);
+			this.Size = new System.Drawing.Size(689, 420);
 			this.@__split.Panel1.ResumeLayout(false);
+			this.@__split.Panel2.ResumeLayout(false);
 			this.@__split.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -72,6 +87,7 @@
 		#endregion
 
 		private System.Windows.Forms.SplitContainer __split;
-		private Anolis.Resourcer.Controls.ZoomPictureBoxWrapper zoomPictureBoxWrapper1;
+		private Anolis.Resourcer.Controls.ZoomPictureBoxWrapper __currentImage;
+		private Anolis.Resourcer.Controls.ImageList __images;
 	}
 }

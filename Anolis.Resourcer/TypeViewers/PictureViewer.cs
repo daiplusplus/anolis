@@ -4,6 +4,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 using Anolis.Core;
+using Anolis.Core.Win32;
 
 using MemoryStream = System.IO.MemoryStream;
 

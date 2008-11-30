@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 using System.IO;
 using Anolis.Core;
+using Anolis.Core.Win32;
 using Anolis.Resourcer.TypeViewers;
 
 namespace Anolis.Resourcer.TypeViewers {

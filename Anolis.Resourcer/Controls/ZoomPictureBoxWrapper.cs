@@ -27,16 +27,6 @@ namespace Anolis.Resourcer.Controls {
 		
 		private void LoadInterpolation() {
 			
-//			Array    values = Enum.GetValues( typeof(InterpolationMode) );
-//			String[] names  = Enum.GetNames ( typeof(InterpolationMode) );
-//			
-//			for(int i=0;i<names.Length;i++) {
-//			
-//				ToolStripMenuItem item = new ToolStripMenuItem( names[i] ) { Tag = (Int32)values.GetValue( i ) };
-//				
-//				__toolsInterp.DropDownItems.Add( item );
-//			}
-			
 			__toolsInterp.DropDownItems.Add( new ToolStripMenuItem("Nearest Neighbour)")     { Tag = InterpolationMode.NearestNeighbor } );
 			__toolsInterp.DropDownItems.Add( new ToolStripMenuItem("Bilinear")               { Tag = InterpolationMode.Bilinear } );
 			__toolsInterp.DropDownItems.Add( new ToolStripMenuItem("Bilinear (Prefiltered)") { Tag = InterpolationMode.HighQualityBilinear } );

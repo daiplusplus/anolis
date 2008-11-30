@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using Anolis.Core;
+using Anolis.Core.Win32;
 
 namespace Anolis.Resourcer.TypeViewers {
 	
