@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PackageSchema" targetNamespace="http://xpize.net/PackageSchema.xsd" elementFormDefault="qualified" xmlns="http://xpize.net/PackageSchema.xsd" xmlns:mstns="http://xpize.net/PackageSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+<!-- Path escapes
+
+Whenever a path is specified in a src="", dest="", or path="" attribute there are Anolis-specific environment variables in addition to the Windows ones (like %programfiles%).
+Refer to http://en.wikipedia.org/wiki/Environment_variable#Examples_from_Microsoft_Windows for more details
+
+Note that %programfiles% may or may not return the path to the 32-bit or 64-bit program files on x64 depending on how Anolis itself is executed
+
+
+
+
+
+ -->
+	
+	<xs:element name="package">
+		<xs:complexType>
+			<xs:sequence>
+				
+				<xs:element name="set">
+					<xs:complexType>
+						<xs:sequence>
+
+							<xs:element name="patch">
+								<xs:complexType>
+									<xs:sequence>
+
+										<xs:element name="res">
+											<xs:complexType>
+												
+												<!-- <res /> attributes -->
+												<xs:attribute name="type" type="resourceType"   use="required" />
+												<xs:attribute name="id"   type="xs:string"      use="required" />
+												<xs:attribute name="lang" type="xs:unsignedInt" use="optional" />
+												<xs:attribute name="src"  type="xs:anyURI"      use="required" />
+												
+											</xs:complexType>
+										</xs:element>
+										
+									</xs:sequence>
+									
+									<!-- <patch /> attributes -->
+									<xs:attribute name="path"      type="xs:anyURI" use="required" />
+									<xs:attribute name="condition" type="xs:string" use="optional" />
+									
+								</xs:complexType>
+							</xs:element>
+								
+							<xs:element name="file">
+								<xs:complexType>
+									
+									<!-- <file /> attributes -->
+									
+									<xs:attribute name="operation" type="fileOperation" use="required" />
+									<xs:attribute name="path"      type="xs:anyURI"     use="required" />
+									<xs:attribute name="src"       type="xs:anyURI"     use="optional" />
+
+									<xs:attribute name="condition" type="xs:string" use="optional" />
+									
+								</xs:complexType>
+							</xs:element>
+							
+							<xs:element name="extra">
+								<xs:complexType>
+									
+									<!-- <extra /> attributes -->
+									
+									<xs:attribute name="name"        type="xs:string"  use="required" />
+									<xs:attribute name="attribution" type="xs:string"  use="required" />
+									<xs:attribute name="type"        type="extraType"  use="required" />
+									<xs:attribute name="src"         type="xs:anyURI"  use="required" />
+									
+								</xs:complexType>
+							</xs:element>
+							
+							<xs:element name="filetype">
+								<xs:complexType>
+									
+									<!-- <filetype /> attributes -->
+
+									<xs:attribute name="ifNotDefined" type="definedAction"  use="optional" />
+
+									<xs:attribute name="type"         type="xs:string"  use="optional" />
+									<xs:attribute name="ext"          type="xs:string"  use="optional" />
+									
+									<xs:attribute name="iconFile"     type="xs:anyURI"  use="optional" />
+									<xs:attribute name="iconPath"     type="xs:anyURI"  use="optional" />
+									
+								</xs:complexType>
+							</xs:element>
+							
+						</xs:sequence>
+						
+						<!-- <set> attributes -->
+						<xs:attribute name="id"    type="xs:ID"     use="required" />
+						<xs:attribute name="mutex" type="xs:IDREFS" use="optional" />
+						<xs:attribute name="name"  type="xs:string" use="required" />
+						
+						<xs:attribute name="icon"  type="xs:anyURI"  use="optional" />
+						<xs:attribute name="image" type="xs:anyURI"  use="optional" />
+						<xs:attribute name="desc"  type="xs:anyURI"  use="optional" />
+						
+					</xs:complexType>
+				</xs:element><!-- /set -->
+				
+			</xs:sequence>
+			
+			<!-- <package> attributes -->
+			<xs:attribute name="name"        type="xs:string"  use="required" />
+			<xs:attribute name="version"     type="xs:decimal" use="required" />
+			<xs:attribute name="attribution" type="xs:string"  use="required" />
+			<xs:attribute name="website"     type="xs:anyURI"  use="optional" />
+			<xs:attribute name="updateUrl"   type="xs:anyURI"  use="optional" />
+			<xs:attribute name="icon"        type="xs:anyURI"  use="optional" />
+			<xs:attribute name="image"       type="xs:anyURI"  use="optional" />
+			<xs:attribute name="desc"        type="xs:anyURI"  use="optional" />
+			
+		</xs:complexType>
+	</xs:element><!-- /package -->
+	
+	<!-- Additional Types -->
+	
+	<xs:simpleType name="versionAction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="warn" />
+			<xs:enumeration value="deny" />
+			<xs:enumeration value="okay" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="definedAction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="apply" />
+			<xs:enumeration value="ignore" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="resourceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="icongroup" />
+			<xs:enumeration value="bitmap" />
+			<xs:enumeration value="cursorgroup" />
+			<!-- TODO: Finish off -->
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="extraType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="wallpaper" />
+			<xs:enumeration value="cursor" />
+			<xs:enumeration value="cursorScheme" />
+			<xs:enumeration value="visualStyle" />
+			<xs:enumeration value="program-xar" />
+			<xs:enumeration value="program-zip" />
+			<xs:enumeration value="screensaver" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="fileOperation">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="copy" />
+			<xs:enumeration value="replace" />
+			<xs:enumeration value="delete" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>

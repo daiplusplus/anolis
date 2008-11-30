@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package name="My Example Package" version="1.0" attribution="W3bbo et al." website="http://www.mywebsite.com/packs" updateUrl="http://www.mywebsite.com/packs/packageInfo.txt" icon="" image="" desc="">
+<!-- packageInfo.txt is a three-line text file. Line 1 must be identical to the name="" attribute. Line 2 is a decimal string of the latest version. Line 3 is an absolute URL of where to download the latest version from  -->
+	
+	<set id="" mutex="" name="" icon="" image="" desc="">
+		
+		<!-- There can be many <file> elements. Typically you have one file element for each file you want to patch, but you can have several if you want to target different versions of the same file -->
+		<patch path="" condition="lt 1.0 : deny; gte 2.0 warn">
+			
+			<res type="icon" id="0" src="/appwiz.cpl/0.ico" lang="" /> <!-- The lang attribute is optional-->
+			
+		</patch>
+		
+		<file condition="lt 1.0 : deny; gte 2.0 warn" operation="copy|replace|delete" path="" src="" />
+		
+		<!-- Extras are package nicities and are documentated separately, especially for composite things like visual styles -->
+		<!-- for each "activatable" extra the GUI presents the user with a radio button list to choose which one to Apply (and the first option is "Unchanged") -->
+		<extra name="" attribution="" type="screensaver" src="this:/extras/screensaver1.scr" />
+		<extra name="" attribution="" type="wallpaper"   src="this:/extras/wallpaper1.jpg" />
+		<extra name="" attribution="" type="visualstyle" src="this:/extras/royalenoir.avis" />
+		<!-- *.avis are zip packages containing visual styles and are extracted in the appropriate place in the filesystem  -->
+		<extra name="" attribution="" type="visualstyle" src="this:/extras/zune.avis" />
+		<extra name="" attribution="" type="program-xar" src="this:/extras/freelaunchbarsetup.exe" dest="%temp" />
+		<!-- program-xar = Extract-and-Run. Good for standalone programs, setups (*.msi) or self-extracting programs. Program is extracted to the dest="" directory before executing. If dest="" is missing then the local roaming directory is assumed. The file is deleted after patching completed -->
+		<extra name="" attribution="" type="program-zip" src="this:/extras/taskswitchxp.zip" dest="%installDir%/TaskSwitch" />
+		<!-- program-zip = Program and related files are in a zip archive to be extracted in the dest="" directory. Dest is required. -->
+		<extra name="" attribution="" type="bootscreen"  src="this:/extras/boot1.boot" />
+		<!-- I have no idea how custom bootscreens work ATM -->
+		
+		<filetype ifNotDefined="apply"  type="Word.Document" iconFile="/files/doc.ico" />
+		<filetype ifNotDefined="ignore" ext=".doc"           iconPath="file://C:\PROGRA~2\WINDOW~2\wmplayer.exe,-120" />
+		
+	</set>
+	
+</package>
