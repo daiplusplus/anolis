@@ -20,7 +20,7 @@ namespace Anolis.Resourcer.Controls {
 			
 			SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
 			AutoScroll = true;
-
+			
 			Scroll += new ScrollEventHandler(ZoomPictureBox_Scroll);
 		}
 		
@@ -90,8 +90,10 @@ namespace Anolis.Resourcer.Controls {
 		public Boolean Centered {
 			get { return _centered; }
 			set {
-				_centered = value;
-				Invalidate();
+				if(value != _centered) {
+					_centered = value;
+					Invalidate();
+				}
 			}
 		}
 		

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Anolis.Core;
 using System.Windows.Forms;
+
+using Anolis.Core.Win32;
 
 namespace Anolis.Resourcer.TypeViewers {
 	

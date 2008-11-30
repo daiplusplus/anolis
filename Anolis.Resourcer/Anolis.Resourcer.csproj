@@ -42,13 +42,30 @@
       <HintPath>..\Be.Windows.Forms.HexBox\bin\Release\Be.Windows.Forms.HexBox.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="W3b.WinControls, Version=1.0.3119.36843, Culture=neutral, PublicKeyToken=d34955697dcd2d67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_ref\W3b.WinControls.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ImageList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ImageList.Designer.cs">
+      <DependentUpon>ImageList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageListItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ImageListItem.Designer.cs">
+      <DependentUpon>ImageListItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ZoomPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -70,6 +87,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\ImageList.resx">
+      <DependentUpon>ImageList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ImageListItem.resx">
+      <DependentUpon>ImageListItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ZoomPictureBoxWrapper.resx">
       <DependentUpon>ZoomPictureBoxWrapper.cs</DependentUpon>
     </EmbeddedResource>

@@ -5,6 +5,7 @@ using Anolis.Resourcer.TypeViewers;
 using System.IO;
 
 using Anolis.Core;
+using Anolis.Core.Win32;
 
 namespace Anolis.Resourcer {
 	
@@ -67,6 +68,8 @@ namespace Anolis.Resourcer {
 		}
 		
 #endregion
+		
+		public StatusStrip StatusBar { get { return __status; } }
 		
 		private void LoadImage(String path) {
 			
