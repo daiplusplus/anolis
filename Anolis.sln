@@ -1,12 +1,45 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Core", "Anolis.Core\Anolis.Core.csproj", "{967BF434-D4F9-41E3-8B82-433987DEB4A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Resourcer", "Anolis.Resourcer\Anolis.Resourcer.csproj", "{A651602A-6FF5-4DCC-A1FE-4A794F412A36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Console", "Anolis.Console\Anolis.Console.csproj", "{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 1
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs03.codeplex.com/
 		SccLocalPath0 = .
+		SccProjectUniqueName1 = Anolis.Core\\Anolis.Core.csproj
+		SccProjectName1 = Anolis.Core
+		SccLocalPath1 = Anolis.Core
+		SccProjectUniqueName2 = Anolis.Resourcer\\Anolis.Resourcer.csproj
+		SccProjectName2 = Anolis.Resourcer
+		SccLocalPath2 = Anolis.Resourcer
+		SccProjectUniqueName3 = Anolis.Console\\Anolis.Console.csproj
+		SccProjectName3 = Anolis.Console
+		SccLocalPath3 = Anolis.Console
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{967BF434-D4F9-41E3-8B82-433987DEB4A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{967BF434-D4F9-41E3-8B82-433987DEB4A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{967BF434-D4F9-41E3-8B82-433987DEB4A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{967BF434-D4F9-41E3-8B82-433987DEB4A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A651602A-6FF5-4DCC-A1FE-4A794F412A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A651602A-6FF5-4DCC-A1FE-4A794F412A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A651602A-6FF5-4DCC-A1FE-4A794F412A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A651602A-6FF5-4DCC-A1FE-4A794F412A36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
