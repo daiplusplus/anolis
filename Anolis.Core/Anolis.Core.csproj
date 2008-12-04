@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="General\Resource.cs" />
+    <Compile Include="Core\Resource.cs" />
+    <Compile Include="Core\ResourceData.cs" />
+    <Compile Include="Core\ResourceIdentifier.cs" />
     <Compile Include="PackageSchema.cs">
       <DependentUpon>PackageSchema.xsd</DependentUpon>
       <SubType>Component</SubType>

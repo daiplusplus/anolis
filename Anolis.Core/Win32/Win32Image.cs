@@ -8,7 +8,7 @@ using Cult = System.Globalization.CultureInfo;
 namespace Anolis.Core.Win32 {
 	
 	/// <summary>Encapsulates a Win32 Image which contains Win32 resources.</summary>
-	public sealed class Win32Image : IDisposable {
+	public sealed class Win32Image : IResourceSource {
 		
 		private String  _path;
 		private Boolean _readOnly;
@@ -193,19 +193,6 @@ namespace Anolis.Core.Win32 {
 		
 	}
 	
-	public struct Win32ResourceOperation {
-		
-		public Win32ResourceLanguage A;
-		public Win32ResourceLanguage B;
-		
-		public Win32ResourceOperation(Win32ResourceLanguage a, Win32ResourceLanguage b) {
-			if(a == null && b == null) throw new ArgumentException("Both resources cannot be null");
-			A = a;
-			B = b;
-		}
-		
-	}
-	
 	internal static class Win32ResourceHelper {
 		
 		private static Dictionary<Int32,String> _resourceTypeFriendlyNames;
@@ -238,43 +225,9 @@ namespace Anolis.Core.Win32 {
 			_resourceTypeFriendlyNames.Add(23, "HTML");
 			_resourceTypeFriendlyNames.Add(24, "Manifest");
 		}
+
 		
-		[System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.LinkDemand, UnmanagedCode=true)]
-		public static void GetId(IntPtr idPointer, out Int32 typeInt, out String typeStr) {
-			
-			if( IsIntResource( idPointer ) ) {
-				
-				typeInt = -1;
-				typeStr = Marshal.PtrToStringAuto( idPointer );
-				
-				if(typeStr.StartsWith("#", StringComparison.Ordinal)) { // if the string begins with '#' then the rest of it is a decimal number that is the integer id
-					
-					String deci = typeStr.Substring(1);
-					if( Int32.TryParse( deci, System.Globalization.NumberStyles.Integer, Cult.InvariantCulture, out typeInt ) ) typeStr = null;
-					
-				}
-				
-			} else {
-				
-				typeInt = idPointer.ToInt32();
-				typeStr = null;
-				
-			}
-			
-		}
-		
-		[System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.LinkDemand, UnmanagedCode=true)]
-		public static IntPtr GetNativeId(Int32 typeInt, String typeStr) {
-			
-			if( typeInt == -1 ) {
-				
-				return Marshal.StringToHGlobalAuto( typeStr );
-				
-			} else {
-				return (IntPtr)typeInt;
-			}
-			
-		}
+
 		
 		public static String GetTypeFriendlyName(Int32 typeInt) {
 			
@@ -289,86 +242,10 @@ namespace Anolis.Core.Win32 {
 		
 	}
 	
-	public class Win32ResourceType : IEquatable<Win32ResourceType> {
-		
-		public Int32  TypeInt      { get; private set; }   // the integer identifier of a type. -1 means use the string
-		public String TypeStr      { get; private set; }   // the string identifier of a type, null means use the integer
-		public String FriendlyName { get; private set; }   // the friendly name of the type
-		
-		public Win32Image ParentImage { get; private set; }
-		public List<Win32ResourceName> Names { get; private set; }
-		
-		/// <summary>Constructs a Win32 resource type based on a Win32 resource type LPCTSTR.</summary>
-		internal Win32ResourceType(IntPtr typePointer, Win32Image parentImage) {
-			
-			Names = new List<Win32ResourceName>();
-			ParentImage = parentImage;
-			
-			Int32 typeInt; String typeStr;
-			Win32ResourceHelper.GetId( typePointer, out typeInt, out typeStr );
-			TypeInt = typeInt; TypeStr = typeStr;
-			
-			if( TypeInt > -1 ) FriendlyName = Win32ResourceHelper.GetTypeFriendlyName( TypeInt );
-			else FriendlyName = TypeStr; // TODO: W3b.TextFilters.TitleCase the friendly name
-			
-		}
-		
-		/// <summary>Gets either an integer identifier or pointer to a string for the type name.</summary>
-		internal IntPtr TypePtr {
-			get { return Win32ResourceHelper.GetNativeId( TypeInt, TypeStr ); }
-		}
-		
-		public override string ToString() {
-			return FriendlyName;
-		}
-		
-		public Boolean Equals(Win32ResourceType other) {
-			
-			if( Object.ReferenceEquals( this, other ) ) return true;
-			if( Object.ReferenceEquals( other, null)) return false;
-			if( !Object.ReferenceEquals( this.ParentImage, other.ParentImage ) ) return false;
-			
-			if( TypeInt > -1 && TypeInt == other.TypeInt ) return true; // type is greater than -1 (use string) and numerical type id is the same
-			
-			if( TypeInt == -1 && other.TypeInt == -1) {
-				return TypeStr.Equals( other.TypeStr );
-			}
-			
-			return false;
-		}
-		
-#region Fx Compliance
-		
-		public override Boolean Equals(Object obj) {
-			if( Object.ReferenceEquals( this, obj ) ) return true;
-			if( Object.ReferenceEquals( obj, null)) return false;
-			Win32ResourceType other = obj as Win32ResourceType;
-			if( Object.ReferenceEquals( other, null)) return false;
-			return Equals( other );
-		}
-		
-		public static Boolean operator==(Win32ResourceType a, Win32ResourceType b) {
-			if( Object.ReferenceEquals( a, b ) ) return true;
-			if( Object.ReferenceEquals( a, null)) return false;
-			return a.Equals( b );
-		}
-		
-		public static Boolean operator!=(Win32ResourceType a, Win32ResourceType b) {
-			return !(a == b);
-		}
-		
-		public override Int32 GetHashCode() {
-			if( TypeStr == null ) return TypeInt.GetHashCode();
-			return TypeStr.GetHashCode() ^ TypeInt.GetHashCode();
-		}
-#endregion
-		
-	}
-	
 	public enum KnownWin32ResourceType {
 		CursorDeviceDependent   = 1,
 		Bitmap                  = 2,
-		IconDeviceDependent     = 3,
+		IconDeviceDependent     = 3, // TODO: are these members named correctly? Are the numbers equal to their use within Win32?
 		Menu                    = 4,
 		Dialog                  = 5,
 		StringTable             = 6,
@@ -389,150 +266,6 @@ namespace Anolis.Core.Win32 {
 		Manifest                = 24,
 		Custom                  = -1, // See string
 		Unknown                 =  0  // Unknown non-string ID resource type
-	}
-	
-	public enum KnownWin32CustomResourceType {
-		Png,
-		Gif,
-		Unknown
-	}
-	
-	public class Win32ResourceName : IEquatable<Win32ResourceName> {
-		
-		public Int32  NameInt      { get; private set; }
-		public String NameStr      { get; private set; }
-		public String FriendlyName { get; private set; }
-		
-		public Win32ResourceType           ParentType { get; private set; }
-		public List<Win32ResourceLanguage> Languages  { get; private set; }
-		
-		internal Win32ResourceName(IntPtr namePointer, Win32ResourceType parentType) {
-			
-			Languages = new List<Win32ResourceLanguage>();
-			ParentType = parentType;
-			
-			Int32 nameInt; String nameStr;
-			Win32ResourceHelper.GetId( namePointer, out nameInt, out nameStr);
-			NameInt = nameInt; NameStr = nameStr;
-			
-			if( NameInt > -1 ) FriendlyName = NameInt.ToString(Cult.InvariantCulture);
-			else FriendlyName = NameStr;
-			
-		}
-		
-		internal IntPtr NamePtr {
-			get { return Win32ResourceHelper.GetNativeId( NameInt, NameStr ); }
-		}
-		
-		public override string ToString() {
-			return FriendlyName;
-		}
-		
-		public Boolean Equals(Win32ResourceName other) {
-			
-			if( Object.ReferenceEquals( this, other ) ) return true;
-			
-			if( Object.ReferenceEquals( other, null)) return false;
-			if(!ParentType.Equals( other.ParentType )) return false;
-			
-			if( NameInt > -1 && NameInt == other.NameInt ) return true; // Name is greater than -1 (use string) and numerical Name id is the same
-			
-			if( NameInt == -1 && other.NameInt == -1) {
-				return NameStr.Equals( other.NameStr );
-			}
-			
-			return false;
-		}
-		
-#region Fx Compliance
-		
-		public override Boolean Equals(Object obj) {
-			if( Object.ReferenceEquals( this, obj ) ) return true;
-			if( Object.ReferenceEquals( obj, null)) return false;
-			Win32ResourceName other = obj as Win32ResourceName;
-			if( Object.ReferenceEquals( other, null)) return false;
-			return Equals( other );
-		}
-		
-		public static Boolean operator==(Win32ResourceName a, Win32ResourceName b) {
-			if( Object.ReferenceEquals( a, b ) ) return true;
-			if( Object.ReferenceEquals( a, null)) return false;
-			return a.Equals( b );
-		}
-		
-		public static Boolean operator!=(Win32ResourceName a, Win32ResourceName b) {
-			return !(a == b);
-		}
-		
-		public override Int32 GetHashCode() {
-			if( NameStr == null ) return ParentType.GetHashCode() ^ NameInt.GetHashCode();
-			return ParentType.GetHashCode() ^ NameStr.GetHashCode() ^ NameInt.GetHashCode();
-		}
-#endregion
-		
-	}
-	
-	public class Win32ResourceLanguage : IEquatable<Win32ResourceLanguage> {
-		
-		[CLSCompliant(false)]
-		public UInt16 LanguageId { get; private set; }
-		
-		public Win32ResourceName ParentName { get; private set; }
-		
-		internal Win32ResourceLanguage(UInt16 languageId, Win32ResourceName parentName) {
-			
-			LanguageId = languageId;
-			
-			ParentName = parentName;
-		}
-		
-		public override string ToString() {
-			return LanguageId.ToString(Cult.InvariantCulture);
-		}
-		
-		public Boolean Equals(Win32ResourceLanguage other) {
-			if( Object.ReferenceEquals( this, other ) ) return true;
-			
-			if( Object.ReferenceEquals( other, null)) return false;
-			if(!ParentName.Equals( other.ParentName ) ) return false;
-			
-			return LanguageId == other.LanguageId;
-			
-		}
-		
-		[System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.LinkDemand, UnmanagedCode=true)]
-		public Byte[] GetData() {
-			
-			return ParentName.ParentType.ParentImage.GetResourceData( this );
-			
-		}
-		
-#region Fx Compliance
-
-		public override Boolean Equals(Object obj) {
-			if( Object.ReferenceEquals( this, obj ) ) return true;
-			if( Object.ReferenceEquals( obj, null)) return false;
-			Win32ResourceLanguage other = obj as Win32ResourceLanguage;
-			if( Object.ReferenceEquals( other, null)) return false;
-			return Equals( other );
-		}
-		
-		public static Boolean operator==(Win32ResourceLanguage a, Win32ResourceLanguage b) {
-			if( Object.ReferenceEquals( a, b ) ) return true;
-			if( Object.ReferenceEquals( a, null)) return false;
-			return a.Equals( b );
-		}
-		
-		public static Boolean operator!=(Win32ResourceLanguage a, Win32ResourceLanguage b) {
-			return !(a == b);
-		}
-		
-		public override Int32 GetHashCode() {
-			return ParentName.GetHashCode() ^ LanguageId.GetHashCode();
-		}
-		
-#endregion
-		
 	}
 	
 }
