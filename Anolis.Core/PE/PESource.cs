@@ -57,7 +57,7 @@ namespace Anolis.Core.PE {
 			// use SizeOfResource to get the length of the byte array
 			// then LockResource to get a pointer to it. Use Marshal to get a byte array and take it from there
 			
-			IntPtr resInfo = NativeMethods.FindResourceEx( _moduleHandle, resource.ParentName.ParentType.TypePtr, resource.ParentName.NamePtr, resource.LanguageId );
+			IntPtr resInfo = NativeMethods.FindResourceEx( _moduleHandle, lang.Name.Type.Identifier.NativeId, lang.Name.Identifier.NativeId, lang.LanguageId );
 			IntPtr resData = NativeMethods.LoadResource  ( _moduleHandle, resInfo );
 			Int32  size    = NativeMethods.SizeOfResource( _moduleHandle, resInfo );
 			
@@ -103,7 +103,7 @@ namespace Anolis.Core.PE {
 		
 		private List<ResourceType> _types;
 		
-		public ResourceType[] GetResourceTypes() {
+		private void PopulateResourceTypes() {
 			
 			if( _types != null ) return _types.ToArray();
 			

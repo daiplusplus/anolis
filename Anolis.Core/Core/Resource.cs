@@ -54,7 +54,7 @@ namespace Anolis.Core {
 		
 	}
 	
-	public class ResourceType : IEquatable<ResourceType> {
+	public partial class ResourceType : IEquatable<ResourceType> {
 		
 		public ResourceIdentifier     Identifier { get; private set; }
 		public ResourceNameCollection Names      { get; private set; }
@@ -78,24 +78,9 @@ namespace Anolis.Core {
 			return Identifier.FriendlyName;
 		}
 		
-		public Boolean Equals(ResourceType other) {
-			
-			if( Object.ReferenceEquals( this, other ) ) return true;
-			if( Object.ReferenceEquals( other, null)) return false;
-			if( !Object.ReferenceEquals( this.Source, other.Source ) ) return false;
-			
-			return this.Identifier.Equals( other.Identifier );
-		}
-		
-		public override Boolean Equals(object obj) {
-			return Equals( (ResourceType)obj );
-		}
-		
-		// TODO: Fx Compliance
-		
 	}
 	
-	public class ResourceName : IEquatable<ResourceName> {
+	public partial class ResourceName : IEquatable<ResourceName> {
 		
 		public ResourceIdentifier     Identifier { get; private set; }
 		public ResourceLangCollection Langs      { get; private set; }
@@ -118,26 +103,10 @@ namespace Anolis.Core {
 			return Identifier.FriendlyName;
 		}
 		
-		public Boolean Equals(ResourceName other) {
-			
-			if( Object.ReferenceEquals( this, other ) ) return true;
-			if( Object.ReferenceEquals( other, null)) return false;
-			if( !Object.ReferenceEquals( this.Type, other.Type ) ) return false;
-			
-			return this.Identifier.Equals( other.Identifier );
-		}
-		
-		public override Boolean Equals(object obj) {
-			ResourceName other = obj as ResourceName;
-			if(other == null) return false;
-			return this.Equals( other );
-		}
-		
 	}
 	
-	public class ResourceLang : IEquatable<ResourceLang> {
+	public partial class ResourceLang : IEquatable<ResourceLang> {
 		
-		[CLSCompliant(false)]
 		public UInt16 LanguageId { get; private set; }
 		
 		public ResourceName Name { get; private set; }
@@ -160,22 +129,6 @@ namespace Anolis.Core {
 		
 		public override string ToString() {
 			return LanguageId.ToString(Cult.InvariantCulture);
-		}
-		
-		public Boolean Equals(ResourceLang other) {
-			
-			if( Object.ReferenceEquals( this, other ) ) return true;
-			if( Object.ReferenceEquals( other, null)) return false;
-			if( !Object.ReferenceEquals( this.Name, other.Name ) ) return false;
-			
-			return LanguageId == other.LanguageId;
-			
-		}
-		
-		public override Boolean Equals(object obj) {
-			ResourceLang other = obj as ResourceLang;
-			if(other == null) return false;
-			return this.Equals( other );
 		}
 		
 		/// <summary>Lazy-loads the ResourceData associated with this ResourceLang from the Resource Source if the resource data is not already loaded.</summary>

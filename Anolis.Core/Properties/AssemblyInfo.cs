@@ -36,4 +36,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion( "0.1.*" )]
 [assembly: AssemblyFileVersion( "0.1.0.0" )]
 
-[assembly: CLSCompliant(true)]
+// Assembly is not CLSCompliant due to use of unsigned integers throughought, especially semi-exposed Win32 functionality (like ResourceLang's ResourceId)
+[assembly: CLSCompliant(false)]
