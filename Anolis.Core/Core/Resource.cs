@@ -20,33 +20,57 @@ namespace Anolis.Core {
 		public ResourceLangCollection(List<ResourceLang> list) : base(list) {}
 	}
 	
-	public interface IResourceSource : IDisposable {
+	public abstract class ResourceSource : IDisposable {
 		
-		ResourceTypeCollection GetResources();
+		public Boolean IsReadOnly { get; protected set; }
 		
-		void AddResource(Resource resource);
+		public abstract ResourceTypeCollection GetResources();
 		
-		void RemoveResource(Resource resource);
+		public abstract void AddResource(ResourceLang resource);
 		
-		void CommitChanges();
+		public abstract void RemoveResource(ResourceLang resource);
 		
-		void Rollback();
+		public abstract void CommitChanges();
+		
+		public abstract void Rollback();
+		
+		/// <summary>Extracts the Resource Data for the specified Resource.</summary>
+		public abstract ResourceData GetResourceData(ResourceLang lang);
+		
+		public abstract void Dispose();
+		
+		//////////////////////
+		
+		public static ResourceSource Open(String filename, Boolean readOnly) {
+			
+			// get the file type of the file to load
+			// if PE executable (a dll, native exe, etc)
+			
+			ResourceSource src = new PE.PESource(filename, readOnly);
+			
+			throw new NotImplementedException();
+			
+		}
 		
 	}
 	
-	public class ResourceType : IEquatable<Win32ResourceType> {
+	public class ResourceType : IEquatable<ResourceType> {
 		
 		public ResourceIdentifier     Identifier { get; private set; }
 		public ResourceNameCollection Names      { get; private set; }
 		
-		public IResourceSource        Source     { get; private set; }
+		public ResourceSource         Source     { get; private set; }
+		
+		private List<ResourceName> _names;
 		
 		/// <summary>Constructs a Win32 resource type based on a Win32 resource type LPCTSTR.</summary>
-		internal ResourceType(IntPtr typePointer, IResourceSource source) {
+		public ResourceType(IntPtr typePointer, ResourceSource source) {
 			
 			Identifier = new ResourceIdentifier(typePointer, true);
-			// TODO: init Names
 			Source     = source;
+			
+			_names     = new List<ResourceName>();
+			Names      = new ResourceNameCollection(_names); // ResourceNameCollection is a read-only decorator of any List
 			
 		}
 		
@@ -78,11 +102,15 @@ namespace Anolis.Core {
 		
 		public ResourceType           Type       { get; private set; }
 		
-		internal ResourceName(IntPtr namePointer, ResourceType type) {
+		private List<ResourceLang> _langs;
+		
+		public ResourceName(IntPtr namePointer, ResourceType type) {
 			
 			Identifier = new ResourceIdentifier(namePointer, false);
-			// TODO: init Langs
 			Type       = type;
+			
+			_langs     = new List<ResourceLang>();
+			Langs      = new ResourceLangCollection(_langs);
 			
 		}
 		
@@ -114,10 +142,20 @@ namespace Anolis.Core {
 		
 		public ResourceName Name { get; private set; }
 		
-		internal ResourceLang(UInt16 languageId, ResourceName name) {
+		private ResourceData _data;
+		
+		////////////////////////////////
+		
+		public ResourceLang(UInt16 languageId, ResourceName name) {
 			
 			LanguageId = languageId;
 			Name       = name;
+		}
+		
+		/// <summary>Constructs a ResourceLang with the ResourceData already loaded. For when adding resources to a PE rather than loading from.</summary>
+		public ResourceLang(UInt16 languageId, ResourceName name, ResourceData data) : this(languageId, name) {
+			
+			_data = data;
 		}
 		
 		public override string ToString() {
@@ -140,14 +178,18 @@ namespace Anolis.Core {
 			return this.Equals( other );
 		}
 		
-		// TODO: Arrange Resource data loading
-		
-		[SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode=true)]
-		public Byte[] GetData() {
+		/// <summary>Lazy-loads the ResourceData associated with this ResourceLang from the Resource Source if the resource data is not already loaded.</summary>
+		public ResourceData GetData() {
 			
-			return Name.Type.Source.GetResourceData( this );
+			if(_data == null) {
+				
+				_data = this.Name.Type.Source.GetResourceData(this);
+				
+			}
 			
+			return _data;
 		}
+		
 		
 	}
 	

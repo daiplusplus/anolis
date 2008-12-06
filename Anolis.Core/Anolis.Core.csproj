@@ -57,10 +57,11 @@
     <Compile Include="PackageSchema.more.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PE\PESource.cs" />
     <Compile Include="Win32\NativeMethods.cs" />
     <Compile Include="Packages\Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Win32\Win32Image.cs" />
+    <None Include="Win32\Win32Image.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ExamplePackage.xml" />

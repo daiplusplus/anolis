@@ -1,12 +1,10 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Anolis.Core.Win32 {
+namespace Anolis.Core.PE {
 	
 	[CLSCompliant(false)]
 	public static class NativeMethods {
-		
-		// TODO: My ExamplePackage.xml must take resource languages into account!
 		
 #region Enum Resources
 		
@@ -209,7 +207,8 @@ namespace Anolis.Core.Win32 {
 	
 	namespace NativeTypes {
 		
-		[StructLayout(LayoutKind.Sequential)]
+		[CLSCompliant(false)]
+		[StructLayout(LayoutKind.Sequential, Pack=1)]
 		public struct BitmapInfoHeader {
 			public uint biSize;
 			public int biWidth;
@@ -224,7 +223,8 @@ namespace Anolis.Core.Win32 {
 			public uint biClrImportant;
 		}
 		
-		[StructLayout(LayoutKind.Sequential)]
+		[CLSCompliant(false)]
+		[StructLayout(LayoutKind.Sequential, Pack=1)]
 		public struct RgbQuad {
 			public byte rgbBlue;
 			public byte rgbGreen;
@@ -232,7 +232,8 @@ namespace Anolis.Core.Win32 {
 			public byte rgbReserved;
 		}
 		
-		[StructLayout(LayoutKind.Sequential)]
+		[CLSCompliant(false)]
+		[StructLayout(LayoutKind.Sequential, Pack=1)]
 		public struct BitmapInfo {
 			public BitmapInfoHeader bmiHeader;
 			/// <summary>This is an inline array</summary>
@@ -240,7 +241,8 @@ namespace Anolis.Core.Win32 {
 		}
 		
 		/// <summary>Helps to defines the memory layout of a RT_GROUP_ICON resource. In particular its wId member indicates the RT_ICON resource for the directory entry.</summary>
-		[StructLayout(LayoutKind.Sequential, Pack=2)]
+		[CLSCompliant(false)]
+		[StructLayout(LayoutKind.Sequential, Pack=1)]
 		public struct MemoryIconDirEntry {
 			public byte bWidth;
 			public byte bHeight;
@@ -253,7 +255,8 @@ namespace Anolis.Core.Win32 {
 		}
 		
 		/// <summary>Defines the memory layout of a RT_GROUP_ICON Win32 resource.</summary>
-		[StructLayout(LayoutKind.Sequential, Pack=2)]
+		[CLSCompliant(false)]
+		[StructLayout(LayoutKind.Sequential, Pack=1)]
 		public struct MemoryIconDir {
 			public ushort wReserved;
 			public ushort wType;
@@ -263,7 +266,8 @@ namespace Anolis.Core.Win32 {
 		}
 		
 		/// <summary>Defines the peristent format of an icon directory entry in a .ICO file.</summary>
-		[StructLayout(LayoutKind.Sequential)]
+		[CLSCompliant(false)]
+		[StructLayout(LayoutKind.Sequential, Pack=1)]
 		public struct FileIconDirEntry {
 			public byte bWidth;
 			public byte bHeight;

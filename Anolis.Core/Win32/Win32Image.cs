@@ -10,110 +10,10 @@ namespace Anolis.Core.Win32 {
 	/// <summary>Encapsulates a Win32 Image which contains Win32 resources.</summary>
 	public sealed class Win32Image : IResourceSource {
 		
-		private String  _path;
-		private Boolean _readOnly;
-		private IntPtr  _moduleHandle;
-		
-		public Win32Image(String path, Boolean readOnly) {
-			if( !File.Exists( _path = path ) ) throw new FileNotFoundException("The specified Win32 Image was not found", path);
-			_moduleHandle = (_readOnly = readOnly) ?
-				NativeMethods.LoadLibraryEx(path, IntPtr.Zero, NativeMethods.LoadLibraryFlags.LoadLibraryAsDatafile ) :
-				NativeMethods.LoadLibrary( path );
-			// sven had some tips on using LoadLibrary
-		}
-		
-		private FileInfo _fileInfo;
-		
-		public FileInfo FileInfo {
-			get {
-				if(_fileInfo == null) _fileInfo = new FileInfo( _path );
-				return _fileInfo;
-			}
-		}
-		
-		~Win32Image() {
-			Dispose(false);
-		}
-		
-		public void Dispose() {
-			Dispose(true);
-			GC.SuppressFinalize( this );
-		}
-		
-		public void Dispose(Boolean disposeManaged) {
-			NativeMethods.FreeLibrary( _moduleHandle );
-		}
 		
 #region Resource Enumeration
 		
-		private List<Win32ResourceType> _types;
 		
-		public Win32ResourceType[] GetResourceTypes() {
-			
-			if( _types != null ) return _types.ToArray();
-			
-			_types = new List<Win32ResourceType>();
-			
-			NativeMethods.EnumResTypeProc callback = new NativeMethods.EnumResTypeProc( GetResourceTypesCallback );
-			NativeMethods.EnumResourceTypes( _moduleHandle, callback, IntPtr.Zero );
-			
-			return _types.ToArray();
-			
-		}
-		
-		private Boolean GetResourceTypesCallback(IntPtr moduleHandle, IntPtr pType, IntPtr userParam) {
-			
-			Win32ResourceType type = new Win32ResourceType( pType, this );
-			
-			_types.Add( type );
-			
-			// enumerate all resources for that type
-			NativeMethods.EnumResNameProc callback = new NativeMethods.EnumResNameProc( GetResourceNamesCallback );
-			NativeMethods.EnumResourceNames( moduleHandle, pType, callback, IntPtr.Zero );
-			
-			return true;
-			
-		}
-		
-		private Boolean GetResourceNamesCallback(IntPtr moduleHandle, IntPtr pType, IntPtr pName, IntPtr userParam) {
-			
-			Win32ResourceType tempType = new Win32ResourceType( pType, this ); // temp type used for finding the one to reference
-			Win32ResourceType type = _types.Find( new Predicate<Win32ResourceType>( delegate(Win32ResourceType resType) { return resType == tempType; } ) );
-			
-			if( type == null ) throw new InvalidOperationException("Resource names callback for a type that isn't known.");
-			
-			//
-			
-			Win32ResourceName name = new Win32ResourceName( pName, type );
-			
-			type.Names.Add( name );
-			
-			NativeMethods.EnumResLangProc callback = new NativeMethods.EnumResLangProc( GetResourceLanguagesCallback );
-			NativeMethods.EnumResourceLanguages(moduleHandle, pType, pName, callback, IntPtr.Zero );
-			
-			return true;
-		}
-		
-		private Boolean GetResourceLanguagesCallback(IntPtr moduleHandle, IntPtr pType, IntPtr pName, UInt16 langId, IntPtr userParam) {
-			
-			Win32ResourceType tempType = new Win32ResourceType( pType, this ); // temp type used for finding the one to reference
-			Win32ResourceType type = _types.Find( new Predicate<Win32ResourceType>( delegate(Win32ResourceType resType) { return resType == tempType; } ) );
-			
-			if( type == null ) throw new InvalidOperationException("Resource language callback for a type that isn't known.");
-			
-			Win32ResourceName tempName = new Win32ResourceName( pName, type ); // temp Name used for finding the one to reference
-			Win32ResourceName name = type.Names.Find( new Predicate<Win32ResourceName>( delegate(Win32ResourceName resName) { return resName == tempName; } ) );
-			
-			if( name == null ) throw new InvalidOperationException("Resource names callback for a Name that isn't known.");
-			
-			//
-			
-			Win32ResourceLanguage lang = new Win32ResourceLanguage( langId, name );
-			
-			name.Languages.Add( lang );
-			
-			return true;
-		}
 		
 #endregion
 		
@@ -122,27 +22,7 @@ namespace Anolis.Core.Win32 {
 		[System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.LinkDemand, UnmanagedCode=true)]
 		public Byte[] GetResourceData(Win32ResourceLanguage resource) {
 			
-			if( resource.ParentName.ParentType.ParentImage != this ) throw new ArgumentException("Provided resource does not exist in this Image");
 			
-			// use FindResourceEx and LoadResource to get a handle to the resource
-			// use SizeOfResource to get the length of the byte array
-			// then LockResource to get a pointer to it. Use Marshal to get a byte array and take it from there
-			
-			IntPtr resInfo = NativeMethods.FindResourceEx( _moduleHandle, resource.ParentName.ParentType.TypePtr, resource.ParentName.NamePtr, resource.LanguageId );
-			IntPtr resData = NativeMethods.LoadResource  ( _moduleHandle, resInfo );
-			Int32 size     = NativeMethods.SizeOfResource( _moduleHandle, resInfo );
-			
-			if(resData == IntPtr.Zero) return null;
-			
-			IntPtr resPtr  = NativeMethods.LockResource( resData ); // there is no method to unlock resources, but they should be freed anyway
-			
-			Byte[] data = new Byte[ size ];
-			
-			Marshal.Copy( resPtr, data, 0, size );
-			
-			NativeMethods.FreeResource( resData );
-			
-			return data;
 			
 		}
 		
