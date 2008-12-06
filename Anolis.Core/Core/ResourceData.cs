@@ -3,21 +3,43 @@ using System.IO;
 
 namespace Anolis.Core {
 	
-	// TODO: More implementation details. Should Resource-Data be lazy-loaded? And if so, should ResourceLang be the loader or ResourceData load it when GetRawData is called?
-	
+	/// <summary>ResourceData CONTAINS the resource data. It is lazy-loaded by ResourceLang (i.e. when the resource data is requested the data is extracted from the source and an instance of ResourceData is constructed with that data</summary>
 	public class ResourceData {
 		
-		/// <summary>Returns the raw bytes of the resource's data.</summary>
-		public abstract Byte[] GetRawData();
+		private Byte[] _data;
 		
-		/// <summary>Sets the raw bytes of the resource's data. Implementations may throw an exception if the data is not in the correct format, but this is not guaranteed.</summary>
-		public abstract void   SetRawData(Byte[] data);
+		/// <summary>Returns the raw bytes of the resource's data.</summary>
+		public Byte[] RawData {
+			get {
+				return _data;
+			}
+			set {
+				_data = value;
+				IsDirty = true;
+			}
+		}
+		
+		internal Boolean IsDirty { get; private set; }
+		
+		public ResourceLang Lang { get; private set; }
 		
 		////////////////////////////////////
 		
-		public static ResourceData Read(Stream stream);
+		/// <summary>Creates a ResourceData instance from the resource's actual data. No conversion is done.</summary>
+		public ResourceData(ResourceLang lang, Byte[] data) {
 			
-			// reads the file, determines what kind of ResourceData it is and what subclass to use
+			Lang    = lang;
+			RawData = data;
+		}
+		
+		/// <summary>Creates a ResourceData instance from a stream containing data convertible into a resource. For instance a stream containing a  *.bmp file's content can be converted into a BITMAP resource.</summary>
+		public static ResourceData Read(Stream stream) {
+			
+			// reads the file, determines what kind of ResourceData it is and what subclass to use and return
+			
+			throw new NotImplementedException();
+			
+		}
 		
 		public static ResourceData Read(Byte[] data) {
 			
@@ -30,6 +52,7 @@ namespace Anolis.Core {
 			
 		}
 		
+		/// <summary>Creates a ResourceData instance from a file containing data convertible into a resource. For instance a *.bmp can be converted into a BITMAP resource.</summary>
 		public static ResourceData Read(String filename) {
 			
 			if(filename == null) throw new ArgumentNullException("The string 'filename' cannot be null");
@@ -44,11 +67,37 @@ namespace Anolis.Core {
 		
 		////////////////////////////////////
 		
+		/// <summary>Saves the raw data in the Resource to disk.</summary>
+		public void Save(String path) {
+			
+			// TODO: Standardise the use of 'path', 'filename', and 'filepath' in the source code.
+			// I'm of the opinion that 'path' must always be absolute and 'filename' can be relative or absolute, 'filepath' need not exist
+			// Should standardise 'if file exists, overwrite?' behaviour too
+			
+			if(path == null) throw new ArgumentNullException("The string 'filename' cannot be null");
+			
+			using(Stream stream = File.Create(path)) {
+				
+				SaveAs(stream);
+			}
+			
+		}
 		
-		public abstract void Save(String filename);
+		public void Save(Stream stream) {
+			
+			stream.Write( this.RawData, 0, this.RawData.Length );
+		}
 		
-		public abstract void Save(Stream stream);
+		/// <summary>Saves the ResourceData to disk in a suitable file format. The base implementation is the same as Save. If the file exists it will be overwritten.</summary>
+		public void SaveAs(String path) {
+			
+			Save(path);
+		}
 		
+		public virtual void SaveAs(Stream stream) {
+			
+			Save(stream);
+		}
 		
 	}
 
