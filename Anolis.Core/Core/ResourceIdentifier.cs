@@ -7,12 +7,13 @@ using Cult = System.Globalization.CultureInfo;
 namespace Anolis.Core {
 	
 	/// <summary>Utility class used to identify Resource Types and Resource Names</summary>
-	public class ResourceIdentifier : IEquatable<ResourceIdentifier> {
+	public class ResourceIdentifier : IEquatable<ResourceIdentifier>, IDisposable {
 		
 		public Int32? IntegerId { get; private set; }
 		public String StringId  { get; private set; }
 		
 		public String FriendlyName { get; private set; }
+		public IntPtr NativeId     { get; private set; } // TODO: NativeId assignment and deallocation
 		
 		private Boolean _isType;
 		
@@ -50,6 +51,14 @@ namespace Anolis.Core {
 			
 		}
 		
+		~ResourceIdentifier() {
+			Dispose();
+		}
+		
+		public void Dispose() {
+			if( StringId != null ) Marshal.FreeHGlobal( NativeId );
+		}
+		
 		public ResourceIdentifier(Int32 integerId) { IntegerId = integerId; }
 		public ResourceIdentifier(String stringId) { StringId  = stringId; }
 		
@@ -59,19 +68,6 @@ namespace Anolis.Core {
 		}
 		
 		public override String ToString() { return FriendlyName; }
-		
-		[SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode=true)]
-		public IntPtr GetNativeId() {
-			
-			if( IntegerId == null ) {
-				
-				return Marshal.StringToHGlobalAuto( StringId );
-				
-			} else {
-				return (IntPtr)IntegerId;
-			}
-			
-		}
 		
 #region Comparison
 		
