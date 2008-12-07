@@ -54,13 +54,6 @@
     <Compile Include="Core\ResourcePartial.cs" />
     <Compile Include="Core\ResourceEnumerator.cs" />
     <Compile Include="Core\ResourceSource.cs" />
-    <Compile Include="PackageSchema.cs">
-      <DependentUpon>PackageSchema.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PackageSchema.more.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="PE\PESource.cs" />
     <Compile Include="Win32\NativeMethods.cs" />
     <Compile Include="Packages\Package.cs" />
@@ -68,12 +61,12 @@
     <Compile Include="Win32\Win32Image.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ExamplePackage.xml" />
+    <Content Include="Packages\ExamplePackage.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AnolisSnk.pfx" />
     <None Include="ResourcesClassDiagram.cd" />
-    <None Include="PackageSchema.xsd" />
+    <None Include="Packages\PackageSchema.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
