@@ -48,9 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Resource.cs" />
+    <Compile Include="Core\ResourceSourcePartial.cs" />
     <Compile Include="Core\ResourceData.cs" />
     <Compile Include="Core\ResourceIdentifier.cs" />
     <Compile Include="Core\ResourcePartial.cs" />
+    <Compile Include="Core\ResourceEnumerator.cs" />
+    <Compile Include="Core\ResourceSource.cs" />
     <Compile Include="PackageSchema.cs">
       <DependentUpon>PackageSchema.xsd</DependentUpon>
       <SubType>Component</SubType>
@@ -62,13 +65,14 @@
     <Compile Include="Win32\NativeMethods.cs" />
     <Compile Include="Packages\Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Win32\Win32Image.cs" />
+    <Compile Include="Win32\Win32Image.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ExamplePackage.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AnolisSnk.pfx" />
+    <None Include="ResourcesClassDiagram.cd" />
     <None Include="PackageSchema.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

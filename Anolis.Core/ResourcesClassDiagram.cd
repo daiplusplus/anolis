@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Anolis.Core.ResourceSource">
+    <Position X="8.5" Y="1.5" Width="3.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Anolis.Core.ResourceSource.ResourceDataEnumerator">
+        <TypeIdentifier>
+          <NewMemberFileName>Core\Resource.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAICAAIBASAAAAAACAAEAAgAAAAAAgAARAAAA=</HashCode>
+      <FileName>Core\Resource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Anolis.Core.PE.PESource">
+    <Position X="8.5" Y="9" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAACCCAAQIAAAAAAAAAEAAgQEAAEIACAAAAAI=</HashCode>
+      <FileName>PE\PESource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.ResourceData">
+    <Position X="12.75" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAIBAAAAAAAAAAAAAAgAAAAAAAABBABAAAAAAA=</HashCode>
+      <FileName>Core\ResourceData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.ResourceIdentifier" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="2.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAQECAAAAAEiAAABAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Core\ResourceIdentifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Anolis.Core.ResourceLang" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="7" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAEgAAAAAQAAgAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Resource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Anolis.Core.ResourceName" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAAAQAAwAAAAAA=</HashCode>
+      <FileName>Core\Resource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Anolis.Core.ResourceType" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAoAAAAgAAAAAEgAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Core\Resource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
