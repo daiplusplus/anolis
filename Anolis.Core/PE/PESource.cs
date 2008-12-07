@@ -14,9 +14,7 @@ namespace Anolis.Core.PE {
 		private Boolean  _readOnly;
 		private IntPtr   _moduleHandle;
 		
-		public PESource(String filename, Boolean readOnly) {
-			
-			base.IsReadOnly = readOnly;
+		public PESource(String filename, Boolean readOnly) : base(readOnly) {
 			
 			FileInfo = new FileInfo( _path = filename );
 			if(!FileInfo.Exists) throw new FileNotFoundException("The specified Win32 PE Image was not found", filename);
@@ -25,26 +23,18 @@ namespace Anolis.Core.PE {
 				NativeMethods.LoadLibraryEx( filename, IntPtr.Zero, NativeMethods.LoadLibraryFlags.LoadLibraryAsDatafile ) :
 				NativeMethods.LoadLibrary  ( filename );
 			
-		}
-		
-		public override ResourceTypeCollection GetResources() {
-			throw new NotImplementedException();
-		}
-		
-		public override void AddResource(ResourceLang resource) {
-			throw new NotImplementedException();
-		}
-		
-		public override void RemoveResource(ResourceLang resource) {
-			throw new NotImplementedException();
+			// Load it up, yo!
+			
+			GetResources();
+			
 		}
 		
 		public override void CommitChanges() {
+			
 			throw new NotImplementedException();
-		}
-		
-		public override void Rollback() {
-			throw new NotImplementedException();
+			
+			
+			
 		}
 		
 		public override ResourceData GetResourceData(ResourceLang lang) {
@@ -101,18 +91,12 @@ namespace Anolis.Core.PE {
 		
 #region Resource Enumeration
 		
-		private List<ResourceType> _types;
-		
-		private void PopulateResourceTypes() {
+		private void GetResources() {
 			
-			if( _types != null ) return _types.ToArray();
-			
-			_types = new List<ResourceType>();
+			List<ResourceType> _types = new List<ResourceType>();
 			
 			NativeMethods.EnumResTypeProc callback = new NativeMethods.EnumResTypeProc( GetResourceTypesCallback );
 			NativeMethods.EnumResourceTypes( _moduleHandle, callback, IntPtr.Zero );
-			
-			return _types.ToArray();
 			
 		}
 		
@@ -120,7 +104,7 @@ namespace Anolis.Core.PE {
 			
 			ResourceType type = new ResourceType( pType, this );
 			
-			_types.Add( type );
+			UnderlyingAdd( type );
 			
 			// enumerate all resources for that type
 			NativeMethods.EnumResNameProc callback = new NativeMethods.EnumResNameProc( GetResourceNamesCallback );
@@ -133,7 +117,7 @@ namespace Anolis.Core.PE {
 		private Boolean GetResourceNamesCallback(IntPtr moduleHandle, IntPtr pType, IntPtr pName, IntPtr userParam) {
 			
 			ResourceType tempType = new ResourceType( pType, this ); // temp type used for finding the one to reference
-			ResourceType type = _types.Find( new Predicate<ResourceType>( delegate(ResourceType resType) { return resType == tempType; } ) );
+			ResourceType type = UnderlyingFind( new Predicate<ResourceType>( delegate(ResourceType resType) { return resType == tempType; } ) );
 			
 			if( type == null ) throw new InvalidOperationException("Resource names callback for a type that isn't known.");
 			
@@ -141,7 +125,7 @@ namespace Anolis.Core.PE {
 			
 			ResourceName name = new ResourceName( pName, type );
 			
-			type.Names.Add( name );
+			UnderlyingAdd( type, name );
 			
 			NativeMethods.EnumResLangProc callback = new NativeMethods.EnumResLangProc( GetResourceLanguagesCallback );
 			NativeMethods.EnumResourceLanguages(moduleHandle, pType, pName, callback, IntPtr.Zero );
@@ -152,12 +136,12 @@ namespace Anolis.Core.PE {
 		private Boolean GetResourceLanguagesCallback(IntPtr moduleHandle, IntPtr pType, IntPtr pName, UInt16 langId, IntPtr userParam) {
 			
 			ResourceType tempType = new ResourceType( pType, this ); // temp type used for finding the one to reference
-			ResourceType type = _types.Find( new Predicate<ResourceType>( delegate(ResourceType resType) { return resType == tempType; } ) );
+			ResourceType type = UnderlyingFind( new Predicate<ResourceType>( delegate(ResourceType resType) { return resType == tempType; } ) );
 			
 			if( type == null ) throw new InvalidOperationException("Resource language callback for a type that isn't known.");
 			
 			ResourceName tempName = new ResourceName( pName, type ); // temp Name used for finding the one to reference
-			ResourceName name = type.Names.Find( new Predicate<ResourceName>( delegate(ResourceName resName) { return resName == tempName; } ) );
+			ResourceName name = UnderlyingFind(type, new Predicate<ResourceName>( delegate(ResourceName resName) { return resName == tempName; } ) );
 			
 			if( name == null ) throw new InvalidOperationException("Resource names callback for a Name that isn't known.");
 			
@@ -165,7 +149,7 @@ namespace Anolis.Core.PE {
 			
 			ResourceLang lang = new ResourceLang( langId, name );
 			
-			name.Langs.Add( lang );
+			UnderlyingAdd( name, lang );
 			
 			return true;
 		}

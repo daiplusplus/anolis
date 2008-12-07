@@ -25,11 +25,11 @@ namespace Anolis.Core {
 		
 		////////////////////////////////////
 		
-		/// <summary>Creates a ResourceData instance from the resource's actual data. No conversion is done.</summary>
-		public ResourceData(ResourceLang lang, Byte[] data) {
+		/// <summary>Creates a ResourceData instance from the resource's actual data. No conversion is performed on the rawData.</summary>
+		public ResourceData(ResourceLang lang, Byte[] rawData) {
 			
 			Lang    = lang;
-			RawData = data;
+			_data   = rawData; // don't assign to RawData as it sets IsDirty
 		}
 		
 		/// <summary>Creates a ResourceData instance from a stream containing data convertible into a resource. For instance a stream containing a  *.bmp file's content can be converted into a BITMAP resource.</summary>
