@@ -7,7 +7,6 @@ using System.Text;
 using System.Windows.Forms;
 
 using Anolis.Core;
-using Anolis.Core.Win32;
 
 namespace Anolis.Resourcer.TypeViewers {
 	
@@ -27,15 +26,17 @@ namespace Anolis.Resourcer.TypeViewers {
 			__toolsEncoding.Text = item.Text;
 		}
 		
-		public override void RenderResource(Win32ResourceLanguage resource) {
+		public override void RenderResource(ResourceData resource) {
 			
-			Byte[] data = resource.GetData();
+			Byte[] data = resource.RawData;
+			
+			// TODO: If the data is massive (say, larger than a megabyte) should it ask the user to continue?
 			
 			__text.Text = Encoding.GetString( data );
 			
 		}
 		
-		public override bool CanHandleResourceType(Win32ResourceType type) {
+		public override bool CanHandleResourceType(ResourceType type) {
 			return true; // this can handle anything since it shows the text of raw bytes
 		}
 		

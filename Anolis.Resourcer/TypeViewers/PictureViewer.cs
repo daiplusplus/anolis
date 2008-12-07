@@ -4,7 +4,6 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 using Anolis.Core;
-using Anolis.Core.Win32;
 
 using MemoryStream = System.IO.MemoryStream;
 
@@ -16,11 +15,14 @@ namespace Anolis.Resourcer.TypeViewers {
 			InitializeComponent();
 		}
 		
-		public override void RenderResource(Win32ResourceLanguage resource) {
+		public override void RenderResource(ResourceData resource) {
 			
-			Byte[] data = resource.GetData();
+			Byte[] data = resource.RawData;
 			
 			MemoryStream stream = new MemoryStream( data );
+			
+			// check if the resource is a BITMAP so it can add the right headers to the stream before making an Image from it
+			// hmmm, how do I give it a ResourceType though?
 			
 			Image image = Image.FromStream( stream, true, true );
 			
@@ -28,31 +30,18 @@ namespace Anolis.Resourcer.TypeViewers {
 			
 		}
 		
-		public override Boolean CanHandleResourceType(Win32ResourceType type) {
+		public override Boolean CanHandleResourceType(ResourceType type) {
 			
-			if(type.TypeInt == -1) {
-				
-				String typeStr = type.TypeStr.ToUpperInvariant();
-				switch(typeStr) {
-					case "PNG":
-					case "GIF":
-					case "JPEG":
-					case "JPG":
-						return true;
-				}
-				
-			} else if( Enum.IsDefined( typeof(KnownWin32ResourceType), type.TypeInt ) ) { // check if type.TypeInt is a member of KnownWin32ResourceTypes
-				
-				// I'm having problems with Resource Bitmaps. Sys.Drawing.Image can't load them so nvm for now.
-//				KnownWin32ResourceTypes typeEnum = (KnownWin32ResourceTypes)type.TypeInt;
-//				switch(typeEnum) {
-//					case KnownWin32ResourceTypes.Bitmap:
-//						return true;
-//					// NOTE: What about icons?
-//					// No, you'll need a dedicated icon and cursor handler
-//				}
-				return false;
-				
+			if(type.Identifier.KnownType == KnownWin32ResourceType.Bitmap) return true;
+			
+			if(type.Identifier.StringId == null) return false;
+			
+			switch(type.Identifier.StringId.ToUpperInvariant()) {
+				case "PNG":
+				case "GIF":
+				case "JPEG":
+				case "JPG":
+					return true;
 			}
 			
 			return false;

@@ -7,7 +7,6 @@ using System.Text;
 using System.Windows.Forms;
 
 using Anolis.Core;
-using Anolis.Core.Win32;
 
 namespace Anolis.Resourcer.TypeViewers {
 	
@@ -17,22 +16,17 @@ namespace Anolis.Resourcer.TypeViewers {
 			InitializeComponent();
 		}
 		
-		public override void RenderResource(Win32ResourceLanguage resource) {
+		public override void RenderResource(ResourceData resource) {
 			
-			Byte[] data = resource.GetData();
+			Byte[] data = resource.RawData;
 			
 			Be.Windows.Forms.DynamicByteProvider bytesProv = new Be.Windows.Forms.DynamicByteProvider( data );
 			
 			__hex.ByteProvider = bytesProv;
 			
-			///////////////////////
-			
-			__statusSize.Text = String.Format("Size: {0} bytes", data.Length);
-			__statusType.Text = String.Format("Type: {0}", resource.ParentName.ParentType.FriendlyName);
-			
 		}
 		
-		public override bool CanHandleResourceType(Win32ResourceType type) {
+		public override bool CanHandleResourceType(ResourceType type) {
 			return true; // this can handle anything since it shows the raw bytes
 		}
 		

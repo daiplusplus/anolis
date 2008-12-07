@@ -8,7 +8,6 @@ using System.Windows.Forms;
 
 using System.IO;
 using Anolis.Core;
-using Anolis.Core.Win32;
 using Anolis.Resourcer.TypeViewers;
 
 namespace Anolis.Resourcer.TypeViewers {
@@ -19,21 +18,19 @@ namespace Anolis.Resourcer.TypeViewers {
 			InitializeComponent();
 		}
 		
-		public override Boolean CanHandleResourceType(Win32ResourceType type) {
+		public override Boolean CanHandleResourceType(ResourceType type) {
 			
-			switch(type.TypeInt) {
+			switch(type.Identifier.KnownType) {
 				
-				case 23: // HTML
-				case 24: // Manifest
+				case KnownWin32ResourceType.Html: // HTML
+				case KnownWin32ResourceType.Manifest : // Manifest
 					return true;
 				
 			}
 			
-			if(type.TypeInt != -1) return false;
+			if(type.Identifier.StringId == null) return false;
 			
-			String t = type.TypeStr.ToUpperInvariant(); // won't be null because TypeInt == -1
-			
-			switch(t) {
+			switch(type.Identifier.StringId.ToUpperInvariant()) {
 				
 				case "HTML":
 				case "XML":
@@ -46,11 +43,11 @@ namespace Anolis.Resourcer.TypeViewers {
 			
 		}
 		
-		public override void RenderResource(Win32ResourceLanguage resource) {
+		public override void RenderResource(ResourceData resource) {
 			
-			Byte[] data = resource.GetData();
+			Byte[] data = resource.RawData;
 			
-			MemoryStream stream = new MemoryStream(data); // not sure if I should use using() or not
+			MemoryStream stream = new MemoryStream(data); // not sure if I should use using() or not. Does the stream need to exist after its been read in?
 			__browser.DocumentStream = stream;
 			
 		}

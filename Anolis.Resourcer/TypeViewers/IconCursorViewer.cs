@@ -6,7 +6,6 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using Anolis.Core;
-using Anolis.Core.Win32;
 
 namespace Anolis.Resourcer.TypeViewers {
 	
@@ -16,23 +15,22 @@ namespace Anolis.Resourcer.TypeViewers {
 			InitializeComponent();
 		}
 		
-		public override void RenderResource(Win32ResourceLanguage resource) {
+		public override void RenderResource(ResourceData resource) {
 			
 			// TODO: Classes and methods for working with resource types
 			
 		}
 		
-		public override Boolean CanHandleResourceType(Win32ResourceType type) {
+		public override Boolean CanHandleResourceType(ResourceType type) {
 			
-			if( Enum.IsDefined( typeof(KnownWin32ResourceType), type.TypeInt ) ) { // check if type.TypeInt is a member of KnownWin32ResourceTypes
+			switch(type.Identifier.KnownType) {
 				
-				KnownWin32ResourceType k = (KnownWin32ResourceType)type.TypeInt;
-				
-				return
-					k == KnownWin32ResourceType.CursorAnimated ||
-					k == KnownWin32ResourceType.CursorDeviceIndependent ||
-					k == KnownWin32ResourceType.IconAnimated ||
-					k == KnownWin32ResourceType.IconDeviceIndependent;
+				case KnownWin32ResourceType.CursorAnimated:
+				case KnownWin32ResourceType.CursorDeviceIndependent:
+				case KnownWin32ResourceType.IconAnimated:
+				case KnownWin32ResourceType.IconDeviceIndependent:
+					
+					return true;
 				
 			}
 			

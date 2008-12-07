@@ -29,7 +29,7 @@ namespace Anolis.Core {
 	
 	public sealed partial class ResourceType : IEquatable<ResourceType> {
 		
-		public ResourceIdentifier     Identifier { get; private set; }
+		public ResourceTypeIdentifier Identifier { get; private set; }
 		public ResourceNameCollection Names      { get; private set; }
 		
 		public ResourceSource         Source     { get; private set; }
@@ -39,7 +39,7 @@ namespace Anolis.Core {
 		/// <summary>Constructs a Win32 resource type based on a Win32 resource type LPCTSTR.</summary>
 		public ResourceType(IntPtr typePointer, ResourceSource source) {
 			
-			Identifier = new ResourceIdentifier(typePointer);
+			Identifier = new ResourceTypeIdentifier(typePointer);
 			Source     = source;
 			
 			_names     = new List<ResourceName>();

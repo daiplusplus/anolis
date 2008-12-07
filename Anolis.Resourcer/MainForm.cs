@@ -5,22 +5,22 @@ using Anolis.Resourcer.TypeViewers;
 using System.IO;
 
 using Anolis.Core;
-using Anolis.Core.Win32;
+using Anolis.Core.PE;
 
 namespace Anolis.Resourcer {
 	
 	public partial class MainForm : Form {
 		
 		private List<TypeViewer> _viewers;
-		private Dictionary<Win32ResourceType, List<TypeViewer>> _viewersForType;
+		private Dictionary<ResourceType, List<TypeViewer>> _viewersForType;
 		
-		private Win32ResourceLanguage _currentlyOpenResource;
+		private ResourceLang _currentlyOpenResource;
 		
 		public MainForm() {
 			InitializeComponent();
 			
 			_viewers = new List<TypeViewer>();
-			_viewersForType = new Dictionary<Win32ResourceType,List<TypeViewer>>();
+			_viewersForType = new Dictionary<ResourceType,List<TypeViewer>>();
 			
 			this.Load += new EventHandler(MainForm_Load);
 			__browse.Click += new EventHandler(__browse_Click);
@@ -46,7 +46,7 @@ namespace Anolis.Resourcer {
 		private void __resources_NodeMouseClick(Object sender, TreeNodeMouseClickEventArgs e) {
 			
 			TreeNode node = e.Node;
-			Win32ResourceLanguage lang = node.Tag as Win32ResourceLanguage;
+			ResourceLang lang = node.Tag as ResourceLang;
 			if(lang == null) return;			
 			
 			LoadResource( lang );
@@ -73,20 +73,20 @@ namespace Anolis.Resourcer {
 		
 		private void LoadImage(String path) {
 			
-			Win32Image image = new Win32Image( path, true );
+			ResourceSource source = ResourceSource.Open(path, true);
 			
-			Win32ResourceType[] types = image.GetResourceTypes();
+			ResourceTypeCollection types = source.Types;
 			
 			__resources.Nodes.Clear();
-			foreach(Win32ResourceType type in types) {
+			foreach(ResourceType type in types) {
 				
-				TreeNode typeNode = new TreeNode( type.FriendlyName ) { Tag = type };
+				TreeNode typeNode = new TreeNode( type.Identifier.FriendlyName ) { Tag = type };
 				
-				foreach( Win32ResourceName name in type.Names ) {
+				foreach(ResourceName name in type.Names) {
 					
-					TreeNode nameNode = new TreeNode( name.FriendlyName ) { Tag = name };
+					TreeNode nameNode = new TreeNode( name.Identifier.FriendlyName ) { Tag = name };
 					
-					foreach( Win32ResourceLanguage lang in name.Languages ) {
+					foreach(ResourceLang lang in name.Langs) {
 						
 						TreeNode langNode = new TreeNode( lang.LanguageId.ToString() ) { Tag = lang };
 						nameNode.Nodes.Add( langNode );
@@ -108,8 +108,8 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		private Win32ResourceType _lastType;
-		private TypeViewer       _lastViewer;
+		private ResourceType _lastType;
+		private TypeViewer   _lastViewer;
 		
 		private class TypeViewerListWrapper {
 			public Boolean Recommended { get; set; }
@@ -122,11 +122,11 @@ namespace Anolis.Resourcer {
 			}
 		}
 		
-		private void LoadResource( Win32ResourceLanguage resource ) {
+		private void LoadResource(ResourceLang resource) {
 			
 			_currentlyOpenResource = resource;
 			
-			Win32ResourceType type = resource.ParentName.ParentType;
+			ResourceType type = resource.Name.Type;
 			TypeViewer selectedViewer;
 			
 			if( type != _lastType ) {
@@ -154,11 +154,11 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		private void ShowViewer(TypeViewer viewer, Win32ResourceLanguage resource) {
+		private void ShowViewer(TypeViewer viewer, ResourceLang resource) {
 			
 			try {
 				
-				viewer.RenderResource( resource );
+				viewer.RenderResource( resource.Data );
 				
 			} catch (Exception ex) {
 				
@@ -208,13 +208,7 @@ namespace Anolis.Resourcer {
 			
 			if(__sfd.ShowDialog(this) != DialogResult.OK) return;
 			
-			Byte[] data = _currentlyOpenResource.GetData();
-			
-			String path = __sfd.FileName;
-			using(FileStream stream = new FileStream( path, FileMode.Create ))
-			using(BinaryWriter wtr = new BinaryWriter( stream )) {
-				wtr.Write( data );
-			}
+			_currentlyOpenResource.Data.Save( __sfd.FileName );
 			
 		}
 		
