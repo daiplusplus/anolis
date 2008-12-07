@@ -45,6 +45,8 @@ namespace Anolis.Core.Packages {
 		/// <summary>Gets the actual, working, path to the file (if it exists).</summary>
 		public String ResolvedPath { get; private set; }
 		
+		public FileCondition Condition { get; private set; }
+		
 	}
 	
 	public class ResourceOperation : PackageItem {
@@ -52,6 +54,26 @@ namespace Anolis.Core.Packages {
 	}
 	
 	public class Extra : PackageItem {
+		
+	}
+	
+	public class FileCondition {
+		
+		// Condition variables:
+		// File version, Target processor architecture (non-.NET dlls/exes)
+		// Don't work on file creation/modified/accessed dates of course
+		
+		// Processor architecture comes from the 'Machine' field in the COFF header inside a PE file
+		// Refer to the PE/COFF file format specification
+		
+		// There is also the VERSION resource you can query too
+		// I think, maybe, the COFF timestamp field is a good field too
+		
+		public FileCondition(String attributeValue) {
+			
+		}
+		
+		
 		
 	}
 	

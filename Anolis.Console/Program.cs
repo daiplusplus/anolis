@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Text;
 
-using Anolis.Core.Xml;
+using Anolis.Core.Packages;
 
 namespace Anolis.Console {
 	
@@ -17,22 +17,7 @@ namespace Anolis.Console {
 				return 1;
 			}
 			
-			///////////////
-			// Test with the xml
 			
-			String packageExamplePath = @"D:\Users\David\My Documents\Visual Studio Projects\Anolis\Anolis.Core\ExamplePackage.xml";
-//			String packageSchemaPath  = @"D:\Users\David\My Documents\Visual Studio Projects\Anolis\Anolis.Core\PackageSchema.xsd";
-			
-			DataSet ds = new DataSet();
-//			ds.ReadXmlSchema( packageSchemaPath );
-			ds.ReadXml      ( packageExamplePath );
-			
-			System.Console.WriteLine( ds.Tables["extra"].Rows.Count );
-			
-			Package st = new Package();
-			st.ReadXml( packageExamplePath );
-			
-			System.Console.WriteLine( st.Tables["extra"].Rows.Count );
 			
 			return 0;
 		}
