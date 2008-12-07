@@ -7,23 +7,37 @@ using ICSharpCode.SharpZipLib.Zip;
 
 namespace Anolis.Core.Packages {
 	
+	public abstract class PackageItem {
+		
+		public Boolean Enabled     { get; set; }
+		public String  Name        { get; protected set; }
+		public String  Description { get; protected set; }
+		
+	}
+	
 	/// <summary>Represents all the packages included in a distribution (or are available to the executable)</summary>
 	public class PackageContext {
+		
+		public void AddPackage(Package package) {
+			
+		}
 		
 	}
 	
 	/// <summary>Represents a collection of resource sets</summary>
-	public class Package {
+	public class Package : PackageItem {
+		
+		public Boolean Enabled { get; set; }
 		
 	}
 	
-	public class Set {
+	public class Set : PackageItem {
 		
 		
 		
 	}
 	
-	public class File {
+	public class File : PackageItem {
 		
 		/// <summary>Gets the Path to the file as specified in the Package definition file.</summary>
 		public String Path { get; private set; }
@@ -33,11 +47,11 @@ namespace Anolis.Core.Packages {
 		
 	}
 	
-	public class ResourceOperation {
+	public class ResourceOperation : PackageItem {
 		
 	}
 	
-	public class Extra {
+	public class Extra : PackageItem {
 		
 	}
 	
