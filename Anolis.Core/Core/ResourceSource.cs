@@ -10,6 +10,8 @@ namespace Anolis.Core {
 			
 			IsReadOnly = readOnly;
 			
+			InitResourceSourceCollections();
+			
 		}
 		
 		//////////////////////
@@ -30,11 +32,16 @@ namespace Anolis.Core {
 			// get the file type of the file to load
 			// if PE executable (a dll, native exe, etc)
 			
-			ResourceSource src = new PE.PESource(filename, readOnly);
+			String ext = System.IO.Path.GetExtension(filename).ToUpperInvariant();
+			switch(ext) {
+				case ".EXE":
+				case ".DLL":
+				case ".SCR":
+				case ".CPL":
+					return new PE.PESource(filename, readOnly);
+			}
 			
-			// TODO Loading ResourceSources
-			
-			throw new NotImplementedException();
+			throw new NotImplementedException("Anolis does not support files that aren't PE/COFF Executables as ResourceSources yet");
 			
 		}
 		
