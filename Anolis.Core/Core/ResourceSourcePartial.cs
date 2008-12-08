@@ -28,6 +28,15 @@ namespace Anolis.Core {
 		 * 
 		 */
 		
+		private void InitResourceSourceCollections() {
+			
+			_types = new List<ResourceType>();
+			Types  = new ResourceTypeCollection(_types);
+			
+			
+			
+		}
+		
 		private List<ResourceType> _types;
 		
 		public ResourceTypeCollection Types { get; private set; }
@@ -62,14 +71,14 @@ namespace Anolis.Core {
 		/// <summary>Adds the specified ResourceName to the specified ResourceType without invalidating the structure. The ResourceType must already exist in this structure.</summary>
 		protected void UnderlyingAdd(ResourceType type, ResourceName name) {
 			
-			
+			type.UnderlyingNames.Add( name );
 			
 		}
 		
 		/// <summary>Adds the specified ResourceLang to the specified ResourceName without invalidating the structure. The ResourceName must already exist in this structure.</summary>
 		protected void UnderlyingAdd(ResourceName name, ResourceLang lang) {
 			
-			
+			name.UnderlyingLangs.Add( lang );
 			
 		}
 		

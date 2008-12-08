@@ -8,7 +8,7 @@ using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Core {
 	
-	// Boring Fx-compliance, IEquatable, and operator-overloading code goes here
+	// TODO: Boring Fx-compliance, IEquatable, and operator-overloading code goes here
 	
 	public partial class ResourceType : IEquatable<ResourceType> {
 		
@@ -23,6 +23,17 @@ namespace Anolis.Core {
 		
 		public override Boolean Equals(object obj) {
 			return Equals( (ResourceType)obj );
+		}
+		
+		public static Boolean operator ==(Object x, Object y) {
+			
+			if(x == null ^ y == null) return false;
+			if(x == null) return true; // since y == null
+			
+			
+			
+			return x.Equals(y);
+			
 		}
 		
 	}

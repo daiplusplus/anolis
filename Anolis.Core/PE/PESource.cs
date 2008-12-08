@@ -23,6 +23,13 @@ namespace Anolis.Core.PE {
 				NativeMethods.LoadLibraryEx( filename, IntPtr.Zero, NativeMethods.LoadLibraryFlags.LoadLibraryAsDatafile ) :
 				NativeMethods.LoadLibrary  ( filename );
 			
+			if( _moduleHandle == IntPtr.Zero ) {
+				
+				String win32Message = NativeMethods.GetLastErrorString();
+				
+				throw new ApplicationException("PE/COFF ResourceSource could not be loaded: " + win32Message);
+			}
+			
 			// Load it up, yo!
 			
 			GetResources();
@@ -32,8 +39,6 @@ namespace Anolis.Core.PE {
 		public override void CommitChanges() {
 			
 			throw new NotImplementedException();
-			
-			
 			
 		}
 		
@@ -93,8 +98,6 @@ namespace Anolis.Core.PE {
 		
 		private void GetResources() {
 			
-			List<ResourceType> _types = new List<ResourceType>();
-			
 			NativeMethods.EnumResTypeProc callback = new NativeMethods.EnumResTypeProc( GetResourceTypesCallback );
 			NativeMethods.EnumResourceTypes( _moduleHandle, callback, IntPtr.Zero );
 			
@@ -104,7 +107,7 @@ namespace Anolis.Core.PE {
 			
 			ResourceType type = new ResourceType( pType, this );
 			
-			UnderlyingAdd( type );
+			UnderlyingAdd( _currentType = type );
 			
 			// enumerate all resources for that type
 			NativeMethods.EnumResNameProc callback = new NativeMethods.EnumResNameProc( GetResourceNamesCallback );
@@ -114,18 +117,22 @@ namespace Anolis.Core.PE {
 			
 		}
 		
+		private ResourceType _currentType;
+		
 		private Boolean GetResourceNamesCallback(IntPtr moduleHandle, IntPtr pType, IntPtr pName, IntPtr userParam) {
 			
 			ResourceType tempType = new ResourceType( pType, this ); // temp type used for finding the one to reference
 			ResourceType type = UnderlyingFind( new Predicate<ResourceType>( delegate(ResourceType resType) { return resType == tempType; } ) );
 			
-			if( type == null ) throw new InvalidOperationException("Resource names callback for a type that isn't known.");
+			if( type == null ) return false; // can't throw exceptions here since this is called by unmanaged code.
 			
 			//
 			
+			//ResourceType type = _currentType;
+			
 			ResourceName name = new ResourceName( pName, type );
 			
-			UnderlyingAdd( type, name );
+			UnderlyingAdd( type, _currentName = name );
 			
 			NativeMethods.EnumResLangProc callback = new NativeMethods.EnumResLangProc( GetResourceLanguagesCallback );
 			NativeMethods.EnumResourceLanguages(moduleHandle, pType, pName, callback, IntPtr.Zero );
@@ -133,19 +140,23 @@ namespace Anolis.Core.PE {
 			return true;
 		}
 		
+		private ResourceName _currentName;
+		
 		private Boolean GetResourceLanguagesCallback(IntPtr moduleHandle, IntPtr pType, IntPtr pName, UInt16 langId, IntPtr userParam) {
 			
-			ResourceType tempType = new ResourceType( pType, this ); // temp type used for finding the one to reference
-			ResourceType type = UnderlyingFind( new Predicate<ResourceType>( delegate(ResourceType resType) { return resType == tempType; } ) );
-			
-			if( type == null ) throw new InvalidOperationException("Resource language callback for a type that isn't known.");
-			
-			ResourceName tempName = new ResourceName( pName, type ); // temp Name used for finding the one to reference
-			ResourceName name = UnderlyingFind(type, new Predicate<ResourceName>( delegate(ResourceName resName) { return resName == tempName; } ) );
-			
-			if( name == null ) throw new InvalidOperationException("Resource names callback for a Name that isn't known.");
+//			ResourceType tempType = new ResourceType( pType, this ); // temp type used for finding the one to reference
+//			ResourceType type = UnderlyingFind( new Predicate<ResourceType>( delegate(ResourceType resType) { return resType == tempType; } ) );
+//			
+//			if( type == null ) throw new InvalidOperationException("Resource language callback for a type that isn't known.");
+//			
+//			ResourceName tempName = new ResourceName( pName, type ); // temp Name used for finding the one to reference
+//			ResourceName name = UnderlyingFind(type, new Predicate<ResourceName>( delegate(ResourceName resName) { return resName == tempName; } ) );
+//			
+//			if( name == null ) throw new InvalidOperationException("Resource names callback for a Name that isn't known.");
 			
 			//
+			
+			ResourceName name = _currentName;
 			
 			ResourceLang lang = new ResourceLang( langId, name );
 			
