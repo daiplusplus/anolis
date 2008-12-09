@@ -27,7 +27,7 @@ namespace Anolis.Core {
 		Update
 	}
 	
-	public sealed partial class ResourceType : IEquatable<ResourceType> {
+	public sealed partial class ResourceType {
 		
 		public ResourceTypeIdentifier Identifier { get; private set; }
 		public ResourceNameCollection Names      { get; private set; }
@@ -55,7 +55,7 @@ namespace Anolis.Core {
 		
 	}
 	
-	public sealed partial class ResourceName : IEquatable<ResourceName> {
+	public sealed partial class ResourceName {
 		
 		public ResourceIdentifier     Identifier { get; private set; }
 		public ResourceLangCollection Langs      { get; private set; }
@@ -82,7 +82,7 @@ namespace Anolis.Core {
 		
 	}
 	
-	public sealed partial class ResourceLang : IEquatable<ResourceLang> {
+	public sealed partial class ResourceLang {
 		
 		public UInt16 LanguageId { get; private set; }
 		
