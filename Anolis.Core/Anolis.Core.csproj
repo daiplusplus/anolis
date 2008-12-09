@@ -39,7 +39,7 @@
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_source\Imports\SharpZipLib\net-20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>_ref\SharpZipLib_0855_Bin\net-20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -58,7 +58,7 @@
     <Compile Include="Win32\NativeMethods.cs" />
     <Compile Include="Packages\Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Win32\Win32Image.cs" />
+    <Compile Include="Win32\Win32Structs.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Packages\ExamplePackage.xml" />

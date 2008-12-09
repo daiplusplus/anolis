@@ -38,7 +38,7 @@ namespace Anolis.Core {
 					IntegerId = Int32.Parse( Marshal.PtrToStringAuto( id ).Substring(1), System.Globalization.NumberStyles.Integer, Cult.InvariantCulture);
 					NativeId  = new IntPtr(IntegerId.Value);
 					
-					FriendlyName = IntegerId.Value.ToString(Cult.CurrentCulture);
+					FriendlyName = '#' + IntegerId.Value.ToString(Cult.CurrentCulture);
 					
 					break;
 					
@@ -47,7 +47,7 @@ namespace Anolis.Core {
 					StringId = Marshal.PtrToStringAuto( id );
 					NativeId = Marshal.StringToHGlobalAuto(StringId); // reallocating the string becuase you can't use the original. This is deallocated/freed in the Dispose method (called from the Destructor)
 					
-					FriendlyName = StringId;
+					FriendlyName = '"' + StringId + '"';
 					
 					break;
 			}
