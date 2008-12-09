@@ -8,73 +8,165 @@ using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Core {
 	
+#if RESOURCE_IEQUATABLE
+	
 	// TODO: Boring Fx-compliance, IEquatable, and operator-overloading code goes here
 	
 	public partial class ResourceType : IEquatable<ResourceType> {
 		
+		public static Boolean Equals(ResourceType x, ResourceType y) {
+			
+			if( Object.ReferenceEquals(x, y) ) return true; // Object.ReferenceEquals( null, null ) btw
+			
+//			if( !Object.ReferenceEquals( x.Source, y.Source ) ) return false;
+			
+			return ResourceTypeIdentifier.Equals(x.Identifier, y.Identifier);
+			
+		}
+		
+		public new static Boolean Equals(Object x, Object y) {
+			
+			ResourceType xr = x as ResourceType;
+			ResourceType yr = y as ResourceType;
+			
+			return Equals(xr, yr);
+			
+		}
+		
 		public Boolean Equals(ResourceType other) {
 			
-			if( Object.ReferenceEquals( this, other ) ) return true;
-			if( Object.ReferenceEquals( other, null)) return false;
-			if( !Object.ReferenceEquals( this.Source, other.Source ) ) return false;
-			
-			return this.Identifier.Equals( other.Identifier );
+			return ResourceType.Equals( this, other );
 		}
 		
 		public override Boolean Equals(object obj) {
-			return Equals( (ResourceType)obj );
+			return ResourceType.Equals( this, obj as ResourceType );
 		}
 		
-		public static Boolean operator ==(Object x, Object y) {
+		public static Boolean operator ==(ResourceType x, Object y) {
+			return ResourceType.Equals( x, y as ResourceType );
+		}
+		
+		public static Boolean operator !=(ResourceType x, Object y) {
+			return !ResourceType.Equals( x, y as ResourceType );
+		}
+		
+		public static Boolean operator ==(ResourceType x, ResourceType y) {
+			return ResourceType.Equals( x, y );
+		}
+		
+		public static Boolean operator !=(ResourceType x, ResourceType y) {
+			return !ResourceType.Equals( x, y );
+		}
+		
+		public override Int32 GetHashCode() {
 			
-			if(x == null ^ y == null) return false;
-			if(x == null) return true; // since y == null
-			
-			
-			
-			return x.Equals(y);
-			
+			return this.Identifier.GetHashCode() ^ this.Names.GetHashCode();
 		}
 		
 	}
 	
 	public partial class ResourceName : IEquatable<ResourceName> {
 		
+		public static Boolean Equals(ResourceName x, ResourceName y) {
+			
+			if( Object.ReferenceEquals(x, y) ) return true; // Object.ReferenceEquals( null, null ) btw
+			
+//			if( !Object.ReferenceEquals( x.Type, y.Type ) ) return false;
+			
+			return ResourceIdentifier.Equals(x.Identifier, y.Identifier);
+			
+		}
+		
+		public new static Boolean Equals(Object x, Object y) {
+			
+			ResourceName xr = x as ResourceName;
+			ResourceName yr = y as ResourceName;
+			
+			return Equals(xr, yr);
+			
+		}
+		
 		public Boolean Equals(ResourceName other) {
 			
-			if( Object.ReferenceEquals( this, other ) ) return true;
-			if( Object.ReferenceEquals( other, null)) return false;
-			if( !Object.ReferenceEquals( this.Type, other.Type ) ) return false;
-			
-			return this.Identifier.Equals( other.Identifier );
+			return ResourceName.Equals( this, other );
 		}
 		
 		public override Boolean Equals(object obj) {
-			ResourceName other = obj as ResourceName;
-			if(other == null) return false;
-			return this.Equals( other );
+			return ResourceName.Equals( this, obj as ResourceName );
+		}
+		
+		public static Boolean operator ==(ResourceName x, Object y) {
+			return ResourceName.Equals( x, y as ResourceName );
+		}
+		
+		public static Boolean operator !=(ResourceName x, Object y) {
+			return !ResourceName.Equals( x, y as ResourceName );
+		}
+		
+		public static Boolean operator ==(ResourceName x, ResourceName y) {
+			return ResourceName.Equals( x, y );
+		}
+		
+		public static Boolean operator !=(ResourceName x, ResourceName y) {
+			return !ResourceName.Equals( x, y );
+		}
+		
+		public override int GetHashCode() {
+			
+			
+			
 		}
 		
 	}
 	
 	public partial class ResourceLang : IEquatable<ResourceLang> {
 		
+		public static Boolean Equals(ResourceLang x, ResourceLang y) {
+			
+			if( Object.ReferenceEquals(x, y) ) return true; // Object.ReferenceEquals( null, null ) btw
+			
+//			if( !Object.ReferenceEquals( x.Name, y.Name ) ) return false;
+			
+			return x.LanguageId == y.LanguageId;
+			
+		}
+		
+		public new static Boolean Equals(Object x, Object y) {
+			
+			ResourceLang xr = x as ResourceLang;
+			ResourceLang yr = y as ResourceLang;
+			
+			return Equals(xr, yr);
+			
+		}
+		
 		public Boolean Equals(ResourceLang other) {
 			
-			if( Object.ReferenceEquals( this, other ) ) return true;
-			if( Object.ReferenceEquals( other, null)) return false;
-			if( !Object.ReferenceEquals( this.Name, other.Name ) ) return false;
-			
-			return LanguageId == other.LanguageId;
-			
+			return ResourceName.Equals( this, other );
 		}
 		
 		public override Boolean Equals(object obj) {
-			ResourceLang other = obj as ResourceLang;
-			if(other == null) return false;
-			return this.Equals( other );
+			return ResourceName.Equals( this, obj as ResourceLang );
+		}
+		
+		public static Boolean operator ==(ResourceLang x, Object y) {
+			return ResourceLang.Equals( x, y as ResourceLang );
+		}
+		
+		public static Boolean operator !=(ResourceLang x, Object y) {
+			return !ResourceLang.Equals( x, y as ResourceLang );
+		}
+		
+		public static Boolean operator ==(ResourceLang x, ResourceLang y) {
+			return ResourceLang.Equals( x, y );
+		}
+		
+		public static Boolean operator !=(ResourceLang x, ResourceLang y) {
+			return !ResourceLang.Equals( x, y );
 		}
 		
 	}
+	
+#endif
 	
 }

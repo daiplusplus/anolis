@@ -10,7 +10,6 @@ namespace Anolis.Core.PE {
 	public class PESource : ResourceSource {
 		
 		private String   _path;
-		private FileInfo _fileInfo;
 		private Boolean  _readOnly;
 		private IntPtr   _moduleHandle;
 		
@@ -121,14 +120,7 @@ namespace Anolis.Core.PE {
 		
 		private Boolean GetResourceNamesCallback(IntPtr moduleHandle, IntPtr pType, IntPtr pName, IntPtr userParam) {
 			
-			ResourceType tempType = new ResourceType( pType, this ); // temp type used for finding the one to reference
-			ResourceType type = UnderlyingFind( new Predicate<ResourceType>( delegate(ResourceType resType) { return resType == tempType; } ) );
-			
-			if( type == null ) return false; // can't throw exceptions here since this is called by unmanaged code.
-			
-			//
-			
-			//ResourceType type = _currentType;
+			ResourceType type = _currentType;
 			
 			ResourceName name = new ResourceName( pName, type );
 			
@@ -143,18 +135,6 @@ namespace Anolis.Core.PE {
 		private ResourceName _currentName;
 		
 		private Boolean GetResourceLanguagesCallback(IntPtr moduleHandle, IntPtr pType, IntPtr pName, UInt16 langId, IntPtr userParam) {
-			
-//			ResourceType tempType = new ResourceType( pType, this ); // temp type used for finding the one to reference
-//			ResourceType type = UnderlyingFind( new Predicate<ResourceType>( delegate(ResourceType resType) { return resType == tempType; } ) );
-//			
-//			if( type == null ) throw new InvalidOperationException("Resource language callback for a type that isn't known.");
-//			
-//			ResourceName tempName = new ResourceName( pName, type ); // temp Name used for finding the one to reference
-//			ResourceName name = UnderlyingFind(type, new Predicate<ResourceName>( delegate(ResourceName resName) { return resName == tempName; } ) );
-//			
-//			if( name == null ) throw new InvalidOperationException("Resource names callback for a Name that isn't known.");
-			
-			//
 			
 			ResourceName name = _currentName;
 			

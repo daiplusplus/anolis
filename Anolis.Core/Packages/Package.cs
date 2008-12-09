@@ -27,8 +27,6 @@ namespace Anolis.Core.Packages {
 	/// <summary>Represents a collection of resource sets</summary>
 	public class Package : PackageItem {
 		
-		public Boolean Enabled { get; set; }
-		
 	}
 	
 	public class Set : PackageItem {

@@ -42,7 +42,7 @@
 			this.@__hex.Name = "__hex";
 			this.@__hex.SelectionBackColor = System.Drawing.SystemColors.Highlight;
 			this.@__hex.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			this.@__hex.ShadowSelectionColor = System.Drawing.SystemColors.ControlLight;
+			this.@__hex.ShadowSelectionColor = System.Drawing.SystemColors.ControlDark;
 			this.@__hex.Size = new System.Drawing.Size(644, 422);
 			this.@__hex.StringViewVisible = true;
 			this.@__hex.TabIndex = 0;
