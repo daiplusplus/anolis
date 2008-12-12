@@ -25,10 +25,10 @@ namespace Anolis.Resourcer.TypeViewers {
 			
 			switch(type.Identifier.KnownType) {
 				
-				case KnownWin32ResourceType.CursorAnimated:
-				case KnownWin32ResourceType.CursorDeviceIndependent:
-				case KnownWin32ResourceType.IconAnimated:
-				case KnownWin32ResourceType.IconDeviceIndependent:
+				case Win32ResourceType.CursorAnimated:
+				case Win32ResourceType.CursorDeviceIndependent:
+				case Win32ResourceType.IconAnimated:
+				case Win32ResourceType.IconDeviceIndependent:
 					
 					return true;
 				

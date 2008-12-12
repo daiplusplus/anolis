@@ -32,7 +32,7 @@ namespace Anolis.Resourcer.TypeViewers {
 		
 		public override Boolean CanHandleResourceType(ResourceType type) {
 			
-			if(type.Identifier.KnownType == KnownWin32ResourceType.Bitmap) return true;
+			if(type.Identifier.KnownType == Win32ResourceType.Bitmap) return true;
 			
 			if(type.Identifier.StringId == null) return false;
 			
