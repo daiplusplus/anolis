@@ -15,35 +15,117 @@ namespace Anolis.Core {
 			}
 			set {
 				_data = value;
-				IsDirty = true;
+				Action = ResourceDataAction.Update;
 			}
 		}
 		
-		internal Boolean IsDirty { get; private set; }
-		
 		public ResourceLang Lang { get; private set; }
+		
+		public ResourceDataAction Action { get; internal set; }
 		
 		////////////////////////////////////
 		
-		/// <summary>Creates a ResourceData instance from the resource's actual data. No conversion is performed on the rawData.</summary>
-		public ResourceData(ResourceLang lang, Byte[] rawData) {
+		protected ResourceData(ResourceLang lang, Byte[] rawData) {
 			
 			Lang    = lang;
-			_data   = rawData; // don't assign to RawData as it sets IsDirty
+			_data   = rawData;
+			Action  = ResourceDataAction.None; // action would be set by the ResourceSource using it and is none of our concern
+		}
+		
+		public static ResourceData Create(ResourceLang lang, Byte[] rawData) {
+			
+			return Create(lang, rawData, ResourceDataAction.None);
+			
+		}
+		
+		public static ResourceData Create(ResourceLang lang, Byte[] rawData, ResourceDataAction action) {
+			
+			// get the type from lang
+			ResourceType type = lang.Name.Type;
+			
+			ResourceData retval;
+			
+			if(type.Identifier.KnownType != Win32ResourceType.Custom) {
+				
+				switch(type.Identifier.KnownType) {
+					case Win32ResourceType.Bitmap:
+						
+						retval = new Data.BitmapResourceData(lang, rawData);
+						
+						break;
+					case Win32ResourceType.CursorAnimated:
+					case Win32ResourceType.CursorDeviceDependent:
+					case Win32ResourceType.CursorDeviceIndependent:
+					case Win32ResourceType.IconAnimated:
+					case Win32ResourceType.IconDeviceDependent:
+					case Win32ResourceType.IconDeviceIndependent:
+						
+						retval = new Data.IconCursorResourceData(lang, rawData);
+						
+						break;
+					case Win32ResourceType.Version:
+						
+						retval = new Data.VersionResourceData(lang, rawData);
+						
+						break;
+					default:
+						
+						retval = new ResourceData(lang, rawData);
+						break;
+				}
+			
+			} else {
+				
+				String id = type.Identifier.StringId.ToUpperInvariant(); // this isn't going to be null
+				
+				switch(id) {
+					case "PNG":
+					case "JPEG":
+					case "GIF": // should I use another ResourceData subclass if it's an animated GIF?
+						
+						retval = new Data.ImageResourceData(lang, rawData);
+						
+						break;
+						
+					case "AVI":
+					case "MPEG":
+					case "MP3":
+					case "MP2":
+					case "RIFF":
+					case "WAV":
+					case "WMV":
+						
+						retval = new Data.MultimediaResourceData(lang, rawData);
+						
+						break;
+					
+					default:
+						
+						retval = new ResourceData(lang, rawData);
+						
+						break;
+				}
+				
+			}
+			
+			return retval;
+			
 		}
 		
 		/// <summary>Creates a ResourceData instance from a stream containing data convertible into a resource. For instance a stream containing a  *.bmp file's content can be converted into a BITMAP resource.</summary>
 		public static ResourceData Read(Stream stream) {
 			
 			// reads the file, determines what kind of ResourceData it is and what subclass to use and return
+			// do we need ResourceData subclasses?
 			
 			throw new NotImplementedException();
 			
 		}
 		
+		/// <summary>Creates a ResourceData instance from input data that can be converted into a resource. If the data is the actual bytes of a resource use the public constructor.</summary>
 		public static ResourceData Read(Byte[] data) {
 			
-			if(data == null) throw new ArgumentNullException("The byte array 'data' cannot be null");
+			if(data == null) throw new ArgumentNullException("data");
 			
 			using(MemoryStream stream = new MemoryStream(data)) {
 				
@@ -55,7 +137,7 @@ namespace Anolis.Core {
 		/// <summary>Creates a ResourceData instance from a file containing data convertible into a resource. For instance a *.bmp can be converted into a BITMAP resource.</summary>
 		public static ResourceData Read(String filename) {
 			
-			if(filename == null) throw new ArgumentNullException("The string 'filename' cannot be null");
+			if(filename == null) throw new ArgumentNullException("filename");
 			if( !File.Exists(filename) ) throw new FileNotFoundException("The file to load the resource data from was not found", filename);
 			
 			using(Stream stream = File.OpenRead(filename)) {
@@ -74,7 +156,7 @@ namespace Anolis.Core {
 			// I'm of the opinion that 'path' must always be absolute and 'filename' can be relative or absolute, 'filepath' need not exist
 			// Should standardise 'if file exists, overwrite?' behaviour too
 			
-			if(path == null) throw new ArgumentNullException("The string 'filename' cannot be null");
+			if(path == null) throw new ArgumentNullException("path");
 			
 			using(Stream stream = File.Create(path)) {
 				

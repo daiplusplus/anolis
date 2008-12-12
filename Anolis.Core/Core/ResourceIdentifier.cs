@@ -38,7 +38,7 @@ namespace Anolis.Core {
 					IntegerId = Int32.Parse( Marshal.PtrToStringAuto( id ).Substring(1), System.Globalization.NumberStyles.Integer, Cult.InvariantCulture);
 					NativeId  = new IntPtr(IntegerId.Value);
 					
-					FriendlyName = '#' + IntegerId.Value.ToString(Cult.CurrentCulture);
+					FriendlyName = IntegerId.Value.ToString(Cult.CurrentCulture);
 					
 					break;
 					
@@ -47,7 +47,7 @@ namespace Anolis.Core {
 					StringId = Marshal.PtrToStringAuto( id );
 					NativeId = Marshal.StringToHGlobalAuto(StringId); // reallocating the string becuase you can't use the original. This is deallocated/freed in the Dispose method (called from the Destructor)
 					
-					FriendlyName = '"' + StringId + '"';
+					FriendlyName = StringId;
 					
 					break;
 			}
@@ -150,7 +150,7 @@ namespace Anolis.Core {
 					NativeId = Marshal.StringToHGlobalAuto(StringId); // reallocating the string becuase you can't use the original. This is deallocated/freed in the Dispose method (called from the Destructor)
 					
 					FriendlyName = '"' + StringId + '"'; // surround typename in quotes
-					KnownType    = KnownWin32ResourceType.Custom;
+					KnownType    = Win32ResourceType.Custom;
 					
 					break;
 			}
@@ -158,7 +158,7 @@ namespace Anolis.Core {
 			
 		}
 		
-		public KnownWin32ResourceType KnownType { get; private set; }
+		public Win32ResourceType KnownType { get; private set; }
 		
 #region Type Friendly Names
 		
@@ -202,15 +202,15 @@ namespace Anolis.Core {
 				_resourceTypeFriendlyNames[0] + " (" + integerId.ToString() + ")";
 		}
 		
-		private static KnownWin32ResourceType GetKnownType(Int32 integerId) {
+		private static Win32ResourceType GetKnownType(Int32 integerId) {
 			
-			if( Enum.IsDefined(typeof(KnownWin32ResourceType), integerId) ) {
+			if( Enum.IsDefined(typeof(Win32ResourceType), integerId) ) {
 				
-				return (KnownWin32ResourceType)integerId;
+				return (Win32ResourceType)integerId;
 				
 			} else {
 				
-				return KnownWin32ResourceType.Unknown;
+				return Win32ResourceType.Unknown;
 				
 			}
 			
@@ -220,7 +220,7 @@ namespace Anolis.Core {
 		
 	}
 	
-	public enum KnownWin32ResourceType {
+	public enum Win32ResourceType {
 		/// <summary>1</summary>
 		CursorDeviceDependent   = 1,
 		/// <summary>2</summary>

@@ -10,7 +10,6 @@ namespace Anolis.Core.PE {
 	public class PESource : ResourceSource {
 		
 		private String   _path;
-		private Boolean  _readOnly;
 		private IntPtr   _moduleHandle;
 		
 		public PESource(String filename, Boolean readOnly) : base(readOnly) {
@@ -18,7 +17,7 @@ namespace Anolis.Core.PE {
 			FileInfo = new FileInfo( _path = filename );
 			if(!FileInfo.Exists) throw new FileNotFoundException("The specified Win32 PE Image was not found", filename);
 			
-			_moduleHandle = (_readOnly = readOnly) ?
+			_moduleHandle = readOnly ?
 				NativeMethods.LoadLibraryEx( filename, IntPtr.Zero, NativeMethods.LoadLibraryFlags.LoadLibraryAsDatafile ) :
 				NativeMethods.LoadLibrary  ( filename );
 			
@@ -37,7 +36,62 @@ namespace Anolis.Core.PE {
 		
 		public override void CommitChanges() {
 			
-			throw new NotImplementedException();
+			base.CommitChanges(); // this does the read-only check
+			
+			// Compile a list of resources to add, update, and remove
+			
+			// older notes from the now-gone Win32Image class's UpdateResources(Win32ResourceOperation[] resources) method:
+			
+// According to ms-help://MS.MSDNQTR.v90.en/winui/winui/windowsuserinterface/resources/introductiontoresources/resourcereference/resourcefunctions/beginupdateresource.htm
+// it is recommended that the file be not loaded before calling BeginUpdateResources
+// NOTE: if there are any problems caused by the fact the file is loaded you could move LoadLibrary to a lazy-load pattern and throw an exception if it has been loaded
+
+			// new notes:
+			// it could unload the file temporarily...? which makes sense since it'll be reloading it after commiting the changes anyway. Hmmm
+			
+			IntPtr updateHandle = NativeMethods.BeginUpdateResource( this._path, false );
+			
+			foreach(ResourceData data in this) {
+				
+				switch(data.Action) {
+					
+					case ResourceDataAction.Add:
+						
+						throw new NotImplementedException();
+						
+//						break;
+						
+					case ResourceDataAction.Delete:
+						
+						throw new NotImplementedException();
+						
+//						break;
+						
+					case ResourceDataAction.Update:
+						
+						IntPtr unmanagedData = Marshal.AllocHGlobal( data.RawData.Length );
+						
+						Marshal.Copy( data.RawData, 0, unmanagedData, data.RawData.Length );
+						
+						IntPtr typeId = data.Lang.Name.Type.Identifier.NativeId;
+						IntPtr nameId = data.Lang.Name.Identifier.NativeId;
+						ushort langId = data.Lang.LanguageId;
+						
+						NativeMethods.UpdateResource( updateHandle, typeId, nameId, langId, unmanagedData, data.RawData.Length );
+						
+						Marshal.FreeHGlobal( unmanagedData );
+						
+						break;
+					
+				}
+				
+			}
+			
+			// when done, reload this source
+			
+		}
+		
+		public override void Reload() {
 			
 		}
 		
@@ -65,7 +119,7 @@ namespace Anolis.Core.PE {
 			
 			NativeMethods.FreeResource( resData );
 			
-			ResourceData retval = new ResourceData(lang, data);
+			ResourceData retval = ResourceData.Create(lang, data);
 			
 			return retval;
 			
@@ -147,7 +201,11 @@ namespace Anolis.Core.PE {
 		
 #endregion
 		
+#region Resource Updates
 		
+		
+		
+#endregion
 		
 	}
 }
