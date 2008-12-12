@@ -22,8 +22,8 @@ namespace Anolis.Resourcer.TypeViewers {
 			
 			switch(type.Identifier.KnownType) {
 				
-				case KnownWin32ResourceType.Html: // HTML
-				case KnownWin32ResourceType.Manifest : // Manifest
+				case Win32ResourceType.Html: // HTML
+				case Win32ResourceType.Manifest : // Manifest
 					return true;
 				
 			}
