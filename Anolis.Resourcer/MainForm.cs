@@ -11,22 +11,15 @@ namespace Anolis.Resourcer {
 	
 	public partial class MainForm : Form {
 		
-		private List<TypeViewer> _viewers;
-		private Dictionary<ResourceType, List<TypeViewer>> _viewersForType;
-		
 		private ResourceLang _currentlyOpenResource;
 		
 		public MainForm() {
 			InitializeComponent();
 			
-			_viewers = new List<TypeViewer>();
-			_viewersForType = new Dictionary<ResourceType,List<TypeViewer>>();
-			
 			this.Load += new EventHandler(MainForm_Load);
-			__browse.Click += new EventHandler(__browse_Click);
+			__browse   .Click          += new EventHandler(__browse_Click);
 			__resources.NodeMouseClick += new TreeNodeMouseClickEventHandler(__resources_NodeMouseClick);
-
-			__viewers.SelectedIndexChanged += new EventHandler(__viewers_SelectedIndexChanged);
+			
 		}
 		
 #region UI Events
@@ -39,7 +32,7 @@ namespace Anolis.Resourcer {
 			
 			if(__ofd.ShowDialog(this) != DialogResult.OK) return;
 			
-			LoadImage( __filePath.Text = __ofd.FileName );
+			LoadSource( __filePath.Text = __ofd.FileName );
 			
 		}
 		
@@ -57,9 +50,7 @@ namespace Anolis.Resourcer {
 			
 			if( _currentlyOpenResource == null ) return;
 			
-			TypeViewer viewer = (__viewers.SelectedItem as TypeViewerListWrapper).Viewer;
 			
-			ShowViewer( viewer, _currentlyOpenResource );
 			
 		}
 		
@@ -71,7 +62,7 @@ namespace Anolis.Resourcer {
 		
 		public StatusStrip StatusBar { get { return __status; } }
 		
-		private void LoadImage(String path) {
+		private void LoadSource(String path) {
 			
 			ResourceSource source = ResourceSource.Open(path, true);
 			
