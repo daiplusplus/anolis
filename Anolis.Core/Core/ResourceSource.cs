@@ -48,13 +48,14 @@ namespace Anolis.Core {
 		//////////////////////
 		// ResourceSource State Mutators
 		
-		public abstract void CommitChanges();
-		
-		public virtual void Rollback() {
+		public virtual void CommitChanges() {
 			
-			// TODO reset all the resourcedatas
+			if( this.IsReadOnly ) throw new InvalidOperationException("This Resource Source was opened read-only");
 			
 		}
+		
+		/// <summary>Actually reloads all the data into the source.</summary>
+		public abstract void Reload();
 		
 	}
 }
