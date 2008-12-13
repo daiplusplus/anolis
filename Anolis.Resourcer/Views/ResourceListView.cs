@@ -6,7 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Anolis.Resourcer.Views {
+namespace Anolis.Resourcer {
 	public partial class ResourceListView : UserControl {
 		public ResourceListView() {
 			InitializeComponent();

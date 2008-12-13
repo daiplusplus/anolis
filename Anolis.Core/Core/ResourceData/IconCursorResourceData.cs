@@ -6,9 +6,17 @@ namespace Anolis.Core.Data {
 	
 #region ResourceType specific
 	
-	public class IconCursorResourceData : ResourceData {
+	public class IconCursorImageResourceData : ResourceData {
 		
-		public IconCursorResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
+		public IconCursorImageResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
+			
+		}
+		
+	}
+	
+	public class IconCursorDirectoryResourceData : ResourceData {
+		
+		public IconCursorDirectoryResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
 			
 		}
 		
@@ -47,6 +55,17 @@ namespace Anolis.Core.Data {
 	public class MultimediaResourceData : ResourceData {
 		
 		public MultimediaResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
+			
+		}
+		
+	}
+	
+	/// <summary>Represents an XML, HTML, or other SGML-derived structured document, including Windows Manifests.</summary>
+	public class XmlHtmlResourceData : ResourceData {
+		
+		public XmlHtmlResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
+			
+			
 			
 		}
 		
