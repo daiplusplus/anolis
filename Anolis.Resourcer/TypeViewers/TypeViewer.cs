@@ -11,13 +11,19 @@ namespace Anolis.Resourcer.TypeViewers {
 			throw new NotImplementedException();
 		}
 		
-		/// <summary>This Type Viewer can handle the specified type. Also if this viewer is the recommended viewer for that type.</summary>
-		public virtual Boolean CanHandleResourceType(ResourceType type) {
+		/// <summary>This Type Viewer can handle the specified resource data. Also if this viewer is the recommended viewer for that type.</summary>
+		public virtual TypeViewerCompatibility CanHandleResource(ResourceData data) {
 			throw new NotImplementedException();
 		}
 		
 		public virtual String ViewerName { get { throw new NotImplementedException(); } }
 		
+	}
+	
+	public enum TypeViewerCompatibility {
+		Ideal,
+		Works,
+		None
 	}
 	
 }

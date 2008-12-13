@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using Anolis.Core;
+using Anolis.Core.Data;
 
 namespace Anolis.Resourcer.TypeViewers {
 	
@@ -21,20 +22,11 @@ namespace Anolis.Resourcer.TypeViewers {
 			
 		}
 		
-		public override Boolean CanHandleResourceType(ResourceType type) {
+		public override TypeViewerCompatibility CanHandleResource(ResourceData data) {
 			
-			switch(type.Identifier.KnownType) {
-				
-				case Win32ResourceType.CursorAnimated:
-				case Win32ResourceType.CursorDeviceIndependent:
-				case Win32ResourceType.IconAnimated:
-				case Win32ResourceType.IconDeviceIndependent:
-					
-					return true;
-				
-			}
+			if( data is IconCursorDirectoryResourceData ) return TypeViewerCompatibility.Ideal;
 			
-			return false;
+			return TypeViewerCompatibility.None;
 			
 		}
 		

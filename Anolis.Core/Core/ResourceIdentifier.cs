@@ -169,9 +169,9 @@ namespace Anolis.Core {
 		static ResourceTypeIdentifier() {
 			_resourceTypeFriendlyNames = new System.Collections.Generic.Dictionary<Int32,String>();
 			_resourceTypeFriendlyNames.Add(0, "Unknown");
-			_resourceTypeFriendlyNames.Add(1, "Cursor (DD)");
+			_resourceTypeFriendlyNames.Add(1, "Cursor Image");
 			_resourceTypeFriendlyNames.Add(2, "Bitmap");
-			_resourceTypeFriendlyNames.Add(3, "Icon (DD)");
+			_resourceTypeFriendlyNames.Add(3, "Icon Image");
 			_resourceTypeFriendlyNames.Add(4, "Menu");
 			_resourceTypeFriendlyNames.Add(5, "Dialog");
 			_resourceTypeFriendlyNames.Add(6, "String Table");
@@ -180,9 +180,9 @@ namespace Anolis.Core {
 			_resourceTypeFriendlyNames.Add(9, "Accelerator");
 			_resourceTypeFriendlyNames.Add(10, "RC Data");
 			_resourceTypeFriendlyNames.Add(11, "Message Table");
-			_resourceTypeFriendlyNames.Add(12, "Cursor (DI)");
+			_resourceTypeFriendlyNames.Add(12, "Cursor Directory");
 			// 13 = unknown
-			_resourceTypeFriendlyNames.Add(14, "Icon (DI)");
+			_resourceTypeFriendlyNames.Add(14, "Icon Directory");
 			// 15 = unknown
 			_resourceTypeFriendlyNames.Add(16, "Version");
 			_resourceTypeFriendlyNames.Add(17, "DLG Include");
@@ -222,11 +222,11 @@ namespace Anolis.Core {
 	
 	public enum Win32ResourceType {
 		/// <summary>1</summary>
-		CursorDeviceDependent   = 1,
+		CursorImage             = 1,
 		/// <summary>2</summary>
 		Bitmap                  = 2,
 		/// <summary>3</summary>
-		IconDeviceDependent     = 3,
+		IconImage               = 3,
 		/// <summary>4</summary>
 		Menu                    = 4,
 		/// <summary>5</summary>
@@ -244,10 +244,10 @@ namespace Anolis.Core {
 		/// <summary>11</summary>
 		MessageTable            = 11,
 		/// <summary>12</summary>
-		CursorDeviceIndependent = 12,
+		CursorDirectory         = 12,
 		// no 13
 		/// <summary>14</summary>
-		IconDeviceIndependent   = 14,
+		IconDirectory           = 14,
 		// no 15
 		/// <summary>16</summary>
 		Version                 = 16,

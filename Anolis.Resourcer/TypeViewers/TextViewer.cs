@@ -36,8 +36,8 @@ namespace Anolis.Resourcer.TypeViewers {
 			
 		}
 		
-		public override bool CanHandleResourceType(ResourceType type) {
-			return true; // this can handle anything since it shows the text of raw bytes
+		public override TypeViewerCompatibility CanHandleResource(ResourceData data) {
+			return TypeViewerCompatibility.Works;
 		}
 		
 		public override string ViewerName {

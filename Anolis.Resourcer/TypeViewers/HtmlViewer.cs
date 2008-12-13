@@ -8,7 +8,9 @@ using System.Windows.Forms;
 
 using System.IO;
 using Anolis.Core;
+
 using Anolis.Resourcer.TypeViewers;
+using Anolis.Core.Data;
 
 namespace Anolis.Resourcer.TypeViewers {
 	
@@ -18,28 +20,11 @@ namespace Anolis.Resourcer.TypeViewers {
 			InitializeComponent();
 		}
 		
-		public override Boolean CanHandleResourceType(ResourceType type) {
+		public override TypeViewerCompatibility CanHandleResource(ResourceData data) {
 			
-			switch(type.Identifier.KnownType) {
-				
-				case Win32ResourceType.Html: // HTML
-				case Win32ResourceType.Manifest : // Manifest
-					return true;
-				
-			}
+			if( data is XmlHtmlResourceData ) return TypeViewerCompatibility.Ideal;
 			
-			if(type.Identifier.StringId == null) return false;
-			
-			switch(type.Identifier.StringId.ToUpperInvariant()) {
-				
-				case "HTML":
-				case "XML":
-				case "XHTML":
-				case "SGML":
-					return true;
-			}
-			
-			return false;
+			return TypeViewerCompatibility.None;
 			
 		}
 		

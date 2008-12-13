@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 
+using Anolis.Core.Data;
+
 namespace Anolis.Core {
 	
 	/// <summary>ResourceData CONTAINS the resource data. It is lazy-loaded by ResourceLang (i.e. when the resource data is requested the data is extracted from the source and an instance of ResourceData is constructed with that data</summary>
@@ -50,24 +52,33 @@ namespace Anolis.Core {
 				switch(type.Identifier.KnownType) {
 					case Win32ResourceType.Bitmap:
 						
-						retval = new Data.BitmapResourceData(lang, rawData);
-						
+						retval = new BitmapResourceData(lang, rawData);
 						break;
-					case Win32ResourceType.CursorAnimated:
-					case Win32ResourceType.CursorDeviceDependent:
-					case Win32ResourceType.CursorDeviceIndependent:
-					case Win32ResourceType.IconAnimated:
-					case Win32ResourceType.IconDeviceDependent:
-					case Win32ResourceType.IconDeviceIndependent:
 						
-						retval = new Data.IconCursorResourceData(lang, rawData);
+					case Win32ResourceType.CursorImage:
+					case Win32ResourceType.IconImage:
 						
+						retval = new IconCursorImageResourceData(lang, rawData);
 						break;
+					
+//					case Win32ResourceType.CursorAnimated: // I have zero documentation on these 'animated' types
+//					case Win32ResourceType.IconAnimated:
+					case Win32ResourceType.CursorDirectory:
+					case Win32ResourceType.IconDirectory:
+						
+						retval = new IconCursorDirectoryResourceData(lang, rawData);
+						break;
+						
+					case Win32ResourceType.Manifest:
+						
+						retval = new XmlHtmlResourceData(lang, rawData);
+						break;
+						
 					case Win32ResourceType.Version:
 						
-						retval = new Data.VersionResourceData(lang, rawData);
-						
+						retval = new VersionResourceData(lang, rawData);
 						break;
+						
 					default:
 						
 						retval = new ResourceData(lang, rawData);
@@ -83,8 +94,7 @@ namespace Anolis.Core {
 					case "JPEG":
 					case "GIF": // should I use another ResourceData subclass if it's an animated GIF?
 						
-						retval = new Data.ImageResourceData(lang, rawData);
-						
+						retval = new ImageResourceData(lang, rawData);
 						break;
 						
 					case "AVI":
@@ -95,14 +105,20 @@ namespace Anolis.Core {
 					case "WAV":
 					case "WMV":
 						
-						retval = new Data.MultimediaResourceData(lang, rawData);
-						
+						retval = new MultimediaResourceData(lang, rawData);
 						break;
 					
+					case "HTML":
+					case "XML":
+					case "XSLT":
+					case "SGML":
+						
+						retval = new XmlHtmlResourceData(lang, rawData);
+						break;
+						
 					default:
 						
 						retval = new ResourceData(lang, rawData);
-						
 						break;
 				}
 				

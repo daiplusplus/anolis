@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Anolis.Core;
 
 using MemoryStream = System.IO.MemoryStream;
+using Anolis.Core.Data;
 
 namespace Anolis.Resourcer.TypeViewers {
 	
@@ -30,21 +31,13 @@ namespace Anolis.Resourcer.TypeViewers {
 			
 		}
 		
-		public override Boolean CanHandleResourceType(ResourceType type) {
+		public override TypeViewerCompatibility CanHandleResource(ResourceData data) {
 			
-			if(type.Identifier.KnownType == Win32ResourceType.Bitmap) return true;
+			if( data is BitmapResourceData ) return TypeViewerCompatibility.Ideal;
+			if( data is ImageResourceData  ) return TypeViewerCompatibility.Ideal;
+			if( data is IconCursorImageResourceData ) return TypeViewerCompatibility.Ideal;
 			
-			if(type.Identifier.StringId == null) return false;
-			
-			switch(type.Identifier.StringId.ToUpperInvariant()) {
-				case "PNG":
-				case "GIF":
-				case "JPEG":
-				case "JPG":
-					return true;
-			}
-			
-			return false;
+			return TypeViewerCompatibility.None;
 			
 		}
 		

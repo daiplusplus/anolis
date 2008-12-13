@@ -13,19 +13,25 @@ namespace Anolis.Resourcer {
 		
 		private ResourceLang _currentlyOpenResource;
 		
+		private ResourceDataView _viewData;
+		private ResourceListView _viewList;
+		
 		public MainForm() {
 			InitializeComponent();
 			
 			this.Load += new EventHandler(MainForm_Load);
-			__browse   .Click          += new EventHandler(__browse_Click);
 			__resources.NodeMouseClick += new TreeNodeMouseClickEventHandler(__resources_NodeMouseClick);
 			
+			
+			
+			_viewData = new ResourceDataView();
+			_viewList = new ResourceListView();
 		}
 		
 #region UI Events
 		
 		private void MainForm_Load(Object sender, EventArgs e) {
-			LoadTypeViewers();
+			
 		}
 		
 		private void __browse_Click(Object sender, EventArgs e) {
@@ -43,14 +49,6 @@ namespace Anolis.Resourcer {
 			if(lang == null) return;			
 			
 			LoadResource( lang );
-			
-		}
-		
-		private void __viewers_SelectedIndexChanged(object sender, EventArgs e) {
-			
-			if( _currentlyOpenResource == null ) return;
-			
-			
 			
 		}
 		
@@ -89,28 +87,8 @@ namespace Anolis.Resourcer {
 				}
 				
 				__resources.Nodes.Add( typeNode );
-				
-				
-				List<TypeViewer> viewersForThisType = new List<TypeViewer>();
-				foreach(TypeViewer viewer in _viewers) if( viewer.CanHandleResourceType( type ) ) viewersForThisType.Add( viewer );
-				_viewersForType.Add( type, viewersForThisType );
-				
 			}
 			
-		}
-		
-		private ResourceType _lastType;
-		private TypeViewer   _lastViewer;
-		
-		private class TypeViewerListWrapper {
-			public Boolean Recommended { get; set; }
-			public TypeViewer Viewer { get; private set; }
-			public TypeViewerListWrapper(TypeViewer viewer) {
-				Viewer = viewer;
-			}
-			public override string ToString() {
-				return Viewer.ViewerName;
-			}
 		}
 		
 		private void LoadResource(ResourceLang resource) {
@@ -118,79 +96,29 @@ namespace Anolis.Resourcer {
 			_currentlyOpenResource = resource;
 			
 			ResourceType type = resource.Name.Type;
-			TypeViewer selectedViewer;
 			
-			if( type != _lastType ) {
+			EnsureView( _viewData );
+			
+			_viewData.ShowResource( resource.Data );
+			
+		}
+		
+		private void EnsureView(Control control) {
+			
+			control.Dock = DockStyle.Fill;
+			
+			if(__split.Panel2.Controls.Count == 0) {
 				
-				List<TypeViewer> validViewers = _viewersForType[ type ];
-				
-				foreach(TypeViewerListWrapper viewer in __viewers.Items) {
-					
-					viewer.Recommended = validViewers.Contains( viewer.Viewer );
-				}
-				
-				if( validViewers.Count > 0 ) selectedViewer = validViewers[0];
-				else return;
-				
-				_lastType = type;
-				_lastViewer = selectedViewer;
+				__split.Panel2.Controls.Add( control );
 				
 			} else {
 				
-				selectedViewer = _lastViewer;
+				Control currentControl = __split.Panel2.Controls[0];
 				
-			}
-			
-			ShowViewer( selectedViewer, resource );
-			
-		}
-		
-		private void ShowViewer(TypeViewer viewer, ResourceLang resource) {
-			
-			try {
-				
-				viewer.RenderResource( resource.Data );
-				
-			} catch (Exception ex) {
-				
-				
-				String exTemplate = "\r\nMessage:\r\n{0}\r\n\r\nStack Trace:\r\n{1}";
-				String message    = "An unhandled exception was thrown whilst trying to load the resource.\r\n";
-				
-				while(ex != null) {
-					message += String.Format(exTemplate, ex.Message, ex.StackTrace);
-					ex = ex.InnerException;
+				if(currentControl != control) {
+					__split.Panel2.Controls.Clear();
+					__split.Panel2.Controls.Add( control );
 				}
-				
-				DialogResult result = MessageBox.Show(this, message, "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
-				if( result == DialogResult.Cancel ) return;
-				else ShowViewer(viewer, resource);
-				
-			}
-			
-			UserControl ctrl = viewer as UserControl;
-			ctrl.Dock = DockStyle.Fill;
-			
-			__viewer.Controls.Clear();
-			__viewer.Controls.Add( viewer as Control );
-			
-		}
-		
-		private void LoadTypeViewers() {
-			
-			// TODO: Maybe some reflection-based loading here?
-			_viewers.Clear();
-			_viewers.Add( new PictureViewer() );
-			_viewers.Add( new IconCursorViewer() );
-			_viewers.Add( new RawViewer() );
-			_viewers.Add( new TextViewer() );
-			_viewers.Add( new HtmlViewer() );
-			
-			foreach(TypeViewer viewer in _viewers) {
-				
-				TypeViewerListWrapper wrapper = new TypeViewerListWrapper( viewer );
-				__viewers.Items.Add( wrapper );
-				
 			}
 			
 		}
