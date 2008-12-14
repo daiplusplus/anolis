@@ -6,7 +6,7 @@ using Anolis.Core.Data;
 namespace Anolis.Core {
 	
 	/// <summary>ResourceData CONTAINS the resource data. It is lazy-loaded by ResourceLang (i.e. when the resource data is requested the data is extracted from the source and an instance of ResourceData is constructed with that data</summary>
-	public class ResourceData {
+	public abstract class ResourceData {
 		
 		private Byte[] _data;
 		
@@ -36,93 +36,46 @@ namespace Anolis.Core {
 		
 		public static ResourceData Create(ResourceLang lang, Byte[] rawData) {
 			
-			return Create(lang, rawData, ResourceDataAction.None);
+			Win32ResourceType wType = lang.Name.Type.Identifier.KnownType;
 			
-		}
-		
-		public static ResourceData Create(ResourceLang lang, Byte[] rawData, ResourceDataAction action) {
+			ResourceHint hint;
 			
-			// get the type from lang
-			ResourceType type = lang.Name.Type;
-			
-			ResourceData retval;
-			
-			if(type.Identifier.KnownType != Win32ResourceType.Custom) {
+			if(wType == Win32ResourceType.Custom) {
 				
-				switch(type.Identifier.KnownType) {
-					case Win32ResourceType.Bitmap:
-						
-						retval = new BitmapResourceData(lang, rawData);
-						break;
-						
-					case Win32ResourceType.CursorImage:
-					case Win32ResourceType.IconImage:
-						
-						retval = new IconCursorImageResourceData(lang, rawData);
-						break;
-					
-//					case Win32ResourceType.CursorAnimated: // I have zero documentation on these 'animated' types
-//					case Win32ResourceType.IconAnimated:
-					case Win32ResourceType.CursorDirectory:
-					case Win32ResourceType.IconDirectory:
-						
-						retval = new IconCursorDirectoryResourceData(lang, rawData);
-						break;
-						
-					case Win32ResourceType.Manifest:
-						
-						retval = new XmlHtmlResourceData(lang, rawData);
-						break;
-						
-					case Win32ResourceType.Version:
-						
-						retval = new VersionResourceData(lang, rawData);
-						break;
-						
-					default:
-						
-						retval = new ResourceData(lang, rawData);
-						break;
-				}
-			
-			} else {
-				
-				String id = type.Identifier.StringId.ToUpperInvariant(); // this isn't going to be null
+				String id = lang.Name.Type.Identifier.StringId.ToUpperInvariant(); // this isn't going to be null
 				
 				switch(id) {
-					case "PNG":
-					case "JPEG":
-					case "GIF": // should I use another ResourceData subclass if it's an animated GIF?
-						
-						retval = new ImageResourceData(lang, rawData);
-						break;
-						
-					case "AVI":
+					case "PNG" :  hint = ResourceHint.Png;  break;
+					case "JPEG":  hint = ResourceHint.Jpeg; break;
+					case "GIF" :  hint = ResourceHint.Gif;  break;
+					case "AVI" :
 					case "MPEG":
-					case "MP3":
-					case "MP2":
+					case "MP3" :
+					case "MP2" :
 					case "RIFF":
-					case "WAV":
-					case "WMV":
-						
-						retval = new MultimediaResourceData(lang, rawData);
-						break;
-					
+					case "WAV" :
+					case "WMV" :
 					case "HTML":
-					case "XML":
+					case "XML" :
 					case "XSLT":
 					case "SGML":
-						
-						retval = new XmlHtmlResourceData(lang, rawData);
+						hint = ResourceHint.Unknown; // TODO: Make hints for these file formats once I get round to it
 						break;
-						
 					default:
-						
-						retval = new ResourceData(lang, rawData);
+						hint = ResourceHint.Unknown;
 						break;
 				}
 				
+			} else if(wType == Win32ResourceType.Unknown) {
+				
+				hint = ResourceHint.Unknown;
+				
+			} else {
+				
+				hint = (ResourceHint)wType;
 			}
+			
+			ResourceData retval = ResourceDataFactory.GetResourceData(lang, hint, rawData);
 			
 			return retval;
 			

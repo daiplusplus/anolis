@@ -27,6 +27,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,13 +49,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Resource.cs" />
-    <Compile Include="Core\ResourceData\IconCursorResourceData.cs" />
+    <Compile Include="Core\ResourceData\DirectoryResourceData.cs" />
+    <Compile Include="Core\ResourceData\ImageResourceData.cs" />
+    <Compile Include="Core\ResourceData\ResourceDataIdentifier.cs" />
+    <Compile Include="Core\ResourceData\UnknownResourceData.cs" />
+    <Compile Include="Core\ResourceData\VideoResourceData.cs" />
     <Compile Include="Core\ResourceSourcePartial.cs" />
     <Compile Include="Core\ResourceData.cs" />
     <Compile Include="Core\ResourceIdentifier.cs" />
     <Compile Include="Core\ResourcePartial.cs" />
     <Compile Include="Core\ResourceEnumerator.cs" />
     <Compile Include="Core\ResourceSource.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="NativeTypes.cs" />
     <Compile Include="PE\NativeMethods.cs" />
     <Compile Include="PE\PESource.cs" />
     <Compile Include="Packages\Package.cs" />

@@ -39,7 +39,7 @@
   <ItemGroup>
     <Reference Include="Be.Windows.Forms.HexBox, Version=1.3.0.40004, Culture=neutral, PublicKeyToken=e0e5adf0ebc99863, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Be.Windows.Forms.HexBox\bin\Release\Be.Windows.Forms.HexBox.dll</HintPath>
+      <HintPath>..\_ref\Be.Windows.Forms.HexBox.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
