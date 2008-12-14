@@ -33,9 +33,7 @@ namespace Anolis.Resourcer.TypeViewers {
 		
 		public override TypeViewerCompatibility CanHandleResource(ResourceData data) {
 			
-			if( data is BitmapResourceData ) return TypeViewerCompatibility.Ideal;
-			if( data is ImageResourceData  ) return TypeViewerCompatibility.Ideal;
-			if( data is IconCursorImageResourceData ) return TypeViewerCompatibility.Ideal;
+			if( data is ImageResourceData ) return TypeViewerCompatibility.Ideal;
 			
 			return TypeViewerCompatibility.None;
 			

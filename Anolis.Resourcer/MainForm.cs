@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using Anolis.Resourcer.TypeViewers;
 using System.IO;
 
+using Cult = System.Globalization.CultureInfo;
+
 using Anolis.Core;
 using Anolis.Core.PE;
 
@@ -11,7 +13,9 @@ namespace Anolis.Resourcer {
 	
 	public partial class MainForm : Form {
 		
-		private ResourceLang _currentlyOpenResource;
+		private ResourceLang   _currentResource;
+		private ResourceSource _currentSource;
+		private String         _currentPath;
 		
 		private ResourceDataView _viewData;
 		private ResourceListView _viewList;
@@ -22,23 +26,27 @@ namespace Anolis.Resourcer {
 			this.Load += new EventHandler(MainForm_Load);
 			__resources.NodeMouseClick += new TreeNodeMouseClickEventHandler(__resources_NodeMouseClick);
 			
-			
+			this.__tSrcOpen.Click += new EventHandler(__tSrcOpen_Click);
 			
 			_viewData = new ResourceDataView();
 			_viewList = new ResourceListView();
 		}
 		
 #region UI Events
+	
+	#region Toolbar
 		
-		private void MainForm_Load(Object sender, EventArgs e) {
-			
-		}
-		
-		private void __browse_Click(Object sender, EventArgs e) {
+		private void __tSrcOpen_Click(object sender, EventArgs e) {
 			
 			if(__ofd.ShowDialog(this) != DialogResult.OK) return;
 			
-			LoadSource( __filePath.Text = __ofd.FileName );
+			LoadSource( _currentPath = __ofd.FileName );
+			
+		}
+		
+	#endregion
+		
+		private void MainForm_Load(Object sender, EventArgs e) {
 			
 		}
 		
@@ -61,6 +69,8 @@ namespace Anolis.Resourcer {
 		public StatusStrip StatusBar { get { return __status; } }
 		
 		private void LoadSource(String path) {
+			
+			this.Text = Path.GetFileName( path ) + " - Anolis Resourcer";
 			
 			ResourceSource source = ResourceSource.Open(path, true);
 			
@@ -93,13 +103,20 @@ namespace Anolis.Resourcer {
 		
 		private void LoadResource(ResourceLang resource) {
 			
-			_currentlyOpenResource = resource;
+			_currentResource = resource;
 			
-			ResourceType type = resource.Name.Type;
+			ResourceData data = resource.Data;
+			
+			// Status bar
+			this.__sType.Text = data.GetType().Name;
+			this.__sSize.Text = data.RawData.Length.ToString(Cult.CurrentCulture) + " Bytes";
+			this.__sPath.Text = _currentPath; // TODO: Add in resource location details
+			
+			__sType.BackColor = data is Anolis.Core.Data.UnknownResourceData ? System.Drawing.Color.LightYellow : System.Drawing.SystemColors.Control;
 			
 			EnsureView( _viewData );
 			
-			_viewData.ShowResource( resource.Data );
+			_viewData.ShowResource( data );
 			
 		}
 		
@@ -127,7 +144,7 @@ namespace Anolis.Resourcer {
 			
 			if(__sfd.ShowDialog(this) != DialogResult.OK) return;
 			
-			_currentlyOpenResource.Data.Save( __sfd.FileName );
+			_currentResource.Data.Save( __sfd.FileName );
 			
 		}
 		

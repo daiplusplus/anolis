@@ -23,9 +23,11 @@ namespace Anolis.Resourcer {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			System.Windows.Forms.ToolStripSeparator @__tSep1;
 			System.Windows.Forms.ToolStripSeparator @__tSep2;
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+			System.Windows.Forms.ToolStripStatusLabel @__sSep1;
+			System.Windows.Forms.ToolStripStatusLabel @__sSep2;
 			this.@__resources = new System.Windows.Forms.TreeView();
 			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
@@ -33,31 +35,51 @@ namespace Anolis.Resourcer {
 			this.@__status = new System.Windows.Forms.StatusStrip();
 			this.@__t = new System.Windows.Forms.ToolStrip();
 			this.@__tSrcOpen = new System.Windows.Forms.ToolStripButton();
-			this.@__tResExtract = new System.Windows.Forms.ToolStripButton();
 			this.@__tSrcSave = new System.Windows.Forms.ToolStripButton();
 			this.@__tSrcReload = new System.Windows.Forms.ToolStripButton();
-			this.@__tResReplace = new System.Windows.Forms.ToolStripButton();
 			this.@__tResAdd = new System.Windows.Forms.ToolStripButton();
+			this.@__tResExtract = new System.Windows.Forms.ToolStripButton();
+			this.@__tResReplace = new System.Windows.Forms.ToolStripButton();
 			this.@__tResDelete = new System.Windows.Forms.ToolStripButton();
 			this.@__tGenOptions = new System.Windows.Forms.ToolStripButton();
 			this.@__tGenAbout = new System.Windows.Forms.ToolStripButton();
+			this.@__sType = new System.Windows.Forms.ToolStripStatusLabel();
+			this.@__sSize = new System.Windows.Forms.ToolStripStatusLabel();
+			this.@__sPath = new System.Windows.Forms.ToolStripStatusLabel();
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
+			@__sSep1 = new System.Windows.Forms.ToolStripStatusLabel();
+			@__sSep2 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__split.Panel1.SuspendLayout();
 			this.@__split.SuspendLayout();
+			this.@__status.SuspendLayout();
 			this.@__t.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// __tSep1
+			// 
+			@__tSep1.Name = "__tSep1";
+			@__tSep1.Size = new System.Drawing.Size(6, 74);
+			// 
+			// __tSep2
+			// 
+			@__tSep2.Name = "__tSep2";
+			@__tSep2.Padding = new System.Windows.Forms.Padding(3);
+			@__tSep2.Size = new System.Drawing.Size(6, 74);
 			// 
 			// __resources
 			// 
 			this.@__resources.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.@__resources.Location = new System.Drawing.Point(0, 0);
 			this.@__resources.Name = "__resources";
-			this.@__resources.Size = new System.Drawing.Size(134, 334);
+			this.@__resources.Size = new System.Drawing.Size(134, 380);
 			this.@__resources.TabIndex = 3;
 			// 
 			// __split
 			// 
+			this.@__split.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__split.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
 			this.@__split.Location = new System.Drawing.Point(0, 74);
 			this.@__split.Margin = new System.Windows.Forms.Padding(0);
@@ -66,15 +88,21 @@ namespace Anolis.Resourcer {
 			// __split.Panel1
 			// 
 			this.@__split.Panel1.Controls.Add(this.@__resources);
-			this.@__split.Size = new System.Drawing.Size(628, 334);
+			this.@__split.Size = new System.Drawing.Size(630, 380);
 			this.@__split.SplitterDistance = 134;
 			this.@__split.TabIndex = 4;
 			// 
 			// __status
 			// 
-			this.@__status.Location = new System.Drawing.Point(0, 411);
+			this.@__status.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.@__sPath,
+            @__sSep1,
+            this.@__sType,
+            @__sSep2,
+            this.@__sSize});
+			this.@__status.Location = new System.Drawing.Point(0, 454);
 			this.@__status.Name = "__status";
-			this.@__status.Size = new System.Drawing.Size(628, 22);
+			this.@__status.Size = new System.Drawing.Size(630, 22);
 			this.@__status.TabIndex = 5;
 			this.@__status.Text = "statusStrip1";
 			// 
@@ -95,7 +123,7 @@ namespace Anolis.Resourcer {
 			this.@__t.Location = new System.Drawing.Point(0, 0);
 			this.@__t.Name = "__t";
 			this.@__t.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.@__t.Size = new System.Drawing.Size(628, 74);
+			this.@__t.Size = new System.Drawing.Size(630, 74);
 			this.@__t.TabIndex = 6;
 			this.@__t.Text = "toolStrip1";
 			// 
@@ -110,6 +138,37 @@ namespace Anolis.Resourcer {
 			this.@__tSrcOpen.Text = "Open";
 			this.@__tSrcOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
+			// __tSrcSave
+			// 
+			this.@__tSrcSave.Image = ((System.Drawing.Image)(resources.GetObject("__tSrcSave.Image")));
+			this.@__tSrcSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+			this.@__tSrcSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__tSrcSave.Name = "__tSrcSave";
+			this.@__tSrcSave.Padding = new System.Windows.Forms.Padding(3);
+			this.@__tSrcSave.Size = new System.Drawing.Size(58, 71);
+			this.@__tSrcSave.Text = "Save";
+			this.@__tSrcSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			// 
+			// __tSrcReload
+			// 
+			this.@__tSrcReload.Image = ((System.Drawing.Image)(resources.GetObject("__tSrcReload.Image")));
+			this.@__tSrcReload.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__tSrcReload.Name = "__tSrcReload";
+			this.@__tSrcReload.Padding = new System.Windows.Forms.Padding(3);
+			this.@__tSrcReload.Size = new System.Drawing.Size(50, 71);
+			this.@__tSrcReload.Text = "Reload";
+			this.@__tSrcReload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			// 
+			// __tResAdd
+			// 
+			this.@__tResAdd.Image = ((System.Drawing.Image)(resources.GetObject("__tResAdd.Image")));
+			this.@__tResAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__tResAdd.Name = "__tResAdd";
+			this.@__tResAdd.Padding = new System.Windows.Forms.Padding(3);
+			this.@__tResAdd.Size = new System.Drawing.Size(36, 71);
+			this.@__tResAdd.Text = "Add";
+			this.@__tResAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			// 
 			// __tResExtract
 			// 
 			this.@__tResExtract.Image = ((System.Drawing.Image)(resources.GetObject("__tResExtract.Image")));
@@ -121,61 +180,25 @@ namespace Anolis.Resourcer {
 			this.@__tResExtract.Text = "Extract";
 			this.@__tResExtract.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
-			// __tSrcSave
-			// 
-			this.@__tSrcSave.Image = ((System.Drawing.Image)(resources.GetObject("__tSrcSave.Image")));
-			this.@__tSrcSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.@__tSrcSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__tSrcSave.Name = "__tSrcSave";
-			this.@__tSrcSave.Size = new System.Drawing.Size(52, 71);
-			this.@__tSrcSave.Text = "Save";
-			this.@__tSrcSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			// 
-			// __tSrcReload
-			// 
-			this.@__tSrcReload.Image = ((System.Drawing.Image)(resources.GetObject("__tSrcReload.Image")));
-			this.@__tSrcReload.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__tSrcReload.Name = "__tSrcReload";
-			this.@__tSrcReload.Size = new System.Drawing.Size(44, 71);
-			this.@__tSrcReload.Text = "Reload";
-			this.@__tSrcReload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			// 
-			// __tSep1
-			// 
-			@__tSep1.Name = "__tSep1";
-			@__tSep1.Size = new System.Drawing.Size(6, 74);
-			// 
 			// __tResReplace
 			// 
 			this.@__tResReplace.Image = ((System.Drawing.Image)(resources.GetObject("__tResReplace.Image")));
 			this.@__tResReplace.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResReplace.Name = "__tResReplace";
-			this.@__tResReplace.Size = new System.Drawing.Size(49, 71);
+			this.@__tResReplace.Padding = new System.Windows.Forms.Padding(3);
+			this.@__tResReplace.Size = new System.Drawing.Size(55, 71);
 			this.@__tResReplace.Text = "Replace";
 			this.@__tResReplace.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			// 
-			// __tResAdd
-			// 
-			this.@__tResAdd.Image = ((System.Drawing.Image)(resources.GetObject("__tResAdd.Image")));
-			this.@__tResAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__tResAdd.Name = "__tResAdd";
-			this.@__tResAdd.Size = new System.Drawing.Size(30, 71);
-			this.@__tResAdd.Text = "Add";
-			this.@__tResAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
 			// __tResDelete
 			// 
 			this.@__tResDelete.Image = ((System.Drawing.Image)(resources.GetObject("__tResDelete.Image")));
 			this.@__tResDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResDelete.Name = "__tResDelete";
-			this.@__tResDelete.Size = new System.Drawing.Size(42, 71);
+			this.@__tResDelete.Padding = new System.Windows.Forms.Padding(3);
+			this.@__tResDelete.Size = new System.Drawing.Size(48, 71);
 			this.@__tResDelete.Text = "Delete";
 			this.@__tResDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			// 
-			// __tSep2
-			// 
-			@__tSep2.Name = "__tSep2";
-			@__tSep2.Size = new System.Drawing.Size(6, 74);
 			// 
 			// __tGenOptions
 			// 
@@ -183,7 +206,8 @@ namespace Anolis.Resourcer {
 			this.@__tGenOptions.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tGenOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tGenOptions.Name = "__tGenOptions";
-			this.@__tGenOptions.Size = new System.Drawing.Size(52, 71);
+			this.@__tGenOptions.Padding = new System.Windows.Forms.Padding(3);
+			this.@__tGenOptions.Size = new System.Drawing.Size(58, 71);
 			this.@__tGenOptions.Text = "Options";
 			this.@__tGenOptions.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
@@ -193,15 +217,46 @@ namespace Anolis.Resourcer {
 			this.@__tGenAbout.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tGenAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tGenAbout.Name = "__tGenAbout";
-			this.@__tGenAbout.Size = new System.Drawing.Size(52, 71);
+			this.@__tGenAbout.Padding = new System.Windows.Forms.Padding(3);
+			this.@__tGenAbout.Size = new System.Drawing.Size(58, 71);
 			this.@__tGenAbout.Text = "About";
 			this.@__tGenAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			// 
+			// __sType
+			// 
+			this.@__sType.Name = "__sType";
+			this.@__sType.Size = new System.Drawing.Size(119, 17);
+			this.@__sType.Text = "UnknownResourceData";
+			// 
+			// __sSep1
+			// 
+			@__sSep1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+			@__sSep1.Name = "__sSep1";
+			@__sSep1.Size = new System.Drawing.Size(4, 17);
+			// 
+			// __sSize
+			// 
+			this.@__sSize.Name = "__sSize";
+			this.@__sSize.Size = new System.Drawing.Size(61, 17);
+			this.@__sSize.Text = "1024 Bytes";
+			// 
+			// __sSep2
+			// 
+			@__sSep2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+			@__sSep2.Name = "__sSep2";
+			@__sSep2.Size = new System.Drawing.Size(4, 17);
+			// 
+			// __sPath
+			// 
+			this.@__sPath.Name = "__sPath";
+			this.@__sPath.Size = new System.Drawing.Size(214, 17);
+			this.@__sPath.Text = "C:\\Windows\\system32\\shell32.dll,9\\1\\1033";
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(628, 433);
+			this.ClientSize = new System.Drawing.Size(630, 476);
 			this.Controls.Add(this.@__t);
 			this.Controls.Add(this.@__status);
 			this.Controls.Add(this.@__split);
@@ -210,6 +265,8 @@ namespace Anolis.Resourcer {
 			this.Text = "Anolis Resourcer";
 			this.@__split.Panel1.ResumeLayout(false);
 			this.@__split.ResumeLayout(false);
+			this.@__status.ResumeLayout(false);
+			this.@__status.PerformLayout();
 			this.@__t.ResumeLayout(false);
 			this.@__t.PerformLayout();
 			this.ResumeLayout(false);
@@ -234,6 +291,9 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.ToolStripButton __tResDelete;
 		private System.Windows.Forms.ToolStripButton __tGenOptions;
 		private System.Windows.Forms.ToolStripButton __tGenAbout;
+		private System.Windows.Forms.ToolStripStatusLabel __sPath;
+		private System.Windows.Forms.ToolStripStatusLabel __sType;
+		private System.Windows.Forms.ToolStripStatusLabel __sSize;
 	}
 }
 

@@ -40,17 +40,16 @@ namespace Anolis.Resourcer {
 			
 			foreach(TypeViewer viewer in _viewers) __viewers.Items.Add( new TypeViewerWrapper( viewer ) );
 			
-			__viewers.SelectedIndexChanged += new EventHandler(__viewers_SelectedIndexChanged);
+			__viewers.SelectionChangeCommitted  += new EventHandler(__viewers_SelectionChangeCommitted); // don't use SelectedIndexChange since that's raised by my code
 		}
 		
 #region UI Events
 		
-		private void __viewers_SelectedIndexChanged(object sender, EventArgs e) {
+		private void __viewers_SelectionChangeCommitted(object sender, EventArgs e) {
 			
 			TypeViewer viewer = (__viewers.SelectedItem as TypeViewerWrapper).Viewer;
 			
 			ShowViewer( viewer, _data );
-			
 		}
 		
 #endregion
@@ -88,7 +87,11 @@ namespace Anolis.Resourcer {
 			
 			// Select the right viewer
 			
-			__viewers.SelectedItem = lastIdeal != null ? lastIdeal : lastWorks; // calls ShowViewer via _SelectedIndexChanged
+			TypeViewerWrapper wrapper = lastIdeal != null ? lastIdeal : lastWorks;
+			
+			__viewers.SelectedItem = wrapper;
+			
+			ShowViewer( wrapper.Viewer, _data );
 			
 		}
 		

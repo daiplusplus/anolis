@@ -34,10 +34,10 @@
 			this.uTF32ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__toolsBom = new System.Windows.Forms.ToolStripButton();
 			this.@__toolsEndian = new System.Windows.Forms.ToolStripButton();
-			this.@__text = new System.Windows.Forms.TextBox();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
 			this.@__toolsFont = new System.Windows.Forms.ToolStripButton();
+			this.@__text = new System.Windows.Forms.TextBox();
 			this.@__fdlg = new System.Windows.Forms.FontDialog();
 			this.@__tools.SuspendLayout();
 			this.SuspendLayout();
@@ -84,31 +84,31 @@
 			// aSCIIToolStripMenuItem
 			// 
 			this.aSCIIToolStripMenuItem.Name = "aSCIIToolStripMenuItem";
-			this.aSCIIToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.aSCIIToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
 			this.aSCIIToolStripMenuItem.Text = "ASCII";
 			// 
 			// uTF7ToolStripMenuItem
 			// 
 			this.uTF7ToolStripMenuItem.Name = "uTF7ToolStripMenuItem";
-			this.uTF7ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.uTF7ToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
 			this.uTF7ToolStripMenuItem.Text = "UTF-7";
 			// 
 			// uTF8ToolStripMenuItem
 			// 
 			this.uTF8ToolStripMenuItem.Name = "uTF8ToolStripMenuItem";
-			this.uTF8ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.uTF8ToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
 			this.uTF8ToolStripMenuItem.Text = "UTF-8";
 			// 
 			// uTF16ToolStripMenuItem
 			// 
 			this.uTF16ToolStripMenuItem.Name = "uTF16ToolStripMenuItem";
-			this.uTF16ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.uTF16ToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
 			this.uTF16ToolStripMenuItem.Text = "UTF-16";
 			// 
 			// uTF32ToolStripMenuItem
 			// 
 			this.uTF32ToolStripMenuItem.Name = "uTF32ToolStripMenuItem";
-			this.uTF32ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.uTF32ToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
 			this.uTF32ToolStripMenuItem.Text = "UTF-32";
 			// 
 			// __toolsBom
@@ -132,15 +132,6 @@
 			this.@__toolsEndian.Size = new System.Drawing.Size(23, 22);
 			this.@__toolsEndian.Text = "Unicode Big-Endian";
 			// 
-			// __text
-			// 
-			this.@__text.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.@__text.Location = new System.Drawing.Point(0, 25);
-			this.@__text.Multiline = true;
-			this.@__text.Name = "__text";
-			this.@__text.Size = new System.Drawing.Size(644, 422);
-			this.@__text.TabIndex = 3;
-			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -162,6 +153,16 @@
 			this.@__toolsFont.Size = new System.Drawing.Size(49, 22);
 			this.@__toolsFont.Text = "Font";
 			this.@__toolsFont.Click += new System.EventHandler(this.@__toolsFont_Click);
+			// 
+			// __text
+			// 
+			this.@__text.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.@__text.Location = new System.Drawing.Point(0, 25);
+			this.@__text.Multiline = true;
+			this.@__text.Name = "__text";
+			this.@__text.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.@__text.Size = new System.Drawing.Size(644, 422);
+			this.@__text.TabIndex = 3;
 			// 
 			// __fdlg
 			// 
