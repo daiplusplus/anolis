@@ -8,13 +8,13 @@ using Cult = System.Globalization.CultureInfo;
 
 using Anolis.Core;
 using Anolis.Core.PE;
+using Anolis.Resourcer.Settings;
 
 namespace Anolis.Resourcer {
 	
 	public partial class MainForm : Form {
 		
 		private ResourceLang   _currentResource;
-		private ResourceSource _currentSource;
 		private String         _currentPath;
 		
 		private ResourceDataView _viewData;
@@ -26,17 +26,23 @@ namespace Anolis.Resourcer {
 			this.Load += new EventHandler(MainForm_Load);
 			__resources.NodeMouseClick += new TreeNodeMouseClickEventHandler(__resources_NodeMouseClick);
 			
-			this.__tSrcOpen.Click += new EventHandler(__tSrcOpen_Click);
+			this.__tSrcOpen.ButtonClick += new EventHandler(__tSrcOpen_ButtonClick);
+			this.__tSrcOpen.DropDownOpening += new EventHandler(__tSrcOpen_DropDownOpening);
+			this.__tResExtract.Click += new EventHandler(__tResExtract_Click);
 			
 			_viewData = new ResourceDataView();
 			_viewList = new ResourceListView();
 		}
 		
+		internal ResourcerContext Context { get; set; }
+		
+		public StatusStrip StatusBar { get { return __status; } }
+		
 #region UI Events
 	
 	#region Toolbar
 		
-		private void __tSrcOpen_Click(object sender, EventArgs e) {
+		private void __tSrcOpen_ButtonClick(object sender, EventArgs e) {
 			
 			if(__ofd.ShowDialog(this) != DialogResult.OK) return;
 			
@@ -44,9 +50,30 @@ namespace Anolis.Resourcer {
 			
 		}
 		
+		private void __tSrcOpen_DropDownOpening(object sender, EventArgs e) {
+			
+			LoadMru();
+		}
+		
+		private void __tResExtract_Click(object sender, EventArgs e) {
+			
+			SaveCurrentResourceToFile();
+			
+		}
+		
+		private void __tSrcMruItem_Click(object sender, EventArgs e) {
+			
+			String path = (sender as ToolStripItem).Tag as String;
+			
+			LoadSourceFromMru(path);
+			
+		}
+		
 	#endregion
 		
 		private void MainForm_Load(Object sender, EventArgs e) {
+			
+			
 			
 		}
 		
@@ -66,13 +93,47 @@ namespace Anolis.Resourcer {
 		
 #endregion
 		
-		public StatusStrip StatusBar { get { return __status; } }
+		/// <summary>Loads the MRU from the User Settings file.</summary>
+		private void LoadMru() {
+			
+			__tSrcOpen.DropDown.Items.Clear();
+			
+			String[] mruItems = Context.Mru.Items;
+			
+			for(int i=0;i<mruItems.Length;i++) {
+				
+				ToolStripItem item = new ToolStripMenuItem( i.ToString(Cult.InvariantCulture) + ' ' + mruItems[i] );
+				item.Tag = mruItems[i];
+				item.Click += new EventHandler(__tSrcMruItem_Click);
+				
+				__tSrcOpen.DropDown.Items.Add( item );
+				
+			}
+			
+		}
 		
-		private void LoadSource(String path) {
+		private void LoadSourceFromMru(String path) {
+			
+			if(!LoadSource(path)) {
+				
+				DialogResult result = MessageBox.Show(this, "Resourcer could not open the file \"" + path + "\", would you like to remove it from the most-recently-ued list?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				
+				if(result == DialogResult.Yes) {
+					Context.Mru.Remove( path );
+				}
+			}
+			
+		}
+		
+		private Boolean LoadSource(String path) {
 			
 			this.Text = Path.GetFileName( path ) + " - Anolis Resourcer";
 			
 			ResourceSource source = ResourceSource.Open(path, true);
+			if(source == null) return false;
+			
+			Context.Source = source;
+			Context.Mru.Push( path );
 			
 			ResourceTypeCollection types = source.Types;
 			
@@ -98,6 +159,8 @@ namespace Anolis.Resourcer {
 				
 				__resources.Nodes.Add( typeNode );
 			}
+			
+			return true;
 			
 		}
 		
@@ -140,11 +203,30 @@ namespace Anolis.Resourcer {
 			
 		}
 		
+		
+		
+		////////////////////////////////////////////////
+		// Current Source Actions
+		//
+		
+		////////////////////////////////////////////////
+		// Current Resource Actions
+		//
+		
 		private void SaveCurrentResourceToFile() {
+			
+			__sfd.Filter = _currentResource.Data.FileFilter + "|Binary Data File (*.bin)|.bin";;
 			
 			if(__sfd.ShowDialog(this) != DialogResult.OK) return;
 			
-			_currentResource.Data.Save( __sfd.FileName );
+			if( __sfd.FilterIndex == 1 ) { // .FilterIndex has 1 = first item, 2 = second item, and so on
+				
+				_currentResource.Data.SaveAs( __sfd.FileName );
+				
+			} else { 
+				
+				_currentResource.Data.Save( __sfd.FileName );
+			}
 			
 		}
 		

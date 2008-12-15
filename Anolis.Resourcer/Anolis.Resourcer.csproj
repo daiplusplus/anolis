@@ -42,6 +42,7 @@
       <HintPath>..\_ref\Be.Windows.Forms.HexBox.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
@@ -141,6 +142,14 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ResourcerContext.cs" />
+    <Compile Include="Settings\Mru.cs" />
+    <Compile Include="Settings\RegistrySettingsProvider.cs" />
+    <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Settings\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="TypeViewers\HtmlViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -194,7 +203,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Resources\TransparentBg.png" />
+    <None Include="Settings\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

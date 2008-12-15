@@ -18,16 +18,10 @@ namespace Anolis.Resourcer.TypeViewers {
 		
 		public override void RenderResource(ResourceData resource) {
 			
-			Byte[] data = resource.RawData;
+			ImageResourceData ri = resource as ImageResourceData;
+			if(ri == null) throw new ArgumentException("Provided Resource was not an ImageResourceData", "resource");
 			
-			MemoryStream stream = new MemoryStream( data );
-			
-			// check if the resource is a BITMAP so it can add the right headers to the stream before making an Image from it
-			// hmmm, how do I give it a ResourceType though?
-			
-			Image image = Image.FromStream( stream, true, true );
-			
-			__pv.Image = image;
+			__pv.Image = ri.Image;
 			
 		}
 		

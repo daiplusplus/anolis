@@ -26,6 +26,10 @@ namespace Anolis.Core.Data {
 			// TODO
 			
 		}
+
+		public override string FileFilter {
+			get { return "Icon File (*.ico)|.ico"; }
+		}
 		
 	}
 	
@@ -41,6 +45,10 @@ namespace Anolis.Core.Data {
 			
 			// TODO
 			
+		}
+		
+		public override string FileFilter {
+			get { return "Cursor File (*.cur)|.cur"; }
 		}
 		
 	}
