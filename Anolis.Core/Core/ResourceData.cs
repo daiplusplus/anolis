@@ -129,7 +129,7 @@ namespace Anolis.Core {
 			
 			using(Stream stream = File.Create(path)) {
 				
-				SaveAs(stream);
+				Save(stream);
 			}
 			
 		}
@@ -142,13 +142,23 @@ namespace Anolis.Core {
 		/// <summary>Saves the ResourceData to disk in a suitable file format. The base implementation is the same as Save. If the file exists it will be overwritten.</summary>
 		public void SaveAs(String path) {
 			
-			Save(path);
+			if(path == null) throw new ArgumentNullException("path");
+			
+			using(Stream stream = File.Create(path)) {
+				
+				SaveAs(stream);
+			}
+			
 		}
 		
 		public virtual void SaveAs(Stream stream) {
 			
 			Save(stream);
 		}
+		
+		/// <summary>Gets the file extension and friendly name in .NET "File Filter" format associated with the data format contained within.</summary>
+		/// <example>Binary Data File (*.bin)|.bin</example>
+		public abstract String FileFilter { get; }
 		
 	}
 

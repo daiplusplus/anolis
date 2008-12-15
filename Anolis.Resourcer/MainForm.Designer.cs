@@ -25,16 +25,19 @@ namespace Anolis.Resourcer {
 		private void InitializeComponent() {
 			System.Windows.Forms.ToolStripSeparator @__tSep1;
 			System.Windows.Forms.ToolStripSeparator @__tSep2;
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			System.Windows.Forms.ToolStripStatusLabel @__sSep1;
 			System.Windows.Forms.ToolStripStatusLabel @__sSep2;
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.@__resources = new System.Windows.Forms.TreeView();
 			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
 			this.@__sfd = new System.Windows.Forms.SaveFileDialog();
 			this.@__status = new System.Windows.Forms.StatusStrip();
+			this.@__sPath = new System.Windows.Forms.ToolStripStatusLabel();
+			this.@__sType = new System.Windows.Forms.ToolStripStatusLabel();
+			this.@__sSize = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__t = new System.Windows.Forms.ToolStrip();
-			this.@__tSrcOpen = new System.Windows.Forms.ToolStripButton();
+			this.@__tSrcOpen = new System.Windows.Forms.ToolStripSplitButton();
 			this.@__tSrcSave = new System.Windows.Forms.ToolStripButton();
 			this.@__tSrcReload = new System.Windows.Forms.ToolStripButton();
 			this.@__tResAdd = new System.Windows.Forms.ToolStripButton();
@@ -43,9 +46,6 @@ namespace Anolis.Resourcer {
 			this.@__tResDelete = new System.Windows.Forms.ToolStripButton();
 			this.@__tGenOptions = new System.Windows.Forms.ToolStripButton();
 			this.@__tGenAbout = new System.Windows.Forms.ToolStripButton();
-			this.@__sType = new System.Windows.Forms.ToolStripStatusLabel();
-			this.@__sSize = new System.Windows.Forms.ToolStripStatusLabel();
-			this.@__sPath = new System.Windows.Forms.ToolStripStatusLabel();
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			@__sSep1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -66,6 +66,18 @@ namespace Anolis.Resourcer {
 			@__tSep2.Name = "__tSep2";
 			@__tSep2.Padding = new System.Windows.Forms.Padding(3);
 			@__tSep2.Size = new System.Drawing.Size(6, 74);
+			// 
+			// __sSep1
+			// 
+			@__sSep1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+			@__sSep1.Name = "__sSep1";
+			@__sSep1.Size = new System.Drawing.Size(4, 17);
+			// 
+			// __sSep2
+			// 
+			@__sSep2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+			@__sSep2.Name = "__sSep2";
+			@__sSep2.Size = new System.Drawing.Size(4, 17);
 			// 
 			// __resources
 			// 
@@ -106,6 +118,24 @@ namespace Anolis.Resourcer {
 			this.@__status.TabIndex = 5;
 			this.@__status.Text = "statusStrip1";
 			// 
+			// __sPath
+			// 
+			this.@__sPath.Name = "__sPath";
+			this.@__sPath.Size = new System.Drawing.Size(214, 17);
+			this.@__sPath.Text = "C:\\Windows\\system32\\shell32.dll,9\\1\\1033";
+			// 
+			// __sType
+			// 
+			this.@__sType.Name = "__sType";
+			this.@__sType.Size = new System.Drawing.Size(119, 17);
+			this.@__sType.Text = "UnknownResourceData";
+			// 
+			// __sSize
+			// 
+			this.@__sSize.Name = "__sSize";
+			this.@__sSize.Size = new System.Drawing.Size(61, 17);
+			this.@__sSize.Text = "1024 Bytes";
+			// 
 			// __t
 			// 
 			this.@__t.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -134,7 +164,7 @@ namespace Anolis.Resourcer {
 			this.@__tSrcOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tSrcOpen.Name = "__tSrcOpen";
 			this.@__tSrcOpen.Padding = new System.Windows.Forms.Padding(3);
-			this.@__tSrcOpen.Size = new System.Drawing.Size(58, 71);
+			this.@__tSrcOpen.Size = new System.Drawing.Size(70, 71);
 			this.@__tSrcOpen.Text = "Open";
 			this.@__tSrcOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
@@ -222,36 +252,6 @@ namespace Anolis.Resourcer {
 			this.@__tGenAbout.Text = "About";
 			this.@__tGenAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
-			// __sType
-			// 
-			this.@__sType.Name = "__sType";
-			this.@__sType.Size = new System.Drawing.Size(119, 17);
-			this.@__sType.Text = "UnknownResourceData";
-			// 
-			// __sSep1
-			// 
-			@__sSep1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-			@__sSep1.Name = "__sSep1";
-			@__sSep1.Size = new System.Drawing.Size(4, 17);
-			// 
-			// __sSize
-			// 
-			this.@__sSize.Name = "__sSize";
-			this.@__sSize.Size = new System.Drawing.Size(61, 17);
-			this.@__sSize.Text = "1024 Bytes";
-			// 
-			// __sSep2
-			// 
-			@__sSep2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-			@__sSep2.Name = "__sSep2";
-			@__sSep2.Size = new System.Drawing.Size(4, 17);
-			// 
-			// __sPath
-			// 
-			this.@__sPath.Name = "__sPath";
-			this.@__sPath.Size = new System.Drawing.Size(214, 17);
-			this.@__sPath.Text = "C:\\Windows\\system32\\shell32.dll,9\\1\\1033";
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -282,7 +282,6 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.SaveFileDialog __sfd;
 		private System.Windows.Forms.StatusStrip __status;
 		private System.Windows.Forms.ToolStrip __t;
-		private System.Windows.Forms.ToolStripButton __tSrcOpen;
 		private System.Windows.Forms.ToolStripButton __tResExtract;
 		private System.Windows.Forms.ToolStripButton __tSrcSave;
 		private System.Windows.Forms.ToolStripButton __tSrcReload;
@@ -294,6 +293,7 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.ToolStripStatusLabel __sPath;
 		private System.Windows.Forms.ToolStripStatusLabel __sType;
 		private System.Windows.Forms.ToolStripStatusLabel __sSize;
+		private System.Windows.Forms.ToolStripSplitButton __tSrcOpen;
 	}
 }
 

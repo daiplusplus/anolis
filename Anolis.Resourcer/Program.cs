@@ -6,12 +6,23 @@ namespace Anolis.Resourcer {
 	
 	public static class Program {
 		
+		private static ResourcerContext _context;
+		
 		[STAThread]
 		public static void Main() {
 			
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
+			
+			_context = new ResourcerContext();
+			
+			MainForm main = new MainForm();
+			main.Context = _context;
+			
+			Application.Run( main );
+			
+			_context.Save();
+			
 		}
 		
 		public static Boolean IfYouAreReadingThisThenYouHaveNoLife() {

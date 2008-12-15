@@ -14,5 +14,9 @@ namespace Anolis.Core.Data {
 			return new UnknownResourceData(lang, rawData);
 		}
 		
+		public override string FileFilter {
+			get { return "Binary Data File (*.bin)|.bin"; }
+		}
+		
 	}
 }
