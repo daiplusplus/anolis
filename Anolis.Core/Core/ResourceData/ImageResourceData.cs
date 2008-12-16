@@ -229,7 +229,7 @@ namespace Anolis.Core.Data {
 					// so here goes nothing:
 					
 					// Maybe if I get that internship next year on the VS team I can take a look at the source and identify the cause:
-					dibSize += 2;
+					if( dibSize + 2 == bitmapData.Length) dibSize += 2;
 					
 					// EDIT: Compare against bitmapData.Length
 					if(dibSize != bitmapData.Length) throw new InvalidDataException("DIB Image Size was not of the expected value.");

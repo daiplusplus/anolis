@@ -67,10 +67,20 @@ namespace Anolis.Core.NativeTypes {
 #endregion
 	
 #region Icons and Cursors
+/*	
+	/// <summary>Defines the memory layout of a RT_GROUP_ICON Win32 resource.</summary>
+	[StructLayout(LayoutKind.Sequential, Pack=2)]
+	internal struct ResourceIconDirectory {
+		public ushort wReserved;
+		public ushort wType;
+		public ushort wCount;
+		/// <summary>This is an inline array</summary>
+		public MemoryIconDirEntry arEntries;
+	}
 	
 	/// <summary>Helps to defines the memory layout of a RT_GROUP_ICON resource. In particular its wId member indicates the RT_ICON resource for the directory entry.</summary>
 	[StructLayout(LayoutKind.Sequential, Pack=2)]
-	internal struct MemoryIconDirEntry {
+	internal struct ResourceIconDirectoryMember {
 		public byte bWidth;
 		public byte bHeight;
 		public byte bColorCount;
@@ -81,19 +91,17 @@ namespace Anolis.Core.NativeTypes {
 		public ushort wId;
 	}
 	
-	/// <summary>Defines the memory layout of a RT_GROUP_ICON Win32 resource.</summary>
 	[StructLayout(LayoutKind.Sequential, Pack=2)]
-	internal struct MemoryIconDir {
-		public ushort wReserved;
-		public ushort wType;
-		public ushort wCount;
-		/// <summary>This is an inline array</summary>
-		public MemoryIconDirEntry arEntries;
+	internal struct IconImage {
+		BitmapInfoHeader icHeader;      // DIB header
+		RgbQuad[]        icColors;   // Color table
+		Byte[]           icXOR;      // DIB bits for XOR mask
+		Byte[]           icAND;      // DIB bits for AND mask
 	}
 	
 	/// <summary>Defines the peristent format of an icon directory entry in a .ICO file.</summary>
 	[StructLayout(LayoutKind.Sequential, Pack=2)]
-	internal struct FileIconDirEntry {
+	internal struct FileIconDirectoryMember {
 		public byte bWidth;
 		public byte bHeight;
 		public byte bColorCount;
@@ -103,7 +111,7 @@ namespace Anolis.Core.NativeTypes {
 		public uint dwBytesInRes;
 		public uint dwImageOffset;
 	}
-
+*/
 #endregion
 	
 }

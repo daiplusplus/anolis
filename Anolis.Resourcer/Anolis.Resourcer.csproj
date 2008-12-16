@@ -210,6 +210,16 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Main\Options.png" />
+    <Content Include="Resources\Main\ResAdd.png" />
+    <Content Include="Resources\Main\ResDel.png" />
+    <Content Include="Resources\Main\ResExt.png" />
+    <Content Include="Resources\Main\ResRep.png" />
+    <Content Include="Resources\Main\SrcOpen.png" />
+    <Content Include="Resources\Main\SrcRev.png" />
+    <Content Include="Resources\Main\SrcSave.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

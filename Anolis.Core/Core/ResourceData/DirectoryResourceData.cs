@@ -1,16 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace Anolis.Core.Data {
 	
 	public abstract class DirectoryResourceData : ResourceData {
 		
+		public DirectoryMemberCollection Members { get; private set; }
+		
+		protected Collection<IDirectoryMember> UnderlyingMembers { get; private set; }
+		
 		protected DirectoryResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
+			
+			UnderlyingMembers = new Collection<IDirectoryMember>();
+			Members           = new DirectoryMemberCollection( UnderlyingMembers );
+			
 		}
 		
-		// expose directory as a dictionary?
-		
+	}
+	
+	public sealed class DirectoryMemberCollection : ReadOnlyCollection<IDirectoryMember> {
+		public DirectoryMemberCollection(IList<IDirectoryMember> list) : base(list) {
+		}
+	}
+	
+	public interface IDirectoryMember {
+		String Description { get; }
+		ResourceData GetResourceData();
 	}
 	
 	public sealed class IconDirectoryResourceData : DirectoryResourceData {
@@ -19,6 +36,9 @@ namespace Anolis.Core.Data {
 		}
 		
 		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out ResourceData data) {
+			
+			
+			
 			
 			data = null;
 			return false;

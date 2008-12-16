@@ -60,6 +60,62 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Options {
+            get {
+                object obj = ResourceManager.GetObject("Options", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ResAdd {
+            get {
+                object obj = ResourceManager.GetObject("ResAdd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ResDel {
+            get {
+                object obj = ResourceManager.GetObject("ResDel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ResExt {
+            get {
+                object obj = ResourceManager.GetObject("ResExt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ResRep {
+            get {
+                object obj = ResourceManager.GetObject("ResRep", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SrcOpen {
+            get {
+                object obj = ResourceManager.GetObject("SrcOpen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SrcRev {
+            get {
+                object obj = ResourceManager.GetObject("SrcRev", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SrcSave {
+            get {
+                object obj = ResourceManager.GetObject("SrcSave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap TransparentBg {
             get {
                 object obj = ResourceManager.GetObject("TransparentBg", resourceCulture);

@@ -27,7 +27,6 @@ namespace Anolis.Resourcer {
 			System.Windows.Forms.ToolStripSeparator @__tSep2;
 			System.Windows.Forms.ToolStripStatusLabel @__sSep1;
 			System.Windows.Forms.ToolStripStatusLabel @__sSep2;
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.@__resources = new System.Windows.Forms.TreeView();
 			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
@@ -45,7 +44,6 @@ namespace Anolis.Resourcer {
 			this.@__tResReplace = new System.Windows.Forms.ToolStripButton();
 			this.@__tResDelete = new System.Windows.Forms.ToolStripButton();
 			this.@__tGenOptions = new System.Windows.Forms.ToolStripButton();
-			this.@__tGenAbout = new System.Windows.Forms.ToolStripButton();
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			@__sSep1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -148,8 +146,7 @@ namespace Anolis.Resourcer {
             this.@__tResReplace,
             this.@__tResDelete,
             @__tSep2,
-            this.@__tGenOptions,
-            this.@__tGenAbout});
+            this.@__tGenOptions});
 			this.@__t.Location = new System.Drawing.Point(0, 0);
 			this.@__t.Name = "__t";
 			this.@__t.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -159,7 +156,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tSrcOpen
 			// 
-			this.@__tSrcOpen.Image = ((System.Drawing.Image)(resources.GetObject("__tSrcOpen.Image")));
+			this.@__tSrcOpen.Image = global::Anolis.Resourcer.Properties.Resources.SrcOpen;
 			this.@__tSrcOpen.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tSrcOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tSrcOpen.Name = "__tSrcOpen";
@@ -170,7 +167,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tSrcSave
 			// 
-			this.@__tSrcSave.Image = ((System.Drawing.Image)(resources.GetObject("__tSrcSave.Image")));
+			this.@__tSrcSave.Image = global::Anolis.Resourcer.Properties.Resources.SrcSave;
 			this.@__tSrcSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tSrcSave.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tSrcSave.Name = "__tSrcSave";
@@ -181,27 +178,29 @@ namespace Anolis.Resourcer {
 			// 
 			// __tSrcReload
 			// 
-			this.@__tSrcReload.Image = ((System.Drawing.Image)(resources.GetObject("__tSrcReload.Image")));
+			this.@__tSrcReload.Image = global::Anolis.Resourcer.Properties.Resources.SrcRev;
+			this.@__tSrcReload.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tSrcReload.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tSrcReload.Name = "__tSrcReload";
 			this.@__tSrcReload.Padding = new System.Windows.Forms.Padding(3);
-			this.@__tSrcReload.Size = new System.Drawing.Size(50, 71);
-			this.@__tSrcReload.Text = "Reload";
+			this.@__tSrcReload.Size = new System.Drawing.Size(58, 71);
+			this.@__tSrcReload.Text = "Revert";
 			this.@__tSrcReload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
 			// __tResAdd
 			// 
-			this.@__tResAdd.Image = ((System.Drawing.Image)(resources.GetObject("__tResAdd.Image")));
+			this.@__tResAdd.Image = global::Anolis.Resourcer.Properties.Resources.ResAdd;
+			this.@__tResAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tResAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResAdd.Name = "__tResAdd";
 			this.@__tResAdd.Padding = new System.Windows.Forms.Padding(3);
-			this.@__tResAdd.Size = new System.Drawing.Size(36, 71);
+			this.@__tResAdd.Size = new System.Drawing.Size(58, 71);
 			this.@__tResAdd.Text = "Add";
 			this.@__tResAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
 			// __tResExtract
 			// 
-			this.@__tResExtract.Image = ((System.Drawing.Image)(resources.GetObject("__tResExtract.Image")));
+			this.@__tResExtract.Image = global::Anolis.Resourcer.Properties.Resources.ResExt;
 			this.@__tResExtract.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tResExtract.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResExtract.Name = "__tResExtract";
@@ -212,27 +211,29 @@ namespace Anolis.Resourcer {
 			// 
 			// __tResReplace
 			// 
-			this.@__tResReplace.Image = ((System.Drawing.Image)(resources.GetObject("__tResReplace.Image")));
+			this.@__tResReplace.Image = global::Anolis.Resourcer.Properties.Resources.ResRep;
+			this.@__tResReplace.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tResReplace.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResReplace.Name = "__tResReplace";
 			this.@__tResReplace.Padding = new System.Windows.Forms.Padding(3);
-			this.@__tResReplace.Size = new System.Drawing.Size(55, 71);
+			this.@__tResReplace.Size = new System.Drawing.Size(58, 71);
 			this.@__tResReplace.Text = "Replace";
 			this.@__tResReplace.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
 			// __tResDelete
 			// 
-			this.@__tResDelete.Image = ((System.Drawing.Image)(resources.GetObject("__tResDelete.Image")));
+			this.@__tResDelete.Image = global::Anolis.Resourcer.Properties.Resources.ResDel;
+			this.@__tResDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tResDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResDelete.Name = "__tResDelete";
 			this.@__tResDelete.Padding = new System.Windows.Forms.Padding(3);
-			this.@__tResDelete.Size = new System.Drawing.Size(48, 71);
+			this.@__tResDelete.Size = new System.Drawing.Size(58, 71);
 			this.@__tResDelete.Text = "Delete";
 			this.@__tResDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
 			// __tGenOptions
 			// 
-			this.@__tGenOptions.Image = ((System.Drawing.Image)(resources.GetObject("__tGenOptions.Image")));
+			this.@__tGenOptions.Image = global::Anolis.Resourcer.Properties.Resources.Options;
 			this.@__tGenOptions.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tGenOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tGenOptions.Name = "__tGenOptions";
@@ -240,17 +241,6 @@ namespace Anolis.Resourcer {
 			this.@__tGenOptions.Size = new System.Drawing.Size(58, 71);
 			this.@__tGenOptions.Text = "Options";
 			this.@__tGenOptions.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			// 
-			// __tGenAbout
-			// 
-			this.@__tGenAbout.Image = ((System.Drawing.Image)(resources.GetObject("__tGenAbout.Image")));
-			this.@__tGenAbout.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.@__tGenAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__tGenAbout.Name = "__tGenAbout";
-			this.@__tGenAbout.Padding = new System.Windows.Forms.Padding(3);
-			this.@__tGenAbout.Size = new System.Drawing.Size(58, 71);
-			this.@__tGenAbout.Text = "About";
-			this.@__tGenAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
 			// MainForm
 			// 
@@ -289,7 +279,6 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.ToolStripButton __tResReplace;
 		private System.Windows.Forms.ToolStripButton __tResDelete;
 		private System.Windows.Forms.ToolStripButton __tGenOptions;
-		private System.Windows.Forms.ToolStripButton __tGenAbout;
 		private System.Windows.Forms.ToolStripStatusLabel __sPath;
 		private System.Windows.Forms.ToolStripStatusLabel __sType;
 		private System.Windows.Forms.ToolStripStatusLabel __sSize;
