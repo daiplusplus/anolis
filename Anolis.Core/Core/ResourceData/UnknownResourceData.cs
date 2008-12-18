@@ -15,7 +15,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override string FileFilter {
-			get { return "Binary Data File (*.bin)|.bin"; }
+			get { return "Binary Data File (*.bin)|*.bin"; }
 		}
 		
 	}

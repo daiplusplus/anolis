@@ -74,6 +74,13 @@ namespace Anolis.Core {
 					break;
 				
 #endregion
+				
+				// experiment:
+				
+				case ResourceHint.IconImage:
+					
+					if( IconImageResourceData.TryCreate(lang, rawData, out rd) ) return rd;
+					break;
 					
 /*					case Win32ResourceType.CursorImage:
 				case Win32ResourceType.IconImage:

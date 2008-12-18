@@ -12,8 +12,6 @@ namespace Anolis.Resourcer {
 	/// <summary>All the information for Resourcer in one place.</summary>
 	internal sealed class ResourcerContext {
 		
-		private ResourceSource _source;
-		
 		private List<TypeViewer> _viewers;
 		
 		private Mru _mru;

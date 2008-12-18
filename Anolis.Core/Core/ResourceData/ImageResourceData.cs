@@ -4,6 +4,7 @@ using System.IO;
 
 using System.Runtime.InteropServices;
 using Anolis.Core.NativeTypes;
+using Anolis.Core.Utility;
 
 namespace Anolis.Core.Data {
 	
@@ -70,7 +71,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override string FileFilter {
-			get { return "GIF Image (*.gif)|.gif"; }
+			get { return "GIF Image (*.gif)|*.gif"; }
 		}
 		
 	}
@@ -98,7 +99,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override string FileFilter {
-			get { return "JPEG Image (*.jpg)|.jpg"; }
+			get { return "JPEG Image (*.jpg)|*.jpg"; }
 		}
 		
 	}
@@ -112,11 +113,7 @@ namespace Anolis.Core.Data {
 			
 			typed = null;
 			
-			if(data.Length < 3) return false;
-			
-			String sig = System.Text.Encoding.ASCII.GetString(data, 1, 3); // ignore first byte
-			
-			if(sig != "PNG") return false;
+			if(!LooksLikePng(data)) return false;
 			
 			Image image;
 			
@@ -128,234 +125,149 @@ namespace Anolis.Core.Data {
 			
 		}
 		
+		internal static Boolean LooksLikePng(Byte[] data) {
+			
+			if(data.Length < 3) return false;
+			
+			String sig = System.Text.Encoding.ASCII.GetString(data, 1, 3); // ignore first byte
+			
+			return sig == "PNG";
+			
+		}
+		
 		public override string FileFilter {
-			get { return "PNG Image (*.png)|.png"; }
+			get { return "PNG Image (*.png)|*.png"; }
 		}
 		
 	}
 	
 	public sealed class BmpImageResourceData : ImageResourceData {
 		
-		private BmpImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
+		private FileDib _dib;
+		
+		// HACK: When I implement the IResourceDataFactory patterns I should simplify the constructor here
+		
+		private BmpImageResourceData(FileDib dib, Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
+			_dib = dib;
 		}
 		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] data, out ResourceData typed) {
+		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out ResourceData typed) {
 			
 			// check if the data is of the right format before working with it
 			
-			// it's worth pointing out that the .NET Image class does not support 32-bit Bitmaps. It needs to be converted into a PNG image before it can be displayed
-			// ...which is a bit of a pain. I should google for a solution
+			FileDib dib = new FileDib( rawData );
 			
-			// don't forget the various header file formats
+			Bitmap bmp;
 			
-			typed = BmpImageResourceData.Create(lang, data);
+			if(!dib.TryToBitmap(out bmp)) {
+				typed = null;
+				return false;
+			}
 			
-			return typed != null;
+			typed = new BmpImageResourceData(dib, bmp, lang, rawData);
+			return true;
 			
 		}
 		
-		private static BmpImageResourceData Create(ResourceLang lang, Byte[] rawData) {
-			
-			Image image;
-			
-			Byte[] bitmapFileData = HasBitmapFileHeader(rawData) ? rawData : CreateBitmapFileData(rawData);
-			
-			if(TryCreateImage(bitmapFileData, out image)) {
-				
-				BmpImageResourceData rd = new BmpImageResourceData(image, lang, rawData);
-				
-				return rd;
-				
-			}
-			
-			return null;
-		}
-		
-		private static Boolean HasBitmapFileHeader(Byte[] rawData) {
-			
-			if(rawData.Length > 2) {
-				return rawData[0] == 'B' && rawData[1] == 'M';
-			}
-			return false;
-			
-		}
-		
-		private static Byte[] CreateBitmapFileData(Byte[] bitmapData) {
-			
-			IntPtr p = Marshal.AllocHGlobal( bitmapData.Length );
-			Marshal.Copy( bitmapData, 0, p, bitmapData.Length );
-			
-			BitmapInfo bitmapInfo = (BitmapInfo)Marshal.PtrToStructure(p, typeof(BitmapInfo) ); // Beats the need for unsafe code
-			
-			Marshal.FreeHGlobal( p );
-			
-			///////////////////////////////////
-			// Calculate the DIB Size
-			
-			BitmapInfoHeader bih = bitmapInfo.bmiHeader;
-			
-			uint colorTableSize = GetPaletteSize( bih );
-			uint bmfhSize       = (uint)Marshal.SizeOf(typeof(BitmapFileHeader));
-			
-			uint dibSize        = bih.biSize + colorTableSize;
-			
-			switch((BiCompression)bitmapInfo.bmiHeader.biCompression) {
-				case BiCompression.BiRle4:
-				case BiCompression.BiRle8:
-				case BiCompression.BiJpeg:
-				case BiCompression.BiPng:
-					// Compressed bitmap, so you cannot calculate the size of the pixeldata
-					// So trust the biSizeImage
-					
-					if( bih.biSizeImage <= 0 ) throw new NotSupportedException();
-					
-					dibSize += bih.biSizeImage;
-					
-					break;
-					
-				case BiCompression.BiBitFields:
-				case BiCompression.BiRgb:
-					// it's not an RLE or compressed so the size can be calculated
-					
-					uint bmBitsSize = WidthBytes( (uint)bih.biWidth * bih.biBitCount ) * (uint)Math.Abs( bih.biHeight );
-					
-					dibSize += bmBitsSize;
-					
-//					System.Diagnostics.Debug.Assert( bmBitsSize == bih.biSizeImage );
-					// commented out because there might be a bitmap that has an incorrect biSizeImage set
-					// the MFC version overwrites this to magically fix any bitmaps passing through. Hmmm.
-					
-					// VS's bitmapFileHeader.bfSize is always magically right, even though I'm doing a faithful re-implementation of the MFC algo and I'm always off by 2 bytes.
-					// so here goes nothing:
-					
-					// Maybe if I get that internship next year on the VS team I can take a look at the source and identify the cause:
-					if( dibSize + 2 == bitmapData.Length) dibSize += 2;
-					
-					// EDIT: Compare against bitmapData.Length
-					if(dibSize != bitmapData.Length) throw new InvalidDataException("DIB Image Size was not of the expected value.");
-					
-					break;
-			}
-			
-			// Now calculate the file size
-			
-			BitmapFileHeader bmfh;
-			bmfh.bfType      = 19778; // "BM"
-			bmfh.bfSize      = dibSize + bmfhSize;
-			bmfh.bfReserved1 = 0;
-			bmfh.bfReserved2 = 0;
-			bmfh.bfOffBits   = bmfhSize + bih.biSize + colorTableSize;
-			
-			
-			// Now turn it into a stream containing a Bitmap recognised by Image
-			
-			// I'll figure out 32-bit compat later on, but I hear it is possible and not too hard
-			
-			Byte[] bitmapFileData = new Byte[ bitmapData.Length + bmfhSize ];
-			
-			p = Marshal.AllocHGlobal( (int)bmfhSize );
-			Marshal.StructureToPtr(bmfh, p, true);
-			
-			Marshal.Copy(p, bitmapFileData, 0, (int)bmfhSize);
-			
-			Marshal.FreeHGlobal(p);
-			
-			Array.Copy(bitmapData, 0, bitmapFileData, 14, bitmapData.Length);
-			
-			return bitmapFileData;
-			
-		}
 		
 		public override void SaveAs(Stream stream) {
 			
 			// don't use Image.Save since we want to save it without any added .NET Image class nonsense, and preserve 32-bit BMPs
 			
-			Byte[] bitmapFileData = CreateBitmapFileData( RawData );
+			Byte[] bitmapFileData = _dib.Data;
 			
 			stream.Write( bitmapFileData, 0, bitmapFileData.Length );
 			
 		}
 		
 		public override string FileFilter {
-			get { return "BMP Image (*.bmp)|.bmp"; }
+			get { return "BMP Image (*.bmp)|*.bmp"; }
 		}
 		
-#region Bitmap Header Work
-		// Function identifiers variations on the MFC ones. Remind me to tidy them up later
+	}
+	
+	public sealed class IconImageResourceData : ImageResourceData {
 		
-		/// <summary>WidthBytes performs DWORD-aligning of DIB scanlines.  The "bits" parameter is the bit count for the scanline (biWidth * biBitCount), and this macro returns the number of DWORD-aligned bytes needed to hold those bits.</summary>
-		private static uint WidthBytes(uint bits) {
-			return (bits + 31) / 32 * 4;
+		private IconImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
 		}
 		
-		private static uint GetPaletteSize(BitmapInfoHeader bmih) {
+		public Size Size { get; private set; }
+		
+		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out ResourceData typed) {
 			
-			uint nofColors = DibNumColors(bmih);
+			// rawData is an ICONIMAGE structure OR a PNG image
 			
-			if( IsBitmapInfoHeader(bmih) ) {
+			// if it's a PNG image it's easy enough:
+			if( PngImageResourceData.LooksLikePng( rawData ) ) {
 				
-				if((BiCompression)bmih.biCompression == BiCompression.BiBitFields) {
-					
-					// C Original:
-					// return (sizeof(DWORD) * 3) + (DIBNumColors (lpbih) * sizeof (RGBQUAD)); 
-					// return (4 * 3) + (nofColors * 4)
-					return 12 + nofColors * (uint)Marshal.SizeOf(typeof(RgbQuad));
-					
-				} else {
-					return nofColors * (uint)Marshal.SizeOf(typeof(RgbQuad));
-				}
+				Image image;
+				if(!ImageResourceData.TryCreateImage(rawData, out image)) { typed = null; return false; }
 				
-			} else {
-				
-				return nofColors * (uint)Marshal.SizeOf(typeof(RgbTriple));
+				typed = new IconImageResourceData(image, lang, rawData) { Size = image.Size };
+				return true;
 				
 			}
 			
+			// I can't load the data into the ICONIMAGE because .NET doesn't support C-style value arrays very well
+			
+/*
+typdef struct {
+	BITMAPINFOHEADER icHeader;      // DIB header
+	RGBQUAD          icColors[1];   // Color table
+	BYTE             icXOR[1];      // DIB bits for XOR mask
+	BYTE             icAND[1];      // DIB bits for AND mask
+}ICONIMAGE, *LPICONIMAGE;
+*/
+			
+			// in the BitmapInfoHeader icHeader only the following fields are used:
+			//	biSize, biWidth, biHeight, biPlanes, biBitCount, biSizeImage.
+			// All other members must be 0. The biHeight member specifies the combined height of the XOR and AND masks.
+			// The members of icHeader define the contents and sizes of the other elements of the ICONIMAGE structure in the
+			//	same way that the BITMAPINFOHEADER structure defines a CF_DIB format DIB.
+			
+			Int32 sizeOfBitmapInfoHeader = Marshal.SizeOf(typeof(BitmapInfoHeader));
+			
+			IntPtr p = Marshal.AllocHGlobal( rawData.Length );
+			Marshal.Copy( rawData, 0, p, rawData.Length );
+			
+			BitmapInfoHeader bih = (BitmapInfoHeader)Marshal.PtrToStructure( p, typeof(BitmapInfoHeader) );
+			
+			// the XOR part of the ICONIMAGE is the actual DIB bitmap and can be treated as such (just divide the biHeight by 2 first)
+			// the AND part is the 'binary transparency' part of the icon. It is redundant in 32-bit DIBs.
+			
+			// I need to make a copy of the IconInfo data, modify the BitmapInfoHeader to fix the size and then factor in the AND mask
+			
+			bih.biHeight /= 2;
+			
+			Marshal.StructureToPtr(bih, p, false);
+			
+			Byte[] fixd = new Byte[rawData.Length];
+			
+			Marshal.Copy(p, fixd, 0, rawData.Length);
+			Marshal.FreeHGlobal( p );
+			
+			// truncate the array so it's the right size
+			
+			// use biSizeImage as this value MUST be set
+				// gah... wait a sec. Msmsgr's #1 icon doesn't have biSizeImage set!!!!
+			// biSizeImage is equal to the calculated bmSizeBits in the Dib class
+			
+			// which means the byte array length must be equal to... TODO: find out, damnit
+			
+			
+			Array.Resize<Byte>(ref fixd, (int)bih.biSizeImage );
+			
+			
+			MemoryDib dib = new MemoryDib( fixd );
+			
+			typed = null;
+			return false;
+			
 		}
 		
-		/// <summary>Confirms it's a BitmapInfoHeader rather than BitmapCoreHeader (which hails from ye olde OS/2 days and is largely obsolete).</summary>
-		private static Boolean IsBitmapInfoHeader(BitmapInfoHeader bmih) {
-			return bmih.biSize >= 40;
+		public override string FileFilter {
+			get { return "BMP Image (*.bmp)|*.bmp"; }
 		}
-		
-		private static ushort DibNumColors(BitmapInfoHeader bmih) {
-			
-			ushort bitCount;
-			
-			/*  If this is a Windows-style DIB, the number of colors in the color table can be less than the number of bits per pixel
-				allows for (i.e. lpbi->biClrUsed can be set to some value). If this is the case, return the appropriate value. */
-			if( IsBitmapInfoHeader(bmih) ) {
-				
-				uint colorsUsed = bmih.biClrUsed;
-				if( colorsUsed != 0 ) return (ushort)bmih.biClrUsed;
-				
-				bitCount = bmih.biBitCount;
-				
-			} else {
-				
-				// Here it casts the BitmapInfoHeader as BitmapCoreHeader
-				// Which I'm not going to do...
-				throw new NotImplementedException();
-				
-			}
-			
-			/* Calculate the number of colors in the color table based on the number of bits per pixel for the DIB. */
-			
-			switch(bitCount) {
-				case 1:
-					return 2;
-				case 4:
-					return 16;
-				case 8:
-					return 256;
-				default:
-					// alternatively do a left bitshift, but .NET makes this hard with unsigned types so nvm
-					return 0;
-			}
-			
-		}
-		
-#endregion
 		
 	}
 	
