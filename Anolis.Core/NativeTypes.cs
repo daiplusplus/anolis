@@ -67,20 +67,21 @@ namespace Anolis.Core.NativeTypes {
 #endregion
 	
 #region Icons and Cursors
-/*	
-	/// <summary>Defines the memory layout of a RT_GROUP_ICON Win32 resource.</summary>
+	
+	/// <summary>Defines the memory layout of a RT_GROUP_ICON Win32 resource or *.ico file.</summary>
 	[StructLayout(LayoutKind.Sequential, Pack=2)]
-	internal struct ResourceIconDirectory {
+	internal struct IconDirectory {
 		public ushort wReserved;
 		public ushort wType;
 		public ushort wCount;
-		/// <summary>This is an inline array</summary>
-		public MemoryIconDirEntry arEntries;
+//		/// <summary>This is an inline array</summary>
+//		[MarshalAs(UnmanagedType.LPArray, SizeParamIndex=2)]
+//		public ResourceIconDirectoryMember arEntries;
 	}
 	
 	/// <summary>Helps to defines the memory layout of a RT_GROUP_ICON resource. In particular its wId member indicates the RT_ICON resource for the directory entry.</summary>
 	[StructLayout(LayoutKind.Sequential, Pack=2)]
-	internal struct ResourceIconDirectoryMember {
+	internal struct ResIconDirectoryEntry {
 		public byte bWidth;
 		public byte bHeight;
 		public byte bColorCount;
@@ -111,7 +112,7 @@ namespace Anolis.Core.NativeTypes {
 		public uint dwBytesInRes;
 		public uint dwImageOffset;
 	}
-*/
+
 #endregion
 	
 }
