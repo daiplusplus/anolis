@@ -5,7 +5,7 @@ using Anolis.Core.Data;
 
 namespace Anolis.Core {
 	
-	/// <summary>ResourceData CONTAINS the resource data. It is lazy-loaded by ResourceLang (i.e. when the resource data is requested the data is extracted from the source and an instance of ResourceData is constructed with that data</summary>
+	/// <summary>ResourceData contains the resource data (rather than ResourceLang). It is lazy-loaded by ResourceLang (i.e. when the resource data is requested the data is extracted from the source and an instance of ResourceData is constructed with that data</summary>
 	public abstract class ResourceData {
 		
 		private Byte[] _data;
@@ -18,6 +18,8 @@ namespace Anolis.Core {
 			set {
 				_data = value;
 				Action = ResourceDataAction.Update;
+				
+				Initialise();
 			}
 		}
 		
@@ -85,7 +87,6 @@ namespace Anolis.Core {
 		public static ResourceData Read(Stream stream) {
 			
 			// reads the file, determines what kind of ResourceData it is and what subclass to use and return
-			// do we need ResourceData subclasses?
 			
 			throw new NotImplementedException();
 			
@@ -157,8 +158,15 @@ namespace Anolis.Core {
 		}
 		
 		/// <summary>Gets the file extension and friendly name in .NET "File Filter" format associated with the data format contained within.</summary>
-		/// <example>Binary Data File (*.bin)|.bin</example>
+		/// <example>Binary Data File (*.bin)|*.bin</example>
 		public abstract String FileFilter { get; }
+		
+		/// <summary>Called when the RawData is set. A notification to subclasses to recreate any stateful data.</summary>
+		protected virtual void Initialise() {
+			
+			
+			
+		}
 		
 	}
 

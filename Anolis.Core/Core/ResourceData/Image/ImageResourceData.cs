@@ -41,150 +41,9 @@ namespace Anolis.Core.Data {
 		
 	}
 	
-	public sealed class GifImageResourceData : ImageResourceData {
-		
-		// There is no need to override the SaveAs method since the bytes are the same
-		
-		private GifImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
-		}
-		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] data, out ResourceData typed) {
-			
-			// XN Resource Editor checks if the first few bytes are a GIF signature
-			
-			typed = null;
-			
-			if(data.Length < 5) return false;
-			
-			String sig = System.Text.Encoding.ASCII.GetString(data, 0, 5);
-			
-			if(sig != "GIF87" && sig != "GIF89") return false;
-			
-			Image image;
-			
-			if(!TryCreateImage(data, out image)) return false;
-			
-			typed = new GifImageResourceData(image, lang, data);
-			
-			return true;
-			
-		}
-		
-		public override string FileFilter {
-			get { return "GIF Image (*.gif)|*.gif"; }
-		}
-		
-	}
 	
-	public sealed class JpegImageResourceData : ImageResourceData {
-		
-		private JpegImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
-		}
-		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] data, out ResourceData typed) {
-			
-			// XN Resource Editor does a little bit of raw byte voodoo to assess if a stream is a JPEG/JFIF or not
-			// I'll implement it in a later version unless it's a massive resource drain
-			
-			typed = null;
-			
-			Image image;
-			
-			if(!TryCreateImage(data, out image)) return false;
-			
-			typed = new JpegImageResourceData(image, lang, data);
-			
-			return true;
-			
-		}
-		
-		public override string FileFilter {
-			get { return "JPEG Image (*.jpg)|*.jpg"; }
-		}
-		
-	}
 	
-	public sealed class PngImageResourceData : ImageResourceData {
-		
-		private PngImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
-		}
-		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] data, out ResourceData typed) {
-			
-			typed = null;
-			
-			if(!LooksLikePng(data)) return false;
-			
-			Image image;
-			
-			if(!TryCreateImage(data, out image)) return false;
-			
-			typed = new PngImageResourceData(image, lang, data);
-			
-			return true;
-			
-		}
-		
-		internal static Boolean LooksLikePng(Byte[] data) {
-			
-			if(data.Length < 3) return false;
-			
-			String sig = System.Text.Encoding.ASCII.GetString(data, 1, 3); // ignore first byte
-			
-			return sig == "PNG";
-			
-		}
-		
-		public override string FileFilter {
-			get { return "PNG Image (*.png)|*.png"; }
-		}
-		
-	}
 	
-	public sealed class BmpImageResourceData : ImageResourceData {
-		
-		private FileDib _dib;
-		
-		// HACK: When I implement the IResourceDataFactory patterns I should simplify the constructor here
-		
-		private BmpImageResourceData(FileDib dib, Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
-			_dib = dib;
-		}
-		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out ResourceData typed) {
-			
-			// check if the data is of the right format before working with it
-			
-			FileDib dib = new FileDib( rawData );
-			
-			Bitmap bmp;
-			
-			if(!dib.TryToBitmap(out bmp)) {
-				typed = null;
-				return false;
-			}
-			
-			typed = new BmpImageResourceData(dib, bmp, lang, rawData);
-			return true;
-			
-		}
-		
-		
-		public override void SaveAs(Stream stream) {
-			
-			// don't use Image.Save since we want to save it without any added .NET Image class nonsense, and preserve 32-bit BMPs
-			
-			Byte[] bitmapFileData = _dib.Data;
-			
-			stream.Write( bitmapFileData, 0, bitmapFileData.Length );
-			
-		}
-		
-		public override string FileFilter {
-			get { return "BMP Image (*.bmp)|*.bmp"; }
-		}
-		
-	}
 	
 	public sealed class IconImageResourceData : ImageResourceData {
 		
@@ -198,7 +57,7 @@ namespace Anolis.Core.Data {
 			// rawData is an ICONIMAGE structure OR a PNG image
 			
 			// if it's a PNG image it's easy enough:
-			if( PngImageResourceData.LooksLikePng( rawData ) ) {
+			if( PngImageResourceData.HasPngSignature( rawData ) ) {
 				
 				Image image;
 				if(!ImageResourceData.TryCreateImage(rawData, out image)) { typed = null; return false; }
@@ -254,6 +113,9 @@ typdef struct {
 			
 			// which means the byte array length must be equal to... TODO: find out, damnit
 			
+			// I propose subclassing Dib to create a Dib for icons that passes in an IconInfo to get hints as to how to process it
+				// I disagree, it still needs to be able to process icons without their directories.
+				// right, sorry, just get it so it gets the image size right. Shame we can't trust biSizeImage
 			
 			Array.Resize<Byte>(ref fixd, (int)bih.biSizeImage );
 			
