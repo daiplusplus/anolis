@@ -18,6 +18,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <ApplicationIcon>MainIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -212,6 +213,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Main\Options.png" />
+    <Content Include="MainIcon.ico" />
     <Content Include="Resources\Main\ResAdd.png" />
     <Content Include="Resources\Main\ResDel.png" />
     <Content Include="Resources\Main\ResExt.png" />

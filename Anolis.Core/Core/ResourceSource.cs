@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Anolis.Core {
 	
@@ -17,6 +16,9 @@ namespace Anolis.Core {
 		//////////////////////
 		
 		public Boolean IsReadOnly { get; private set; }
+		
+		/// <summary>Returns information about this ResourceSource in a Key/Value pair.</summary>
+		public virtual ResourceSourceInfo SourceInfo { get { return null; } }
 		
 		//////////////////////
 		
@@ -38,7 +40,7 @@ namespace Anolis.Core {
 				case ".DLL":
 				case ".SCR":
 				case ".CPL":
-					return new PE.PESource(filename, readOnly);
+					return new PE.PEResourceSource(filename, readOnly);
 			}
 			
 			throw new NotImplementedException("Anolis does not support files that aren't PE/COFF Executables as ResourceSources yet");
@@ -58,4 +60,10 @@ namespace Anolis.Core {
 		public abstract void Reload();
 		
 	}
+	
+	public class ResourceSourceInfo : Dictionary<String,String> {
+		// TODO: Maybe later make a ReadOnlyKeyedCollection
+		// see: http://www.cuttingedge.it/blogs/steven/pivot/entry.php?id=29
+	}
+	
 }

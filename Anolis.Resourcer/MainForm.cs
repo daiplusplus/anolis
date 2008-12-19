@@ -127,7 +127,7 @@ namespace Anolis.Resourcer {
 		
 		private Boolean LoadSource(String path) {
 			
-			this.Text = Path.GetFileName( path ) + " - Anolis Resourcer";
+			SetTitle( Path.GetFileName(path), true );
 			
 			ResourceSource source = ResourceSource.Open(path, true);
 			if(source == null) return false;
@@ -160,6 +160,15 @@ namespace Anolis.Resourcer {
 				__resources.Nodes.Add( typeNode );
 			}
 			
+			/////////////////////////
+			
+			// set various buttons if it's readonly
+			
+			__tSrcSave   .Enabled = !source.IsReadOnly;
+			__tResAdd    .Enabled = !source.IsReadOnly;
+			__tResReplace.Enabled = !source.IsReadOnly;
+			__tResDelete .Enabled = !source.IsReadOnly;
+			
 			return true;
 			
 		}
@@ -173,13 +182,34 @@ namespace Anolis.Resourcer {
 			// Status bar
 			this.__sType.Text = data.GetType().Name;
 			this.__sSize.Text = data.RawData.Length.ToString(Cult.CurrentCulture) + " Bytes";
-			this.__sPath.Text = _currentPath; // TODO: Add in resource location details
+			this.__sPath.Text = _currentPath + GetResourcePath(resource);
 			
 			__sType.BackColor = data is Anolis.Core.Data.UnknownResourceData ? System.Drawing.Color.LightYellow : System.Drawing.SystemColors.Control;
 			
 			EnsureView( _viewData );
 			
 			_viewData.ShowResource( data );
+			
+		}
+		
+		private String GetResourcePath(ResourceLang lang) {
+			
+			String retval = ",";
+			
+			if(lang.Name.Type.Identifier.KnownType == Win32ResourceType.Custom) {
+				
+				retval += lang.Name.Type.Identifier.StringId;
+				
+			} else {
+				
+				retval += lang.Name.Type.Identifier.IntegerId.Value.ToString(Cult.InvariantCulture);
+			}
+			
+			retval += '\\' + lang.Name.Identifier.FriendlyName;
+			
+			retval += '\\' + lang.LanguageId.ToString(Cult.InvariantCulture);
+			
+			return retval;
 			
 		}
 		
@@ -203,7 +233,10 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		
+		private void SetTitle(String resourceSourceName, Boolean isReadOnly) {
+			
+			this.Text = resourceSourceName + (isReadOnly ? " [Read-Only]" : "") + " - Anolis Resourcer";
+		}
 		
 		////////////////////////////////////////////////
 		// Current Source Actions
@@ -215,7 +248,7 @@ namespace Anolis.Resourcer {
 		
 		private void SaveCurrentResourceToFile() {
 			
-			__sfd.Filter = _currentResource.Data.FileFilter + "|Binary Data File (*.bin)|.bin";;
+			__sfd.Filter = _currentResource.Data.FileFilter + "|Binary Data File (*.bin)|*.bin";;
 			
 			if(__sfd.ShowDialog(this) != DialogResult.OK) return;
 			

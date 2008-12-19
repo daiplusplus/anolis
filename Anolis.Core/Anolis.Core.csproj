@@ -49,18 +49,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Resource.cs" />
-    <Compile Include="Core\ResourceData\DirectoryResourceData.cs" />
-    <Compile Include="Core\ResourceData\ImageResourceData.cs" />
+    <Compile Include="Core\ResourceData\Directory\CursorDirectoryResourceData.cs" />
+    <Compile Include="Core\ResourceData\Directory\DirectoryResourceData.cs" />
+    <Compile Include="Core\ResourceData\Directory\IconDirectoryResourceData.cs" />
+    <Compile Include="Core\ResourceData\Image\BmpImageResourceData.cs" />
+    <Compile Include="Core\ResourceData\Image\GifImageResourceData.cs" />
+    <Compile Include="Core\ResourceData\Image\ImageResourceData.cs" />
+    <Compile Include="Core\ResourceData\Image\JpegImageResourceData.cs" />
+    <Compile Include="Core\ResourceData\Image\PngImageResourceData.cs" />
+    <Compile Include="Core\ResourceData\IResourceDataFactory.cs" />
     <Compile Include="Core\ResourceData\ResourceDataIdentifier.cs" />
     <Compile Include="Core\ResourceData\UnknownResourceData.cs" />
-    <Compile Include="Core\ResourceData\VideoResourceData.cs" />
+    <Compile Include="Core\ResourceData\Multimedia\VideoResourceData.cs" />
     <Compile Include="Core\ResourceSourcePartial.cs" />
-    <Compile Include="Core\ResourceData.cs" />
+    <Compile Include="Core\ResourceData\ResourceData.cs" />
     <Compile Include="Core\ResourceIdentifier.cs" />
     <Compile Include="Core\ResourcePartial.cs" />
     <Compile Include="Core\ResourceEnumerator.cs" />
     <Compile Include="Core\ResourceSource.cs" />
     <Compile Include="Core\Utility\Dib.cs" />
+    <Compile Include="Core\Utility\Icon.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="NativeTypes.cs" />
     <Compile Include="PE\NativeMethods.cs" />

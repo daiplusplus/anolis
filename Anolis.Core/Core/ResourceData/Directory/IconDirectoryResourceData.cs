@@ -1,37 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Text;
 
 using Anolis.Core.NativeTypes;
-using System.Globalization;
+
+using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Core.Data {
-	
-	public abstract class DirectoryResourceData : ResourceData {
-		
-		public    DirectoryMemberCollection    Members           { get; private set; }
-		protected Collection<IDirectoryMember> UnderlyingMembers { get; private set; }
-		
-		protected DirectoryResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
-			
-			UnderlyingMembers = new Collection<IDirectoryMember>();
-			Members           = new DirectoryMemberCollection( UnderlyingMembers );
-			
-		}
-		
-	}
-	
-	public sealed class DirectoryMemberCollection : ReadOnlyCollection<IDirectoryMember> {
-		public DirectoryMemberCollection(IList<IDirectoryMember> list) : base(list) {
-		}
-	}
-	
-	public interface IDirectoryMember {
-		String Description { get; }
-		ResourceData ResourceData { get; }
-	}
 	
 	public sealed class IconDirectoryMember : IDirectoryMember {
 		
@@ -105,7 +80,7 @@ namespace Anolis.Core.Data {
 						
 						UInt32 nofColors = (img.bColorCount == 0) ? (UInt32)Math.Pow(2, img.wBitCount) : img.bColorCount;
 						
-						String description = String.Format(CultureInfo.InvariantCulture, "{0} x {1} ({2} colors) #{3}; {4} bytes", img.bWidth, img.bHeight, nofColors, img.wId, img.dwBytesInRes);
+						String description = String.Format(Cult.InvariantCulture, "{0} x {1} ({2} colors) #{3}; {4} bytes", img.bWidth, img.bHeight, nofColors, img.wId, img.dwBytesInRes);
 						
 						retval.UnderlyingMembers.Add( new IconDirectoryMember(description, rd) );
 						
@@ -149,25 +124,4 @@ namespace Anolis.Core.Data {
 		}
 		
 	}
-	
-	public sealed class CursorDirectoryResourceData : DirectoryResourceData {
-		
-		private CursorDirectoryResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
-		}
-		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out ResourceData data) {
-			
-			data = null;
-			return false;
-			
-			// TODO
-			
-		}
-		
-		public override string FileFilter {
-			get { return "Cursor File (*.cur)|.cur"; }
-		}
-		
-	}
-	
 }

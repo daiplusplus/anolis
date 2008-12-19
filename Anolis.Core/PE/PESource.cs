@@ -7,12 +7,12 @@ using Marshal = System.Runtime.InteropServices.Marshal;
 namespace Anolis.Core.PE {
 	
 	/// <summary>Encapsulates a Windows Portal Executable resource source.</summary>
-	public class PESource : ResourceSource {
+	public class PEResourceSource : ResourceSource {
 		
 		private String   _path;
 		private IntPtr   _moduleHandle;
 		
-		public PESource(String filename, Boolean readOnly) : base(readOnly) {
+		public PEResourceSource(String filename, Boolean readOnly) : base(readOnly) {
 			
 			FileInfo = new FileInfo( _path = filename );
 			if(!FileInfo.Exists) throw new FileNotFoundException("The specified Win32 PE Image was not found", filename);
@@ -133,7 +133,7 @@ namespace Anolis.Core.PE {
 		////////////////////////////
 		// Destructor / Dispose
 		
-		~PESource() {
+		~PEResourceSource() {
 			Dispose(false);
 		}
 		
