@@ -82,7 +82,7 @@ namespace Anolis.Resourcer {
 			this.@__resources.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.@__resources.Location = new System.Drawing.Point(0, 0);
 			this.@__resources.Name = "__resources";
-			this.@__resources.Size = new System.Drawing.Size(134, 380);
+			this.@__resources.Size = new System.Drawing.Size(134, 370);
 			this.@__resources.TabIndex = 3;
 			// 
 			// __split
@@ -98,7 +98,7 @@ namespace Anolis.Resourcer {
 			// __split.Panel1
 			// 
 			this.@__split.Panel1.Controls.Add(this.@__resources);
-			this.@__split.Size = new System.Drawing.Size(630, 380);
+			this.@__split.Size = new System.Drawing.Size(620, 370);
 			this.@__split.SplitterDistance = 134;
 			this.@__split.TabIndex = 4;
 			// 
@@ -110,29 +110,29 @@ namespace Anolis.Resourcer {
             this.@__sType,
             @__sSep2,
             this.@__sSize});
-			this.@__status.Location = new System.Drawing.Point(0, 454);
+			this.@__status.Location = new System.Drawing.Point(0, 444);
 			this.@__status.Name = "__status";
-			this.@__status.Size = new System.Drawing.Size(630, 22);
+			this.@__status.Size = new System.Drawing.Size(620, 22);
 			this.@__status.TabIndex = 5;
 			this.@__status.Text = "statusStrip1";
 			// 
 			// __sPath
 			// 
 			this.@__sPath.Name = "__sPath";
-			this.@__sPath.Size = new System.Drawing.Size(214, 17);
-			this.@__sPath.Text = "C:\\Windows\\system32\\shell32.dll,9\\1\\1033";
+			this.@__sPath.Size = new System.Drawing.Size(124, 17);
+			this.@__sPath.Text = "                                       ";
 			// 
 			// __sType
 			// 
 			this.@__sType.Name = "__sType";
-			this.@__sType.Size = new System.Drawing.Size(119, 17);
-			this.@__sType.Text = "UnknownResourceData";
+			this.@__sType.Size = new System.Drawing.Size(121, 17);
+			this.@__sType.Text = "                                      ";
 			// 
 			// __sSize
 			// 
 			this.@__sSize.Name = "__sSize";
 			this.@__sSize.Size = new System.Drawing.Size(61, 17);
-			this.@__sSize.Text = "1024 Bytes";
+			this.@__sSize.Text = "                  ";
 			// 
 			// __t
 			// 
@@ -149,8 +149,7 @@ namespace Anolis.Resourcer {
             this.@__tGenOptions});
 			this.@__t.Location = new System.Drawing.Point(0, 0);
 			this.@__t.Name = "__t";
-			this.@__t.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.@__t.Size = new System.Drawing.Size(630, 74);
+			this.@__t.Size = new System.Drawing.Size(620, 74);
 			this.@__t.TabIndex = 6;
 			this.@__t.Text = "toolStrip1";
 			// 
@@ -246,7 +245,7 @@ namespace Anolis.Resourcer {
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(630, 476);
+			this.ClientSize = new System.Drawing.Size(620, 466);
 			this.Controls.Add(this.@__t);
 			this.Controls.Add(this.@__status);
 			this.Controls.Add(this.@__split);
