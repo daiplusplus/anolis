@@ -23,6 +23,8 @@ namespace Anolis.Resourcer {
 		public MainForm() {
 			InitializeComponent();
 			
+			ToolStripManager.Renderer = new Anolis.Resourcer.Controls.ToolStripImprovedSystemRenderer();
+			
 			this.Load += new EventHandler(MainForm_Load);
 			__resources.NodeMouseClick += new TreeNodeMouseClickEventHandler(__resources_NodeMouseClick);
 			
@@ -102,7 +104,9 @@ namespace Anolis.Resourcer {
 			
 			for(int i=0;i<mruItems.Length;i++) {
 				
-				ToolStripItem item = new ToolStripMenuItem( i.ToString(Cult.InvariantCulture) + ' ' + mruItems[i] );
+				String text = (i+1).ToString(Cult.InvariantCulture) + ' ' + TrimPath( mruItems[i], 80 );
+				
+				ToolStripItem item = new ToolStripMenuItem( text );
 				item.Tag = mruItems[i];
 				item.Click += new EventHandler(__tSrcMruItem_Click);
 				
@@ -111,6 +115,81 @@ namespace Anolis.Resourcer {
 			}
 			
 		}
+		
+		private void EnsureView(Control control) {
+			
+			control.Dock = DockStyle.Fill;
+			
+			if(__split.Panel2.Controls.Count == 0) {
+				
+				__split.Panel2.Controls.Add( control );
+				
+			} else {
+				
+				Control currentControl = __split.Panel2.Controls[0];
+				
+				if(currentControl != control) {
+					__split.Panel2.Controls.Clear();
+					__split.Panel2.Controls.Add( control );
+				}
+			}
+			
+		}
+		
+		private void SetTitle(String resourceSourceName, Boolean isReadOnly) {
+			
+			this.Text = resourceSourceName + (isReadOnly ? " [Read-Only]" : "") + " - Anolis Resourcer";
+		}
+		
+		////////////////////////////////////////////////
+		// Utility Methods
+		//
+		
+		private static String TrimPath(String path, Int32 maxLength) {
+			
+			Char[] chars = new Char[] { '/', '\\' };
+			
+			if(path.Length <= maxLength) return path;
+			
+			String truncated = path;
+			while(truncated.Length > maxLength) {
+				// take stuff out from the middle
+				// so starting from the middle search for the first slash remove it to the next slash on
+				Int32 midSlashIdx = truncated.LastIndexOfAny( chars, truncated.Length / 2 );
+				if( midSlashIdx == -1 ) return truncated;
+				
+				Int32 nextSlashForwardIdx = truncated.IndexOfAny( chars, midSlashIdx + 1 );
+				
+				truncated = truncated.Substring(0, midSlashIdx) + "..." + truncated.Substring( nextSlashForwardIdx );
+			}
+			
+			return truncated;
+		}
+		
+		private static String GetResourcePath(ResourceLang lang) {
+			
+			String retval = ",";
+			
+			if(lang.Name.Type.Identifier.KnownType == Win32ResourceType.Custom) {
+				
+				retval += lang.Name.Type.Identifier.StringId;
+				
+			} else {
+				
+				retval += lang.Name.Type.Identifier.IntegerId.Value.ToString(Cult.InvariantCulture);
+			}
+			
+			retval += '\\' + lang.Name.Identifier.FriendlyName;
+			
+			retval += '\\' + lang.LanguageId.ToString(Cult.InvariantCulture);
+			
+			return retval;
+			
+		}
+		
+		////////////////////////////////////////////////
+		// Current Source Actions
+		//
 		
 		private void LoadSourceFromMru(String path) {
 			
@@ -173,6 +252,10 @@ namespace Anolis.Resourcer {
 			
 		}
 		
+		////////////////////////////////////////////////
+		// Current Resource Actions
+		//
+		
 		private void LoadResource(ResourceLang resource) {
 			
 			_currentResource = resource;
@@ -191,60 +274,6 @@ namespace Anolis.Resourcer {
 			_viewData.ShowResource( data );
 			
 		}
-		
-		private String GetResourcePath(ResourceLang lang) {
-			
-			String retval = ",";
-			
-			if(lang.Name.Type.Identifier.KnownType == Win32ResourceType.Custom) {
-				
-				retval += lang.Name.Type.Identifier.StringId;
-				
-			} else {
-				
-				retval += lang.Name.Type.Identifier.IntegerId.Value.ToString(Cult.InvariantCulture);
-			}
-			
-			retval += '\\' + lang.Name.Identifier.FriendlyName;
-			
-			retval += '\\' + lang.LanguageId.ToString(Cult.InvariantCulture);
-			
-			return retval;
-			
-		}
-		
-		private void EnsureView(Control control) {
-			
-			control.Dock = DockStyle.Fill;
-			
-			if(__split.Panel2.Controls.Count == 0) {
-				
-				__split.Panel2.Controls.Add( control );
-				
-			} else {
-				
-				Control currentControl = __split.Panel2.Controls[0];
-				
-				if(currentControl != control) {
-					__split.Panel2.Controls.Clear();
-					__split.Panel2.Controls.Add( control );
-				}
-			}
-			
-		}
-		
-		private void SetTitle(String resourceSourceName, Boolean isReadOnly) {
-			
-			this.Text = resourceSourceName + (isReadOnly ? " [Read-Only]" : "") + " - Anolis Resourcer";
-		}
-		
-		////////////////////////////////////////////////
-		// Current Source Actions
-		//
-		
-		////////////////////////////////////////////////
-		// Current Resource Actions
-		//
 		
 		private void SaveCurrentResourceToFile() {
 			

@@ -68,6 +68,8 @@
     <Compile Include="Controls\ImageListItem.Designer.cs">
       <DependentUpon>ImageListItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ToolStripImprovedSystemRenderer.cs">
+    </Compile>
     <Compile Include="Controls\ZoomPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>

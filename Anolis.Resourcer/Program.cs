@@ -25,9 +25,8 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		public static Boolean IfYouAreReadingThisThenYouHaveNoLife() {
-			Boolean noReallyYouAreWastingYourTimeBecauseTheCompleteSourceCodeIsOnWwwCodeplexDotComSlashAnolis = true;
-			return noReallyYouAreWastingYourTimeBecauseTheCompleteSourceCodeIsOnWwwCodeplexDotComSlashAnolis;
+		public static String IfYouAreReadingThisThenYouHaveNoLife() {
+			return "no, really you are wasting your time because the complete source code is on http://www.codeplex.com/anolis";
 		}
 		
 	}
