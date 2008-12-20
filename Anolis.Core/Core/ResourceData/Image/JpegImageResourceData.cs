@@ -25,8 +25,8 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override string FileFilter {
-			get { return "JPEG Image (*.jpg)|*.jpg"; }
+		public override String[] SaveFileFilter {
+			get { return new String[] { "JPEG Image (*.jpg)|*.jpg" }; }
 		}
 		
 	}

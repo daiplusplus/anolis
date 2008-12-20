@@ -7,17 +7,65 @@ using Anolis.Core.Utility;
 
 namespace Anolis.Core.Data {
 	
+	public class BmpImageResourceDataFactory : ResourceDataFactory {
+		
+		public override Compatibility HandlesType(ResourceTypeIdentifier type) {
+			
+			if( type.KnownType == Win32ResourceType.Bitmap ) return Compatibility.Yes;
+			if( type.KnownType == Win32ResourceType.IconImage ) return Compatibility.Maybe;
+			if( type.KnownType == Win32ResourceType.CursorImage ) return Compatibility.Maybe;
+			
+			if( type.KnownType != Win32ResourceType.Custom ) return Compatibility.No;
+			
+			return Compatibility.Maybe;
+			
+		}
+		
+		public override Compatibility HandlesExtension(String filenameExtension) {
+			
+			switch(filenameExtension) {
+				case "bmp": case "jpeg": case "jpg": case "png": case "gif": case "dib":
+					return Compatibility.Yes;
+			}
+			
+			return Compatibility.No;
+			
+		}
+		
+		public override ResourceData FromFile(Stream stream) {
+			
+			Byte[] fileData = GetAllBytesFromStream(stream);
+			
+			BmpImageResourceData rd;
+			
+			if( BmpImageResourceData.TryCreate(null, fileData, out rd) ) return rd;
+			
+			return null;
+			
+		}
+		
+		public override ResourceData FromResource(ResourceLang lang, byte[] data) {
+			throw new NotImplementedException();
+		}
+		
+		public override string LastErrorMessage {
+			get { throw new NotImplementedException(); }
+		}
+		
+		public override String Name {
+			get { return "Bitmap"; }
+		}
+	}
+	
 	public sealed class BmpImageResourceData : ImageResourceData {
 		
 		private FileDib _dib;
-		
-		// HACK: When I implement the IResourceDataFactory patterns I should simplify the constructor here
 		
 		private BmpImageResourceData(FileDib dib, Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
 			_dib = dib;
 		}
 		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out ResourceData typed) {
+		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out BmpImageResourceData typed) {
 			
 			// check if the data is of the right format before working with it
 			
@@ -31,10 +79,10 @@ namespace Anolis.Core.Data {
 			}
 			
 			typed = new BmpImageResourceData(dib, bmp, lang, rawData);
+			
 			return true;
 			
 		}
-		
 		
 		public override void SaveAs(Stream stream) {
 			

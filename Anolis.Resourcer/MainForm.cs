@@ -277,7 +277,7 @@ namespace Anolis.Resourcer {
 		
 		private void SaveCurrentResourceToFile() {
 			
-			__sfd.Filter = _currentResource.Data.FileFilter + "|Binary Data File (*.bin)|*.bin";;
+			__sfd.Filter = _currentResource.Data.SaveFileFilter + "|Binary Data File (*.bin)|*.bin";;
 			
 			if(__sfd.ShowDialog(this) != DialogResult.OK) return;
 			

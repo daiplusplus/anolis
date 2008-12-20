@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 
+using Cult    = System.Globalization.CultureInfo;
 using Marshal = System.Runtime.InteropServices.Marshal;
 
 namespace Anolis.Core.PE {
@@ -11,26 +11,14 @@ namespace Anolis.Core.PE {
 		
 		private String   _path;
 		private IntPtr   _moduleHandle;
+		private ResourceSourceInfo _sourceInfo;
 		
 		public PEResourceSource(String filename, Boolean readOnly) : base(readOnly) {
 			
 			FileInfo = new FileInfo( _path = filename );
 			if(!FileInfo.Exists) throw new FileNotFoundException("The specified Win32 PE Image was not found", filename);
 			
-			_moduleHandle = readOnly ?
-				NativeMethods.LoadLibraryEx( filename, IntPtr.Zero, NativeMethods.LoadLibraryFlags.LoadLibraryAsDatafile ) :
-				NativeMethods.LoadLibrary  ( filename );
-			
-			if( _moduleHandle == IntPtr.Zero ) {
-				
-				String win32Message = NativeMethods.GetLastErrorString();
-				
-				throw new ApplicationException("PE/COFF ResourceSource could not be loaded: " + win32Message);
-			}
-			
-			// Load it up, yo!
-			
-			GetResources();
+			Reload();
 			
 		}
 		
@@ -38,16 +26,8 @@ namespace Anolis.Core.PE {
 			
 			base.CommitChanges(); // this does the read-only check
 			
-			// Compile a list of resources to add, update, and remove
-			
-			// older notes from the now-gone Win32Image class's UpdateResources(Win32ResourceOperation[] resources) method:
-			
-// According to ms-help://MS.MSDNQTR.v90.en/winui/winui/windowsuserinterface/resources/introductiontoresources/resourcereference/resourcefunctions/beginupdateresource.htm
-// it is recommended that the file be not loaded before calling BeginUpdateResources
-// NOTE: if there are any problems caused by the fact the file is loaded you could move LoadLibrary to a lazy-load pattern and throw an exception if it has been loaded
-
-			// new notes:
-			// it could unload the file temporarily...? which makes sense since it'll be reloading it after commiting the changes anyway. Hmmm
+			// Unload self
+			Unload();
 			
 			IntPtr updateHandle = NativeMethods.BeginUpdateResource( this._path, false );
 			
@@ -87,12 +67,35 @@ namespace Anolis.Core.PE {
 				
 			}
 			
-			// when done, reload this source
+			// when done, reload self
+			Reload();
 			
 		}
 		
 		public override void Reload() {
 			
+			_moduleHandle = IsReadOnly ?
+				NativeMethods.LoadLibraryEx( _path, IntPtr.Zero, NativeMethods.LoadLibraryFlags.LoadLibraryAsDatafile ) :
+				NativeMethods.LoadLibrary  ( _path );
+			
+			if( _moduleHandle == IntPtr.Zero ) {
+				
+				String win32Message = NativeMethods.GetLastErrorString();
+				
+				throw new ApplicationException("PE/COFF ResourceSource could not be loaded: " + win32Message);
+			}
+			
+			// Load it up, yo!
+			
+			GetResources();
+			
+			
+			
+		}
+		
+		private void Unload() {
+			
+			NativeMethods.FreeLibrary( _moduleHandle );
 		}
 		
 		public override ResourceData GetResourceData(ResourceLang lang) {
@@ -119,7 +122,7 @@ namespace Anolis.Core.PE {
 			
 			NativeMethods.FreeResource( resData );
 			
-			ResourceData retval = ResourceData.Create(lang, data);
+			ResourceData retval = ResourceData.FromResource(lang, data);
 			
 			return retval;
 			
@@ -129,6 +132,8 @@ namespace Anolis.Core.PE {
 		// Useful implementation-specific bits
 		
 		public FileInfo FileInfo { get; private set; }
+		
+		public override ResourceSourceInfo SourceInfo { get { return _sourceInfo; } }
 		
 		////////////////////////////
 		// Destructor / Dispose
@@ -143,9 +148,32 @@ namespace Anolis.Core.PE {
 		}
 		
 		public void Dispose(Boolean disposeManaged) {
-			NativeMethods.FreeLibrary( _moduleHandle );
+			Unload();
 		}
 		
+#region ResourceSourceInfo
+		
+		private void GetSourceInfo() {
+			
+			_sourceInfo = new ResourceSourceInfo();
+			_sourceInfo.Add("Size"    , FileInfo.Length        .ToString(Cult.InvariantCulture));
+			_sourceInfo.Add("Accessed", FileInfo.LastAccessTime.ToString(Cult.InvariantCulture));
+			_sourceInfo.Add("Modified", FileInfo.LastWriteTime .ToString(Cult.InvariantCulture));
+			_sourceInfo.Add("Created" , FileInfo.CreationTime  .ToString(Cult.InvariantCulture));
+			
+			using(FileStream stream = FileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.Read)) {
+				
+				BinaryReader br = new BinaryReader(stream);
+				
+				// I CBA to work out how to read a COFF/PE header right now
+				
+			}
+			
+			_sourceInfo = null;
+			
+		}
+		
+#endregion
 		
 #region Resource Enumeration
 		

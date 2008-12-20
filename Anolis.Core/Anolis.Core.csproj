@@ -54,11 +54,11 @@
     <Compile Include="Core\ResourceData\Directory\IconDirectoryResourceData.cs" />
     <Compile Include="Core\ResourceData\Image\BmpImageResourceData.cs" />
     <Compile Include="Core\ResourceData\Image\GifImageResourceData.cs" />
+    <Compile Include="Core\ResourceData\Image\IconImageResourceData.cs" />
     <Compile Include="Core\ResourceData\Image\ImageResourceData.cs" />
     <Compile Include="Core\ResourceData\Image\JpegImageResourceData.cs" />
     <Compile Include="Core\ResourceData\Image\PngImageResourceData.cs" />
-    <Compile Include="Core\ResourceData\IResourceDataFactory.cs" />
-    <Compile Include="Core\ResourceData\ResourceDataIdentifier.cs" />
+    <Compile Include="Core\ResourceData\ResourceDataFactory.cs" />
     <Compile Include="Core\ResourceData\UnknownResourceData.cs" />
     <Compile Include="Core\ResourceData\Multimedia\VideoResourceData.cs" />
     <Compile Include="Core\ResourceSourcePartial.cs" />
