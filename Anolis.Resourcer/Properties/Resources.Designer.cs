@@ -60,65 +60,128 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Options {
+        internal static System.Drawing.Bitmap ImageViewer_Center {
             get {
-                object obj = ResourceManager.GetObject("Options", resourceCulture);
+                object obj = ResourceManager.GetObject("ImageViewer_Center", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap ResAdd {
+        internal static System.Drawing.Bitmap ImageViewer_Interpolation {
             get {
-                object obj = ResourceManager.GetObject("ResAdd", resourceCulture);
+                object obj = ResourceManager.GetObject("ImageViewer_Interpolation", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap ResDel {
+        internal static System.Drawing.Bitmap ImageViewer_TransparentBg {
             get {
-                object obj = ResourceManager.GetObject("ResDel", resourceCulture);
+                object obj = ResourceManager.GetObject("ImageViewer_TransparentBg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap ResExt {
+        internal static System.Drawing.Bitmap ImageViewer_Zoom100 {
             get {
-                object obj = ResourceManager.GetObject("ResExt", resourceCulture);
+                object obj = ResourceManager.GetObject("ImageViewer_Zoom100", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap ResRep {
+        internal static System.Drawing.Bitmap ImageViewer_ZoomIn {
             get {
-                object obj = ResourceManager.GetObject("ResRep", resourceCulture);
+                object obj = ResourceManager.GetObject("ImageViewer_ZoomIn", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap SrcOpen {
+        internal static System.Drawing.Bitmap ImageViewer_ZoomOut {
             get {
-                object obj = ResourceManager.GetObject("SrcOpen", resourceCulture);
+                object obj = ResourceManager.GetObject("ImageViewer_ZoomOut", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap SrcRev {
+        internal static System.Drawing.Bitmap TextViewer_Bom {
             get {
-                object obj = ResourceManager.GetObject("SrcRev", resourceCulture);
+                object obj = ResourceManager.GetObject("TextViewer_Bom", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap SrcSave {
+        internal static System.Drawing.Bitmap TextViewer_Endian {
             get {
-                object obj = ResourceManager.GetObject("SrcSave", resourceCulture);
+                object obj = ResourceManager.GetObject("TextViewer_Endian", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap TransparentBg {
+        internal static System.Drawing.Bitmap TextViewer_Font {
             get {
-                object obj = ResourceManager.GetObject("TransparentBg", resourceCulture);
+                object obj = ResourceManager.GetObject("TextViewer_Font", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap TextViewer_WordWrap {
+            get {
+                object obj = ResourceManager.GetObject("TextViewer_WordWrap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_Options {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_Options", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_ResAdd {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_ResAdd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_ResDel {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_ResDel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_ResExt {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_ResExt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_ResRep {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_ResRep", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_SrcOpen {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_SrcOpen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_SrcRev {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_SrcRev", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_SrcSave {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_SrcSave", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

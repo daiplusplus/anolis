@@ -78,7 +78,7 @@ namespace Anolis.Core {
 				
 				if(i >= factories.Length) throw new Exception("Unable to locate factory for resource data.");
 				
-				data = factories[i++].FromFile( stream );
+				data = factories[i++].FromFile( stream, extension );
 				
 			}
 			
@@ -136,7 +136,11 @@ namespace Anolis.Core {
 			
 		}
 		
-		public abstract void SaveAs(Stream stream, String extension);
+		public virtual void SaveAs(Stream stream, String extension) {
+			
+			Save(stream);
+			
+		}
 		
 		/// <summary>Gets the file extension and friendly name in .NET "File Filter" format associated with the data format contained within.</summary>
 		/// <example>Binary Data File (*.bin)|*.bin</example>

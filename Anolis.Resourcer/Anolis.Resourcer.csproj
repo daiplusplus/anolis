@@ -89,6 +89,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\ImageList.resx">
@@ -97,12 +103,8 @@
     <EmbeddedResource Include="Controls\ImageListItem.resx">
       <DependentUpon>ImageListItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ZoomPictureBoxWrapper.resx">
-      <DependentUpon>ZoomPictureBoxWrapper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -112,9 +114,6 @@
     <EmbeddedResource Include="TypeViewers\HtmlViewer.resx">
       <DependentUpon>HtmlViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TypeViewers\TextViewer.resx">
-      <DependentUpon>TextViewer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="TypeViewers\IconCursorViewer.resx">
       <DependentUpon>IconCursorViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -123,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TypeViewers\RawViewer.resx">
       <DependentUpon>RawViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TypeViewers\TextViewer.resx">
+      <DependentUpon>TextViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ResourceDataView.resx">
       <DependentUpon>ResourceDataView.cs</DependentUpon>
@@ -207,22 +209,35 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Resources\TransparentBg.png" />
     <None Include="Settings\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Main\Options.png" />
     <Content Include="MainIcon.ico" />
-    <Content Include="Resources\Main\ResAdd.png" />
-    <Content Include="Resources\Main\ResDel.png" />
-    <Content Include="Resources\Main\ResExt.png" />
-    <Content Include="Resources\Main\ResRep.png" />
-    <Content Include="Resources\Main\SrcOpen.png" />
-    <Content Include="Resources\Main\SrcRev.png" />
-    <Content Include="Resources\Main\SrcSave.png" />
+    <Content Include="Resources\ImageViewer\Center.png" />
+    <Content Include="Resources\ImageViewer\Interpolation.png" />
+    <Content Include="Resources\ImageViewer\TransparentBg.png" />
+    <Content Include="Resources\ImageViewer\Zoom100.png" />
+    <Content Include="Resources\ImageViewer\ZoomIn.png" />
+    <Content Include="Resources\ImageViewer\ZoomOut.png" />
+    <Content Include="Resources\MainIcon.ico" />
+    <Content Include="Resources\ResTree\Add.png" />
+    <Content Include="Resources\ResTree\Delete.png" />
+    <Content Include="Resources\ResTree\Edit.png" />
+    <Content Include="Resources\TextViewer\BOM.png" />
+    <Content Include="Resources\TextViewer\Endian.png" />
+    <Content Include="Resources\TextViewer\Font.png" />
+    <Content Include="Resources\TextViewer\WordWrap.png" />
+    <None Include="Resources\Toolbar\SrcSave.png" />
+    <None Include="Resources\Toolbar\SrcRev.png" />
+    <None Include="Resources\Toolbar\SrcOpen.png" />
+    <None Include="Resources\Toolbar\ResRep.png" />
+    <None Include="Resources\Toolbar\ResExt.png" />
+    <None Include="Resources\Toolbar\ResDel.png" />
+    <None Include="Resources\Toolbar\ResAdd.png" />
+    <None Include="Resources\Toolbar\Options.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

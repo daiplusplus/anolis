@@ -31,6 +31,9 @@ namespace Anolis.Resourcer {
 			this.__tSrcOpen.ButtonClick += new EventHandler(__tSrcOpen_ButtonClick);
 			this.__tSrcOpen.DropDownOpening += new EventHandler(__tSrcOpen_DropDownOpening);
 			this.__tResExtract.Click += new EventHandler(__tResExtract_Click);
+			this.__tGenOptions.Click += new EventHandler(__tGenOptions_Click);
+
+			this.__resCM.Opening += new System.ComponentModel.CancelEventHandler(__resCM_Opening);
 			
 			_viewData = new ResourceDataView();
 			_viewList = new ResourceListView();
@@ -48,7 +51,7 @@ namespace Anolis.Resourcer {
 			
 			if(__ofd.ShowDialog(this) != DialogResult.OK) return;
 			
-			LoadSource( _currentPath = __ofd.FileName );
+			LoadSource( __ofd.FileName );
 			
 		}
 		
@@ -68,6 +71,27 @@ namespace Anolis.Resourcer {
 			String path = (sender as ToolStripItem).Tag as String;
 			
 			LoadSourceFromMru(path);
+			
+		}
+		
+		private void __tGenOptions_Click(object sender, EventArgs e) {
+			
+			OptionsForm options = new OptionsForm();
+			options.ShowDialog(this);
+			
+		}
+		
+	#endregion
+	
+	#region Context Menu
+		
+		private void __resCM_Opening(Object sender, System.ComponentModel.CancelEventArgs e) {
+			
+			// Tailor the context menu for the resource
+			ContextMenuStrip strip = sender as ContextMenuStrip;
+			
+			
+			
 			
 		}
 		
@@ -206,7 +230,11 @@ namespace Anolis.Resourcer {
 		
 		private Boolean LoadSource(String path) {
 			
+			_currentPath = path;
+			
 			SetTitle( Path.GetFileName(path), true );
+			
+			///////////////////////////
 			
 			ResourceSource source = ResourceSource.Open(path, true);
 			if(source == null) return false;
@@ -229,6 +257,8 @@ namespace Anolis.Resourcer {
 						
 						TreeNode langNode = new TreeNode( lang.LanguageId.ToString() ) { Tag = lang };
 						nameNode.Nodes.Add( langNode );
+						
+						langNode.ContextMenuStrip = __resCM;
 						
 					}
 					

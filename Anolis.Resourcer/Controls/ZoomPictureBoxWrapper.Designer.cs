@@ -47,13 +47,14 @@
             this.@__toolsCenter});
 			this.@__tools.Location = new System.Drawing.Point(0, 0);
 			this.@__tools.Name = "__tools";
+			this.@__tools.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
 			this.@__tools.Size = new System.Drawing.Size(413, 25);
 			this.@__tools.TabIndex = 2;
 			this.@__tools.Text = "toolStrip1";
 			// 
 			// __toolsZoomIn
 			// 
-			this.@__toolsZoomIn.Image = ((System.Drawing.Image)(resources.GetObject("__toolsZoomIn.Image")));
+			this.@__toolsZoomIn.Image = Anolis.Resourcer.Properties.Resources.ImageViewer_ZoomIn;
 			this.@__toolsZoomIn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.@__toolsZoomIn.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsZoomIn.Name = "__toolsZoomIn";
@@ -62,7 +63,7 @@
 			// 
 			// __toolsZoomOut
 			// 
-			this.@__toolsZoomOut.Image = ((System.Drawing.Image)(resources.GetObject("__toolsZoomOut.Image")));
+			this.@__toolsZoomOut.Image = Anolis.Resourcer.Properties.Resources.ImageViewer_ZoomOut;
 			this.@__toolsZoomOut.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsZoomOut.Name = "__toolsZoomOut";
 			this.@__toolsZoomOut.Size = new System.Drawing.Size(74, 22);
@@ -70,7 +71,7 @@
 			// 
 			// __toolsZoom100
 			// 
-			this.@__toolsZoom100.Image = ((System.Drawing.Image)(resources.GetObject("__toolsZoom100.Image")));
+			this.@__toolsZoom100.Image = Anolis.Resourcer.Properties.Resources.ImageViewer_Zoom100;
 			this.@__toolsZoom100.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsZoom100.Name = "__toolsZoom100";
 			this.@__toolsZoom100.Size = new System.Drawing.Size(85, 22);
@@ -85,7 +86,7 @@
 			// 
 			// __toolsInterp
 			// 
-			this.@__toolsInterp.Image = ((System.Drawing.Image)(resources.GetObject("__toolsInterp.Image")));
+			this.@__toolsInterp.Image = Anolis.Resourcer.Properties.Resources.ImageViewer_Interpolation;
 			this.@__toolsInterp.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsInterp.Name = "__toolsInterp";
 			this.@__toolsInterp.Size = new System.Drawing.Size(98, 22);
@@ -97,7 +98,7 @@
 			this.@__toolsCenter.CheckOnClick = true;
 			this.@__toolsCenter.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.@__toolsCenter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.@__toolsCenter.Image = ((System.Drawing.Image)(resources.GetObject("__toolsCenter.Image")));
+			this.@__toolsCenter.Image = Anolis.Resourcer.Properties.Resources.ImageViewer_Center;
 			this.@__toolsCenter.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsCenter.Name = "__toolsCenter";
 			this.@__toolsCenter.Size = new System.Drawing.Size(23, 22);
@@ -108,7 +109,7 @@
 			this.@__pb.AutoScroll = true;
 			this.@__pb.AutoScrollMargin = new System.Drawing.Size(413, 241);
 			this.@__pb.AutoScrollMinSize = new System.Drawing.Size(1280, 853);
-			this.@__pb.BackgroundImage = global::Anolis.Resourcer.Properties.Resources.TransparentBg;
+			this.@__pb.BackgroundImage = global::Anolis.Resourcer.Properties.Resources.ImageViewer_TransparentBg;
 			this.@__pb.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.@__pb.Centered = true;
 			this.@__pb.Dock = System.Windows.Forms.DockStyle.Fill;

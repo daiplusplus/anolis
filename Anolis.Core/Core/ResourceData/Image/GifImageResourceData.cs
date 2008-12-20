@@ -1,7 +1,53 @@
 ﻿using System;
+using System.IO;
 using System.Drawing;
 
 namespace Anolis.Core.Data {
+	
+	public class GifImageResourceDataFactory : ResourceDataFactory {
+
+		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
+			
+			if(typeId.KnownType != Win32ResourceType.Custom) return Compatibility.No;
+			
+			if(typeId.StringId == "GIF") return Compatibility.Yes;
+			
+			return Compatibility.Maybe;
+			
+		}
+
+		public override Compatibility HandlesExtension(String filenameExtension) {
+			
+			return (filenameExtension == "gif") ? Compatibility.Yes : Compatibility.No;
+			
+		}
+
+		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
+			
+			GifImageResourceData rd;
+			
+			if(GifImageResourceData.TryCreate(lang, data, out rd)) return rd;
+			
+			return null;
+			
+		}
+
+		public override ResourceData FromFile(Stream stream, String extension) {
+			
+			Byte[] data = GetAllBytesFromStream(stream);
+			
+			GifImageResourceData rd;
+			
+			if(GifImageResourceData.TryCreate(null, data, out rd)) return rd;
+			
+			return null;
+			
+		}
+
+		public override string Name {
+			get { return "GIF Image"; }
+		}
+	}
 	
 	public sealed class GifImageResourceData : ImageResourceData {
 		
@@ -10,17 +56,13 @@ namespace Anolis.Core.Data {
 		private GifImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
 		}
 		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] data, out ResourceData typed) {
+		internal static Boolean TryCreate(ResourceLang lang, Byte[] data, out GifImageResourceData typed) {
 			
 			// XN Resource Editor checks if the first few bytes are a GIF signature
 			
 			typed = null;
 			
-			if(data.Length < 5) return false;
-			
-			String sig = System.Text.Encoding.ASCII.GetString(data, 0, 5);
-			
-			if(sig != "GIF87" && sig != "GIF89") return false;
+			if(!HasGifSignature(data)) return false;
 			
 			Image image;
 			
@@ -32,8 +74,21 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override string FileFilter {
-			get { return "GIF Image (*.gif)|*.gif"; }
+		public static Boolean HasGifSignature(Byte[] data) {
+			
+			// GIF files start with "GIF87" or "GIF89" in ASCII
+			if(data.Length < 5) return false;
+			return 
+				data[0] == 0x47 &&  // G
+				data[1] == 0x49 &&  // I
+				data[2] == 0x46 &&  // F
+				data[3] == 0x38 &&  // 8
+				(data[4] == 0x37 || // 7
+				 data[4] == 0x39);  // 9
+		}
+		
+		public override String[] SaveFileFilter {
+			get { return new String[] { "GIF Image (*.gif)|*.gif" }; }
 		}
 		
 	}
