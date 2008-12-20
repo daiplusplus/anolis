@@ -18,10 +18,10 @@ namespace Anolis.Core.Data {
 		public abstract ResourceData FromResource(ResourceLang lang, Byte[] data);
 		
 		/// <summary>Returns null if unsuccessful.</summary>
-		public abstract ResourceData FromFile(Stream stream);
+		public abstract ResourceData FromFile(Stream stream, String extension);
 		
 		/// <summary>Gets the (human-readable) message as to why the previously loaded resource could not be loaded.</summary>
-		public abstract String LastErrorMessage { get; }
+		public virtual String LastErrorMessage { get; protected set; }
 		
 		/// <summary>Gets the (human-readable) name of the data handled by this IResourceDataFactory.</summary>
 		public abstract String Name { get; }
@@ -109,7 +109,7 @@ namespace Anolis.Core.Data {
 			
 			if( _factories == null ) {
 				
-				if(locations == null) locations = new Location[] { new Location( Assembly.GetExecutingAssembly().Location, Location.LocationType.Directory ) };
+				if(locations == null) locations = new Location[] { new Location( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ), Location.LocationType.Directory ) };
 				
 				List<ResourceDataFactory> list = new List<ResourceDataFactory>();
 				

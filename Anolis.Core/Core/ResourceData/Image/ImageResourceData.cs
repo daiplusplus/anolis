@@ -39,6 +39,8 @@ namespace Anolis.Core.Data {
 			
 		}
 		
+		// TODO: Maybe override SaveAs and manage saving to GIF, JPEG, PNG, etc...?
+		
 	}
 	
 }

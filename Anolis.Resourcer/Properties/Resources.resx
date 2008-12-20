@@ -118,31 +118,58 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Options" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Main\Options.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ImageViewer_Center" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImageViewer\Center.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ResAdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Main\ResAdd.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ImageViewer_Interpolation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImageViewer\Interpolation.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ResDel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Main\ResDel.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ImageViewer_TransparentBg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImageViewer\TransparentBg.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ResExt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Main\ResExt.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ImageViewer_Zoom100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImageViewer\Zoom100.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ResRep" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Main\ResRep.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ImageViewer_ZoomIn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImageViewer\ZoomIn.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SrcOpen" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Main\SrcOpen.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ImageViewer_ZoomOut" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImageViewer\ZoomOut.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SrcRev" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Main\SrcRev.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TextViewer_Bom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TextViewer\BOM.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SrcSave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Main\SrcSave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TextViewer_Endian" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TextViewer\Endian.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TransparentBg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TransparentBg.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TextViewer_Font" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TextViewer\Font.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextViewer_WordWrap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TextViewer\WordWrap.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_Options" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\Options.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_ResAdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\ResAdd.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_ResDel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\ResDel.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_ResExt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\ResExt.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_ResRep" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\ResRep.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_SrcOpen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\SrcOpen.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_SrcRev" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\SrcRev.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_SrcSave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\SrcSave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -23,22 +23,22 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextViewer));
+			System.Windows.Forms.ToolStripSeparator @__toolsSep;
 			this.@__tools = new System.Windows.Forms.ToolStrip();
 			this.@__toolsEncodingLbl = new System.Windows.Forms.ToolStripLabel();
 			this.@__toolsEncoding = new System.Windows.Forms.ToolStripDropDownButton();
-			this.aSCIIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.uTF7ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.uTF8ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.uTF16ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.uTF32ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__toolsBom = new System.Windows.Forms.ToolStripButton();
-			this.@__toolsEndian = new System.Windows.Forms.ToolStripButton();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-			this.@__toolsFont = new System.Windows.Forms.ToolStripButton();
+			this.@__toolsEncAscii = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__toolsEncUtf7 = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__toolsEncUtf8 = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__toolsEncUtf16 = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__toolsEncUtf32 = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__text = new System.Windows.Forms.TextBox();
 			this.@__fdlg = new System.Windows.Forms.FontDialog();
+			this.@__toolsBom = new System.Windows.Forms.ToolStripButton();
+			this.@__toolsEndian = new System.Windows.Forms.ToolStripButton();
+			this.@__toolsWrap = new System.Windows.Forms.ToolStripButton();
+			this.@__toolsFont = new System.Windows.Forms.ToolStripButton();
+			@__toolsSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__tools.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -50,8 +50,8 @@
             this.@__toolsEncoding,
             this.@__toolsBom,
             this.@__toolsEndian,
-            this.toolStripSeparator1,
-            this.toolStripButton1,
+            @__toolsSep,
+            this.@__toolsWrap,
             this.@__toolsFont});
 			this.@__tools.Location = new System.Drawing.Point(0, 0);
 			this.@__tools.Name = "__tools";
@@ -70,89 +70,50 @@
 			// 
 			this.@__toolsEncoding.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.@__toolsEncoding.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aSCIIToolStripMenuItem,
-            this.uTF7ToolStripMenuItem,
-            this.uTF8ToolStripMenuItem,
-            this.uTF16ToolStripMenuItem,
-            this.uTF32ToolStripMenuItem});
-			this.@__toolsEncoding.Image = ((System.Drawing.Image)(resources.GetObject("__toolsEncoding.Image")));
+            this.@__toolsEncAscii,
+            this.@__toolsEncUtf7,
+            this.@__toolsEncUtf8,
+            this.@__toolsEncUtf16,
+            this.@__toolsEncUtf32});
 			this.@__toolsEncoding.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsEncoding.Name = "__toolsEncoding";
 			this.@__toolsEncoding.Size = new System.Drawing.Size(49, 22);
 			this.@__toolsEncoding.Text = "UTF-8";
 			// 
-			// aSCIIToolStripMenuItem
+			// __toolsEncAscii
 			// 
-			this.aSCIIToolStripMenuItem.Name = "aSCIIToolStripMenuItem";
-			this.aSCIIToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-			this.aSCIIToolStripMenuItem.Text = "ASCII";
+			this.@__toolsEncAscii.Name = "__toolsEncAscii";
+			this.@__toolsEncAscii.Size = new System.Drawing.Size(152, 22);
+			this.@__toolsEncAscii.Text = "ASCII";
 			// 
-			// uTF7ToolStripMenuItem
+			// __toolsEncUtf7
 			// 
-			this.uTF7ToolStripMenuItem.Name = "uTF7ToolStripMenuItem";
-			this.uTF7ToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-			this.uTF7ToolStripMenuItem.Text = "UTF-7";
+			this.@__toolsEncUtf7.Name = "__toolsEncUtf7";
+			this.@__toolsEncUtf7.Size = new System.Drawing.Size(152, 22);
+			this.@__toolsEncUtf7.Text = "UTF-7";
 			// 
-			// uTF8ToolStripMenuItem
+			// __toolsEncUtf8
 			// 
-			this.uTF8ToolStripMenuItem.Name = "uTF8ToolStripMenuItem";
-			this.uTF8ToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-			this.uTF8ToolStripMenuItem.Text = "UTF-8";
+			this.@__toolsEncUtf8.Name = "__toolsEncUtf8";
+			this.@__toolsEncUtf8.Size = new System.Drawing.Size(152, 22);
+			this.@__toolsEncUtf8.Text = "UTF-8";
 			// 
-			// uTF16ToolStripMenuItem
+			// __toolsEncUtf16
 			// 
-			this.uTF16ToolStripMenuItem.Name = "uTF16ToolStripMenuItem";
-			this.uTF16ToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-			this.uTF16ToolStripMenuItem.Text = "UTF-16";
+			this.@__toolsEncUtf16.Name = "__toolsEncUtf16";
+			this.@__toolsEncUtf16.Size = new System.Drawing.Size(152, 22);
+			this.@__toolsEncUtf16.Text = "UTF-16";
 			// 
-			// uTF32ToolStripMenuItem
+			// __toolsEncUtf32
 			// 
-			this.uTF32ToolStripMenuItem.Name = "uTF32ToolStripMenuItem";
-			this.uTF32ToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-			this.uTF32ToolStripMenuItem.Text = "UTF-32";
+			this.@__toolsEncUtf32.Name = "__toolsEncUtf32";
+			this.@__toolsEncUtf32.Size = new System.Drawing.Size(152, 22);
+			this.@__toolsEncUtf32.Text = "UTF-32";
 			// 
-			// __toolsBom
+			// __toolsSep
 			// 
-			this.@__toolsBom.CheckOnClick = true;
-			this.@__toolsBom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.@__toolsBom.Image = ((System.Drawing.Image)(resources.GetObject("__toolsBom.Image")));
-			this.@__toolsBom.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__toolsBom.Name = "__toolsBom";
-			this.@__toolsBom.Size = new System.Drawing.Size(23, 22);
-			this.@__toolsBom.Text = "Byte Order Mark";
-			this.@__toolsBom.ToolTipText = "Use Byte Order Mark (BOM) if present";
-			// 
-			// __toolsEndian
-			// 
-			this.@__toolsEndian.CheckOnClick = true;
-			this.@__toolsEndian.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.@__toolsEndian.Image = ((System.Drawing.Image)(resources.GetObject("__toolsEndian.Image")));
-			this.@__toolsEndian.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__toolsEndian.Name = "__toolsEndian";
-			this.@__toolsEndian.Size = new System.Drawing.Size(23, 22);
-			this.@__toolsEndian.Text = "Unicode Big-Endian";
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
-			// toolStripButton1
-			// 
-			this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton1.Name = "toolStripButton1";
-			this.toolStripButton1.Size = new System.Drawing.Size(82, 22);
-			this.toolStripButton1.Text = "Word Wrap";
-			// 
-			// __toolsFont
-			// 
-			this.@__toolsFont.Image = ((System.Drawing.Image)(resources.GetObject("__toolsFont.Image")));
-			this.@__toolsFont.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__toolsFont.Name = "__toolsFont";
-			this.@__toolsFont.Size = new System.Drawing.Size(49, 22);
-			this.@__toolsFont.Text = "Font";
-			this.@__toolsFont.Click += new System.EventHandler(this.@__toolsFont_Click);
+			@__toolsSep.Name = "__toolsSep";
+			@__toolsSep.Size = new System.Drawing.Size(6, 25);
 			// 
 			// __text
 			// 
@@ -169,6 +130,44 @@
 			this.@__fdlg.FontMustExist = true;
 			this.@__fdlg.ShowApply = true;
 			this.@__fdlg.ShowEffects = false;
+			// 
+			// __toolsBom
+			// 
+			this.@__toolsBom.CheckOnClick = true;
+			this.@__toolsBom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.@__toolsBom.Image = global::Anolis.Resourcer.Properties.Resources.TextViewer_Bom;
+			this.@__toolsBom.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__toolsBom.Name = "__toolsBom";
+			this.@__toolsBom.Size = new System.Drawing.Size(23, 22);
+			this.@__toolsBom.Text = "Byte Order Mark";
+			this.@__toolsBom.ToolTipText = "Use Byte Order Mark (BOM) if present";
+			// 
+			// __toolsEndian
+			// 
+			this.@__toolsEndian.CheckOnClick = true;
+			this.@__toolsEndian.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.@__toolsEndian.Image = global::Anolis.Resourcer.Properties.Resources.TextViewer_Endian;
+			this.@__toolsEndian.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__toolsEndian.Name = "__toolsEndian";
+			this.@__toolsEndian.Size = new System.Drawing.Size(23, 22);
+			this.@__toolsEndian.Text = "Unicode Big-Endian";
+			// 
+			// __toolsWrap
+			// 
+			this.@__toolsWrap.Image = global::Anolis.Resourcer.Properties.Resources.TextViewer_WordWrap;
+			this.@__toolsWrap.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__toolsWrap.Name = "__toolsWrap";
+			this.@__toolsWrap.Size = new System.Drawing.Size(82, 22);
+			this.@__toolsWrap.Text = "Word Wrap";
+			// 
+			// __toolsFont
+			// 
+			this.@__toolsFont.Image = global::Anolis.Resourcer.Properties.Resources.TextViewer_Font;
+			this.@__toolsFont.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__toolsFont.Name = "__toolsFont";
+			this.@__toolsFont.Size = new System.Drawing.Size(49, 22);
+			this.@__toolsFont.Text = "Font";
+			this.@__toolsFont.Click += new System.EventHandler(this.@__toolsFont_Click);
 			// 
 			// TextViewer
 			// 
@@ -190,15 +189,14 @@
 		private System.Windows.Forms.ToolStrip __tools;
 		private System.Windows.Forms.ToolStripLabel __toolsEncodingLbl;
 		private System.Windows.Forms.ToolStripDropDownButton __toolsEncoding;
-		private System.Windows.Forms.ToolStripMenuItem aSCIIToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem uTF7ToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem uTF8ToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem uTF16ToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem uTF32ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem __toolsEncAscii;
+		private System.Windows.Forms.ToolStripMenuItem __toolsEncUtf7;
+		private System.Windows.Forms.ToolStripMenuItem __toolsEncUtf8;
+		private System.Windows.Forms.ToolStripMenuItem __toolsEncUtf16;
+		private System.Windows.Forms.ToolStripMenuItem __toolsEncUtf32;
 		private System.Windows.Forms.ToolStripButton __toolsBom;
 		private System.Windows.Forms.ToolStripButton __toolsEndian;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripButton toolStripButton1;
+		private System.Windows.Forms.ToolStripButton __toolsWrap;
 		private System.Windows.Forms.TextBox __text;
 		private System.Windows.Forms.ToolStripButton __toolsFont;
 		private System.Windows.Forms.FontDialog __fdlg;

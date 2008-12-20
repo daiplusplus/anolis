@@ -119,8 +119,8 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override string FileFilter {
-			get { return "Icon File (*.ico)|*.ico"; }
+		public override String[] SaveFileFilter {
+			get { return new String[] { "Icon File (*.ico)|*.ico" }; }
 		}
 		
 	}

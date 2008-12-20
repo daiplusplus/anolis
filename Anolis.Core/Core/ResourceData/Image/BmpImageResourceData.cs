@@ -23,8 +23,14 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesExtension(String filenameExtension) {
 			
+			// TODO: Sort this out...
 			switch(filenameExtension) {
-				case "bmp": case "jpeg": case "jpg": case "png": case "gif": case "dib":
+				case "bmp":
+				case "jpeg":
+				case "jpg":
+				case "png":
+				case "gif":
+				case "dib":
 					return Compatibility.Yes;
 			}
 			
@@ -32,24 +38,22 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override ResourceData FromFile(Stream stream) {
+		public override ResourceData FromFile(Stream stream, String extension) {
 			
 			Byte[] fileData = GetAllBytesFromStream(stream);
 			
-			BmpImageResourceData rd;
-			
-			if( BmpImageResourceData.TryCreate(null, fileData, out rd) ) return rd;
-			
-			return null;
+			return FromResource(null, fileData);
 			
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, byte[] data) {
-			throw new NotImplementedException();
-		}
-		
-		public override string LastErrorMessage {
-			get { throw new NotImplementedException(); }
+			
+			BmpImageResourceData rd;
+			
+			if( BmpImageResourceData.TryCreate(null, data, out rd) ) return rd;
+			
+			return null;
+			
 		}
 		
 		public override String Name {
@@ -65,7 +69,7 @@ namespace Anolis.Core.Data {
 			_dib = dib;
 		}
 		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out BmpImageResourceData typed) {
+		internal static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out BmpImageResourceData typed) {
 			
 			// check if the data is of the right format before working with it
 			
@@ -84,18 +88,24 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override void SaveAs(Stream stream) {
+		public override void SaveAs(Stream stream, String extension) {
 			
 			// don't use Image.Save since we want to save it without any added .NET Image class nonsense, and preserve 32-bit BMPs
 			
-			Byte[] bitmapFileData = _dib.Data;
-			
-			stream.Write( bitmapFileData, 0, bitmapFileData.Length );
+			if(extension == "bmp") {
+				
+				Byte[] bitmapFileData = _dib.Data;
+				
+				stream.Write( bitmapFileData, 0, bitmapFileData.Length );
+				
+			} else {
+				base.SaveAs(stream, extension); // assuming ImageResourceData handles other extensions
+			}
 			
 		}
 		
-		public override string FileFilter {
-			get { return "BMP Image (*.bmp)|*.bmp"; }
+		public override String[] SaveFileFilter {
+			get { return new String[] { "BMP Image (*.bmp)|*.bmp" }; }
 		}
 		
 	}

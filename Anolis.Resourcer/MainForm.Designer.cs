@@ -23,10 +23,12 @@ namespace Anolis.Resourcer {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.ToolStripSeparator @__tSep1;
 			System.Windows.Forms.ToolStripSeparator @__tSep2;
 			System.Windows.Forms.ToolStripStatusLabel @__sSep1;
 			System.Windows.Forms.ToolStripStatusLabel @__sSep2;
+			System.Windows.Forms.ToolStripSeparator @__resCMSep;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.@__resources = new System.Windows.Forms.TreeView();
 			this.@__split = new System.Windows.Forms.SplitContainer();
@@ -45,14 +47,21 @@ namespace Anolis.Resourcer {
 			this.@__tResReplace = new System.Windows.Forms.ToolStripButton();
 			this.@__tResDelete = new System.Windows.Forms.ToolStripButton();
 			this.@__tGenOptions = new System.Windows.Forms.ToolStripButton();
+			this.@__resCM = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.@__resCMConvert = new System.Windows.Forms.ToolStripMenuItem();
+			this.bMPImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.genericBinaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__resCMExtract = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__resCMReplace = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__resCMDelete = new System.Windows.Forms.ToolStripMenuItem();
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			@__sSep1 = new System.Windows.Forms.ToolStripStatusLabel();
 			@__sSep2 = new System.Windows.Forms.ToolStripStatusLabel();
+			@__resCMSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__split.Panel1.SuspendLayout();
 			this.@__split.SuspendLayout();
-			this.@__status.SuspendLayout();
-			this.@__t.SuspendLayout();
+			this.@__resCM.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __tSep1
@@ -78,12 +87,17 @@ namespace Anolis.Resourcer {
 			@__sSep2.Name = "__sSep2";
 			@__sSep2.Size = new System.Drawing.Size(4, 17);
 			// 
+			// __resCMSep
+			// 
+			@__resCMSep.Name = "__resCMSep";
+			@__resCMSep.Size = new System.Drawing.Size(130, 6);
+			// 
 			// __resources
 			// 
 			this.@__resources.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.@__resources.Location = new System.Drawing.Point(0, 0);
 			this.@__resources.Name = "__resources";
-			this.@__resources.Size = new System.Drawing.Size(134, 370);
+			this.@__resources.Size = new System.Drawing.Size(150, 370);
 			this.@__resources.TabIndex = 3;
 			// 
 			// __split
@@ -100,7 +114,7 @@ namespace Anolis.Resourcer {
 			// 
 			this.@__split.Panel1.Controls.Add(this.@__resources);
 			this.@__split.Size = new System.Drawing.Size(620, 370);
-			this.@__split.SplitterDistance = 134;
+			this.@__split.SplitterDistance = 150;
 			this.@__split.TabIndex = 4;
 			// 
 			// __status
@@ -150,13 +164,13 @@ namespace Anolis.Resourcer {
             this.@__tGenOptions});
 			this.@__t.Location = new System.Drawing.Point(0, 0);
 			this.@__t.Name = "__t";
-			this.@__t.Size = new System.Drawing.Size(620, 74);
+			this.@__t.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
 			this.@__t.TabIndex = 6;
-			this.@__t.Text = "toolStrip1";
+			this.@__t.Text = "";
 			// 
 			// __tSrcOpen
 			// 
-			this.@__tSrcOpen.Image = global::Anolis.Resourcer.Properties.Resources.SrcOpen;
+			this.@__tSrcOpen.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_SrcOpen;
 			this.@__tSrcOpen.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tSrcOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tSrcOpen.Name = "__tSrcOpen";
@@ -167,7 +181,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tSrcSave
 			// 
-			this.@__tSrcSave.Image = global::Anolis.Resourcer.Properties.Resources.SrcSave;
+			this.@__tSrcSave.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_SrcSave;
 			this.@__tSrcSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tSrcSave.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tSrcSave.Name = "__tSrcSave";
@@ -178,7 +192,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tSrcReload
 			// 
-			this.@__tSrcReload.Image = global::Anolis.Resourcer.Properties.Resources.SrcRev;
+			this.@__tSrcReload.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_SrcRev;
 			this.@__tSrcReload.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tSrcReload.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tSrcReload.Name = "__tSrcReload";
@@ -189,7 +203,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tResAdd
 			// 
-			this.@__tResAdd.Image = global::Anolis.Resourcer.Properties.Resources.ResAdd;
+			this.@__tResAdd.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_ResAdd;
 			this.@__tResAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tResAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResAdd.Name = "__tResAdd";
@@ -200,7 +214,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tResExtract
 			// 
-			this.@__tResExtract.Image = global::Anolis.Resourcer.Properties.Resources.ResExt;
+			this.@__tResExtract.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_ResExt;
 			this.@__tResExtract.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tResExtract.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResExtract.Name = "__tResExtract";
@@ -211,7 +225,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tResReplace
 			// 
-			this.@__tResReplace.Image = global::Anolis.Resourcer.Properties.Resources.ResRep;
+			this.@__tResReplace.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_ResRep;
 			this.@__tResReplace.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tResReplace.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResReplace.Name = "__tResReplace";
@@ -222,7 +236,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tResDelete
 			// 
-			this.@__tResDelete.Image = global::Anolis.Resourcer.Properties.Resources.ResDel;
+			this.@__tResDelete.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_ResDel;
 			this.@__tResDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tResDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResDelete.Name = "__tResDelete";
@@ -233,7 +247,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tGenOptions
 			// 
-			this.@__tGenOptions.Image = global::Anolis.Resourcer.Properties.Resources.Options;
+			this.@__tGenOptions.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_Options;
 			this.@__tGenOptions.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.@__tGenOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tGenOptions.Name = "__tGenOptions";
@@ -241,6 +255,57 @@ namespace Anolis.Resourcer {
 			this.@__tGenOptions.Size = new System.Drawing.Size(58, 71);
 			this.@__tGenOptions.Text = "Options";
 			this.@__tGenOptions.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			// 
+			// __resCM
+			// 
+			this.@__resCM.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.@__resCMConvert,
+            @__resCMSep,
+            this.@__resCMExtract,
+            this.@__resCMReplace,
+            this.@__resCMDelete});
+			this.@__resCM.Name = "__resCM";
+			this.@__resCM.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+			this.@__resCM.Size = new System.Drawing.Size(134, 98);
+			// 
+			// __resCMConvert
+			// 
+			this.@__resCMConvert.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bMPImageToolStripMenuItem,
+            this.genericBinaryToolStripMenuItem});
+			this.@__resCMConvert.Name = "__resCMConvert";
+			this.@__resCMConvert.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMConvert.Text = "Cast {0} as:";
+			// 
+			// bMPImageToolStripMenuItem
+			// 
+			this.bMPImageToolStripMenuItem.Name = "bMPImageToolStripMenuItem";
+			this.bMPImageToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+			this.bMPImageToolStripMenuItem.Text = "BMP Image";
+			// 
+			// genericBinaryToolStripMenuItem
+			// 
+			this.genericBinaryToolStripMenuItem.Name = "genericBinaryToolStripMenuItem";
+			this.genericBinaryToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+			this.genericBinaryToolStripMenuItem.Text = "Generic Binary";
+			// 
+			// __resCMExtract
+			// 
+			this.@__resCMExtract.Name = "__resCMExtract";
+			this.@__resCMExtract.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMExtract.Text = "Extract {0}";
+			// 
+			// __resCMReplace
+			// 
+			this.@__resCMReplace.Name = "__resCMReplace";
+			this.@__resCMReplace.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMReplace.Text = "Replace {0}";
+			// 
+			// __resCMDelete
+			// 
+			this.@__resCMDelete.Name = "__resCMDelete";
+			this.@__resCMDelete.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMDelete.Text = "Delete {0}";
 			// 
 			// MainForm
 			// 
@@ -256,10 +321,7 @@ namespace Anolis.Resourcer {
 			this.Text = "Anolis Resourcer";
 			this.@__split.Panel1.ResumeLayout(false);
 			this.@__split.ResumeLayout(false);
-			this.@__status.ResumeLayout(false);
-			this.@__status.PerformLayout();
-			this.@__t.ResumeLayout(false);
-			this.@__t.PerformLayout();
+			this.@__resCM.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -284,6 +346,13 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.ToolStripStatusLabel __sType;
 		private System.Windows.Forms.ToolStripStatusLabel __sSize;
 		private System.Windows.Forms.ToolStripSplitButton __tSrcOpen;
+		private System.Windows.Forms.ContextMenuStrip __resCM;
+		private System.Windows.Forms.ToolStripMenuItem __resCMExtract;
+		private System.Windows.Forms.ToolStripMenuItem __resCMConvert;
+		private System.Windows.Forms.ToolStripMenuItem __resCMReplace;
+		private System.Windows.Forms.ToolStripMenuItem __resCMDelete;
+		private System.Windows.Forms.ToolStripMenuItem bMPImageToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem genericBinaryToolStripMenuItem;
 	}
 }
 

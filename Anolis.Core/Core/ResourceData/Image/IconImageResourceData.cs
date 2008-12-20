@@ -8,6 +8,46 @@ using Anolis.Core.Utility;
 
 namespace Anolis.Core.Data {
 	
+	public class IconImageResourceDataFactory : ResourceDataFactory {
+		
+		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
+			
+			if( typeId.KnownType == Win32ResourceType.IconImage ) return Compatibility.Yes;
+			if( typeId.KnownType == Win32ResourceType.Bitmap    ) return Compatibility.Maybe;
+			
+			return Compatibility.No;
+		}
+
+		public override Compatibility HandlesExtension(String filenameExtension) {
+			
+			if( filenameExtension == "png" ) return Compatibility.Maybe;
+			if( filenameExtension == "bmp" ) return Compatibility.Maybe;
+			
+			return Compatibility.No;
+		}
+
+		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
+			
+			IconImageResourceData rd;
+			
+			if( IconImageResourceData.TryCreate(lang, data, out rd) ) return rd;
+			
+			return null;
+			
+		}
+
+		public override ResourceData FromFile(Stream stream, String extension) {
+			
+			LastErrorMessage = "Not implemented";
+			return null;
+			
+		}
+
+		public override string Name {
+			get { return "Icon Sub-Image"; }
+		}
+	}
+	
 	public sealed class IconImageResourceData : ImageResourceData {
 		
 		private IconImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
@@ -15,7 +55,7 @@ namespace Anolis.Core.Data {
 		
 		public Size Size { get; private set; }
 		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out ResourceData typed) {
+		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out IconImageResourceData typed) {
 			
 			// rawData is an ICONIMAGE structure OR a PNG image
 			
@@ -90,8 +130,8 @@ typdef struct {
 			
 		}
 		
-		public override String FileFilter {
-			get { return "BMP Image (*.bmp)|*.bmp"; }
+		public override String[] SaveFileFilter {
+			get { return new String[] { "BMP Image (*.bmp)|*.bmp" }; }
 		}
 		
 	}

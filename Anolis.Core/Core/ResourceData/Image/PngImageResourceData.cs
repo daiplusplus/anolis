@@ -3,12 +3,47 @@ using System.Drawing;
 
 namespace Anolis.Core.Data {
 	
+	public class PngImageResourceDataFactory : ResourceDataFactory {
+		
+		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
+			
+			if(typeId.KnownType != Win32ResourceType.Custom) return Compatibility.No;
+			
+			if(typeId.StringId == "PNG") return Compatibility.Yes;
+			
+			return Compatibility.Maybe;
+		}
+		
+		public override Compatibility HandlesExtension(string filenameExtension) {
+			if(filenameExtension == "png") return Compatibility.Yes;
+			return Compatibility.No;
+		}
+		
+		public override ResourceData FromResource(ResourceLang lang, byte[] data) {
+			
+			PngImageResourceData rd;
+			if( PngImageResourceData.TryCreate(null, data, out rd) ) return rd;
+			
+			return null;
+			
+		}
+		
+		public override ResourceData FromFile(System.IO.Stream stream, string extension) {
+			Byte[] data = GetAllBytesFromStream(stream);
+			return FromResource(null, data);
+		}
+		
+		public override string Name {
+			get { return "PNG Image"; }
+		}
+	}
+	
 	public sealed class PngImageResourceData : ImageResourceData {
 		
 		private PngImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
 		}
 		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] data, out ResourceData typed) {
+		public static Boolean TryCreate(ResourceLang lang, Byte[] data, out PngImageResourceData typed) {
 			
 			typed = null;
 			
