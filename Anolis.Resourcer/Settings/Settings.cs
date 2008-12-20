@@ -34,11 +34,10 @@ namespace Anolis.Resourcer.Settings {
 		/// <summary>Ensures the Settings values are valid, such as making negative numbers positive and removing excess items.</summary>
 		public void Ensure() {
 			
-			return;
 			
-			/////////////////////////////////
+			////////////////////////////////
 			// MRU
-			if( MruList == null ) MruList = new System.Collections.Specialized.StringCollection();
+			if( MruList == null ) return;
 			
 			/////////////////////////////////
 			// MRU Count

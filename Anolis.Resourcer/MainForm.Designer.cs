@@ -27,6 +27,7 @@ namespace Anolis.Resourcer {
 			System.Windows.Forms.ToolStripSeparator @__tSep2;
 			System.Windows.Forms.ToolStripStatusLabel @__sSep1;
 			System.Windows.Forms.ToolStripStatusLabel @__sSep2;
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.@__resources = new System.Windows.Forms.TreeView();
 			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
@@ -249,6 +250,7 @@ namespace Anolis.Resourcer {
 			this.Controls.Add(this.@__t);
 			this.Controls.Add(this.@__status);
 			this.Controls.Add(this.@__split);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainForm";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.Text = "Anolis Resourcer";

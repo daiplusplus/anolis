@@ -36,83 +36,67 @@ namespace Anolis.Core {
 			Action  = ResourceDataAction.None; // action would be set by the ResourceSource using it and is none of our concern
 		}
 		
-		public static ResourceData Create(ResourceLang lang, Byte[] rawData) {
+		public static ResourceData FromResource(ResourceLang lang, Byte[] rawData) {
 			
-			Win32ResourceType wType = lang.Name.Type.Identifier.KnownType;
+			ResourceTypeIdentifier typeId = lang.Name.Type.Identifier;
 			
-			ResourceHint hint;
+			// get a list of suitable factories
 			
-			if(wType == Win32ResourceType.Custom) {
+			ResourceDataFactory[] factories = ResourceDataFactory.GetFactoriesForType( typeId );
+			
+			// try the factories in order of compatibility.
+			
+			Int32 i = 0;
+			ResourceData data = null;
+			while(data == null) {
 				
-				String id = lang.Name.Type.Identifier.StringId.ToUpperInvariant(); // this isn't going to be null
+				if(i >= factories.Length) throw new Exception("Unable to locate factory for resource data.");
 				
-				switch(id) {
-					case "PNG" :  hint = ResourceHint.Png;  break;
-					case "JPEG":  hint = ResourceHint.Jpeg; break;
-					case "GIF" :  hint = ResourceHint.Gif;  break;
-					case "AVI" :
-					case "MPEG":
-					case "MP3" :
-					case "MP2" :
-					case "RIFF":
-					case "WAV" :
-					case "WMV" :
-					case "HTML":
-					case "XML" :
-					case "XSLT":
-					case "SGML":
-						hint = ResourceHint.Unknown; // TODO: Make hints for these file formats once I get round to it
-						break;
-					default:
-						hint = ResourceHint.Unknown;
-						break;
-				}
+				data = factories[i++].FromResource(lang, rawData);
 				
-			} else if(wType == Win32ResourceType.Unknown) {
-				
-				hint = ResourceHint.Unknown;
-				
-			} else {
-				
-				hint = (ResourceHint)wType;
 			}
 			
-			ResourceData retval = ResourceDataFactory.GetResourceData(lang, hint, rawData);
-			
-			return retval;
+			return data;
 			
 		}
 		
 		/// <summary>Creates a ResourceData instance from a stream containing data convertible into a resource. For instance a stream containing a  *.bmp file's content can be converted into a BITMAP resource.</summary>
-		public static ResourceData Read(Stream stream) {
+		public static ResourceData FromFile(Stream stream, String extension) {
 			
-			// reads the file, determines what kind of ResourceData it is and what subclass to use and return
+			// 'intelligent reading' of the file itself is too resource intensive. Better just to trust the extension.
+			
+			extension = extension.ToLowerInvariant();
+			if(extension.StartsWith(".")) extension = extension.Substring(1);
+			
+			ResourceDataFactory[] factories = ResourceDataFactory.GetFactoriesForExtension( extension );
+			
+			// try the factories in order of compatibility.
+			
+			Int32 i = 0;
+			ResourceData data = null;
+			while(data == null) {
+				
+				if(i >= factories.Length) throw new Exception("Unable to locate factory for resource data.");
+				
+				data = factories[i++].FromFile( stream );
+				
+			}
+			
+			return data;
 			
 			throw new NotImplementedException();
 			
 		}
 		
-		/// <summary>Creates a ResourceData instance from input data that can be converted into a resource. If the data is the actual bytes of a resource use the public constructor.</summary>
-		public static ResourceData Read(Byte[] data) {
-			
-			if(data == null) throw new ArgumentNullException("data");
-			
-			using(MemoryStream stream = new MemoryStream(data)) {
-				
-				return Read( stream );
-			}
-			
-		}
-		
 		/// <summary>Creates a ResourceData instance from a file containing data convertible into a resource. For instance a *.bmp can be converted into a BITMAP resource.</summary>
-		public static ResourceData Read(String filename) {
+		public static ResourceData FromFile(String filename) {
 			
 			if(filename == null) throw new ArgumentNullException("filename");
 			if( !File.Exists(filename) ) throw new FileNotFoundException("The file to load the resource data from was not found", filename);
 			
 			using(Stream stream = File.OpenRead(filename)) {
 				
-				return Read( stream );
+				return FromFile( stream, Path.GetExtension(filename) );
 			}
 			
 		}
@@ -147,19 +131,16 @@ namespace Anolis.Core {
 			
 			using(Stream stream = File.Create(path)) {
 				
-				SaveAs(stream);
+				SaveAs(stream, Path.GetExtension(path) );
 			}
 			
 		}
 		
-		public virtual void SaveAs(Stream stream) {
-			
-			Save(stream);
-		}
+		public abstract void SaveAs(Stream stream, String extension);
 		
 		/// <summary>Gets the file extension and friendly name in .NET "File Filter" format associated with the data format contained within.</summary>
 		/// <example>Binary Data File (*.bin)|*.bin</example>
-		public abstract String FileFilter { get; }
+		public abstract String[] SaveFileFilter { get; }
 		
 		/// <summary>Called when the RawData is set. A notification to subclasses to recreate any stateful data.</summary>
 		protected virtual void Initialise() {

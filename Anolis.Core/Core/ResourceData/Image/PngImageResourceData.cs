@@ -43,8 +43,8 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override string FileFilter {
-			get { return "PNG Image (*.png)|*.png"; }
+		public override String[] SaveFileFilter {
+			get { return new String[] { "PNG Image (*.png)|*.png" }; }
 		}
 		
 	}
