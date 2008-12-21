@@ -36,9 +36,12 @@
 			this.@__aboutName = new System.Windows.Forms.Label();
 			this.@__cancel = new System.Windows.Forms.Button();
 			this.@__ok = new System.Windows.Forms.Button();
+			this._tLicense = new System.Windows.Forms.TabPage();
+			this.@__licenseText = new System.Windows.Forms.TextBox();
 			this.@__tabs.SuspendLayout();
 			this.@__tSettings.SuspendLayout();
 			this.@__tAbout.SuspendLayout();
+			this._tLicense.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __tabs
@@ -48,6 +51,7 @@
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__tabs.Controls.Add(this.@__tSettings);
 			this.@__tabs.Controls.Add(this.@__tAbout);
+			this.@__tabs.Controls.Add(this._tLicense);
 			this.@__tabs.Location = new System.Drawing.Point(6, 7);
 			this.@__tabs.Margin = new System.Windows.Forms.Padding(0);
 			this.@__tabs.Name = "__tabs";
@@ -89,7 +93,7 @@
 			this.@__tAbout.Location = new System.Drawing.Point(4, 22);
 			this.@__tAbout.Name = "__tAbout";
 			this.@__tAbout.Padding = new System.Windows.Forms.Padding(3);
-			this.@__tAbout.Size = new System.Drawing.Size(338, 222);
+			this.@__tAbout.Size = new System.Drawing.Size(338, 224);
 			this.@__tAbout.TabIndex = 1;
 			this.@__tAbout.Text = "About";
 			this.@__tAbout.UseVisualStyleBackColor = true;
@@ -146,12 +150,11 @@
 			// 
 			// __aboutBlurb
 			// 
-			this.@__aboutBlurb.AutoSize = true;
 			this.@__aboutBlurb.Location = new System.Drawing.Point(10, 34);
 			this.@__aboutBlurb.Name = "__aboutBlurb";
-			this.@__aboutBlurb.Size = new System.Drawing.Size(285, 13);
+			this.@__aboutBlurb.Size = new System.Drawing.Size(322, 30);
 			this.@__aboutBlurb.TabIndex = 1;
-			this.@__aboutBlurb.Text = "Resource browser, viewer, and editor for the Anolis project.";
+			this.@__aboutBlurb.Text = "Resource browser, viewer, and editor for the Anolis project. GPL Licensed.";
 			// 
 			// __aboutName
 			// 
@@ -184,6 +187,29 @@
 			this.@__ok.Text = "OK";
 			this.@__ok.UseVisualStyleBackColor = true;
 			// 
+			// _tLicense
+			// 
+			this._tLicense.Controls.Add(this.@__licenseText);
+			this._tLicense.Location = new System.Drawing.Point(4, 22);
+			this._tLicense.Name = "_tLicense";
+			this._tLicense.Size = new System.Drawing.Size(338, 224);
+			this._tLicense.TabIndex = 2;
+			this._tLicense.Text = "License";
+			this._tLicense.UseVisualStyleBackColor = true;
+			// 
+			// __licenseText
+			// 
+			this.@__licenseText.BackColor = System.Drawing.SystemColors.Window;
+			this.@__licenseText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.@__licenseText.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.@__licenseText.Location = new System.Drawing.Point(0, 0);
+			this.@__licenseText.Multiline = true;
+			this.@__licenseText.Name = "__licenseText";
+			this.@__licenseText.ReadOnly = true;
+			this.@__licenseText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.@__licenseText.Size = new System.Drawing.Size(338, 224);
+			this.@__licenseText.TabIndex = 0;
+			// 
 			// OptionsForm
 			// 
 			this.AcceptButton = this.@__ok;
@@ -206,6 +232,8 @@
 			this.@__tSettings.PerformLayout();
 			this.@__tAbout.ResumeLayout(false);
 			this.@__tAbout.PerformLayout();
+			this._tLicense.ResumeLayout(false);
+			this._tLicense.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -225,5 +253,7 @@
 		private System.Windows.Forms.LinkLabel __aboutLinkVize;
 		private System.Windows.Forms.LinkLabel __aboutLinkLong;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TabPage _tLicense;
+		private System.Windows.Forms.TextBox __licenseText;
 	}
 }

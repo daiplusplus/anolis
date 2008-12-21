@@ -24,12 +24,11 @@ namespace Anolis.Resourcer {
 		/// </summary>
 		private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.ToolStripSeparator @__tSep1;
-			System.Windows.Forms.ToolStripSeparator @__tSep2;
-			System.Windows.Forms.ToolStripStatusLabel @__sSep1;
-			System.Windows.Forms.ToolStripStatusLabel @__sSep2;
-			System.Windows.Forms.ToolStripSeparator @__resCMSep;
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+			this.@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
+			this.@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
+			this.@__sSep1 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.@__sSep2 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.@__resCMSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__resources = new System.Windows.Forms.TreeView();
 			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
@@ -49,55 +48,51 @@ namespace Anolis.Resourcer {
 			this.@__tGenOptions = new System.Windows.Forms.ToolStripButton();
 			this.@__resCM = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.@__resCMConvert = new System.Windows.Forms.ToolStripMenuItem();
-			this.bMPImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.genericBinaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__resCMExtract = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__resCMReplace = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__resCMDelete = new System.Windows.Forms.ToolStripMenuItem();
-			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
-			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
-			@__sSep1 = new System.Windows.Forms.ToolStripStatusLabel();
-			@__sSep2 = new System.Windows.Forms.ToolStripStatusLabel();
-			@__resCMSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__split.Panel1.SuspendLayout();
 			this.@__split.SuspendLayout();
+			this.@__status.SuspendLayout();
+			this.@__t.SuspendLayout();
 			this.@__resCM.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __tSep1
 			// 
-			@__tSep1.Name = "__tSep1";
-			@__tSep1.Size = new System.Drawing.Size(6, 74);
+			this.@__tSep1.Name = "__tSep1";
+			this.@__tSep1.Size = new System.Drawing.Size(6, 74);
 			// 
 			// __tSep2
 			// 
-			@__tSep2.Name = "__tSep2";
-			@__tSep2.Padding = new System.Windows.Forms.Padding(3);
-			@__tSep2.Size = new System.Drawing.Size(6, 74);
+			this.@__tSep2.Name = "__tSep2";
+			this.@__tSep2.Padding = new System.Windows.Forms.Padding(3);
+			this.@__tSep2.Size = new System.Drawing.Size(6, 74);
 			// 
 			// __sSep1
 			// 
-			@__sSep1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-			@__sSep1.Name = "__sSep1";
-			@__sSep1.Size = new System.Drawing.Size(4, 17);
+			this.@__sSep1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+			this.@__sSep1.Name = "__sSep1";
+			this.@__sSep1.Size = new System.Drawing.Size(4, 17);
 			// 
 			// __sSep2
 			// 
-			@__sSep2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-			@__sSep2.Name = "__sSep2";
-			@__sSep2.Size = new System.Drawing.Size(4, 17);
+			this.@__sSep2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+			this.@__sSep2.Name = "__sSep2";
+			this.@__sSep2.Size = new System.Drawing.Size(4, 17);
 			// 
 			// __resCMSep
 			// 
-			@__resCMSep.Name = "__resCMSep";
-			@__resCMSep.Size = new System.Drawing.Size(130, 6);
+			this.@__resCMSep.Name = "__resCMSep";
+			this.@__resCMSep.Size = new System.Drawing.Size(130, 6);
 			// 
 			// __resources
 			// 
+			this.@__resources.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.@__resources.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.@__resources.Location = new System.Drawing.Point(0, 0);
 			this.@__resources.Name = "__resources";
-			this.@__resources.Size = new System.Drawing.Size(150, 370);
+			this.@__resources.Size = new System.Drawing.Size(146, 366);
 			this.@__resources.TabIndex = 3;
 			// 
 			// __split
@@ -105,6 +100,7 @@ namespace Anolis.Resourcer {
 			this.@__split.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__split.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.@__split.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
 			this.@__split.Location = new System.Drawing.Point(0, 74);
 			this.@__split.Margin = new System.Windows.Forms.Padding(0);
@@ -121,9 +117,9 @@ namespace Anolis.Resourcer {
 			// 
 			this.@__status.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.@__sPath,
-            @__sSep1,
+            this.@__sSep1,
             this.@__sType,
-            @__sSep2,
+            this.@__sSep2,
             this.@__sSize});
 			this.@__status.Location = new System.Drawing.Point(0, 444);
 			this.@__status.Name = "__status";
@@ -151,22 +147,22 @@ namespace Anolis.Resourcer {
 			// 
 			// __t
 			// 
+			this.@__t.AutoSize = false;
 			this.@__t.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.@__tSrcOpen,
             this.@__tSrcSave,
             this.@__tSrcReload,
-            @__tSep1,
+            this.@__tSep1,
             this.@__tResAdd,
             this.@__tResExtract,
             this.@__tResReplace,
             this.@__tResDelete,
-            @__tSep2,
+            this.@__tSep2,
             this.@__tGenOptions});
 			this.@__t.Location = new System.Drawing.Point(0, 0);
 			this.@__t.Name = "__t";
-			this.@__t.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
+			this.@__t.Size = new System.Drawing.Size(620, 74);
 			this.@__t.TabIndex = 6;
-			this.@__t.Text = "";
 			// 
 			// __tSrcOpen
 			// 
@@ -260,7 +256,7 @@ namespace Anolis.Resourcer {
 			// 
 			this.@__resCM.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.@__resCMConvert,
-            @__resCMSep,
+            this.@__resCMSep,
             this.@__resCMExtract,
             this.@__resCMReplace,
             this.@__resCMDelete});
@@ -270,24 +266,9 @@ namespace Anolis.Resourcer {
 			// 
 			// __resCMConvert
 			// 
-			this.@__resCMConvert.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bMPImageToolStripMenuItem,
-            this.genericBinaryToolStripMenuItem});
 			this.@__resCMConvert.Name = "__resCMConvert";
 			this.@__resCMConvert.Size = new System.Drawing.Size(133, 22);
 			this.@__resCMConvert.Text = "Cast {0} as:";
-			// 
-			// bMPImageToolStripMenuItem
-			// 
-			this.bMPImageToolStripMenuItem.Name = "bMPImageToolStripMenuItem";
-			this.bMPImageToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-			this.bMPImageToolStripMenuItem.Text = "BMP Image";
-			// 
-			// genericBinaryToolStripMenuItem
-			// 
-			this.genericBinaryToolStripMenuItem.Name = "genericBinaryToolStripMenuItem";
-			this.genericBinaryToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-			this.genericBinaryToolStripMenuItem.Text = "Generic Binary";
 			// 
 			// __resCMExtract
 			// 
@@ -315,12 +296,15 @@ namespace Anolis.Resourcer {
 			this.Controls.Add(this.@__t);
 			this.Controls.Add(this.@__status);
 			this.Controls.Add(this.@__split);
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainForm";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.Text = "Anolis Resourcer";
 			this.@__split.Panel1.ResumeLayout(false);
 			this.@__split.ResumeLayout(false);
+			this.@__status.ResumeLayout(false);
+			this.@__status.PerformLayout();
+			this.@__t.ResumeLayout(false);
+			this.@__t.PerformLayout();
 			this.@__resCM.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -351,8 +335,11 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.ToolStripMenuItem __resCMConvert;
 		private System.Windows.Forms.ToolStripMenuItem __resCMReplace;
 		private System.Windows.Forms.ToolStripMenuItem __resCMDelete;
-		private System.Windows.Forms.ToolStripMenuItem bMPImageToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem genericBinaryToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator __tSep1;
+		private System.Windows.Forms.ToolStripSeparator __tSep2;
+		private System.Windows.Forms.ToolStripStatusLabel __sSep1;
+		private System.Windows.Forms.ToolStripStatusLabel __sSep2;
+		private System.Windows.Forms.ToolStripSeparator __resCMSep;
 	}
 }
 

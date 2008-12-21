@@ -60,6 +60,23 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+        ///59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+        ///
+        ///Everyone is permitted to copy and distribute verbatim copies
+        ///of this license document, but changing it is not allowed.
+        ///
+        ///Preamble
+        ///
+        ///The licenses for most software are designed to take away your freedom to share and change it. By contrast, the GNU General Public License is intended to guarantee your freedom to share and change free software--to make sure the software is free for all its users. [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string AnolisGplLicense {
+            get {
+                return ResourceManager.GetString("AnolisGplLicense", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap ImageViewer_Center {
             get {
                 object obj = ResourceManager.GetObject("ImageViewer_Center", resourceCulture);

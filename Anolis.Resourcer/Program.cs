@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Anolis.Resourcer {
@@ -11,17 +11,45 @@ namespace Anolis.Resourcer {
 		[STAThread]
 		public static void Main() {
 			
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
+			try {
+				
+				Application.EnableVisualStyles();
+				Application.SetCompatibleTextRenderingDefault(false);
+				
+				_context = new ResourcerContext();
+				
+				MainForm main = new MainForm();
+				main.Context = _context;
+				
+				Application.Run( main );
+				
+				_context.Save();
 			
-			_context = new ResourcerContext();
-			
-			MainForm main = new MainForm();
-			main.Context = _context;
-			
-			Application.Run( main );
-			
-			_context.Save();
+			} catch (Exception ex) {
+				
+				String desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+				
+				String path = Path.Combine(desktop, "Report.txt");
+				
+				using(StreamWriter wtr = new StreamWriter(path, true)) {
+					
+					wtr.WriteLine("".PadLeft(80, '-'));
+					wtr.WriteLine( DateTime.Now.ToString("s") );
+					wtr.WriteLine();
+					
+					Exception e = ex;
+					while(e != null) {
+						wtr.WriteLine(e.Message);
+						wtr.WriteLine(e.StackTrace);
+						wtr.WriteLine();
+						
+						e = e.InnerException;
+					}
+					
+				}
+				
+				throw ex;
+			}
 			
 		}
 		

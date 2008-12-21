@@ -19,6 +19,14 @@ namespace Anolis.Resourcer {
 			this.__aboutLinkXpize .Click += new EventHandler(__aboutLink_Click);
 			this.__aboutLinkVize  .Click += new EventHandler(__aboutLink_Click);
 			this.__aboutLinkLong  .Click += new EventHandler(__aboutLink_Click);
+
+			this.Load += new EventHandler(OptionsForm_Load);
+			
+		}
+		
+		private void OptionsForm_Load(object sender, EventArgs e) {
+			
+			__licenseText.Text = Anolis.Resourcer.Properties.Resources.AnolisGplLicense;
 			
 		}
 		
