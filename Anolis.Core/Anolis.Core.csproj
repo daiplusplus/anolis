@@ -68,7 +68,6 @@
     <Compile Include="Core\ResourceEnumerator.cs" />
     <Compile Include="Core\ResourceSource.cs" />
     <Compile Include="Core\Utility\Dib.cs" />
-    <Compile Include="Core\Utility\Icon.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="NativeTypes.cs" />
     <Compile Include="PE\NativeMethods.cs" />

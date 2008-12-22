@@ -27,17 +27,16 @@
 			this.@__tSettings = new System.Windows.Forms.TabPage();
 			this.label1 = new System.Windows.Forms.Label();
 			this.@__tAbout = new System.Windows.Forms.TabPage();
-			this.@__aboutLinkLong = new System.Windows.Forms.LinkLabel();
 			this.@__aboutLinkVize = new System.Windows.Forms.LinkLabel();
 			this.@__aboutLinkXpize = new System.Windows.Forms.LinkLabel();
 			this.@__aboutLinkAnolis = new System.Windows.Forms.LinkLabel();
 			this.@__credits = new System.Windows.Forms.Label();
 			this.@__aboutBlurb = new System.Windows.Forms.Label();
 			this.@__aboutName = new System.Windows.Forms.Label();
-			this.@__cancel = new System.Windows.Forms.Button();
-			this.@__ok = new System.Windows.Forms.Button();
 			this._tLicense = new System.Windows.Forms.TabPage();
 			this.@__licenseText = new System.Windows.Forms.TextBox();
+			this.@__cancel = new System.Windows.Forms.Button();
+			this.@__ok = new System.Windows.Forms.Button();
 			this.@__tabs.SuspendLayout();
 			this.@__tSettings.SuspendLayout();
 			this.@__tAbout.SuspendLayout();
@@ -83,7 +82,6 @@
 			// 
 			// __tAbout
 			// 
-			this.@__tAbout.Controls.Add(this.@__aboutLinkLong);
 			this.@__tAbout.Controls.Add(this.@__aboutLinkVize);
 			this.@__tAbout.Controls.Add(this.@__aboutLinkXpize);
 			this.@__tAbout.Controls.Add(this.@__aboutLinkAnolis);
@@ -97,16 +95,6 @@
 			this.@__tAbout.TabIndex = 1;
 			this.@__tAbout.Text = "About";
 			this.@__tAbout.UseVisualStyleBackColor = true;
-			// 
-			// __aboutLinkLong
-			// 
-			this.@__aboutLinkLong.AutoSize = true;
-			this.@__aboutLinkLong.Location = new System.Drawing.Point(10, 200);
-			this.@__aboutLinkLong.Name = "__aboutLinkLong";
-			this.@__aboutLinkLong.Size = new System.Drawing.Size(170, 13);
-			this.@__aboutLinkLong.TabIndex = 6;
-			this.@__aboutLinkLong.TabStop = true;
-			this.@__aboutLinkLong.Text = "http://www.istartedsomething.com";
 			// 
 			// __aboutLinkVize
 			// 
@@ -141,12 +129,11 @@
 			// __credits
 			// 
 			this.@__credits.AutoSize = true;
-			this.@__credits.Location = new System.Drawing.Point(10, 64);
+			this.@__credits.Location = new System.Drawing.Point(10, 73);
 			this.@__credits.Name = "__credits";
-			this.@__credits.Size = new System.Drawing.Size(154, 65);
+			this.@__credits.Size = new System.Drawing.Size(154, 52);
 			this.@__credits.TabIndex = 2;
-			this.@__credits.Text = "Credits:\r\nW3bbo - Lead Developer\r\nHappyDude - Assistant to Lead\r\nXPero - Genesis\r" +
-				"\nAnd greetz to Long Zheng";
+			this.@__credits.Text = "Credits:\r\nW3bbo - Lead Developer\r\nHappyDude - Assistant to Lead\r\nXPero - Genesis";
 			// 
 			// __aboutBlurb
 			// 
@@ -165,27 +152,6 @@
 			this.@__aboutName.Size = new System.Drawing.Size(176, 25);
 			this.@__aboutName.TabIndex = 0;
 			this.@__aboutName.Text = "Anolis Resourcer";
-			// 
-			// __cancel
-			// 
-			this.@__cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.@__cancel.Location = new System.Drawing.Point(277, 263);
-			this.@__cancel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-			this.@__cancel.Name = "__cancel";
-			this.@__cancel.Size = new System.Drawing.Size(75, 23);
-			this.@__cancel.TabIndex = 1;
-			this.@__cancel.Text = "Cancel";
-			this.@__cancel.UseVisualStyleBackColor = true;
-			// 
-			// __ok
-			// 
-			this.@__ok.Location = new System.Drawing.Point(196, 263);
-			this.@__ok.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-			this.@__ok.Name = "__ok";
-			this.@__ok.Size = new System.Drawing.Size(75, 23);
-			this.@__ok.TabIndex = 2;
-			this.@__ok.Text = "OK";
-			this.@__ok.UseVisualStyleBackColor = true;
 			// 
 			// _tLicense
 			// 
@@ -209,6 +175,27 @@
 			this.@__licenseText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.@__licenseText.Size = new System.Drawing.Size(338, 224);
 			this.@__licenseText.TabIndex = 0;
+			// 
+			// __cancel
+			// 
+			this.@__cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.@__cancel.Location = new System.Drawing.Point(277, 263);
+			this.@__cancel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+			this.@__cancel.Name = "__cancel";
+			this.@__cancel.Size = new System.Drawing.Size(75, 23);
+			this.@__cancel.TabIndex = 1;
+			this.@__cancel.Text = "Cancel";
+			this.@__cancel.UseVisualStyleBackColor = true;
+			// 
+			// __ok
+			// 
+			this.@__ok.Location = new System.Drawing.Point(196, 263);
+			this.@__ok.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+			this.@__ok.Name = "__ok";
+			this.@__ok.Size = new System.Drawing.Size(75, 23);
+			this.@__ok.TabIndex = 2;
+			this.@__ok.Text = "OK";
+			this.@__ok.UseVisualStyleBackColor = true;
 			// 
 			// OptionsForm
 			// 
@@ -251,7 +238,6 @@
 		private System.Windows.Forms.LinkLabel __aboutLinkXpize;
 		private System.Windows.Forms.LinkLabel __aboutLinkAnolis;
 		private System.Windows.Forms.LinkLabel __aboutLinkVize;
-		private System.Windows.Forms.LinkLabel __aboutLinkLong;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TabPage _tLicense;
 		private System.Windows.Forms.TextBox __licenseText;

@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using Anolis.Core.NativeTypes;
 using Anolis.Core.Utility;
+using Anolis.Core.PE;
 
 namespace Anolis.Core.Data {
 	
@@ -29,8 +30,11 @@ namespace Anolis.Core.Data {
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
 			
 			IconImageResourceData rd;
+			String message;
 			
-			if( IconImageResourceData.TryCreate(lang, data, out rd) ) return rd;
+			if( IconImageResourceData.TryCreate(lang, data, out message, out rd) ) return rd;
+			
+			LastErrorMessage = message;
 			
 			return null;
 			
@@ -55,7 +59,9 @@ namespace Anolis.Core.Data {
 		
 		public Size Size { get; private set; }
 		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out IconImageResourceData typed) {
+		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out String message, out IconImageResourceData typed) {
+			
+			message = null;
 			
 			// rawData is an ICONIMAGE structure OR a PNG image
 			
@@ -70,6 +76,42 @@ namespace Anolis.Core.Data {
 				
 			}
 			
+			// "Almost" cheating; this uses Win32's icon function, but in a nice way that doesn't break my conceptual model
+			
+			// and to think I'd need to manually process the DIB information to extract and recreate Bitmaps
+			
+			// although I might want to do that in future if I wanted to display the AND and XOR masks separately
+			
+			IntPtr p = Marshal.AllocHGlobal( rawData.Length );
+			Marshal.Copy( rawData, 0, p, rawData.Length );
+			
+			IntPtr hIcon = NativeMethods.CreateIconFromResource(p, (uint)rawData.Length, true);
+			if(hIcon == IntPtr.Zero) {
+				message = NativeMethods.GetLastErrorString();
+			}
+			
+			Icon icon = Icon.FromHandle( hIcon );
+			
+			Bitmap bmp = icon.ToBitmap();
+			
+			Marshal.FreeHGlobal( p );
+			
+			typed = new IconImageResourceData(bmp, lang, rawData);
+			return true;
+			
+		}
+		
+/*		public Bitmap XorMask {
+			
+		}
+		
+		public Bitmap AndMask {
+			
+		}*/
+		
+/*		private static Boolean OldLoadCode(ResourceLang lang, Byte[] rawData, out ResourceData typed) {
+			
+			
 			// I can't load the data into the ICONIMAGE because .NET doesn't support C-style value arrays very well
 			
 /*
@@ -79,7 +121,7 @@ typdef struct {
 	BYTE             icXOR[1];      // DIB bits for XOR mask
 	BYTE             icAND[1];      // DIB bits for AND mask
 }ICONIMAGE, *LPICONIMAGE;
-*/
+* /
 			
 			// in the BitmapInfoHeader icHeader only the following fields are used:
 			//	biSize, biWidth, biHeight, biPlanes, biBitCount, biSizeImage.
@@ -128,7 +170,7 @@ typdef struct {
 			typed = null;
 			return false;
 			
-		}
+		}*/
 		
 		public override String[] SaveFileFilter {
 			get { return new String[] { "BMP Image (*.bmp)|*.bmp" }; }

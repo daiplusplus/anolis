@@ -38,7 +38,7 @@ namespace Anolis.Core.Data {
 		private static Dictionary<String                ,ResourceDataFactory[]> _forExt  = new Dictionary<String,ResourceDataFactory[]>();
 		
 		/// <summary>Gets all the factories that support a resource type in order of compatibility.</summary>
-		internal static ResourceDataFactory[] GetFactoriesForType(ResourceTypeIdentifier typeId) {
+		public static ResourceDataFactory[] GetFactoriesForType(ResourceTypeIdentifier typeId) {
 			
 			if( !_forType.ContainsKey( typeId ) ) {
 				
@@ -71,7 +71,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		/// <summary>Gets all the factories that support a file type in order of compatibility.</summary>
-		internal static ResourceDataFactory[] GetFactoriesForExtension(String filenameExtension) {
+		public static ResourceDataFactory[] GetFactoriesForExtension(String filenameExtension) {
 			
 			if( !_forExt.ContainsKey( filenameExtension ) ) {
 				

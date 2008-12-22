@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
@@ -7,6 +8,46 @@ using Anolis.Core.NativeTypes;
 using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Core.Data {
+	
+	public class IconDirectoryResourceDataFactory : ResourceDataFactory {
+		
+		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
+			
+			if(typeId.KnownType == Win32ResourceType.IconDirectory) return Compatibility.Yes;
+			
+			return Compatibility.No;
+			
+		}
+		
+		public override Compatibility HandlesExtension(String filenameExtension) {
+			
+			if(filenameExtension == "ico") return Compatibility.Yes;
+			
+			return Compatibility.No;
+			
+		}
+		
+		public override ResourceData FromResource(ResourceLang lang, byte[] data) {
+			
+			IconDirectoryResourceData rd;
+			if( IconDirectoryResourceData.TryCreate(lang, data, out rd) ) return rd;
+			
+			return null;
+			
+		}
+		
+		public override ResourceData FromFile(Stream stream, String extension) {
+			
+			Byte[] data = GetAllBytesFromStream(stream);
+			
+			throw new NotImplementedException();
+			
+		}
+		
+		public override string Name {
+			get { return "Icon Directory"; }
+		}
+	}
 	
 	public sealed class IconDirectoryMember : IDirectoryMember {
 		
@@ -25,7 +66,7 @@ namespace Anolis.Core.Data {
 		private IconDirectoryResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
 		}
 		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out ResourceData typed) {
+		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out IconDirectoryResourceData typed) {
 			
 			Int32 sizeOfIconDir = Marshal.SizeOf(typeof(IconDirectory));
 			Int32 sizeOfDirEntr = Marshal.SizeOf(typeof(ResIconDirectoryEntry));
@@ -80,7 +121,13 @@ namespace Anolis.Core.Data {
 						
 						UInt32 nofColors = (img.bColorCount == 0) ? (UInt32)Math.Pow(2, img.wBitCount) : img.bColorCount;
 						
-						String description = String.Format(Cult.InvariantCulture, "{0} x {1} ({2} colors) #{3}; {4} bytes", img.bWidth, img.bHeight, nofColors, img.wId, img.dwBytesInRes);
+						String description = String.Format(
+							Cult.InvariantCulture,
+							"{0}x{1} {2}-bit",
+							img.bWidth == 0 ? 256 : img.bWidth,
+							img.bHeight == 0 ? 256 : img.bHeight,
+							img.wBitCount
+						);
 						
 						retval.UnderlyingMembers.Add( new IconDirectoryMember(description, rd) );
 						

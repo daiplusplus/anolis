@@ -9,6 +9,7 @@ using Cult = System.Globalization.CultureInfo;
 using Anolis.Core;
 using Anolis.Core.PE;
 using Anolis.Resourcer.Settings;
+using Anolis.Core.Data;
 
 namespace Anolis.Resourcer {
 	
@@ -28,12 +29,20 @@ namespace Anolis.Resourcer {
 			this.Load += new EventHandler(MainForm_Load);
 			__resources.NodeMouseClick += new TreeNodeMouseClickEventHandler(__resources_NodeMouseClick);
 			
-			this.__tSrcOpen.ButtonClick += new EventHandler(__tSrcOpen_ButtonClick);
+			this.__tSrcOpen.ButtonClick     += new EventHandler(__tSrcOpen_ButtonClick);
 			this.__tSrcOpen.DropDownOpening += new EventHandler(__tSrcOpen_DropDownOpening);
-			this.__tResExtract.Click += new EventHandler(__tResExtract_Click);
-			this.__tGenOptions.Click += new EventHandler(__tGenOptions_Click);
-
-			this.__resCM.Opening += new System.ComponentModel.CancelEventHandler(__resCM_Opening);
+			this.__tSrcSave.Click           += new EventHandler(__tSrcSave_Click);
+			this.__tSrcReload.Click         += new EventHandler(__tSrcReload_Click);
+			
+			this.__tResAdd.Click            += new EventHandler(__tResAdd_Click);
+			this.__tResExtract.Click        += new EventHandler(__tResExtract_Click);
+			this.__tResReplace.Click        += new EventHandler(__tResReplace_Click);
+			this.__tResDelete.Click         += new EventHandler(__tResDelete_Click);
+			this.__tResUndo.Click           += new EventHandler(__tResUndo_Click);
+			
+			this.__tGenOptions.Click        += new EventHandler(__tGenOptions_Click);
+			
+			this.__resCM.Opening            += new System.ComponentModel.CancelEventHandler(__resCM_Opening);
 			
 			_viewData = new ResourceDataView();
 			_viewList = new ResourceListView();
@@ -81,6 +90,30 @@ namespace Anolis.Resourcer {
 			
 		}
 		
+		private void __tResUndo_Click(object sender, EventArgs e) {
+			throw new NotImplementedException();
+		}
+		
+		private void __tResDelete_Click(object sender, EventArgs e) {
+			throw new NotImplementedException();
+		}
+		
+		private void __tResReplace_Click(object sender, EventArgs e) {
+			throw new NotImplementedException();
+		}
+		
+		private void __tResAdd_Click(object sender, EventArgs e) {
+			throw new NotImplementedException();
+		}
+		
+		private void __tSrcReload_Click(object sender, EventArgs e) {
+			throw new NotImplementedException();
+		}
+		
+		private void __tSrcSave_Click(object sender, EventArgs e) {
+			throw new NotImplementedException();
+		}
+		
 	#endregion
 	
 	#region Context Menu
@@ -88,11 +121,52 @@ namespace Anolis.Resourcer {
 		private void __resCM_Opening(Object sender, System.ComponentModel.CancelEventArgs e) {
 			
 			// Tailor the context menu for the resource
-			ContextMenuStrip strip = sender as ContextMenuStrip;
+			TreeNode node = ((sender as ContextMenuStrip).SourceControl as TreeView).SelectedNode;
 			
+			ResourceLang lang = node.Tag as ResourceLang;
 			
+			String path = GetResourcePath( lang );
 			
+			///////////////////////////////
 			
+			__resCMCast.Text = String.Format(Cult.CurrentCulture, "Cast {0} to", path);
+			
+			__resCMCast.DropDownItems.Clear();
+			
+			ResourceDataFactory[] factories = ResourceDataFactory.GetFactoriesForType( lang.Name.Type.Identifier );
+			foreach(ResourceDataFactory factory in factories) {
+				
+				ToolStripMenuItem tsmi = new ToolStripMenuItem( factory.Name );
+				tsmi.Click += new EventHandler(tsmiConvert_Click);
+				tsmi.Tag    = factory;
+				
+				__resCMCast.DropDownItems.Add( tsmi );
+			}
+			
+			///////////////////////////////
+			
+			__resCMExtract.Text = String.Format(Cult.CurrentCulture, "Extract {0}...", path);
+			__resCMReplace.Text = String.Format(Cult.CurrentCulture, "Replace {0}...", path);
+			__resCMDelete .Text = String.Format(Cult.CurrentCulture, "Delete {0}"    , path);
+			
+			///////////////////////////////
+			
+			if(lang.Data.Action == ResourceDataAction.None) {
+				
+				__resCMCancel.Enabled = false;
+				__resCMCancel.Text = "Cancel";
+			} else {
+				
+				__resCMCancel .Text = String.Format(Cult.CurrentCulture, "Cancel {0}", lang.Data.Action.ToString());
+			}
+			
+		}
+		
+		private void tsmiConvert_Click(object sender, EventArgs e) {
+			
+			ResourceDataFactory factory = (sender as ToolStripMenuItem).Tag as ResourceDataFactory;
+			
+			throw new NotImplementedException();
 		}
 		
 	#endregion
@@ -192,7 +266,7 @@ namespace Anolis.Resourcer {
 		
 		private static String GetResourcePath(ResourceLang lang) {
 			
-			String retval = ",";
+			String retval = "";
 			
 			if(lang.Name.Type.Identifier.KnownType == Win32ResourceType.Custom) {
 				
@@ -274,9 +348,11 @@ namespace Anolis.Resourcer {
 			// set various buttons if it's readonly
 			
 			__tSrcSave   .Enabled = !source.IsReadOnly;
+			__tSrcReload .Enabled = !source.IsReadOnly;
 			__tResAdd    .Enabled = !source.IsReadOnly;
 			__tResReplace.Enabled = !source.IsReadOnly;
 			__tResDelete .Enabled = !source.IsReadOnly;
+			__tResUndo   .Enabled = !source.IsReadOnly;
 			
 			return true;
 			
@@ -295,7 +371,7 @@ namespace Anolis.Resourcer {
 			// Status bar
 			this.__sType.Text = data.GetType().Name;
 			this.__sSize.Text = data.RawData.Length.ToString(Cult.CurrentCulture) + " Bytes";
-			this.__sPath.Text = _currentPath + GetResourcePath(resource);
+			this.__sPath.Text = _currentPath + ',' + GetResourcePath(resource);
 			
 			__sType.BackColor = data is Anolis.Core.Data.UnknownResourceData ? System.Drawing.Color.LightYellow : System.Drawing.SystemColors.Control;
 			

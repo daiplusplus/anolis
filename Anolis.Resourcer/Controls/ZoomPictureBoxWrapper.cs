@@ -17,6 +17,9 @@ namespace Anolis.Resourcer.Controls {
 			__pb.ZoomChanged += new EventHandler(__pb_ZoomChanged);
 			
 			LoadInterpolation();
+			
+			// HACK: Until I figure out why ZPB displays scrollbars when no image is set here's a dummy:
+			__pb.Image = Properties.Resources.ZPB_Empty;
 		}
 		
 		private void __toolsCenter_Click(object sender, EventArgs e) {

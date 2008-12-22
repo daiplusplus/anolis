@@ -69,6 +69,33 @@ namespace Anolis.Core.PE {
 		
 #region Specific Resource Types
 		
+		/*
+		 * HICON CreateIconFromResourceEx(
+	PBYTE pbIconBits,
+    DWORD cbIconBits,
+    BOOL fIcon,
+    DWORD dwVersion,
+    int cxDesired,
+    int cyDesired,
+    UINT uFlags
+);*/
+		[DllImport("User32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		public static extern IntPtr CreateIconFromResourceEx(IntPtr iconData, UInt32 sizeOfIconData, Boolean iconOrCursor, UInt32 version, Int16 desiredWidth, Int16 desiredHeight, IconFlags flags);
+		
+		public static IntPtr CreateIconFromResource(IntPtr iconData, UInt32 sizeOfIconData, Boolean iconOrCursor) {
+			
+			return CreateIconFromResourceEx(iconData, sizeOfIconData, iconOrCursor, (uint)0x00030000, 0, 0, IconFlags.DefaultColor);
+			
+		}
+		
+		[Flags]
+		public enum IconFlags {
+			DefaultColor = 0x0000,
+			DefaultSize  = 0x0040,
+			Monochrome   = 0x0001,
+			Shared       = 0x8000
+		}
+		
 		// I don't recommend using these functions because they don't allow you to discriminate on language
 		
 		[DllImport("User32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]

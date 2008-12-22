@@ -56,18 +56,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\ImageList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ImageList.Designer.cs">
-      <DependentUpon>ImageList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ImageListItem.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ImageListItem.Designer.cs">
-      <DependentUpon>ImageListItem.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ToolStripImprovedSystemRenderer.cs">
     </Compile>
     <Compile Include="Controls\ZoomPictureBox.cs">
@@ -97,12 +85,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Controls\ImageList.resx">
-      <DependentUpon>ImageList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ImageListItem.resx">
-      <DependentUpon>ImageListItem.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -218,7 +200,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Controls\Empty.png" />
     <Content Include="MainIcon.ico" />
+    <None Include="Resources\DirectoryViewer\Zoomable.png" />
     <Content Include="Resources\ImageViewer\Center.png" />
     <Content Include="Resources\ImageViewer\Interpolation.png" />
     <Content Include="Resources\ImageViewer\TransparentBg.png" />
@@ -233,6 +217,7 @@
     <Content Include="Resources\TextViewer\Endian.png" />
     <Content Include="Resources\TextViewer\Font.png" />
     <Content Include="Resources\TextViewer\WordWrap.png" />
+    <None Include="Resources\Toolbar\ResRev.png" />
     <None Include="Resources\Toolbar\SrcSave.png" />
     <None Include="Resources\Toolbar\SrcRev.png" />
     <None Include="Resources\Toolbar\SrcOpen.png" />
