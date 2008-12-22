@@ -26,7 +26,8 @@ namespace Anolis.Resourcer {
 				_context.Save();
 			
 			} catch (Exception ex) {
-				
+
+#if DEBUG				
 				String desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 				
 				String path = Path.Combine(desktop, "Report.txt");
@@ -47,6 +48,7 @@ namespace Anolis.Resourcer {
 					}
 					
 				}
+#endif
 				
 				throw ex;
 			}

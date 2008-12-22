@@ -77,6 +77,13 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Dir_Zoomable {
+            get {
+                object obj = ResourceManager.GetObject("Dir_Zoomable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ImageViewer_Center {
             get {
                 object obj = ResourceManager.GetObject("ImageViewer_Center", resourceCulture);
@@ -182,6 +189,13 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Toolbar_ResRev {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_ResRev", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Toolbar_SrcOpen {
             get {
                 object obj = ResourceManager.GetObject("Toolbar_SrcOpen", resourceCulture);
@@ -199,6 +213,13 @@ namespace Anolis.Resourcer.Properties {
         internal static System.Drawing.Bitmap Toolbar_SrcSave {
             get {
                 object obj = ResourceManager.GetObject("Toolbar_SrcSave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ZPB_Empty {
+            get {
+                object obj = ResourceManager.GetObject("ZPB_Empty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
