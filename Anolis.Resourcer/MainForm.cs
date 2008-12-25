@@ -15,19 +15,23 @@ namespace Anolis.Resourcer {
 	
 	public partial class MainForm : Form {
 		
-		private ResourceLang   _currentResource;
-		private String         _currentPath;
-		
 		private ResourceDataView _viewData;
 		private ResourceListView _viewList;
 		
 		public MainForm() {
 			InitializeComponent();
 			
+			this.Context = Program.Context;
+			
+			this.AllowDrop = true;
+			
 			ToolStripManager.Renderer = new Anolis.Resourcer.Controls.ToolStripImprovedSystemRenderer();
 			
 			this.Load += new EventHandler(MainForm_Load);
 			__resources.NodeMouseClick += new TreeNodeMouseClickEventHandler(__resources_NodeMouseClick);
+
+			this.DragDrop += new DragEventHandler(MainForm_DragDrop);
+			this.DragEnter += new DragEventHandler(MainForm_DragEnter);
 			
 			this.__tSrcOpen.ButtonClick     += new EventHandler(__tSrcOpen_ButtonClick);
 			this.__tSrcOpen.DropDownOpening += new EventHandler(__tSrcOpen_DropDownOpening);
@@ -44,6 +48,9 @@ namespace Anolis.Resourcer {
 			
 			this.__resCM.Opening            += new System.ComponentModel.CancelEventHandler(__resCM_Opening);
 			
+			this.Context.CurrentDataChanged   += new EventHandler(Context_CurrentDataChanged);
+			this.Context.CurrentSourceChanged += new EventHandler(Context_CurrentSourceChanged);
+			
 			_viewData = new ResourceDataView();
 			_viewList = new ResourceListView();
 		}
@@ -54,6 +61,20 @@ namespace Anolis.Resourcer {
 		
 #region UI Events
 	
+	#region Treeview
+		
+		private void __resources_NodeMouseClick(Object sender, TreeNodeMouseClickEventArgs e) {
+			
+			TreeNode node = e.Node;
+			ResourceLang lang = node.Tag as ResourceLang;
+			if(lang == null) return;
+			
+			LoadData( lang );
+			
+		}
+	
+	#endregion
+	
 	#region Toolbar
 		
 		private void __tSrcOpen_ButtonClick(object sender, EventArgs e) {
@@ -61,7 +82,6 @@ namespace Anolis.Resourcer {
 			if(__ofd.ShowDialog(this) != DialogResult.OK) return;
 			
 			LoadSource( __ofd.FileName );
-			
 		}
 		
 		private void __tSrcOpen_DropDownOpening(object sender, EventArgs e) {
@@ -69,10 +89,19 @@ namespace Anolis.Resourcer {
 			LoadMru();
 		}
 		
+		private void __tSrcReload_Click(object sender, EventArgs e) {
+			
+			LoadSource( Context.CurrentPath );
+		}
+		
+		private void __tSrcSave_Click(object sender, EventArgs e) {
+			
+			SaveSource();
+		}
+		
 		private void __tResExtract_Click(object sender, EventArgs e) {
 			
-			SaveCurrentResourceToFile();
-			
+			ExtractData();
 		}
 		
 		private void __tSrcMruItem_Click(object sender, EventArgs e) {
@@ -90,33 +119,68 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		private void __tResUndo_Click(object sender, EventArgs e) {
-			throw new NotImplementedException();
+		private void __tResUndo_Click(Object sender, EventArgs e) {
+			
+			//Context.CurrentSource.CancelAction( Context.CurrentData );
 		}
 		
 		private void __tResDelete_Click(object sender, EventArgs e) {
-			throw new NotImplementedException();
+			
+			Context.RemoveData();
 		}
 		
 		private void __tResReplace_Click(object sender, EventArgs e) {
-			throw new NotImplementedException();
+			
+			
 		}
 		
 		private void __tResAdd_Click(object sender, EventArgs e) {
-			throw new NotImplementedException();
+			
+			Context.AddData(this, __ofd);
 		}
 		
-		private void __tSrcReload_Click(object sender, EventArgs e) {
-			throw new NotImplementedException();
-		}
-		
-		private void __tSrcSave_Click(object sender, EventArgs e) {
-			throw new NotImplementedException();
+		private void UpdateUI() {
+			
+			Boolean isReadOnly = (Context.CurrentSource == null) ? true : Context.CurrentSource.IsReadOnly;
+			
+			__tSrcSave   .Enabled = !isReadOnly;
+			__tSrcReload .Enabled = !isReadOnly;
+			
+			__tResAdd    .Enabled = !isReadOnly;
+			__tResReplace.Enabled = !isReadOnly;
+			__tResExtract.Enabled =  Context.CurrentData   != null;
+			__tResDelete .Enabled = !isReadOnly;
+			__tResUndo   .Enabled = !isReadOnly;
+			
+			if( !isReadOnly ) {
+				
+				__tResAdd    .Enabled = Context.CurrentData != null;
+				__tResReplace.Enabled = Context.CurrentData != null;
+				__tResExtract.Enabled = Context.CurrentData != null;
+				__tResDelete .Enabled = Context.CurrentData != null;
+				__tResUndo   .Enabled = Context.CurrentData != null;
+				
+			}
+			
+			String path = (Context.CurrentPath == null) ? null :  Path.GetFileName( Context.CurrentPath );
+			
+			SetTitle(path, Context.CurrentSource != null && isReadOnly );
+			
 		}
 		
 	#endregion
+		
+		private void Context_CurrentSourceChanged(object sender, EventArgs e) {
+			
+			UpdateUI();
+		}
+		
+		private void Context_CurrentDataChanged(object sender, EventArgs e) {
+			
+			UpdateUI();
+		}
 	
-	#region Context Menu
+	#region Resource Context Menu
 		
 		private void __resCM_Opening(Object sender, System.ComponentModel.CancelEventArgs e) {
 			
@@ -162,7 +226,7 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		private void tsmiConvert_Click(object sender, EventArgs e) {
+		private void tsmiConvert_Click(Object sender, EventArgs e) {
 			
 			ResourceDataFactory factory = (sender as ToolStripMenuItem).Tag as ResourceDataFactory;
 			
@@ -171,27 +235,48 @@ namespace Anolis.Resourcer {
 		
 	#endregion
 		
+	#region Drag 'n' Drop
+		
+		private void MainForm_DragDrop(Object sender, DragEventArgs e) {
+			
+			if( !e.Data.GetDataPresent(DataFormats.FileDrop) ) return;
+				
+			String[] filenames = e.Data.GetData(DataFormats.FileDrop) as String[];
+			if(filenames == null) return;
+			if(filenames.Length < 1) return;
+			
+			// just load the first file
+			
+			LoadSource( filenames[0] );
+			
+		}
+		
+		private void MainForm_DragEnter(Object sender, DragEventArgs e) {
+
+			if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
+				
+				e.Effect = DragDropEffects.Move;
+				
+			} else {
+				
+				e.Effect = DragDropEffects.None;
+				
+			}
+		}
+		
+	#endregion
+		
 		private void MainForm_Load(Object sender, EventArgs e) {
 			
+			UpdateUI();
 			
-			
-		}
-		
-		private void __resources_NodeMouseClick(Object sender, TreeNodeMouseClickEventArgs e) {
-			
-			TreeNode node = e.Node;
-			ResourceLang lang = node.Tag as ResourceLang;
-			if(lang == null) return;			
-			
-			LoadResource( lang );
-			
-		}
-		
-		private void __saveRaw_Click(object sender, EventArgs e) {
-			SaveCurrentResourceToFile();
 		}
 		
 #endregion
+		
+		////////////////////////////////////////////////
+		// UI Methods
+		//
 		
 		/// <summary>Loads the MRU from the User Settings file.</summary>
 		private void LoadMru() {
@@ -236,7 +321,11 @@ namespace Anolis.Resourcer {
 		
 		private void SetTitle(String resourceSourceName, Boolean isReadOnly) {
 			
-			this.Text = resourceSourceName + (isReadOnly ? " [Read-Only]" : "") + " - Anolis Resourcer";
+			if(resourceSourceName == null)
+				this.Text = "Anolis Resourcer";
+			else
+				this.Text = resourceSourceName + (isReadOnly ? " [Read-Only]" : "") + " - Anolis Resourcer";
+			
 		}
 		
 		////////////////////////////////////////////////
@@ -258,7 +347,7 @@ namespace Anolis.Resourcer {
 				
 				Int32 nextSlashForwardIdx = truncated.IndexOfAny( chars, midSlashIdx + 1 );
 				
-				truncated = truncated.Substring(0, midSlashIdx) + "..." + truncated.Substring( nextSlashForwardIdx );
+				truncated = truncated.Substring(0, midSlashIdx) + @"\..." + truncated.Substring( nextSlashForwardIdx );
 			}
 			
 			return truncated;
@@ -289,11 +378,33 @@ namespace Anolis.Resourcer {
 		// Current Source Actions
 		//
 		
+#region ResourceSource
+		
+		private DialogResult SaveSource() {
+			
+			if( Context.CurrentSource != null && Context.CurrentSource.HasUnsavedChanges ) {
+				
+				String message = String.Format(Cult.InvariantCulture, "Save changes to {0}?", Path.GetFileName(Context.CurrentPath));
+				
+				DialogResult r = MessageBox.Show( this, message, "Anolis Resourcer", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
+				
+				if(r == DialogResult.Yes) Context.SaveSource();
+				
+				return r;
+				
+			}
+			
+			return DialogResult.Yes;
+			
+		}
+		
 		private void LoadSourceFromMru(String path) {
 			
 			if(!LoadSource(path)) {
 				
-				DialogResult result = MessageBox.Show(this, "Resourcer could not open the file \"" + path + "\", would you like to remove it from the most-recently-ued list?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				String message = String.Format(Cult.InvariantCulture, "Resourcer could not open the file \"{0}\", would you like to remove it from the most-recently-ued list?");
+				
+				DialogResult result = MessageBox.Show(this, message, "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 				
 				if(result == DialogResult.Yes) {
 					Context.Mru.Remove( path );
@@ -304,99 +415,50 @@ namespace Anolis.Resourcer {
 		
 		private Boolean LoadSource(String path) {
 			
-			_currentPath = path;
+			DialogResult r = SaveSource();
+			if(r == DialogResult.Cancel) return true; // return false on error, not user abortion
 			
-			SetTitle( Path.GetFileName(path), true );
-			
-			///////////////////////////
-			
-			ResourceSource source = ResourceSource.Open(path, true);
-			if(source == null) return false;
-			
-			Context.Source = source;
-			Context.Mru.Push( path );
-			
-			ResourceTypeCollection types = source.Types;
-			
-			__resources.Nodes.Clear();
-			foreach(ResourceType type in types) {
-				
-				TreeNode typeNode = new TreeNode( type.Identifier.FriendlyName ) { Tag = type };
-				
-				foreach(ResourceName name in type.Names) {
-					
-					TreeNode nameNode = new TreeNode( name.Identifier.FriendlyName ) { Tag = name };
-					
-					foreach(ResourceLang lang in name.Langs) {
-						
-						TreeNode langNode = new TreeNode( lang.LanguageId.ToString() ) { Tag = lang };
-						nameNode.Nodes.Add( langNode );
-						
-						langNode.ContextMenuStrip = __resCM;
-						
-					}
-					
-					typeNode.Nodes.Add( nameNode );
-					
-				}
-				
-				__resources.Nodes.Add( typeNode );
-			}
-			
-			/////////////////////////
-			
-			// set various buttons if it's readonly
-			
-			__tSrcSave   .Enabled = !source.IsReadOnly;
-			__tSrcReload .Enabled = !source.IsReadOnly;
-			__tResAdd    .Enabled = !source.IsReadOnly;
-			__tResReplace.Enabled = !source.IsReadOnly;
-			__tResDelete .Enabled = !source.IsReadOnly;
-			__tResUndo   .Enabled = !source.IsReadOnly;
-			
-			return true;
-			
+			return Context.LoadSource(path, __resources, __resCM);
 		}
+		
+#endregion
+		
+#region ResourceData
 		
 		////////////////////////////////////////////////
 		// Current Resource Actions
 		//
 		
-		private void LoadResource(ResourceLang resource) {
+		private void LoadData(ResourceLang resource) {
 			
-			_currentResource = resource;
-			
-			ResourceData data = resource.Data;
+			Context.LoadData(resource);
 			
 			// Status bar
-			this.__sType.Text = data.GetType().Name;
-			this.__sSize.Text = data.RawData.Length.ToString(Cult.CurrentCulture) + " Bytes";
-			this.__sPath.Text = _currentPath + ',' + GetResourcePath(resource);
+			this.__sType.Text = Context.CurrentData.GetType().Name;
+			this.__sSize.Text = Context.CurrentData.RawData.Length.ToString(Cult.CurrentCulture) + " Bytes";
+			this.__sPath.Text = Context.CurrentPath + ',' + GetResourcePath(resource);
 			
-			__sType.BackColor = data is Anolis.Core.Data.UnknownResourceData ? System.Drawing.Color.LightYellow : System.Drawing.SystemColors.Control;
+			__sType.BackColor = Context.CurrentData is Anolis.Core.Data.UnknownResourceData ? System.Drawing.Color.LightYellow : System.Drawing.SystemColors.Control;
 			
 			EnsureView( _viewData );
 			
-			_viewData.ShowResource( data );
+			_viewData.ShowResource( Context.CurrentData );
 			
 		}
 		
-		private void SaveCurrentResourceToFile() {
+		private void ExtractData() {
 			
-			__sfd.Filter = _currentResource.Data.SaveFileFilter + "|Binary Data File (*.bin)|*.bin";;
-			
-			if(__sfd.ShowDialog(this) != DialogResult.OK) return;
-			
-			if( __sfd.FilterIndex == 1 ) { // .FilterIndex has 1 = first item, 2 = second item, and so on
-				
-				_currentResource.Data.SaveAs( __sfd.FileName );
-				
-			} else { 
-				
-				_currentResource.Data.Save( __sfd.FileName );
-			}
+			Context.SaveData(this, __sfd);
 			
 		}
+		
+		private void UpdateData(ResourceData newData) {
+			
+			
+			
+		}
+		
+#endregion
 		
 	}
 }

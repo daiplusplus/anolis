@@ -58,6 +58,9 @@
   <ItemGroup>
     <Compile Include="Controls\ToolStripImprovedSystemRenderer.cs">
     </Compile>
+    <Compile Include="Controls\TreeViewTwo.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ZoomPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -121,15 +124,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ResourcerContext.cs" />
     <Compile Include="Settings\Mru.cs" />

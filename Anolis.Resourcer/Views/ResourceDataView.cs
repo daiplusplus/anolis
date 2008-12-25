@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
 
 using Anolis.Core;
@@ -28,6 +24,8 @@ namespace Anolis.Resourcer {
 		
 		private ResourceData _data;
 		private List<TypeViewer> _viewers;
+		
+		private TypeViewer _currentViewer;
 		
 		public ResourceDataView() {
 			
@@ -101,15 +99,15 @@ namespace Anolis.Resourcer {
 				
 				viewer.RenderResource( data );
 				
-			} catch (Exception ex) {
-				
+			} catch (AnolisException ex) {
 				
 				String exTemplate = "\r\nMessage:\r\n{0}\r\n\r\nStack Trace:\r\n{1}";
 				String message    = "An unhandled exception was thrown whilst trying to load the resource.\r\n";
 				
-				while(ex != null) {
+				Exception e = ex;
+				while(e != null) {
 					message += String.Format(exTemplate, ex.Message, ex.StackTrace);
-					ex = ex.InnerException;
+					e = e.InnerException;
 				}
 				
 				DialogResult result = MessageBox.Show(this, message, "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
@@ -118,11 +116,16 @@ namespace Anolis.Resourcer {
 				
 			}
 			
-			UserControl ctrl = viewer as UserControl;
-			ctrl.Dock = DockStyle.Fill;
-			
-			__viewer.Controls.Clear();
-			__viewer.Controls.Add( viewer as Control );
+			// don't load it if it's already the currently displayed viewer
+			if( _currentViewer != viewer ) {
+				
+				viewer.Dock = DockStyle.Fill;
+				
+				__viewer.Controls.Clear();
+				__viewer.Controls.Add( viewer );
+				
+				_currentViewer = viewer;
+			}
 			
 		}
 		

@@ -20,46 +20,120 @@ namespace Anolis.Core.Data {
 		}
 
 		public override Compatibility HandlesExtension(String filenameExtension) {
-			
+			// Temporarily: disallow modification of subimages in icons
+			/*
 			if( filenameExtension == "png" ) return Compatibility.Maybe;
 			if( filenameExtension == "bmp" ) return Compatibility.Maybe;
-			
+			*/
 			return Compatibility.No;
 		}
-
+		
+		public override String OpenFileFilter {
+			get { return null; }
+		}
+		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
 			
-			IconImageResourceData rd;
+			IconCursorImageResourceData rd;
 			String message;
 			
-			if( IconImageResourceData.TryCreate(lang, data, out message, out rd) ) return rd;
+			if( IconCursorImageResourceData.TryCreate(true, lang, data, out message, out rd) ) return rd;
 			
 			LastErrorMessage = message;
 			
 			return null;
 			
 		}
-
-		public override ResourceData FromFile(Stream stream, String extension) {
+		
+		public override ResourceData FromFile(Stream stream, String extension, ResourceSource source) {
 			
 			LastErrorMessage = "Not implemented";
 			return null;
 			
 		}
-
-		public override string Name {
+		
+		public override String Name {
 			get { return "Icon Sub-Image"; }
 		}
 	}
 	
-	public sealed class IconImageResourceData : ImageResourceData {
+	public class CursorImageResourceDataFactory : ResourceDataFactory {
 		
-		private IconImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
+		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
+			
+			if( typeId.KnownType == Win32ResourceType.CursorImage ) return Compatibility.Yes;
+			if( typeId.KnownType == Win32ResourceType.Bitmap      ) return Compatibility.Maybe;
+			
+			return Compatibility.No;
+		}
+		
+		public override Compatibility HandlesExtension(String filenameExtension) {
+			
+			if( filenameExtension == "bmp" ) return Compatibility.Maybe;
+			
+			return Compatibility.No;
+		}
+		
+		public override String OpenFileFilter {
+			get { return null; }
+		}
+		
+		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
+			
+			IconCursorImageResourceData rd;
+			String message;
+			
+			if( IconCursorImageResourceData.TryCreate(false, lang, data, out message, out rd) ) return rd;
+			
+			LastErrorMessage = message;
+			
+			return null;
+			
+		}
+		
+		public override ResourceData FromFile(Stream stream, String extension, ResourceSource source) {
+			
+			throw new NotImplementedException();
+			
+		}
+		
+		public override string Name {
+			get { return "Cursor"; }
+		}
+	}
+	
+	/// <summary>Magically represents both Icons and Cursors.</summary>
+	public sealed class IconCursorImageResourceData : ImageResourceData {
+		
+		private IntPtr _unmanagedMemory;
+		
+		private IconCursorImageResourceData(IntPtr unmanagedPointer, Icon icon, ResourceLang lang, Byte[] rawData) : base(icon.ToBitmap(), lang, rawData) {
+			
+			_unmanagedMemory = unmanagedPointer;
+			
+			Icon = icon;
+			Size = icon.Size;
+		}
+		
+		private IconCursorImageResourceData(IntPtr unmanagedPointer, Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
+			
+			_unmanagedMemory = unmanagedPointer;
+			
+			// Icon is null
+			Size = image.Size;
+		}
+		
+		~IconCursorImageResourceData() {
+			
+			Marshal.FreeHGlobal( _unmanagedMemory );
+			
 		}
 		
 		public Size Size { get; private set; }
 		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out String message, out IconImageResourceData typed) {
+		public Icon Icon { get; private set; }
+		
+		public static Boolean TryCreate(Boolean isIcon, ResourceLang lang, Byte[] rawData, out String message, out IconCursorImageResourceData typed) {
 			
 			message = null;
 			
@@ -71,7 +145,7 @@ namespace Anolis.Core.Data {
 				Image image;
 				if(!ImageResourceData.TryCreateImage(rawData, out image)) { typed = null; return false; }
 				
-				typed = new IconImageResourceData(image, lang, rawData) { Size = image.Size };
+				typed = new IconCursorImageResourceData(IntPtr.Zero, image, lang, rawData) { Size = image.Size };
 				return true;
 				
 			}
@@ -85,18 +159,21 @@ namespace Anolis.Core.Data {
 			IntPtr p = Marshal.AllocHGlobal( rawData.Length );
 			Marshal.Copy( rawData, 0, p, rawData.Length );
 			
-			IntPtr hIcon = NativeMethods.CreateIconFromResource(p, (uint)rawData.Length, true);
+			IntPtr hIcon = NativeMethods.CreateIconFromResource(p, (uint)rawData.Length, isIcon);
 			if(hIcon == IntPtr.Zero) {
 				message = NativeMethods.GetLastErrorString();
+				typed = null;
+				return false;
 			}
 			
 			Icon icon = Icon.FromHandle( hIcon );
 			
-			Bitmap bmp = icon.ToBitmap();
+			// because the Icon is born out of unmanaged data I cannot free the handle here; do it in the finaliser
+			// on Windows XP x86 this doesn't cause a problem by freeing it here, but on Windows Server 2008 x64 it causes the Icon to fail
 			
-			Marshal.FreeHGlobal( p );
+			// UPDATE: okay, apparently not. Even after moving that free instruction it still fails on WS2008x64
 			
-			typed = new IconImageResourceData(bmp, lang, rawData);
+			typed = new IconCursorImageResourceData(p, icon, lang, rawData);
 			return true;
 			
 		}
@@ -172,8 +249,28 @@ typdef struct {
 			
 		}*/
 		
-		public override String[] SaveFileFilter {
-			get { return new String[] { "BMP Image (*.bmp)|*.bmp" }; }
+		protected override void SaveAs(Stream stream, String extension) {
+			
+			if( extension != "bmp" ) {
+				
+				base.ConvertAndSaveImageAs(stream, extension);
+				
+			} else {
+				
+				// hmm, that was simple
+				Icon.Save( stream );
+			}
+			
+		}
+		
+		protected override String[] SupportedFilters {
+			get { return new String[] {
+				"BMP Image (*.bmp)|*.bmp",
+				"Convert to EXIF (*.exf)|*.exf",
+				"Convert to GIF (*.gif)|*.gif",
+				"Convert to JPEG (*.jpg)|*.jpg",
+				"Convert to PNG (*.png)|*.png",
+			}; }
 		}
 		
 	}

@@ -22,23 +22,14 @@ namespace Anolis.Resourcer.TypeViewers {
 		
 		public override void RenderResource(ResourceData resource) {
 			
-			IconDirectoryResourceData iDirectory = resource as IconDirectoryResourceData;
-			if(iDirectory != null) {
-				RenderIconDirectory( iDirectory );
-				return;
-			}
+			DirectoryResourceData rd = resource as DirectoryResourceData;
+			if(rd != null) RenderDirectory( rd );
 			
-			CursorDirectoryResourceData cDirectory = resource as CursorDirectoryResourceData;
-			if(cDirectory != null) {
-				RenderCursorDirectory( cDirectory );
-				return;
-			}
-			
-			// show some Not Supported message of some sort
+			// TODO: show some Not Supported message of some sort
 			
 		}
 		
-		private void RenderIconDirectory(IconDirectoryResourceData dir) {
+		private void RenderDirectory(DirectoryResourceData dir) {
 			
 			this.__images.Controls.Clear();
 			
@@ -69,12 +60,6 @@ namespace Anolis.Resourcer.TypeViewers {
 			__currentImage.Image = ird.Image;
 			
 			__images.Invalidate(true);
-			
-		}
-		
-		private void RenderCursorDirectory(CursorDirectoryResourceData dir) {
-			
-			// TODO
 			
 		}
 		

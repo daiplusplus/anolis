@@ -19,9 +19,13 @@ namespace Anolis.Core.Data {
 			return new UnknownResourceData(lang, data);
 		}
 		
-		public override ResourceData FromFile(System.IO.Stream stream, String extension) {
+		public override ResourceData FromFile(System.IO.Stream stream, String extension, ResourceSource source) {
 			Byte[] data = GetAllBytesFromStream(stream);
 			return FromResource(null, data);
+		}
+		
+		public override String OpenFileFilter {
+			get { return "All Files (*.*)|*.*"; }
 		}
 		
 		public override string Name {
@@ -34,8 +38,12 @@ namespace Anolis.Core.Data {
 		public UnknownResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
 		}
 		
-		public override String[] SaveFileFilter {
-			get { return new String[] { "Binary Data File (*.bin)|*.bin" }; }
+		protected override String[] SupportedFilters {
+			get { return new String[0]; }
+		}
+		
+		protected override void SaveAs(System.IO.Stream stream, String extension) {
+			throw new NotSupportedException();
 		}
 		
 	}

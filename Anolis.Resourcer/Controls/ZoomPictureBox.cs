@@ -114,7 +114,7 @@ namespace Anolis.Resourcer.Controls {
 			e.Graphics.Transform = zoomMatrix;
 			e.Graphics.InterpolationMode = _interpolationMode;
 			
-			e.Graphics.DrawImage( _image, GetRectangle(Centered), 0, 0, _image.Width, _image.Height, GraphicsUnit.Pixel );
+			e.Graphics.DrawImage( _image, GetRectangle(), 0, 0, _image.Width, _image.Height, GraphicsUnit.Pixel );
 			
 			base.OnPaint(e);
 		}
@@ -127,12 +127,12 @@ namespace Anolis.Resourcer.Controls {
 			return rect;
 		}
 		
-		private Rectangle GetRectangle(Boolean centered) {
+		private Rectangle GetRectangle() {
 			
 			Rectangle rect = DeflateRectangle( ClientRectangle, Padding );
 			if( _image == null ) return rect;
 			
-			if(centered) {
+			if(Centered) {
 				Rectangle retVal = new Rectangle();
 				retVal.X = ( rect.Width  - _image.Width  ) / 2;
 				retVal.Y = ( rect.Height - _image.Height ) / 2;

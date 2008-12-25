@@ -114,8 +114,6 @@ namespace Anolis.Core {
 		
 #endregion
 		
-
-			
 	}
 	
 	public class ResourceTypeIdentifier : ResourceIdentifier {

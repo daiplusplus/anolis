@@ -10,6 +10,8 @@ namespace Anolis.Core.Data {
 			if(typeId.KnownType != Win32ResourceType.Custom) return Compatibility.No;
 			
 			if(typeId.StringId == "PNG") return Compatibility.Yes;
+			if(typeId.StringId == "PNGF") return Compatibility.Yes;
+			if(typeId.StringId == "PNGFILE") return Compatibility.Yes;
 			
 			return Compatibility.Maybe;
 		}
@@ -17,6 +19,10 @@ namespace Anolis.Core.Data {
 		public override Compatibility HandlesExtension(string filenameExtension) {
 			if(filenameExtension == "png") return Compatibility.Yes;
 			return Compatibility.No;
+		}
+		
+		public override String OpenFileFilter {
+			get { return "PNG Image (*.png|*.png"; }
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, byte[] data) {
@@ -28,7 +34,7 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override ResourceData FromFile(System.IO.Stream stream, string extension) {
+		public override ResourceData FromFile(System.IO.Stream stream, String extension, ResourceSource source) {
 			Byte[] data = GetAllBytesFromStream(stream);
 			return FromResource(null, data);
 		}
@@ -67,19 +73,39 @@ namespace Anolis.Core.Data {
 			// 89 50 4E 47 0D 0A 1A 0A
 			
 			return
-				data[0] == 0x89 &&
-				data[1] == 0x50 && // P
-				data[2] == 0x4E && // N
-				data[3] == 0x47 && // G
-				data[4] == 0x0D && // CR
-				data[5] == 0x0A && // LF
-				data[6] == 0x1A && // EOF
-				data[7] == 0x0A;   // LF
+				data[0] == 0x89 && // 1000 1001
+				data[1] == 0x50 && // 'P'
+				data[2] == 0x4E && // 'N'
+				data[3] == 0x47 && // 'G'
+				data[4] == 0x0D && // \CR
+				data[5] == 0x0A && // \LF
+				data[6] == 0x1A && // \EOF
+				data[7] == 0x0A;   // \LF
 			
 		}
 		
-		public override String[] SaveFileFilter {
-			get { return new String[] { "PNG Image (*.png)|*.png" }; }
+		protected override void SaveAs(System.IO.Stream stream, String extension) {
+			
+			if(extension == "png") {
+				
+				stream.Write( this.RawData, 0, RawData.Length );
+				
+			} else {
+				
+				base.ConvertAndSaveImageAs(stream, extension);
+				
+			}
+			
+		}
+		
+		protected override String[] SupportedFilters {
+			get { return new String[] {
+				"PNG Image (*.png)|*.png",
+				"Convert to Bitmap (*.bmp)|*.bmp",
+				"Convert to EXIF (*.exf)|*.exf",
+				"Convert to GIF (*.gif)|*.gif",
+				"Convert to JPEG (*.jpg)|*.jpg",
+			}; }
 		}
 		
 	}

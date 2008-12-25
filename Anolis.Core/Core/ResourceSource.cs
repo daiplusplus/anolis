@@ -13,6 +13,14 @@ namespace Anolis.Core {
 			
 		}
 		
+		protected ResourceSource(Boolean readOnly, Boolean loadSource) {
+			
+			IsReadOnly = readOnly;
+			
+			InitResourceSourceCollections();
+			
+		}
+		
 		//////////////////////
 		
 		public Boolean IsReadOnly { get; private set; }
@@ -50,11 +58,7 @@ namespace Anolis.Core {
 		//////////////////////
 		// ResourceSource State Mutators
 		
-		public virtual void CommitChanges() {
-			
-			if( this.IsReadOnly ) throw new InvalidOperationException("This Resource Source was opened read-only");
-			
-		}
+		public abstract void CommitChanges(Boolean reload);
 		
 		/// <summary>Actually reloads all the data into the source.</summary>
 		public abstract void Reload();

@@ -19,7 +19,7 @@ namespace Anolis.Core {
 				_data = value;
 				Action = ResourceDataAction.Update;
 				
-				Initialise();
+				Reinitialise();
 			}
 		}
 		
@@ -34,6 +34,14 @@ namespace Anolis.Core {
 			Lang    = lang;
 			_data   = rawData;
 			Action  = ResourceDataAction.None; // action would be set by the ResourceSource using it and is none of our concern
+		}
+		
+		protected static ResourceDataException ME(Exception ex) {
+			return new ResourceDataException(ex);
+		}
+		
+		protected static ResourceDataException MEEx(String extension) {
+			return new ResourceDataException( new ArgumentException("Unsupported extension \"" + extension + '"', "extension") );
 		}
 		
 		public static ResourceData FromResource(ResourceLang lang, Byte[] rawData) {
@@ -61,7 +69,7 @@ namespace Anolis.Core {
 		}
 		
 		/// <summary>Creates a ResourceData instance from a stream containing data convertible into a resource. For instance a stream containing a  *.bmp file's content can be converted into a BITMAP resource.</summary>
-		public static ResourceData FromFile(Stream stream, String extension) {
+		public static ResourceData FromFile(Stream stream, String extension, ResourceSource source) {
 			
 			// 'intelligent reading' of the file itself is too resource intensive. Better just to trust the extension.
 			
@@ -78,7 +86,7 @@ namespace Anolis.Core {
 				
 				if(i >= factories.Length) throw new Exception("Unable to locate factory for resource data.");
 				
-				data = factories[i++].FromFile( stream, extension );
+				data = factories[i++].FromFile( stream, extension, source );
 				
 			}
 			
@@ -89,21 +97,25 @@ namespace Anolis.Core {
 		}
 		
 		/// <summary>Creates a ResourceData instance from a file containing data convertible into a resource. For instance a *.bmp can be converted into a BITMAP resource.</summary>
-		public static ResourceData FromFile(String filename) {
+		public static ResourceData FromFile(String filename, ResourceSource source) {
 			
 			if(filename == null) throw new ArgumentNullException("filename");
 			if( !File.Exists(filename) ) throw new FileNotFoundException("The file to load the resource data from was not found", filename);
 			
 			using(Stream stream = File.OpenRead(filename)) {
 				
-				return FromFile( stream, Path.GetExtension(filename) );
+				return FromFile( stream, Path.GetExtension(filename), source );
 			}
 			
 		}
 		
 		////////////////////////////////////
 		
-		/// <summary>Saves the raw data in the Resource to disk.</summary>
+		/// <summary>
+		///		<para>Saves the Resource Data to disk. The extension is inferred from the path and the file format selected that way. Ensure the extension is supported by querying SaveFileFilters first.</para>
+		///		<para>If the file exists it will be overwritten.</para>
+		///		<para>Use the .bin extension to save the raw resource data regardless of ResourceData subclass.</para>
+		///	</summary>
 		public void Save(String path) {
 			
 			// TODO: Standardise the use of 'path', 'filename', and 'filepath' in the source code.
@@ -114,43 +126,44 @@ namespace Anolis.Core {
 			
 			using(Stream stream = File.Create(path)) {
 				
-				Save(stream);
+				Save(stream, Path.GetExtension(path) );
 			}
 			
 		}
 		
-		public void Save(Stream stream) {
+		public void Save(Stream stream, String extension) {
 			
-			stream.Write( this.RawData, 0, this.RawData.Length );
-		}
-		
-		/// <summary>Saves the ResourceData to disk in a suitable file format. The base implementation is the same as Save. If the file exists it will be overwritten.</summary>
-		public void SaveAs(String path) {
+			if( extension[0] == '.' ) extension = extension.Substring(1);
 			
-			if(path == null) throw new ArgumentNullException("path");
-			
-			using(Stream stream = File.Create(path)) {
+			if(extension == "bin") {
 				
-				SaveAs(stream, Path.GetExtension(path) );
+				stream.Write( this.RawData, 0, this.RawData.Length );
+				
+			} else if(SupportedFilters.Length > 0) {
+				
+				SaveAs(stream, extension);
 			}
-			
 		}
 		
-		public virtual void SaveAs(Stream stream, String extension) {
+		protected abstract void SaveAs(Stream stream, String extension);
+		
+		public String[] SaveFileFilters {
 			
-			Save(stream);
-			
+			get {
+				
+				String[] supported = SupportedFilters;
+				Array.Resize<String>(ref supported, supported.Length + 1);
+				supported[supported.Length - 1] = "Raw Resource Data (*.bin)|*.bin";
+				
+				return supported;
+			}
 		}
 		
-		/// <summary>Gets the file extension and friendly name in .NET "File Filter" format associated with the data format contained within.</summary>
-		/// <example>Binary Data File (*.bin)|*.bin</example>
-		public abstract String[] SaveFileFilter { get; }
+		/// <summary>Returns an array of supported File Filters. Return an empty array (never null) if it does not support custom saving.</summary>
+		protected abstract String[] SupportedFilters { get; }
 		
 		/// <summary>Called when the RawData is set. A notification to subclasses to recreate any stateful data.</summary>
-		protected virtual void Initialise() {
-			
-			
-			
+		protected virtual void Reinitialise() {
 		}
 		
 	}

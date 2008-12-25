@@ -10,6 +10,13 @@ namespace Anolis.Core {
 	
 	public class ResourceTypeCollection : ReadOnlyCollection<ResourceType> {
 		public ResourceTypeCollection(List<ResourceType> list) : base(list) {}
+		
+		public ResourceType this[ResourceTypeIdentifier typeId] {
+			get {
+				foreach(ResourceType type in this) if(type.Identifier.Equals(typeId)) return type;
+				return null;
+			}
+		}
 	}
 	
 	public class ResourceNameCollection : ReadOnlyCollection<ResourceName> {
