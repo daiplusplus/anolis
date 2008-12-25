@@ -8,10 +8,16 @@ namespace Anolis.Resourcer {
 		
 		private static ResourcerContext _context;
 		
+		internal static ResourcerContext Context {
+			get { return _context; }
+		}
+		
 		[STAThread]
 		public static void Main() {
 			
+#if !DEBUG
 			try {
+#endif
 				
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
@@ -19,18 +25,19 @@ namespace Anolis.Resourcer {
 				_context = new ResourcerContext();
 				
 				MainForm main = new MainForm();
-				main.Context = _context;
 				
 				Application.Run( main );
 				
 				_context.Save();
-			
-			} catch (Exception ex) {
 
-#if DEBUG				
-				String desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+#if !DEBUG				
+			} catch (Exception ex) {
 				
-				String path = Path.Combine(desktop, "Report.txt");
+			
+				String dest = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+				dest = Path.Combine(dest, "Anolis");
+				
+				String path = Path.Combine(dest, "Exceptions.log");
 				
 				using(StreamWriter wtr = new StreamWriter(path, true)) {
 					
@@ -48,10 +55,10 @@ namespace Anolis.Resourcer {
 					}
 					
 				}
-#endif
+				throw ex;			
 				
-				throw ex;
 			}
+#endif
 			
 		}
 		

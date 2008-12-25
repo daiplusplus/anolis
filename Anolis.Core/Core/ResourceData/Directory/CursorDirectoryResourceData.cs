@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Anolis.Core.Data {
 	
-	public class CursorDirectoryResourceDataFactory : ResourceDataFactory {
+/*	public class CursorDirectoryResourceDataFactory : ResourceDataFactory {
 		
 		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
 			
@@ -21,8 +21,13 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
-			LastErrorMessage = "Not Implemented";
+			
+			CursorDirectoryResourceData rd;
+			
+			if( CursorDirectoryResourceData.TryCreate(lang, data, out rd ) ) return rd;
+			
 			return null;
+			
 		}
 		
 		public override ResourceData FromFile(System.IO.Stream stream, String extension) {
@@ -40,12 +45,9 @@ namespace Anolis.Core.Data {
 		private CursorDirectoryResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
 		}
 		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out ResourceData data) {
+		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out CursorDirectoryResourceData data) {
 			
-			data = null;
-			return false;
-			
-			// TODO
+			throw new NotImplementedException();
 			
 		}
 		
@@ -53,5 +55,5 @@ namespace Anolis.Core.Data {
 			get { return new String[] { "Cursor File (*.cur)|.cur" }; }
 		}
 		
-	}
+	}*/
 }

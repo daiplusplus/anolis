@@ -22,9 +22,9 @@ namespace Anolis.Core.PE {
 			
 		}
 		
-		public override void CommitChanges() {
+		public override void CommitChanges(Boolean reload) {
 			
-			base.CommitChanges(); // this does the read-only check
+			if( IsReadOnly ) throw new InvalidOperationException("Changes cannot be commited because the current ResourceSource is read-only");
 			
 			// Unload self
 			Unload();
@@ -67,8 +67,7 @@ namespace Anolis.Core.PE {
 				
 			}
 			
-			// when done, reload self
-			Reload();
+			if(reload) Reload();
 			
 		}
 		

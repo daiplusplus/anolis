@@ -33,13 +33,18 @@ namespace Anolis.Core {
 			_types = new List<ResourceType>();
 			Types  = new ResourceTypeCollection(_types);
 			
-			
-			
 		}
 		
 		private List<ResourceType> _types;
 		
 		public ResourceTypeCollection Types { get; private set; }
+		
+		public Boolean HasUnsavedChanges {
+			get {
+				//throw new NotImplementedException();
+				return false;
+			}
+		}
 		
 		//////////////////////////////////
 		
@@ -47,17 +52,23 @@ namespace Anolis.Core {
 			
 			EnsureReadOnly();
 			
+			throw new NotImplementedException();
+			
 		}
 		
 		public void Add(ResourceType type, ResourceIdentifier name, UInt16 lang, ResourceData data) {
 			
 			EnsureReadOnly();
 			
+			throw new NotImplementedException();
+			
 		}
 		
 		public void Add(ResourceIdentifier type, ResourceIdentifier name, UInt16 lang, ResourceData data) {
 			
 			EnsureReadOnly();
+			
+			throw new NotImplementedException();
 			
 		}
 		
@@ -118,6 +129,39 @@ namespace Anolis.Core {
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
 			
 			return GetEnumerator();
+		}
+		
+		//////////////////////////////////
+				
+		/// <summary>Returns an unused integer ResourceIdentifier for a ResourceName that is not currently being used.</summary>
+		public virtual ResourceIdentifier GetUnusedName(ResourceTypeIdentifier typeId) {
+			
+			// get the type then enumerate through all the integer Ids.
+			ResourceType type = this.Types[ typeId ];
+			
+			Int32 biggestIntId = -1;
+			foreach(ResourceName name in type.Names) {
+				
+				ResourceIdentifier id = name.Identifier;
+				
+				if(id.IntegerId != null) {
+					
+					if(id.IntegerId > biggestIntId) biggestIntId = id.IntegerId.Value;
+				}
+			}
+			if(biggestIntId == -1) biggestIntId = 0;
+			
+			return new ResourceIdentifier( biggestIntId + 1 );
+			
+		}
+		
+		/// <summary>Returns True if the specified ResourceIdentifier for a ResourceName is currently in use.</summary>
+		public virtual Boolean IsNameInUse(ResourceType type, ResourceIdentifier nameId) {
+			
+			foreach(ResourceName name in type.Names) if(name.Equals( nameId )) return false;
+			
+			return true;
+			
 		}
 		
 		//////////////////////////////////

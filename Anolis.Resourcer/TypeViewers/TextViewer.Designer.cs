@@ -32,15 +32,20 @@
 			this.@__toolsEncUtf8 = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__toolsEncUtf16 = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__toolsEncUtf32 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__text = new System.Windows.Forms.TextBox();
-			this.@__fdlg = new System.Windows.Forms.FontDialog();
 			this.@__toolsBom = new System.Windows.Forms.ToolStripButton();
 			this.@__toolsEndian = new System.Windows.Forms.ToolStripButton();
 			this.@__toolsWrap = new System.Windows.Forms.ToolStripButton();
 			this.@__toolsFont = new System.Windows.Forms.ToolStripButton();
+			this.@__text = new System.Windows.Forms.TextBox();
+			this.@__fdlg = new System.Windows.Forms.FontDialog();
 			@__toolsSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__tools.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// __toolsSep
+			// 
+			@__toolsSep.Name = "__toolsSep";
+			@__toolsSep.Size = new System.Drawing.Size(6, 25);
 			// 
 			// __tools
 			// 
@@ -56,6 +61,7 @@
 			this.@__tools.Location = new System.Drawing.Point(0, 0);
 			this.@__tools.Name = "__tools";
 			this.@__tools.Padding = new System.Windows.Forms.Padding(3, 0, 1, 0);
+			this.@__tools.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
 			this.@__tools.Size = new System.Drawing.Size(644, 25);
 			this.@__tools.TabIndex = 2;
 			this.@__tools.Text = "toolStrip1";
@@ -83,53 +89,32 @@
 			// __toolsEncAscii
 			// 
 			this.@__toolsEncAscii.Name = "__toolsEncAscii";
-			this.@__toolsEncAscii.Size = new System.Drawing.Size(152, 22);
+			this.@__toolsEncAscii.Size = new System.Drawing.Size(109, 22);
 			this.@__toolsEncAscii.Text = "ASCII";
 			// 
 			// __toolsEncUtf7
 			// 
 			this.@__toolsEncUtf7.Name = "__toolsEncUtf7";
-			this.@__toolsEncUtf7.Size = new System.Drawing.Size(152, 22);
+			this.@__toolsEncUtf7.Size = new System.Drawing.Size(109, 22);
 			this.@__toolsEncUtf7.Text = "UTF-7";
 			// 
 			// __toolsEncUtf8
 			// 
 			this.@__toolsEncUtf8.Name = "__toolsEncUtf8";
-			this.@__toolsEncUtf8.Size = new System.Drawing.Size(152, 22);
+			this.@__toolsEncUtf8.Size = new System.Drawing.Size(109, 22);
 			this.@__toolsEncUtf8.Text = "UTF-8";
 			// 
 			// __toolsEncUtf16
 			// 
 			this.@__toolsEncUtf16.Name = "__toolsEncUtf16";
-			this.@__toolsEncUtf16.Size = new System.Drawing.Size(152, 22);
+			this.@__toolsEncUtf16.Size = new System.Drawing.Size(109, 22);
 			this.@__toolsEncUtf16.Text = "UTF-16";
 			// 
 			// __toolsEncUtf32
 			// 
 			this.@__toolsEncUtf32.Name = "__toolsEncUtf32";
-			this.@__toolsEncUtf32.Size = new System.Drawing.Size(152, 22);
+			this.@__toolsEncUtf32.Size = new System.Drawing.Size(109, 22);
 			this.@__toolsEncUtf32.Text = "UTF-32";
-			// 
-			// __toolsSep
-			// 
-			@__toolsSep.Name = "__toolsSep";
-			@__toolsSep.Size = new System.Drawing.Size(6, 25);
-			// 
-			// __text
-			// 
-			this.@__text.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.@__text.Location = new System.Drawing.Point(0, 25);
-			this.@__text.Multiline = true;
-			this.@__text.Name = "__text";
-			this.@__text.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.@__text.Size = new System.Drawing.Size(644, 422);
-			this.@__text.TabIndex = 3;
-			// 
-			// __fdlg
-			// 
-			this.@__fdlg.FontMustExist = true;
-			this.@__fdlg.ShowApply = true;
-			this.@__fdlg.ShowEffects = false;
 			// 
 			// __toolsBom
 			// 
@@ -168,6 +153,22 @@
 			this.@__toolsFont.Size = new System.Drawing.Size(49, 22);
 			this.@__toolsFont.Text = "Font";
 			this.@__toolsFont.Click += new System.EventHandler(this.@__toolsFont_Click);
+			// 
+			// __text
+			// 
+			this.@__text.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.@__text.Location = new System.Drawing.Point(0, 25);
+			this.@__text.Multiline = true;
+			this.@__text.Name = "__text";
+			this.@__text.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.@__text.Size = new System.Drawing.Size(644, 422);
+			this.@__text.TabIndex = 3;
+			// 
+			// __fdlg
+			// 
+			this.@__fdlg.FontMustExist = true;
+			this.@__fdlg.ShowApply = true;
+			this.@__fdlg.ShowEffects = false;
 			// 
 			// TextViewer
 			// 

@@ -84,7 +84,12 @@ namespace Anolis.Core.PE {
 		
 		public static IntPtr CreateIconFromResource(IntPtr iconData, UInt32 sizeOfIconData, Boolean iconOrCursor) {
 			
-			return CreateIconFromResourceEx(iconData, sizeOfIconData, iconOrCursor, (uint)0x00030000, 0, 0, IconFlags.DefaultColor);
+			IntPtr retval = CreateIconFromResourceEx(iconData, sizeOfIconData, iconOrCursor, (uint)0x00030000, 0, 0, IconFlags.DefaultColor);
+			
+			if(retval == IntPtr.Zero )
+				throw new Exception("CreateIconFromResourceEx failed: " + GetLastErrorString() );
+			
+			return retval;
 			
 		}
 		

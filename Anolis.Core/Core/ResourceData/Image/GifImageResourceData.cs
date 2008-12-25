@@ -5,7 +5,7 @@ using System.Drawing;
 namespace Anolis.Core.Data {
 	
 	public class GifImageResourceDataFactory : ResourceDataFactory {
-
+		
 		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
 			
 			if(typeId.KnownType != Win32ResourceType.Custom) return Compatibility.No;
@@ -15,13 +15,17 @@ namespace Anolis.Core.Data {
 			return Compatibility.Maybe;
 			
 		}
-
+		
 		public override Compatibility HandlesExtension(String filenameExtension) {
 			
 			return (filenameExtension == "gif") ? Compatibility.Yes : Compatibility.No;
 			
 		}
-
+		
+		public override String OpenFileFilter {
+			get { return "GIF Image (*.gif)|*.gif"; }
+		}
+		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
 			
 			GifImageResourceData rd;
@@ -31,8 +35,8 @@ namespace Anolis.Core.Data {
 			return null;
 			
 		}
-
-		public override ResourceData FromFile(Stream stream, String extension) {
+		
+		public override ResourceData FromFile(Stream stream, String extension, ResourceSource source) {
 			
 			Byte[] data = GetAllBytesFromStream(stream);
 			
@@ -43,7 +47,7 @@ namespace Anolis.Core.Data {
 			return null;
 			
 		}
-
+		
 		public override string Name {
 			get { return "GIF Image"; }
 		}
@@ -87,8 +91,28 @@ namespace Anolis.Core.Data {
 				 data[4] == 0x39);  // 9
 		}
 		
-		public override String[] SaveFileFilter {
-			get { return new String[] { "GIF Image (*.gif)|*.gif" }; }
+		protected override void SaveAs(System.IO.Stream stream, String extension) {
+			
+			if(extension == "gif") {
+				
+				stream.Write( this.RawData, 0, RawData.Length );
+				
+			} else {
+				
+				base.ConvertAndSaveImageAs(stream, extension);
+				
+			}
+			
+		}
+		
+		protected override String[] SupportedFilters {
+			get { return new String[] {
+				"GIF Image (*.gif)|*.gif",
+				"Convert to Bitmap (*.exf)|*.exf",
+				"Convert to EXIF (*.bmp)|*.bmp",
+				"Convert to JPEG (*.jpg)|*.jpg",
+				"Convert to PNG (*.png)|*.png",
+			}; }
 		}
 		
 	}

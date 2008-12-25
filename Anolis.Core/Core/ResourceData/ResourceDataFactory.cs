@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
+using Anolis.Core.Utility;
 
 namespace Anolis.Core.Data {
 	
@@ -18,13 +19,15 @@ namespace Anolis.Core.Data {
 		public abstract ResourceData FromResource(ResourceLang lang, Byte[] data);
 		
 		/// <summary>Returns null if unsuccessful.</summary>
-		public abstract ResourceData FromFile(Stream stream, String extension);
+		public abstract ResourceData FromFile(Stream stream, String extension, ResourceSource currentSource);
 		
 		/// <summary>Gets the (human-readable) message as to why the previously loaded resource could not be loaded.</summary>
 		public virtual String LastErrorMessage { get; protected set; }
 		
 		/// <summary>Gets the (human-readable) name of the data handled by this IResourceDataFactory.</summary>
 		public abstract String Name { get; }
+		
+		public abstract String OpenFileFilter { get; }
 		
 		protected static Byte[] GetAllBytesFromStream(Stream stream) {
 			Byte[] data = new Byte[ stream.Length ];
@@ -33,6 +36,30 @@ namespace Anolis.Core.Data {
 		}
 		
 #region Factory Selection and Loading
+		
+		private static Pair<ResourceDataFactory, String>[] _openFileFilters;
+		
+		public static Pair<ResourceDataFactory, String>[] GetOpenFileFilters() {
+			
+			if( _openFileFilters == null ) {
+				
+				ResourceDataFactoryCollection factories = GetFactories(null);
+				
+				List<Pair<ResourceDataFactory, String>> filters = new List<Pair<ResourceDataFactory, String>>(factories.Count);
+				
+				for(int i=0;i<filters.Count;i++) {
+					
+					String filter = factories[i].OpenFileFilter;
+					
+					if(filter != null) filters.Add( new Pair<ResourceDataFactory,String>(factories[i], filter) );
+				}
+				
+				_openFileFilters = filters.ToArray();
+			}
+			
+			return _openFileFilters;
+			
+		}
 		
 		private static Dictionary<ResourceTypeIdentifier,ResourceDataFactory[]> _forType = new Dictionary<ResourceTypeIdentifier,ResourceDataFactory[]>();
 		private static Dictionary<String                ,ResourceDataFactory[]> _forExt  = new Dictionary<String,ResourceDataFactory[]>();
@@ -105,41 +132,37 @@ namespace Anolis.Core.Data {
 		
 		private static ResourceDataFactoryCollection _factories;
 		
-		private static ResourceDataFactoryCollection GetFactories(Location[] locations) {
+		private static ResourceDataFactoryCollection GetFactories(FactoryLocation[] locations) {
 			
 			if( _factories == null ) {
 				
-				if(locations == null) locations = new Location[] { new Location( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ), Location.LocationType.Directory ) };
+				if(locations == null) locations = new FactoryLocation[] { new FactoryLocation( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ), FactoryLocationType.Directory ) };
 				
 				List<ResourceDataFactory> list = new List<ResourceDataFactory>();
 				
 				Prepopulate( list );
 				
-				if(locations != null) {
+				foreach(FactoryLocation loc in locations) {
 					
-					foreach(Location loc in locations) {
-						
-						switch(loc.Type) {
-							case Location.LocationType.Directory:
-								
-								// recursivly search for all DLLs
-								if(Directory.Exists(loc.Path)) RecurseDirectory(list, new DirectoryInfo(loc.Path));
-								
-								break;
-							case Location.LocationType.Filename:
-								
-								LoadFactoriesFromAssembly(list, loc.Path);
-								
-								break;
-							case Location.LocationType.Wildcard:
-								
-								throw new NotSupportedException();
-	//							
-	//							String path = loc.Path.Substring(0, 
-	//							
-	//							break;
-						}
-						
+					switch(loc.Type) {
+						case FactoryLocationType.Directory:
+							
+							// recursivly search for all DLLs
+							if(Directory.Exists(loc.Path)) RecurseDirectory(list, new DirectoryInfo(loc.Path));
+							
+							break;
+						case FactoryLocationType.Filename:
+							
+							LoadFactoriesFromAssembly(list, loc.Path);
+							
+							break;
+						case FactoryLocationType.Wildcard:
+							
+							throw new NotSupportedException();
+//							
+//							String path = loc.Path.Substring(0, 
+//							
+//							break;
 					}
 					
 				}
@@ -201,7 +224,21 @@ namespace Anolis.Core.Data {
 		
 		private static void Prepopulate(List<ResourceDataFactory> factories) {
 			
-			// TODO
+			// Images
+			factories.Add( new BmpImageResourceDataFactory() );
+			factories.Add( new GifImageResourceDataFactory() );
+			factories.Add( new JpegImageResourceDataFactory() );
+			factories.Add( new PngImageResourceDataFactory() );
+			
+			factories.Add( new IconImageResourceDataFactory() );
+			factories.Add( new CursorImageResourceDataFactory() );
+			
+			// Directories
+			factories.Add( new IconDirectoryResourceDataFactory() );
+//			factories.Add( new CursorDirectoryResourceDataFactory() );
+			
+			// The Rest
+			factories.Add( new UnknownResourceDataFactory() );
 			
 		}
 		
@@ -209,21 +246,22 @@ namespace Anolis.Core.Data {
 	
 #endregion
 	
-	public class Location {
+	public class FactoryLocation {
 		
-		public String       Path { get; private set; }
-		public LocationType Type { get; private set; }
+		public String              Path { get; private set; }
+		public FactoryLocationType Type { get; private set; }
 		
-		public Location(String path, LocationType type) {
+		public FactoryLocation(String path, FactoryLocationType type) {
 			Path = path;
 			Type = type;
 		}
 		
-		public enum LocationType {
-			Filename,
-			Directory,
-			Wildcard
-		}
+	}
+	
+	public enum FactoryLocationType {
+		Filename,
+		Directory,
+		Wildcard
 	}
 	
 	public enum Compatibility {

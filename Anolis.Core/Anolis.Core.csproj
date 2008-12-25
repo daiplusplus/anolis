@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\AnolisException.cs" />
     <Compile Include="Core\Resource.cs" />
     <Compile Include="Core\ResourceData\Directory\CursorDirectoryResourceData.cs" />
     <Compile Include="Core\ResourceData\Directory\DirectoryResourceData.cs" />
@@ -58,8 +59,10 @@
     <Compile Include="Core\ResourceData\Image\ImageResourceData.cs" />
     <Compile Include="Core\ResourceData\Image\JpegImageResourceData.cs" />
     <Compile Include="Core\ResourceData\Image\PngImageResourceData.cs" />
+    <Compile Include="Core\ResourceData\ResourceDataException.cs" />
     <Compile Include="Core\ResourceData\ResourceDataFactory.cs" />
-    <Compile Include="Core\ResourceData\UnknownResourceData.cs" />
+    <Compile Include="Core\ResourceData\Unknown\DummyResourceData.cs" />
+    <Compile Include="Core\ResourceData\Unknown\UnknownResourceData.cs" />
     <Compile Include="Core\ResourceData\Multimedia\VideoResourceData.cs" />
     <Compile Include="Core\ResourceSourcePartial.cs" />
     <Compile Include="Core\ResourceData\ResourceData.cs" />
@@ -68,6 +71,7 @@
     <Compile Include="Core\ResourceEnumerator.cs" />
     <Compile Include="Core\ResourceSource.cs" />
     <Compile Include="Core\Utility\Dib.cs" />
+    <Compile Include="Core\Utility\Pair.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="NativeTypes.cs" />
     <Compile Include="PE\NativeMethods.cs" />
@@ -80,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AnolisSnk.pfx" />
-    <None Include="ResourcesClassDiagram.cd" />
+    <None Include="ResourceData ClassDiagram.cd" />
     <None Include="Packages\PackageSchema.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

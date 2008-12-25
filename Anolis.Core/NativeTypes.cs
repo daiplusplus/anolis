@@ -102,7 +102,7 @@ namespace Anolis.Core.NativeTypes {
 	
 	/// <summary>Defines the peristent format of an icon directory entry in a .ICO file.</summary>
 	[StructLayout(LayoutKind.Sequential, Pack=2)]
-	internal struct FileIconDirectoryMember {
+	internal struct FileIconDirectoryEntry {
 		public byte bWidth;
 		public byte bHeight;
 		public byte bColorCount;

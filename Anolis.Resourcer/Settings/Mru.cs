@@ -27,7 +27,7 @@ namespace Anolis.Resourcer.Settings {
 		
 		public Mru(Int32 capacity, IEnumerable<String> entries, StringComparison comparison) {
 			
-			if(capacity < 0) throw new ArgumentException("capacity");
+			if(capacity < 0) throw new ArgumentException("Capacity must be a non-negative integer", "capacity");
 			
 			Capacity   = capacity;
 			Comparison = comparison;
