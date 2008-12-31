@@ -98,7 +98,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Core\Native\NativeTypes.cs" />
     <Compile Include="Core\Native\NativeMethods.cs" />
-    <Compile Include="PE\PESource.cs" />
+    <Compile Include="Core\PE\PESource.cs" />
     <Compile Include="Packages\Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
