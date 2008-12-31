@@ -77,6 +77,20 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ARF_SortByLCID {
+            get {
+                object obj = ResourceManager.GetObject("ARF_SortByLCID", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ARF_SortByName {
+            get {
+                object obj = ResourceManager.GetObject("ARF_SortByName", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Dir_Zoomable {
             get {
                 object obj = ResourceManager.GetObject("Dir_Zoomable", resourceCulture);

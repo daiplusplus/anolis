@@ -13,8 +13,6 @@ using Cult = System.Globalization.CultureInfo;
 using Anolis.Core.Data;
 using Anolis.Core.Utility;
 
-using FilterPair = Anolis.Core.Utility.Pair<Anolis.Core.Data.ResourceDataFactory, System.String>;
-
 namespace Anolis.Resourcer {
 	
 	/// <summary>All the information for Resourcer in one place.</summary>
@@ -76,7 +74,7 @@ namespace Anolis.Resourcer {
 			
 			///////////////////////////
 			
-			ResourceSource source = ResourceSource.Open(path, true);
+			ResourceSource source = ResourceSource.Open(path, false);
 			if(source == null) return false;
 			
 			CurrentSource = source;
@@ -167,21 +165,19 @@ namespace Anolis.Resourcer {
 			CurrentSource.Remove( CurrentData );
 		}
 		
-		public void AddData(IWin32Window window, OpenFileDialog ofd) {
+		public void AddData(IWin32Window window) {
 			
-			FilterPair[] filters = ResourceDataFactory.GetOpenFileFilters();
+			AddResourceForm form = new AddResourceForm(this);
 			
-			String filter = String.Empty;
-			foreach(FilterPair pair in filters) filter += pair.Y + '|';
-			if(filter.EndsWith("|")) filter = filter.Substring(0, filter.Length - 1);
-			
-			ofd.CheckFileExists = true;
-			ofd.Multiselect     = false;
-			if(ofd.ShowDialog(window) == DialogResult.OK) {
+			if(form.ShowDialog(window) == DialogResult.OK) {
 				
-				ResourceDataFactory factory = filters[ ofd.FilterIndex - 1].X;
+				ResourceData data = form.ResourceData;
 				
-				ResourceData.FromFile( ofd.FileName, CurrentSource );
+				ResourceTypeIdentifier typeId = form.ResourceTypeIdentifier;
+				ResourceIdentifier     nameId = form.ResourceNameIdentifier;
+				UInt16                 langId = form.ResourceLangId;
+				
+				CurrentSource.Add( typeId, nameId, langId, data );
 				
 			}
 			

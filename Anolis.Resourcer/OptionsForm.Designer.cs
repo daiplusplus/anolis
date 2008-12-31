@@ -108,6 +108,7 @@
 			// __sLibDel
 			// 
 			this.@__sLibDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.@__sLibDel.Enabled = false;
 			this.@__sLibDel.Location = new System.Drawing.Point(254, 119);
 			this.@__sLibDel.Name = "__sLibDel";
 			this.@__sLibDel.Size = new System.Drawing.Size(57, 23);
@@ -118,6 +119,7 @@
 			// __sLibAdd
 			// 
 			this.@__sLibAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.@__sLibAdd.Enabled = false;
 			this.@__sLibAdd.Location = new System.Drawing.Point(187, 119);
 			this.@__sLibAdd.Name = "__sLibAdd";
 			this.@__sLibAdd.Size = new System.Drawing.Size(61, 23);
@@ -130,6 +132,7 @@
 			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox1.Enabled = false;
 			this.textBox1.Location = new System.Drawing.Point(9, 32);
 			this.textBox1.Multiline = true;
 			this.textBox1.Name = "textBox1";
@@ -183,6 +186,7 @@
 			// __sAssoc
 			// 
 			this.@__sAssoc.AutoSize = true;
+			this.@__sAssoc.Enabled = false;
 			this.@__sAssoc.Location = new System.Drawing.Point(6, 99);
 			this.@__sAssoc.Name = "__sAssoc";
 			this.@__sAssoc.Size = new System.Drawing.Size(183, 17);
@@ -202,6 +206,7 @@
 			// __sUISimple
 			// 
 			this.@__sUISimple.AutoSize = true;
+			this.@__sUISimple.Enabled = false;
 			this.@__sUISimple.Location = new System.Drawing.Point(6, 19);
 			this.@__sUISimple.Name = "__sUISimple";
 			this.@__sUISimple.Size = new System.Drawing.Size(71, 17);
@@ -212,6 +217,9 @@
 			// __sUIButtonsLarge
 			// 
 			this.@__sUIButtonsLarge.AutoSize = true;
+			this.@__sUIButtonsLarge.Checked = true;
+			this.@__sUIButtonsLarge.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.@__sUIButtonsLarge.Enabled = false;
 			this.@__sUIButtonsLarge.Location = new System.Drawing.Point(6, 59);
 			this.@__sUIButtonsLarge.Name = "__sUIButtonsLarge";
 			this.@__sUIButtonsLarge.Size = new System.Drawing.Size(121, 17);
@@ -255,7 +263,7 @@
 			// 
 			this.@__aboutFriendsMsfn.AutoSize = true;
 			this.@__aboutFriendsMsfn.LinkArea = new System.Windows.Forms.LinkArea(6, 44);
-			this.@__aboutFriendsMsfn.Location = new System.Drawing.Point(10, 229);
+			this.@__aboutFriendsMsfn.Location = new System.Drawing.Point(10, 230);
 			this.@__aboutFriendsMsfn.Name = "__aboutFriendsMsfn";
 			this.@__aboutFriendsMsfn.Size = new System.Drawing.Size(148, 17);
 			this.@__aboutFriendsMsfn.TabIndex = 10;
@@ -267,7 +275,7 @@
 			// 
 			this.@__aboutFriendsC9.AutoSize = true;
 			this.@__aboutFriendsC9.LinkArea = new System.Windows.Forms.LinkArea(10, 34);
-			this.@__aboutFriendsC9.Location = new System.Drawing.Point(10, 277);
+			this.@__aboutFriendsC9.Location = new System.Drawing.Point(10, 272);
 			this.@__aboutFriendsC9.Name = "__aboutFriendsC9";
 			this.@__aboutFriendsC9.Size = new System.Drawing.Size(189, 17);
 			this.@__aboutFriendsC9.TabIndex = 9;
@@ -279,7 +287,7 @@
 			// 
 			this.@__aboutFriends.AutoSize = true;
 			this.@__aboutFriends.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.@__aboutFriends.Location = new System.Drawing.Point(10, 209);
+			this.@__aboutFriends.Location = new System.Drawing.Point(10, 213);
 			this.@__aboutFriends.Name = "__aboutFriends";
 			this.@__aboutFriends.Size = new System.Drawing.Size(52, 13);
 			this.@__aboutFriends.TabIndex = 8;
@@ -289,7 +297,7 @@
 			// 
 			this.@__aboutFriendsLong.AutoSize = true;
 			this.@__aboutFriendsLong.LinkArea = new System.Windows.Forms.LinkArea(12, 44);
-			this.@__aboutFriendsLong.Location = new System.Drawing.Point(10, 253);
+			this.@__aboutFriendsLong.Location = new System.Drawing.Point(10, 251);
 			this.@__aboutFriendsLong.Name = "__aboutFriendsLong";
 			this.@__aboutFriendsLong.Size = new System.Drawing.Size(241, 17);
 			this.@__aboutFriendsLong.TabIndex = 7;
@@ -301,7 +309,7 @@
 			// 
 			this.@__aboutLinks.AutoSize = true;
 			this.@__aboutLinks.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.@__aboutLinks.Location = new System.Drawing.Point(10, 117);
+			this.@__aboutLinks.Location = new System.Drawing.Point(10, 133);
 			this.@__aboutLinks.Name = "__aboutLinks";
 			this.@__aboutLinks.Size = new System.Drawing.Size(41, 13);
 			this.@__aboutLinks.TabIndex = 6;
@@ -311,7 +319,7 @@
 			// 
 			this.@__aboutLinkVize.AutoSize = true;
 			this.@__aboutLinkVize.LinkArea = new System.Windows.Forms.LinkArea(6, 27);
-			this.@__aboutLinkVize.Location = new System.Drawing.Point(10, 185);
+			this.@__aboutLinkVize.Location = new System.Drawing.Point(10, 192);
 			this.@__aboutLinkVize.Name = "__aboutLinkVize";
 			this.@__aboutLinkVize.Size = new System.Drawing.Size(140, 17);
 			this.@__aboutLinkVize.TabIndex = 5;
@@ -323,7 +331,7 @@
 			// 
 			this.@__aboutLinkXpize.AutoSize = true;
 			this.@__aboutLinkXpize.LinkArea = new System.Windows.Forms.LinkArea(7, 27);
-			this.@__aboutLinkXpize.Location = new System.Drawing.Point(10, 161);
+			this.@__aboutLinkXpize.Location = new System.Drawing.Point(10, 171);
 			this.@__aboutLinkXpize.Name = "__aboutLinkXpize";
 			this.@__aboutLinkXpize.Size = new System.Drawing.Size(138, 17);
 			this.@__aboutLinkXpize.TabIndex = 4;
@@ -335,12 +343,12 @@
 			// 
 			this.@__aboutLinkAnolis.AutoSize = true;
 			this.@__aboutLinkAnolis.LinkArea = new System.Windows.Forms.LinkArea(18, 48);
-			this.@__aboutLinkAnolis.Location = new System.Drawing.Point(10, 137);
+			this.@__aboutLinkAnolis.Location = new System.Drawing.Point(10, 150);
 			this.@__aboutLinkAnolis.Name = "__aboutLinkAnolis";
-			this.@__aboutLinkAnolis.Size = new System.Drawing.Size(259, 17);
+			this.@__aboutLinkAnolis.Size = new System.Drawing.Size(266, 17);
 			this.@__aboutLinkAnolis.TabIndex = 3;
 			this.@__aboutLinkAnolis.TabStop = true;
-			this.@__aboutLinkAnolis.Text = "Anolis @ Codplex: http://www.codeplex.com/anolis";
+			this.@__aboutLinkAnolis.Text = "Anolis @ Codeplex: http://www.codeplex.com/anolis";
 			this.@__aboutLinkAnolis.UseCompatibleTextRendering = true;
 			// 
 			// __aboutCreditsBody
@@ -348,9 +356,11 @@
 			this.@__aboutCreditsBody.AutoSize = true;
 			this.@__aboutCreditsBody.Location = new System.Drawing.Point(10, 71);
 			this.@__aboutCreditsBody.Name = "__aboutCreditsBody";
-			this.@__aboutCreditsBody.Size = new System.Drawing.Size(154, 39);
+			this.@__aboutCreditsBody.Size = new System.Drawing.Size(291, 52);
 			this.@__aboutCreditsBody.TabIndex = 2;
-			this.@__aboutCreditsBody.Text = "W3bbo - Lead Developer\r\nHappyDude - Assistant to Lead\r\nXPero - Genesis";
+			this.@__aboutCreditsBody.Text = "W3bbo - Lead Developer\r\nHappyDude - Assistant to Lead\r\nSven Groot - Solved the Vi" +
+				"sta problem and saved Christmas!\r\nXPero - Creator of XPize and Vize; grandfather" +
+				" to Anolis";
 			// 
 			// __aboutBlurb
 			// 
@@ -364,7 +374,7 @@
 			// 
 			this.@__aboutName.AutoSize = true;
 			this.@__aboutName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.@__aboutName.Location = new System.Drawing.Point(8, 9);
+			this.@__aboutName.Location = new System.Drawing.Point(10, 9);
 			this.@__aboutName.Name = "__aboutName";
 			this.@__aboutName.Size = new System.Drawing.Size(176, 25);
 			this.@__aboutName.TabIndex = 0;

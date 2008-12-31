@@ -48,27 +48,37 @@ namespace Anolis.Core {
 		
 		//////////////////////////////////
 		
-		public void Add(ResourceType type, ResourceName name, UInt16 lang, ResourceData data) {
+		public void Add(ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, ResourceData data) {
 			
 			EnsureReadOnly();
 			
-			throw new NotImplementedException();
+			ResourceType type =  _types.Find( t => t.Identifier.Equals( typeId ));
+			if(type == null) {
+				// add it
+				type = new ResourceType(typeId.NativeId, this);
+				
+				UnderlyingAdd( type );
+			}
 			
-		}
-		
-		public void Add(ResourceType type, ResourceIdentifier name, UInt16 lang, ResourceData data) {
+			ResourceName name = null;
+			foreach(ResourceName nom in type.Names) if(nom.Identifier.Equals(nameId)) { name = nom; break; }
+			if(name == null) {
+				
+				name = new ResourceName(nameId.NativeId, type);
+				
+				type.UnderlyingNames.Add( name );
+			}
 			
-			EnsureReadOnly();
+			ResourceLang lang = null;
+			foreach(ResourceLang lon in name.Langs) if(lon.LanguageId == langId) { lang = lon; break; }
+			if(lang == null) {
+				
+				lang = new ResourceLang(langId, name, data);
+				
+				name.UnderlyingLangs.Add( lang );
+			}
 			
-			throw new NotImplementedException();
-			
-		}
-		
-		public void Add(ResourceIdentifier type, ResourceIdentifier name, UInt16 lang, ResourceData data) {
-			
-			EnsureReadOnly();
-			
-			throw new NotImplementedException();
+			data.Action = ResourceDataAction.Add;
 			
 		}
 		
@@ -115,7 +125,21 @@ namespace Anolis.Core {
 		
 		protected void UnderlyingRemove(ResourceData data) {
 			
+			if(data.Lang.Name.Type.Source != this) throw new ArgumentException("Specified ResourceData is not a member of this Source");
 			
+			ResourceType type = data.Lang.Name.Type;
+			ResourceName name = data.Lang.Name;
+			ResourceLang lang = data.Lang;
+			
+			name.UnderlyingLangs.Remove( lang );
+			
+			if(name.UnderlyingLangs.Count == 0) { // if name has no langs, remove the name
+				type.UnderlyingNames.Remove( name );
+			}
+			
+			if(type.UnderlyingNames.Count == 0) { // if type has no names, remove the type
+				_types.Remove( type );
+			}
 			
 		}
 		

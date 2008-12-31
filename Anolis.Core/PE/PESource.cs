@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Anolis.Core.Native;
 
 using Cult    = System.Globalization.CultureInfo;
 using Marshal = System.Runtime.InteropServices.Marshal;
@@ -9,16 +10,28 @@ namespace Anolis.Core.PE {
 	/// <summary>Encapsulates a Windows Portal Executable resource source.</summary>
 	public class PEResourceSource : ResourceSource {
 		
+		private static Boolean _isGteVista;
+		
 		private String   _path;
 		private IntPtr   _moduleHandle;
 		private ResourceSourceInfo _sourceInfo;
 		
-		public PEResourceSource(String filename, Boolean readOnly) : base(readOnly) {
+		static PEResourceSource() {
+			_isGteVista = Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version.Major >= 6;
+		}
+		
+		public PEResourceSource(String filename, Boolean readOnly) : base(readOnly ^ IsPathReadonly(filename) ) {
 			
 			FileInfo = new FileInfo( _path = filename );
 			if(!FileInfo.Exists) throw new FileNotFoundException("The specified Win32 PE Image was not found", filename);
 			
 			Reload();
+			
+		}
+		
+		private static Boolean IsPathReadonly(String filename) {
+			
+			return ( File.GetAttributes(filename) & FileAttributes.ReadOnly ) == FileAttributes.ReadOnly;
 			
 		}
 		
@@ -29,43 +42,45 @@ namespace Anolis.Core.PE {
 			// Unload self
 			Unload();
 			
+System.Collections.Generic.List<String> operationsPerformed = new System.Collections.Generic.List<String>();
+			
 			IntPtr updateHandle = NativeMethods.BeginUpdateResource( this._path, false );
 			
 			foreach(ResourceData data in this) {
 				
-				switch(data.Action) {
+				if(data.Action != ResourceDataAction.None) {
 					
-					case ResourceDataAction.Add:
+					IntPtr pData;
+					
+					if(data.Action == ResourceDataAction.Delete) {
 						
-						throw new NotImplementedException();
+						// pData must be NULL to delete resource
+						pData = IntPtr.Zero;
 						
-//						break;
+					} else {
 						
-					case ResourceDataAction.Delete:
+						pData = Marshal.AllocHGlobal( data.RawData.Length );
 						
-						throw new NotImplementedException();
-						
-//						break;
-						
-					case ResourceDataAction.Update:
-						
-						IntPtr unmanagedData = Marshal.AllocHGlobal( data.RawData.Length );
-						
-						Marshal.Copy( data.RawData, 0, unmanagedData, data.RawData.Length );
-						
-						IntPtr typeId = data.Lang.Name.Type.Identifier.NativeId;
-						IntPtr nameId = data.Lang.Name.Identifier.NativeId;
-						ushort langId = data.Lang.LanguageId;
-						
-						NativeMethods.UpdateResource( updateHandle, typeId, nameId, langId, unmanagedData, data.RawData.Length );
-						
-						Marshal.FreeHGlobal( unmanagedData );
-						
-						break;
+						Marshal.Copy( data.RawData, 0, pData, data.RawData.Length );
+					}
+					
+					IntPtr typeId = data.Lang.Name.Type.Identifier.NativeId;
+					IntPtr nameId = data.Lang.Name.Identifier.NativeId;
+					ushort langId = data.Lang.LanguageId;
+					
+					NativeMethods.UpdateResource( updateHandle, typeId, nameId, langId, pData, data.RawData.Length );
+
+String path = data.Lang.Name.Type.Identifier.FriendlyName + " - " + data.Lang.Name.Identifier.FriendlyName + " - " + data.Lang.LanguageId.ToString();
+operationsPerformed.Add( Enum.GetName(typeof(ResourceDataAction), data.Action ) + " - " + path );
+					
+					Marshal.FreeHGlobal( pData );
+					
+					data.Action = ResourceDataAction.None;
 					
 				}
-				
 			}
+			
+			NativeMethods.EndUpdateResource(updateHandle, false);
 			
 			if(reload) Reload();
 			
@@ -176,10 +191,26 @@ namespace Anolis.Core.PE {
 		
 #region Resource Enumeration
 		
+		private Object _enumerating = new Object();
+		
 		private void GetResources() {
 			
-			NativeMethods.EnumResTypeProc callback = new NativeMethods.EnumResTypeProc( GetResourceTypesCallback );
-			NativeMethods.EnumResourceTypes( _moduleHandle, callback, IntPtr.Zero );
+			lock(_enumerating) {
+				
+				if( _isGteVista ) {
+					
+					NativeMethods.EnumResTypeProc callback = new NativeMethods.EnumResTypeProc( GetResourceTypesCallbackEx );
+					NativeMethods.EnumResourceTypesEx( _moduleHandle, callback, IntPtr.Zero, NativeMethods.MuiResourceFlags.EnumLn, 0 );
+					
+				} else {
+					
+					NativeMethods.EnumResTypeProc callback = new NativeMethods.EnumResTypeProc( GetResourceTypesCallback );
+					NativeMethods.EnumResourceTypes( _moduleHandle, callback, IntPtr.Zero);
+					
+				}
+				
+				
+			}
 			
 		}
 		
@@ -225,6 +256,51 @@ namespace Anolis.Core.PE {
 			
 			return true;
 		}
+		
+	#region Resource Enumeration Ex
+		
+		// I could just branch within the callbacks, but I want to accomodate Vista separately
+		
+		private Boolean GetResourceTypesCallbackEx(IntPtr moduleHandle, IntPtr pType, IntPtr userParam) {
+			
+			ResourceType type = new ResourceType( pType, this );
+			
+			UnderlyingAdd( _currentType = type );
+			
+			// enumerate all resources for that type
+			NativeMethods.EnumResNameProc callback = new NativeMethods.EnumResNameProc( GetResourceNamesCallbackEx );
+			NativeMethods.EnumResourceNamesEx( moduleHandle, pType, callback, IntPtr.Zero, NativeMethods.MuiResourceFlags.EnumLn, 0 );
+			
+			return true;
+			
+		}
+		
+		private Boolean GetResourceNamesCallbackEx(IntPtr moduleHandle, IntPtr pType, IntPtr pName, IntPtr userParam) {
+			
+			ResourceType type = _currentType;
+			
+			ResourceName name = new ResourceName( pName, type );
+			
+			UnderlyingAdd( type, _currentName = name );
+			
+			NativeMethods.EnumResLangProc callback = new NativeMethods.EnumResLangProc( GetResourceLanguagesCallbackEx );
+			NativeMethods.EnumResourceLanguagesEx(moduleHandle, pType, pName, callback, IntPtr.Zero, NativeMethods.MuiResourceFlags.EnumLn, 0 );
+			
+			return true;
+		}
+		
+		private Boolean GetResourceLanguagesCallbackEx(IntPtr moduleHandle, IntPtr pType, IntPtr pName, UInt16 langId, IntPtr userParam) {
+			
+			ResourceName name = _currentName;
+			
+			ResourceLang lang = new ResourceLang( langId, name );
+			
+			UnderlyingAdd( name, lang );
+			
+			return true;
+		}
+		
+	#endregion
 		
 #endregion
 		

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 using InvalidDataException = System.IO.InvalidDataException;
 
-using Anolis.Core.NativeTypes;
+using Anolis.Core.Native;
 
 namespace Anolis.Core.Utility {
 	
@@ -129,7 +129,7 @@ namespace Anolis.Core.Utility {
 			} else {
 				
 				// Here MFC casts the BitmapInfoHeader as BitmapCoreHeader... Which I'm not going to do...
-				throw new NotImplementedException();
+				throw new NotImplementedException("Pre-Windows 95 bitmaps (BITMAPCOREINFO) not yet supported.");
 			}
 			
 			/* Calculate the number of colors in the color table based on the number of bits per pixel for the DIB. */
@@ -239,7 +239,7 @@ namespace Anolis.Core.Utility {
 					// Compressed bitmap, so you cannot calculate the size of the pixeldata
 					// So trust the biSizeImage
 					
-					if( bih.biSizeImage <= 0 ) throw new NotSupportedException();
+					if( bih.biSizeImage <= 0 ) throw new NotSupportedException("The bitmap's size is not defined.");
 					
 					dibSize += bih.biSizeImage;
 					
@@ -267,6 +267,9 @@ namespace Anolis.Core.Utility {
 //					if(dibSize != _data.Length) throw new InvalidDataException("DIB Image Size was not of the expected value.");
 					
 					break;
+				default:
+					
+					throw new NotSupportedException("The bitmap uses an unknown biCompression value.");
 			}
 			
 			// Now actually create the FileHeader and calculate the file size

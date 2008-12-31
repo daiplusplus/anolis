@@ -1,9 +1,21 @@
 ﻿using System;
 
+namespace System.Runtime.CompilerServices {
+	
+	[AttributeUsage(AttributeTargets.Method)]
+	internal sealed class ExtensionAttribute : Attribute {
+		
+		public ExtensionAttribute() {
+		}
+		
+	}
+	
+}
+
 namespace Anolis.Core {
 
 // Extension methods seem to require System.Core.dll, which is not in .NET2.0
-/*	public static class Extensions {
+	public static class Extensions {
 		
 		public static Byte[] SubArray(this Byte[] array, Int32 startIndex, Int32 length) {
 			
@@ -18,5 +30,23 @@ namespace Anolis.Core {
 			
 		}
 		
-	}*/
+		public static String Left(this String s, Int32 length) {
+			
+			if(length < 0)        throw new ArgumentOutOfRangeException("length", length, "value cannot be less than zero");
+			if(length > s.Length) throw new ArgumentOutOfRangeException("length", length, "value cannot be greater than the length of the string");
+			
+			return s.Substring(0, length);
+			
+		}
+		
+		public static String Right(this String s, Int32 length) {
+			
+			if(length < 0)        throw new ArgumentOutOfRangeException("length", length, "value cannot be less than zero");
+			if(length > s.Length) throw new ArgumentOutOfRangeException("length", length, "value cannot be greater than the length of the string");
+			
+			return s.Substring( s.Length - length );
+			
+		}
+		
+	}
 }
