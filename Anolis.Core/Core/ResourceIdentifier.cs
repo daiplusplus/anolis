@@ -47,16 +47,31 @@ namespace Anolis.Core {
 					StringId = Marshal.PtrToStringAuto( id );
 					NativeId = Marshal.StringToHGlobalAuto(StringId); // reallocating the string becuase you can't use the original. This is deallocated/freed in the Dispose method (called from the Destructor)
 					
-					FriendlyName = StringId;
+					FriendlyName = '"' + StringId + '"';
 					
 					break;
 			}
 			
 		}
 		
-		// TODO: After project completion find out if these constructors are needed (or not)
-		public ResourceIdentifier(Int32 integerId) { IntegerId = integerId; }
-		public ResourceIdentifier(String stringId) { StringId  = stringId; }
+		/// <param name="id">Converts this String id into a marshaled NativeId HGlobalAuto.</param>
+		public ResourceIdentifier(String id) {
+			
+			StringId = id;
+			NativeId = Marshal.StringToHGlobalAuto(StringId);
+			
+			FriendlyName = '"' + StringId + '"';
+			
+		}
+		
+		public ResourceIdentifier(Int32 id) {
+			
+			IntegerId = id;
+			NativeId  = new IntPtr(IntegerId.Value);
+			
+			FriendlyName = id.ToString(Cult.InvariantCulture);
+			
+		}
 		
 		~ResourceIdentifier() {
 			Dispose();
@@ -117,6 +132,20 @@ namespace Anolis.Core {
 	}
 	
 	public class ResourceTypeIdentifier : ResourceIdentifier {
+		
+		/// <param name="id">Converts this String id into a marshaled NativeId HGlobalAuto.</param>
+		public ResourceTypeIdentifier(String id) : base(id) {
+			
+			KnownType    = Win32ResourceType.Custom;
+			
+		}
+		
+		public ResourceTypeIdentifier(Win32ResourceType type) : base( (int)type ) {
+			
+			FriendlyName = GetTypeFriendlyName( IntegerId.Value );
+			KnownType    = type;
+			
+		}
 		
 		public ResourceTypeIdentifier(IntPtr id) {
 			
@@ -193,7 +222,7 @@ namespace Anolis.Core {
 			_resourceTypeFriendlyNames.Add(24, "Manifest");
 		}
 		
-		private static String GetTypeFriendlyName(Int32 integerId) {
+		public static String GetTypeFriendlyName(Int32 integerId) {
 			
 			return _resourceTypeFriendlyNames.ContainsKey( integerId ) ?
 				_resourceTypeFriendlyNames[ integerId ] :

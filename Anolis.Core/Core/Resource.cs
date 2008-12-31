@@ -109,6 +109,8 @@ namespace Anolis.Core {
 		public ResourceLang(UInt16 languageId, ResourceName name, ResourceData data) : this(languageId, name) {
 			
 			_data = data;
+			
+			data.Lang = this;
 		}
 		
 		public override string ToString() {

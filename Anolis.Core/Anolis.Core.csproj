@@ -37,6 +37,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -50,31 +71,33 @@
   <ItemGroup>
     <Compile Include="Core\AnolisException.cs" />
     <Compile Include="Core\Resource.cs" />
-    <Compile Include="Core\ResourceData\Directory\CursorDirectoryResourceData.cs" />
-    <Compile Include="Core\ResourceData\Directory\DirectoryResourceData.cs" />
-    <Compile Include="Core\ResourceData\Directory\IconDirectoryResourceData.cs" />
-    <Compile Include="Core\ResourceData\Image\BmpImageResourceData.cs" />
-    <Compile Include="Core\ResourceData\Image\GifImageResourceData.cs" />
-    <Compile Include="Core\ResourceData\Image\IconImageResourceData.cs" />
-    <Compile Include="Core\ResourceData\Image\ImageResourceData.cs" />
-    <Compile Include="Core\ResourceData\Image\JpegImageResourceData.cs" />
-    <Compile Include="Core\ResourceData\Image\PngImageResourceData.cs" />
-    <Compile Include="Core\ResourceData\ResourceDataException.cs" />
-    <Compile Include="Core\ResourceData\ResourceDataFactory.cs" />
-    <Compile Include="Core\ResourceData\Unknown\DummyResourceData.cs" />
-    <Compile Include="Core\ResourceData\Unknown\UnknownResourceData.cs" />
-    <Compile Include="Core\ResourceData\Multimedia\VideoResourceData.cs" />
+    <Compile Include="Core\Data\Directory\CursorDirectoryResourceData.cs" />
+    <Compile Include="Core\Data\Directory\DirectoryResourceData.cs" />
+    <Compile Include="Core\Data\Directory\IconDirectoryResourceData.cs" />
+    <Compile Include="Core\Data\Image\BmpImageResourceData.cs" />
+    <Compile Include="Core\Data\Image\GifImageResourceData.cs" />
+    <Compile Include="Core\Data\Image\IconImageResourceData.cs" />
+    <Compile Include="Core\Data\Image\ImageResourceData.cs" />
+    <Compile Include="Core\Data\Image\JpegImageResourceData.cs" />
+    <Compile Include="Core\Data\Image\PngImageResourceData.cs" />
+    <Compile Include="Core\Data\ResourceDataException.cs" />
+    <Compile Include="Core\Data\ResourceDataFactory.cs" />
+    <Compile Include="Core\Data\Unknown\DummyResourceData.cs" />
+    <Compile Include="Core\Data\Unknown\UnknownResourceData.cs" />
+    <Compile Include="Core\Data\Multimedia\VideoResourceData.cs" />
+    <Compile Include="Core\Data\Windows\VersionResourceData.cs" />
     <Compile Include="Core\ResourceSourcePartial.cs" />
-    <Compile Include="Core\ResourceData\ResourceData.cs" />
+    <Compile Include="Core\Data\ResourceData.cs" />
     <Compile Include="Core\ResourceIdentifier.cs" />
     <Compile Include="Core\ResourcePartial.cs" />
     <Compile Include="Core\ResourceEnumerator.cs" />
     <Compile Include="Core\ResourceSource.cs" />
     <Compile Include="Core\Utility\Dib.cs" />
+    <Compile Include="Core\Utility\Environment.cs" />
     <Compile Include="Core\Utility\Pair.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="NativeTypes.cs" />
-    <Compile Include="PE\NativeMethods.cs" />
+    <Compile Include="Core\Native\NativeTypes.cs" />
+    <Compile Include="Core\Native\NativeMethods.cs" />
     <Compile Include="PE\PESource.cs" />
     <Compile Include="Packages\Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

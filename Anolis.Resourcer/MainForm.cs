@@ -79,6 +79,11 @@ namespace Anolis.Resourcer {
 		
 		private void __tSrcOpen_ButtonClick(object sender, EventArgs e) {
 			
+			__ofd.Filter =
+				"Portable Executables (*.exe;*.dll;*.scr;*.ocx;*.cpl)|*.exe;*.dll;*.scr;*.ocx;*.cpl|" +
+				"New Executables (*.icl)|*.icl|" +
+				"All Files (*.*)|*.*";
+			
 			if(__ofd.ShowDialog(this) != DialogResult.OK) return;
 			
 			LoadSource( __ofd.FileName );
@@ -136,7 +141,7 @@ namespace Anolis.Resourcer {
 		
 		private void __tResAdd_Click(object sender, EventArgs e) {
 			
-			Context.AddData(this, __ofd);
+			Context.AddData(this);
 		}
 		
 		private void UpdateUI() {
@@ -154,7 +159,6 @@ namespace Anolis.Resourcer {
 			
 			if( !isReadOnly ) {
 				
-				__tResAdd    .Enabled = Context.CurrentData != null;
 				__tResReplace.Enabled = Context.CurrentData != null;
 				__tResExtract.Enabled = Context.CurrentData != null;
 				__tResDelete .Enabled = Context.CurrentData != null;
@@ -267,6 +271,16 @@ namespace Anolis.Resourcer {
 	#endregion
 		
 		private void MainForm_Load(Object sender, EventArgs e) {
+			
+			// check for Wow64
+			
+			if( Anolis.Core.Utility.Environment.IsWow64 ) {
+				
+				String message = "Anolis Resourcer has detected it is running under WOW64 and so is accessing the system through a compatibility layer. This is not a recommended or supported scenario and modifications to system files might not take effect in the way you imagine.";
+				
+				MessageBox.Show(this, message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+				
+			}
 			
 			UpdateUI();
 			
@@ -382,9 +396,9 @@ namespace Anolis.Resourcer {
 		
 		private DialogResult SaveSource() {
 			
-			if( Context.CurrentSource != null && Context.CurrentSource.HasUnsavedChanges ) {
+			if( Context.CurrentSource != null ) { // && Context.CurrentSource.HasUnsavedChanges ) {
 				
-				String message = String.Format(Cult.InvariantCulture, "Save changes to {0}?", Path.GetFileName(Context.CurrentPath));
+				String message = String.Format(Cult.InvariantCulture, "Are you sure you want to save your changes to {0}?", Path.GetFileName(Context.CurrentPath));
 				
 				DialogResult r = MessageBox.Show( this, message, "Anolis Resourcer", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
 				

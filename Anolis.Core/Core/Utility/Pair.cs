@@ -35,6 +35,14 @@ namespace Anolis.Core.Utility {
 			X = x;
 			Y = y;
 		}
+		
+		public override String ToString() {
+			
+			if(X is String) return X as String;
+			return base.ToString();
+			
+		}
+		
 	}
 	
 	public sealed class Triple<Tx, Ty, Tz> : Pair<Tx, Ty> {
