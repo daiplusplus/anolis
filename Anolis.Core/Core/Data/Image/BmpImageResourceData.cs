@@ -21,7 +21,7 @@ namespace Anolis.Core.Data {
 			
 			if( typeId.KnownType != Win32ResourceType.Custom ) return Compatibility.No;
 			
-			return Compatibility.Maybe;
+			return Compatibility.No;
 			
 		}
 		
