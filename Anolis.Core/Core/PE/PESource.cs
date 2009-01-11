@@ -88,9 +88,7 @@ operationsPerformed.Add( Enum.GetName(typeof(ResourceDataAction), data.Action ) 
 		
 		public override void Reload() {
 			
-			_moduleHandle = IsReadOnly ?
-				NativeMethods.LoadLibraryEx( _path, IntPtr.Zero, NativeMethods.LoadLibraryFlags.LoadLibraryAsDatafile ) :
-				NativeMethods.LoadLibrary  ( _path );
+			_moduleHandle = NativeMethods.LoadLibraryEx( _path, IntPtr.Zero, NativeMethods.LoadLibraryFlags.LoadLibraryAsDatafile );
 			
 			if( _moduleHandle == IntPtr.Zero ) {
 				
@@ -99,11 +97,7 @@ operationsPerformed.Add( Enum.GetName(typeof(ResourceDataAction), data.Action ) 
 				throw new ApplicationException("PE/COFF ResourceSource could not be loaded: " + win32Message);
 			}
 			
-			// Load it up, yo!
-			
-			GetResources();
-			
-			
+			PopulateResources();
 			
 		}
 		
@@ -193,7 +187,7 @@ operationsPerformed.Add( Enum.GetName(typeof(ResourceDataAction), data.Action ) 
 		
 		private Object _enumerating = new Object();
 		
-		private void GetResources() {
+		private void PopulateResources() {
 			
 			lock(_enumerating) {
 				
