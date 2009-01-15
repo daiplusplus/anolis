@@ -21,6 +21,7 @@ namespace Anolis.Resourcer {
 			this.__aboutFriendsMsfn.Click += new EventHandler(__aboutLink_Click);
 			this.__aboutFriendsLong.Click += new EventHandler(__aboutLink_Click);
 			this.__aboutFriendsC9  .Click += new EventHandler(__aboutLink_Click);
+			this.__aboutFriendsRafael.Click += new EventHandler(__aboutLink_Click);
 
 			this.Load += new EventHandler(OptionsForm_Load);
 			
@@ -42,7 +43,7 @@ namespace Anolis.Resourcer {
 			
 			LinkLabel link = sender as LinkLabel;
 			
-			String url = link.Text.Substring( link.Text.IndexOf("http://") );
+			String url = link.Text.Substring( link.LinkArea.Start, link.LinkArea.Length - link.LinkArea.Start );
 			
 			System.Diagnostics.Process.Start( url );
 			

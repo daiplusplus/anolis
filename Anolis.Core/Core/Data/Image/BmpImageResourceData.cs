@@ -92,6 +92,8 @@ namespace Anolis.Core.Data {
 			
 			// check if the data is of the right format before working with it
 			
+			Dib realDib = new Dib( rawData );
+			
 			FileDib dib = new FileDib( rawData );
 			
 			Bitmap bmp;

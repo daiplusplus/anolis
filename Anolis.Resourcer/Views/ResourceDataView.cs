@@ -10,6 +10,7 @@ namespace Anolis.Resourcer {
 	public partial class ResourceDataView : UserControl {
 		
 		private class TypeViewerWrapper {
+			
 			public TypeViewerCompatibility Recommended { get; set; }
 			public TypeViewer Viewer { get; private set; }
 			public TypeViewerWrapper(TypeViewer viewer) {
@@ -20,10 +21,17 @@ namespace Anolis.Resourcer {
 					(Recommended == TypeViewerCompatibility.Ideal ? " *" : 
 					(Recommended == TypeViewerCompatibility.None  ? " (Not recommended)" : ""));
 			}
+			public static TypeViewerWrapper[] FromArray(params TypeViewer[] viewers) {
+				
+				TypeViewerWrapper[] retval = new TypeViewerWrapper[viewers.Length];
+				for(int i=0;i<viewers.Length;i++) retval[i] = new TypeViewerWrapper( viewers[i] );
+				
+				return retval;
+			}
 		}
 		
 		private ResourceData _data;
-		private List<TypeViewer> _viewers;
+		private TypeViewerWrapper[] _viewers;
 		
 		private TypeViewer _currentViewer;
 		
@@ -31,12 +39,7 @@ namespace Anolis.Resourcer {
 			
 			InitializeComponent();
 			
-			_viewers = new List<TypeViewer>();
-			_viewers.AddRange( new TypeViewer[] {
-				new PictureViewer(), new IconCursorViewer(), new RawViewer(), new TextViewer(), new HtmlViewer()
-			});
-			
-			foreach(TypeViewer viewer in _viewers) __viewers.Items.Add( new TypeViewerWrapper( viewer ) );
+			_viewers = TypeViewerWrapper.FromArray( new PictureViewer(), new IconCursorViewer(), new RawViewer(), new TextViewer(), new HtmlViewer() );
 			
 			__viewers.SelectionChangeCommitted  += new EventHandler(__viewers_SelectionChangeCommitted); // don't use SelectedIndexChange since that's raised by my code
 		}
@@ -52,15 +55,6 @@ namespace Anolis.Resourcer {
 		
 #endregion
 		
-		private TypeViewerWrapper GetWrapperForTypeViewer(TypeViewer viewer) {
-			
-			foreach(TypeViewerWrapper w in __viewers.Items) {
-				
-				if( w.Viewer == viewer ) return w;
-			}
-			return null;
-		}
-		
 		public void ShowResource(ResourceData data) {
 			
 			_data = data;
@@ -72,20 +66,26 @@ namespace Anolis.Resourcer {
 			
 			// There will always be something that "Works" (i.e. the Binary one, so don't worry about NREs)
 			
-			foreach(TypeViewer v in _viewers) {
+			List<TypeViewerWrapper> iViewers = new List<TypeViewerWrapper>();
+			List<TypeViewerWrapper> wViewers = new List<TypeViewerWrapper>();
+			
+			foreach(TypeViewerWrapper w in _viewers) {
 				
-				TypeViewerWrapper w;
+				w.Recommended = w.Viewer.CanHandleResource(data);
 				
-				(w = GetWrapperForTypeViewer( v )).Recommended = v.CanHandleResource(data);
-				
-				if(w.Recommended == TypeViewerCompatibility.Ideal) lastIdeal = w;
-				if(w.Recommended == TypeViewerCompatibility.Works) lastWorks = w;
+				if(w.Recommended == TypeViewerCompatibility.Ideal) { lastIdeal = w; iViewers.Add( w ); }
+				if(w.Recommended == TypeViewerCompatibility.Works) { lastWorks = w; wViewers.Add( w ); }
 				
 			}
 			
 			// Select the right viewer
 			
 			TypeViewerWrapper wrapper = lastIdeal != null ? lastIdeal : lastWorks;
+			
+			__viewers.Items.Clear();
+			
+			__viewers.Items.AddRange( iViewers.ToArray() );
+			__viewers.Items.AddRange( wViewers.ToArray() );
 			
 			__viewers.SelectedItem = wrapper;
 			
@@ -95,10 +95,13 @@ namespace Anolis.Resourcer {
 		
 		private void ShowViewer(TypeViewer viewer, ResourceData data) {
 			
+#if !DEBUG
 			try {
+#endif
 				
 				viewer.RenderResource( data );
-				
+
+#if !DEBUG				
 			} catch (AnolisException ex) {
 				
 				String exTemplate = "\r\nMessage:\r\n{0}\r\n\r\nStack Trace:\r\n{1}";
@@ -115,6 +118,7 @@ namespace Anolis.Resourcer {
 				else ShowViewer(viewer, data);
 				
 			}
+#endif
 			
 			// don't load it if it's already the currently displayed viewer
 			if( _currentViewer != viewer ) {
@@ -126,6 +130,7 @@ namespace Anolis.Resourcer {
 				
 				_currentViewer = viewer;
 			}
+
 			
 		}
 		
