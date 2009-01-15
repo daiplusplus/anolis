@@ -10,220 +10,19 @@ using Anolis.Core.Native.Dib;
 
 namespace Anolis.Core.Utility {
 	
-	// it's worth pointing out that the .NET Image class does not support 32-bit Bitmaps. It needs to be converted into a PNG image before it can be displayed
-	// ...which is a bit of a pain. I should google for a solution
-	
-	// TODO: Do something about different BitmapHeader versions, there's: CORE, info, v4, and v5. Core is the black sheep, but v4 and v5 need to be passed through when saving
-	
-	/// <summary>Encapuslates an immutable Device-Independent Bitmap that lacks a BitmapFileHeader.</summary>
-	internal class MemoryDib {
-		
-		protected static readonly Int32 sizeOfBitmapFileHeader = Marshal.SizeOf(typeof(BitmapFileHeader));
-		protected static readonly Int32 sizeOfBitmapInfoHeader = Marshal.SizeOf(typeof(BitmapInfoHeader));
-		
-		/// <summary>Creates a MemoryDib from an existing DIB's bytes. If the data contains a FileHeader it will be removed.</summary>
-		public MemoryDib(Byte[] data) {
-			_data = data;
-			
-			if( HasFileHeader ) {
-				RemoveFileHeader();
-			}
-		}
-		
-		protected MemoryDib() { }
-		
-		/////////////////////////////////////////////
-		// Data
-		/////////////////////////////////////////////
-		
-		protected Byte[] _data;
-		
-		public Byte[] Data { get{ return _data; } }
-		
-		protected void ResizeData(Int32 newSize, Boolean front) {
-			
-			if(newSize == _data.Length) return;
-			
-			if(!front){
-				
-				Array.Resize<Byte>(ref _data, newSize);
-				
-			} else {
-				
-				if(newSize > _data.Length) {
-					
-					Int32 lengthDiff = newSize - _data.Length;
-					
-					Byte[] n = new Byte[ newSize ];
-					Array.Copy(_data, 0, n, lengthDiff, _data.Length); 
-					
-					_data = n;
-					
-				} else {
-					
-					Int32 lengthDiff = _data.Length - newSize;
-					
-					Byte[] n = new Byte[ newSize ];
-					Array.Copy(_data, lengthDiff, n, 0, n.Length);
-					
-					_data = n; 
-					
-				}
-				
-			}
-			
-		}
-		
-		/////////////////////////////////////////////
-		// Utility functions for working with Headers for calculating size, etc...
-		/////////////////////////////////////////////
-		
-		
-		
-		/////////////////////////////////////////////
-		// Major Actions
-		/////////////////////////////////////////////
-		
-		protected Boolean HasFileHeader {
-			get {
-				// TODO: Maybe do a more thorough check by casting Data to a BitmapFileInfoHeader
-				
-				if( _data.Length < 2 ) throw new InvalidOperationException("Dib contains insufficient data.");
-				
-				String start = System.Text.Encoding.ASCII.GetString(_data, 0, 2);
-				
-				return start == "BM";
-			}
-		}
-		
-		private void RemoveFileHeader() {
-			
-			ResizeData( _data.Length - sizeOfBitmapFileHeader, true );
-			
-		}
-		
-		private BitmapInfoHeader? _infoHeader;
-		
-		public BitmapInfoHeader InfoHeader {
-			get {
-				
-				if(_infoHeader == null) {
-					
-					Int32 offset = HasFileHeader ? sizeOfBitmapFileHeader : 0;
-					
-					IntPtr p = Marshal.AllocHGlobal( sizeOfBitmapInfoHeader );
-					Marshal.Copy( _data, offset, p, sizeOfBitmapInfoHeader );
-					
-					_infoHeader = (BitmapInfoHeader)Marshal.PtrToStructure(p, typeof(BitmapInfoHeader));
-					
-					Marshal.FreeHGlobal( p );
-					
-				}
-				
-				return _infoHeader.Value;
-				
-			}
-		}
-		
-		public FileDib ToFileDib() {
-			
-			return new FileDib(_data);
-		}
-		
-	}
-	
-	internal class FileDib : MemoryDib {
-		
-		/// <summary>Creates a FileDib from an existing DIB's bytes. If the data does not contain a FileHeader it will be added.</summary>
-		public FileDib(Byte[] data) {
-			
-			_data = data;
-			
-			if( !HasFileHeader ) {
-				AddFileHeader();
-			}
-			
-		}
-		
-		private void AddFileHeader() {
-			
-			BitmapFileHeader bfh = CreateFileHeader();
-			
-			ResizeData( _data.Length + sizeOfBitmapFileHeader, true );
-			
-			IntPtr p = Marshal.AllocHGlobal( sizeOfBitmapFileHeader );
-			Marshal.StructureToPtr( bfh, p, true );
-			Marshal.Copy(p, _data, 0, sizeOfBitmapFileHeader );
-			Marshal.FreeHGlobal( p );
-			
-		}
-		
-		
-		
-		private BitmapFileHeader? _fileHeader;
-		
-		public BitmapFileHeader FileHeader {
-			get {
-				
-				// It can be assumed it has a FileHeader
-				
-				if( _fileHeader == null ) {
-					
-					IntPtr p = Marshal.AllocHGlobal( sizeOfBitmapFileHeader );
-					Marshal.Copy( _data, 0, p, sizeOfBitmapFileHeader );
-					
-					_fileHeader = (BitmapFileHeader)Marshal.PtrToStructure(p, typeof(BitmapFileHeader));
-					
-					Marshal.FreeHGlobal( p );
-					
-				}
-				
-				return _fileHeader.Value;
-			}
-		}
-		
-		public Bitmap ToBitmap() {
-			
-			// TODO: Correct 32bit RGBA data if it doesn't work
-			
-			MemoryStream stream = new MemoryStream(_data); // Should MemoryStreams be in a using() for Bitmap creation? MSDN says the Stream needs to exist for the life of the Bitmap
-			Bitmap image = Image.FromStream( stream, true, true ) as Bitmap;
-			
-			return image;
-			
-		}
-		
-		public Boolean TryToBitmap(out Bitmap bitmap) {
-			
-			bitmap = null;
-			
-			try {
-				
-				bitmap = ToBitmap();
-				return true;
-				
-			} catch(ArgumentException) {
-				return false;
-			} catch(ExternalException) {
-				return false;
-			}
-			
-		}
-		
-	}
-	
-	
 	/// <summary>One DIB class to rule them all.</summary>
+	/// <remarks>Supports Device Independent Bitmaps (DIB) using the BitmapCore, BitmapInfo, BitmapV4, and BitmapV5 formats.</remarks>
 	public class Dib {
 		
 		private BitmapFileHeader _fileHeader;
 		private BitmapV5Header   _infoHeader;
 		
-		private Byte[]           _dataOriginal;
+		/// <summary>DIB Data, sans FileHeader</summary>
+		private Byte[]           _dibData;
 		
 		public Dib(Byte[] data) {
 			
-			_dataOriginal = data;
+			_dibData = data;
 			
 			MemoryStream ms = new MemoryStream( data );
 			
@@ -231,13 +30,17 @@ namespace Anolis.Core.Utility {
 			
 		}
 		
-		public Dib(Stream stream) {
+		public Dib(Stream stream, Int32 length) {
+			
+			if(!(stream.CanSeek && stream.CanRead)) throw new NotSupportedException("Stream must support seeking and reading.");
+			
+			Int64 initPos = stream.Position;
 			
 			Initialise(stream);
 			
-			stream.Seek(0, SeekOrigin.Begin);
+			stream.Seek(initPos, SeekOrigin.Begin);
 			
-			stream.Read( _dataOriginal, 0, (Int32)stream.Length );
+			if( stream.Read( _dibData, 0, length ) != length ) throw new Exception("Unexpected stream length.");
 			
 		}
 		
@@ -281,65 +84,59 @@ namespace Anolis.Core.Utility {
 				
 				_fileHeader = CreateFileHeader();
 				
+			} else {
+				
+				// resize the data array to remove the fileheader
+				
+				Int32 sizeOfBitmapFileHeader = Marshal.SizeOf(typeof(BitmapFileHeader));
+				
+				Byte[] newData = new Byte[ _dibData.Length - sizeOfBitmapFileHeader ];
+				
+				Array.Copy( _dibData, sizeOfBitmapFileHeader, newData, 0, newData.Length );
+				
+				_dibData = newData;
+				
 			}
 			
 		}
 		
 		public DibClass Class { get; private set; }
 		
+		public Bitmap ToBitmap() {
+			
+			MemoryStream stream = new MemoryStream();
+			Save(stream);
+			
+			return Bitmap.FromStream(stream) as Bitmap;
+			
+		}
+		
+		public void Save(Stream stream) {
+			
+			if(!stream.CanWrite) throw new ArgumentException("Cannot write to stream");
+			
+			// write the _fileHeader
+			
+			BinaryWriter wtr = new BinaryWriter(stream);
+			
+			_fileHeader.Write(wtr);
+			
+			// write the data
+			
+			stream.Write(_dibData, 0, _dibData.Length);
+			
+		}
+		
 #region Header Member Calculation
 		
 		private BitmapFileHeader CreateFileHeader() {
 			
-			Int32 width, height;
-			UInt16 bitCount;
+			UInt32 bmfhSize       = (uint)Marshal.SizeOf(typeof(BitmapFileHeader));
 			
-			UInt32 colorTableSize, dibSize;
-			BiCompression compression;
+			UInt32 dibSize = _infoHeader.bV5Size + GetColorTableSize();
 			
-			switch(Class) {
-				case DibClass.Core:
-					
-					colorTableSize = ((BitmapCoreHeader)_infoHeader).GetColorTableSize();
-					dibSize        = ((BitmapCoreHeader)_infoHeader).bcSize + colorTableSize;
-					compression    = BiCompression.BcCore;
-					
-					width          = ((BitmapCoreHeader)_infoHeader).bcWidth;
-					height         = ((BitmapCoreHeader)_infoHeader).bcHeight;
-					bitCount       = ((BitmapCoreHeader)_infoHeader).bcBitCount;
-					break;
-				case DibClass.V3:
-					colorTableSize = ((BitmapInfoHeader)_infoHeader).GetColorTableSize();
-					dibSize        = ((BitmapInfoHeader)_infoHeader).biSize + colorTableSize;
-					compression    = ((BitmapInfoHeader)_infoHeader).biCompression;
-					
-					width          = ((BitmapInfoHeader)_infoHeader).biWidth;
-					height         = ((BitmapInfoHeader)_infoHeader).biHeight;
-					bitCount       = ((BitmapInfoHeader)_infoHeader).biBitCount;
-					break;
-				case DibClass.V4:
-					colorTableSize = ((BitmapV4Header)_infoHeader).GetColorTableSize();
-					dibSize        = ((BitmapV4Header)_infoHeader).bV4Size + colorTableSize;
-					compression    = ((BitmapV4Header)_infoHeader).bV4Compression;
-					
-					width          = ((BitmapV4Header)_infoHeader).bV4Width;
-					height         = ((BitmapV4Header)_infoHeader).bV4Height;
-					bitCount       = ((BitmapV4Header)_infoHeader).bV4BitCount;
-					break;
-				case DibClass.V5:
-					colorTableSize = ((BitmapV5Header)_infoHeader).GetColorTableSize();
-					dibSize        = ((BitmapV5Header)_infoHeader).bV5Size + colorTableSize;
-					compression    = ((BitmapV5Header)_infoHeader).bV5Compression;
-					
-					width          = ((BitmapV5Header)_infoHeader).bV5Width;
-					height         = ((BitmapV5Header)_infoHeader).bV5Height;
-					bitCount       = ((BitmapV5Header)_infoHeader).bV5BitCount;
-					break;
-			}
-			
-			uint bmfhSize       = (uint)Marshal.SizeOf(typeof(BitmapFileHeader));
-			
-			switch(compression) {
+			switch( _infoHeader.bV5Compression ) {
+				
 				case BiCompression.BiRle4:
 				case BiCompression.BiRle8:
 				case BiCompression.BiJpeg:
@@ -347,9 +144,9 @@ namespace Anolis.Core.Utility {
 					// Compressed bitmap, so you cannot calculate the size of the pixeldata
 					// So trust the biSizeImage
 					
-					if( bih.biSizeImage <= 0 ) throw new NotSupportedException("The bitmap's size is not defined.");
+					if( _infoHeader.bV5SizeImage <= 0 ) throw new NotSupportedException("The bitmap's size is not defined.");
 					
-					dibSize += bih.biSizeImage;
+					dibSize += _infoHeader.bV5SizeImage; // this is a V3 header field, but since Core doesn't use compression set it doesn't apply
 					
 					break;
 					
@@ -357,7 +154,7 @@ namespace Anolis.Core.Utility {
 				case BiCompression.BiRgb:
 					// it's not an RLE or compressed so the size can be calculated
 					
-					uint bmBitsSize = WidthBytes( (uint)bih.biWidth * bih.biBitCount ) * (uint)Math.Abs( bih.biHeight );
+					uint bmBitsSize = WidthBytes( (uint)_infoHeader.bV5Width * _infoHeader.bV5BitCount ) * (uint)Math.Abs( _infoHeader.bV5Height );
 					
 					dibSize += bmBitsSize;
 					
@@ -369,16 +166,12 @@ namespace Anolis.Core.Utility {
 					// so here goes nothing:
 					
 					// Maybe if I get that internship next year on the VS team I can take a look at the source and identify the cause:
-					if( dibSize + 2 == _data.Length) dibSize += 2;
+					if( dibSize + 2 == _dibData.Length) dibSize += 2;
 					
 					// EDIT: Compare against bitmapData.Length
 //					if(dibSize != _data.Length) throw new InvalidDataException("DIB Image Size was not of the expected value.");
 					
 					break;
-				
-				case BiCompression.BcCore:
-					
-					
 				
 				default:
 					
@@ -389,10 +182,10 @@ namespace Anolis.Core.Utility {
 			
 			BitmapFileHeader bmfh;
 			bmfh.bfType      = 19778; // "BM"
-			bmfh.bfSize      = dibSize + bmfhSize;
+			bmfh.bfSize      = bmfhSize + dibSize;
 			bmfh.bfReserved1 = 0;
 			bmfh.bfReserved2 = 0;
-			bmfh.bfOffBits   = bmfhSize + bih.biSize + colorTableSize;
+			bmfh.bfOffBits   = bmfhSize + _infoHeader.bV5Size + GetColorTableSize();
 			
 			return bmfh;
 			
@@ -406,10 +199,13 @@ namespace Anolis.Core.Utility {
 		private static BitmapV5Header FillBitmapHeader(BinaryReader rdr, DibClass cls) {
 			
 			BitmapV5Header v5 = new BitmapV5Header();
+			v5.bV5Compression = BiCompression.BiRgb; // I'm assuming that BitmapCore bitmaps use RGB encoding without compression
+			
+			Boolean isCore = cls == DibClass.Core;
 			
 			v5.bV5Size          = rdr.ReadUInt32();
-			v5.bV5Width         = rdr.ReadInt32();
-			v5.bV5Height        = rdr.ReadInt32();
+			v5.bV5Width         = isCore ? rdr.ReadUInt16() : rdr.ReadInt32();
+			v5.bV5Height        = isCore ? rdr.ReadUInt16() : rdr.ReadInt32();
 			v5.bV5Planes        = rdr.ReadUInt16();
 			v5.bV5BitCount      = rdr.ReadUInt16();
 			

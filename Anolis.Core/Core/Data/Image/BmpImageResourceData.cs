@@ -82,28 +82,27 @@ namespace Anolis.Core.Data {
 	
 	public sealed class BmpImageResourceData : ImageResourceData {
 		
-		private FileDib _dib;
+		private Dib _dib;
 		
-		private BmpImageResourceData(FileDib dib, Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
+		private BmpImageResourceData(Dib dib, Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
 			_dib = dib;
 		}
 		
 		internal static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out BmpImageResourceData typed) {
 			
-			// check if the data is of the right format before working with it
-			
-			Dib realDib = new Dib( rawData );
-			
-			FileDib dib = new FileDib( rawData );
-			
-			Bitmap bmp;
-			
-			if(!dib.TryToBitmap(out bmp)) {
+			try {
+				
+				Dib dib = new Dib( rawData );
+				
+				Bitmap bmp = dib.ToBitmap();
+				
+				typed = new BmpImageResourceData(dib, bmp, lang, rawData);
+				
+			} catch(Exception) {
+				
 				typed = null;
 				return false;
 			}
-			
-			typed = new BmpImageResourceData(dib, bmp, lang, rawData);
 			
 			return true;
 			
@@ -111,13 +110,11 @@ namespace Anolis.Core.Data {
 		
 		protected override void SaveAs(Stream stream, String extension) {
 			
-			// don't use Image.Save since we want to save it without any added .NET Image class nonsense, and preserve 32-bit BMPs
+			// don't use Image.Save since we want to save it without any added .NET Image class nonsense, and preserve the Dib headers and stuff
 			
 			if(extension == "bmp") {
 				
-				Byte[] bitmapFileData = _dib.Data;
-				
-				stream.Write( bitmapFileData, 0, bitmapFileData.Length );
+				_dib.Save( stream );
 				
 			} else {
 				
