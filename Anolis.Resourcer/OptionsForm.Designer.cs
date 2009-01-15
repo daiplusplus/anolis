@@ -38,6 +38,7 @@
 			this.@__sUISimple = new System.Windows.Forms.CheckBox();
 			this.@__sUIButtonsLarge = new System.Windows.Forms.CheckBox();
 			this.@__tAbout = new System.Windows.Forms.TabPage();
+			this.@__aboutFriendsRafael = new System.Windows.Forms.LinkLabel();
 			this.@__aboutCredits = new System.Windows.Forms.Label();
 			this.@__aboutFriendsMsfn = new System.Windows.Forms.LinkLabel();
 			this.@__aboutFriendsC9 = new System.Windows.Forms.LinkLabel();
@@ -229,6 +230,7 @@
 			// 
 			// __tAbout
 			// 
+			this.@__tAbout.Controls.Add(this.@__aboutFriendsRafael);
 			this.@__tAbout.Controls.Add(this.@__aboutCredits);
 			this.@__tAbout.Controls.Add(this.@__aboutFriendsMsfn);
 			this.@__tAbout.Controls.Add(this.@__aboutFriendsC9);
@@ -249,6 +251,18 @@
 			this.@__tAbout.Text = "About";
 			this.@__tAbout.UseVisualStyleBackColor = true;
 			// 
+			// __aboutFriendsRafael
+			// 
+			this.@__aboutFriendsRafael.AutoSize = true;
+			this.@__aboutFriendsRafael.LinkArea = new System.Windows.Forms.LinkArea(19, 28);
+			this.@__aboutFriendsRafael.Location = new System.Drawing.Point(12, 293);
+			this.@__aboutFriendsRafael.Name = "__aboutFriendsRafael";
+			this.@__aboutFriendsRafael.Size = new System.Drawing.Size(248, 17);
+			this.@__aboutFriendsRafael.TabIndex = 12;
+			this.@__aboutFriendsRafael.TabStop = true;
+			this.@__aboutFriendsRafael.Text = "Rafael Rivera Jr.: http://www.withinwindows.com";
+			this.@__aboutFriendsRafael.UseCompatibleTextRendering = true;
+			// 
 			// __aboutCredits
 			// 
 			this.@__aboutCredits.AutoSize = true;
@@ -263,7 +277,7 @@
 			// 
 			this.@__aboutFriendsMsfn.AutoSize = true;
 			this.@__aboutFriendsMsfn.LinkArea = new System.Windows.Forms.LinkArea(6, 44);
-			this.@__aboutFriendsMsfn.Location = new System.Drawing.Point(10, 230);
+			this.@__aboutFriendsMsfn.Location = new System.Drawing.Point(12, 230);
 			this.@__aboutFriendsMsfn.Name = "__aboutFriendsMsfn";
 			this.@__aboutFriendsMsfn.Size = new System.Drawing.Size(148, 17);
 			this.@__aboutFriendsMsfn.TabIndex = 10;
@@ -275,7 +289,7 @@
 			// 
 			this.@__aboutFriendsC9.AutoSize = true;
 			this.@__aboutFriendsC9.LinkArea = new System.Windows.Forms.LinkArea(10, 34);
-			this.@__aboutFriendsC9.Location = new System.Drawing.Point(10, 272);
+			this.@__aboutFriendsC9.Location = new System.Drawing.Point(12, 272);
 			this.@__aboutFriendsC9.Name = "__aboutFriendsC9";
 			this.@__aboutFriendsC9.Size = new System.Drawing.Size(189, 17);
 			this.@__aboutFriendsC9.TabIndex = 9;
@@ -287,7 +301,7 @@
 			// 
 			this.@__aboutFriends.AutoSize = true;
 			this.@__aboutFriends.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.@__aboutFriends.Location = new System.Drawing.Point(10, 213);
+			this.@__aboutFriends.Location = new System.Drawing.Point(12, 213);
 			this.@__aboutFriends.Name = "__aboutFriends";
 			this.@__aboutFriends.Size = new System.Drawing.Size(52, 13);
 			this.@__aboutFriends.TabIndex = 8;
@@ -297,7 +311,7 @@
 			// 
 			this.@__aboutFriendsLong.AutoSize = true;
 			this.@__aboutFriendsLong.LinkArea = new System.Windows.Forms.LinkArea(12, 44);
-			this.@__aboutFriendsLong.Location = new System.Drawing.Point(10, 251);
+			this.@__aboutFriendsLong.Location = new System.Drawing.Point(12, 251);
 			this.@__aboutFriendsLong.Name = "__aboutFriendsLong";
 			this.@__aboutFriendsLong.Size = new System.Drawing.Size(241, 17);
 			this.@__aboutFriendsLong.TabIndex = 7;
@@ -309,7 +323,7 @@
 			// 
 			this.@__aboutLinks.AutoSize = true;
 			this.@__aboutLinks.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.@__aboutLinks.Location = new System.Drawing.Point(10, 133);
+			this.@__aboutLinks.Location = new System.Drawing.Point(12, 133);
 			this.@__aboutLinks.Name = "__aboutLinks";
 			this.@__aboutLinks.Size = new System.Drawing.Size(41, 13);
 			this.@__aboutLinks.TabIndex = 6;
@@ -319,7 +333,7 @@
 			// 
 			this.@__aboutLinkVize.AutoSize = true;
 			this.@__aboutLinkVize.LinkArea = new System.Windows.Forms.LinkArea(6, 27);
-			this.@__aboutLinkVize.Location = new System.Drawing.Point(10, 192);
+			this.@__aboutLinkVize.Location = new System.Drawing.Point(12, 192);
 			this.@__aboutLinkVize.Name = "__aboutLinkVize";
 			this.@__aboutLinkVize.Size = new System.Drawing.Size(140, 17);
 			this.@__aboutLinkVize.TabIndex = 5;
@@ -331,7 +345,7 @@
 			// 
 			this.@__aboutLinkXpize.AutoSize = true;
 			this.@__aboutLinkXpize.LinkArea = new System.Windows.Forms.LinkArea(7, 27);
-			this.@__aboutLinkXpize.Location = new System.Drawing.Point(10, 171);
+			this.@__aboutLinkXpize.Location = new System.Drawing.Point(12, 171);
 			this.@__aboutLinkXpize.Name = "__aboutLinkXpize";
 			this.@__aboutLinkXpize.Size = new System.Drawing.Size(138, 17);
 			this.@__aboutLinkXpize.TabIndex = 4;
@@ -343,7 +357,7 @@
 			// 
 			this.@__aboutLinkAnolis.AutoSize = true;
 			this.@__aboutLinkAnolis.LinkArea = new System.Windows.Forms.LinkArea(18, 48);
-			this.@__aboutLinkAnolis.Location = new System.Drawing.Point(10, 150);
+			this.@__aboutLinkAnolis.Location = new System.Drawing.Point(12, 150);
 			this.@__aboutLinkAnolis.Name = "__aboutLinkAnolis";
 			this.@__aboutLinkAnolis.Size = new System.Drawing.Size(266, 17);
 			this.@__aboutLinkAnolis.TabIndex = 3;
@@ -490,5 +504,6 @@
 		private System.Windows.Forms.Button __sLibAdd;
 		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.Label __sLibLbl;
+		private System.Windows.Forms.LinkLabel __aboutFriendsRafael;
 	}
 }
