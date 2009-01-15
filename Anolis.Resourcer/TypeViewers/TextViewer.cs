@@ -30,7 +30,16 @@ namespace Anolis.Resourcer.TypeViewers {
 			
 			Byte[] data = resource.RawData;
 			
-			// TODO: If the data is massive (say, larger than a megabyte) should it ask the user to continue?
+			if( data.Length > 1024 * 1024 ) {
+				
+				DialogResult r = MessageBox.Show(this, "The resource to display is larger than one megabyte. Are you sure you want to continue loading it?", "Anolis Resourcer", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+				
+				if(r == DialogResult.Cancel) {
+					this.Visible = false;
+					return;
+				} else this.Visible = true;
+				
+			}
 			
 			__text.Text = Encoding.GetString( data );
 			

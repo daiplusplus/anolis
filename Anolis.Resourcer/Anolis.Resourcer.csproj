@@ -76,10 +76,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddResourceForm.cs">
+    <Compile Include="Forms\AddResourceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddResourceForm.Designer.cs">
+    <Compile Include="Forms\AddResourceForm.Designer.cs">
       <DependentUpon>AddResourceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ToolStripImprovedSystemRenderer.cs">
@@ -100,27 +100,27 @@
     <Compile Include="Controls\ZoomPictureBoxWrapper.Designer.cs">
       <DependentUpon>ZoomPictureBoxWrapper.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OptionsForm.cs">
+    <Compile Include="Forms\OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OptionsForm.Designer.cs">
+    <Compile Include="Forms\OptionsForm.Designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AddResourceForm.resx">
+    <EmbeddedResource Include="Forms\AddResourceForm.resx">
       <DependentUpon>AddResourceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OptionsForm.resx">
+    <EmbeddedResource Include="Forms\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -52,7 +52,7 @@ namespace Anolis.Core.Native {
 				biHeight        = rdr.ReadInt32();
 				biPlanes        = rdr.ReadUInt16();
 				biBitCount      = rdr.ReadUInt16();
-				biCompression   = rdr.ReadUInt32();
+				biCompression   = (BiCompression)rdr.ReadUInt32();
 				biSizeImage     = rdr.ReadUInt32();
 				biXPelsPerMeter = rdr.ReadInt32();
 				biYPelsPerMeter = rdr.ReadInt32();
@@ -213,6 +213,15 @@ namespace Anolis.Core.Native {
 				bfReserved2 = rdr.ReadUInt16();
 				bfOffBits   = rdr.ReadUInt32();
 			}
+			
+			public void Write(BinaryWriter wtr) {
+				wtr.Write( bfType );
+				wtr.Write( bfSize );
+				wtr.Write( bfReserved1 );
+				wtr.Write( bfReserved2 );
+				wtr.Write( bfOffBits );
+			}
+			
 		}
 		
 		internal enum BiCompression : uint {

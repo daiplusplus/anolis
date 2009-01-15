@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -35,10 +36,8 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		private void __ok_Click(object sender, EventArgs e) {
-			
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+		public AddResourceForm(ResourcerContext context) : this() {
+			Context = context;
 		}
 		
 		private void PopulateOfdFilter() {
@@ -57,7 +56,7 @@ namespace Anolis.Resourcer {
 			
 			__typeKnown.Items.Clear();
 			
-			System.Collections.Generic.List< Pair<String,Win32ResourceType> > items = new System.Collections.Generic.List<Pair<string,Win32ResourceType>>();
+			List<Pair<String,Win32ResourceType>> items = new List<Pair<String,Win32ResourceType>>();
 			
 			for(int i=1;i<=24;i++) { // skip -1 = Custom and 0 = Unknown
 				
@@ -111,107 +110,15 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		public AddResourceForm(ResourcerContext context) : this() {
-			Context = context;
-		}
-		
-		private void CreateResourceData() {
-			
-			ResourceDataFactory factory = _filters[ __ofd.FilterIndex - 1].X;
-			
-			_data = Anolis.Core.ResourceData.FromFile( __ofd.FileName, Context.CurrentSource );
-			
-			///////////////////////////
-			// Recommended Type
-			
-			ResourceTypeIdentifier typeId = _data.RecommendedTypeId;
-			if(typeId.KnownType != Win32ResourceType.Custom) {
-				
-				if(typeId.KnownType == Win32ResourceType.Unknown) {
-					// add the type to the list
-					
-					// for now, just throw
-					throw new NotSupportedException("Resourcer does not support Unknown Win32 types.");
-					
-				} else {
-					
-					__typeWin32Rad.Checked = true;
-					
-					foreach( Pair<String,Win32ResourceType> item in __typeKnown.Items ) {
-						
-						if( item.Y == typeId.KnownType ) {
-							__typeKnown.SelectedItem = item;
-							break;
-						}
-						
-					}
-					
-				}
-				
-			} else {
-				
-				__typeStringRad.Checked = true;
-				
-				__typeString.Text = typeId.StringId;
-				
-			}
-			
-			///////////////////////////
-			// Recommended Name
-			
-			__nameAuto.Checked = true;
-			__nameCustom.Value = Context.CurrentSource.GetUnusedName( typeId ).IntegerId.Value;
-			
-			///////////////////////////
-			// Recommended Lang
-			
-			Int32 currentLcid = CultureInfo.CurrentCulture.LCID;
-			foreach(Pair<String,Int32> p in __lang.Items) {
-				
-				if(p.Y == currentLcid) {
-					__lang.SelectedItem = p;
-					break;
-				}
-			}
-			
-			//////////////////////////////
-			
-			this.ResourceTypeIdentifier = typeId;
-			this.ResourceNameIdentifier = new ResourceIdentifier( Convert.ToInt32( __nameCustom.Value ) );
-			this.ResourceLangId         = (UInt16)currentLcid;
-			
-		}
-		
-		private Boolean ValidateResourceIdentifiers() {
-			
-			///////////////////////////
-			// Resource Type
-			
-			///////////////////////////
-			// Resource Name / Lang combo
-			
-			// ensure the selected name and lang is not in use, if it is prompt to Replace rather than Add
-//			Context.CurrentSource.IsNameInUse( );
-			
-			return true;
-			
-		}
-		
-		public ResourcerContext Context {
-			get; set;
-		}
-		
 		//////////////////////////////
 		
-		public ResourceData ResourceData {
-			get { return _data; }
+		private void __ok_Click(object sender, EventArgs e) {
+			
+			this.DialogResult = DialogResult.OK;
+			this.Close();
 		}
 		
-		public ResourceTypeIdentifier ResourceTypeIdentifier { get; private set; }
-		public ResourceIdentifier     ResourceNameIdentifier { get; private set; }
-		public UInt16                 ResourceLangId         { get; private set; }
-		
-		//////////////////////////////
+		//
 		
 		private void __fileBrowse_Click(Object sender, EventArgs e) {
 			
@@ -266,6 +173,150 @@ namespace Anolis.Resourcer {
 			}
 			
 		}
+		
+		//////////////////////////////
+		
+		private void CreateResourceData() {
+			
+			ResourceDataFactory factory = _filters[ __ofd.FilterIndex - 1].X;
+			
+			_data = Anolis.Core.ResourceData.FromFile( __ofd.FileName, Context.CurrentSource );
+			
+			///////////////////////////
+			// Recommended Type
+			
+			ResourceTypeIdentifier typeId = _data.RecommendedTypeId;
+			if(typeId.KnownType != Win32ResourceType.Custom) {
+				
+				if(typeId.KnownType == Win32ResourceType.Unknown) {
+					// add the type to the list
+					
+					// for now, just throw
+					throw new NotSupportedException("Resourcer does not support Unknown Win32 types.");
+					
+				} else {
+					
+					__typeWin32Rad.Checked = true;
+					
+					foreach( Pair<String,Win32ResourceType> item in __typeKnown.Items ) {
+						
+						if( item.Y == typeId.KnownType ) {
+							__typeKnown.SelectedItem = item;
+							break;
+						}
+						
+					}
+					
+				}
+				
+			} else {
+				
+				__typeStringRad.Checked = true;
+				
+				__typeString.Text = typeId.StringId;
+				
+			}
+			
+			// Set recommended control values
+			
+			///////////////////////////
+			// Recommended Name
+			
+			__nameAuto.Checked = true;
+			__nameCustom.Value = Context.CurrentSource.GetUnusedName( typeId ).IntegerId.Value;
+			
+			///////////////////////////
+			// Recommended Lang
+			
+			Int32 currentLcid = CultureInfo.CurrentCulture.LCID;
+			foreach(Pair<String,Int32> p in __lang.Items) {
+				
+				if(p.Y == currentLcid) {
+					__lang.SelectedItem = p;
+					break;
+				}
+			}
+			
+		}
+		
+		private Boolean ValidateResourceIdentifiers() {
+			
+			// TODO AddResourceForm.ValidateResourceIdentifiers
+			
+			///////////////////////////
+			// Resource Type
+			
+			///////////////////////////
+			// Resource Name / Lang combo
+			
+			// ensure the selected name and lang is not in use, if it is prompt to Replace rather than Add
+//			Context.CurrentSource.IsNameInUse( );
+			
+			return true;
+			
+		}
+		
+		public ResourcerContext Context {
+			get; set;
+		}
+		
+		//////////////////////////////
+		
+		public ResourceData ResourceData {
+			get { return _data; }
+		}
+		
+		public ResourceTypeIdentifier ResourceTypeIdentifier {
+			get {
+				
+				if( __typeWin32Rad.Checked ) {
+					
+					Pair<String,Win32ResourceType> item = __typeKnown.SelectedItem as Pair<String,Win32ResourceType>;
+					
+					return new ResourceTypeIdentifier( item.Y );
+					
+				} else {
+					
+					return new ResourceTypeIdentifier( __typeString.Text );
+					
+				}
+				
+			}
+		}
+		
+		public ResourceIdentifier ResourceNameIdentifier {
+			get {
+				
+				if( __nameIntRad.Checked ) {
+					
+					return new ResourceIdentifier( (Int32)__nameCustom.Value );
+					
+				} else {
+					
+					return new ResourceIdentifier( __nameString.Text );
+					
+				}
+				
+			}
+		}
+		
+		public UInt16 ResourceLangId {
+			get {
+				
+				Pair<String,Int32> item = __lang.SelectedItem as Pair<String,Int32>;
+				
+				return (UInt16)item.Y;
+				
+			}
+		}
+		
+		//////////////////////////////
+		
+		
+		
+		//////////////////////////////
+		
+		
 		
 	}
 }
