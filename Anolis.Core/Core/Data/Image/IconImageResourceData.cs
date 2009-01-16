@@ -171,10 +171,6 @@ namespace Anolis.Core.Data {
 			Icon icon = Icon.FromHandle( hIcon );
 			
 			// because the Icon is born out of unmanaged data I cannot free the handle here; do it in the finaliser
-			// on Windows XP x86 this doesn't cause a problem by freeing it here, but on Windows Server 2008 x64 it causes the Icon to fail
-			
-			// UPDATE: okay, apparently not. Even after moving that free instruction it still fails on WS2008x64
-			// it isn't necessarily a Vista problem, I can reproduce it on x64, but when it runs in 32-bit x86 mode it doesn't fail
 			
 			typed = new IconCursorImageResourceData(p, icon, lang, rawData) { IsIcon = isIcon };
 			return true;

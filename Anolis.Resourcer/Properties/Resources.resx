@@ -276,4 +276,13 @@ NO WARRANTY
   <data name="ZPB_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controls\Empty.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Tree_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResTree\Add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tree_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResTree\Delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tree_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResTree\Edit.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -56,14 +56,18 @@ namespace Anolis.Core.Data {
 	
 	public sealed class IconDirectoryMember : IDirectoryMember {
 		
-		internal IconDirectoryMember(String description, IconCursorImageResourceData data) {
+		internal IconDirectoryMember(Size size, String description, IconCursorImageResourceData data) {
 			
 			Description  = description;
 			ResourceData = data;
+			Size         = size;
 		}
 		
 		public String       Description  { get; private set; }
 		public ResourceData ResourceData { get; private set; }
+		
+		public Size         Size         { get; private set; }
+		
 	}
 	
 	public sealed class IconDirectoryResourceData : DirectoryResourceData {
@@ -123,15 +127,17 @@ namespace Anolis.Core.Data {
 					
 					IconCursorImageResourceData rd = GetDataFromWid(iconType, lang, img.wId);
 					
+					Int32 width, height;
+					
 					String description = String.Format(
 						Cult.InvariantCulture,
 						"{0}x{1} {2}-bit",
-						img.bWidth == 0 ? 256 : img.bWidth,
-						img.bHeight == 0 ? 256 : img.bHeight,
+						width  = (img.bWidth == 0 ? 256 : img.bWidth),
+						height = (img.bHeight == 0 ? 256 : img.bHeight),
 						img.wBitCount
 					);
 					
-					retval.UnderlyingMembers.Add( new IconDirectoryMember(description, rd) );
+					retval.UnderlyingMembers.Add( new IconDirectoryMember(new Size(width, height), description, rd) );
 					
 				}
 				
@@ -198,6 +204,7 @@ namespace Anolis.Core.Data {
 			
 			IconCursorImageResourceData[] images = new IconCursorImageResourceData[ dir.wCount ];
 			String[]                      descs  = new String[ dir.wCount ];
+			Size[]                        sizes  = new Size[ dir.wCount ];
 			
 			for(int i=0;i<dir.wCount;i++) {
 				
@@ -219,6 +226,8 @@ namespace Anolis.Core.Data {
 					img.wBitCount
 				);
 				
+				sizes[i] = new Size( img.bWidth == 0 ? 256 : img.bWidth, img.bHeight == 0 ? 256 : img.bHeight );
+				
 				descs[i] = description;
 				
 			}
@@ -229,7 +238,7 @@ namespace Anolis.Core.Data {
 			
 			for(int i=0;i<images.Length;i++) {
 				
-				retval.UnderlyingMembers.Add( new IconDirectoryMember( descs[i], images[i] ) );
+				retval.UnderlyingMembers.Add( new IconDirectoryMember( sizes[i], descs[i], images[i] ) );
 			}
 			
 			
@@ -382,6 +391,31 @@ namespace Anolis.Core.Data {
 			BinaryWriter wtr = new BinaryWriter(stream);
 			
 			throw new NotImplementedException();
+			
+		}
+		
+		public IconDirectoryMember GetIconForSize(Size size) {
+			
+			// search for an identical or larger match (larger results can be scaled down)
+			
+			IconDirectoryMember bestMatch = null;
+			
+			foreach(IconDirectoryMember member in Members) {
+				
+				if( member.Size == size ) return member;
+				
+				if( member.Size.Width > size.Width ) {
+					
+					if(bestMatch == null) bestMatch = member;
+					else {
+						
+						if( member.Size.Width < bestMatch.Size.Width ) bestMatch = member;
+						
+					}
+				}
+			}
+			
+			return bestMatch;
 			
 		}
 		
