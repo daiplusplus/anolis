@@ -131,7 +131,8 @@ namespace Anolis.Core {
 			}
 		}
 		
-		internal Boolean DataIsLoaded { get { return _data != null; } }
+		/// <summary>Indicates if .Data has been loaded already. Useful for consumer optimisation.</summary>
+		public Boolean DataIsLoaded { get { return _data != null; } }
 		
 		
 	}

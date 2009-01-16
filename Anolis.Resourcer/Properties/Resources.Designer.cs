@@ -231,6 +231,27 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Tree_Add {
+            get {
+                object obj = ResourceManager.GetObject("Tree_Add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Tree_Delete {
+            get {
+                object obj = ResourceManager.GetObject("Tree_Delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Tree_Edit {
+            get {
+                object obj = ResourceManager.GetObject("Tree_Edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ZPB_Empty {
             get {
                 object obj = ResourceManager.GetObject("ZPB_Empty", resourceCulture);

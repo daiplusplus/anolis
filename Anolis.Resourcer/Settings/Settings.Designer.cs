@@ -57,5 +57,17 @@ namespace Anolis.Resourcer.Settings {
                 this["MruList"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Toolbar24 {
+            get {
+                return ((bool)(this["Toolbar24"]));
+            }
+            set {
+                this["Toolbar24"] = value;
+            }
+        }
     }
 }

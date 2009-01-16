@@ -220,7 +220,6 @@
 			this.@__sUIButtonsLarge.AutoSize = true;
 			this.@__sUIButtonsLarge.Checked = true;
 			this.@__sUIButtonsLarge.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.@__sUIButtonsLarge.Enabled = false;
 			this.@__sUIButtonsLarge.Location = new System.Drawing.Point(6, 59);
 			this.@__sUIButtonsLarge.Name = "__sUIButtonsLarge";
 			this.@__sUIButtonsLarge.Size = new System.Drawing.Size(121, 17);

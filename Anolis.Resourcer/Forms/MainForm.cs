@@ -29,7 +29,7 @@ namespace Anolis.Resourcer {
 			
 			this.Load += new EventHandler(MainForm_Load);
 			__resources.NodeMouseClick += new TreeNodeMouseClickEventHandler(__resources_NodeMouseClick);
-
+			
 			this.DragDrop += new DragEventHandler(MainForm_DragDrop);
 			this.DragEnter += new DragEventHandler(MainForm_DragEnter);
 			
@@ -51,6 +51,10 @@ namespace Anolis.Resourcer {
 			this.Context.CurrentDataChanged   += new EventHandler(Context_CurrentDataChanged);
 			this.Context.CurrentSourceChanged += new EventHandler(Context_CurrentSourceChanged);
 			
+			this.__treeStateImages.Images.Add( "Add", Properties.Resources.Tree_Add );
+			this.__treeStateImages.Images.Add( "Upd", Properties.Resources.Tree_Edit );
+			this.__treeStateImages.Images.Add( "Del", Properties.Resources.Tree_Delete );
+			
 			_viewData = new ResourceDataView();
 			_viewList = new ResourceListView();
 		}
@@ -66,10 +70,15 @@ namespace Anolis.Resourcer {
 		private void __resources_NodeMouseClick(Object sender, TreeNodeMouseClickEventArgs e) {
 			
 			TreeNode node = e.Node;
-			ResourceLang lang = node.Tag as ResourceLang;
-			if(lang == null) return;
 			
-			LoadData( lang );
+			ResourceType type = node.Tag as ResourceType;
+			if(type != null) { LoadList(type); return; }
+			
+			ResourceName name = node.Tag as ResourceName;
+			if(name != null) { LoadList(name); return; }
+			
+			ResourceLang lang = node.Tag as ResourceLang;
+			if(lang != null) LoadData( lang );
 			
 		}
 	
@@ -120,7 +129,36 @@ namespace Anolis.Resourcer {
 		private void __tGenOptions_Click(object sender, EventArgs e) {
 			
 			OptionsForm options = new OptionsForm();
-			options.ShowDialog(this);
+			if(options.ShowDialog(this) == DialogResult.OK) { // then a setting may have been changed
+				
+				this.SuspendLayout();
+				
+				Boolean is24 = Settings.Settings.Default.Toolbar24;
+				
+				__tSrcOpen   .TextImageRelation = is24 ? TextImageRelation.ImageBeforeText : TextImageRelation.ImageAboveText ;
+				__tSrcSave   .DisplayStyle      = is24 ? ToolStripItemDisplayStyle.Image   : ToolStripItemDisplayStyle.ImageAndText;
+				__tSrcReload .DisplayStyle      = is24 ? ToolStripItemDisplayStyle.Image   : ToolStripItemDisplayStyle.ImageAndText;
+				
+				__tResAdd    .TextImageRelation = is24 ? TextImageRelation.ImageBeforeText : TextImageRelation.ImageAboveText;
+				__tResExtract.TextImageRelation = is24 ? TextImageRelation.ImageBeforeText : TextImageRelation.ImageAboveText;
+				__tResReplace.TextImageRelation = is24 ? TextImageRelation.ImageBeforeText : TextImageRelation.ImageAboveText;
+				__tResDelete .DisplayStyle      = is24 ? ToolStripItemDisplayStyle.Image   : ToolStripItemDisplayStyle.ImageAndText;
+				__tResUndo   .DisplayStyle      = is24 ? ToolStripItemDisplayStyle.Image   : ToolStripItemDisplayStyle.ImageAndText;
+				
+				__tGenOptions.DisplayStyle      = is24 ? ToolStripItemDisplayStyle.Image   : ToolStripItemDisplayStyle.ImageAndText;
+				
+				__t.ImageScalingSize            = is24 ? new System.Drawing.Size(24, 24)   : new System.Drawing.Size(48, 48);
+				
+				__split.Location = new System.Drawing.Point(0, __t.Height);
+				
+				__t.PerformLayout();
+				
+				this.ResumeLayout(true);
+				this.PerformLayout();
+				
+			}
+			
+			
 			
 		}
 		
@@ -286,6 +324,8 @@ namespace Anolis.Resourcer {
 			
 		}
 		
+		
+		
 #endregion
 		
 		////////////////////////////////////////////////
@@ -432,12 +472,77 @@ namespace Anolis.Resourcer {
 			DialogResult r = SaveSource();
 			if(r == DialogResult.Cancel) return true; // return false on error, not user abortion
 			
-			return Context.LoadSource(path, __resources, __resCM);
+			ResourceTypeCollection types = Context.LoadSource(path);
+			
+			if(types != null) PopulateTree(types);
+			
+			return types != null;
 		}
 		
 #endregion
 		
+		private void PopulateTree(ResourceTypeCollection types) {
+			
+			__resources.Nodes.Clear();
+			foreach(ResourceType type in types) {
+				
+				TreeNode typeNode = new TreeNode( type.Identifier.FriendlyName ) { Tag = type };
+				
+				foreach(ResourceName name in type.Names) {
+					
+					TreeNode nameNode = new TreeNode( name.Identifier.FriendlyName ) { Tag = name };
+					
+					foreach(ResourceLang lang in name.Langs) {
+						
+						TreeNode langNode = new TreeNode( lang.LanguageId.ToString() ) { Tag = lang };
+						nameNode.Nodes.Add( langNode );
+						
+						langNode.ContextMenuStrip = __resCM;
+						
+						if( lang.DataIsLoaded ) {
+							
+							switch(lang.Data.Action) {
+								case ResourceDataAction.Add:
+									langNode.StateImageKey = "Add";
+									break;
+								case ResourceDataAction.Update:
+									langNode.StateImageKey = "Upd";
+									break;
+								case ResourceDataAction.Delete:
+									langNode.StateImageKey = "Del";
+									break;
+							}
+							
+						}
+						
+					}
+					
+					typeNode.Nodes.Add( nameNode );
+					
+				}
+				
+				__resources.Nodes.Add( typeNode );
+			}
+			
+		}
+		
 #region ResourceData
+		
+		private void LoadList(ResourceType type) {
+			
+			EnsureView( _viewList );
+			
+			_viewList.ShowResourceType(type);
+			
+		}
+		
+		private void LoadList(ResourceName name) {
+			
+			EnsureView( _viewList );
+			
+			_viewList.ShowResourceName(name);
+			
+		}
 		
 		////////////////////////////////////////////////
 		// Current Resource Actions
@@ -473,6 +578,10 @@ namespace Anolis.Resourcer {
 		}
 		
 #endregion
+
+		private void MainForm_Load_1(object sender, EventArgs e) {
+
+		}
 		
 	}
 }

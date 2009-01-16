@@ -53,6 +53,8 @@ namespace Anolis.Resourcer {
 		
 		public Mru            Mru    { get { return _mru; } }
 		
+		public Settings.Settings Settings { get { return _settings; } }
+		
 		public event EventHandler CurrentSourceChanged;
 		public event EventHandler CurrentDataChanged;
 		
@@ -68,50 +70,25 @@ namespace Anolis.Resourcer {
 		
 #region ResourceSource
 		
-		public Boolean LoadSource(String path, TreeView treeview, ContextMenuStrip contextMenu) {
+		public ResourceTypeCollection LoadSource(String path) {
 			
 			CurrentPath = path;
 			
 			///////////////////////////
 			
 			ResourceSource source = ResourceSource.Open(path, false);
-			if(source == null) return false;
+			if(source == null) return null;
 			
 			CurrentSource = source;
 			Mru.Push( path );
 			
 			ResourceTypeCollection types = source.Types;
 			
-			treeview.Nodes.Clear();
-			foreach(ResourceType type in types) {
-				
-				TreeNode typeNode = new TreeNode( type.Identifier.FriendlyName ) { Tag = type };
-				
-				foreach(ResourceName name in type.Names) {
-					
-					TreeNode nameNode = new TreeNode( name.Identifier.FriendlyName ) { Tag = name };
-					
-					foreach(ResourceLang lang in name.Langs) {
-						
-						TreeNode langNode = new TreeNode( lang.LanguageId.ToString() ) { Tag = lang };
-						nameNode.Nodes.Add( langNode );
-						
-						langNode.ContextMenuStrip = contextMenu;
-						
-					}
-					
-					typeNode.Nodes.Add( nameNode );
-					
-				}
-				
-				treeview.Nodes.Add( typeNode );
-			}
-			
 			/////////////////////////
 			
 			OnCurrentSourceChanged();
 			
-			return true;
+			return types;
 			
 		}
 		

@@ -27,13 +27,25 @@ namespace Anolis.Resourcer {
 			
 		}
 		
+		public MainForm MainForm { get; set; }
+		
 		private void OptionsForm_Load(object sender, EventArgs e) {
 			
 			__licenseText.Text = Anolis.Resourcer.Properties.Resources.AnolisGplLicense;
 			
 		}
 		
+		private void LoadSettings() {
+			
+			__sUIButtonsLarge.Checked = !Settings.Settings.Default.Toolbar24;
+			
+		}
+		
 		private void __ok_Click(Object sender, EventArgs e) {
+			
+			Settings.Settings.Default.Toolbar24 = !__sUIButtonsLarge.Checked;
+			
+			DialogResult = DialogResult.OK;
 			
 			Close();
 			
