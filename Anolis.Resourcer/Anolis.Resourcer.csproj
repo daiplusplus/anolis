@@ -106,11 +106,20 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MainForm.Partial.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\OptionsForm.Designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ReplaceResourceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReplaceResourceForm.Designer.cs">
+      <DependentUpon>ReplaceResourceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReplaceResourceForm.resx">
+      <DependentUpon>ReplaceResourceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -229,6 +241,7 @@
     <None Include="Resources\AddResource\SortByLCID.png" />
     <None Include="Resources\AddResource\SortByName.png" />
     <Content Include="Resources\ImageViewer\Center.png" />
+    <None Include="Resources\ImageViewer\Empty.png" />
     <Content Include="Resources\ImageViewer\Interpolation.png" />
     <Content Include="Resources\ImageViewer\TransparentBg.png" />
     <Content Include="Resources\ImageViewer\Zoom100.png" />
@@ -242,7 +255,17 @@
     <Content Include="Resources\TextViewer\Endian.png" />
     <Content Include="Resources\TextViewer\Font.png" />
     <Content Include="Resources\TextViewer\WordWrap.png" />
-    <None Include="Resources\Toolbar\ResRev.png" />
+    <None Include="Resources\Toolbar\ResCan.png" />
+    <None Include="Resources\Toolbar\ResCan24.png" />
+    <None Include="Resources\Toolbar\GenOpt24.png" />
+    <None Include="Resources\Toolbar\GenOpt.png" />
+    <None Include="Resources\Toolbar\ResRep24.png" />
+    <None Include="Resources\Toolbar\ResExt24.png" />
+    <None Include="Resources\Toolbar\SrcSave24.png" />
+    <None Include="Resources\Toolbar\SrcRev24.png" />
+    <None Include="Resources\Toolbar\SrcOpen24.png" />
+    <None Include="Resources\Toolbar\ResDel24.png" />
+    <None Include="Resources\Toolbar\ResAdd24.png" />
     <None Include="Resources\Toolbar\SrcSave.png" />
     <None Include="Resources\Toolbar\SrcRev.png" />
     <None Include="Resources\Toolbar\SrcOpen.png" />
@@ -250,7 +273,6 @@
     <None Include="Resources\Toolbar\ResExt.png" />
     <None Include="Resources\Toolbar\ResDel.png" />
     <None Include="Resources\Toolbar\ResAdd.png" />
-    <None Include="Resources\Toolbar\Options.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

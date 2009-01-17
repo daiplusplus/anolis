@@ -246,43 +246,70 @@ NO WARRANTY
   <data name="TextViewer_WordWrap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TextViewer\WordWrap.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Toolbar_Options" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Toolbar\Options.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Tree_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResTree\Delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_GenOpt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\GenOpt.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_GenOpt24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\GenOpt24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Toolbar_ResAdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Toolbar\ResAdd.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Toolbar_ResAdd24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\ResAdd24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_ResCan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\ResCan.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_ResCan24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\ResCan24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Toolbar_ResDel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Toolbar\ResDel.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_ResDel24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\ResDel24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Toolbar_ResExt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Toolbar\ResExt.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Toolbar_ResExt24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\ResExt24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Toolbar_ResRep" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Toolbar\ResRep.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Toolbar_ResRev" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Toolbar\ResRev.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Toolbar_ResRep24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\ResRep24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Toolbar_SrcOpen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Toolbar\SrcOpen.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Toolbar_SrcOpen24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\SrcOpen24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Toolbar_SrcRev" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Toolbar\SrcRev.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Toolbar_SrcRev24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\SrcRev24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Toolbar_SrcSave" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Toolbar\SrcSave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ZPB_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Controls\Empty.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Toolbar_SrcSave24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Toolbar\SrcSave24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Tree_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ResTree\Add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Tree_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ResTree\Delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Tree_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ResTree\Edit.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ZPB_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImageViewer\Empty.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
