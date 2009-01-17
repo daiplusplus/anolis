@@ -168,9 +168,16 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Toolbar_Options {
+        internal static System.Drawing.Bitmap Toolbar_GenOpt {
             get {
-                object obj = ResourceManager.GetObject("Toolbar_Options", resourceCulture);
+                object obj = ResourceManager.GetObject("Toolbar_GenOpt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_GenOpt24 {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_GenOpt24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -182,9 +189,37 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Toolbar_ResAdd24 {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_ResAdd24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_ResCan {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_ResCan", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_ResCan24 {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_ResCan24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Toolbar_ResDel {
             get {
                 object obj = ResourceManager.GetObject("Toolbar_ResDel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_ResDel24 {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_ResDel24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -196,6 +231,13 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Toolbar_ResExt24 {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_ResExt24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Toolbar_ResRep {
             get {
                 object obj = ResourceManager.GetObject("Toolbar_ResRep", resourceCulture);
@@ -203,9 +245,9 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Toolbar_ResRev {
+        internal static System.Drawing.Bitmap Toolbar_ResRep24 {
             get {
-                object obj = ResourceManager.GetObject("Toolbar_ResRev", resourceCulture);
+                object obj = ResourceManager.GetObject("Toolbar_ResRep24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -217,6 +259,13 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Toolbar_SrcOpen24 {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_SrcOpen24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Toolbar_SrcRev {
             get {
                 object obj = ResourceManager.GetObject("Toolbar_SrcRev", resourceCulture);
@@ -224,9 +273,23 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Toolbar_SrcRev24 {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_SrcRev24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Toolbar_SrcSave {
             get {
                 object obj = ResourceManager.GetObject("Toolbar_SrcSave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Toolbar_SrcSave24 {
+            get {
+                object obj = ResourceManager.GetObject("Toolbar_SrcSave24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

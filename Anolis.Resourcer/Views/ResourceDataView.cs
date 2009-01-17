@@ -39,7 +39,10 @@ namespace Anolis.Resourcer {
 			
 			InitializeComponent();
 			
-			_viewers = TypeViewerWrapper.FromArray( new PictureViewer(), new IconCursorViewer(), new RawViewer(), new TextViewer(), new HtmlViewer() );
+			// reverse the array because ShowResource chooses the /last/ compatible viewer. Reversing this list makes RawViewer preferable over TextViewer
+			TypeViewerWrapper[] viewers = TypeViewerWrapper.FromArray( new PictureViewer(), new IconCursorViewer(), new RawViewer(), new TextViewer(), new HtmlViewer() );
+			Array.Reverse( viewers );
+			_viewers = viewers;
 			
 			__viewers.SelectionChangeCommitted  += new EventHandler(__viewers_SelectionChangeCommitted); // don't use SelectedIndexChange since that's raised by my code
 		}

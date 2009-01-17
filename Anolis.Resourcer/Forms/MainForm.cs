@@ -30,23 +30,23 @@ namespace Anolis.Resourcer {
 			this.Load += new EventHandler(MainForm_Load);
 			__resources.NodeMouseClick += new TreeNodeMouseClickEventHandler(__resources_NodeMouseClick);
 			
-			this.DragDrop += new DragEventHandler(MainForm_DragDrop);
+			this.DragDrop  += new DragEventHandler(MainForm_DragDrop);
 			this.DragEnter += new DragEventHandler(MainForm_DragEnter);
 			
 			this.__tSrcOpen.ButtonClick     += new EventHandler(__tSrcOpen_ButtonClick);
 			this.__tSrcOpen.DropDownOpening += new EventHandler(__tSrcOpen_DropDownOpening);
 			this.__tSrcSave.Click           += new EventHandler(__tSrcSave_Click);
-			this.__tSrcReload.Click         += new EventHandler(__tSrcReload_Click);
+			this.__tSrcReve.Click         += new EventHandler(__tSrcReload_Click);
 			
-			this.__tResAdd.Click            += new EventHandler(__tResAdd_Click);
-			this.__tResExtract.Click        += new EventHandler(__tResExtract_Click);
-			this.__tResReplace.Click        += new EventHandler(__tResReplace_Click);
-			this.__tResDelete.Click         += new EventHandler(__tResDelete_Click);
-			this.__tResUndo.Click           += new EventHandler(__tResUndo_Click);
+			this.__tResAdd.Click        += new EventHandler(__tResAdd_Click);
+			this.__tResExt.Click        += new EventHandler(__tResExtract_Click);
+			this.__tResRep.Click        += new EventHandler(__tResReplace_Click);
+			this.__tResDel.Click        += new EventHandler(__tResDelete_Click);
+			this.__tResCan.Click        += new EventHandler(__tResUndo_Click);
 			
-			this.__tGenOptions.Click        += new EventHandler(__tGenOptions_Click);
+			this.__tGenOpt.Click        += new EventHandler(__tGenOptions_Click);
 			
-			this.__resCM.Opening            += new System.ComponentModel.CancelEventHandler(__resCM_Opening);
+			this.__resCM.Opening        += new System.ComponentModel.CancelEventHandler(__resCM_Opening);
 			
 			this.Context.CurrentDataChanged   += new EventHandler(Context_CurrentDataChanged);
 			this.Context.CurrentSourceChanged += new EventHandler(Context_CurrentSourceChanged);
@@ -131,30 +131,7 @@ namespace Anolis.Resourcer {
 			OptionsForm options = new OptionsForm();
 			if(options.ShowDialog(this) == DialogResult.OK) { // then a setting may have been changed
 				
-				this.SuspendLayout();
 				
-				Boolean is24 = Settings.Settings.Default.Toolbar24;
-				
-				__tSrcOpen   .TextImageRelation = is24 ? TextImageRelation.ImageBeforeText : TextImageRelation.ImageAboveText ;
-				__tSrcSave   .DisplayStyle      = is24 ? ToolStripItemDisplayStyle.Image   : ToolStripItemDisplayStyle.ImageAndText;
-				__tSrcReload .DisplayStyle      = is24 ? ToolStripItemDisplayStyle.Image   : ToolStripItemDisplayStyle.ImageAndText;
-				
-				__tResAdd    .TextImageRelation = is24 ? TextImageRelation.ImageBeforeText : TextImageRelation.ImageAboveText;
-				__tResExtract.TextImageRelation = is24 ? TextImageRelation.ImageBeforeText : TextImageRelation.ImageAboveText;
-				__tResReplace.TextImageRelation = is24 ? TextImageRelation.ImageBeforeText : TextImageRelation.ImageAboveText;
-				__tResDelete .DisplayStyle      = is24 ? ToolStripItemDisplayStyle.Image   : ToolStripItemDisplayStyle.ImageAndText;
-				__tResUndo   .DisplayStyle      = is24 ? ToolStripItemDisplayStyle.Image   : ToolStripItemDisplayStyle.ImageAndText;
-				
-				__tGenOptions.DisplayStyle      = is24 ? ToolStripItemDisplayStyle.Image   : ToolStripItemDisplayStyle.ImageAndText;
-				
-				__t.ImageScalingSize            = is24 ? new System.Drawing.Size(24, 24)   : new System.Drawing.Size(48, 48);
-				
-				__split.Location = new System.Drawing.Point(0, __t.Height);
-				
-				__t.PerformLayout();
-				
-				this.ResumeLayout(true);
-				this.PerformLayout();
 				
 			}
 			
@@ -164,7 +141,7 @@ namespace Anolis.Resourcer {
 		
 		private void __tResUndo_Click(Object sender, EventArgs e) {
 			
-			//Context.CurrentSource.CancelAction( Context.CurrentData );
+			Context.CurrentSource.Cancel( Context.CurrentData );
 		}
 		
 		private void __tResDelete_Click(object sender, EventArgs e) {
@@ -174,7 +151,14 @@ namespace Anolis.Resourcer {
 		
 		private void __tResReplace_Click(object sender, EventArgs e) {
 			
-			
+			ReplaceResourceForm form = new ReplaceResourceForm();
+			if( form.ShowDialog() == DialogResult.OK ) {
+				
+				ResourceData newData = form.NewResourceData;
+				
+				Context.ReplaceData( newData );
+				
+			}
 		}
 		
 		private void __tResAdd_Click(object sender, EventArgs e) {
@@ -187,20 +171,20 @@ namespace Anolis.Resourcer {
 			Boolean isReadOnly = (Context.CurrentSource == null) ? true : Context.CurrentSource.IsReadOnly;
 			
 			__tSrcSave   .Enabled = !isReadOnly;
-			__tSrcReload .Enabled = !isReadOnly;
+			__tSrcReve .Enabled = !isReadOnly;
 			
 			__tResAdd    .Enabled = !isReadOnly;
-			__tResReplace.Enabled = !isReadOnly;
-			__tResExtract.Enabled =  Context.CurrentData   != null;
-			__tResDelete .Enabled = !isReadOnly;
-			__tResUndo   .Enabled = !isReadOnly;
+			__tResRep.Enabled = !isReadOnly;
+			__tResExt.Enabled =  Context.CurrentData   != null;
+			__tResDel .Enabled = !isReadOnly;
+			__tResCan   .Enabled = !isReadOnly;
 			
 			if( !isReadOnly ) {
 				
-				__tResReplace.Enabled = Context.CurrentData != null;
-				__tResExtract.Enabled = Context.CurrentData != null;
-				__tResDelete .Enabled = Context.CurrentData != null;
-				__tResUndo   .Enabled = Context.CurrentData != null;
+				__tResRep.Enabled = Context.CurrentData != null;
+				__tResExt.Enabled = Context.CurrentData != null;
+				__tResDel .Enabled = Context.CurrentData != null;
+				__tResCan   .Enabled = Context.CurrentData != null;
 				
 			}
 			
@@ -436,7 +420,7 @@ namespace Anolis.Resourcer {
 		
 		private DialogResult SaveSource() {
 			
-			if( Context.CurrentSource != null ) { // && Context.CurrentSource.HasUnsavedChanges ) {
+			if( Context.CurrentSource != null && Context.CurrentSource.HasUnsavedChanges ) {
 				
 				String message = String.Format(Cult.InvariantCulture, "Are you sure you want to save your changes to {0}?", Path.GetFileName(Context.CurrentPath));
 				
@@ -579,9 +563,5 @@ namespace Anolis.Resourcer {
 		
 #endregion
 
-		private void MainForm_Load_1(object sender, EventArgs e) {
-
-		}
-		
 	}
 }
