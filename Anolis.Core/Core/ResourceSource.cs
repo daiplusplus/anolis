@@ -28,6 +28,8 @@ namespace Anolis.Core {
 		/// <summary>Returns information about this ResourceSource in a Key/Value pair.</summary>
 		public virtual ResourceSourceInfo SourceInfo { get { return null; } }
 		
+		public abstract String Name { get; }
+		
 		//////////////////////
 		
 		/// <summary>Extracts the Resource Data for the specified Resource.</summary>
@@ -42,16 +44,16 @@ namespace Anolis.Core {
 			// get the file type of the file to load
 			// if PE executable (a dll, native exe, etc)
 			
-			String ext = System.IO.Path.GetExtension(filename).ToUpperInvariant();
-			switch(ext) {
-				case ".EXE":
-				case ".DLL":
-				case ".SCR":
-				case ".CPL":
+//			String ext = System.IO.Path.GetExtension(filename).ToUpperInvariant();
+//			switch(ext) {
+//				case ".EXE":
+//				case ".DLL":
+//				case ".SCR":
+//				case ".CPL":
 					return new PE.PEResourceSource(filename, readOnly);
-			}
-			
-			throw new NotImplementedException("Anolis does not support files that aren't PE/COFF Executables as ResourceSources yet");
+//			}
+//			
+//			throw new NotImplementedException("Anolis does not support files that aren't PE/COFF Executables as ResourceSources yet");
 			
 		}
 		

@@ -40,7 +40,7 @@ namespace Anolis.Resourcer {
 			InitializeComponent();
 			
 			// reverse the array because ShowResource chooses the /last/ compatible viewer. Reversing this list makes RawViewer preferable over TextViewer
-			TypeViewerWrapper[] viewers = TypeViewerWrapper.FromArray( new PictureViewer(), new IconCursorViewer(), new RawViewer(), new TextViewer(), new HtmlViewer() );
+			TypeViewerWrapper[] viewers = TypeViewerWrapper.FromArray( new MediaViewer(), new PictureViewer(), new IconCursorViewer(), new RawViewer(), new TextViewer(), new HtmlViewer() );
 			Array.Reverse( viewers );
 			_viewers = viewers;
 			

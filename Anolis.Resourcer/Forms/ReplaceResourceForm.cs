@@ -11,7 +11,7 @@ using Anolis.Core.Data;
 
 namespace Anolis.Resourcer {
 	
-	public partial class ReplaceResourceForm : Form {
+	public partial class ReplaceResourceForm : BaseForm {
 		
 		public ReplaceResourceForm() {
 			InitializeComponent();

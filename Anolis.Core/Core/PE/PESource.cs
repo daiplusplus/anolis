@@ -29,6 +29,10 @@ namespace Anolis.Core.PE {
 			
 		}
 		
+		public override String Name {
+			get { return Path.GetFileName( _path ); }
+		}
+		
 		private static Boolean IsPathReadonly(String filename) {
 			
 			return ( File.GetAttributes(filename) & FileAttributes.ReadOnly ) == FileAttributes.ReadOnly;
@@ -51,24 +55,27 @@ System.Collections.Generic.List<String> operationsPerformed = new System.Collect
 				if(data.Action != ResourceDataAction.None) {
 					
 					IntPtr pData;
+					Int32 length;
 					
 					if(data.Action == ResourceDataAction.Delete) {
 						
 						// pData must be NULL to delete resource
-						pData = IntPtr.Zero;
+						pData  = IntPtr.Zero;
+						length = 0;
 						
 					} else {
 						
-						pData = Marshal.AllocHGlobal( data.RawData.Length );
+						length = data.RawData.Length;
+						pData = Marshal.AllocHGlobal( length );
 						
-						Marshal.Copy( data.RawData, 0, pData, data.RawData.Length );
+						Marshal.Copy( data.RawData, 0, pData, length );
 					}
 					
 					IntPtr typeId = data.Lang.Name.Type.Identifier.NativeId;
 					IntPtr nameId = data.Lang.Name.Identifier.NativeId;
 					ushort langId = data.Lang.LanguageId;
 					
-					NativeMethods.UpdateResource( updateHandle, typeId, nameId, langId, pData, data.RawData.Length );
+					NativeMethods.UpdateResource( updateHandle, typeId, nameId, langId, pData, length );
 
 String path = data.Lang.Name.Type.Identifier.FriendlyName + " - " + data.Lang.Name.Identifier.FriendlyName + " - " + data.Lang.LanguageId.ToString();
 operationsPerformed.Add( Enum.GetName(typeof(ResourceDataAction), data.Action ) + " - " + path );

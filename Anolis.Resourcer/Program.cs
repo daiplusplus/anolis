@@ -6,12 +6,6 @@ namespace Anolis.Resourcer {
 	
 	public static class Program {
 		
-		private static ResourcerContext _context;
-		
-		internal static ResourcerContext Context {
-			get { return _context; }
-		}
-		
 		[STAThread]
 		public static void Main() {
 			
@@ -22,13 +16,9 @@ namespace Anolis.Resourcer {
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
 				
-				_context = new ResourcerContext();
-				
 				MainForm main = new MainForm();
 				
 				Application.Run( main );
-				
-				_context.Save();
 
 #if !DEBUG				
 			} catch (Exception ex) {

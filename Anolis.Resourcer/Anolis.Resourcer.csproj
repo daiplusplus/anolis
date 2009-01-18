@@ -19,6 +19,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <ApplicationIcon>MainIcon.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -100,6 +101,9 @@
     <Compile Include="Controls\ZoomPictureBoxWrapper.Designer.cs">
       <DependentUpon>ZoomPictureBoxWrapper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +150,9 @@
     <EmbeddedResource Include="TypeViewers\IconCursorViewer.resx">
       <DependentUpon>IconCursorViewer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TypeViewers\MediaViewer.resx">
+      <DependentUpon>MediaViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TypeViewers\PictureViewer.resx">
       <DependentUpon>PictureViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -166,7 +173,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="ResourcerContext.cs" />
     <Compile Include="Settings\Mru.cs" />
     <Compile Include="Settings\RegistrySettingsProvider.cs" />
     <Compile Include="Settings\Settings.cs" />
@@ -180,6 +186,12 @@
     </Compile>
     <Compile Include="TypeViewers\HtmlViewer.Designer.cs">
       <DependentUpon>HtmlViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TypeViewers\MediaViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TypeViewers\MediaViewer.Designer.cs">
+      <DependentUpon>MediaViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="TypeViewers\TextViewer.cs">
       <SubType>UserControl</SubType>
@@ -235,6 +247,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.manifest" />
     <None Include="Controls\Empty.png" />
     <Content Include="MainIcon.ico" />
     <None Include="Resources\DirectoryViewer\Zoomable.png" />
@@ -273,6 +286,24 @@
     <None Include="Resources\Toolbar\ResExt.png" />
     <None Include="Resources\Toolbar\ResDel.png" />
     <None Include="Resources\Toolbar\ResAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxWMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
