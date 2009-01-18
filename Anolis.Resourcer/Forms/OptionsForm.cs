@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Anolis.Resourcer {
 	
-	public partial class OptionsForm : Form {
+	public partial class OptionsForm : BaseForm {
 		
 		public OptionsForm() {
 			InitializeComponent();
@@ -31,8 +31,16 @@ namespace Anolis.Resourcer {
 		
 		private void OptionsForm_Load(object sender, EventArgs e) {
 			
+			// Manually set font size and bold settings 'cause the VS2008 designer is teh suck
+			
+			__aboutAnolis.Font = new Font(__aboutAnolis.Font.Name, 14, FontStyle.Bold );
+			__linksLbl.Font    = new Font(__linksLbl.Font.Name, 10, FontStyle.Bold );
+			__friendsLbl.Font  = new Font(__friendsLbl.Font.Name, 10, FontStyle.Bold );
+			
 			__licenseText.Text = Anolis.Resourcer.Properties.Resources.AnolisGplLicense;
 			
+			
+			LoadSettings();
 		}
 		
 		private void LoadSettings() {

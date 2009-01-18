@@ -41,7 +41,13 @@ namespace Anolis.Core {
 		
 		public Boolean HasUnsavedChanges {
 			get {
-				//throw new NotImplementedException();
+				
+				if( IsReadOnly ) return false;
+				
+				foreach(ResourceData data in this) {
+					if(data.Action != ResourceDataAction.None) return true;
+				}
+				
 				return false;
 			}
 		}
@@ -117,9 +123,46 @@ namespace Anolis.Core {
 		
 		//////////////////////////////////
 		
+		public void Cancel(ResourceData data) {
+			
+			switch(data.Action) {
+				case ResourceDataAction.Add:
+					
+					UnderlyingRemove( data );
+					break;
+					
+				case ResourceDataAction.Delete:
+					
+					data.Action = ResourceDataAction.None;
+					break;
+					
+				case ResourceDataAction.None:
+					break;
+					
+				case ResourceDataAction.Update:
+					
+					// TODO: Reload the original ResourceData
+					
+					break;
+			}
+		}
+		
 		public void Remove(ResourceData data) {
 			
 			EnsureReadOnly();
+			
+			switch(data.Action) {
+				case ResourceDataAction.Add:
+					
+					Cancel( data );
+					break;
+				
+				case ResourceDataAction.Update:	
+				case ResourceDataAction.Delete:
+				case ResourceDataAction.None:
+					data.Action = ResourceDataAction.Delete;
+					break;
+			}
 			
 		}
 		

@@ -11,7 +11,7 @@ using FilterPair = Anolis.Core.Utility.Pair<Anolis.Core.Data.ResourceDataFactory
 
 namespace Anolis.Resourcer {
 	
-	internal partial class AddResourceForm : Form {
+	internal partial class AddResourceForm : BaseForm {
 		
 		private ResourceData _data;
 		private FilterPair[] _filters;
@@ -34,10 +34,6 @@ namespace Anolis.Resourcer {
 			
 			this.__ok.Click += new EventHandler(__ok_Click);
 			
-		}
-		
-		public AddResourceForm(ResourcerContext context) : this() {
-			Context = context;
 		}
 		
 		private void PopulateOfdFilter() {
@@ -180,7 +176,7 @@ namespace Anolis.Resourcer {
 			
 			ResourceDataFactory factory = _filters[ __ofd.FilterIndex - 1].X;
 			
-			_data = Anolis.Core.ResourceData.FromFile( __ofd.FileName, Context.CurrentSource );
+			_data = Anolis.Core.ResourceData.FromFile( __ofd.FileName, MainForm.LatestInstance.CurrentSource );
 			
 			///////////////////////////
 			// Recommended Type
@@ -223,7 +219,7 @@ namespace Anolis.Resourcer {
 			// Recommended Name
 			
 			__nameAuto.Checked = true;
-			__nameCustom.Value = Context.CurrentSource.GetUnusedName( typeId ).IntegerId.Value;
+			__nameCustom.Value = MainForm.LatestInstance.CurrentSource.GetUnusedName( typeId ).IntegerId.Value;
 			
 			///////////////////////////
 			// Recommended Lang
@@ -254,10 +250,6 @@ namespace Anolis.Resourcer {
 			
 			return true;
 			
-		}
-		
-		public ResourcerContext Context {
-			get; set;
 		}
 		
 		//////////////////////////////

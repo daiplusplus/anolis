@@ -246,6 +246,7 @@ namespace Anolis.Core.Data {
 //			factories.Add( new CursorDirectoryResourceDataFactory() );
 			
 			// The Rest
+			factories.Add( new RiffMediaResourceDataFactory() );
 			factories.Add( new UnknownResourceDataFactory() );
 			
 		}
