@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
 using Anolis.Core;
 using Anolis.Core.Data;
@@ -130,12 +126,6 @@ namespace Anolis.Resourcer {
 		}
 		
 		public void ShowResourceName(ResourceName name) {
-			
-			
-			
-		}
-		
-		private void ShowList() {
 			
 			
 			

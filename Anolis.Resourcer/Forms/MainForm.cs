@@ -42,7 +42,7 @@ namespace Anolis.Resourcer {
 			this.__tResCan.Click            += new EventHandler(__tResCan_Click);
 			this.__tGenOpt.Click            += new EventHandler(__tGenOptions_Click);
 			
-			this.__tree.NodeMouseClick      += new TreeNodeMouseClickEventHandler(__tree_NodeMouseClick);
+			this.__tree.AfterSelect         += new TreeViewEventHandler(__tree_AfterSelect);
 			this.__treeMenu.Opening         += new System.ComponentModel.CancelEventHandler(__treeMenu_Opening);
 			
 			this.__treeStateImages.Images.Add( "Add", Properties.Resources.Tree_Add );
@@ -71,10 +71,10 @@ namespace Anolis.Resourcer {
 		}
 		
 #region UI Events
-	
+		
 	#region Treeview
 		
-		private void __tree_NodeMouseClick(Object sender, TreeNodeMouseClickEventArgs e) {
+		private void __tree_AfterSelect(Object sender, TreeViewEventArgs e) {
 			
 			TreeNode node = e.Node;
 			
@@ -100,9 +100,111 @@ namespace Anolis.Resourcer {
 			if(lang != null) DataLoad( lang );
 			
 		}
-	
+		
+		/// <summary>Updates the appearance of the TreeNode corresponding to the specified ResourceLang</summary>
+		private void TreeRefresh(ResourceLang lang) {
+			
+			TreeNode node = TreeFindNode(lang);
+			if(node == null) return;
+			
+			ResourceLang nLang = node.Tag as ResourceLang;
+			if(lang ==  null || nLang != lang) return;
+			
+			if(!lang.DataIsLoaded) node.StateImageKey = "";
+			else {
+				switch(lang.Data.Action) {
+					case ResourceDataAction.Add:
+						node.StateImageKey = "Add";
+						return;
+					case ResourceDataAction.Delete:
+						node.StateImageKey = "Del";
+						return;
+					case ResourceDataAction.None:
+						node.StateImageKey = "";
+						return;
+					case ResourceDataAction.Update:
+						node.StateImageKey = "Upd";
+						return;
+				}
+			}
+		}
+		
+		private TreeNode TreeFindNode(Object tag) {
+			
+			foreach(TreeNode root in __tree.Nodes) {
+				
+				if(root.Tag == tag) return root;
+				
+				TreeNode ret = TreeFindNode(root, tag);
+				if(ret != null) return ret;
+			}
+			
+			return null;
+			
+		}
+		
+		private static TreeNode TreeFindNode(TreeNode node, Object tag) {
+			
+			foreach(TreeNode n in node.Nodes) {
+				
+				if(n.Tag == tag) {
+					return n;
+				} else {
+					TreeNode ret = TreeFindNode(n, tag);
+					if(ret != null) return ret;
+				}
+				
+			}
+			
+			return null;
+			
+		}
+		
+		private void TreeAdd(ResourceLang lang) {
+			
+			ResourceType type = lang.Name.Type;
+			ResourceName name = lang.Name;
+			
+			TreeNode nodeForType = TreeFindNode(type);
+			TreeNode nodeForName;
+			TreeNode nodeForLang;
+			
+			if(nodeForType == null) {
+				
+				nodeForType = new TreeNode( type.Identifier.FriendlyName ) { Tag = type };
+				
+				__tree.Nodes.Add( nodeForType );
+				
+				// then there won't be one for the name, so add it
+				nodeForName = new TreeNode( name.Identifier.FriendlyName ) { Tag = name };
+				
+				nodeForType.Nodes.Add( nodeForName );
+				
+				//
+				nodeForLang = new TreeNode( lang.LanguageId.ToString() ) { Tag = lang };
+				
+				nodeForName.Nodes.Add( nodeForLang );
+				
+				return;
+			}
+			
+			nodeForName = TreeFindNode(name);
+			if(nodeForName == null) {
+				
+				nodeForName = new TreeNode( name.Identifier.FriendlyName ) { Tag = name };
+				
+				nodeForType.Nodes.Add( nodeForName );
+			}
+			
+			//
+			nodeForLang = new TreeNode( lang.LanguageId.ToString() ) { Tag = lang };
+			
+			nodeForName.Nodes.Add( nodeForLang );
+			
+		}
+		
 	#endregion
-	
+		
 	#region Toolbar
 		
 		private void __tSrcOpen_ButtonClick(Object sender, EventArgs e) {
@@ -136,12 +238,12 @@ namespace Anolis.Resourcer {
 		
 		private void __tResAdd_Click(Object sender, EventArgs e) {
 			
-			this.DataAdd();
+			this.DataImport();
 		}
 		
 		private void __tResExt_Click(Object sender, EventArgs e) {
 			
-			this.DataSave();
+			this.DataExport();
 		}
 		
 		private void __tResRep_Click(object sender, EventArgs e) {
