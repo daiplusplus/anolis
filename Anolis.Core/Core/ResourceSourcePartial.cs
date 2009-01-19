@@ -54,7 +54,7 @@ namespace Anolis.Core {
 		
 		//////////////////////////////////
 		
-		public void Add(ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, ResourceData data) {
+		public ResourceLang Add(ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, ResourceData data) {
 			
 			EnsureReadOnly();
 			
@@ -85,6 +85,8 @@ namespace Anolis.Core {
 			}
 			
 			data.Action = ResourceDataAction.Add;
+			
+			return lang;
 			
 		}
 		

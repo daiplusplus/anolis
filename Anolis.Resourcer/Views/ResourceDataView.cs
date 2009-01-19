@@ -18,7 +18,7 @@ namespace Anolis.Resourcer {
 			}
 			public override string ToString() {
 				return Viewer.ViewerName +
-					(Recommended == TypeViewerCompatibility.Ideal ? " *" : 
+					(Recommended == TypeViewerCompatibility.Ideal ? " (Recommended)" : 
 					(Recommended == TypeViewerCompatibility.None  ? " (Not recommended)" : ""));
 			}
 			public static TypeViewerWrapper[] FromArray(params TypeViewer[] viewers) {

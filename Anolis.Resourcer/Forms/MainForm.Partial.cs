@@ -212,9 +212,11 @@ namespace Anolis.Resourcer {
 			EnsureView( _viewData );
 			
 			_viewData.ShowResource( CurrentData );
+			
+			ToolbarUpdate(false, true, false);
 		}
 		
-		private void DataSave() {
+		private void DataExport() {
 			
 			String filter = String.Empty;
 			foreach(String f in CurrentData.SaveFileFilters) filter += f + '|';
@@ -255,9 +257,11 @@ namespace Anolis.Resourcer {
 			}
 			
 			CurrentSource.Remove( CurrentData );
+			
+			ToolbarUpdate(false, true, false);
 		}
 		
-		private void DataAdd() {
+		private void DataImport() {
 			
 			AddResourceForm form = new AddResourceForm();
 			
@@ -269,7 +273,11 @@ namespace Anolis.Resourcer {
 				ResourceIdentifier     nameId = form.ResourceNameIdentifier;
 				UInt16                 langId = form.ResourceLangId;
 				
-				CurrentSource.Add( typeId, nameId, langId, data );
+				ResourceLang lang = CurrentSource.Add( typeId, nameId, langId, data );
+				
+				TreeAdd( lang );
+				
+				TreeRefresh( lang );
 				
 			}
 			
