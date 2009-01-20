@@ -26,12 +26,12 @@ namespace Anolis.Core.Utility {
 		
 	}*/
 	
-	public class Pair<Tx,Ty> {
+	public class Pair<TX,TY> {
 		
-		public Tx X { get; set; }
-		public Ty Y { get; set; }
+		public TX X { get; set; }
+		public TY Y { get; set; }
 		
-		public Pair(Tx x, Ty y) {
+		public Pair(TX x, TY y) {
 			X = x;
 			Y = y;
 		}
@@ -45,11 +45,11 @@ namespace Anolis.Core.Utility {
 		
 	}
 	
-	public sealed class Triple<Tx, Ty, Tz> : Pair<Tx, Ty> {
+	public sealed class Triple<TX, TY, TZ> : Pair<TX, TY> {
 		
 		public Object Z { get; set; }
 		
-		public Triple(Tx x, Ty y, Tz z) : base(x, y) {
+		public Triple(TX x, TY y, TZ z) : base(x, y) {
 			Z = z;
 		}
 		

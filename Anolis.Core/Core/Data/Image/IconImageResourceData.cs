@@ -5,7 +5,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using Anolis.Core.Native;
 using Anolis.Core.Utility;
-using Anolis.Core.PE;
 
 namespace Anolis.Core.Data {
 	

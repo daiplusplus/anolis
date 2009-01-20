@@ -174,7 +174,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Settings\Mru.cs" />
-    <Compile Include="Settings\RegistrySettingsProvider.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Settings\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Anolis.Core.Source;
 
 namespace Anolis.Core {
 	
@@ -50,7 +51,7 @@ namespace Anolis.Core {
 //				case ".DLL":
 //				case ".SCR":
 //				case ".CPL":
-					return new PE.PEResourceSource(filename, readOnly);
+					return new PEResourceSource(filename, readOnly);
 //			}
 //			
 //			throw new NotImplementedException("Anolis does not support files that aren't PE/COFF Executables as ResourceSources yet");

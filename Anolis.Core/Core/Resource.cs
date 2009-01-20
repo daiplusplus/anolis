@@ -9,7 +9,7 @@ using Cult = System.Globalization.CultureInfo;
 namespace Anolis.Core {
 	
 	public class ResourceTypeCollection : ReadOnlyCollection<ResourceType> {
-		public ResourceTypeCollection(List<ResourceType> list) : base(list) {}
+		internal ResourceTypeCollection(List<ResourceType> list) : base(list) {}
 		
 		public ResourceType this[ResourceTypeIdentifier typeId] {
 			get {
@@ -20,11 +20,11 @@ namespace Anolis.Core {
 	}
 	
 	public class ResourceNameCollection : ReadOnlyCollection<ResourceName> {
-		public ResourceNameCollection(List<ResourceName> list) : base(list) {}
+		internal ResourceNameCollection(List<ResourceName> list) : base(list) {}
 	}
 	
 	public class ResourceLangCollection : ReadOnlyCollection<ResourceLang> {
-		public ResourceLangCollection(List<ResourceLang> list) : base(list) {}
+		internal ResourceLangCollection(List<ResourceLang> list) : base(list) {}
 	}
 	
 	public enum ResourceDataAction {

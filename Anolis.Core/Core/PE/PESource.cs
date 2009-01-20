@@ -5,10 +5,10 @@ using Anolis.Core.Native;
 using Cult    = System.Globalization.CultureInfo;
 using Marshal = System.Runtime.InteropServices.Marshal;
 
-namespace Anolis.Core.PE {
+namespace Anolis.Core.Source {
 	
 	/// <summary>Encapsulates a Windows Portal Executable resource source.</summary>
-	public class PEResourceSource : ResourceSource {
+	public sealed class PEResourceSource : ResourceSource {
 		
 		private static Boolean _isGteVista;
 		
@@ -148,7 +148,12 @@ operationsPerformed.Add( Enum.GetName(typeof(ResourceDataAction), data.Action ) 
 		
 		public FileInfo FileInfo { get; private set; }
 		
-		public override ResourceSourceInfo SourceInfo { get { return _sourceInfo; } }
+		public override ResourceSourceInfo SourceInfo {
+			get {
+				if(_sourceInfo == null) GetSourceInfo();
+				return _sourceInfo;
+			}
+		}
 		
 		////////////////////////////
 		// Destructor / Dispose

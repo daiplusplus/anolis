@@ -107,11 +107,11 @@ namespace Anolis.Core.Data {
 	}
 	
 	public enum ImageResourceDataSaveFormats {
-		Jpeg = 1,
-		Exif = 2,
-		Gif  = 3,
-		Png  = 4,
-		Bmp  = 5
+		Jpeg,
+		Exif,
+		Gif,
+		Png,
+		Bmp
 	}
 	
 }
