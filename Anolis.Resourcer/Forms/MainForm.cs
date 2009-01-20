@@ -7,7 +7,6 @@ using System.IO;
 using Cult = System.Globalization.CultureInfo;
 
 using Anolis.Core;
-using Anolis.Core.PE;
 using Anolis.Resourcer.Settings;
 using Anolis.Core.Data;
 
@@ -45,9 +44,9 @@ namespace Anolis.Resourcer {
 			this.__tree.AfterSelect         += new TreeViewEventHandler(__tree_AfterSelect);
 			this.__treeMenu.Opening         += new System.ComponentModel.CancelEventHandler(__treeMenu_Opening);
 			
-			this.__treeStateImages.Images.Add( "Add", Properties.Resources.Tree_Add );
-			this.__treeStateImages.Images.Add( "Upd", Properties.Resources.Tree_Edit );
-			this.__treeStateImages.Images.Add( "Del", Properties.Resources.Tree_Delete );
+			//this.__treeStateImages.Images.Add( "Add", Properties.Resources.Tree_Add );
+			//this.__treeStateImages.Images.Add( "Upd", Properties.Resources.Tree_Edit );
+			//this.__treeStateImages.Images.Add( "Del", Properties.Resources.Tree_Delete );
 			
 			_viewData = new ResourceDataView();
 			_viewList = new ResourceListView();

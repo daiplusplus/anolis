@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Anolis.Core.Core.PE {
+namespace Anolis.Core.Source {
 	
-	public class NESource : ResourceSource {
+	public class NEResourceSource : ResourceSource {
 		
-		public NESource() : base(true) {
+		public NEResourceSource() : base(true) {
 		}
 		
 		public override string Name {

@@ -32,6 +32,7 @@ namespace Anolis.Core.Data {
 			switch(filenameExtension) {
 				case "bmp":
 				case "dib":
+				case "rle":
 					return Compatibility.Yes;
 /*				case "jpg":
 				case "jpeg":
@@ -90,19 +91,16 @@ namespace Anolis.Core.Data {
 		
 		internal static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out BmpImageResourceData typed) {
 			
-			try {
-				
-				Dib dib = new Dib( rawData );
-				
-				Bitmap bmp = dib.ToBitmap();
-				
-				typed = new BmpImageResourceData(dib, bmp, lang, rawData);
-				
-			} catch(Exception) {
-				
+			Dib dib = new Dib( rawData );
+			
+			Bitmap bmp = dib.ToBitmap();
+			
+			if(bmp == null) {
 				typed = null;
 				return false;
 			}
+			
+			typed = new BmpImageResourceData(dib, bmp, lang, rawData);
 			
 			return true;
 			

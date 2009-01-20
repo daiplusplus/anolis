@@ -102,12 +102,17 @@ namespace Anolis.Core.Utility {
 		
 		public DibClass Class { get; private set; }
 		
+		/// <summary>Converts the data in this Dib into a System.Drawing.Bitmap image. Returns null if the operation fails (typically because the Dib data is invalid or not supported by System.Drawing.Bitmap).</summary>
 		public Bitmap ToBitmap() {
 			
 			MemoryStream stream = new MemoryStream();
 			Save(stream);
 			
-			return Bitmap.FromStream(stream) as Bitmap;
+			try {
+				return Bitmap.FromStream(stream) as Bitmap;
+			} catch(ArgumentException) {
+				return null;
+			}
 			
 		}
 		

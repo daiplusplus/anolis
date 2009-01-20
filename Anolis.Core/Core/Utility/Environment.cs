@@ -1,10 +1,10 @@
 ﻿using System;
-using Anolis.Core.PE;
+using Anolis.Core.Source;
 using Anolis.Core.Native;
 
 namespace Anolis.Core.Utility {
 	
-	public class Environment {
+	public static class Environment {
 		
 		private static Boolean? _isWow64;
 		private static Int32?   _spLevel;
@@ -77,7 +77,7 @@ namespace Anolis.Core.Utility {
 					
 					OperatingSystem os = System.Environment.OSVersion;
 					
-					if(os.ServicePack == String.Empty) return (_spLevel = 0).Value;
+					if(os.ServicePack.Length == 0) return (_spLevel = 0).Value;
 					
 					String numberPart = os.ServicePack.Substring(13);
 					
@@ -89,7 +89,7 @@ namespace Anolis.Core.Utility {
 					for(int i=0;i<os.ServicePack.Length;i++) if( Char.IsDigit( os.ServicePack[i] ) ) n += os.ServicePack[i];
 					if(Int32.TryParse(numberPart, out sp)) return (_spLevel = sp).Value;
 					
-					throw new Exception("Couldn't parse Service Pack string.");
+					return -1; // don't throw exceptions from property accessors which should have no side-effects
 					
 				}
 				

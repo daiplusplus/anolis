@@ -31,6 +31,7 @@ namespace Anolis.Resourcer {
 			this.@__sSep2 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__resCMSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__tree = new System.Windows.Forms.TreeView();
+			this.@__treeStateImages = new System.Windows.Forms.ImageList(this.components);
 			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
 			this.@__sfd = new System.Windows.Forms.SaveFileDialog();
@@ -54,7 +55,6 @@ namespace Anolis.Resourcer {
 			this.@__resCMReplace = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__resCMDelete = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__resCMCancel = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__treeStateImages = new System.Windows.Forms.ImageList(this.components);
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			this.@__split.Panel1.SuspendLayout();
@@ -99,7 +99,16 @@ namespace Anolis.Resourcer {
 			this.@__tree.Location = new System.Drawing.Point(0, 0);
 			this.@__tree.Name = "__tree";
 			this.@__tree.Size = new System.Drawing.Size(148, 283);
+			this.@__tree.StateImageList = this.@__treeStateImages;
 			this.@__tree.TabIndex = 3;
+			// 
+			// __treeStateImages
+			// 
+			this.@__treeStateImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("__treeStateImages.ImageStream")));
+			this.@__treeStateImages.TransparentColor = System.Drawing.Color.FromArgb(255, 0, 255);
+			this.@__treeStateImages.Images.SetKeyName(0, "Add");
+			this.@__treeStateImages.Images.SetKeyName(1, "Delete");
+			this.@__treeStateImages.Images.SetKeyName(2, "Edit");
 			// 
 			// __split
 			// 
@@ -322,12 +331,6 @@ namespace Anolis.Resourcer {
 			this.@__resCMCancel.Name = "__resCMCancel";
 			this.@__resCMCancel.Size = new System.Drawing.Size(133, 22);
 			this.@__resCMCancel.Text = "Cancel {0}";
-			// 
-			// __treeStateImages
-			// 
-			this.@__treeStateImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-			this.@__treeStateImages.ImageSize = new System.Drawing.Size(16, 16);
-			this.@__treeStateImages.TransparentColor = System.Drawing.Color.Transparent;
 			// 
 			// MainForm
 			// 
