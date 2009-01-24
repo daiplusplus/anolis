@@ -7,8 +7,9 @@ using System.IO;
 using Cult = System.Globalization.CultureInfo;
 
 using Anolis.Core;
-using Anolis.Resourcer.Settings;
 using Anolis.Core.Data;
+using Anolis.Resourcer.Controls;
+using Anolis.Resourcer.Settings;
 
 namespace Anolis.Resourcer {
 	
@@ -51,8 +52,12 @@ namespace Anolis.Resourcer {
 			_viewData = new ResourceDataView();
 			_viewList = new ResourceListView();
 			
+			_viewList.ItemActivated += new EventHandler<ResourceListViewEventArgs>(_viewList_ItemActivated);
+			_viewList.SelectedItemChanged += new EventHandler<ResourceListViewEventArgs>(_viewList_SelectedItemChanged);
 		}
-				
+		
+		public String[] CommandLineArgs { get; set; }
+		
 		private void MainForm_Load(Object sender, EventArgs e) {
 			
 			// check for Wow64
@@ -66,6 +71,18 @@ namespace Anolis.Resourcer {
 			}
 			
 			ToolbarUpdate(true, true, true);
+			StatusbarUpdate();
+			
+			if( CommandLineArgs != null && CommandLineArgs.Length > 0 ) {
+				
+				String filename = CommandLineArgs[0];
+				if( File.Exists( filename ) ) {
+					
+					SourceLoad( filename, false );
+					
+				}
+				
+			}
 			
 		}
 		
@@ -302,7 +319,7 @@ namespace Anolis.Resourcer {
 					__tResRep.Enabled = this.CurrentData != null;
 					__tResExt.Enabled = this.CurrentData != null;
 					__tResDel.Enabled = this.CurrentData != null;
-					__tResCan.Enabled = this.CurrentData != null;
+					__tResCan.Enabled = this.CurrentData != null && this.CurrentData.Action != ResourceDataAction.None;
 					
 				}
 			
@@ -349,6 +366,32 @@ namespace Anolis.Resourcer {
 			
 		}
 		
+		private void StatusbarUpdate() {
+			
+			if( CurrentData != null ) {
+				
+				this.__sType.Text = CurrentData.GetType().Name;
+				this.__sSize.Text = CurrentData.RawData.Length.ToString(Cult.CurrentCulture) + " Bytes";
+				this.__sPath.Text = CurrentPath + ',' + GetResourcePath(CurrentData.Lang);
+				
+			} else if(CurrentSource != null) {
+				
+				this.__sType.Text = "Ready";
+				this.__sSize.Text = "";
+				this.__sPath.Text = CurrentPath;
+				
+			} else {
+				
+				this.__sType.Text = "";
+				this.__sSize.Text = "";
+				this.__sPath.Text = "Ready";
+				
+			}
+			
+			this.__sType.BackColor = CurrentData is Anolis.Core.Data.UnknownResourceData ? System.Drawing.Color.LightYellow : System.Drawing.SystemColors.Control;
+			
+		}
+		
 	#endregion
 	
 	#region Resource Context Menu
@@ -387,6 +430,74 @@ namespace Anolis.Resourcer {
 				e.Effect = DragDropEffects.None;
 				
 			}
+		}
+		
+	#endregion
+	
+	#region List View
+		
+		private void _viewList_SelectedItemChanged(Object sender, ResourceListViewEventArgs e) {
+			
+			if(e.SelectedItem != null) {
+				
+				if(e.Mode == ResourceListViewMode.Name) {
+					
+					ResourceName name = e.SelectedItem as ResourceName;
+					if(name != null) {
+						
+						if(name.Langs.Count == 1) {
+							
+							ResourceLang lang = name.Langs[0];
+							
+							DataSelect( lang );
+							return;
+							
+						}
+						
+					}
+					
+				} else if(e.Mode == ResourceListViewMode.Lang) {
+					
+					ResourceLang lang = e.SelectedItem as ResourceLang;
+					if(lang != null) {
+						
+						DataSelect( lang );
+						return;
+						
+					}
+					
+				}
+				
+			}
+			
+			DataDeselect();
+			
+		}
+		
+		private void _viewList_ItemActivated(Object sender, ResourceListViewEventArgs e) {
+			
+			if(e.SelectedItem != null) {
+				
+				switch(e.Mode) {
+					case ResourceListViewMode.Type:
+						
+						ListLoad( e.SelectedItem as ResourceType );
+						
+						break;
+					case ResourceListViewMode.Name:
+						
+						ListLoad( e.SelectedItem as ResourceName );
+						
+						break;
+					case ResourceListViewMode.Lang:
+						
+						DataLoad( e.SelectedItem as ResourceLang );
+						
+						break;
+				}
+				
+			}
+			
 		}
 		
 	#endregion

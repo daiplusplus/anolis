@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Text;
+using System.IO;
 using System.Runtime.InteropServices;
 using Anolis.Core.Native;
 
 namespace Anolis.Core.Data {
 	
-/*	public class VersionResourceDataFactory : ResourceDataFactory {
+	public class VersionResourceDataFactory : ResourceDataFactory {
 		
 		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
 			
@@ -35,7 +37,7 @@ namespace Anolis.Core.Data {
 		public override String OpenFileFilter {
 			get { return null; }
 		}
-	}*/
+	}
 	
 	public class VersionResourceData : ResourceData {
 		
@@ -47,38 +49,34 @@ namespace Anolis.Core.Data {
 		
 		internal static VersionResourceData TryCreate(Byte[] data, ResourceLang lang) {
 			
-			using(System.IO.MemoryStream s = new System.IO.MemoryStream(data))
-			using(System.IO.BinaryReader rdr = new System.IO.BinaryReader(s)) {
+			using(MemoryStream s = new MemoryStream(data))
+			using(BinaryReader rdr = new BinaryReader(s)) {
+				
+				Int32 bitsSoFar = 0;
 				
 				VsVersionInfo vi;
-				vi.wLength      = rdr.ReadUInt16();
-				vi.wValueLength = rdr.ReadUInt16();
-				vi.wType        = rdr.ReadUInt16();
+				vi.wLength      = rdr.ReadUInt16();										bitsSoFar += 16;
+				vi.wValueLength = rdr.ReadUInt16();										bitsSoFar += 16;
+				vi.wType        = rdr.ReadUInt16();										bitsSoFar += 16;
 				
-				Byte[] str      = rdr.ReadBytes( "VS_VERSION_INFO".Length * 2 );
-				vi.szKey        = System.Text.Encoding.Unicode.GetString(str);
-				
-				Int32 bitsSoFar = (16 * 3) + (str.Length * 8 * 2);
+				vi.szKey        = Encoding.Unicode.GetString(
+									rdr.ReadBytes( "VS_VERSION_INFO".Length * 2 ) );	bitsSoFar += vi.szKey.Length * 8 * 2;
 				
 				// Padding1= to align on a 32-bit boundary
 				Int32 sizeOfPadding1  = (bitsSoFar % 32) / 8;
 				
-				vi.Padding1     = rdr.ReadBytes(sizeOfPadding1);
+				vi.Padding1     = rdr.ReadBytes(sizeOfPadding1);						bitsSoFar += sizeOfPadding1 * 8;
 				
-				Byte[] value    = rdr.ReadBytes(vi.wValueLength);
-				Int32 sizeOfVsFixedFileInfo = Marshal.SizeOf(typeof(VsFixedFileInfo));
-				// maybe throw an exception or something if sizeOfVsFixedFileInfo != vi.wValueLength
-				IntPtr p        = Marshal.AllocHGlobal(value.Length);
-				Marshal.Copy(value, 0, p, value.Length);
-				vi.Value = (VsFixedFileInfo)Marshal.PtrToStructure(p, typeof(VsFixedFileInfo));
-				Marshal.FreeHGlobal(p);
+				vi.Value        = new VsFixedFileInfo( rdr );							bitsSoFar += vi.wValueLength * 8;
 				
-				bitsSoFar += value.Length * 8;
 				Int32 sizeOfPadding2 = (bitsSoFar % 32) / 8;
 				
-				vi.Padding2 = rdr.ReadBytes(sizeOfPadding2);
+				vi.Padding2 = rdr.ReadBytes(sizeOfPadding2);							bitsSoFar += sizeOfPadding2 * 8;
 				
-				ReadChildren(rdr);
+				if( vi.wLength > bitsSoFar / 8 ) { // then there's going to be children
+					
+					ReadChildren(rdr, bitsSoFar, vi.wLength * 8);
+				}
 				
 				return null;
 				
@@ -86,11 +84,52 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		private static void ReadChildren(System.IO.BinaryReader rdr) {
+		
+		
+		private static void ReadChildren(BinaryReader rdr, Int32 bitsSoFar, Int32 maxBits) {
 			
-			// data is (zero or one StringFileInfo) and/or (zero or one VarFileInfo)
+			// data is (zero or more StringFileInfo) and/or (zero or one VarFileInfo)
 			
+			// both VarFileInfo and StringFileInfo share the same structure
+			// you can identify them by the szKey member
 			
+//struct VarFileInfo { 
+//  WORD  wLength; 
+//  WORD  wValueLength; 
+//  WORD  wType; 
+//  WCHAR szKey[]; 
+//  WORD  Padding[]; 
+//  Var   Children[]; 
+//};
+
+//struct StringFileInfo { 
+//  WORD        wLength; 
+//  WORD        wValueLength; 
+//  WORD        wType; 
+//  WCHAR       szKey[]; 
+//  WORD        Padding[]; 
+//  StringTable Children[]; 
+//};
+			
+			while( bitsSoFar < maxBits ) {
+				
+				UInt16 wLength      = rdr.ReadUInt16();				bitsSoFar += 16;
+				UInt16 wValueLength = rdr.ReadUInt16();				bitsSoFar += 16;
+				UInt16 wType        = rdr.ReadUInt16();				bitsSoFar += 16;
+				String c            = Encoding.Unicode.GetString(
+				                      rdr.ReadBytes(2) );			bitsSoFar += 2;
+				String szKey;
+				UInt16[] padding;
+				
+				if(c == "V") {
+					szKey = c + Encoding.Unicode.GetString( rdr.ReadBytes( ("VarFileInfo".Length - 1) * 2) );
+					
+				} else if(c == "S") {
+					szKey = c + Encoding.Unicode.GetString( rdr.ReadBytes( ("StringFileInfo".Length - 1) * 2) );
+					
+				}
+				
+			}
 			
 		}
 		

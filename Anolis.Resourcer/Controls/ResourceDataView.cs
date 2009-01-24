@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using Anolis.Core;
 using Anolis.Resourcer.TypeViewers;
 
-namespace Anolis.Resourcer {
+namespace Anolis.Resourcer.Controls {
 	
 	public partial class ResourceDataView : UserControl {
 		

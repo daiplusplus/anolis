@@ -43,6 +43,12 @@ namespace Anolis.Resourcer.TypeViewers {
 				
 			}
 			
+			if(dir.Members.Count > 0) {
+				// load the first image
+				mp_Click( __images.Controls[0], EventArgs.Empty );
+				
+			}
+			
 		}
 		
 		private void mp_Click(Object sender, EventArgs e) {

@@ -7,7 +7,7 @@ namespace Anolis.Resourcer {
 	public static class Program {
 		
 		[STAThread]
-		public static void Main() {
+		public static void Main(String[] args) {
 			
 #if !DEBUG
 			try {
@@ -17,6 +17,7 @@ namespace Anolis.Resourcer {
 				Application.SetCompatibleTextRenderingDefault(false);
 				
 				MainForm main = new MainForm();
+				main.CommandLineArgs = args;
 				
 				Application.Run( main );
 

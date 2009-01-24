@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define UNIONS
+
+using System;
 using System.Runtime.InteropServices;
 using System.IO;
 
@@ -313,7 +315,58 @@ namespace Anolis.Core.Native {
 		public VsFixedFileInfo Value;
 		public Byte[] Padding2;
 		public UInt16[] Children;
+		
+//		public VsVersionInfo(BinaryReader rdr) {
+//			wLength      = rdr.ReadUInt16();
+//			wValueLength = rdr.ReadUInt16();
+//			wType        = rdr.ReadUInt16();
+//			szKey        = System.Text.Encoding.Unicode.GetString( rdr.ReadBytes( "VS_VERSION_INFO".Length * 2 ) );
+//			
+//		}
 	}
+
+#if UNIONS
+	
+	[StructLayout(LayoutKind.Explicit, Pack=2)]
+	internal struct VsFixedFileInfo {
+		[FieldOffset(0x00)] public UInt32 dwSignature;
+		[FieldOffset(0x04)] public UInt32 dwStrucVersion;
+		[FieldOffset(0x08)] public UInt32 dwFileVersionMS;
+		[FieldOffset(0x0C)] public UInt32 dwFileVersionLS;
+		[FieldOffset(0x10)] public UInt32 dwProductVersionMS; 
+		[FieldOffset(0x14)] public UInt32 dwProductVersionLS; 
+		[FieldOffset(0x18)] public UInt32 dwFileFlagsMask; 
+		[FieldOffset(0x1C)] public VsFixedFileFlags dwFileFlags; 
+		[FieldOffset(0x20)] public VsFixedFileOS    dwFileOS; 
+		[FieldOffset(0x24)] public VsFixedFileType  dwFileType;
+		[FieldOffset(0x28)] public UInt32 dwFileSubType;
+		[FieldOffset(0x28)] public VsFixedFileSubTypeDriver dwFileSubTypeDriver;
+		[FieldOffset(0x28)] public VsFixedFileSubTypeFont   dwFileSubTypeFont;
+		[FieldOffset(0x2C)] public UInt32 dwFileDateMS; 
+		[FieldOffset(0x30)] public UInt32 dwFileDateLS;
+		
+		public VsFixedFileInfo(BinaryReader rdr) {
+			
+			dwFileSubTypeDriver = 0;
+			dwFileSubTypeFont   = 0;
+			
+			dwSignature        = rdr.ReadUInt32();
+			dwStrucVersion     = rdr.ReadUInt32();
+			dwFileVersionMS    = rdr.ReadUInt32();
+			dwFileVersionLS    = rdr.ReadUInt32();
+			dwProductVersionMS = rdr.ReadUInt32();
+			dwProductVersionLS = rdr.ReadUInt32();
+			dwFileFlagsMask    = rdr.ReadUInt32();
+			dwFileFlags        = (VsFixedFileFlags)rdr.ReadUInt32();
+			dwFileOS           = (VsFixedFileOS)   rdr.ReadUInt32();
+			dwFileType         = (VsFixedFileType) rdr.ReadUInt32();
+			dwFileSubType      = rdr.ReadUInt32();
+			dwFileDateMS       = rdr.ReadUInt32();
+			dwFileDateLS       = rdr.ReadUInt32();
+		}
+		
+	}
+#else
 	
 	[StructLayout(LayoutKind.Sequential, Pack=2)]
 	internal struct VsFixedFileInfo {
@@ -324,70 +377,88 @@ namespace Anolis.Core.Native {
 		public UInt32 dwProductVersionMS; 
 		public UInt32 dwProductVersionLS; 
 		public UInt32 dwFileFlagsMask; 
-		public VsFixedFileFlags dwFileFlags; 
-		public VsFixedFileOS    dwFileOS; 
-		public VsFixedFileType  dwFileType; 
-		public UInt32 dwFileSubtype; 
+		public UInt32 dwFileFlags; 
+		public UInt32 dwFileOS; 
+		public UInt32 dwFileType; 
+		public UInt32 dwFileSubType;
 		public UInt32 dwFileDateMS; 
 		public UInt32 dwFileDateLS;
+		
+		public VsFixedFileInfo(BinaryReader rdr) {
+			dwSignature        = rdr.ReadUInt32();
+			dwStrucVersion     = rdr.ReadUInt32();
+			dwFileVersionMS    = rdr.ReadUInt32();
+			dwFileVersionLS    = rdr.ReadUInt32();
+			dwProductVersionMS = rdr.ReadUInt32();
+			dwProductVersionLS = rdr.ReadUInt32();
+			dwFileFlagsMask    = rdr.ReadUInt32();
+			dwFileFlags        = rdr.ReadUInt32();
+			dwFileOS           = rdr.ReadUInt32();
+			dwFileType         = rdr.ReadUInt32();
+			dwFileSubType      = rdr.ReadUInt32();
+			dwFileDateMS       = rdr.ReadUInt32();
+			dwFileDateLS       = rdr.ReadUInt32();
+		}
 	}
-	
-	// TODO: Get the definitions of these enum members
-	// see winver.h
+#endif
 	
 	[Flags]
 	internal enum VsFixedFileFlags : uint {
-		Debug,
-		InfoInferred,
-		Patched,
-		Prerelease,
-		PrivateBuild,
-		SpecialBuild
+		Debug         = 0x01,
+		InfoInferred  = 0x02,
+		Patched       = 0x04,
+		Prerelease    = 0x08,
+		PrivateBuild  = 0x10,
+		SpecialBuild  = 0x20
 	}
 	
 	[Flags]
 	internal enum VsFixedFileOS : uint {
-		Dos,
-		NT,
-		Win16,
-		Win32,
-		OS216,
-		OS232,
-		PM16,
-		PM32,
-		Unknown
+		Unknown = 0x00000000,
+		DOS     = 0x00010000,
+		OS216   = 0x00020000,
+		OS232   = 0x00030000,
+		WinNT   = 0x00040000,
+		WinCE   = 0x00050000,
+		
+		Win16   = 0x00000001,
+		PM16    = 0x00000002,
+		PM32    = 0x00000003,
+		Win32   = 0x00000004
 	}
 	
 	internal enum VsFixedFileType : uint {
-		Unknown,
-		Application,
-		Dll,
-		Driver,
-		Font,
-		Vxd,
-		StaticLib
+		Unknown     = 0x0,
+		Application = 0x1,
+		Dll         = 0x2,
+		Driver      = 0x3,
+		Font        = 0x4,
+		Vxd         = 0x5,
+		StaticLib   = 0x7
 	}
 	
-	internal enum VsFixedFileSubType : uint {
-		Unknown,
+	internal enum VsFixedFileSubTypeDriver : uint {
+		Unknown                  = 0x0,
 		// Driver specific
 		
-		DriverComm,
-		DriverPrinter,
-		DriverKeyboard,
-		DriverLanguage,
-		DriverDisplay,
-		DriverMouse,
-		DriverNetwork,
-		DriverSystem,
-		DriverInstallable,
-		DriverSound,
-		DriverVersionedPrinter,
-		
-		// Font-specific
-		FontRaster,
-		FontVector,
-		FontTrueType
+		DriverComm               = 0xA,
+		DriverPrinter            = 0x1,
+		DriverKeyboard           = 0x2,
+		DriverLanguage           = 0x3,
+		DriverDisplay            = 0x4,
+		DriverMouse              = 0x5,
+		DriverNetwork            = 0x6,
+		DriverSystem             = 0x7,
+		DriverInstallable        = 0x8,
+		DriverSound              = 0x9,
+		DriverInputMethod        = 0xB,
+		DriverVersionedPrinter   = 0xC
+	}
+	
+	internal enum VsFixedFileSubTypeFont : uint {
+		FontRaster               = 0x1,
+		FontVector               = 0x2,
+		FontTrueType             = 0x3
 	}
 	
 	internal struct StringFileInfo {

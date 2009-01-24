@@ -31,6 +31,7 @@ namespace Anolis.Resourcer {
 			this.@__sSep2 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__resCMSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__tree = new System.Windows.Forms.TreeView();
+			this.@__treeType = new System.Windows.Forms.ImageList(this.components);
 			this.@__treeStateImages = new System.Windows.Forms.ImageList(this.components);
 			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
@@ -96,16 +97,34 @@ namespace Anolis.Resourcer {
 			// 
 			this.@__tree.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.@__tree.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.@__tree.ImageIndex = 0;
+			this.@__tree.ImageList = this.@__treeType;
 			this.@__tree.Location = new System.Drawing.Point(0, 0);
 			this.@__tree.Name = "__tree";
+			this.@__tree.SelectedImageIndex = 0;
 			this.@__tree.Size = new System.Drawing.Size(148, 283);
 			this.@__tree.StateImageList = this.@__treeStateImages;
 			this.@__tree.TabIndex = 3;
 			// 
+			// __treeType
+			// 
+			this.@__treeType.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("__treeType.ImageStream")));
+			this.@__treeType.TransparentColor = System.Drawing.Color.Transparent;
+			this.@__treeType.Images.SetKeyName(0, "File");
+			this.@__treeType.Images.SetKeyName(1, "Binary");
+			this.@__treeType.Images.SetKeyName(2, "Bitmap");
+			this.@__treeType.Images.SetKeyName(3, "ColorTable");
+			this.@__treeType.Images.SetKeyName(4, "Cursor");
+			this.@__treeType.Images.SetKeyName(5, "Dialog");
+			this.@__treeType.Images.SetKeyName(6, "Accelerator");
+			this.@__treeType.Images.SetKeyName(7, "Icon");
+			this.@__treeType.Images.SetKeyName(8, "Menu");
+			this.@__treeType.Images.SetKeyName(9, "Xml");
+			// 
 			// __treeStateImages
 			// 
 			this.@__treeStateImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("__treeStateImages.ImageStream")));
-			this.@__treeStateImages.TransparentColor = System.Drawing.Color.FromArgb(255, 0, 255);
+			this.@__treeStateImages.TransparentColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
 			this.@__treeStateImages.Images.SetKeyName(0, "Add");
 			this.@__treeStateImages.Images.SetKeyName(1, "Delete");
 			this.@__treeStateImages.Images.SetKeyName(2, "Edit");
@@ -263,7 +282,7 @@ namespace Anolis.Resourcer {
 			this.@__tResDel.Size = new System.Drawing.Size(58, 71);
 			this.@__tResDel.Text = "Delete";
 			this.@__tResDel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			this.@__tResDel.ToolTipText = "Delete the currently selected resource";
+			this.@__tResDel.ToolTipText = "Marks the currently selected resource for deletion when saved";
 			// 
 			// __tResCan
 			// 
@@ -387,6 +406,7 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.ToolStripButton __tResCan;
 		private System.Windows.Forms.ToolStripMenuItem __resCMCancel;
 		private System.Windows.Forms.ImageList __treeStateImages;
+		private System.Windows.Forms.ImageList __treeType;
 	}
 }
 
