@@ -95,6 +95,7 @@ namespace Anolis.Resourcer {
 				Mru.Push( path );
 				
 				ToolbarUpdate(true, true, false);
+				StatusbarUpdate();
 				
 				TreePopulate();
 				
@@ -198,22 +199,30 @@ namespace Anolis.Resourcer {
 		
 #region ResourceData
 		
-		private void DataLoad(ResourceLang lang) {
+		private void DataSelect(ResourceLang lang) {
 			
 			CurrentData = lang.Data;
 			
-			// Status bar
-			this.__sType.Text = CurrentData.GetType().Name;
-			this.__sSize.Text = CurrentData.RawData.Length.ToString(Cult.CurrentCulture) + " Bytes";
-			this.__sPath.Text = CurrentPath + ',' + GetResourcePath(lang);
+			StatusbarUpdate();
 			
-			__sType.BackColor = CurrentData is Anolis.Core.Data.UnknownResourceData ? System.Drawing.Color.LightYellow : System.Drawing.SystemColors.Control;
+			ToolbarUpdate(false, true, false);
+		}
+		
+		/// <summary>Unloads any current ResourceData and sets the toolbar status accordingly</summary>
+		private void DataDeselect() {
+			
+			CurrentData = null;
+			
+			ToolbarUpdate(false, true, false);
+		}
+		
+		private void DataLoad(ResourceLang lang) {
+			
+			DataSelect(lang);
 			
 			EnsureView( _viewData );
 			
 			_viewData.ShowResource( CurrentData );
-			
-			ToolbarUpdate(false, true, false);
 		}
 		
 		private void DataExport() {
@@ -335,6 +344,7 @@ namespace Anolis.Resourcer {
 			foreach(ResourceType type in CurrentSource.Types) {
 				
 				TreeNode typeNode = new TreeNode( type.Identifier.FriendlyName ) { Tag = type };
+				typeNode.ImageKey = typeNode.SelectedImageKey = TreeNodeImageListTypeKey(type.Identifier);
 				
 				foreach(ResourceName name in type.Names) {
 					
@@ -417,6 +427,38 @@ namespace Anolis.Resourcer {
 			} else {
 				
 				__resCMCancel .Text = String.Format(Cult.CurrentCulture, "Cancel {0}", lang.Data.Action.ToString());
+			}
+			
+		}
+		
+//		private void TreeNodeImageListTypePopulate() {
+//			// Populated by the Designer
+//		}
+		
+		private String TreeNodeImageListTypeKey(ResourceTypeIdentifier typeId) {
+			
+			switch(typeId.KnownType) {
+				case Win32ResourceType.Accelerator:
+					return "Accelerator";
+				case Win32ResourceType.Bitmap:
+					return "Bitmap";
+				case Win32ResourceType.CursorDirectory:
+				case Win32ResourceType.CursorImage:
+					return "Cursor";
+				case Win32ResourceType.Dialog:
+					return "Dialog";
+				case Win32ResourceType.Menu:
+					return "Menu";
+				case Win32ResourceType.IconDirectory:
+				case Win32ResourceType.IconImage:
+					return "Icon";
+				case Win32ResourceType.Html:
+				case Win32ResourceType.Manifest:
+					return "Xml";
+//				case Win32ResourceType.Version:
+				case Win32ResourceType.Custom:
+				default:
+					return "Binary";
 			}
 			
 		}

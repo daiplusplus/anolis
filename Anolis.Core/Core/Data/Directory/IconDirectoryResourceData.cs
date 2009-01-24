@@ -56,17 +56,29 @@ namespace Anolis.Core.Data {
 	
 	public sealed class IconDirectoryMember : IDirectoryMember {
 		
-		internal IconDirectoryMember(Size size, String description, IconCursorImageResourceData data) {
+		internal IconDirectoryMember(String description, IconCursorImageResourceData data, Size dimensions, Byte colorCount, Byte reserved, UInt16 planes, UInt16 bitCount, UInt32 size) {
 			
 			Description  = description;
 			ResourceData = data;
+			
+			Dimensions   = dimensions;
+			ColorCount   = colorCount;
+			Reserved     = reserved;
+			Planes       = planes;
+			BitCount     = bitCount;
 			Size         = size;
+			
 		}
 		
 		public String       Description  { get; private set; }
 		public ResourceData ResourceData { get; private set; }
 		
-		public Size         Size         { get; private set; }
+		public Size         Dimensions   { get; private set; }
+		public Byte         ColorCount   { get; private set; }
+		public Byte         Reserved     { get; private set; }
+		public UInt16       Planes       { get; private set; }
+		public UInt16       BitCount     { get; private set; }
+		public UInt32       Size         { get; private set; }
 		
 	}
 	
@@ -137,7 +149,9 @@ namespace Anolis.Core.Data {
 						img.wBitCount
 					);
 					
-					retval.UnderlyingMembers.Add( new IconDirectoryMember(new Size(width, height), description, rd) );
+					retval.UnderlyingMembers.Add(
+						new IconDirectoryMember(description, rd, new Size(width, height), img.bColorCount, img.bReserved, img.wPlanes, img.wBitCount, img.dwBytesInRes )
+					);
 					
 				}
 				
@@ -203,8 +217,8 @@ namespace Anolis.Core.Data {
 			IconImageResourceDataFactory factory = GetIconImageFactory();
 			
 			IconCursorImageResourceData[] images = new IconCursorImageResourceData[ dir.wCount ];
-			String[]                      descs  = new String[ dir.wCount ];
-			Size[]                        sizes  = new Size[ dir.wCount ];
+			
+			IconDirectoryMember[] members = new IconDirectoryMember[ dir.wCount ];
 			
 			for(int i=0;i<dir.wCount;i++) {
 				
@@ -226,9 +240,9 @@ namespace Anolis.Core.Data {
 					img.wBitCount
 				);
 				
-				sizes[i] = new Size( img.bWidth == 0 ? 256 : img.bWidth, img.bHeight == 0 ? 256 : img.bHeight );
+				Size dimensions = new Size( img.bWidth == 0 ? 256 : img.bWidth, img.bHeight == 0 ? 256 : img.bHeight );
 				
-				descs[i] = description;
+				members[i] = new IconDirectoryMember(description, images[i], dimensions, img.bColorCount, img.bReserved, img.wPlanes, img.wBitCount, img.dwBytesInRes);
 				
 			}
 			
@@ -238,7 +252,7 @@ namespace Anolis.Core.Data {
 			
 			for(int i=0;i<images.Length;i++) {
 				
-				retval.UnderlyingMembers.Add( new IconDirectoryMember( sizes[i], descs[i], images[i] ) );
+				retval.UnderlyingMembers.Add( members[i] );
 			}
 			
 			
@@ -390,7 +404,31 @@ namespace Anolis.Core.Data {
 			
 			BinaryWriter wtr = new BinaryWriter(stream);
 			
-			throw new NotImplementedException();
+			// Write IconHeader ( IconDirectory )
+			
+			wtr.Write( (UInt16)0 ); // wReserved
+			wtr.Write( (UInt16)1 ); // wType
+			wtr.Write( (UInt16)this.Members.Count ); // wCount
+			
+			// Write out the array of directory entries, calculating the offsets as we go
+			
+			foreach(IconDirectoryMember member in Members) {
+				
+				wtr.Write( (Byte)member.Dimensions.Width );
+				wtr.Write( (Byte)member.Dimensions.Height );
+				wtr.Write( member.ColorCount );
+				wtr.Write( member.Reserved );
+				wtr.Write( member.Planes );
+				wtr.Write( member.BitCount );
+				wtr.Write( member.Size );
+				
+			}
+			
+			// Write out the actual images
+			
+			// and we're done
+			
+			
 			
 		}
 		
@@ -398,18 +436,32 @@ namespace Anolis.Core.Data {
 			
 			// search for an identical or larger match (larger results can be scaled down)
 			
+			// sorted by size, then color depth; so the first dimensions match will be of the highest color depth
+			IconDirectoryMember[] sortedIcons = new IconDirectoryMember[Members.Count];
+			
+			Members.CopyTo( sortedIcons, 0 );
+			Array.Sort<IconDirectoryMember>(sortedIcons, delegate(IconDirectoryMember x, IconDirectoryMember y) {
+				
+				// compare y to x because we want it in descending order
+				Int32 sizeComparison = y.Dimensions.Width.CompareTo( x.Dimensions.Width );
+				return sizeComparison == 0 ? y.BitCount.CompareTo( x.BitCount ) : sizeComparison;
+				
+			});
+			
 			IconDirectoryMember bestMatch = null;
 			
-			foreach(IconDirectoryMember member in Members) {
+			foreach(IconDirectoryMember member in sortedIcons) {
 				
-				if( member.Size == size ) return member;
+				if( member.Dimensions == size ) return member;
 				
-				if( member.Size.Width > size.Width ) {
+				if(bestMatch == null) bestMatch = member;
+				
+				if( member.Dimensions.Width > size.Width ) {
 					
 					if(bestMatch == null) bestMatch = member;
 					else {
 						
-						if( member.Size.Width < bestMatch.Size.Width ) bestMatch = member;
+						if( member.Dimensions.Width < bestMatch.Dimensions.Width ) bestMatch = member;
 						
 					}
 				}

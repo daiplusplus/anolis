@@ -28,6 +28,7 @@
 			this.@__file = new System.Windows.Forms.TextBox();
 			this.@__fileBrowse = new System.Windows.Forms.Button();
 			this.@__typeGrp = new System.Windows.Forms.GroupBox();
+			this.@__typeSort = new System.Windows.Forms.Button();
 			this.@__typeWarning = new System.Windows.Forms.Label();
 			this.@__typeString = new System.Windows.Forms.TextBox();
 			this.@__typeKnown = new System.Windows.Forms.ComboBox();
@@ -45,7 +46,6 @@
 			this.@__cancel = new System.Windows.Forms.Button();
 			this.@__ok = new System.Windows.Forms.Button();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
-			this.@__typeSort = new System.Windows.Forms.Button();
 			this.@__typeGrp.SuspendLayout();
 			this.@__nameGrp.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.@__nameCustom)).BeginInit();
@@ -67,7 +67,7 @@
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__file.Location = new System.Drawing.Point(38, 6);
 			this.@__file.Name = "__file";
-			this.@__file.Size = new System.Drawing.Size(190, 20);
+			this.@__file.Size = new System.Drawing.Size(190, 21);
 			this.@__file.TabIndex = 0;
 			// 
 			// __fileBrowse
@@ -97,6 +97,15 @@
 			this.@__typeGrp.TabStop = false;
 			this.@__typeGrp.Text = "Resource Type";
 			// 
+			// __typeSort
+			// 
+			this.@__typeSort.Image = global::Anolis.Resourcer.Properties.Resources.ARF_SortByLCID;
+			this.@__typeSort.Location = new System.Drawing.Point(261, 95);
+			this.@__typeSort.Name = "__typeSort";
+			this.@__typeSort.Size = new System.Drawing.Size(30, 30);
+			this.@__typeSort.TabIndex = 5;
+			this.@__typeSort.UseVisualStyleBackColor = true;
+			// 
 			// __typeWarning
 			// 
 			this.@__typeWarning.Location = new System.Drawing.Point(12, 16);
@@ -110,7 +119,7 @@
 			this.@__typeString.Location = new System.Drawing.Point(43, 154);
 			this.@__typeString.MaxLength = 255;
 			this.@__typeString.Name = "__typeString";
-			this.@__typeString.Size = new System.Drawing.Size(234, 20);
+			this.@__typeString.Size = new System.Drawing.Size(234, 21);
 			this.@__typeString.TabIndex = 3;
 			// 
 			// __typeKnown
@@ -129,7 +138,7 @@
 			this.@__typeStringRad.AutoSize = true;
 			this.@__typeStringRad.Location = new System.Drawing.Point(15, 131);
 			this.@__typeStringRad.Name = "__typeStringRad";
-			this.@__typeStringRad.Size = new System.Drawing.Size(95, 17);
+			this.@__typeStringRad.Size = new System.Drawing.Size(100, 17);
 			this.@__typeStringRad.TabIndex = 2;
 			this.@__typeStringRad.Text = "String Identifier";
 			this.@__typeStringRad.UseVisualStyleBackColor = true;
@@ -140,7 +149,7 @@
 			this.@__typeWin32Rad.Checked = true;
 			this.@__typeWin32Rad.Location = new System.Drawing.Point(15, 78);
 			this.@__typeWin32Rad.Name = "__typeWin32Rad";
-			this.@__typeWin32Rad.Size = new System.Drawing.Size(119, 17);
+			this.@__typeWin32Rad.Size = new System.Drawing.Size(117, 17);
 			this.@__typeWin32Rad.TabIndex = 0;
 			this.@__typeWin32Rad.TabStop = true;
 			this.@__typeWin32Rad.Text = "Win32 Known Type";
@@ -167,7 +176,7 @@
 			this.@__nameString.Location = new System.Drawing.Point(43, 88);
 			this.@__nameString.MaxLength = 255;
 			this.@__nameString.Name = "__nameString";
-			this.@__nameString.Size = new System.Drawing.Size(234, 20);
+			this.@__nameString.Size = new System.Drawing.Size(234, 21);
 			this.@__nameString.TabIndex = 4;
 			// 
 			// __nameStringRad
@@ -175,7 +184,7 @@
 			this.@__nameStringRad.AutoSize = true;
 			this.@__nameStringRad.Location = new System.Drawing.Point(15, 65);
 			this.@__nameStringRad.Name = "__nameStringRad";
-			this.@__nameStringRad.Size = new System.Drawing.Size(95, 17);
+			this.@__nameStringRad.Size = new System.Drawing.Size(100, 17);
 			this.@__nameStringRad.TabIndex = 3;
 			this.@__nameStringRad.TabStop = true;
 			this.@__nameStringRad.Text = "String Identifier";
@@ -202,7 +211,7 @@
             0,
             0});
 			this.@__nameCustom.Name = "__nameCustom";
-			this.@__nameCustom.Size = new System.Drawing.Size(81, 20);
+			this.@__nameCustom.Size = new System.Drawing.Size(81, 21);
 			this.@__nameCustom.TabIndex = 2;
 			// 
 			// __nameIntRad
@@ -211,7 +220,7 @@
 			this.@__nameIntRad.Checked = true;
 			this.@__nameIntRad.Location = new System.Drawing.Point(15, 19);
 			this.@__nameIntRad.Name = "__nameIntRad";
-			this.@__nameIntRad.Size = new System.Drawing.Size(101, 17);
+			this.@__nameIntRad.Size = new System.Drawing.Size(108, 17);
 			this.@__nameIntRad.TabIndex = 0;
 			this.@__nameIntRad.TabStop = true;
 			this.@__nameIntRad.Text = "Integer Identifier";
@@ -271,15 +280,6 @@
 			this.@__ok.Text = "OK";
 			this.@__ok.UseVisualStyleBackColor = true;
 			// 
-			// __typeSort
-			// 
-			this.@__typeSort.Image = global::Anolis.Resourcer.Properties.Resources.ARF_SortByLCID;
-			this.@__typeSort.Location = new System.Drawing.Point(261, 95);
-			this.@__typeSort.Name = "__typeSort";
-			this.@__typeSort.Size = new System.Drawing.Size(30, 30);
-			this.@__typeSort.TabIndex = 5;
-			this.@__typeSort.UseVisualStyleBackColor = true;
-			// 
 			// AddResourceForm
 			// 
 			this.AcceptButton = this.@__ok;
@@ -295,6 +295,7 @@
 			this.Controls.Add(this.@__fileBrowse);
 			this.Controls.Add(this.@__file);
 			this.Controls.Add(this.@__fileLbl);
+			this.Font = new System.Drawing.Font("Tahoma", 8.25F);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;

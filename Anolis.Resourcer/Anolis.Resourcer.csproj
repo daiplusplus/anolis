@@ -162,10 +162,10 @@
     <EmbeddedResource Include="TypeViewers\TextViewer.resx">
       <DependentUpon>TextViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ResourceDataView.resx">
+    <EmbeddedResource Include="Controls\ResourceDataView.resx">
       <DependentUpon>ResourceDataView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ResourceListView.resx">
+    <EmbeddedResource Include="Controls\ResourceListView.resx">
       <DependentUpon>ResourceListView.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -219,16 +219,16 @@
     <Compile Include="TypeViewers\PictureViewer.Designer.cs">
       <DependentUpon>PictureViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ResourceDataView.cs">
+    <Compile Include="Controls\ResourceDataView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\ResourceDataView.Designer.cs">
+    <Compile Include="Controls\ResourceDataView.Designer.cs">
       <DependentUpon>ResourceDataView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ResourceListView.cs">
+    <Compile Include="Controls\ResourceListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\ResourceListView.Designer.cs">
+    <Compile Include="Controls\ResourceListView.Designer.cs">
       <DependentUpon>ResourceListView.cs</DependentUpon>
     </Compile>
   </ItemGroup>

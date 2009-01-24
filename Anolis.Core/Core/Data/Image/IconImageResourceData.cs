@@ -17,7 +17,7 @@ namespace Anolis.Core.Data {
 			
 			return Compatibility.No;
 		}
-
+		
 		public override Compatibility HandlesExtension(String filenameExtension) {
 			// Temporarily: disallow modification of subimages in icons
 			/*

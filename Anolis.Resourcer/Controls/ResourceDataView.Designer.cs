@@ -1,4 +1,4 @@
-﻿namespace Anolis.Resourcer {
+﻿namespace Anolis.Resourcer.Controls {
 	partial class ResourceDataView {
 		/// <summary> 
 		/// Required designer variable.

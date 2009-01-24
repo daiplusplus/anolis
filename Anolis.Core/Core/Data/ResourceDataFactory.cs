@@ -248,6 +248,7 @@ namespace Anolis.Core.Data {
 			// The Rest
 			factories.Add( new RiffMediaResourceDataFactory() );
 			factories.Add( new UnknownResourceDataFactory() );
+//			factories.Add( new VersionResourceDataFactory() );
 			
 		}
 		
