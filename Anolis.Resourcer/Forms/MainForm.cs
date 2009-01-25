@@ -1,15 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using Anolis.Resourcer.TypeViewers;
 using System.IO;
+using System.Windows.Forms;
+using System.Threading;
 
 using Cult = System.Globalization.CultureInfo;
 
 using Anolis.Core;
-using Anolis.Core.Data;
 using Anolis.Resourcer.Controls;
-using Anolis.Resourcer.Settings;
 
 namespace Anolis.Resourcer {
 	
@@ -83,6 +80,11 @@ namespace Anolis.Resourcer {
 				}
 				
 			}
+			
+			// Ugly hack time, pre-initialise the Cultures class on a separate thread
+			
+			Thread thread = new Thread( delegate() { Cultures.Initialise(); } );
+			thread.Start();
 			
 		}
 		

@@ -207,6 +207,10 @@ namespace Anolis.Core {
 			
 			// get the type then enumerate through all the integer Ids.
 			ResourceType type = this.Types[ typeId ];
+			if(type == null) {
+				// then just use "1"
+				return new ResourceIdentifier(1);
+			}
 			
 			Int32 biggestIntId = -1;
 			foreach(ResourceName name in type.Names) {

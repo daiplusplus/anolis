@@ -28,11 +28,19 @@ namespace Anolis.Resourcer {
 			
 			PopulateLanguages(true);
 			
-			__fileBrowse.Click += new EventHandler(__fileBrowse_Click);
-			__langSort  .Click += new EventHandler(__langSort_Click);
-			__typeSort  .Click += new EventHandler(__typeSort_Click);
+			this.__fileBrowse.Click += new EventHandler(__fileBrowse_Click);
+			this.__langSort  .Click += new EventHandler(__langSort_Click);
+			this.__typeSort  .Click += new EventHandler(__typeSort_Click);
 			
-			this.__ok.Click += new EventHandler(__ok_Click);
+			this.__ok        .Click += new EventHandler(__ok_Click);
+			
+			this.__nameAuto.CheckedChanged += new EventHandler(__nameAuto_CheckedChanged);
+			
+		}
+		
+		private void __nameAuto_CheckedChanged(Object sender, EventArgs e) {
+			
+			__nameCustom.Enabled = !__nameAuto.Checked;
 			
 		}
 		
@@ -84,23 +92,7 @@ namespace Anolis.Resourcer {
 			
 			__lang.Items.Clear();
 			
-			CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
-			
-			if(sortByDisplayName) {
-				Array.Sort<CultureInfo>(cultures, (x,y) => x.DisplayName.CompareTo( y.DisplayName ) );
-			} else {
-				Array.Sort<CultureInfo>(cultures, (x,y) => x.LCID.CompareTo( y.LCID ) );
-			}
-			
-			__lang.Items.Add( new Pair<String,Int32>("Neutral (0)", 0) );
-			
-			foreach(CultureInfo cult in cultures) {
-				
-				String itemText = cult.DisplayName + " (" + cult.LCID.ToString(CultureInfo.InvariantCulture) + ')';
-				
-				__lang.Items.Add( new Pair<String,Int32>(itemText, cult.LCID) );
-				
-			}
+			__lang.Items.AddRange( sortByDisplayName ? Cultures.CulturesByName : Cultures.CulturesByLcid );
 			
 			__lang.SelectedIndex = 0;
 			
@@ -225,10 +217,10 @@ namespace Anolis.Resourcer {
 			// Recommended Lang
 			
 			Int32 currentLcid = CultureInfo.CurrentCulture.LCID;
-			foreach(Pair<String,Int32> p in __lang.Items) {
+			foreach(ListBoxItem<CultureInfo> c in __lang.Items) {
 				
-				if(p.Y == currentLcid) {
-					__lang.SelectedItem = p;
+				if(c.Item.LCID == currentLcid) {
+					__lang.SelectedItem = c;
 					break;
 				}
 			}

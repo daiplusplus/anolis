@@ -404,15 +404,35 @@ namespace Anolis.Core.Data {
 			
 			BinaryWriter wtr = new BinaryWriter(stream);
 			
+			Int64 offsetFrom = stream.Position;
+			
 			// Write IconHeader ( IconDirectory )
 			
 			wtr.Write( (UInt16)0 ); // wReserved
 			wtr.Write( (UInt16)1 ); // wType
 			wtr.Write( (UInt16)this.Members.Count ); // wCount
 			
-			// Write out the array of directory entries, calculating the offsets as we go
+			// Write out the array of directory entries, calculating the offsets first
 			
-			foreach(IconDirectoryMember member in Members) {
+			UInt32[] offsets = new UInt32[ Members.Count ];
+			
+			UInt32 offsetFromEndOfDirectory =
+				(UInt32)stream.Position + (UInt32)( Members.Count * Marshal.SizeOf(typeof(FileIconDirectoryEntry)) );
+			
+			for(int i=0;i<Members.Count;i++) {
+				
+				IconDirectoryMember m = Members[i] as IconDirectoryMember;
+				
+				// Offset is from the start of the file
+				offsets[i] = offsetFromEndOfDirectory;
+				
+				offsetFromEndOfDirectory += m.Size;
+				
+			}
+			
+			for(int i=0;i<Members.Count;i++) {
+				
+				IconDirectoryMember member = Members[i] as IconDirectoryMember;
 				
 				wtr.Write( (Byte)member.Dimensions.Width );
 				wtr.Write( (Byte)member.Dimensions.Height );
@@ -421,14 +441,21 @@ namespace Anolis.Core.Data {
 				wtr.Write( member.Planes );
 				wtr.Write( member.BitCount );
 				wtr.Write( member.Size );
+				wtr.Write( offsets[i] );
 				
 			}
 			
 			// Write out the actual images
 			
+			for(int i=0;i<Members.Count;i++) {
+				
+				IconDirectoryMember m = Members[i] as IconDirectoryMember;
+				
+				wtr.Write( m.ResourceData.RawData );
+				
+			}
+			
 			// and we're done
-			
-			
 			
 		}
 		
