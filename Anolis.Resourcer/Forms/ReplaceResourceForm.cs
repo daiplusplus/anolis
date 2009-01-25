@@ -14,7 +14,12 @@ namespace Anolis.Resourcer {
 	public partial class ReplaceResourceForm : BaseForm {
 		
 		public ReplaceResourceForm() {
+			
 			InitializeComponent();
+			
+			// Reset bold label fonts
+			
+			
 		}
 		
 		public ResourceData NewResourceData {

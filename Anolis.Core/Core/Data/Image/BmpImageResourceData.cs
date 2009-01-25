@@ -70,7 +70,7 @@ namespace Anolis.Core.Data {
 			
 			BmpImageResourceData rd;
 			
-			if( BmpImageResourceData.TryCreate(null, data, out rd) ) return rd;
+			if( BmpImageResourceData.TryCreate(lang, data, out rd) ) return rd;
 			
 			return null;
 			

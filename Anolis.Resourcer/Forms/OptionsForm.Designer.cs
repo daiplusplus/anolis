@@ -58,6 +58,7 @@
 			this.@__licenseText = new System.Windows.Forms.TextBox();
 			this.@__cancel = new System.Windows.Forms.Button();
 			this.@__ok = new System.Windows.Forms.Button();
+			this.@__makesUseOf = new System.Windows.Forms.Label();
 			this.@__tabs.SuspendLayout();
 			this.@__tSettings.SuspendLayout();
 			this.@__sMoreGrp.SuspendLayout();
@@ -232,6 +233,7 @@
 			// 
 			// __tAbout
 			// 
+			this.@__tAbout.Controls.Add(this.@__makesUseOf);
 			this.@__tAbout.Controls.Add(this.@__friendsLbl);
 			this.@__tAbout.Controls.Add(this.@__linksLbl);
 			this.@__tAbout.Controls.Add(this.@__aboutCreditsRoles);
@@ -259,18 +261,20 @@
 			// __friendsLbl
 			// 
 			this.@__friendsLbl.AutoSize = true;
-			this.@__friendsLbl.Location = new System.Drawing.Point(9, 205);
+			this.@__friendsLbl.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+			this.@__friendsLbl.Location = new System.Drawing.Point(10, 228);
 			this.@__friendsLbl.Name = "__friendsLbl";
-			this.@__friendsLbl.Size = new System.Drawing.Size(42, 13);
+			this.@__friendsLbl.Size = new System.Drawing.Size(48, 13);
 			this.@__friendsLbl.TabIndex = 17;
 			this.@__friendsLbl.Text = "Friends";
 			// 
 			// __linksLbl
 			// 
 			this.@__linksLbl.AutoSize = true;
-			this.@__linksLbl.Location = new System.Drawing.Point(9, 135);
+			this.@__linksLbl.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+			this.@__linksLbl.Location = new System.Drawing.Point(10, 158);
 			this.@__linksLbl.Name = "__linksLbl";
-			this.@__linksLbl.Size = new System.Drawing.Size(30, 13);
+			this.@__linksLbl.Size = new System.Drawing.Size(36, 13);
 			this.@__linksLbl.TabIndex = 16;
 			this.@__linksLbl.Text = "Links";
 			// 
@@ -288,7 +292,7 @@
 			// __aboutFriendsNames
 			// 
 			this.@__aboutFriendsNames.AutoSize = true;
-			this.@__aboutFriendsNames.Location = new System.Drawing.Point(10, 228);
+			this.@__aboutFriendsNames.Location = new System.Drawing.Point(11, 251);
 			this.@__aboutFriendsNames.Name = "__aboutFriendsNames";
 			this.@__aboutFriendsNames.Size = new System.Drawing.Size(88, 52);
 			this.@__aboutFriendsNames.TabIndex = 14;
@@ -297,7 +301,7 @@
 			// __aboutLinksNames
 			// 
 			this.@__aboutLinksNames.AutoSize = true;
-			this.@__aboutLinksNames.Location = new System.Drawing.Point(10, 157);
+			this.@__aboutLinksNames.Location = new System.Drawing.Point(11, 180);
 			this.@__aboutLinksNames.Name = "__aboutLinksNames";
 			this.@__aboutLinksNames.Size = new System.Drawing.Size(96, 39);
 			this.@__aboutLinksNames.TabIndex = 13;
@@ -307,7 +311,7 @@
 			// 
 			this.@__aboutFriendsRafael.AutoSize = true;
 			this.@__aboutFriendsRafael.LinkArea = new System.Windows.Forms.LinkArea(0, 28);
-			this.@__aboutFriendsRafael.Location = new System.Drawing.Point(183, 267);
+			this.@__aboutFriendsRafael.Location = new System.Drawing.Point(184, 290);
 			this.@__aboutFriendsRafael.Name = "__aboutFriendsRafael";
 			this.@__aboutFriendsRafael.Size = new System.Drawing.Size(159, 13);
 			this.@__aboutFriendsRafael.TabIndex = 12;
@@ -317,9 +321,10 @@
 			// __aboutCredits
 			// 
 			this.@__aboutCredits.AutoSize = true;
+			this.@__aboutCredits.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
 			this.@__aboutCredits.Location = new System.Drawing.Point(10, 51);
 			this.@__aboutCredits.Name = "__aboutCredits";
-			this.@__aboutCredits.Size = new System.Drawing.Size(45, 13);
+			this.@__aboutCredits.Size = new System.Drawing.Size(50, 13);
 			this.@__aboutCredits.TabIndex = 11;
 			this.@__aboutCredits.Text = "Credits:";
 			// 
@@ -327,7 +332,7 @@
 			// 
 			this.@__aboutFriendsMsfn.AutoSize = true;
 			this.@__aboutFriendsMsfn.LinkArea = new System.Windows.Forms.LinkArea(0, 19);
-			this.@__aboutFriendsMsfn.Location = new System.Drawing.Point(230, 228);
+			this.@__aboutFriendsMsfn.Location = new System.Drawing.Point(231, 251);
 			this.@__aboutFriendsMsfn.Name = "__aboutFriendsMsfn";
 			this.@__aboutFriendsMsfn.Size = new System.Drawing.Size(113, 13);
 			this.@__aboutFriendsMsfn.TabIndex = 10;
@@ -338,7 +343,7 @@
 			// 
 			this.@__aboutFriendsC9.AutoSize = true;
 			this.@__aboutFriendsC9.LinkArea = new System.Windows.Forms.LinkArea(0, 24);
-			this.@__aboutFriendsC9.Location = new System.Drawing.Point(209, 241);
+			this.@__aboutFriendsC9.Location = new System.Drawing.Point(210, 264);
 			this.@__aboutFriendsC9.Name = "__aboutFriendsC9";
 			this.@__aboutFriendsC9.Size = new System.Drawing.Size(134, 13);
 			this.@__aboutFriendsC9.TabIndex = 9;
@@ -349,7 +354,7 @@
 			// 
 			this.@__aboutFriendsLong.AutoSize = true;
 			this.@__aboutFriendsLong.LinkArea = new System.Windows.Forms.LinkArea(0, 32);
-			this.@__aboutFriendsLong.Location = new System.Drawing.Point(167, 254);
+			this.@__aboutFriendsLong.Location = new System.Drawing.Point(168, 277);
 			this.@__aboutFriendsLong.Name = "__aboutFriendsLong";
 			this.@__aboutFriendsLong.Size = new System.Drawing.Size(176, 13);
 			this.@__aboutFriendsLong.TabIndex = 7;
@@ -360,7 +365,7 @@
 			// 
 			this.@__aboutLinkVize.AutoSize = true;
 			this.@__aboutLinkVize.LinkArea = new System.Windows.Forms.LinkArea(0, 21);
-			this.@__aboutLinkVize.Location = new System.Drawing.Point(226, 183);
+			this.@__aboutLinkVize.Location = new System.Drawing.Point(227, 206);
 			this.@__aboutLinkVize.Name = "__aboutLinkVize";
 			this.@__aboutLinkVize.Size = new System.Drawing.Size(117, 13);
 			this.@__aboutLinkVize.TabIndex = 5;
@@ -371,7 +376,7 @@
 			// 
 			this.@__aboutLinkXpize.AutoSize = true;
 			this.@__aboutLinkXpize.LinkArea = new System.Windows.Forms.LinkArea(0, 20);
-			this.@__aboutLinkXpize.Location = new System.Drawing.Point(231, 170);
+			this.@__aboutLinkXpize.Location = new System.Drawing.Point(232, 193);
 			this.@__aboutLinkXpize.Name = "__aboutLinkXpize";
 			this.@__aboutLinkXpize.Size = new System.Drawing.Size(112, 13);
 			this.@__aboutLinkXpize.TabIndex = 4;
@@ -382,7 +387,7 @@
 			// 
 			this.@__aboutLinkAnolis.AutoSize = true;
 			this.@__aboutLinkAnolis.LinkArea = new System.Windows.Forms.LinkArea(0, 30);
-			this.@__aboutLinkAnolis.Location = new System.Drawing.Point(179, 157);
+			this.@__aboutLinkAnolis.Location = new System.Drawing.Point(180, 180);
 			this.@__aboutLinkAnolis.Name = "__aboutLinkAnolis";
 			this.@__aboutLinkAnolis.Size = new System.Drawing.Size(164, 13);
 			this.@__aboutLinkAnolis.TabIndex = 3;
@@ -410,9 +415,10 @@
 			// __aboutAnolis
 			// 
 			this.@__aboutAnolis.AutoSize = true;
+			this.@__aboutAnolis.Font = new System.Drawing.Font("Tahoma", 14F, System.Drawing.FontStyle.Bold);
 			this.@__aboutAnolis.Location = new System.Drawing.Point(8, 9);
 			this.@__aboutAnolis.Name = "__aboutAnolis";
-			this.@__aboutAnolis.Size = new System.Drawing.Size(87, 13);
+			this.@__aboutAnolis.Size = new System.Drawing.Size(171, 23);
 			this.@__aboutAnolis.TabIndex = 0;
 			this.@__aboutAnolis.Text = "Anolis Resourcer";
 			// 
@@ -462,6 +468,15 @@
 			this.@__ok.Text = "OK";
 			this.@__ok.UseVisualStyleBackColor = true;
 			// 
+			// __makesUseOf
+			// 
+			this.@__makesUseOf.AutoSize = true;
+			this.@__makesUseOf.Location = new System.Drawing.Point(9, 136);
+			this.@__makesUseOf.Name = "__makesUseOf";
+			this.@__makesUseOf.Size = new System.Drawing.Size(328, 13);
+			this.@__makesUseOf.TabIndex = 18;
+			this.@__makesUseOf.Text = "Resourcer makes use of the Be HexBox control, used under license";
+			// 
 			// OptionsForm
 			// 
 			this.AcceptButton = this.@__ok;
@@ -472,7 +487,6 @@
 			this.Controls.Add(this.@__ok);
 			this.Controls.Add(this.@__cancel);
 			this.Controls.Add(this.@__tabs);
-			this.Font = new System.Drawing.Font("Tahoma", 8.25F);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
@@ -531,5 +545,6 @@
 		private System.Windows.Forms.Label __aboutCreditsRoles;
 		private System.Windows.Forms.Label __linksLbl;
 		private System.Windows.Forms.Label __friendsLbl;
+		private System.Windows.Forms.Label __makesUseOf;
 	}
 }

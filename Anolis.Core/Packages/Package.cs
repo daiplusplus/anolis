@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Xml;
 using System.Text;
 using System.IO;
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace Anolis.Core.Packages {
 	
