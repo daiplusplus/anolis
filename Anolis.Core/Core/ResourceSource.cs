@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Anolis.Core.Source;
 
+using Anolis.Core.Data;
+
 namespace Anolis.Core {
 	
 	public abstract partial class ResourceSource : IDisposable {

@@ -25,5 +25,17 @@ namespace Anolis.Console {
 			
 		}
 		
+		//private static void ExecuteCommand(Command command, String exeFile, 
+		
 	}
+	
+	public enum Command {
+		Add,
+		AddSkip,
+		AddOverwrite,
+		Modify,
+		Extract,
+		Delete
+	}
+	
 }

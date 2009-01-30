@@ -169,6 +169,9 @@
     <EmbeddedResource Include="Controls\ResourceListView.resx">
       <DependentUpon>ResourceListView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TypeViewers\VersionViewer.resx">
+      <DependentUpon>VersionViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -231,6 +234,12 @@
     </Compile>
     <Compile Include="Controls\ResourceListView.Designer.cs">
       <DependentUpon>ResourceListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TypeViewers\VersionViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TypeViewers\VersionViewer.Designer.cs">
+      <DependentUpon>VersionViewer.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -11,28 +11,30 @@ using Anolis.Core.Data;
 
 namespace Anolis.Resourcer.TypeViewers {
 	
-	public partial class RawViewer : TypeViewer {
+	public partial class VersionViewer : TypeViewer {
 		
-		public RawViewer() {
+		public VersionViewer() {
 			InitializeComponent();
 		}
 		
+		// TODO: Implement one of those Tree Grids for the display of version information
+		
 		public override void RenderResource(ResourceData resource) {
 			
-			Byte[] data = resource.RawData;
-			
-			Be.Windows.Forms.DynamicByteProvider bytesProv = new Be.Windows.Forms.DynamicByteProvider( data );
-			
-			__hex.ByteProvider = bytesProv;
+			// NOOP for now
 			
 		}
 		
 		public override TypeViewerCompatibility CanHandleResource(ResourceData data) {
-			return TypeViewerCompatibility.Works;
+			
+			if( data is VersionResourceData ) return TypeViewerCompatibility.Ideal;
+			
+			return TypeViewerCompatibility.None;
+			
 		}
 		
-		public override string ViewerName {
-			get { return "Raw Binary Viewer"; }
-		}
+		public override String ViewerName { get { return "Version Information"; } }
+		
+		
 	}
 }

@@ -30,6 +30,11 @@ namespace Anolis.Core.Data {
 		public abstract String OpenFileFilter { get; }
 		
 		protected static Byte[] GetAllBytesFromStream(Stream stream) {
+			
+			if( stream is MemoryStream ) {
+				return (stream as MemoryStream).ToArray();
+			}
+			
 			Byte[] data = new Byte[ stream.Length ];
 			stream.Read( data, 0, data.Length );
 			return data;
@@ -248,7 +253,7 @@ namespace Anolis.Core.Data {
 			// The Rest
 			factories.Add( new RiffMediaResourceDataFactory() );
 			factories.Add( new UnknownResourceDataFactory() );
-//			factories.Add( new VersionResourceDataFactory() );
+			factories.Add( new VersionResourceDataFactory() );
 			
 		}
 		

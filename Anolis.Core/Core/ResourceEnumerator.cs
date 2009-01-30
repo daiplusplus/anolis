@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using Anolis.Core.Data;
+
 namespace Anolis.Core {
 	
 	internal class ResourceEnumerator : IEnumerator<ResourceData> {

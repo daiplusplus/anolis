@@ -7,9 +7,24 @@
 		<!-- There can be many <file> elements. Typically you have one file element for each file you want to patch, but you can have several if you want to target different versions of the same file -->
 		<patch path="" condition="lt 1.0 : deny; gte 2.0 warn">
 			
+			<!-- The path="" attribute can be:
+				a) an absolute filename
+				b) a filename with environment variables in (e.g. %systemroot%, %windir% as well as some of our own like !system32! (which applies the patch to the x64 version in addition to x86)
+				c) a function combined with a concatenation
+					i)  expr:regvalue(HKLM\Software\Apple Computer, Inc.\QuickTime\InstallDir) + 'quicktime.exe'
+					ii) expr:msiguid({0000-0000....}) + "office12\winword.exe"
+			
+			The condition="" attribute is more complicated:
+				a) ...ask Sven about this
+					
+			 -->
+			 
+			 
+			
 			<res type="icon" id="0" src="/appwiz.cpl/0.ico" lang="" /> <!-- The lang attribute is optional-->
 			
 		</patch>
+		
 		
 		<file condition="lt 1.0 : deny; gte 2.0 warn" operation="copy|replace|delete" path="" src="" />
 		

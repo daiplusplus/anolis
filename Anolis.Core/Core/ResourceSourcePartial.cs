@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Anolis.Core.Data;
+
 namespace Anolis.Core {
 	
 	/// <summary>The stateful set of resources within a ResourceSource.</summary>

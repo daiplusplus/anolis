@@ -66,8 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\AnolisException.cs" />
-    <None Include="Core\Data\Windows\Version2ResourceData.cs" />
-    <Compile Include="Core\PE\NESource.cs" />
+    <Compile Include="Core\Data\Windows\VersionResourceData.cs" />
+    <None Include="Core\PE\NESource.cs" />
     <Compile Include="Core\Resource.cs" />
     <Compile Include="Core\Data\Directory\CursorDirectoryResourceData.cs" />
     <Compile Include="Core\Data\Directory\DirectoryResourceData.cs" />
@@ -83,13 +83,15 @@
     <Compile Include="Core\Data\Unknown\DummyResourceData.cs" />
     <Compile Include="Core\Data\Unknown\UnknownResourceData.cs" />
     <Compile Include="Core\Data\Multimedia\MediaResourceData.cs" />
-    <None Include="Core\Data\Windows\VersionResourceData.cs" />
     <Compile Include="Core\ResourceSourcePartial.cs" />
     <Compile Include="Core\Data\ResourceData.cs" />
     <Compile Include="Core\ResourceIdentifier.cs" />
     <Compile Include="Core\ResourcePartial.cs" />
     <Compile Include="Core\ResourceEnumerator.cs" />
     <Compile Include="Core\ResourceSource.cs" />
+    <Compile Include="Core\Resource\ResourceLang.cs" />
+    <Compile Include="Core\Resource\ResourceName.cs" />
+    <Compile Include="Core\Resource\ResourceType.cs" />
     <Compile Include="Core\Utility\Dib.cs" />
     <Compile Include="Core\Utility\Environment.cs" />
     <Compile Include="Core\Utility\Pair.cs" />
