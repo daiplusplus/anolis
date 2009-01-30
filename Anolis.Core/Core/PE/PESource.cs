@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+
+using Anolis.Core.Data;
 using Anolis.Core.Native;
 
 using Cult    = System.Globalization.CultureInfo;
@@ -10,14 +12,12 @@ namespace Anolis.Core.Source {
 	/// <summary>Encapsulates a Windows Portal Executable resource source.</summary>
 	public sealed class PEResourceSource : ResourceSource {
 		
-		private static Boolean _isGteVista;
-		
 		private String   _path;
 		private IntPtr   _moduleHandle;
 		private ResourceSourceInfo _sourceInfo;
 		
 		static PEResourceSource() {
-			_isGteVista = Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version.Major >= 6;
+			
 		}
 		
 		public PEResourceSource(String filename, Boolean readOnly) : base(readOnly ^ IsPathReadonly(filename) ) {
@@ -203,7 +203,7 @@ operationsPerformed.Add( Enum.GetName(typeof(ResourceDataAction), data.Action ) 
 			
 			lock(_enumerating) {
 				
-				if( _isGteVista ) {
+				if( Utility.Environment.IsGteVista ) {
 					
 					NativeMethods.EnumResTypeProc callback = new NativeMethods.EnumResTypeProc( GetResourceTypesCallbackEx );
 					NativeMethods.EnumResourceTypesEx( _moduleHandle, callback, IntPtr.Zero, NativeMethods.MuiResourceFlags.EnumLn, 0 );

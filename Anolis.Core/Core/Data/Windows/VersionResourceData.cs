@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -41,97 +42,208 @@ namespace Anolis.Core.Data {
 	
 	public class VersionResourceData : ResourceData {
 		
-		// represent the Version data in a tree like how it's stored (see: the "Children" members of various structures)
-		// might be useful to display the data like that in the UI
-		
-		private VersionResourceData(Byte[] rawData, ResourceLang lang) : base(lang, rawData) {
+		private VersionResourceData(VersionItem root, Byte[] rawData, ResourceLang lang) : base(lang, rawData) {
+			
+			VsVersionInfo = root;
+			
 		}
+		
+#region Construction
+		
+		// VS_VERSION parsing assisted by looking at the source of the Vestris ResourceLib ( http://www.codeproject.com/KB/library/ResourceLib.aspx )
+		// it helped with figuring out how to processing padding; my recursive approach diffthers from his though
 		
 		internal static VersionResourceData TryCreate(Byte[] data, ResourceLang lang) {
 			
 			using(MemoryStream s = new MemoryStream(data))
-			using(BinaryReader rdr = new BinaryReader(s)) {
+			using(BinaryReader rdr = new BinaryReader(s, Encoding.Unicode)) { // good thing VS_VERSION_INFO uses UTF16 throughout
 				
-				Int32 bitsSoFar = 0;
+				VersionItem root = RecurseItem(Mode.Root, rdr);
 				
-				VsVersionInfo vi;
-				vi.wLength      = rdr.ReadUInt16();										bitsSoFar += 16;
-				vi.wValueLength = rdr.ReadUInt16();										bitsSoFar += 16;
-				vi.wType        = rdr.ReadUInt16();										bitsSoFar += 16;
-				
-				vi.szKey        = Encoding.Unicode.GetString(
-									rdr.ReadBytes( "VS_VERSION_INFO".Length * 2 ) );	bitsSoFar += vi.szKey.Length * 8 * 2;
-				
-				// Padding1= to align on a 32-bit boundary
-				Int32 sizeOfPadding1  = (bitsSoFar % 32) / 8;
-				
-				vi.Padding1     = rdr.ReadBytes(sizeOfPadding1);						bitsSoFar += sizeOfPadding1 * 8;
-				
-				vi.Value        = new VsFixedFileInfo( rdr );							bitsSoFar += vi.wValueLength * 8;
-				
-				Int32 sizeOfPadding2 = (bitsSoFar % 32) / 8;
-				
-				vi.Padding2 = rdr.ReadBytes(sizeOfPadding2);							bitsSoFar += sizeOfPadding2 * 8;
-				
-				if( vi.wLength > bitsSoFar / 8 ) { // then there's going to be children
-					
-					ReadChildren(rdr, bitsSoFar, vi.wLength * 8);
-				}
-				
-				return null;
+				return new VersionResourceData(root, data, lang );
 				
 			}//using
 			
 		}
 		
-		
-		
-		private static void ReadChildren(BinaryReader rdr, Int32 bitsSoFar, Int32 maxBits) {
+		private static VersionItem RecurseItem(Mode mode, BinaryReader rdr) {
 			
-			// data is (zero or more StringFileInfo) and/or (zero or one VarFileInfo)
+			Int64 initPos = rdr.BaseStream.Position;
 			
-			// both VarFileInfo and StringFileInfo share the same structure
-			// you can identify them by the szKey member
+			VersionItem item = new VersionItem(mode);
+			item.Length      = rdr.ReadUInt16();
+			item.ValueLength = rdr.ReadUInt16();
+			item.Type        = rdr.ReadUInt16();
+			item.Key         = GetKey(mode, rdr, out item._mode );
 			
-//struct VarFileInfo { 
-//  WORD  wLength; 
-//  WORD  wValueLength; 
-//  WORD  wType; 
-//  WCHAR szKey[]; 
-//  WORD  Padding[]; 
-//  Var   Children[]; 
-//};
-
-//struct StringFileInfo { 
-//  WORD        wLength; 
-//  WORD        wValueLength; 
-//  WORD        wType; 
-//  WCHAR       szKey[]; 
-//  WORD        Padding[]; 
-//  StringTable Children[]; 
-//};
+			Pad(rdr);
 			
-			while( bitsSoFar < maxBits ) {
+			mode = item.Mode;
+			
+			List<VersionItem> children = new List<VersionItem>();
+			
+			while(rdr.BaseStream.Position < initPos + item.Length) {
 				
-				UInt16 wLength      = rdr.ReadUInt16();				bitsSoFar += 16;
-				UInt16 wValueLength = rdr.ReadUInt16();				bitsSoFar += 16;
-				UInt16 wType        = rdr.ReadUInt16();				bitsSoFar += 16;
-				String c            = Encoding.Unicode.GetString(
-				                      rdr.ReadBytes(2) );			bitsSoFar += 2;
-				String szKey;
-				UInt16[] padding;
-				
-				if(c == "V") {
-					szKey = c + Encoding.Unicode.GetString( rdr.ReadBytes( ("VarFileInfo".Length - 1) * 2) );
-					
-				} else if(c == "S") {
-					szKey = c + Encoding.Unicode.GetString( rdr.ReadBytes( ("StringFileInfo".Length - 1) * 2) );
-					
+				switch(mode) {
+					case Mode.Root:
+						
+						if(item.Value == null) {
+							
+							Byte[] ffiBytes = rdr.ReadBytes( item.ValueLength ); // this is where FixedFileInfo goes						
+							Byte[] padding2 = Pad(rdr);
+							
+							if(ffiBytes.Length >= 52) { // 52 == 0x34
+								
+								VsFixedFileInfo ffi = new VsFixedFileInfo( ffiBytes );
+								
+								if(ffi.dwSignature != 0xFEEF04BD) throw new InvalidOperationException("Unrecognised VS_VERSIONINFO Signature");
+								
+								item.Value = ffi;
+								
+							} else {
+								throw new InvalidOperationException("Unexpected VS_FIXEDFILEINFO length");
+							}
+						}
+						
+						goto default;
+						
+					case Mode.String:
+						
+						Byte[] bytes = rdr.ReadBytes( item.ValueLength * 2 );
+						String s = Encoding.Unicode.GetString( bytes.SubArray(0, bytes.Length - 2 ) ); // miss out the null terminator
+						item.Value = s;
+						
+						break;
+					case Mode.Var:
+						
+						Byte[] data = rdr.ReadBytes( item.ValueLength ); // wValueLength = size in bytes
+						item.Value = data;
+						
+						// data is a DWORD array indicating the language and code page combinations supported by this file.
+						// The low-order word of each DWORD must contain a Microsoft language identifier, and the high-order word must contain the IBM code page number.
+						// Either high-order or low-order word can be zero, indicating that the file is language or code page independent.
+						// ms-help://MS.MSDNQTR.v90.en/winui/winui/windowsuserinterface/resources/versioninformation/versioninformationreference/versioninformationstructures/var.htm
+						
+						break;
+					default:
+						VersionItem child = RecurseItem( GetNextMode(mode), rdr );
+						children.Add( child );
+						
+						break;
 				}
+				
+				// the reader was corrupted before entering the third String of the first StringTable of the StringFileInfo
+				// so let's see if padding here helps
+				
+				Pad( rdr );
+				
+			}
+			
+			Pad( rdr );
+			
+			item.Children = children.ToArray();
+			
+			return item;
+			
+		}
+		
+		private static Byte[] Pad(BinaryReader rdr) {
+			
+			Int64 pos = rdr.BaseStream.Position;
+			pos = (pos + 3) & ~3;
+			
+			Int64 offset = pos - rdr.BaseStream.Position;
+			
+			return rdr.ReadBytes( (int)offset );
+		}
+		
+		public enum Mode {
+			None,
+			Root,
+				StringFileInfoOrVarFileInfo,
+				StringFileInfo,
+					StringTable,
+						String,
+				VarFileInfo,
+					Var
+		}
+		
+		private static Mode GetNextMode(Mode mode) {
+			switch(mode) {
+				
+				case Mode.Root:
+					return Mode.StringFileInfoOrVarFileInfo;
+					
+				case Mode.StringFileInfo:
+					return Mode.StringTable;
+				case Mode.StringTable:
+					return Mode.String;
+				case Mode.String:
+					return Mode.None;
+					
+				case Mode.VarFileInfo:
+					return Mode.Var;
+				case Mode.Var:
+					return Mode.None;
+					
+				default:
+					throw new InvalidOperationException("GetNextMode, invalid mode");
+			}
+		}
+		
+		private static String GetKey(Mode mode, BinaryReader rdr, out Mode newMode) {
+			
+			newMode = mode;
+			
+			// wait a sec, are these strings null-terminated?
+			
+			StringBuilder sb = new StringBuilder();
+			Char c;
+			while( (c = rdr.ReadChar()) != 0 ) {
+				sb.Append( c );
+			}
+			
+			String retval = sb.ToString();
+			
+			if(mode == Mode.StringFileInfoOrVarFileInfo) {
+				if     (retval == "StringFileInfo") newMode = Mode.StringFileInfo;
+				else if(retval == "VarFileInfo"   ) newMode = Mode.VarFileInfo;
+			}
+			
+			return retval;
+			
+		}
+		
+		public class VersionItem {
+			
+			internal Mode _mode;
+			
+			public VersionItem(Mode mode) {
+				Mode = mode;
+			}
+			
+			public Mode   Mode            { get { return _mode; } set { _mode = value; } }
+			
+			public UInt16 Length          { get; set; }
+			public UInt16 ValueLength     { get; set; }
+			public UInt16 Type            { get; set; }
+			public String Key             { get; set; }
+			public VersionItem[] Children { get; set; }
+			public Object Value           { get; set; }
+			
+			public override String ToString() {
+				
+				String ret = Mode.ToString() + " - " + Key;
+				
+				if(Value != null) ret += " : " + Value.ToString();
+				
+				return ret;
 				
 			}
 			
 		}
+		
+#endregion
 		
 		protected override void SaveAs(System.IO.Stream stream, String extension) {
 			throw new NotSupportedException();
@@ -144,6 +256,12 @@ namespace Anolis.Core.Data {
 		protected override ResourceTypeIdentifier GetRecommendedTypeId() {
 			return new ResourceTypeIdentifier( Win32ResourceType.Version );
 		}
+		
+#region Actual Data
+		
+		public VersionItem VsVersionInfo { get; private set; }
+		
+#endregion
 		
 	}
 	

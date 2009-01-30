@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
 
-using Anolis.Core.Data;
-
-namespace Anolis.Core {
+namespace Anolis.Core.Data {
 	
 	/// <summary>ResourceData contains the resource data (rather than ResourceLang). It is lazy-loaded by ResourceLang (i.e. when the resource data is requested the data is extracted from the source and an instance of ResourceData is constructed with that data</summary>
 	public abstract class ResourceData {
@@ -180,6 +178,13 @@ namespace Anolis.Core {
 		protected virtual void Reinitialise() {
 		}
 		
+	}
+	
+	public enum ResourceDataAction {
+		None,
+		Add,
+		Delete,
+		Update
 	}
 
 }

@@ -97,6 +97,8 @@ namespace Anolis.Resourcer.Controls {
 			// 2: Lang[0] LangId
 			// 3: Lang[0] Size
 			
+			__list.BeginUpdate();
+			
 			foreach(ResourceName name in type.Names) {
 				
 				String[] subitems = GetSubItemsForName(name);
@@ -123,6 +125,8 @@ namespace Anolis.Resourcer.Controls {
 				__list.Items.Add( item );
 				
 			}
+			
+			__list.EndUpdate();
 			
 		}
 		

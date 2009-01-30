@@ -7,6 +7,7 @@ namespace Anolis.Core.Source {
 	public class NEResourceSource : ResourceSource {
 		
 		public NEResourceSource() : base(true) {
+			
 		}
 		
 		public override string Name {

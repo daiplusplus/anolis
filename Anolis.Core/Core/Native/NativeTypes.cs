@@ -365,6 +365,35 @@ namespace Anolis.Core.Native {
 			dwFileDateLS       = rdr.ReadUInt32();
 		}
 		
+		public VsFixedFileInfo(Byte[] data) {
+			
+			if(data.Length < 0x34) throw new ArgumentException("data needs to be at least 0x34 bytes long", "data");
+			
+			dwFileSubTypeDriver = 0;
+			dwFileSubTypeFont   = 0;
+			
+			dwSignature        = ReadUInt32(data, 0x00);
+			dwStrucVersion     = ReadUInt32(data, 0x04);
+			dwFileVersionMS    = ReadUInt32(data, 0x08);
+			dwFileVersionLS    = ReadUInt32(data, 0x0C);
+			dwProductVersionMS = ReadUInt32(data, 0x10);
+			dwProductVersionLS = ReadUInt32(data, 0x14);
+			dwFileFlagsMask    = ReadUInt32(data, 0x18);
+			dwFileFlags        = (VsFixedFileFlags)ReadUInt32(data, 0x1C);
+			dwFileOS           = (VsFixedFileOS)   ReadUInt32(data, 0x20);
+			dwFileType         = (VsFixedFileType) ReadUInt32(data, 0x24);
+			dwFileSubType      = ReadUInt32(data, 0x28);
+			dwFileDateMS       = ReadUInt32(data, 0x2C);
+			dwFileDateLS       = ReadUInt32(data, 0x30);
+			
+		}
+		
+		private static UInt32 ReadUInt32(Byte[] data, Int32 offset) {
+			
+			 return (UInt32)(((data[offset] | (data[offset + 1] << 8)) | (data[offset + 2] << 0x10)) | (data[offset + 3] << 0x18));
+			
+		}
+		
 	}
 #else
 	
@@ -460,51 +489,6 @@ namespace Anolis.Core.Native {
 		FontVector               = 0x2,
 		FontTrueType             = 0x3
 	}
-	
-	internal struct StringFileInfo {
-		public UInt16 wLength;
-		public UInt16 wValueLength;
-		public UInt16 wType;
-		public String szKey; // always contains "StringFileInfo"
-		public UInt16[] Padding;
-		public StringTable[] Children;
-	}
-	
-		internal struct StringTable {
-			public UInt16 wLength;
-			public UInt16 wValueLength;
-			public UInt16 wType;
-			public String szKey; // 8-digit hex number stored as a unicode string of the MS lang id
-			public UInt16[] Padding;
-			public StringTableEntry[] Children;
-		}
-		
-		internal struct StringTableEntry {
-			public UInt16 wLength;
-			public UInt16 wValueLength;
-			public UInt16 wType;
-			public String szKey;
-			public UInt16[] Padding;
-			public String Value; // represented by an array of WORD
-		}
-	
-	internal struct VarFileInfo {
-		public UInt16 wLength;
-		public UInt16 wValueLength;
-		public UInt16 wType;
-		public String szKey; // always contains "VarFileInfo"
-		public UInt16[] Padding;
-		public Var[] Children;
-	}
-	
-		internal struct Var {
-			public UInt16 wLength;
-			public UInt16 wValueLength;
-			public UInt16 wType;
-			public String szKey; // always contains "Translation"
-			public UInt16[] Padding;
-			public UInt32[] Value;
-		}
 	
 #endregion
 	

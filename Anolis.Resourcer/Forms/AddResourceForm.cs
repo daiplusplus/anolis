@@ -168,7 +168,7 @@ namespace Anolis.Resourcer {
 			
 			ResourceDataFactory factory = _filters[ __ofd.FilterIndex - 1].X;
 			
-			_data = Anolis.Core.ResourceData.FromFile( __ofd.FileName, MainForm.LatestInstance.CurrentSource );
+			_data = ResourceData.FromFile( __ofd.FileName, MainForm.LatestInstance.CurrentSource );
 			
 			///////////////////////////
 			// Recommended Type

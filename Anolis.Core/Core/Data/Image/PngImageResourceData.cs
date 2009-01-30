@@ -28,7 +28,7 @@ namespace Anolis.Core.Data {
 		public override ResourceData FromResource(ResourceLang lang, byte[] data) {
 			
 			PngImageResourceData rd;
-			if( PngImageResourceData.TryCreate(null, data, out rd) ) return rd;
+			if( PngImageResourceData.TryCreate(lang, data, out rd) ) return rd;
 			
 			return null;
 			

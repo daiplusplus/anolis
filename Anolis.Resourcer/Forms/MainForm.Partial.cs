@@ -479,11 +479,16 @@ namespace Anolis.Resourcer {
 		/// <summary>Populates the MRU menu with data from the Mru instance.</summary>
 		private void MruPopulate() {
 			
-			__tSrcOpen.DropDown.Items.Clear();
+			while( __tSrcOpen.DropDown.Items[0].Tag is String ) {
+				// remove existing MRU items
+				__tSrcOpen.DropDown.Items.RemoveAt( 0 );
+			}
 			
 			String[] mruItems = Mru.Items;
 			
-			for(int i=0;i<mruItems.Length;i++) {
+			__tSrcMruInfo.Visible = !(__tSrcMruClear.Enabled = mruItems.Length > 0);
+			
+			for(int i=mruItems.Length - 1;i>=0;i--) {
 				
 				String text = (i+1).ToString(Cult.InvariantCulture) + ' ' + TrimPath( mruItems[i], 80 );
 				
@@ -491,15 +496,27 @@ namespace Anolis.Resourcer {
 				item.Tag = mruItems[i];
 				item.Click += new EventHandler(__tSrcMruItem_Click);
 				
-				__tSrcOpen.DropDown.Items.Add( item );
+				__tSrcOpen.DropDown.Items.Insert( 0, item );
 				
 			}
 			
 		}
 		
+		private void MruClear() {
+			Mru.Clear();
+			
+			while( __tSrcOpen.DropDown.Items[0].Tag is String ) {
+				// remove existing MRU items
+				__tSrcOpen.DropDown.Items.RemoveAt( 0 );
+			}
+			
+			__tSrcMruInfo.Visible = !(__tSrcMruClear.Enabled = Mru.Items.Length > 0);
+			
+		}
+		
 #endregion
-	
-	
+		
+		
 #region Misc
 		
 		private void OptionsShow() {

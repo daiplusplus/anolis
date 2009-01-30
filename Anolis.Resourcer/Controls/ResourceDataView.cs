@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 
 using Anolis.Core;
+using Anolis.Core.Data;
 using Anolis.Resourcer.TypeViewers;
 
 namespace Anolis.Resourcer.Controls {

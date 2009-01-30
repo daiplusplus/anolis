@@ -30,6 +30,7 @@ namespace Anolis.Resourcer {
 			
 			this.__tSrcOpen.ButtonClick     += new EventHandler(__tSrcOpen_ButtonClick);
 			this.__tSrcOpen.DropDownOpening += new EventHandler(__tSrcOpen_DropDownOpening);
+			this.__tSrcMruClear.Click += new EventHandler(__tSrcMruClear_Click);
 			this.__tSrcSave.Click           += new EventHandler(__tSrcSave_Click);
 			this.__tSrcReve.Click           += new EventHandler(__tSrcReve_Click);
 			this.__tResAdd.Click            += new EventHandler(__tResAdd_Click);
@@ -131,16 +132,16 @@ namespace Anolis.Resourcer {
 			if(!lang.DataIsLoaded) node.StateImageKey = "";
 			else {
 				switch(lang.Data.Action) {
-					case ResourceDataAction.Add:
+					case Anolis.Core.Data.ResourceDataAction.Add:
 						node.StateImageKey = "Add";
 						return;
-					case ResourceDataAction.Delete:
+					case Anolis.Core.Data.ResourceDataAction.Delete:
 						node.StateImageKey = "Del";
 						return;
-					case ResourceDataAction.None:
+					case Anolis.Core.Data.ResourceDataAction.None:
 						node.StateImageKey = "";
 						return;
-					case ResourceDataAction.Update:
+					case Anolis.Core.Data.ResourceDataAction.Update:
 						node.StateImageKey = "Upd";
 						return;
 				}
@@ -242,6 +243,11 @@ namespace Anolis.Resourcer {
 			this.SourceLoad( path, true );
 		}
 		
+		private void __tSrcMruClear_Click(object sender, EventArgs e) {
+			
+			MruClear();
+		}
+		
 		private void __tSrcReve_Click(Object sender, EventArgs e) {
 			
 			this.SourceRevert();
@@ -321,7 +327,7 @@ namespace Anolis.Resourcer {
 					__tResRep.Enabled = this.CurrentData != null;
 					__tResExt.Enabled = this.CurrentData != null;
 					__tResDel.Enabled = this.CurrentData != null;
-					__tResCan.Enabled = this.CurrentData != null && this.CurrentData.Action != ResourceDataAction.None;
+					__tResCan.Enabled = this.CurrentData != null && this.CurrentData.Action != Anolis.Core.Data.ResourceDataAction.None;
 					
 				}
 			

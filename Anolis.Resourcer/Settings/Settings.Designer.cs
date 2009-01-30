@@ -69,5 +69,17 @@ namespace Anolis.Resourcer.Settings {
                 this["Toolbar24"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Gimmicks {
+            get {
+                return ((bool)(this["Gimmicks"]));
+            }
+            set {
+                this["Gimmicks"] = value;
+            }
+        }
     }
 }

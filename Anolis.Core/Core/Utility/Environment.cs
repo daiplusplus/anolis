@@ -8,6 +8,7 @@ namespace Anolis.Core.Utility {
 		
 		private static Boolean? _isWow64;
 		private static Int32?   _spLevel;
+		private static Boolean? _isGteVista;
 		
 		/// <summary>Returns true if this process is running as x86 on an x64 system (i.e. it's running under Wow64).</summary>
 		public static Boolean IsWow64 {
@@ -111,6 +112,18 @@ namespace Anolis.Core.Utility {
 			return os.Version.Major >= 6;
 			
 		}
+		
+		public static Boolean IsGteVista {
+			get {
+				if( _isGteVista == null ) {
+					_isGteVista =
+						OSVersion.Platform == PlatformID.Win32NT && OSVersion.Version.Major >= 6;
+				}
+				return _isGteVista.Value;
+			}
+		}
+		
+		public static OperatingSystem OSVersion { get { return System.Environment.OSVersion; } }
 		
 	}
 }
