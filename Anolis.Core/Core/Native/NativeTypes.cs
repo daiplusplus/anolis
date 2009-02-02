@@ -527,4 +527,30 @@ namespace Anolis.Core.Native {
 	
 #endregion
 	
+#region Dialogs
+	
+	[StructLayout(LayoutKind.Sequential,Pack=2)]
+	internal struct DlgItemTemplate {
+		public UInt32 style;
+		public UInt32 dwExtendedStyle;
+		public UInt16 x;
+		public UInt16 y;
+		public UInt16 cx;
+		public UInt16 cy;
+		public UInt16 id;
+		
+		public DlgItemTemplate(BinaryReader rdr) {
+			style           = rdr.ReadUInt32();
+			dwExtendedStyle = rdr.ReadUInt32();
+			x               = rdr.ReadUInt16();
+			y               = rdr.ReadUInt16();
+			cx              = rdr.ReadUInt16();
+			cy              = rdr.ReadUInt16();
+			id              = rdr.ReadUInt16();
+		}
+	}
+
+
+#endregion
+	
 }

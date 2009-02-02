@@ -1,5 +1,5 @@
 ﻿namespace Anolis.Resourcer.TypeViewers {
-	partial class PictureViewer {
+	partial class ImageViewer {
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>

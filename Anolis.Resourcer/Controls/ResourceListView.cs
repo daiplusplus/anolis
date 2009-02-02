@@ -97,27 +97,56 @@ namespace Anolis.Resourcer.Controls {
 			// 2: Lang[0] LangId
 			// 3: Lang[0] Size
 			
+			Boolean showIcons = true;
+			
+			if(type.Names.Count > 256) {
+				
+				String message = String.Format("There are {0} resource icons to display. This might take a long time, do you want to show the icons?", type.Names.Count);
+				
+				DialogResult r = MessageBox.Show(this, message, "Anolis Resourcer", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+				showIcons = r == DialogResult.Yes;
+				
+			}
+			
 			__list.BeginUpdate();
 			
 			foreach(ResourceName name in type.Names) {
 				
-				String[] subitems = GetSubItemsForName(name);
-				if(subitems == null) continue;
+				ListViewItem item;
 				
-				String imageListKey = name.Identifier.FriendlyName;
+				if(name.Langs.Count == 0) continue;
 				
-				Icon ico = GetIconForResourceName(name);
-				
-				ListViewItem item ;
-				
-				if(ico != null) {
+				if(showIcons) {
 					
-					_images.Images.Add( imageListKey, ico );
-					item = new ListViewItem(subitems, imageListKey );
+					String imageListKey = name.Identifier.FriendlyName;
+					
+					ListViewThumb thumb = GetIconForResourceName(name);
+					
+					String[] subitems = GetSubItemsForName(name);
+					
+					if(thumb != null) {
+						
+						if(thumb.IsIcon) {
+							
+							_images.Images.Add( imageListKey, thumb.Icon );
+							
+						} else {
+							
+							_images.Images.Add( imageListKey, thumb.Image );
+						}
+						
+						item = new ListViewItem(subitems, imageListKey );
+						
+					} else {
+						
+						item = new ListViewItem(subitems);
+					}
+					
 					
 				} else {
 					
-					item = new ListViewItem(subitems);
+					item = new ListViewItem(name.Identifier.FriendlyName);
+					
 				}
 				
 				item.Tag = name;
@@ -130,6 +159,24 @@ namespace Anolis.Resourcer.Controls {
 			
 		}
 		
+		private class ListViewThumb {
+			
+			public ListViewThumb(Icon ico) {
+				Icon = ico;
+				IsIcon = true;
+			}
+			
+			public ListViewThumb(Image img) {
+				Image = img;
+				IsIcon = false;
+			}
+			
+			public Boolean IsIcon;
+			public Icon Icon;
+			public Image Image;
+		}
+		
+		/// <remarks>Returns null if the ResourceName has no ResourceLang children</remarks>
 		private String[] GetSubItemsForName(ResourceName name) {
 			
 			String lang, size;
@@ -158,7 +205,7 @@ namespace Anolis.Resourcer.Controls {
 			
 		}
 		
-		private Icon GetIconForResourceName(ResourceName name) {
+		private ListViewThumb GetIconForResourceName(ResourceName name) {
 			
 			if(name.Langs.Count == 1) {
 				
@@ -185,17 +232,26 @@ namespace Anolis.Resourcer.Controls {
 				
 				String imageListKey = lang.LanguageId.ToString();
 				
-				Icon ico = GetIconForResourceLang(lang);
+				ListViewThumb thumb = GetIconForResourceLang(lang);
 				
 				ListViewItem item;
 				
-				if(ico != null) {
-					_images.Images.Add( imageListKey, ico );
+				if(thumb != null) {
+					
+					if(thumb.IsIcon) {
+						
+						_images.Images.Add( imageListKey, thumb.Icon );
+						
+					} else {
+						
+						_images.Images.Add( imageListKey, thumb.Image );
+					}
+					
 					item = new ListViewItem(subitems, imageListKey );
+					
 				} else {
 					
 					item = new ListViewItem(subitems);
-					
 				}
 				
 				item.Tag = lang;
@@ -217,7 +273,7 @@ namespace Anolis.Resourcer.Controls {
 			
 		}
 		
-		private Icon GetIconForResourceLang(ResourceLang lang) {
+		private ListViewThumb GetIconForResourceLang(ResourceLang lang) {
 			
 			ResourceData data = lang.Data;
 			
@@ -228,17 +284,28 @@ namespace Anolis.Resourcer.Controls {
 				
 				if(bestMember == null) return null;
 				
-				return (bestMember.ResourceData as IconCursorImageResourceData).Icon;
+				IconCursorImageResourceData rd = (bestMember.ResourceData as IconCursorImageResourceData);
+				if(rd.Icon == null) {
+					return new ListViewThumb( rd.Image );
+				} else {
+					return new ListViewThumb( rd.Icon );
+				}
+				
+				
 				
 			} else if(data is IconCursorImageResourceData) {
 				
 				IconCursorImageResourceData icoImg = data as IconCursorImageResourceData;
-				return icoImg.Icon;
+				return new ListViewThumb( icoImg.Icon );
 				
 			} else if(data is ImageResourceData) {
 				
-				// TODO: return a thumbnail
-				return null;
+				ImageResourceData imgData = data as ImageResourceData;
+				Size s = (Size)__tIconSize.Tag;
+				
+				Image thumb = imgData.Image.GetThumbnailImage( s.Width, s.Height, new Image.GetThumbnailImageAbort(delegate() { return true; }), IntPtr.Zero);
+				
+				return new ListViewThumb( thumb );
 				
 			} else {
 				

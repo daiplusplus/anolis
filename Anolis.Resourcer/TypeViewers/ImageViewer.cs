@@ -10,9 +10,9 @@ using Anolis.Core.Data;
 
 namespace Anolis.Resourcer.TypeViewers {
 	
-	public partial class PictureViewer : TypeViewer {
+	public partial class ImageViewer : TypeViewer {
 		
-		public PictureViewer() {
+		public ImageViewer() {
 			InitializeComponent();
 		}
 		

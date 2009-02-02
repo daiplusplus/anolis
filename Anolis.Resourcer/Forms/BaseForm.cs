@@ -13,7 +13,7 @@ namespace Anolis.Resourcer {
 		
 		public BaseForm() {
 			
-			this.Font = SystemFonts.IconTitleFont;
+			UpdateFonts();
 			
 			if( Settings.Settings.Default.Gimmicks ) {
 				
@@ -67,6 +67,8 @@ namespace Anolis.Resourcer {
 		
 		private void BaseForm_Load(object sender, EventArgs e) {
 			
+			UpdateFonts();
+			
 			FadeInBegin();
 		}
 		
@@ -78,11 +80,8 @@ namespace Anolis.Resourcer {
 			
 			foreach(Control c in this.Controls) {
 				
-				if(c.Font.Bold) {
-					
+				if(c != null && c.Font.Bold)
 					c.Font = new Font( this.Font, FontStyle.Bold );
-					
-				}
 				
 			}
 			

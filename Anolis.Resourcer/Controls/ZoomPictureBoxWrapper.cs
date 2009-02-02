@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace Anolis.Resourcer.Controls {
@@ -15,11 +16,18 @@ namespace Anolis.Resourcer.Controls {
 			__toolsZoom100.Click += new EventHandler(__toolsZoom100_Click);
 			__toolsCenter .Click += new EventHandler(__toolsCenter_Click);
 			__pb.ZoomChanged += new EventHandler(__pb_ZoomChanged);
+
+			__toolsInfo.Click += new EventHandler(__toolsInfo_Click);
 			
 			LoadInterpolation();
+			LoadBackgroundColors();
 			
 			// HACK: Until I figure out why ZPB displays scrollbars when no image is set here's a dummy:
 			__pb.Image = Properties.Resources.ZPB_Empty;
+		}
+		
+		private void __toolsInfo_Click(object sender, EventArgs e) {
+			ToggleInfoView();
 		}
 		
 		private void __toolsCenter_Click(object sender, EventArgs e) {
@@ -42,6 +50,88 @@ namespace Anolis.Resourcer.Controls {
 				
 				__pb.InterpolationMode = mode;
 			});
+			
+		}
+		
+		private void LoadBackgroundColors() {
+			
+			__toolsColor.Image = __toolsColorTrans.Image;
+			
+			__toolsColorWhite.Tag = Color.White;
+			__toolsColorBlack.Tag = Color.Black;
+			__toolsColorGrey.Tag = Color.Gray;
+			__toolsColorMagenta.Tag = Color.Magenta;
+			
+			foreach(ToolStripItem item in __toolsColor.DropDownItems) {
+
+				item.Click += new EventHandler(item_Click);
+				
+				if(item.Tag == null) continue;
+				
+				Bitmap bmp = new Bitmap( 16, 16 ); // TODO: Find out how to get the size of a toolstripitem's image
+				
+				using(Graphics g = Graphics.FromImage( bmp )) {
+					g.FillRectangle( new SolidBrush( (Color)item.Tag ), 0, 0, 16, 16 );
+				}
+				item.Image = bmp;
+			}
+			
+		}
+		
+		private void ToggleInfoView() {
+			
+			__infoPanel.Visible = __toolsInfo.Checked;
+			
+			if(!__infoPanel.Visible) return;
+			
+			if( Image != null ) {
+				
+				__iWidth .Text = Image.Width.ToString() + "px";
+				__iHeight.Text = Image.Height.ToString() + "px";
+				
+				__iFormat.Text = GetRawFormatName( Image.RawFormat );
+				__iPxFormat.Text = Image.PixelFormat.ToString();
+				
+			}
+			
+		}
+		
+		private static String GetRawFormatName(ImageFormat format) {
+			
+			 // there's a bug here which means it gives the GUIDs rather than the name
+			String def = format.ToString();
+			if(def.StartsWith("[ImageFormat:")) {
+				
+				if( format.Guid == ImageFormat.Bmp.Guid )  return "DIB Bitmap"; // return some Dib info too?
+				if( format.Guid == ImageFormat.Emf.Guid )  return "EMF";
+				if( format.Guid == ImageFormat.Exif.Guid ) return "EXIF";
+				if( format.Guid == ImageFormat.Gif.Guid )  return "GIF";
+				if( format.Guid == ImageFormat.Icon.Guid ) return "Icon Image";
+				if( format.Guid == ImageFormat.Jpeg.Guid ) return "JPEG";
+				if( format.Guid == ImageFormat.MemoryBmp.Guid ) return "In-Memory DIB Bitmap";
+				if( format.Guid == ImageFormat.Png.Guid )  return "PNG";
+				if( format.Guid == ImageFormat.Tiff.Guid ) return "TIFF";
+				if( format.Guid == ImageFormat.Wmf.Guid )  return "WMF";
+				
+			}
+			
+			return def;
+			
+		}
+		
+		private void item_Click(Object sender, EventArgs e) {
+			
+			ToolStripItem item = sender as ToolStripItem;
+			if(item.Tag == null) {
+				
+				__pb.BackColor       = SystemColors.Window;
+				__pb.BackgroundImage = Anolis.Resourcer.Properties.Resources.ImageViewer_TransparentBg;
+				
+			} else {
+				
+				__pb.BackColor       = (Color)item.Tag;
+				__pb.BackgroundImage = null;
+			}
 			
 		}
 		

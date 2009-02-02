@@ -1,0 +1,184 @@
+-------------------------------------------------------------------------------
+                                Description
+-------------------------------------------------------------------------------
+
+Anolis.Console.exe - Performs operations on resources contained within a file.
+
+http://anol.is http://codeplex.com/anolis  http://xpize.net  http://vizeos.net
+
+-------------------------------------------------------------------------------
+                                   Usage
+-------------------------------------------------------------------------------
+
+-add          $targetFile, $saveTargetAs, $source,       $resourceName
+-addskip      $targetFile, $saveTargetAs, $source,       $resourceName
+-addoverwrite $targetFile, $saveTargetAs, $source,       $resourceName
+-modify       $targetFile, $saveTargetAs, $source,       $resourceName
+-extract      $targetFile, $destination,  $resourceName
+-delete       $targetFile, $saveTargetAs, $resourceName
+-script       $scriptFile,
+
+You have my apologies for the complicated command-line syntax. This program
+strives to be 100% compatible with ResHacker.exe so it inherits its convulted
+command-line arguments.
+
+Important Notice: NE, RES, and RC targets/sources are not currently supported!
+Only individual PE files can be used as values for the $targetFile arguments.
+The$source argument supports PE files in addition to file resources (e.g. *.ico
+and *.bmp). Disregard any information printed below that makes reference to NE,
+RES, or RC files. (That information exists purely for future reference).
+
+-add, -addskip, -addoverwrite, -modify, -extract, -delete, -script
+    Complicated. See below.
+    
+$targetFile
+    Any resource$source supported by Anolis, such as PE, NE, RES, or RC files.
+
+saveTargetAs
+    The path to save the updated $targetFile to. You can use the same filename
+    as $targetFile if you wish to overwrite it (NOT RECOMMENDED FOR SYSTEM
+    FILES!)
+
+source
+    Any resource$source (PE, NE, RES, RC) or individual resource file (.ico,
+    .bmp, etc) that contains the resource(s) to be added to $targetFile.
+    
+$resourceName
+    Takes the forms "Type,Name,Lang", "Type,Name,", "Type,," or even ",,"
+    
+    Every resource that the operation (-add, -extract, etc) applies to will
+    match the $resourceName value. See the examples below for more information.
+    
+    Type is a Resource Type Identifier. Either a String or Integer which
+    corresponds to a ResourceType located in$source and $targetFile. Value is
+    case-.insensitive. Note that the following Strings are reserved and map to
+    the "RT_" types defined by Win32:
+        CURSOR, BITMAP, ICON, MENU, DIALOG, STRINGTABLE, FONTDIRECTORY, FONT,
+        ACCELERATOR, RCDATA, MESSAGETABLE, VERSION, DLGINCLUDE, PLUGANDPLAY,
+        VXD, CURSORANIMATED, ICONANIMATED, HTML, MANIFEST
+    
+    Name is a Resource Name Identifier. Either a String or Integer which
+    corresponds to a ResourceName located in$source and $targetFile.
+    
+    Lang is a Windows LCID.
+    
+-add
+  Adds (or updates by overwriting) the resources in$source specified by
+  $resourceName.
+      
+    If$source is an individual resource file (e.g. .ico or .bmp) then the 
+    resource specified by $resourceName will be inserted or overwritten.
+        
+        If $resourceName is in the form "Type,Name,Lang" the resource will be
+        inserted or overwritten.
+        
+        If $resourceName is in the form "Type,Name," all resources under Name
+        regardless of language will be overwritten. No resources will be
+        inserted.
+        
+        If $resourceName is in the form "Type,," all resources under Type
+        regardless of Name or Language will be overwritten. No resources will
+        be inserted. (NOT RECOMMENDED!)
+        
+        If $resourceName is in the form ",," all resources in the $targetFile
+        will be overwritten. This action is not recommended under any
+        circumstances and you will smell like a big fat poo if you execute this
+        command.
+    
+    If$source is a readable resource$source (e.g. PE, NE, RES, or RC) then
+    every resource in the$source that matches $resourceName will be copied into
+    $targetFile
+        
+        If $resourceName is in the form "Type,Name,Lang" the single resource
+        matching that name in$source will be copied to $targetFile.
+        
+        If $resourceName is in the form "Type,Name," all resources in$source
+        under the specified Type and Name will be copied to $targetFile (i.e.
+        regardless of language)
+        
+        If $resourceName is in the form "Type,," all resources in$source
+        under the specified Type will be copied to $targetFile (i.e. regardless
+        of name and language)
+        
+        If $resourceName is in the form ",," all resources in$source will be
+        copied to $targetFile.
+        
+        If a resource in$source already exists in $targetFile the operation
+        will fail, see -addoverwrite or -addskip for more forgiving behaviour
+        
+-addskip
+  Adds the resources in$source specified by $resourceName. Can only be used
+  when $source is a readable resource$source (e.g. PE, NE, RES, or RC).
+  
+    This command Exhibits similar behaviour to -add except that if a resource
+    in$source exists in $targetFile the resource will *not* be overwritten and
+    the operation will continue (not fail)
+
+-addoverwrite
+  Adds (or updates by overwriting) the resources in$source specified by
+  $resourceName. Can only be used when$source is a readable resource$source
+  (e.g. PE, NE, RES, or RC).
+  
+    This command Exhibits similar behaviour to -add except that if a resource
+    in$source exists in $targetFile the resource will be overwritten and the
+    operation will continue (not fail)
+
+-modify
+  Similar to -addoverwrite, except if a resource in$source does not exist in
+  $targetFile the resource will not be inserted. Can only be used when$source
+  is a readable resource$source (e.g. PE, NE, RES, or RC).
+
+-extract
+  Extracts the resource(s) specified by $resourceName from $targetFile and
+  saves them to $destination.
+    
+        If $resourceName is not in the form "Type,Name,Lang" then $destination
+        must be a RES or RC file or empty. NE or PE files are not supported.
+        
+        If $destination is empty and $resourceName is not in the form
+        "Type,Name,Lang" then the resources will be saved to a new directory
+        under the current working directory in the form
+        "$targetFile\Type\Name\Lang" where Lang is the filename.
+        
+        If $destination is empty and $resourceName refers to a specific
+        resource (i.e. has Lang specified) then the file will be saved in the
+        current working directory with a name in the form "Type-Name-Lang" with
+        an appropriate extension
+
+-delete
+  Deletes all resources from $targetFile that match $resourceName
+  Use this command with care.
+  
+-script
+  The program will execute commands located in the specified $scriptFile.
+  
+  Script files must be the same format as Resource Hacker scripts, their format
+  is repeated below
+  
+-------------------------------------------------------------------------------
+                             Script File Format
+-------------------------------------------------------------------------------
+
+[FILENAMES]
+Exe=
+SaveAs=
+Log=
+
+// Comments start with two forward slashes
+
+[COMMANDS]
+-add           $source, $resourceName
+-addskip       $source, $resourceName
+-addoverwrite  $source, $resourceName
+-modify        $source, $resourceName
+-extract       $destination, $resourceName
+-delete        $resourceName
+
+
+
+-------------------------------------------------------------------------------
+                                   Examples
+-------------------------------------------------------------------------------
+
+No examples yet, I'm too tried. Writing this Usage document took me 1.5 hours 
+and it's 0131h already.

@@ -31,8 +31,6 @@ namespace Anolis.Resourcer {
 		
 		private void OptionsForm_Load(object sender, EventArgs e) {
 			
-			UpdateFonts();
-			
 			__licenseText.Text = Anolis.Resourcer.Properties.Resources.AnolisGplLicense;
 			
 			LoadSettings();

@@ -105,6 +105,13 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ImageViewer_Information {
+            get {
+                object obj = ResourceManager.GetObject("ImageViewer_Information", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ImageViewer_Interpolation {
             get {
                 object obj = ResourceManager.GetObject("ImageViewer_Interpolation", resourceCulture);

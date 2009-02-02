@@ -77,6 +77,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\BaseUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Cultures.cs" />
     <Compile Include="Forms\AddResourceForm.cs">
       <SubType>Form</SubType>
@@ -128,6 +131,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\ZoomPictureBoxWrapper.resx">
+      <DependentUpon>ZoomPictureBoxWrapper.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddResourceForm.resx">
       <DependentUpon>AddResourceForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,8 +160,8 @@
     <EmbeddedResource Include="TypeViewers\MediaViewer.resx">
       <DependentUpon>MediaViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TypeViewers\PictureViewer.resx">
-      <DependentUpon>PictureViewer.cs</DependentUpon>
+    <EmbeddedResource Include="TypeViewers\ImageViewer.resx">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TypeViewers\RawViewer.resx">
       <DependentUpon>RawViewer.cs</DependentUpon>
@@ -217,11 +223,11 @@
     <Compile Include="TypeViewers\TypeViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TypeViewers\PictureViewer.cs">
+    <Compile Include="TypeViewers\ImageViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TypeViewers\PictureViewer.Designer.cs">
-      <DependentUpon>PictureViewer.cs</DependentUpon>
+    <Compile Include="TypeViewers\ImageViewer.Designer.cs">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ResourceDataView.cs">
       <SubType>UserControl</SubType>
@@ -264,6 +270,7 @@
     <None Include="Resources\AddResource\SortByName.png" />
     <Content Include="Resources\ImageViewer\Center.png" />
     <None Include="Resources\ImageViewer\Empty.png" />
+    <None Include="Resources\ImageViewer\Information.png" />
     <Content Include="Resources\ImageViewer\Interpolation.png" />
     <Content Include="Resources\ImageViewer\TransparentBg.png" />
     <Content Include="Resources\ImageViewer\Zoom100.png" />
