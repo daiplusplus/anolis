@@ -16,9 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_ref", "_ref", "{74E93623-C
 		_ref\W3b.WinControls.pdb = _ref\W3b.WinControls.pdb
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Gui", "Anolis.Gui\Anolis.Gui.csproj", "{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 5
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs03.codeplex.com/
 		SccLocalPath0 = .
@@ -31,6 +33,9 @@ Global
 		SccProjectUniqueName3 = Anolis.Resourcer\\Anolis.Resourcer.csproj
 		SccProjectName3 = Anolis.Resourcer
 		SccLocalPath3 = Anolis.Resourcer
+		SccProjectUniqueName4 = Anolis.Gui\\Anolis.Gui.csproj
+		SccProjectName4 = Anolis.Gui
+		SccLocalPath4 = Anolis.Gui
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +68,12 @@ Global
 		{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}.Release|x86.ActiveCfg = Release|x86
 		{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}.Release|x86.Build.0 = Release|x86
+		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

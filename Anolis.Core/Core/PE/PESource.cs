@@ -113,7 +113,16 @@ operationsPerformed.Add( Enum.GetName(typeof(ResourceDataAction), data.Action ) 
 			NativeMethods.FreeLibrary( _moduleHandle );
 		}
 		
+		private Int32 timesCalled = 0;
+		private System.Diagnostics.Stopwatch swAll = new System.Diagnostics.Stopwatch();
+		private System.Diagnostics.Stopwatch swMem = new System.Diagnostics.Stopwatch();
+		private System.Diagnostics.Stopwatch swMan = new System.Diagnostics.Stopwatch();
+		private System.Diagnostics.Stopwatch swDat = new System.Diagnostics.Stopwatch();
+		
 		public override ResourceData GetResourceData(ResourceLang lang) {
+
+timesCalled++;
+swAll.Start();
 			
 			if( lang.Name.Type.Source != this ) throw new ArgumentException("Provided resource does not exist in this Image");
 			// TODO: Check that ResourceLang refers to a Resource that actually does exist in this resource and is not a pending add operation
@@ -123,6 +132,8 @@ operationsPerformed.Add( Enum.GetName(typeof(ResourceDataAction), data.Action ) 
 			// use SizeOfResource to get the length of the byte array
 			// then LockResource to get a pointer to it. Use Marshal to get a byte array and take it from there
 			
+	swMem.Start();
+			
 			IntPtr resInfo = NativeMethods.FindResourceEx( _moduleHandle, lang.Name.Type.Identifier.NativeId, lang.Name.Identifier.NativeId, lang.LanguageId );
 			IntPtr resData = NativeMethods.LoadResource  ( _moduleHandle, resInfo );
 			Int32  size    = NativeMethods.SizeOfResource( _moduleHandle, resInfo );
@@ -131,13 +142,24 @@ operationsPerformed.Add( Enum.GetName(typeof(ResourceDataAction), data.Action ) 
 			
 			IntPtr resPtr  = NativeMethods.LockResource( resData ); // there is no method to unlock resources, but they should be freed anyway
 			
+	swMem.Stop();
+	swMan.Start();
+			
 			Byte[] data = new Byte[ size ];
 			
 			Marshal.Copy( resPtr, data, 0, size );
 			
 			NativeMethods.FreeResource( resData );
+	
+	swMan.Stop();
+	
+	swDat.Start();
 			
 			ResourceData retval = ResourceData.FromResource(lang, data);
+			
+	swDat.Stop();
+	
+swAll.Stop();
 			
 			return retval;
 			

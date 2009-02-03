@@ -39,6 +39,7 @@ namespace Anolis.Resourcer.Controls {
 			__list.SelectedIndexChanged += new EventHandler(__list_SelectedIndexChanged);
 			__list.ItemActivate         += new EventHandler(__list_ItemActivate);
 			
+			__bg.DoWork += new System.ComponentModel.DoWorkEventHandler(PopulateResourceType);
 		}
 		
 #region Events
@@ -108,9 +109,35 @@ namespace Anolis.Resourcer.Controls {
 				
 			}
 			
-			__list.BeginUpdate();
+			__bg.RunWorkerAsync( new Object[] { showIcons, type.Names } );
+			__bg.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(__bg_ProgressChanged);
+		}
+		
+		private void __bg_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e) {
 			
-			foreach(ResourceName name in type.Names) {
+			int p = e.ProgressPercentage;
+			if( p > 100 ) p = 100;
+			else if( p < 0 ) p = 0;
+			
+			__progessBar.Value = p;
+			
+		}
+		
+		private void PopulateResourceType(Object sender, System.ComponentModel.DoWorkEventArgs e) {
+			
+			Object[] args = e.Argument as Object[];
+			
+			Boolean showIcons            = (Boolean)args[0];
+			ResourceNameCollection names = args[1] as ResourceNameCollection;
+			
+			Invoke( new MethodInvoker(delegate() { __list.BeginUpdate(); } ) );
+			
+			Single nof = names.Count;
+			Single i   = 1;
+			
+System.Diagnostics.Stopwatch swImageList = new System.Diagnostics.Stopwatch();
+			
+			foreach(ResourceName name in names) {
 				
 				ListViewItem item;
 				
@@ -126,14 +153,25 @@ namespace Anolis.Resourcer.Controls {
 					
 					if(thumb != null) {
 						
+swImageList.Start();
+						
 						if(thumb.IsIcon) {
 							
-							_images.Images.Add( imageListKey, thumb.Icon );
+							// I'd like to mention that ImageList is VERY slow for working with loads (i.e. >100 ) of Icons
+							// so let's try converting it to a bitmap and seeing what happens
+							
+							Bitmap bmp = thumb.Icon.ToBitmap();
+							
+							//Invoke( new MethodInvoker(delegate() { _images.Images.Add( imageListKey, thumb.Icon ); } ) );
+							Invoke( new MethodInvoker(delegate() { _images.Images.Add( imageListKey, bmp ); } ) );
 							
 						} else {
 							
-							_images.Images.Add( imageListKey, thumb.Image );
+							Invoke( new MethodInvoker(delegate() { _images.Images.Add( imageListKey,  thumb.Image ); } ) );
+							
 						}
+						
+swImageList.Stop();
 						
 						item = new ListViewItem(subitems, imageListKey );
 						
@@ -151,11 +189,15 @@ namespace Anolis.Resourcer.Controls {
 				
 				item.Tag = name;
 				
-				__list.Items.Add( item );
+				// does this create a new MethodInvoker for every call?
+				Invoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
 				
+				i++;
+				
+				__bg.ReportProgress( Convert.ToInt32( 100 * i / nof ) );
 			}
 			
-			__list.EndUpdate();
+			Invoke( new MethodInvoker(delegate() { __list.EndUpdate(); }) );
 			
 		}
 		
@@ -296,7 +338,11 @@ namespace Anolis.Resourcer.Controls {
 			} else if(data is IconCursorImageResourceData) {
 				
 				IconCursorImageResourceData icoImg = data as IconCursorImageResourceData;
-				return new ListViewThumb( icoImg.Icon );
+				if(icoImg.Icon == null) {
+					return new ListViewThumb( icoImg.Image );
+				} else {
+					return new ListViewThumb( icoImg.Icon );
+				}
 				
 			} else if(data is ImageResourceData) {
 				
