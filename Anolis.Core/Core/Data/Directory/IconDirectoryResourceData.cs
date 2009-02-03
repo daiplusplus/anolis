@@ -120,7 +120,7 @@ namespace Anolis.Core.Data {
 			}
 			
 			IconDirectoryResourceData retval = new IconDirectoryResourceData(lang, rawData);
-		
+			
 			// then we might be able to get the resourcedata for the subimages to include in the directory
 			
 			// find the Icon Image resource type
@@ -299,9 +299,12 @@ namespace Anolis.Core.Data {
 			
 		}
 		
+		
+		private static IconImageResourceDataFactory _factory;
+		
 		private static IconImageResourceDataFactory GetIconImageFactory() {
 			
-			IconImageResourceDataFactory factory = null;
+			if( _factory != null ) return _factory;
 			
 			ResourceTypeIdentifier typeId = new ResourceTypeIdentifier( new IntPtr( (int)Win32ResourceType.IconImage ) );
 			
@@ -311,14 +314,14 @@ namespace Anolis.Core.Data {
 				
 				if(f is IconImageResourceDataFactory) {
 					
-					factory = f as IconImageResourceDataFactory;
+					_factory = f as IconImageResourceDataFactory;
 					break;
 				}
 			}
 			
-			if(factory == null) throw ME( new ApplicationException("Unable to locate IconImageResourceDataFactory") );
+			if(_factory == null) throw ME( new ApplicationException("Unable to locate IconImageResourceDataFactory") );
 			
-			return factory;
+			return _factory;
 		}
 		
 		private static Byte[] ReconstructRawData(IconDirectory dir, FileIconDirectoryEntry[] ents, IconCursorImageResourceData[] images, ResourceSource source) {
