@@ -7,18 +7,14 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
 			
-			if(typeId.KnownType == Win32ResourceType.Custom) {
-				
-				if( String.Equals(typeId.StringId, "JPEG", StringComparison.InvariantCultureIgnoreCase ) ||
-					String.Equals(typeId.StringId, "JPG", StringComparison.InvariantCultureIgnoreCase ) )
-					
-					return Compatibility.Yes;
-				
-				return Compatibility.Maybe;
-				
-			}
+			if(typeId.KnownType == Win32ResourceType.Unknown) return Compatibility.Maybe;
+			if(typeId.KnownType != Win32ResourceType.Custom) return Compatibility.No;
 			
-			return Compatibility.No;
+			if(typeId.StringId == "JPEG") return Compatibility.Yes;
+			if(typeId.StringId == "JPG") return Compatibility.Yes;
+			if(typeId.StringId == "JPEGFILE") return Compatibility.Yes;
+			
+			return Compatibility.Maybe;
 			
 		}
 		
