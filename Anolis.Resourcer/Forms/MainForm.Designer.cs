@@ -26,8 +26,8 @@ namespace Anolis.Resourcer {
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.ToolStripSeparator @__tSep1;
 			System.Windows.Forms.ToolStripSeparator @__tSep2;
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			System.Windows.Forms.ToolStripSeparator @__tSrcMruSep;
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.@__sSep1 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__sSep2 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__resCMSep = new System.Windows.Forms.ToolStripSeparator();
@@ -43,6 +43,8 @@ namespace Anolis.Resourcer {
 			this.@__sSize = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__t = new System.Windows.Forms.ToolStrip();
 			this.@__tSrcOpen = new System.Windows.Forms.ToolStripSplitButton();
+			this.@__tSrcMruInfo = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__tSrcMruClear = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__tSrcSave = new System.Windows.Forms.ToolStripSplitButton();
 			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.backupOriginalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,8 +61,6 @@ namespace Anolis.Resourcer {
 			this.@__resCMReplace = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__resCMDelete = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__resCMCancel = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tSrcMruClear = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tSrcMruInfo = new System.Windows.Forms.ToolStripMenuItem();
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSrcMruSep = new System.Windows.Forms.ToolStripSeparator();
@@ -81,6 +81,11 @@ namespace Anolis.Resourcer {
 			@__tSep2.Name = "__tSep2";
 			@__tSep2.Padding = new System.Windows.Forms.Padding(3);
 			@__tSep2.Size = new System.Drawing.Size(6, 71);
+			// 
+			// __tSrcMruSep
+			// 
+			@__tSrcMruSep.Name = "__tSrcMruSep";
+			@__tSrcMruSep.Size = new System.Drawing.Size(148, 6);
 			// 
 			// __sSep1
 			// 
@@ -103,6 +108,7 @@ namespace Anolis.Resourcer {
 			// 
 			this.@__tree.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.@__tree.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.@__tree.HideSelection = false;
 			this.@__tree.ImageIndex = 0;
 			this.@__tree.ImageList = this.@__treeType;
 			this.@__tree.Location = new System.Drawing.Point(0, 0);
@@ -221,6 +227,19 @@ namespace Anolis.Resourcer {
 			this.@__tSrcOpen.Text = "Open";
 			this.@__tSrcOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			this.@__tSrcOpen.ToolTipText = "Open a file containing resources";
+			// 
+			// __tSrcMruInfo
+			// 
+			this.@__tSrcMruInfo.Enabled = false;
+			this.@__tSrcMruInfo.Name = "__tSrcMruInfo";
+			this.@__tSrcMruInfo.Size = new System.Drawing.Size(151, 22);
+			this.@__tSrcMruInfo.Text = "Recent Files List";
+			// 
+			// __tSrcMruClear
+			// 
+			this.@__tSrcMruClear.Name = "__tSrcMruClear";
+			this.@__tSrcMruClear.Size = new System.Drawing.Size(151, 22);
+			this.@__tSrcMruClear.Text = "Clear List";
 			// 
 			// __tSrcSave
 			// 
@@ -373,24 +392,6 @@ namespace Anolis.Resourcer {
 			this.@__resCMCancel.Name = "__resCMCancel";
 			this.@__resCMCancel.Size = new System.Drawing.Size(133, 22);
 			this.@__resCMCancel.Text = "Cancel {0}";
-			// 
-			// __tSrcMruClear
-			// 
-			this.@__tSrcMruClear.Name = "__tSrcMruClear";
-			this.@__tSrcMruClear.Size = new System.Drawing.Size(152, 22);
-			this.@__tSrcMruClear.Text = "Clear List";
-			// 
-			// __tSrcMruSep
-			// 
-			@__tSrcMruSep.Name = "__tSrcMruSep";
-			@__tSrcMruSep.Size = new System.Drawing.Size(149, 6);
-			// 
-			// __tSrcMruInfo
-			// 
-			this.@__tSrcMruInfo.Enabled = false;
-			this.@__tSrcMruInfo.Name = "__tSrcMruInfo";
-			this.@__tSrcMruInfo.Size = new System.Drawing.Size(152, 22);
-			this.@__tSrcMruInfo.Text = "Recent Files List";
 			// 
 			// MainForm
 			// 

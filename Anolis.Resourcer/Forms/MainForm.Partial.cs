@@ -268,6 +268,7 @@ namespace Anolis.Resourcer {
 			CurrentSource.Remove( CurrentData );
 			
 			ToolbarUpdate(false, true, false);
+			TreeRefresh( CurrentData.Lang );
 		}
 		
 		private void DataImport() {
@@ -298,17 +299,31 @@ namespace Anolis.Resourcer {
 			if( CurrentData == null ) throw new InvalidOperationException("There is no current ResourceData.");
 			
 			ReplaceResourceForm form = new ReplaceResourceForm();
-			if( form.ShowDialog() == DialogResult.OK ) {
+			form.InitialResource = CurrentData;
+			
+			if( form.ShowDialog() != DialogResult.OK ) return;
+			
+			ResourceData newData = form.ReplacementResource;
+			if(newData != null) {
 				
-				ResourceData newData = form.NewResourceData;
+				ResourceLang lang = CurrentData.Lang;
+				lang.SwapData( newData );
 				
-				// TODO: Perform actual ResourceData Replace
+			} else {
+				
+				// Remove temporary stuff
 				
 			}
 			
 		}
 		
 		private void DataCancel() {
+			throw new NotImplementedException();
+		}
+		
+		private void DataCast(ResourceLang lang, ResourceDataFactory factory) {
+			
+			throw new NotImplementedException();
 			
 		}
 		
@@ -357,21 +372,7 @@ namespace Anolis.Resourcer {
 						
 						langNode.ContextMenuStrip = __treeMenu;
 						
-						if( lang.DataIsLoaded ) {
-							
-							switch(lang.Data.Action) {
-								case ResourceDataAction.Add:
-									langNode.StateImageKey = "Add";
-									break;
-								case ResourceDataAction.Update:
-									langNode.StateImageKey = "Upd";
-									break;
-								case ResourceDataAction.Delete:
-									langNode.StateImageKey = "Del";
-									break;
-							}
-							
-						}
+						langNode.StateImageKey = TreeStateImageKey( lang );
 						
 					}
 					
@@ -381,6 +382,25 @@ namespace Anolis.Resourcer {
 				
 				__tree.Nodes.Add( typeNode );
 			}
+			
+		}
+		
+		private String TreeStateImageKey(ResourceLang lang) {
+			
+			if( lang.DataIsLoaded ) {
+				
+				switch(lang.Data.Action) {
+					case ResourceDataAction.Add:
+						return "Add";
+					case ResourceDataAction.Update:
+						return "Upd";
+					case ResourceDataAction.Delete:
+						return "Del";
+				}
+				
+			}
+			
+			return "";
 			
 		}
 		
@@ -396,21 +416,19 @@ namespace Anolis.Resourcer {
 			
 			///////////////////////////////
 			
-			__resCMCast.Visible = false;
+			__resCMCast.Text = String.Format(Cult.CurrentCulture, "Cast {0} to", lang.Data.GetType().Name);
 			
-//			__resCMCast.Text = String.Format(Cult.CurrentCulture, "Cast {0} to", path);
-//			
-//			__resCMCast.DropDownItems.Clear();
-//			
-//			ResourceDataFactory[] factories = ResourceDataFactory.GetFactoriesForType( lang.Name.Type.Identifier );
-//			foreach(ResourceDataFactory factory in factories) {
-//				
-//				ToolStripMenuItem tsmi = new ToolStripMenuItem( factory.Name );
-//				tsmi.Click += new EventHandler(tsmiConvert_Click);
-//				tsmi.Tag    = factory;
-//				
-//				__resCMCast.DropDownItems.Add( tsmi );
-//			}
+			__resCMCast.DropDownItems.Clear();
+			
+			ResourceDataFactory[] factories = ResourceDataFactory.GetFactoriesForType( lang.Name.Type.Identifier );
+			foreach(ResourceDataFactory factory in factories) {
+				
+				ToolStripMenuItem castMi = new ToolStripMenuItem( factory.GetType().Name );
+				castMi.Click += new EventHandler(castMi_Click);
+				castMi.Tag    = new Object[] { lang, factory };
+				
+				__resCMCast.DropDownItems.Add( castMi );
+			}
 			
 			///////////////////////////////
 			
@@ -420,20 +438,12 @@ namespace Anolis.Resourcer {
 			
 			///////////////////////////////
 			
-			if(lang.Data.Action == ResourceDataAction.None) {
-				
-				__resCMCancel.Enabled = false;
-				__resCMCancel.Text = "Cancel";
-			} else {
-				
-				__resCMCancel .Text = String.Format(Cult.CurrentCulture, "Cancel {0}", lang.Data.Action.ToString());
-			}
+			String action = lang.Data.Action == ResourceDataAction.None ? "Operation" : lang.Data.Action.ToString();
+			
+			__resCMCancel.Enabled = lang.Data.Action == ResourceDataAction.None;
+			__resCMCancel.Text    = String.Format(Cult.CurrentCulture, "Cancel {0}", action );
 			
 		}
-		
-//		private void TreeNodeImageListTypePopulate() {
-//			// Populated by the Designer
-//		}
 		
 		private String TreeNodeImageListTypeKey(ResourceTypeIdentifier typeId) {
 			
@@ -632,7 +642,7 @@ namespace Anolis.Resourcer {
 			return truncated;
 		}
 		
-		private static String GetResourcePath(ResourceLang lang) {
+		public static String GetResourcePath(ResourceLang lang) {
 			
 			String retval = "";
 			

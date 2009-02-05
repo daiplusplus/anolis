@@ -47,7 +47,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override String OpenFileFilter {
-			get { return "Bitmap Image (*.bmp)|*.bmp"; }
+			get { return "BmpImage (*.bmp)|*.bmp"; }
 		}
 		
 		public override ResourceData FromFile(Stream stream, String extension, ResourceSource currentSource) {

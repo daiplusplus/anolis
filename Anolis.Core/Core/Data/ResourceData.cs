@@ -25,6 +25,11 @@ namespace Anolis.Core.Data {
 		
 		public ResourceDataAction Action { get; internal set; }
 		
+		protected internal virtual void OnRemove(Boolean underlyingDelete, Remove deleteFunction) {
+		}
+		
+		protected internal delegate void Remove(ResourceData data);
+		
 		////////////////////////////////////
 		
 		protected ResourceData(ResourceLang lang, Byte[] rawData) {

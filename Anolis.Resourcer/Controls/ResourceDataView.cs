@@ -45,7 +45,7 @@ namespace Anolis.Resourcer.Controls {
 #if MEDIAVIEWER
 				new MediaViewer(),
 #endif
-				new ImageViewer(), new IconCursorViewer(), new RawViewer(), new TextViewer(), new HtmlViewer()
+				new VersionViewer(), new ImageViewer(), new IconCursorViewer(), new RawViewer(), new TextViewer(), new HtmlViewer()
 			);
 			
 			Array.Reverse( viewers );

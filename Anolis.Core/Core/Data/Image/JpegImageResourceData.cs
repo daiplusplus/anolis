@@ -32,7 +32,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override String OpenFileFilter {
-			get { return "JPEG Image (*.jpg, *.jpeg, *.jfif)|*.jpg, *.jpeg, *.jfif"; }
+			get { return "JpegImage (*.jpg, *.jpeg, *.jfif)|*.jpg, *.jpeg, *.jfif"; }
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
