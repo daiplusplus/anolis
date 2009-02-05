@@ -57,7 +57,17 @@ namespace Anolis.Core {
 			
 			data.Lang = this;
 			
+			_data.OnRemove( false, new ResourceData.Remove( Name.Type.Source.Remove ) );
+			
 			_data = data;
+			
+		}
+		
+		public void CastData(ResourceDataFactory factory) {
+			
+			ResourceData d = factory.FromResource(this, Data.RawData);
+			
+			SwapData( d );
 			
 		}
 		

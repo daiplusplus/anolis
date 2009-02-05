@@ -201,6 +201,7 @@ namespace Anolis.Resourcer {
 				
 				//
 				nodeForLang = new TreeNode( lang.LanguageId.ToString() ) { Tag = lang };
+				nodeForLang.ImageKey = TreeStateImageKey( lang );
 				
 				nodeForName.Nodes.Add( nodeForLang );
 				
@@ -407,6 +408,13 @@ namespace Anolis.Resourcer {
 		private void __treeMenu_Opening(Object sender, System.ComponentModel.CancelEventArgs e) {
 			
 			this.TreeMenuPopulate();
+		}
+		
+		private void castMi_Click(Object sender, EventArgs e) {
+			
+			Object[] paras = (sender as ToolStripMenuItem).Tag as Object[];
+			
+			DataCast( paras[0] as ResourceLang, paras[1] as Anolis.Core.Data.ResourceDataFactory );
 		}
 		
 	#endregion

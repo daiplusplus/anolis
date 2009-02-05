@@ -287,9 +287,9 @@ namespace Anolis.Resourcer {
 		public UInt16 ResourceLangId {
 			get {
 				
-				Pair<String,Int32> item = __lang.SelectedItem as Pair<String,Int32>;
+				ListBoxItem<CultureInfo> item = __lang.SelectedItem as ListBoxItem<CultureInfo>;
 				
-				return (UInt16)item.Y;
+				return (UInt16)item.Item.LCID;
 				
 			}
 		}

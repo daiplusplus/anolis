@@ -28,7 +28,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override String OpenFileFilter {
-			get { return "Icon File (*.ico)|*.ico"; }
+			get { return "IconDirectory (*.ico)|*.ico"; }
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, byte[] data) {
@@ -352,7 +352,7 @@ namespace Anolis.Core.Data {
 					bColorCount  = e.bColorCount,
 					bReserved    = e.bReserved,
 					wPlanes      = e.wPlanes,
-					wBitCount    = e.wPlanes,
+					wBitCount    = e.wBitCount,
 					dwBytesInRes = e.dwBytesInRes,
 					wId          = (ushort)images[i].Lang.Name.Identifier.NativeId
 				};

@@ -21,6 +21,15 @@ namespace Anolis.Core.Data {
 			
 		}
 		
+		protected internal override void OnRemove(Boolean underlyingDelete, Remove deleteFunction) {
+			
+			foreach(IDirectoryMember member in UnderlyingMembers) {
+				
+				deleteFunction( member.ResourceData );
+			}
+			
+		}
+		
 	}
 	
 	public sealed class DirectoryMemberCollection : ReadOnlyCollection<IDirectoryMember> {

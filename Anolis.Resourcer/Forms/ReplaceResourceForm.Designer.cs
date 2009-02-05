@@ -24,13 +24,15 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.@__originalResourceGrp = new System.Windows.Forms.GroupBox();
-			this.@__subclass = new System.Windows.Forms.Label();
-			this.@__path = new System.Windows.Forms.Label();
-			this.@__subclassLbl = new System.Windows.Forms.Label();
-			this.@__pathLbl = new System.Windows.Forms.Label();
+			this.@__origSubclass = new System.Windows.Forms.Label();
+			this.@__origPath = new System.Windows.Forms.Label();
+			this.@__origSubclassLbl = new System.Windows.Forms.Label();
+			this.@__origPathLbl = new System.Windows.Forms.Label();
 			this.@__replacementGrp = new System.Windows.Forms.GroupBox();
+			this.@__repSubclass = new System.Windows.Forms.Label();
+			this.@__repSubclassLbl = new System.Windows.Forms.Label();
 			this.@__browse = new System.Windows.Forms.Button();
-			this.@__filename = new System.Windows.Forms.TextBox();
+			this.@__repFilename = new System.Windows.Forms.TextBox();
 			this.@__fileLbl = new System.Windows.Forms.Label();
 			this.@__ok = new System.Windows.Forms.Button();
 			this.@__cancel = new System.Windows.Forms.Button();
@@ -43,10 +45,10 @@
 			// 
 			this.@__originalResourceGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__originalResourceGrp.Controls.Add(this.@__subclass);
-			this.@__originalResourceGrp.Controls.Add(this.@__path);
-			this.@__originalResourceGrp.Controls.Add(this.@__subclassLbl);
-			this.@__originalResourceGrp.Controls.Add(this.@__pathLbl);
+			this.@__originalResourceGrp.Controls.Add(this.@__origSubclass);
+			this.@__originalResourceGrp.Controls.Add(this.@__origPath);
+			this.@__originalResourceGrp.Controls.Add(this.@__origSubclassLbl);
+			this.@__originalResourceGrp.Controls.Add(this.@__origPathLbl);
 			this.@__originalResourceGrp.Location = new System.Drawing.Point(12, 12);
 			this.@__originalResourceGrp.Name = "__originalResourceGrp";
 			this.@__originalResourceGrp.Size = new System.Drawing.Size(344, 91);
@@ -54,57 +56,78 @@
 			this.@__originalResourceGrp.TabStop = false;
 			this.@__originalResourceGrp.Text = "Original Resource";
 			// 
-			// __subclass
+			// __origSubclass
 			// 
-			this.@__subclass.AutoSize = true;
-			this.@__subclass.Location = new System.Drawing.Point(69, 53);
-			this.@__subclass.Name = "__subclass";
-			this.@__subclass.Size = new System.Drawing.Size(119, 13);
-			this.@__subclass.TabIndex = 3;
-			this.@__subclass.Text = "UnknownResourceData";
+			this.@__origSubclass.AutoSize = true;
+			this.@__origSubclass.Location = new System.Drawing.Point(69, 53);
+			this.@__origSubclass.Name = "__origSubclass";
+			this.@__origSubclass.Size = new System.Drawing.Size(119, 13);
+			this.@__origSubclass.TabIndex = 3;
+			this.@__origSubclass.Text = "UnknownResourceData";
 			// 
-			// __path
+			// __origPath
 			// 
-			this.@__path.AutoSize = true;
-			this.@__path.Location = new System.Drawing.Point(69, 26);
-			this.@__path.Name = "__path";
-			this.@__path.Size = new System.Drawing.Size(89, 13);
-			this.@__path.TabIndex = 2;
-			this.@__path.Text = "Type\\Name\\Lang";
+			this.@__origPath.AutoSize = true;
+			this.@__origPath.Location = new System.Drawing.Point(69, 26);
+			this.@__origPath.Name = "__origPath";
+			this.@__origPath.Size = new System.Drawing.Size(89, 13);
+			this.@__origPath.TabIndex = 2;
+			this.@__origPath.Text = "Type\\Name\\Lang";
 			// 
-			// __subclassLbl
+			// __origSubclassLbl
 			// 
-			this.@__subclassLbl.AutoSize = true;
-			this.@__subclassLbl.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-			this.@__subclassLbl.Location = new System.Drawing.Point(15, 53);
-			this.@__subclassLbl.Name = "__subclassLbl";
-			this.@__subclassLbl.Size = new System.Drawing.Size(56, 13);
-			this.@__subclassLbl.TabIndex = 1;
-			this.@__subclassLbl.Text = "Subclass";
+			this.@__origSubclassLbl.AutoSize = true;
+			this.@__origSubclassLbl.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+			this.@__origSubclassLbl.Location = new System.Drawing.Point(15, 53);
+			this.@__origSubclassLbl.Name = "__origSubclassLbl";
+			this.@__origSubclassLbl.Size = new System.Drawing.Size(56, 13);
+			this.@__origSubclassLbl.TabIndex = 1;
+			this.@__origSubclassLbl.Text = "Subclass";
 			// 
-			// __pathLbl
+			// __origPathLbl
 			// 
-			this.@__pathLbl.AutoSize = true;
-			this.@__pathLbl.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-			this.@__pathLbl.Location = new System.Drawing.Point(36, 26);
-			this.@__pathLbl.Name = "__pathLbl";
-			this.@__pathLbl.Size = new System.Drawing.Size(33, 13);
-			this.@__pathLbl.TabIndex = 0;
-			this.@__pathLbl.Text = "Path";
+			this.@__origPathLbl.AutoSize = true;
+			this.@__origPathLbl.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+			this.@__origPathLbl.Location = new System.Drawing.Point(36, 26);
+			this.@__origPathLbl.Name = "__origPathLbl";
+			this.@__origPathLbl.Size = new System.Drawing.Size(33, 13);
+			this.@__origPathLbl.TabIndex = 0;
+			this.@__origPathLbl.Text = "Path";
 			// 
 			// __replacementGrp
 			// 
 			this.@__replacementGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__replacementGrp.Controls.Add(this.@__repSubclass);
+			this.@__replacementGrp.Controls.Add(this.@__repSubclassLbl);
 			this.@__replacementGrp.Controls.Add(this.@__browse);
-			this.@__replacementGrp.Controls.Add(this.@__filename);
+			this.@__replacementGrp.Controls.Add(this.@__repFilename);
 			this.@__replacementGrp.Controls.Add(this.@__fileLbl);
 			this.@__replacementGrp.Location = new System.Drawing.Point(12, 109);
 			this.@__replacementGrp.Name = "__replacementGrp";
-			this.@__replacementGrp.Size = new System.Drawing.Size(344, 65);
+			this.@__replacementGrp.Size = new System.Drawing.Size(344, 92);
 			this.@__replacementGrp.TabIndex = 1;
 			this.@__replacementGrp.TabStop = false;
 			this.@__replacementGrp.Text = "Replacement Resource";
+			// 
+			// __repSubclass
+			// 
+			this.@__repSubclass.AutoSize = true;
+			this.@__repSubclass.Location = new System.Drawing.Point(69, 61);
+			this.@__repSubclass.Name = "__repSubclass";
+			this.@__repSubclass.Size = new System.Drawing.Size(119, 13);
+			this.@__repSubclass.TabIndex = 4;
+			this.@__repSubclass.Text = "UnknownResourceData";
+			// 
+			// __repSubclassLbl
+			// 
+			this.@__repSubclassLbl.AutoSize = true;
+			this.@__repSubclassLbl.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.@__repSubclassLbl.Location = new System.Drawing.Point(7, 61);
+			this.@__repSubclassLbl.Name = "__repSubclassLbl";
+			this.@__repSubclassLbl.Size = new System.Drawing.Size(56, 13);
+			this.@__repSubclassLbl.TabIndex = 3;
+			this.@__repSubclassLbl.Text = "Subclass";
 			// 
 			// __browse
 			// 
@@ -116,14 +139,14 @@
 			this.@__browse.Text = "Browse...";
 			this.@__browse.UseVisualStyleBackColor = true;
 			// 
-			// __filename
+			// __repFilename
 			// 
-			this.@__filename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+			this.@__repFilename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__filename.Location = new System.Drawing.Point(72, 24);
-			this.@__filename.Name = "__filename";
-			this.@__filename.Size = new System.Drawing.Size(175, 21);
-			this.@__filename.TabIndex = 1;
+			this.@__repFilename.Location = new System.Drawing.Point(72, 24);
+			this.@__repFilename.Name = "__repFilename";
+			this.@__repFilename.Size = new System.Drawing.Size(175, 21);
+			this.@__repFilename.TabIndex = 1;
 			// 
 			// __fileLbl
 			// 
@@ -138,7 +161,8 @@
 			// __ok
 			// 
 			this.@__ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__ok.Location = new System.Drawing.Point(200, 188);
+			this.@__ok.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.@__ok.Location = new System.Drawing.Point(200, 216);
 			this.@__ok.Name = "__ok";
 			this.@__ok.Size = new System.Drawing.Size(75, 23);
 			this.@__ok.TabIndex = 2;
@@ -149,7 +173,7 @@
 			// 
 			this.@__cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.@__cancel.Location = new System.Drawing.Point(281, 188);
+			this.@__cancel.Location = new System.Drawing.Point(281, 216);
 			this.@__cancel.Name = "__cancel";
 			this.@__cancel.Size = new System.Drawing.Size(75, 23);
 			this.@__cancel.TabIndex = 3;
@@ -162,7 +186,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.@__cancel;
-			this.ClientSize = new System.Drawing.Size(368, 223);
+			this.ClientSize = new System.Drawing.Size(368, 251);
 			this.Controls.Add(this.@__cancel);
 			this.Controls.Add(this.@__ok);
 			this.Controls.Add(this.@__replacementGrp);
@@ -184,17 +208,19 @@
 		#endregion
 
 		private System.Windows.Forms.GroupBox __originalResourceGrp;
-		private System.Windows.Forms.Label __subclass;
-		private System.Windows.Forms.Label __path;
-		private System.Windows.Forms.Label __subclassLbl;
-		private System.Windows.Forms.Label __pathLbl;
+		private System.Windows.Forms.Label __origSubclass;
+		private System.Windows.Forms.Label __origPath;
+		private System.Windows.Forms.Label __origSubclassLbl;
+		private System.Windows.Forms.Label __origPathLbl;
 		private System.Windows.Forms.GroupBox __replacementGrp;
 		private System.Windows.Forms.Button __browse;
-		private System.Windows.Forms.TextBox __filename;
+		private System.Windows.Forms.TextBox __repFilename;
 		private System.Windows.Forms.Label __fileLbl;
 		private System.Windows.Forms.Button __ok;
 		private System.Windows.Forms.Button __cancel;
 		private System.Windows.Forms.OpenFileDialog __ofd;
+		private System.Windows.Forms.Label __repSubclassLbl;
+		private System.Windows.Forms.Label __repSubclass;
 
 	}
 }

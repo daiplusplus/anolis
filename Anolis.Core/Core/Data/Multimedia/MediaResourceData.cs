@@ -71,7 +71,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override string OpenFileFilter {
-			get { return "Video for Windows (*.avi)|*.avi"; }
+			get { return "RiffMedia (*.avi; *.wav)|*.avi; *.wav"; }
 		}
 	}
 	

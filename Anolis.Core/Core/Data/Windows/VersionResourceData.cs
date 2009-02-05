@@ -98,7 +98,9 @@ namespace Anolis.Core.Data {
 								
 								if(ffi.dwSignature != 0xFEEF04BD) throw new InvalidOperationException("Unrecognised VS_VERSIONINFO Signature");
 								
-								item.Value = ffi;
+								Dictionary<String,String> ffiDict = FfiToDict( ffi );
+								
+								item.Value = ffiDict;
 								
 							} else {
 								throw new InvalidOperationException("Unexpected VS_FIXEDFILEINFO length");
@@ -145,6 +147,38 @@ namespace Anolis.Core.Data {
 			
 			return item;
 			
+		}
+		
+		private static Dictionary<String,String> FfiToDict(VsFixedFileInfo ffi) {
+			
+			Dictionary<String,String> d = new Dictionary<String,String>();
+			
+			d.Add("Signature"        , GetUInt32String( ffi.dwSignature     ) );
+			d.Add("StrucVersion"     , GetUInt32String( ffi.dwStrucVersion  ) );
+			d.Add("FileVersionMS"    , GetUInt32String( ffi.dwFileVersionMS ) );
+			d.Add("FileVersionLS"    , GetUInt32String( ffi.dwFileVersionLS ) );
+			d.Add("FileVersion"      , null );
+			d.Add("ProductVersionMS" , GetUInt32String( ffi.dwProductVersionMS ) );
+			d.Add("ProductVersionLS" , GetUInt32String( ffi.dwProductVersionLS ) );
+			d.Add("ProductVersion"   , null );
+			
+			d.Add("FileFlagsMask"    , GetUInt32String( ffi.dwFileFlagsMask ) );
+			d.Add("FileFlags"        , ffi.dwFileFlags.ToString() );
+			d.Add("FileOS"           , ffi.dwFileOS.ToString() );
+			d.Add("FileType"         , ffi.dwFileType.ToString() );
+			d.Add("FileSubType"      , GetUInt32String( ffi.dwFileSubType ) );
+			d.Add("FileSubTypeDriver", ffi.dwFileSubTypeDriver.ToString() );
+			d.Add("FileSubTypeFont"  , ffi.dwFileSubTypeFont.ToString() );
+			d.Add("FileDateMS"       , GetUInt32String( ffi.dwFileDateMS ) );
+			d.Add("FileDateLS"       , GetUInt32String( ffi.dwFileDateLS ) );
+			d.Add("FileDate"         , null );
+			
+			return d;
+		}
+		
+		private static String GetUInt32String(UInt32 u) {
+			
+			return u.ToString() + " - " + u.ToString("X");
 		}
 		
 		private static Byte[] Pad(BinaryReader rdr) {
@@ -195,7 +229,7 @@ namespace Anolis.Core.Data {
 			
 			newMode = mode;
 			
-			// wait a sec, are these strings null-terminated?
+			// these strings are null-terminated
 			
 			StringBuilder sb = new StringBuilder();
 			Char c;

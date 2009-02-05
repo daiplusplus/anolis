@@ -23,7 +23,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override String OpenFileFilter {
-			get { return "PNG Image (*.png|*.png"; }
+			get { return "PngImage (*.png|*.png"; }
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, byte[] data) {

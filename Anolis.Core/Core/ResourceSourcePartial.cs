@@ -86,6 +86,8 @@ namespace Anolis.Core {
 				name.UnderlyingLangs.Add( lang );
 			}
 			
+			data.Lang = lang;
+			
 			data.Action = ResourceDataAction.Add;
 			
 			return lang;
@@ -146,8 +148,9 @@ namespace Anolis.Core {
 				case ResourceDataAction.Update:
 					
 					// TODO: Reload the original ResourceData
+					throw new NotImplementedException();
 					
-					break;
+//					break;
 			}
 		}
 		
@@ -158,13 +161,19 @@ namespace Anolis.Core {
 			switch(data.Action) {
 				case ResourceDataAction.Add:
 					
+					data.OnRemove( true, new ResourceData.Remove( Remove ) );
+					
 					Cancel( data );
 					break;
-				
-				case ResourceDataAction.Update:	
+					
+				case ResourceDataAction.Update:
 				case ResourceDataAction.Delete:
 				case ResourceDataAction.None:
+					
 					data.Action = ResourceDataAction.Delete;
+					
+					data.OnRemove( false, new ResourceData.Remove( Remove ) );
+					
 					break;
 			}
 			
