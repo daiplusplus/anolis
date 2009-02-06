@@ -148,6 +148,29 @@ namespace Anolis.Resourcer {
 			
 		}
 		
+		/// <summary>Makes a copy of the current pre-modified Resource Source. It asks the user for a save location.</summary>
+		private void SourceBackup() {
+			
+			if( __sfd.ShowDialog(this) != DialogResult.OK ) return;
+				
+			
+			
+		}
+		
+		private void SaveSourceAs() {
+			
+			// make a backup
+			
+			// save to this, but don't reload
+			
+			// rename this to the filename given in the SFD
+			
+			// rename the original backup to this
+			
+			// reload the original
+			
+		}
+		
 		/// <summary>Asks the user to confirm if they want to save the source if they have made modifications.</summary>
 		private void SourceSaveConfirm() {
 			
