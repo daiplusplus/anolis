@@ -408,7 +408,20 @@ namespace Anolis.Resourcer {
 			
 			ContextMenuStrip sender = __treeMenu;
 			
-			TreeNode node = ((sender as ContextMenuStrip).SourceControl as TreeView).SelectedNode;
+			TreeNode node;
+			
+//			if( __tree.HideSelection )
+//				node = (sender.SourceControl as TreeView).SelectedNode;
+//			else {
+				
+				System.Drawing.Point p1 = __tree.PointToClient( sender.Location );
+				node = __tree.GetNodeAt( p1 );
+				
+				if(node == null) {
+					MessageBox.Show(this, "Unable to load context menu", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					return;
+				}
+//			}
 			
 			ResourceLang lang = node.Tag as ResourceLang;
 			

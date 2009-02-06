@@ -108,7 +108,6 @@ namespace Anolis.Resourcer {
 			// 
 			this.@__tree.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.@__tree.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.@__tree.HideSelection = false;
 			this.@__tree.ImageIndex = 0;
 			this.@__tree.ImageList = this.@__treeType;
 			this.@__tree.Location = new System.Drawing.Point(0, 0);
