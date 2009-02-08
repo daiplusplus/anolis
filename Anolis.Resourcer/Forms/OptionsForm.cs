@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using Anolis.Resourcer.Settings;
+
 namespace Anolis.Resourcer {
 	
 	public partial class OptionsForm : BaseForm {
@@ -23,28 +25,53 @@ namespace Anolis.Resourcer {
 			this.__aboutFriendsC9  .Click += new EventHandler(__aboutLink_Click);
 			this.__aboutFriendsRafael.Click += new EventHandler(__aboutLink_Click);
 
+			this.__legalToggle.Click += new EventHandler(__legalToggle_Click);
+			this.__legalToggle.Tag = false;
+			
 			this.Load += new EventHandler(OptionsForm_Load);
 			
+		}
+		
+		private Settings.Settings S {
+			get { return Settings.Settings.Default; }
 		}
 		
 		public MainForm MainForm { get; set; }
 		
 		private void OptionsForm_Load(object sender, EventArgs e) {
 			
-			__licenseText.Text = Anolis.Resourcer.Properties.Resources.AnolisGplLicense;
+			__legalText.Text = Anolis.Core.Resources.LegalOverview;
 			
 			LoadSettings();
 		}
 		
 		private void LoadSettings() {
 			
-			__sUIButtonsLarge.Checked = !Settings.Settings.Default.Toolbar24;
+			__sUIButtonsLarge.Checked = !S.Toolbar24;
 			
+			TriState isAssoc = S.IsAssociatedWithFiles;
+			
+			__sAssoc.CheckState =
+				isAssoc == TriState.True  ? CheckState.Checked : 
+				isAssoc == TriState.False ? CheckState.Unchecked : CheckState.Indeterminate;
+			
+		}
+		
+		private void __legalToggle_Click(object sender, EventArgs e) {
+			
+			Boolean showOverview = (Boolean)__legalToggle.Tag;
+			
+			__legalText.Text = showOverview ? Anolis.Core.Resources.LegalOverview : Anolis.Core.Resources.LegalGpl;
+			
+			__legalToggle.Text = showOverview ? "Show GPLv2 License" : "Show License Overview";
+			
+			__legalToggle.Tag = !showOverview;
 		}
 		
 		private void __ok_Click(Object sender, EventArgs e) {
 			
-			Settings.Settings.Default.Toolbar24 = !__sUIButtonsLarge.Checked;
+			S.Toolbar24 = !__sUIButtonsLarge.Checked;
+			if( __sAssoc.CheckState != CheckState.Indeterminate ) S.AssociateWithFiles( __sAssoc.Checked );
 			
 			DialogResult = DialogResult.OK;
 			

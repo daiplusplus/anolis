@@ -39,16 +39,73 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
     <Reference Include="W3b.Wizards, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\W3b.Wizards\W3b.Wizards\bin\Debug\W3b.Wizards.exe</HintPath>
+      <ExecutableExtension>.exe</ExecutableExtension>
+      <HintPath>..\..\W3b.Wizards\W3b.Wizards\bin\Debug\W3b.Wizards.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\A-Welcome.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\A-Welcome.Designer.cs">
+      <DependentUpon>A-Welcome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\B-MainAction.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\B-MainAction.Designer.cs">
+      <DependentUpon>B-MainAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\0-BaseInteriorPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\0-BaseInteriorPage.Designer.cs">
+      <DependentUpon>0-BaseInteriorPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\C-SelectPackage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\C-SelectPackage.Designer.cs">
+      <DependentUpon>C-SelectPackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\E-ModifyPackage1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\E-ModifyPackage1.Designer.cs">
+      <DependentUpon>E-ModifyPackage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\D-Extracting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\D-Extracting.Designer.cs">
+      <DependentUpon>D-Extracting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Pages\0-BaseInteriorPage.resx">
+      <DependentUpon>0-BaseInteriorPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\A-Welcome.resx">
+      <DependentUpon>A-Welcome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\B-MainAction.resx">
+      <DependentUpon>B-MainAction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\C-SelectPackage.resx">
+      <DependentUpon>C-SelectPackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\E-ModifyPackage1.resx">
+      <DependentUpon>E-ModifyPackage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\D-Extracting.resx">
+      <DependentUpon>D-Extracting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -57,6 +114,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
     <None Include="app.manifest" />
@@ -69,6 +127,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Banner.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

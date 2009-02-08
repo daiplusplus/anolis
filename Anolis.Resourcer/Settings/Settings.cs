@@ -2,6 +2,8 @@
 using System.Configuration;
 using System.ComponentModel;
 
+using Microsoft.Win32;
+
 namespace Anolis.Resourcer.Settings {
 	
 	// This class allows you to handle specific events on the settings class:
@@ -51,5 +53,28 @@ namespace Anolis.Resourcer.Settings {
 			
 		}
 		
+		public TriState IsAssociatedWithFiles {
+			get {
+				
+				FileAssociationManager mgr = new FileAssociationManager("Anolis Resourcer", System.Reflection.Assembly.GetEntryAssembly().Location );
+				return mgr.IsAssociatedWithFiles( new String[] { "exefile", "dllfile", "ocxfile", "cplfile", "scrfile" } );
+				
+			}
+		}
+		
+		public void AssociateWithFiles(Boolean isAssociated) {
+			
+			FileAssociationManager mgr = new FileAssociationManager("Anolis Resourcer", System.Reflection.Assembly.GetEntryAssembly().Location );
+			mgr.AssociateWithFiles( new String[] { "exefile", "dllfile", "ocxfile", "cplfile", "scrfile" }, isAssociated );
+			
+		}
+		
 	}
+	
+	public enum TriState {
+		True,
+		Partial,
+		False
+	}
+	
 }

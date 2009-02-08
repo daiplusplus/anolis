@@ -7,11 +7,6 @@ Whenever a path is specified in a src="", dest="", or path="" attribute there ar
 Refer to http://en.wikipedia.org/wiki/Environment_variable#Examples_from_Microsoft_Windows for more details
 
 Note that %programfiles% may or may not return the path to the 32-bit or 64-bit program files on x64 depending on how Anolis itself is executed
-
-
-
-
-
  -->
 	
 	<xs:element name="package">
