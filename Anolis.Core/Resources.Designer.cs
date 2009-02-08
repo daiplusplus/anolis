@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Anolis.Gui.Properties {
+namespace Anolis.Core {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Anolis.Gui.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "2.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace Anolis.Gui.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Anolis.Gui.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Anolis.Core.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Anolis.Gui.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -60,17 +60,44 @@ namespace Anolis.Gui.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Background {
+        /// <summary>
+        ///   Looks up a localized string similar to The GNU General Public License (GPL)
+        ///Version 2, June 1991
+        ///
+        ///Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+        ///59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+        ///
+        ///Everyone is permitted to copy and distribute verbatim copies
+        ///of this license document, but changing it is not allowed.
+        ///
+        ///Preamble
+        ///
+        ///The licenses for most software are designed to take away your freedom to share and change it. By contrast, the GNU General Public License is intended to guarantee your freedom to share and change free  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string LegalGpl {
             get {
-                object obj = ResourceManager.GetObject("Background", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("LegalGpl", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap Banner {
+        /// <summary>
+        ///   Looks up a localized string similar to =======================================
+        ///         Licensing Overview
+        ///=======================================
+        ///
+        ///Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.
+        ///
+        ///Code Copyright 2008-2009 David Rees
+        ///
+        ///Anolis.Core makes use of LZMA Compression, which is placed in the Public Domain
+        ///The source for the LZMA Compression is available from http://www.7-zip.org
+        ///
+        ///Anolis.Gui makes use of contributions from Sven Groot under the BSD license.
+        ///The source for his Vista dialogs toolkit is avai [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string LegalOverview {
             get {
-                object obj = ResourceManager.GetObject("Banner", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("LegalOverview", resourceCulture);
             }
         }
     }

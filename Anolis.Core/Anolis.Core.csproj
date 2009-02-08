@@ -102,14 +102,27 @@
     <Compile Include="Core\PE\PESource.cs" />
     <Compile Include="Packages\Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="legal.txt" />
+    <None Include="legalGpl.txt" />
     <Content Include="Packages\ExamplePackage.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AnolisSnk.pfx" />
     <None Include="ResourceData ClassDiagram.cd" />
     <None Include="Packages\PackageSchema.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

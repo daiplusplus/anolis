@@ -183,6 +183,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Settings\FileAssociationManager.cs" />
     <Compile Include="Settings\Mru.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Settings\Settings.Designer.cs">

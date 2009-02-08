@@ -38,6 +38,7 @@
 			this.@__sUISimple = new System.Windows.Forms.CheckBox();
 			this.@__sUIButtonsLarge = new System.Windows.Forms.CheckBox();
 			this.@__tAbout = new System.Windows.Forms.TabPage();
+			this.@__makesUseOf = new System.Windows.Forms.Label();
 			this.@__friendsLbl = new System.Windows.Forms.Label();
 			this.@__linksLbl = new System.Windows.Forms.Label();
 			this.@__aboutCreditsRoles = new System.Windows.Forms.Label();
@@ -54,17 +55,17 @@
 			this.@__aboutCreditsNames = new System.Windows.Forms.Label();
 			this.@__aboutBlurb = new System.Windows.Forms.Label();
 			this.@__aboutAnolis = new System.Windows.Forms.Label();
-			this._tLicense = new System.Windows.Forms.TabPage();
-			this.@__licenseText = new System.Windows.Forms.TextBox();
+			this.@__tLegal = new System.Windows.Forms.TabPage();
+			this.@__legalToggle = new System.Windows.Forms.Button();
+			this.@__legalText = new System.Windows.Forms.TextBox();
 			this.@__cancel = new System.Windows.Forms.Button();
 			this.@__ok = new System.Windows.Forms.Button();
-			this.@__makesUseOf = new System.Windows.Forms.Label();
 			this.@__tabs.SuspendLayout();
 			this.@__tSettings.SuspendLayout();
 			this.@__sMoreGrp.SuspendLayout();
 			this.@__sUiGrp.SuspendLayout();
 			this.@__tAbout.SuspendLayout();
-			this._tLicense.SuspendLayout();
+			this.@__tLegal.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __tabs
@@ -74,7 +75,7 @@
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__tabs.Controls.Add(this.@__tSettings);
 			this.@__tabs.Controls.Add(this.@__tAbout);
-			this.@__tabs.Controls.Add(this._tLicense);
+			this.@__tabs.Controls.Add(this.@__tLegal);
 			this.@__tabs.Location = new System.Drawing.Point(6, 7);
 			this.@__tabs.Margin = new System.Windows.Forms.Padding(0);
 			this.@__tabs.Name = "__tabs";
@@ -191,12 +192,11 @@
 			// __sAssoc
 			// 
 			this.@__sAssoc.AutoSize = true;
-			this.@__sAssoc.Enabled = false;
 			this.@__sAssoc.Location = new System.Drawing.Point(6, 99);
 			this.@__sAssoc.Name = "__sAssoc";
-			this.@__sAssoc.Size = new System.Drawing.Size(192, 17);
+			this.@__sAssoc.Size = new System.Drawing.Size(237, 17);
 			this.@__sAssoc.TabIndex = 2;
-			this.@__sAssoc.Text = "Associate with *.exe and *.dll files";
+			this.@__sAssoc.Text = "Associate with exe, dll, cpl, ocx and scr files";
 			this.@__sAssoc.UseVisualStyleBackColor = true;
 			// 
 			// __sUIButtonsLargeLbl
@@ -257,6 +257,15 @@
 			this.@__tAbout.TabIndex = 1;
 			this.@__tAbout.Text = "About";
 			this.@__tAbout.UseVisualStyleBackColor = true;
+			// 
+			// __makesUseOf
+			// 
+			this.@__makesUseOf.AutoSize = true;
+			this.@__makesUseOf.Location = new System.Drawing.Point(9, 136);
+			this.@__makesUseOf.Name = "__makesUseOf";
+			this.@__makesUseOf.Size = new System.Drawing.Size(328, 13);
+			this.@__makesUseOf.TabIndex = 18;
+			this.@__makesUseOf.Text = "Resourcer makes use of the Be HexBox control, used under license";
 			// 
 			// __friendsLbl
 			// 
@@ -422,28 +431,40 @@
 			this.@__aboutAnolis.TabIndex = 0;
 			this.@__aboutAnolis.Text = "Anolis Resourcer";
 			// 
-			// _tLicense
+			// __tLegal
 			// 
-			this._tLicense.Controls.Add(this.@__licenseText);
-			this._tLicense.Location = new System.Drawing.Point(4, 22);
-			this._tLicense.Name = "_tLicense";
-			this._tLicense.Size = new System.Drawing.Size(355, 344);
-			this._tLicense.TabIndex = 2;
-			this._tLicense.Text = "License";
-			this._tLicense.UseVisualStyleBackColor = true;
+			this.@__tLegal.Controls.Add(this.@__legalToggle);
+			this.@__tLegal.Controls.Add(this.@__legalText);
+			this.@__tLegal.Location = new System.Drawing.Point(4, 22);
+			this.@__tLegal.Name = "__tLegal";
+			this.@__tLegal.Size = new System.Drawing.Size(355, 344);
+			this.@__tLegal.TabIndex = 2;
+			this.@__tLegal.Text = "Legal";
+			this.@__tLegal.UseVisualStyleBackColor = true;
 			// 
-			// __licenseText
+			// __legalToggle
 			// 
-			this.@__licenseText.BackColor = System.Drawing.SystemColors.Window;
-			this.@__licenseText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.@__licenseText.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.@__licenseText.Location = new System.Drawing.Point(0, 0);
-			this.@__licenseText.Multiline = true;
-			this.@__licenseText.Name = "__licenseText";
-			this.@__licenseText.ReadOnly = true;
-			this.@__licenseText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.@__licenseText.Size = new System.Drawing.Size(355, 344);
-			this.@__licenseText.TabIndex = 0;
+			this.@__legalToggle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.@__legalToggle.Location = new System.Drawing.Point(3, 312);
+			this.@__legalToggle.Name = "__legalToggle";
+			this.@__legalToggle.Size = new System.Drawing.Size(128, 23);
+			this.@__legalToggle.TabIndex = 1;
+			this.@__legalToggle.Text = "View GPLv2 License";
+			this.@__legalToggle.UseVisualStyleBackColor = true;
+			// 
+			// __legalText
+			// 
+			this.@__legalText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__legalText.BackColor = System.Drawing.SystemColors.Window;
+			this.@__legalText.Location = new System.Drawing.Point(3, 3);
+			this.@__legalText.Multiline = true;
+			this.@__legalText.Name = "__legalText";
+			this.@__legalText.ReadOnly = true;
+			this.@__legalText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.@__legalText.Size = new System.Drawing.Size(349, 303);
+			this.@__legalText.TabIndex = 0;
 			// 
 			// __cancel
 			// 
@@ -467,15 +488,6 @@
 			this.@__ok.TabIndex = 0;
 			this.@__ok.Text = "OK";
 			this.@__ok.UseVisualStyleBackColor = true;
-			// 
-			// __makesUseOf
-			// 
-			this.@__makesUseOf.AutoSize = true;
-			this.@__makesUseOf.Location = new System.Drawing.Point(9, 136);
-			this.@__makesUseOf.Name = "__makesUseOf";
-			this.@__makesUseOf.Size = new System.Drawing.Size(328, 13);
-			this.@__makesUseOf.TabIndex = 18;
-			this.@__makesUseOf.Text = "Resourcer makes use of the Be HexBox control, used under license";
 			// 
 			// OptionsForm
 			// 
@@ -502,8 +514,8 @@
 			this.@__sUiGrp.PerformLayout();
 			this.@__tAbout.ResumeLayout(false);
 			this.@__tAbout.PerformLayout();
-			this._tLicense.ResumeLayout(false);
-			this._tLicense.PerformLayout();
+			this.@__tLegal.ResumeLayout(false);
+			this.@__tLegal.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -521,8 +533,8 @@
 		private System.Windows.Forms.LinkLabel __aboutLinkXpize;
 		private System.Windows.Forms.LinkLabel __aboutLinkAnolis;
 		private System.Windows.Forms.LinkLabel __aboutLinkVize;
-		private System.Windows.Forms.TabPage _tLicense;
-		private System.Windows.Forms.TextBox __licenseText;
+		private System.Windows.Forms.TabPage __tLegal;
+		private System.Windows.Forms.TextBox __legalText;
 		private System.Windows.Forms.LinkLabel __aboutFriendsC9;
 		private System.Windows.Forms.LinkLabel __aboutFriendsLong;
 		private System.Windows.Forms.LinkLabel __aboutFriendsMsfn;
@@ -546,5 +558,6 @@
 		private System.Windows.Forms.Label __linksLbl;
 		private System.Windows.Forms.Label __friendsLbl;
 		private System.Windows.Forms.Label __makesUseOf;
+		private System.Windows.Forms.Button __legalToggle;
 	}
 }

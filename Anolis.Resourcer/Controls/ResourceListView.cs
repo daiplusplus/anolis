@@ -135,8 +135,6 @@ namespace Anolis.Resourcer.Controls {
 			Single nof = names.Count;
 			Single i   = 1;
 			
-System.Diagnostics.Stopwatch swImageList = new System.Diagnostics.Stopwatch();
-			
 			foreach(ResourceName name in names) {
 				
 				ListViewItem item;
@@ -153,8 +151,6 @@ System.Diagnostics.Stopwatch swImageList = new System.Diagnostics.Stopwatch();
 					
 					if(thumb != null) {
 						
-swImageList.Start();
-						
 						if(thumb.IsIcon) {
 							
 							// I'd like to mention that ImageList is VERY slow for working with loads (i.e. >100 ) of Icons
@@ -170,8 +166,6 @@ swImageList.Start();
 							Invoke( new MethodInvoker(delegate() { _images.Images.Add( imageListKey,  thumb.Image ); } ) );
 							
 						}
-						
-swImageList.Stop();
 						
 						item = new ListViewItem(subitems, imageListKey );
 						
