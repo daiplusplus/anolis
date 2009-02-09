@@ -7,15 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Resourcer", "Anolis.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Console", "Anolis.Console\Anolis.Console.csproj", "{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_ref", "_ref", "{74E93623-C1E0-47BD-B26B-3C00B192265C}"
-	ProjectSection(SolutionItems) = preProject
-		_ref\Be.Windows.Forms.HexBox.dll = _ref\Be.Windows.Forms.HexBox.dll
-		_ref\Be.Windows.Forms.HexBox.xml = _ref\Be.Windows.Forms.HexBox.xml
-		_ref\ICSharpCode.SharpZipLib.dll = _ref\ICSharpCode.SharpZipLib.dll
-		_ref\W3b.WinControls.dll = _ref\W3b.WinControls.dll
-		_ref\W3b.WinControls.pdb = _ref\W3b.WinControls.pdb
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Gui", "Anolis.Gui\Anolis.Gui.csproj", "{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.XisImporter", "Anolis.XisImporter\Anolis.XisImporter.csproj", "{44B1E627-100F-40B9-ABCE-08356D1C3C1D}"
