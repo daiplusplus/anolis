@@ -11,6 +11,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Gui", "Anolis.Gui\An
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.XisImporter", "Anolis.XisImporter\Anolis.XisImporter.csproj", "{44B1E627-100F-40B9-ABCE-08356D1C3C1D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F1AA86BE-FDC7-4B61-827F-8F6C43DE81F1}"
+	ProjectSection(SolutionItems) = preProject
+		_ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.dll = _ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.dll
+		_ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.xml = _ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.xml
+		_ref\W3b.Wizards\Ookii.Dialogs.dll = _ref\W3b.Wizards\Ookii.Dialogs.dll
+		_ref\W3b.Wizards\Ookii.Dialogs.pdb = _ref\W3b.Wizards\Ookii.Dialogs.pdb
+		_ref\W3b.Wizards\Ookii.Dialogs.xml = _ref\W3b.Wizards\Ookii.Dialogs.xml
+		_ref\SevenZip.Lzma\SevenZip.Lzma.dll = _ref\SevenZip.Lzma\SevenZip.Lzma.dll
+		_ref\W3b.WinControls\W3b.WinControls.dll = _ref\W3b.WinControls\W3b.WinControls.dll
+		_ref\W3b.WinControls\W3b.WinControls.pdb = _ref\W3b.WinControls\W3b.WinControls.pdb
+		_ref\W3b.Wizards\W3b.Wizards.dll = _ref\W3b.Wizards\W3b.Wizards.dll
+		_ref\W3b.Wizards\W3b.Wizards.pdb = _ref\W3b.Wizards\W3b.Wizards.pdb
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 6

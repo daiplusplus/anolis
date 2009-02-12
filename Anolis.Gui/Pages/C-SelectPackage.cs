@@ -20,6 +20,17 @@ namespace Anolis.Gui.Pages {
 		
 		private void SelectPackage_Load(object sender, EventArgs e) {
 			
+			// Load the embedded list
+			String[] embedded = PackageManager.GetEmbeddedPackages();
+			__optPackagesList.Items.Clear();
+			
+			foreach(String name in embedded) {
+				
+				ListViewItem lvi = new ListViewItem( name );
+				__optPackagesList.Items.Add( lvi );
+				
+			}
+			
 		}
 		
 		private void __optBrowseBrowse_Click(Object sender, EventArgs e) {

@@ -41,12 +41,14 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
     <Reference Include="W3b.Wizards, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_ref\W3b.Wizards\W3b.Wizards.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PackageManager.cs" />
     <Compile Include="Pages\A-Welcome.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -71,11 +73,11 @@
     <Compile Include="Pages\C-SelectPackage.Designer.cs">
       <DependentUpon>C-SelectPackage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\E-ModifyPackage1.cs">
+    <Compile Include="Pages\E-ModifyPackage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\E-ModifyPackage1.Designer.cs">
-      <DependentUpon>E-ModifyPackage1.cs</DependentUpon>
+    <Compile Include="Pages\E-ModifyPackage.Designer.cs">
+      <DependentUpon>E-ModifyPackage.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\D-Extracting.cs">
       <SubType>UserControl</SubType>
@@ -97,8 +99,8 @@
     <EmbeddedResource Include="Pages\C-SelectPackage.resx">
       <DependentUpon>C-SelectPackage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\E-ModifyPackage1.resx">
-      <DependentUpon>E-ModifyPackage1.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\E-ModifyPackage.resx">
+      <DependentUpon>E-ModifyPackage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\D-Extracting.resx">
       <DependentUpon>D-Extracting.cs</DependentUpon>
@@ -130,6 +132,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Banner.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Anolis.Core\Anolis.Core.csproj">
+      <Project>{967BF434-D4F9-41E3-8B82-433987DEB4A6}</Project>
+      <Name>Anolis.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

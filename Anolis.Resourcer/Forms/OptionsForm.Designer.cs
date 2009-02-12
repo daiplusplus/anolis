@@ -60,6 +60,7 @@
 			this.@__legalText = new System.Windows.Forms.TextBox();
 			this.@__cancel = new System.Windows.Forms.Button();
 			this.@__ok = new System.Windows.Forms.Button();
+			this.@__update = new System.Windows.Forms.Button();
 			this.@__tabs.SuspendLayout();
 			this.@__tSettings.SuspendLayout();
 			this.@__sMoreGrp.SuspendLayout();
@@ -104,9 +105,9 @@
 			this.@__sMoreGrp.Controls.Add(this.@__sLibAdd);
 			this.@__sMoreGrp.Controls.Add(this.@__sLib);
 			this.@__sMoreGrp.Controls.Add(this.@__sLibLbl);
-			this.@__sMoreGrp.Location = new System.Drawing.Point(9, 163);
+			this.@__sMoreGrp.Location = new System.Drawing.Point(9, 159);
 			this.@__sMoreGrp.Name = "__sMoreGrp";
-			this.@__sMoreGrp.Size = new System.Drawing.Size(337, 175);
+			this.@__sMoreGrp.Size = new System.Drawing.Size(337, 164);
 			this.@__sMoreGrp.TabIndex = 2;
 			this.@__sMoreGrp.TabStop = false;
 			this.@__sMoreGrp.Text = "Library Options";
@@ -115,7 +116,7 @@
 			// 
 			this.@__sLibDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__sLibDel.Enabled = false;
-			this.@__sLibDel.Location = new System.Drawing.Point(274, 146);
+			this.@__sLibDel.Location = new System.Drawing.Point(274, 135);
 			this.@__sLibDel.Name = "__sLibDel";
 			this.@__sLibDel.Size = new System.Drawing.Size(57, 23);
 			this.@__sLibDel.TabIndex = 2;
@@ -126,7 +127,7 @@
 			// 
 			this.@__sLibAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__sLibAdd.Enabled = false;
-			this.@__sLibAdd.Location = new System.Drawing.Point(207, 146);
+			this.@__sLibAdd.Location = new System.Drawing.Point(207, 135);
 			this.@__sLibAdd.Name = "__sLibAdd";
 			this.@__sLibAdd.Size = new System.Drawing.Size(61, 23);
 			this.@__sLibAdd.TabIndex = 1;
@@ -142,7 +143,7 @@
 			this.@__sLib.Location = new System.Drawing.Point(9, 32);
 			this.@__sLib.Multiline = true;
 			this.@__sLib.Name = "__sLib";
-			this.@__sLib.Size = new System.Drawing.Size(322, 109);
+			this.@__sLib.Size = new System.Drawing.Size(322, 98);
 			this.@__sLib.TabIndex = 0;
 			// 
 			// __sLibLbl
@@ -166,7 +167,7 @@
 			this.@__sUiGrp.Controls.Add(this.@__sUIButtonsLarge);
 			this.@__sUiGrp.Location = new System.Drawing.Point(6, 6);
 			this.@__sUiGrp.Name = "__sUiGrp";
-			this.@__sUiGrp.Size = new System.Drawing.Size(340, 151);
+			this.@__sUiGrp.Size = new System.Drawing.Size(340, 147);
 			this.@__sUiGrp.TabIndex = 1;
 			this.@__sUiGrp.TabStop = false;
 			this.@__sUiGrp.Text = "Resourcer";
@@ -489,6 +490,16 @@
 			this.@__ok.Text = "OK";
 			this.@__ok.UseVisualStyleBackColor = true;
 			// 
+			// __update
+			// 
+			this.@__update.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.@__update.Location = new System.Drawing.Point(6, 383);
+			this.@__update.Name = "__update";
+			this.@__update.Size = new System.Drawing.Size(137, 23);
+			this.@__update.TabIndex = 4;
+			this.@__update.Text = "Check for Updates...";
+			this.@__update.UseVisualStyleBackColor = true;
+			// 
 			// OptionsForm
 			// 
 			this.AcceptButton = this.@__ok;
@@ -496,6 +507,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.@__cancel;
 			this.ClientSize = new System.Drawing.Size(375, 413);
+			this.Controls.Add(this.@__update);
 			this.Controls.Add(this.@__ok);
 			this.Controls.Add(this.@__cancel);
 			this.Controls.Add(this.@__tabs);
@@ -559,5 +571,6 @@
 		private System.Windows.Forms.Label __friendsLbl;
 		private System.Windows.Forms.Label __makesUseOf;
 		private System.Windows.Forms.Button __legalToggle;
+		private System.Windows.Forms.Button __update;
 	}
 }

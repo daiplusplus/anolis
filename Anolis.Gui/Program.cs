@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -47,9 +48,11 @@ namespace Anolis.Gui {
 		
 		internal static WelcomePage       PageAWelcome       { get; private set; }
 		internal static MainActionPage    PageBMainAction    { get; private set; }
-		internal static SelectPackagePage     PageCSelectPackage { get; private set; }
+		internal static SelectPackagePage PageCSelectPackage { get; private set; }
 		internal static ExtractingPage    PageDExtracting    { get; private set; }
 		internal static ModifyPackagePage PageEModifyPackage { get; private set; }
+		
+		internal static Stream            PackageStream      { get; set; }
 		
 	}
 }
