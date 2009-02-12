@@ -22,10 +22,12 @@ namespace Anolis.Resourcer.Settings {
 			
 			for(int i=0;i<classes.Length;i++) {
 				
-				RegistryKey cls = Registry.ClassesRoot.OpenSubKey( classes[i] );
-				RegistryKey shell = cls.OpenSubKey("shell");
-				
 				// validate all the subkeys and values are there
+				
+				RegistryKey cls = Registry.ClassesRoot.OpenSubKey( classes[i] );
+				
+				RegistryKey shell = cls.OpenSubKey("shell");
+				if(shell == null) continue;
 				
 				RegistryKey openWith = shell.OpenSubKey( OpenWith );
 				if(openWith == null) continue;
