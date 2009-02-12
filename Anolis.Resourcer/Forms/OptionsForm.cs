@@ -6,7 +6,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using System.Net;
+using System.Reflection;
+
 using Anolis.Resourcer.Settings;
+
 
 namespace Anolis.Resourcer {
 	
@@ -27,6 +31,8 @@ namespace Anolis.Resourcer {
 
 			this.__legalToggle.Click += new EventHandler(__legalToggle_Click);
 			this.__legalToggle.Tag = false;
+
+			this.__update.Click += new EventHandler(__update_Click);
 			
 			this.Load += new EventHandler(OptionsForm_Load);
 			
@@ -86,6 +92,51 @@ namespace Anolis.Resourcer {
 			String url = link.Text.Substring( link.LinkArea.Start, link.LinkArea.Length - link.LinkArea.Start );
 			
 			System.Diagnostics.Process.Start( url );
+			
+		}
+		
+		private void __update_Click(object sender, EventArgs e) {
+			
+			WebClient w = new WebClient();
+			
+			Int32 updBuild;
+			
+			try {
+				String version = w.DownloadString("http://www.anol.is/resourcer/version.txt");
+				
+				updBuild = Int32.Parse(version);
+			
+			} catch(WebException wex) {
+				
+				MessageBox.Show(this, "Unable to download information about the latest version, the error was: " + wex.Message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				return;
+				
+			} catch(FormatException fex) {
+				
+				MessageBox.Show(this, "Unable to read information about the latest version, the error was: " + fex.Message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				return;
+				
+			}
+			
+			// get this version
+			Assembly thisAssembly = Assembly.GetAssembly( typeof(OptionsForm) );
+			AssemblyName name = thisAssembly.GetName();
+			Int32 thisBuild = name.Version.Build;
+			
+			if( updBuild > thisBuild ) {
+				
+				DialogResult r = MessageBox.Show(this, "There is an updated version of Anolis Resourcer available. Would you like to download it?", "Anolis Resourcer", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+				
+				if( r == DialogResult.Yes ) {
+					
+					System.Diagnostics.Process.Start("http://www.anol.is/download.php");
+					
+				}
+				
+			} else {
+				
+				MessageBox.Show(this, "You already have the most recent build of Resourcer", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+			}
 			
 		}
 		
