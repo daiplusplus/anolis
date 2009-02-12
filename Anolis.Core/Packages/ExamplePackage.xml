@@ -21,7 +21,7 @@
 			 
 			 
 			
-			<res type="icon" id="0" src="/appwiz.cpl/0.ico" lang="" /> <!-- The lang attribute is optional-->
+			<res type="icon" name="0" lang="" src="/appwiz.cpl/0.ico" /> <!-- The lang attribute is optional-->
 			
 		</patch>
 		

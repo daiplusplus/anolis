@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define BLACKBOX
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -6,17 +8,96 @@ using System.Xml;
 namespace Anolis.XisImporter {
 	
 	public class Program {
+
+#if BLACKBOX
+		private	static String p = @"D:\Users\";
+#else
+		private static String p = @"C:\Documents and Settings\";
+#endif
+		
+		private static String q = p + @"David\My Documents\Visual Studio Projects\Anolis\_resources\xpize\";
+		
+		private static String loc = q + @"Files\";
+		private static String scr = q + @"_nsiScripts\";
 		
 		public static void Main(String[] args) {
 			
 			// args[0] is the nsi script containing details on each file
 			// args[1] is the folder containing the files
 			
-			Section[] sections = NsiReader.ReadFile( @"D:\Users\David\My Documents\Visual Studio Projects\Anolis\_resources\xpize\_nsiScripts\InstallerSystemFilesFull.nsi" );
+			Section[] sections = NsiReader.ReadFile( scr + "InstallerSystemFilesFull.nsi" );
 			
 			foreach(Section s in sections) {
 				
 				ProcessSection( s );
+			}
+			
+			// now... write out to Xml, hurrrr!
+			
+			XmlDocument doc = new XmlDocument();
+			
+			XmlElement root = doc.CreateElement("package");
+			root.SetAttribute("name", "xpize");
+			
+			doc.AppendChild( root );
+			
+			foreach(Section s in sections) {
+				
+				XmlProcessSection(doc, root, s);
+				
+			}
+			
+			XmlWriterSettings settings = new XmlWriterSettings();
+			settings.IndentChars = "\t";
+			settings.Indent = true;
+			settings.NewLineHandling = NewLineHandling.Replace;
+			
+			XmlWriter wtr = XmlWriter.Create( q + @"_anolis\Package.xml", settings );
+			
+			doc.Save( wtr );
+			
+		}
+		
+		private static void XmlProcessSection(XmlDocument doc, XmlElement parent, Section s) {
+			
+			
+			
+			if(s.Children.Count == 0 && s.FilesToModify.Count > 0) {
+				
+				foreach( ModifyFile f in s.FilesToModify) {
+					
+					XmlElement patch = doc.CreateElement("patch");
+					patch.SetAttribute("filename", f.CompleteFilename); 
+					
+					foreach(Operation op in f.Operations) {
+						
+						XmlElement res = doc.CreateElement("res");
+						res.SetAttribute("type", op.ResourceType);
+						res.SetAttribute("name", op.ResourceName);
+						if(op.ResourceLang != null && op.ResourceLang.Length > 0) res.SetAttribute("lang", op.ResourceLang);
+						res.SetAttribute("src", op.Filename);
+						
+						patch.AppendChild( res );
+						
+					}
+					
+					parent.AppendChild( patch );
+					
+				}
+				
+				
+			} else {
+				
+				XmlElement set = doc.CreateElement("set");
+				set.SetAttribute("id", s.Id);
+				parent.AppendChild( set );
+				
+				foreach(Section c in s.Children) {
+					
+					XmlProcessSection(doc, set, c);
+					
+				}
+				
 			}
 			
 		}
@@ -104,8 +185,6 @@ namespace Anolis.XisImporter {
 		
 		private static String GetDirContainingResHackerBatch(String completeFilename) {
 			
-			String loc = @"D:\Users\David\My Documents\Visual Studio Projects\Anolis\_resources\xpize\Files\";
-			
 			String retval = null;
 			
 			if( completeFilename.StartsWith(@"%windir%\system32") ) {
@@ -158,15 +237,20 @@ namespace Anolis.XisImporter {
 				
 				if( !line.StartsWith("-") ) continue;
 				
+				// insert a comma after the command
+				line = line.Substring(0, line.IndexOf(' ')) + ", " + line.Substring( line.IndexOf(' ') );
+				
 				String[] parts = line.Split(',');
 				if(parts.Length != 5 && parts.Length != 4) throw new Exception("invalid number of parts");
 				
+				String currentDirRelativeToLoc = folder.FullName.Replace( loc, "" );
+				
 				Operation o = new Operation();
-				o.Op               = parts[0].Trim('"');
-				o.Filename         = parts[1].Trim('"');
-				o.ResourceType     = parts[2].Trim('"');
-				if(parts.Length >= 4) o.ResourceName = parts[3].Trim('"');
-				if(parts.Length == 5) o.ResourceLang = parts[4].Trim('"');
+				o.Op               = parts[0].Trim('"', ' ');
+				o.Filename         = currentDirRelativeToLoc + parts[1].Trim('"', ' ').Replace("Resources\\" + folder.Name, "");
+				o.ResourceType     = parts[2].Trim('"', ' ');
+				if(parts.Length >= 4) o.ResourceName = parts[3].Trim('"', ' ');
+				if(parts.Length == 5) o.ResourceLang = parts[4].Trim('"', ' ');
 				
 				f.Operations.Add( o );
 			}
