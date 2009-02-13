@@ -20,13 +20,21 @@ namespace Anolis.Gui {
 			// Set up the wizard
 			
 			// create the pages
-			PageAWelcome       = new WelcomePage();
-			PageBMainAction    = new MainActionPage();
-			PageCSelectPackage = new SelectPackagePage();
-			PageDExtracting    = new ExtractingPage();
-			PageEModifyPackage = new ModifyPackagePage();
+			PageAWelcome        = new WelcomePage();
+			PageBMainAction     = new MainActionPage();
+			
+			PageICSelectPackage = new SelectPackagePage();
+			PageIDExtracting    = new ExtractingPage();
+			PageIEModifyPackage = new ModifyPackagePage();
+			PageIFInstallationOptions = new InstallationOptionsPage();
+			
+			PageDCDestination = new DestinationPage();
+			PageDDDownloading = new DownloadingPage();
+			
+			PageUCSelectBackup = new SelectBackupPage();
 			
 			IWizardForm wiz = WizardForm.Create();
+			//wiz.Title = "Anolis Installer";
 			wiz.HasHelp = false;
 			wiz.CancelClicked += new EventHandler(wiz_CancelClicked);
 			
@@ -46,13 +54,20 @@ namespace Anolis.Gui {
 			
 		}
 		
-		internal static WelcomePage       PageAWelcome       { get; private set; }
-		internal static MainActionPage    PageBMainAction    { get; private set; }
-		internal static SelectPackagePage PageCSelectPackage { get; private set; }
-		internal static ExtractingPage    PageDExtracting    { get; private set; }
-		internal static ModifyPackagePage PageEModifyPackage { get; private set; }
+		internal static WelcomePage             PageAWelcome       { get; private set; }
+		internal static MainActionPage          PageBMainAction    { get; private set; }
 		
-		internal static Stream            PackageStream      { get; set; }
+		internal static SelectPackagePage       PageICSelectPackage { get; private set; }
+		internal static ExtractingPage          PageIDExtracting    { get; private set; }
+		internal static ModifyPackagePage       PageIEModifyPackage { get; private set; }
+		internal static InstallationOptionsPage PageIFInstallationOptions { get; private set; }
+		
+		internal static DestinationPage         PageDCDestination { get; private set; }
+		internal static DownloadingPage         PageDDDownloading { get; private set; }
+		
+		internal static SelectBackupPage        PageUCSelectBackup { get; private set; }
+		
+		internal static Stream                  PackageStream      { get; set; }
 		
 	}
 }
