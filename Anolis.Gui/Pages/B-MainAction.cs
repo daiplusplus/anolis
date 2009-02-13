@@ -25,15 +25,15 @@ namespace Anolis.Gui.Pages {
 				
 				if( __optInstallRad.Checked ) {
 					
-					return Program.PageCSelectPackage;
+					return Program.PageICSelectPackage;
 					
 				} else if( __optUndo.Checked ) {
 					
-					return null;
+					return Program.PageUCSelectBackup;
 					
 				} else if( __optCreateRad.Checked ) {
 					
-					return null;
+					return Program.PageDCDestination;
 					
 				} else {
 					
