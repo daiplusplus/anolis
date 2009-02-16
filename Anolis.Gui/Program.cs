@@ -67,7 +67,21 @@ namespace Anolis.Gui {
 		
 		internal static SelectBackupPage        PageUCSelectBackup { get; private set; }
 		
-		internal static Stream                  PackageStream      { get; set; }
+	}
+	
+	internal static class ToolsInfo {
+		
+		public static Boolean ProgramGroup         { get; set; }
+		public static Boolean ProgramGroupEveryone { get; set; }
+		
+		public static String  DestinationDirectory { get; set; }
 		
 	}
+	
+	internal static class PackageInfo {
+		
+		internal static Stream PackageStream      { get; set; }
+		
+	}
+	
 }

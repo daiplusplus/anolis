@@ -48,5 +48,11 @@ namespace Anolis.Core {
 			
 		}
 		
+		public static Int32 IndexOf(this Array a, Object o) {
+			
+			return Array.IndexOf( a, o );
+			
+		}
+		
 	}
 }
