@@ -55,7 +55,7 @@
 			// 
 			// __destPath
 			// 
-			this.@__destPath.Location = new System.Drawing.Point(132, 10);
+			this.@__destPath.Location = new System.Drawing.Point(132, 43);
 			this.@__destPath.Name = "__destPath";
 			this.@__destPath.Size = new System.Drawing.Size(237, 21);
 			this.@__destPath.TabIndex = 0;
@@ -63,7 +63,7 @@
 			// 
 			// __destBrowse
 			// 
-			this.@__destBrowse.Location = new System.Drawing.Point(375, 8);
+			this.@__destBrowse.Location = new System.Drawing.Point(375, 41);
 			this.@__destBrowse.Name = "__destBrowse";
 			this.@__destBrowse.Size = new System.Drawing.Size(75, 23);
 			this.@__destBrowse.TabIndex = 1;
@@ -73,7 +73,9 @@
 			// __progGroup
 			// 
 			this.@__progGroup.AutoSize = true;
-			this.@__progGroup.Location = new System.Drawing.Point(22, 49);
+			this.@__progGroup.Checked = true;
+			this.@__progGroup.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.@__progGroup.Location = new System.Drawing.Point(22, 105);
 			this.@__progGroup.Name = "__progGroup";
 			this.@__progGroup.Size = new System.Drawing.Size(249, 17);
 			this.@__progGroup.TabIndex = 2;
@@ -83,7 +85,8 @@
 			// __progGroupAll
 			// 
 			this.@__progGroupAll.AutoSize = true;
-			this.@__progGroupAll.Location = new System.Drawing.Point(42, 72);
+			this.@__progGroupAll.Checked = true;
+			this.@__progGroupAll.Location = new System.Drawing.Point(42, 128);
 			this.@__progGroupAll.Name = "__progGroupAll";
 			this.@__progGroupAll.Size = new System.Drawing.Size(83, 17);
 			this.@__progGroupAll.TabIndex = 3;
@@ -94,18 +97,17 @@
 			// __progGroupMe
 			// 
 			this.@__progGroupMe.AutoSize = true;
-			this.@__progGroupMe.Location = new System.Drawing.Point(42, 95);
+			this.@__progGroupMe.Location = new System.Drawing.Point(42, 151);
 			this.@__progGroupMe.Name = "__progGroupMe";
 			this.@__progGroupMe.Size = new System.Drawing.Size(79, 17);
 			this.@__progGroupMe.TabIndex = 4;
-			this.@__progGroupMe.TabStop = true;
 			this.@__progGroupMe.Text = "Just for me";
 			this.@__progGroupMe.UseVisualStyleBackColor = true;
 			// 
 			// __destLbl
 			// 
 			this.@__destLbl.AutoSize = true;
-			this.@__destLbl.Location = new System.Drawing.Point(19, 13);
+			this.@__destLbl.Location = new System.Drawing.Point(19, 46);
 			this.@__destLbl.Name = "__destLbl";
 			this.@__destLbl.Size = new System.Drawing.Size(107, 13);
 			this.@__destLbl.TabIndex = 5;

@@ -10,7 +10,7 @@ namespace Anolis.Core.Packages {
 			switch(subclass) {
 				case PackageSubclass.LzmaTarball:
 					
-					return new LzmaTarballPackageArchive( stream );
+					return new LzmaTarPackageArchive( stream );
 					
 				default:
 					
