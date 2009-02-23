@@ -16,14 +16,6 @@ namespace Anolis.Core {
 			
 		}
 		
-		protected ResourceSource(Boolean readOnly, Boolean loadSource) {
-			
-			IsReadOnly = readOnly;
-			
-			InitResourceSourceCollections();
-			
-		}
-		
 		//////////////////////
 		
 		public Boolean IsReadOnly { get; private set; }
@@ -57,6 +49,12 @@ namespace Anolis.Core {
 //			}
 //			
 //			throw new NotImplementedException("Anolis does not support files that aren't PE/COFF Executables as ResourceSources yet");
+			
+		}
+		
+		public static ResourceSource OpenNonInteractive(String filename) {
+			
+			return new PEResourceSource(filename, false);
 			
 		}
 		

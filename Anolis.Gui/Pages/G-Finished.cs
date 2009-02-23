@@ -9,7 +9,7 @@ namespace Anolis.Gui.Pages {
 	
 	public partial class FinishedPage : W3b.Wizards.Wizard97.ExteriorPage {
 		
-		public override W3b.Wizards.WizardPage PreviousPage {
+		public override W3b.Wizards.WizardPage PrevPage {
 			get { return null; }
 		}
 		

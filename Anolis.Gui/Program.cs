@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using W3b.Wizards;
 
 using Anolis.Gui.Pages;
+using Anolis.Core.Packages;
 
 namespace Anolis.Gui {
 	
@@ -80,7 +81,9 @@ namespace Anolis.Gui {
 	
 	internal static class PackageInfo {
 		
-		internal static Stream PackageStream      { get; set; }
+		public static PackageArchive Archive { get; set; }
+		
+		public static Package        Package { get; set; }
 		
 	}
 	

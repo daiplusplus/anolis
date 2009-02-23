@@ -4,56 +4,54 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Anolis.Core.Packages;
+using System.IO;
 
 namespace Anolis.Gui.Pages {
 	
 	public partial class ExtractingPage : BaseInteriorPage {
-		
-		private Timer _t;
 		
 		public ExtractingPage() {
 			InitializeComponent();
 			
 			this.Load += new EventHandler(Extracting_Load);
 			
-			_t = new Timer();
-			_t.Tick += new EventHandler(t_Tick);
-			_t.Interval = 3;
-			
+			WizardForm.EnablePrev = false;
+			WizardForm.EnableNext = false;
 		}
 		
 		private void Extracting_Load(object sender, EventArgs e) {
 			
-			WizardForm.EnableNext = false;
+			// Begin extraction
 			
-			// simulate progress for now
+			PackageInfo.Archive.PackageProgressEvent += new EventHandler<PackageProgressEventArgs>(Archive_PackageProgressEvent);
+			PackageInfo.Archive.BeginPackageExtract( new Action<String>( Archive_Completed ) );
 			
-			
-			_t.Start();
-			
-			WizardForm.EnableNext = false;
-			WizardForm.EnablePrev = false;
 			
 		}
 		
-		private void t_Tick(object sender, EventArgs e) {
+		private void Archive_PackageProgressEvent(object sender, PackageProgressEventArgs e) {
 			
-			__progress.Value++;
+			__statusLabel.Text = e.Message;
+			__progress.Value = e.Percentage;
+		}
+		
+		private void Archive_Completed(String destDir) {
 			
-			if( __progress.Value >= 100 ) {
-				_t.Stop();
-				
-				WizardForm.LoadPage( NextPage );
-			}
+			__statusLabel.Text = "Instantiating Package";
+			
+			PackageInfo.Package = Package.FromFile( Path.Combine( destDir, "Package.xml" ) );
+			
+			WizardForm.LoadPage( Program.PageIEModifyPackage );
 			
 		}
 		
-		public override W3b.Wizards.WizardPage PreviousPage {
-			get { return Program.PageICSelectPackage; }
+		public override W3b.Wizards.WizardPage PrevPage {
+			get { return null; }
 		}
 		
 		public override W3b.Wizards.WizardPage NextPage {
-			get { return Program.PageIEModifyPackage; }
+			get { return null; }
 		}
 		
 	}

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Anolis.Packager {
@@ -12,7 +10,7 @@ namespace Anolis.Packager {
 		static void Main() {
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Anolis.Packager.MainForm());
+			Application.Run(new Anolis.Packager.TarLzmaForm());
 		}
 	}
 }

@@ -10,6 +10,12 @@ namespace Anolis.Gui {
 	
 	public static class PackageManager {
 		
+		
+#region Embedded Packages
+		
+		// To create binary .resources from stuff use ResourceWriter (this is what ResGen.exe does internally)
+		// To merge the .resources with the assembly use the Assembly Linker al.exe; I don't know of any way to do this programatically
+		
 		public static String[] GetEmbeddedPackages() {
 			
 			return GetEmbeddedPackages( Assembly.GetExecutingAssembly() );
@@ -31,7 +37,7 @@ namespace Anolis.Gui {
 						String k = e.Key as String;
 						if( k == null ) continue;
 						
-						if( k.EndsWith("_anop") ) packages.Add( k.Substring(0, k.LastIndexOf("_anop") ) );
+						if( k.EndsWith("_anop") ) packages.Add( k.Substring(0, k.Length - 5) );
 						
 					}
 					
@@ -43,11 +49,13 @@ namespace Anolis.Gui {
 			
 		}
 		
-		public static Stream GetEmbeddedPackage(Assembly inAssembly, String name) {
+		public static Stream GetEmbeddedPackage(Assembly assembly, String name) {
 			
-			return inAssembly.GetManifestResourceStream(name);
+			throw new NotImplementedException();
 			
 		}
+		
+#endregion
 		
 	}
 }

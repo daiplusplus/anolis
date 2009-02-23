@@ -101,10 +101,16 @@ namespace Anolis.Resourcer {
 			
 			Int32 updBuild;
 			
+			String downloadLink = "http://www.anol.is/download.php";
+			
 			try {
-				String version = w.DownloadString("http://www.anol.is/resourcer/version.txt");
+				String version = w.DownloadString("http://www.anol.is/resourcer/versionInfo.txt");
 				
-				updBuild = Int32.Parse(version);
+				String[] strs = version.Replace("\r", "").Split('\n');
+				if(strs.Length < 2) throw new FormatException("Split version string's length was less than 2");
+				
+				updBuild = Int32.Parse( strs[0] );
+				downloadLink = strs[1];
 			
 			} catch(WebException wex) {
 				
@@ -129,7 +135,7 @@ namespace Anolis.Resourcer {
 				
 				if( r == DialogResult.Yes ) {
 					
-					System.Diagnostics.Process.Start("http://www.anol.is/download.php");
+					System.Diagnostics.Process.Start( downloadLink );
 					
 				}
 				
