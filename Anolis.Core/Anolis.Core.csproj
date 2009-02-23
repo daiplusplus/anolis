@@ -59,16 +59,13 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SevenZip.Lzma, Version=4.12.3334.15492, Culture=neutral, PublicKeyToken=7a3d421eae2d9df6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\W3b.TarLzma\W3b.TarLzma\bin\Debug\SevenZip.Lzma.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="W3b.TarLzma, Version=1.0.0.0, Culture=neutral, PublicKeyToken=afbbd1ad3e927857, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\W3b.TarLzma\W3b.TarLzma\bin\Debug\W3b.TarLzma.dll</HintPath>
+      <HintPath>..\_ref\W3b.TarLzma\W3b.TarLzma.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -107,7 +104,9 @@
     <Compile Include="Core\Native\NativeTypes.cs" />
     <Compile Include="Core\Native\NativeMethods.cs" />
     <Compile Include="Core\PE\PESource.cs" />
-    <Compile Include="Packages\LzmaTarballPackageArchive.cs" />
+    <Compile Include="Packages\Operations\Operation.cs" />
+    <Compile Include="Packages\Operations\PatchOperation.cs" />
+    <Compile Include="Packages\TarLzmaPackageArchive.cs" />
     <Compile Include="Packages\Package.cs" />
     <Compile Include="Packages\PackageArchive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,12 +119,13 @@
   <ItemGroup>
     <None Include="legal.txt" />
     <None Include="legalGpl.txt" />
-    <Content Include="Packages\ExamplePackage.xml" />
+    <Content Include="Packages\Xml\ExamplePackage.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AnolisSnk.pfx" />
+    <None Include="Packages\Packages.cd" />
     <None Include="ResourceData ClassDiagram.cd" />
-    <None Include="Packages\PackageSchema.xsd" />
+    <None Include="Packages\Xml\PackageSchema.xsd" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">

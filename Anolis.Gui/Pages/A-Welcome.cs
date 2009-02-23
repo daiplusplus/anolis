@@ -27,7 +27,7 @@ namespace Anolis.Gui.Pages {
 			get { return Program.PageBMainAction; }
 		}
 		
-		public override WizardPage PreviousPage {
+		public override WizardPage PrevPage {
 			get { return null; }
 		}
 		

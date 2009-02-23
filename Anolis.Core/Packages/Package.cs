@@ -6,6 +6,9 @@ using System.Xml.Schema;
 using System.Text;
 using System.IO;
 
+using ProgressEventArgs = Anolis.Core.Packages.PackageProgressEventArgs;
+using XTrip             = Anolis.Core.Utility.Triple<string,System.Xml.Schema.XmlSeverityType, System.Exception>;
+
 namespace Anolis.Core.Packages {
 	
 	public abstract class PackageItem {
@@ -38,7 +41,7 @@ namespace Anolis.Core.Packages {
 			foreach(XmlElement setElement in packageElement.ChildNodes) {
 				
 				Set s = new Set( setElement );
-				Sets.Add( s );
+				Children.Add( s );
 				
 			}
 			
@@ -47,9 +50,54 @@ namespace Anolis.Core.Packages {
 		public Single Version     { get; private set; }
 		public String Attribution { get; private set; }
 		public Uri    Website     { get; private set; }
-		public Uri    UpdateUri  { get; private set; }
+		public Uri    UpdateUri   { get; private set; }
 		
-		public SetCollection Sets { get; private set; }
+		public SetCollection Children { get; private set; }
+		
+		//////////////////////////////
+		
+		public static Package FromFile(String packageXmlFilename) {
+			
+			XmlDocument doc = new XmlDocument();
+			doc.Load( packageXmlFilename );
+			
+			System.Collections.Generic.List<XTrip> validationMessages = new System.Collections.Generic.List<XTrip>();
+			
+			doc.Validate( new ValidationEventHandler( delegate(Object sender, ValidationEventArgs ve) {
+				
+				validationMessages.Add( new XTrip( ve.Message, ve.Severity, ve.Exception ) );
+				
+			}) );
+			
+			// walk the document
+			
+			XmlElement packageElement = doc.DocumentElement;
+			
+			return new Package( packageElement );
+			
+			
+		}
+		
+		//////////////////////////////
+		
+		/// <summary>Executes the operations contained within this package</summary>
+		public void Execute() {
+			
+			foreach(Set set in Children) {
+				
+				set.Execute();
+			}
+			
+		}
+		
+		
+		
+		protected void OnProgressEvent(ProgressEventArgs e) {
+			
+			if( ProgressEvent != null ) ProgressEvent(this, e);
+		}
+		
+		public event EventHandler<ProgressEventArgs> ProgressEvent;
 		
 	}
 	
@@ -91,48 +139,20 @@ namespace Anolis.Core.Packages {
 		
 		public SetCollection Mutex    { get; private set; }
 		
-		public SetCollection Children { get; private set; }
+		public SetCollection       Children   { get; private set; }
+		public OperationCollection Operations { get; private set; }
 		
-	}
-	
-	public class File {
-		
-		/// <summary>Gets the Path to the file as specified in the Package definition file.</summary>
-		public String Path { get; private set; }
-		
-		/// <summary>Gets the actual, working, path to the file (if it exists).</summary>
-		public String ResolvedPath { get; private set; }
-		
-		//public FileCondition Condition { get; private set; }
+		internal void Execute() {
+			
+			foreach(Set       set in Children)  set.Execute();
+			
+			foreach(Operation op  in Operations) op.Execute();
+			
+		}
 		
 	}
 	
 	public class SetCollection : Collection<Set> {
-	}
-	
-	internal static class PackageReader {
-		
-		public static Package ReadPackage(String filename) {
-			
-			XmlDocument doc = new XmlDocument();
-			doc.Load( filename );
-			
-			doc.Validate( new ValidationEventHandler( Validation_Event ) );
-			
-			// walk the document
-			
-			XmlElement packageElement = doc.DocumentElement;
-			
-			return new Package( packageElement );
-			
-		}
-		
-		private static void Validation_Event(Object sender, ValidationEventArgs e) {
-			
-			
-			
-		}
-		
 	}
 	
 }

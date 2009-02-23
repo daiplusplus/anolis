@@ -16,11 +16,13 @@ namespace Anolis.Core.Source {
 		private IntPtr   _moduleHandle;
 		private ResourceSourceInfo _sourceInfo;
 		
-		static PEResourceSource() {
+		public PEResourceSource(String filename, Boolean interactive, Boolean readOnly) : base( readOnly || IsPathReadonly(filename) ) {
+			
+			_path = filename;
 			
 		}
 		
-		public PEResourceSource(String filename, Boolean readOnly) : base(readOnly ^ IsPathReadonly(filename) ) {
+		public PEResourceSource(String filename, Boolean readOnly) : base(readOnly || IsPathReadonly(filename) ) {
 			
 			FileInfo = new FileInfo( _path = filename );
 			if(!FileInfo.Exists) throw new FileNotFoundException("The specified Win32 PE Image was not found", filename);
@@ -45,8 +47,6 @@ namespace Anolis.Core.Source {
 			
 			// Unload self
 			Unload();
-			
-System.Collections.Generic.List<String> operationsPerformed = new System.Collections.Generic.List<String>();
 			
 			IntPtr updateHandle = NativeMethods.BeginUpdateResource( this._path, false );
 			
@@ -76,9 +76,6 @@ System.Collections.Generic.List<String> operationsPerformed = new System.Collect
 					ushort langId = data.Lang.LanguageId;
 					
 					NativeMethods.UpdateResource( updateHandle, typeId, nameId, langId, pData, length );
-
-String path = data.Lang.Name.Type.Identifier.FriendlyName + " - " + data.Lang.Name.Identifier.FriendlyName + " - " + data.Lang.LanguageId.ToString();
-operationsPerformed.Add( Enum.GetName(typeof(ResourceDataAction), data.Action ) + " - " + path );
 					
 					Marshal.FreeHGlobal( pData );
 					

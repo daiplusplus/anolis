@@ -19,7 +19,7 @@ namespace Anolis.Gui.Pages {
 		private void Extracting_Load(object sender, EventArgs e) {
 		}
 		
-		public override W3b.Wizards.WizardPage PreviousPage {
+		public override W3b.Wizards.WizardPage PrevPage {
 			get { return Program.PageIEModifyPackage; }
 		}
 		
