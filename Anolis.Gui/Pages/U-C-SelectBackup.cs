@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
+using W3b.Wizards;
 namespace Anolis.Gui.Pages {
 	
 	public partial class SelectBackupPage : Anolis.Gui.Pages.BaseInteriorPage {
@@ -11,11 +11,11 @@ namespace Anolis.Gui.Pages {
 			InitializeComponent();
 		}
 		
-		public override W3b.Wizards.WizardPage NextPage {
+		public override BaseWizardPage NextPage {
 			get { return null; }
 		}
 		
-		public override W3b.Wizards.WizardPage PrevPage {
+		public override BaseWizardPage PrevPage {
 			get { return Program.PageBMainAction; }
 		}
 		

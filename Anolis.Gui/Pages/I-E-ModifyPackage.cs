@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Anolis.Core.Packages;
-
+using W3b.Wizards;
 namespace Anolis.Gui.Pages {
 	
 	public partial class ModifyPackagePage : BaseInteriorPage {
@@ -24,11 +24,11 @@ namespace Anolis.Gui.Pages {
 		
 		private Package Package { get; set; }
 		
-		public override W3b.Wizards.WizardPage PrevPage {
+		public override BaseWizardPage PrevPage {
 			get { return Program.PageICSelectPackage; }
 		}
 		
-		public override W3b.Wizards.WizardPage NextPage {
+		public override BaseWizardPage NextPage {
 			get { return Program.PageIFInstallationOptions; }
 		}
 		

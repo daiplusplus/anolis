@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using Anolis.Core.Packages;
 using System.IO;
-
+using W3b.Wizards;
 namespace Anolis.Gui.Pages {
 	
 	public partial class ExtractingPage : BaseInteriorPage {
@@ -15,12 +15,12 @@ namespace Anolis.Gui.Pages {
 			InitializeComponent();
 			
 			this.Load += new EventHandler(Extracting_Load);
-			
-			WizardForm.EnablePrev = false;
-			WizardForm.EnableNext = false;
 		}
 		
 		private void Extracting_Load(object sender, EventArgs e) {
+			
+			WizardForm.EnablePrev = false;
+			WizardForm.EnableNext = false;
 			
 			// Begin extraction
 			
@@ -32,25 +32,44 @@ namespace Anolis.Gui.Pages {
 		
 		private void Archive_PackageProgressEvent(object sender, PackageProgressEventArgs e) {
 			
-			__statusLabel.Text = e.Message;
-			__progress.Value = e.Percentage;
+			this.Invoke( new MethodInvoker( delegate() {
+				
+				__statusLabel.Text = e.Message;
+				__progress.Value = e.Percentage;
+				
+			} ) );
+			
 		}
 		
 		private void Archive_Completed(String destDir) {
 			
-			__statusLabel.Text = "Instantiating Package";
+			this.Invoke( new MethodInvoker( delegate() {
+				
+				if( destDir != null ) {
+					
+					__statusLabel.Text = "Instantiating Package";
+					
+					PackageInfo.Package = Package.FromFile( Path.Combine( destDir, "Package.xml" ) );
+					
+					WizardForm.LoadPage( Program.PageIEModifyPackage );
+					
+				} else {
+					
+					__statusLabel.Text = "Error during extraction";
+					
+				}
+				
+			} ) );
 			
-			PackageInfo.Package = Package.FromFile( Path.Combine( destDir, "Package.xml" ) );
 			
-			WizardForm.LoadPage( Program.PageIEModifyPackage );
 			
 		}
 		
-		public override W3b.Wizards.WizardPage PrevPage {
+		public override BaseWizardPage PrevPage {
 			get { return null; }
 		}
 		
-		public override W3b.Wizards.WizardPage NextPage {
+		public override BaseWizardPage NextPage {
 			get { return null; }
 		}
 		

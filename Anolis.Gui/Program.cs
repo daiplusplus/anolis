@@ -34,7 +34,7 @@ namespace Anolis.Gui {
 			
 			PageUCSelectBackup = new SelectBackupPage();
 			
-			IWizardForm wiz = WizardForm.Create();
+			IWizardForm wiz = WizardFactory.Create();
 			//wiz.Title = "Anolis Installer";
 			wiz.HasHelp = false;
 			wiz.CancelClicked += new EventHandler(wiz_CancelClicked);

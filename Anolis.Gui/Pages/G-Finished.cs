@@ -5,15 +5,17 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using W3b.Wizards;
+
 namespace Anolis.Gui.Pages {
 	
 	public partial class FinishedPage : W3b.Wizards.Wizard97.ExteriorPage {
 		
-		public override W3b.Wizards.WizardPage PrevPage {
+		public override BaseWizardPage PrevPage {
 			get { return null; }
 		}
 		
-		public override W3b.Wizards.WizardPage NextPage {
+		public override BaseWizardPage NextPage {
 			get { return null; }
 		}
 		
