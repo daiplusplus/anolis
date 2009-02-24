@@ -2,16 +2,16 @@
 using System.IO;
 using System.Windows.Forms;
 using Anolis.Core.Packages;
-
+using W3b.Wizards;
 namespace Anolis.Gui.Pages {
 	
 	public partial class SelectPackagePage : BaseInteriorPage {
 		
 		public SelectPackagePage() {
 			InitializeComponent();
-
+			
 			this.Load += new EventHandler(SelectPackage_Load);
-			// TODO: An event handler for when the next page is loaded
+			this.PageUnload += new EventHandler<W3b.Wizards.PageChangeEventArgs>(SelectPackagePage_PageUnload);
 			
 			this.__optBrowseBrowse.Click += new EventHandler(__optBrowseBrowse_Click);
 			
@@ -31,7 +31,7 @@ namespace Anolis.Gui.Pages {
 			
 		}
 		
-		private void SelectPackage_UnloadNext(Object sender, EventArgs e) {
+		private void SelectPackagePage_PageUnload(object sender, W3b.Wizards.PageChangeEventArgs e) {
 			
 			// TODO: Error messages etc
 			// UnloadEventArgs should have a .Cancel property which will be set to true if the user's info isn't valid
@@ -65,11 +65,11 @@ namespace Anolis.Gui.Pages {
 			
 		}
 		
-		public override W3b.Wizards.WizardPage NextPage {
+		public override BaseWizardPage NextPage {
 			get { return Program.PageIDExtracting; }
 		}
 		
-		public override W3b.Wizards.WizardPage PrevPage {
+		public override BaseWizardPage PrevPage {
 			get { return Program.PageBMainAction; }
 		}
 		

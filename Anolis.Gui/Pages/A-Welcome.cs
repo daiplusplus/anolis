@@ -23,11 +23,11 @@ namespace Anolis.Gui.Pages {
 			WizardForm.EnableNext = true;
 		}
 		
-		public override WizardPage NextPage {
+		public override BaseWizardPage NextPage {
 			get { return Program.PageBMainAction; }
 		}
 		
-		public override WizardPage PrevPage {
+		public override BaseWizardPage PrevPage {
 			get { return null; }
 		}
 		

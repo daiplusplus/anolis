@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using W3b.Wizards;
+
 namespace Anolis.Gui.Pages {
 	
 	public partial class InstallationOptionsPage : BaseInteriorPage {
@@ -19,11 +21,11 @@ namespace Anolis.Gui.Pages {
 		private void Extracting_Load(object sender, EventArgs e) {
 		}
 		
-		public override W3b.Wizards.WizardPage PrevPage {
+		public override BaseWizardPage PrevPage {
 			get { return Program.PageIEModifyPackage; }
 		}
 		
-		public override W3b.Wizards.WizardPage NextPage {
+		public override BaseWizardPage NextPage {
 			get { return null; }
 		}
 		

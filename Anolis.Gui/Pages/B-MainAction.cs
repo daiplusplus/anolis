@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
+using W3b.Wizards;
 namespace Anolis.Gui.Pages {
 	
 	public partial class MainActionPage : BaseInteriorPage {
@@ -20,7 +20,7 @@ namespace Anolis.Gui.Pages {
 			
 		}
 		
-		public override W3b.Wizards.WizardPage NextPage {
+		public override BaseWizardPage NextPage {
 			get {
 				
 				if( __optInstallRad.Checked ) {
@@ -42,7 +42,7 @@ namespace Anolis.Gui.Pages {
 			}
 		}
 		
-		public override W3b.Wizards.WizardPage PrevPage {
+		public override BaseWizardPage PrevPage {
 			get { return Program.PageAWelcome; }
 		}
 		
