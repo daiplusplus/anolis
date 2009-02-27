@@ -13,91 +13,7 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 		<xs:complexType>
 			<xs:sequence>
 				
-				<xs:element name="set">
-					<xs:complexType>
-						<xs:sequence>
-
-							<xs:element name="patch">
-								<xs:complexType>
-									<xs:sequence>
-
-										<xs:element name="res">
-											<xs:complexType>
-												
-												<!-- <res /> attributes -->
-												<xs:attribute name="type" type="resourceType"   use="required" />
-												<xs:attribute name="id"   type="xs:string"      use="required" />
-												<xs:attribute name="lang" type="xs:unsignedInt" use="optional" />
-												<xs:attribute name="src"  type="xs:anyURI"      use="required" />
-												
-											</xs:complexType>
-										</xs:element>
-										
-									</xs:sequence>
-									
-									<!-- <patch /> attributes -->
-									<xs:attribute name="path"      type="xs:anyURI" use="required" />
-									<xs:attribute name="condition" type="xs:string" use="optional" />
-									
-								</xs:complexType>
-							</xs:element>
-								
-							<xs:element name="file">
-								<xs:complexType>
-									
-									<!-- <file /> attributes -->
-									
-									<xs:attribute name="operation" type="fileOperation" use="required" />
-									<xs:attribute name="path"      type="xs:anyURI"     use="required" />
-									<xs:attribute name="src"       type="xs:anyURI"     use="optional" />
-
-									<xs:attribute name="condition" type="xs:string" use="optional" />
-									
-								</xs:complexType>
-							</xs:element>
-							
-							<xs:element name="extra">
-								<xs:complexType>
-									
-									<!-- <extra /> attributes -->
-									
-									<xs:attribute name="name"        type="xs:string"  use="required" />
-									<xs:attribute name="attribution" type="xs:string"  use="required" />
-									<xs:attribute name="type"        type="extraType"  use="required" />
-									<xs:attribute name="src"         type="xs:anyURI"  use="required" />
-									
-								</xs:complexType>
-							</xs:element>
-							
-							<xs:element name="filetype">
-								<xs:complexType>
-									
-									<!-- <filetype /> attributes -->
-
-									<xs:attribute name="ifNotDefined" type="definedAction"  use="optional" />
-
-									<xs:attribute name="type"         type="xs:string"  use="optional" />
-									<xs:attribute name="ext"          type="xs:string"  use="optional" />
-									
-									<xs:attribute name="iconFile"     type="xs:anyURI"  use="optional" />
-									<xs:attribute name="iconPath"     type="xs:anyURI"  use="optional" />
-									
-								</xs:complexType>
-							</xs:element>
-							
-						</xs:sequence>
-						
-						<!-- <set> attributes -->
-						<xs:attribute name="id"    type="xs:ID"     use="required" />
-						<xs:attribute name="mutex" type="xs:IDREFS" use="optional" />
-						<xs:attribute name="name"  type="xs:string" use="required" />
-						
-						<xs:attribute name="icon"  type="xs:anyURI"  use="optional" />
-						<xs:attribute name="image" type="xs:anyURI"  use="optional" />
-						<xs:attribute name="desc"  type="xs:anyURI"  use="optional" />
-						
-					</xs:complexType>
-				</xs:element><!-- /set -->
+				<xs:element name="set" type="packageSet" />
 				
 			</xs:sequence>
 			
@@ -114,6 +30,92 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 		</xs:complexType>
 	</xs:element><!-- /package -->
 	
+	<xs:complexType name="packageSet">
+		<xs:choice>
+			
+			<xs:element name="patch" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						
+						<xs:element name="res" maxOccurs="unbounded">
+							<xs:complexType>
+								
+								<!-- <res /> attributes -->
+								<xs:attribute name="type" type="resourceType"   use="required" />
+								<xs:attribute name="name" type="xs:string"      use="required" />
+								<xs:attribute name="lang" type="xs:unsignedInt" use="optional" />
+								<xs:attribute name="src"  type="xs:anyURI"      use="required" />
+								
+							</xs:complexType>
+						</xs:element>
+						
+					</xs:sequence>
+					
+					<!-- <patch /> attributes -->
+					<xs:attribute name="path"      type="xs:anyURI" use="required" />
+					<xs:attribute name="condition" type="xs:string" use="optional" />
+					
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="file" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					
+					<!-- <file /> attributes -->
+					
+					<xs:attribute name="operation" type="fileOperation" use="required" />
+					<xs:attribute name="path"      type="xs:anyURI"     use="required" />
+					<xs:attribute name="src"       type="xs:anyURI"     use="optional" />
+					
+					<xs:attribute name="condition" type="xs:string" use="optional" />
+					
+				</xs:complexType>
+			</xs:element>
+				
+			<xs:element name="extra" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					
+					<!-- <extra /> attributes -->
+					
+					<xs:attribute name="name"        type="xs:string"  use="required" />
+					<xs:attribute name="attribution" type="xs:string"  use="required" />
+					<xs:attribute name="type"        type="extraType"  use="required" />
+					<xs:attribute name="src"         type="xs:anyURI"  use="required" />
+					
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="filetype" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					
+					<!-- <filetype /> attributes -->
+					
+					<xs:attribute name="ifNotDefined" type="definedAction"  use="optional" />
+					
+					<xs:attribute name="type"         type="xs:string"  use="optional" />
+					<xs:attribute name="ext"          type="xs:string"  use="optional" />
+					
+					<xs:attribute name="iconFile"     type="xs:anyURI"  use="optional" />
+					<xs:attribute name="iconPath"     type="xs:anyURI"  use="optional" />
+					
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="set" type="packageSet" minOccurs="0" maxOccurs="unbounded" />
+			
+		</xs:choice>
+		
+		<!-- <set> attributes -->
+		<xs:attribute name="id"    type="xs:ID"     use="required" />
+		<xs:attribute name="mutex" type="xs:IDREFS" use="optional" />
+		<xs:attribute name="name"  type="xs:string" use="required" />
+		
+		<xs:attribute name="icon"  type="xs:anyURI"  use="optional" />
+		<xs:attribute name="image" type="xs:anyURI"  use="optional" />
+		<xs:attribute name="desc"  type="xs:anyURI"  use="optional" />
+		
+	</xs:complexType>
+	
 	<!-- Additional Types -->
 	
 	<xs:simpleType name="versionAction">
@@ -123,23 +125,23 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 			<xs:enumeration value="okay" />
 		</xs:restriction>
 	</xs:simpleType>
-
+	
 	<xs:simpleType name="definedAction">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="apply" />
 			<xs:enumeration value="ignore" />
 		</xs:restriction>
 	</xs:simpleType>
-
+	
 	<xs:simpleType name="resourceType">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="icongroup" />
+			<xs:enumeration value="icondir" />
 			<xs:enumeration value="bitmap" />
-			<xs:enumeration value="cursorgroup" />
+			<xs:enumeration value="cursordir" />
 			<!-- TODO: Finish off -->
 		</xs:restriction>
 	</xs:simpleType>
-
+	
 	<xs:simpleType name="extraType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="wallpaper" />
@@ -151,7 +153,7 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 			<xs:enumeration value="screensaver" />
 		</xs:restriction>
 	</xs:simpleType>
-
+	
 	<xs:simpleType name="fileOperation">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="copy" />

@@ -26,6 +26,7 @@
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
 			this.@__progress = new System.Windows.Forms.ProgressBar();
 			this.@__statusLabel = new System.Windows.Forms.Label();
+			this.@__packageMessages = new System.Windows.Forms.TextBox();
 			this.@__banner.SuspendLayout();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
@@ -34,6 +35,7 @@
 			// 
 			// __content
 			// 
+			this.@__content.Controls.Add(this.@__packageMessages);
 			this.@__content.Controls.Add(this.@__statusLabel);
 			this.@__content.Controls.Add(this.@__progress);
 			// 
@@ -66,11 +68,27 @@
 			this.@__statusLabel.TabIndex = 1;
 			this.@__statusLabel.Text = "{0}% complete - {1}";
 			// 
-			// Extracting
+			// __packageMessages
+			// 
+			this.@__packageMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__packageMessages.BackColor = System.Drawing.SystemColors.Window;
+			this.@__packageMessages.Location = new System.Drawing.Point(22, 109);
+			this.@__packageMessages.Multiline = true;
+			this.@__packageMessages.Name = "__packageMessages";
+			this.@__packageMessages.ReadOnly = true;
+			this.@__packageMessages.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.@__packageMessages.Size = new System.Drawing.Size(413, 116);
+			this.@__packageMessages.TabIndex = 2;
+			this.@__packageMessages.Visible = false;
+			this.@__packageMessages.WordWrap = false;
+			// 
+			// ExtractingPage
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Name = "Extracting";
+			this.Name = "ExtractingPage";
 			this.@__banner.ResumeLayout(false);
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();
@@ -83,5 +101,6 @@
 		private System.Windows.Forms.OpenFileDialog __ofd;
 		private System.Windows.Forms.Label __statusLabel;
 		private System.Windows.Forms.ProgressBar __progress;
+		private System.Windows.Forms.TextBox __packageMessages;
 	}
 }

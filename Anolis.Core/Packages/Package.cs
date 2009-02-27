@@ -7,7 +7,6 @@ using System.Text;
 using System.IO;
 
 using ProgressEventArgs = Anolis.Core.Packages.PackageProgressEventArgs;
-using XTrip             = Anolis.Core.Utility.Triple<string,System.Xml.Schema.XmlSeverityType, System.Exception>;
 
 namespace Anolis.Core.Packages {
 	
@@ -56,18 +55,43 @@ namespace Anolis.Core.Packages {
 		
 		//////////////////////////////
 		
+		public static Package FromDirectory(String packageDirectory) {
+			
+			return FromFile( Path.Combine( packageDirectory, "Package.xml" ) );
+		}
+		
 		public static Package FromFile(String packageXmlFilename) {
 			
-			XmlDocument doc = new XmlDocument();
-			doc.Load( packageXmlFilename );
+			Collection<ValidationEventArgs> validationMessages = new Collection<ValidationEventArgs>();
 			
-			System.Collections.Generic.List<XTrip> validationMessages = new System.Collections.Generic.List<XTrip>();
+			XmlReaderSettings settings = new XmlReaderSettings();
+			settings.Schemas.Add( PackageSchema );
+			settings.ValidationEventHandler += new ValidationEventHandler( delegate(Object sender, ValidationEventArgs ve) {
+				
+				validationMessages.Add( ve );
+				
+			});
+			
+			settings.Schemas.Compile();
+			
+			settings.ValidationType = ValidationType.Schema;
+			
+			XmlReader rdr = XmlReader.Create( packageXmlFilename, settings );
+			XmlDocument doc = new XmlDocument();
+			
+			doc.Load( rdr );
 			
 			doc.Validate( new ValidationEventHandler( delegate(Object sender, ValidationEventArgs ve) {
 				
-				validationMessages.Add( new XTrip( ve.Message, ve.Severity, ve.Exception ) );
+				validationMessages.Add( ve );
 				
 			}) );
+			
+			if( validationMessages.Count > 0 ) {
+				
+				throw new PackageValidationException("Errors were thrown during validation of the Package XML File", validationMessages);
+				
+			}
 			
 			// walk the document
 			
@@ -78,7 +102,78 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
+		public static Package FromFile(String packageXmlFilename, Object useObsolete) {
+			
+			using(FileStream fs = new FileStream(packageXmlFilename, FileMode.Open, FileAccess.Read, FileShare.Read)) {
+				
+				XmlValidatingReader vrdr = new XmlValidatingReader( new XmlTextReader( packageXmlFilename ) );
+				vrdr.ValidationType = ValidationType.Schema;
+				vrdr.Schemas.Add( PackageSchema );
+				
+				Collection<ValidationEventArgs> validationMessages = new Collection<ValidationEventArgs>();
+				
+				vrdr.ValidationEventHandler += new ValidationEventHandler(delegate(Object sender, ValidationEventArgs ve) {
+					
+					validationMessages.Add( ve );
+					
+				});
+				
+				XmlDocument doc = new XmlDocument();
+				doc.Load( vrdr );
+				
+				XmlElement packageElement = doc.DocumentElement;
+				
+				return new Package( packageElement );
+				
+			}
+			
+			
+		}
+		
+		private static XmlSchema _packageSchema;
+		
+		public static XmlSchema PackageSchema {
+			get {
+				if(_packageSchema == null) {
+					
+					using(FileStream fs = new FileStream( @"D:\Users\David\My Documents\Visual Studio Projects\Anolis\Anolis.Core\Packages\Xml\PackageSchema.xsd", FileMode.Open)) {
+						
+						_packageSchema = XmlSchema.Read( fs, null );
+						
+					}
+					
+					_packageSchema.Compile( new ValidationEventHandler( delegate(Object sender, ValidationEventArgs ve) {
+						
+						throw new XmlSchemaException("Package Schema is invalid", ve.Exception );
+						
+					}));
+					
+//					using(MemoryStream ms = new MemoryStream( Resources.PackageSchema )) {
+//						
+//						_packageSchema = XmlSchema.Read( ms, null );
+//						
+//						_packageSchema = XmlSchema.Read( ms, new ValidationEventHandler( delegate(Object sender, ValidationEventArgs ve) {
+//							
+//							throw new XmlSchemaException("Package Schema is invalid", ve.Exception );
+//							
+//						}) );
+//						
+//					}
+				}
+				return _packageSchema;
+			}
+		}
+		
 		//////////////////////////////
+		
+		/// <summary>Ensures all the source files referenced by the Package exist in the filesystem and any other checks</summary>
+		/// <remarks>This method does not validate the package XML. That is done when the package is instantiated</remarks>
+		public void Validate() {
+			
+			
+			
+		}
+		
 		
 		/// <summary>Executes the operations contained within this package</summary>
 		public void Execute() {
@@ -89,8 +184,6 @@ namespace Anolis.Core.Packages {
 			}
 			
 		}
-		
-		
 		
 		protected void OnProgressEvent(ProgressEventArgs e) {
 			
@@ -153,6 +246,40 @@ namespace Anolis.Core.Packages {
 	}
 	
 	public class SetCollection : Collection<Set> {
+	}
+	
+	[Serializable]
+	public class PackageException : AnolisException {
+		
+		public PackageException() {
+		}
+		
+		public PackageException(String message) : base(message) {
+		}
+		
+		public PackageException(String message, Exception inner) : base(message, inner) {
+		}
+		
+		protected PackageException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) {
+		}
+		
+	}
+	
+	[Serializable]
+	public class PackageValidationException : PackageException {
+		
+		public PackageValidationException(String message, Collection<ValidationEventArgs> errors) : base(message) {
+			
+			ValidationErrors = errors;
+		}
+		
+		protected PackageValidationException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) {
+		}
+		
+		public Collection<ValidationEventArgs> ValidationErrors {
+			get; private set;
+		}
+		
 	}
 	
 }

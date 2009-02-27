@@ -23,10 +23,16 @@ namespace Anolis.Gui.Pages {
 			WizardForm.EnableNext = false;
 			
 			// Begin extraction
-			
-			PackageInfo.Archive.PackageProgressEvent += new EventHandler<PackageProgressEventArgs>(Archive_PackageProgressEvent);
-			PackageInfo.Archive.BeginPackageExtract( new Action<String>( Archive_Completed ) );
-			
+			if( PackageInfo.Source == PackageSource.File ) {
+				
+				InstantiatePackage( PackageInfo.SourcePath );
+				
+			} else {
+				
+				PackageInfo.Archive.PackageProgressEvent += new EventHandler<PackageProgressEventArgs>(Archive_PackageProgressEvent);
+				PackageInfo.Archive.BeginPackageExtract( new Action<String>( Archive_Completed ) );
+				
+			}
 			
 		}
 		
@@ -49,19 +55,72 @@ namespace Anolis.Gui.Pages {
 					
 					__statusLabel.Text = "Instantiating Package";
 					
-					PackageInfo.Package = Package.FromFile( Path.Combine( destDir, "Package.xml" ) );
-					
-					WizardForm.LoadPage( Program.PageIEModifyPackage );
+					InstantiatePackage( destDir );
 					
 				} else {
 					
-					__statusLabel.Text = "Error during extraction";
+					// the previous PackageProgressEvent method call will contain the error string, so don't set anything and display a message to the user
+					MessageBox.Show(this, "An error occured whilst attempting to extract the package", "Anolis", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 					
 				}
 				
 			} ) );
 			
+		}
+		
+		private void InstantiatePackage(String path) {
 			
+			try {
+				
+				PackageInfo.Package = path.EndsWith("/") || path.EndsWith("\\") ?
+					Package.FromDirectory( path ) : Package.FromFile( path );
+				
+			} catch( PackageValidationException pve ) {
+				
+				__packageMessages.Visible = true;
+				
+				StringBuilder sb = new StringBuilder();
+				sb.AppendLine( pve.Message );
+				foreach(System.Xml.Schema.ValidationEventArgs ve in pve.ValidationErrors) {
+					sb.Append( ve.Severity );
+					sb.Append(" ");
+					sb.Append( ve.Message );
+					sb.Append(" ");
+					if( ve.Exception != null ) {
+						sb.Append( ve.Exception.Message );
+					}
+					sb.AppendLine();
+				}
+				
+				__packageMessages.Text = sb.ToString();
+				
+				return;
+				
+				
+			} catch(PackageException pe ) {
+				
+				__packageMessages.Visible = true;
+				
+				__packageMessages.Text = pe.GetType().Name + " " + pe.Message;
+				
+				return;
+				
+			} 
+#if DEBUG
+			catch(Exception ex) {
+				
+				String x = ex.Message;
+				
+				return;
+				
+			}
+#endif
+			
+			// verify all the referenced files are there
+			
+			//PackageInfo.Package.
+			
+			WizardForm.LoadPage( Program.PageIEModifyPackage );
 			
 		}
 		

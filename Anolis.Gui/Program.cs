@@ -81,10 +81,19 @@ namespace Anolis.Gui {
 	
 	internal static class PackageInfo {
 		
-		public static PackageArchive Archive { get; set; }
+		public static PackageSource  Source     { get; set; }
+		public static String         SourcePath { get; set; }
 		
-		public static Package        Package { get; set; }
+		public static PackageArchive Archive    { get; set; }
 		
+		public static Package        Package    { get; set; }
+		
+	}
+	
+	internal enum PackageSource {
+		Archive,
+		Embedded,
+		File
 	}
 	
 }
