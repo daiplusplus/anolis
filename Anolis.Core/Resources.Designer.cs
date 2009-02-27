@@ -100,5 +100,12 @@ namespace Anolis.Core {
                 return ResourceManager.GetString("LegalOverview", resourceCulture);
             }
         }
+        
+        public static byte[] PackageSchema {
+            get {
+                object obj = ResourceManager.GetObject("PackageSchema", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

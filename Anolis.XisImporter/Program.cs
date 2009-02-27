@@ -1,4 +1,4 @@
-﻿//#define BLACKBOX
+﻿#define BLACKBOX
 
 using System;
 using System.Collections.Generic;

@@ -23,13 +23,17 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.@__optBrowse = new System.Windows.Forms.RadioButton();
-			this.@__optBrowseFilenameLbl = new System.Windows.Forms.Label();
-			this.@__optPackages = new System.Windows.Forms.RadioButton();
-			this.@__optBrowseFilename = new System.Windows.Forms.TextBox();
-			this.@__optBrowseBrowse = new System.Windows.Forms.Button();
+			this.@__anopRad = new System.Windows.Forms.RadioButton();
+			this.@__anopFilenameLbl = new System.Windows.Forms.Label();
+			this.@__embedRad = new System.Windows.Forms.RadioButton();
+			this.@__anopFilename = new System.Windows.Forms.TextBox();
+			this.@__anopBrowse = new System.Windows.Forms.Button();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
-			this.@__optPackagesList = new System.Windows.Forms.ListBox();
+			this.@__embedList = new System.Windows.Forms.ListBox();
+			this.@__packBrowse = new System.Windows.Forms.Button();
+			this.@__packFilename = new System.Windows.Forms.TextBox();
+			this.@__packFilenameLbl = new System.Windows.Forms.Label();
+			this.@__packRad = new System.Windows.Forms.RadioButton();
 			this.@__banner.SuspendLayout();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
@@ -38,12 +42,16 @@
 			// 
 			// __content
 			// 
-			this.@__content.Controls.Add(this.@__optPackagesList);
-			this.@__content.Controls.Add(this.@__optBrowseBrowse);
-			this.@__content.Controls.Add(this.@__optBrowseFilename);
-			this.@__content.Controls.Add(this.@__optPackages);
-			this.@__content.Controls.Add(this.@__optBrowseFilenameLbl);
-			this.@__content.Controls.Add(this.@__optBrowse);
+			this.@__content.Controls.Add(this.@__anopRad);
+			this.@__content.Controls.Add(this.@__anopFilenameLbl);
+			this.@__content.Controls.Add(this.@__anopFilename);
+			this.@__content.Controls.Add(this.@__anopBrowse);
+			this.@__content.Controls.Add(this.@__packRad);
+			this.@__content.Controls.Add(this.@__packFilenameLbl);
+			this.@__content.Controls.Add(this.@__packFilename);
+			this.@__content.Controls.Add(this.@__packBrowse);
+			this.@__content.Controls.Add(this.@__embedRad);
+			this.@__content.Controls.Add(this.@__embedList);
 			// 
 			// __bannerSubtitle
 			// 
@@ -54,71 +62,107 @@
 			// 
 			this.@__bannerTitle.Text = "Select a package to install";
 			// 
-			// __optBrowse
+			// __anopRad
 			// 
-			this.@__optBrowse.AutoSize = true;
-			this.@__optBrowse.Checked = true;
-			this.@__optBrowse.Location = new System.Drawing.Point(22, 17);
-			this.@__optBrowse.Name = "__optBrowse";
-			this.@__optBrowse.Size = new System.Drawing.Size(204, 17);
-			this.@__optBrowse.TabIndex = 0;
-			this.@__optBrowse.TabStop = true;
-			this.@__optBrowse.Text = "Browse my computer for the package";
-			this.@__optBrowse.UseVisualStyleBackColor = true;
+			this.@__anopRad.AutoSize = true;
+			this.@__anopRad.Checked = true;
+			this.@__anopRad.Location = new System.Drawing.Point(22, 13);
+			this.@__anopRad.Name = "__anopRad";
+			this.@__anopRad.Size = new System.Drawing.Size(238, 17);
+			this.@__anopRad.TabIndex = 0;
+			this.@__anopRad.Text = "A package archive (*.anop) on my computer";
+			this.@__anopRad.UseVisualStyleBackColor = true;
 			// 
-			// __optBrowseFilenameLbl
+			// __anopFilenameLbl
 			// 
-			this.@__optBrowseFilenameLbl.AutoSize = true;
-			this.@__optBrowseFilenameLbl.Location = new System.Drawing.Point(48, 47);
-			this.@__optBrowseFilenameLbl.Name = "__optBrowseFilenameLbl";
-			this.@__optBrowseFilenameLbl.Size = new System.Drawing.Size(49, 13);
-			this.@__optBrowseFilenameLbl.TabIndex = 1;
-			this.@__optBrowseFilenameLbl.Text = "Filename";
+			this.@__anopFilenameLbl.AutoSize = true;
+			this.@__anopFilenameLbl.Location = new System.Drawing.Point(48, 43);
+			this.@__anopFilenameLbl.Name = "__anopFilenameLbl";
+			this.@__anopFilenameLbl.Size = new System.Drawing.Size(49, 13);
+			this.@__anopFilenameLbl.TabIndex = 1;
+			this.@__anopFilenameLbl.Text = "Filename";
 			// 
-			// __optPackages
+			// __embedRad
 			// 
-			this.@__optPackages.AutoSize = true;
-			this.@__optPackages.Location = new System.Drawing.Point(22, 74);
-			this.@__optPackages.Name = "__optPackages";
-			this.@__optPackages.Size = new System.Drawing.Size(199, 17);
-			this.@__optPackages.TabIndex = 2;
-			this.@__optPackages.Text = "A package embedded in this installer";
-			this.@__optPackages.UseVisualStyleBackColor = true;
+			this.@__embedRad.AutoSize = true;
+			this.@__embedRad.Location = new System.Drawing.Point(22, 121);
+			this.@__embedRad.Name = "__embedRad";
+			this.@__embedRad.Size = new System.Drawing.Size(199, 17);
+			this.@__embedRad.TabIndex = 2;
+			this.@__embedRad.Text = "A package embedded in this installer";
+			this.@__embedRad.UseVisualStyleBackColor = true;
 			// 
-			// __optBrowseFilename
+			// __anopFilename
 			// 
-			this.@__optBrowseFilename.BackColor = System.Drawing.SystemColors.Window;
-			this.@__optBrowseFilename.Location = new System.Drawing.Point(103, 44);
-			this.@__optBrowseFilename.Name = "__optBrowseFilename";
-			this.@__optBrowseFilename.ReadOnly = true;
-			this.@__optBrowseFilename.Size = new System.Drawing.Size(188, 21);
-			this.@__optBrowseFilename.TabIndex = 4;
+			this.@__anopFilename.BackColor = System.Drawing.SystemColors.Window;
+			this.@__anopFilename.Location = new System.Drawing.Point(103, 38);
+			this.@__anopFilename.Name = "__anopFilename";
+			this.@__anopFilename.ReadOnly = true;
+			this.@__anopFilename.Size = new System.Drawing.Size(188, 21);
+			this.@__anopFilename.TabIndex = 4;
 			// 
-			// __optBrowseBrowse
+			// __anopBrowse
 			// 
-			this.@__optBrowseBrowse.Location = new System.Drawing.Point(297, 44);
-			this.@__optBrowseBrowse.Name = "__optBrowseBrowse";
-			this.@__optBrowseBrowse.Size = new System.Drawing.Size(75, 23);
-			this.@__optBrowseBrowse.TabIndex = 5;
-			this.@__optBrowseBrowse.Text = "Browse...";
-			this.@__optBrowseBrowse.UseVisualStyleBackColor = true;
+			this.@__anopBrowse.Location = new System.Drawing.Point(297, 38);
+			this.@__anopBrowse.Name = "__anopBrowse";
+			this.@__anopBrowse.Size = new System.Drawing.Size(75, 23);
+			this.@__anopBrowse.TabIndex = 5;
+			this.@__anopBrowse.Text = "Browse...";
+			this.@__anopBrowse.UseVisualStyleBackColor = true;
 			// 
 			// __ofd
 			// 
 			this.@__ofd.Filter = "Anolis Package (*.anop)|*.anop|All files (*.*)|*.*";
 			this.@__ofd.Title = "Select Anolis Package File";
 			// 
-			// __optPackagesList
+			// __embedList
 			// 
-			this.@__optPackagesList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			this.@__embedList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__optPackagesList.FormattingEnabled = true;
-			this.@__optPackagesList.IntegralHeight = false;
-			this.@__optPackagesList.Location = new System.Drawing.Point(51, 97);
-			this.@__optPackagesList.Name = "__optPackagesList";
-			this.@__optPackagesList.Size = new System.Drawing.Size(318, 128);
-			this.@__optPackagesList.TabIndex = 6;
+			this.@__embedList.FormattingEnabled = true;
+			this.@__embedList.IntegralHeight = false;
+			this.@__embedList.Location = new System.Drawing.Point(51, 144);
+			this.@__embedList.Name = "__embedList";
+			this.@__embedList.Size = new System.Drawing.Size(318, 81);
+			this.@__embedList.TabIndex = 6;
+			// 
+			// __packBrowse
+			// 
+			this.@__packBrowse.Location = new System.Drawing.Point(297, 94);
+			this.@__packBrowse.Name = "__packBrowse";
+			this.@__packBrowse.Size = new System.Drawing.Size(75, 23);
+			this.@__packBrowse.TabIndex = 10;
+			this.@__packBrowse.Text = "Browse...";
+			this.@__packBrowse.UseVisualStyleBackColor = true;
+			// 
+			// __packFilename
+			// 
+			this.@__packFilename.BackColor = System.Drawing.SystemColors.Window;
+			this.@__packFilename.Location = new System.Drawing.Point(103, 94);
+			this.@__packFilename.Name = "__packFilename";
+			this.@__packFilename.ReadOnly = true;
+			this.@__packFilename.Size = new System.Drawing.Size(188, 21);
+			this.@__packFilename.TabIndex = 9;
+			// 
+			// __packFilenameLbl
+			// 
+			this.@__packFilenameLbl.AutoSize = true;
+			this.@__packFilenameLbl.Location = new System.Drawing.Point(48, 97);
+			this.@__packFilenameLbl.Name = "__packFilenameLbl";
+			this.@__packFilenameLbl.Size = new System.Drawing.Size(49, 13);
+			this.@__packFilenameLbl.TabIndex = 8;
+			this.@__packFilenameLbl.Text = "Filename";
+			// 
+			// __packRad
+			// 
+			this.@__packRad.AutoSize = true;
+			this.@__packRad.Location = new System.Drawing.Point(22, 69);
+			this.@__packRad.Name = "__packRad";
+			this.@__packRad.Size = new System.Drawing.Size(290, 17);
+			this.@__packRad.TabIndex = 7;
+			this.@__packRad.Text = "A package definition file (package.xml) on my computer";
+			this.@__packRad.UseVisualStyleBackColor = true;
 			// 
 			// SelectPackagePage
 			// 
@@ -134,12 +178,16 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button __optBrowseBrowse;
-		private System.Windows.Forms.TextBox __optBrowseFilename;
-		private System.Windows.Forms.RadioButton __optPackages;
-		private System.Windows.Forms.Label __optBrowseFilenameLbl;
-		private System.Windows.Forms.RadioButton __optBrowse;
+		private System.Windows.Forms.Button __anopBrowse;
+		private System.Windows.Forms.TextBox __anopFilename;
+		private System.Windows.Forms.RadioButton __embedRad;
+		private System.Windows.Forms.Label __anopFilenameLbl;
+		private System.Windows.Forms.RadioButton __anopRad;
 		private System.Windows.Forms.OpenFileDialog __ofd;
-		private System.Windows.Forms.ListBox __optPackagesList;
+		private System.Windows.Forms.ListBox __embedList;
+		private System.Windows.Forms.Button __packBrowse;
+		private System.Windows.Forms.TextBox __packFilename;
+		private System.Windows.Forms.Label __packFilenameLbl;
+		private System.Windows.Forms.RadioButton __packRad;
 	}
 }

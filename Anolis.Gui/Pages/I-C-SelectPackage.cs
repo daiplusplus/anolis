@@ -13,7 +13,8 @@ namespace Anolis.Gui.Pages {
 			this.Load += new EventHandler(SelectPackage_Load);
 			this.PageUnload += new EventHandler<W3b.Wizards.PageChangeEventArgs>(SelectPackagePage_PageUnload);
 			
-			this.__optBrowseBrowse.Click += new EventHandler(__optBrowseBrowse_Click);
+			this.__anopBrowse.Click += new EventHandler(__anopBrowse_Click);
+			this.__packBrowse.Click += new EventHandler(__packBrowse_Click);
 			
 		}
 		
@@ -21,11 +22,11 @@ namespace Anolis.Gui.Pages {
 			
 			// Load the embedded list
 			String[] embedded = PackageManager.GetEmbeddedPackages();
-			__optPackagesList.Items.Clear();
+			__embedList.Items.Clear();
 			
 			foreach(String name in embedded) {
 				
-				__optPackagesList.Items.Add( name );
+				__embedList.Items.Add( name );
 				
 			}
 			
@@ -36,31 +37,70 @@ namespace Anolis.Gui.Pages {
 			// TODO: Error messages etc
 			// UnloadEventArgs should have a .Cancel property which will be set to true if the user's info isn't valid
 			
-			if( __optPackages.Checked ) {
+			if( __embedRad.Checked ) {
 				
-				String packageName = __optPackagesList.SelectedItem as String;
+				String packageName = __embedList.SelectedItem as String;
 				
 				Stream stream = PackageManager.GetEmbeddedPackage( GetType().Assembly, packageName );
 				
+				PackageInfo.Source     = PackageSource.Embedded;
+				PackageInfo.SourcePath = packageName;
 				PackageInfo.Archive = PackageArchive.FromStream( packageName, PackageSubclass.LzmaTarball, stream );
+			
+			} else if( __packRad.Checked ) {
 				
-			} else if( __optBrowse.Checked ) {
+				if( !File.Exists( __packFilename.Text ) ) {
+					MessageBox.Show(this, "The file \"" + __packFilename.Text + "\" does not exist", "Anolis", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					e.Cancel = true;
+					return;
+				}
 				
-				String packageName = Path.GetFileNameWithoutExtension( __optBrowseFilename.Text );
+				String packageName = new DirectoryInfo( Path.GetDirectoryName( __packFilename.Text ) ).Name;
 				
-				Stream stream = File.OpenRead( __optBrowseFilename.Text );
+				PackageInfo.Source     = PackageSource.File;
+				PackageInfo.SourcePath = __packFilename.Text;
+			
+			} else if( __anopRad.Checked ) {
 				
-				PackageInfo.Archive = PackageArchive.FromStream( packageName, PackageSubclass.LzmaTarball, stream );
+				if( !File.Exists( __anopFilename.Text ) ) {
+					MessageBox.Show(this, "The file \"" + __anopFilename.Text + "\" does not exist", "Anolis", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					e.Cancel = true;
+					return;
+				}
 				
+				String packageName = Path.GetFileNameWithoutExtension( __anopFilename.Text );
+				
+				Stream stream = File.OpenRead( __anopFilename.Text );
+				
+				PackageInfo.Source     = PackageSource.Archive;
+				PackageInfo.SourcePath = __anopFilename.Text;
+				PackageInfo.Archive    = PackageArchive.FromStream( packageName, PackageSubclass.LzmaTarball, stream );
 			}
 			
 		}
 		
-		private void __optBrowseBrowse_Click(Object sender, EventArgs e) {
+		private void __anopBrowse_Click(Object sender, EventArgs e) {
+			
+			__ofd.Filter = "Anolis Package (*.anop)|*.anop|All files (*.*)|*.*";
 			
 			if( __ofd.ShowDialog(this) == DialogResult.OK ) {
 				
-				__optBrowseFilename.Text = __ofd.FileName;
+				__anopRad.Checked = true;
+				
+				__anopFilename.Text = __ofd.FileName;
+			}
+			
+		}
+		
+		private void __packBrowse_Click(object sender, EventArgs e) {
+			
+			__ofd.Filter = "Anolis Package XML (package.xml)|*.xml|All files (*.*)|*.*";
+			
+			if( __ofd.ShowDialog(this) == DialogResult.OK ) {
+				
+				__packRad.Checked = true;
+				
+				__packFilename.Text = __ofd.FileName;
 			}
 			
 		}
