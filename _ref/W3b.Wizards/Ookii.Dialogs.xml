@@ -2061,6 +2061,9 @@
 
 	</doc>
         </member>
+        <member name="P:Ookii.Dialogs.ExtendedForm.AllowResize">
+            <summary>Indicates whether the form can be resized by dragging the window borders. This allows a form to have "sizable" borders yet not be resized by the user.</summary>
+        </member>
         <member name="P:Ookii.Dialogs.ExtendedForm.ExtendFrameIfDwmDisabled">
             <doc name="Ookii.Dialogs.ExtendedForm.ExtendFrameIfDwmDisabled">
 
@@ -3313,6 +3316,15 @@
             The number of milliseconds that has elapsed since the dialog was created or since the last time the event handler returned
             with the <see cref="P:Ookii.Dialogs.TimerEventArgs.ResetTickCount"/> property set to <see langword="true"/>.
             </value>
+        </member>
+        <member name="T:Ookii.Dialogs.BackButton">
+            <summary>Represents a back button as used in the Aero Wizard dialog windows</summary>
+        </member>
+        <member name="M:Ookii.Dialogs.BackButton.#ctor">
+            <summary>Instantiates a new instance of the BackButton control</summary>
+        </member>
+        <member name="M:Ookii.Dialogs.BackButton.OnPaintBackground(System.Windows.Forms.PaintEventArgs)">
+            <summary>Raises the PaintBackground event</summary>
         </member>
         <member name="T:Ookii.Dialogs.ExpandButtonClickedEventArgs">
             <summary>
