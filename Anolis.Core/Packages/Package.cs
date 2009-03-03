@@ -14,9 +14,11 @@ namespace Anolis.Core.Packages {
 		
 		protected PackageItem(XmlElement itemElement) {
 			
-			Id          = itemElement.Attributes["id"].Value;
-			Name        = itemElement.Attributes["name"].Value;
-			Description = itemElement.Attributes["desc"].Value;
+			Id          = itemElement.GetAttribute("id");
+			Name        = itemElement.GetAttribute("name");
+			Description = itemElement.GetAttribute("desc");
+			
+			Enabled     = true;
 			
 		}
 		
@@ -32,10 +34,12 @@ namespace Anolis.Core.Packages {
 		
 		internal Package(XmlElement packageElement) : base(packageElement) {
 			
+			Children    = new SetCollection();
+			
 			Version     = Single.Parse( packageElement.Attributes["version"].Value );
 			Attribution = packageElement.Attributes["attribution"].Value;
 			Website     = new Uri( packageElement.Attributes["website"].Value );
-			UpdateUri   = new Uri( packageElement.Attributes["updateUri"].Value );
+			if(packageElement.Attributes["updateUri"] != null) UpdateUri = new Uri( packageElement.Attributes["updateUri"].Value );
 			
 			foreach(XmlElement setElement in packageElement.ChildNodes) {
 				
@@ -102,7 +106,7 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
-		public static Package FromFile(String packageXmlFilename, Object useObsolete) {
+/*		public static Package FromFile(String packageXmlFilename, Object useObsolete) {
 			
 			using(FileStream fs = new FileStream(packageXmlFilename, FileMode.Open, FileAccess.Read, FileShare.Read)) {
 				
@@ -128,7 +132,7 @@ namespace Anolis.Core.Packages {
 			}
 			
 			
-		}
+		} */
 		
 		private static XmlSchema _packageSchema;
 		
@@ -136,29 +140,27 @@ namespace Anolis.Core.Packages {
 			get {
 				if(_packageSchema == null) {
 					
-					using(FileStream fs = new FileStream( @"D:\Users\David\My Documents\Visual Studio Projects\Anolis\Anolis.Core\Packages\Xml\PackageSchema.xsd", FileMode.Open)) {
-						
-						_packageSchema = XmlSchema.Read( fs, null );
-						
-					}
-					
-					_packageSchema.Compile( new ValidationEventHandler( delegate(Object sender, ValidationEventArgs ve) {
-						
-						throw new XmlSchemaException("Package Schema is invalid", ve.Exception );
-						
-					}));
-					
-//					using(MemoryStream ms = new MemoryStream( Resources.PackageSchema )) {
+//					using(FileStream fs = new FileStream( @"D:\Users\David\My Documents\Visual Studio Projects\Anolis\Anolis.Core\Packages\Xml\PackageSchema.xsd", FileMode.Open)) {
 //						
-//						_packageSchema = XmlSchema.Read( ms, null );
-//						
-//						_packageSchema = XmlSchema.Read( ms, new ValidationEventHandler( delegate(Object sender, ValidationEventArgs ve) {
-//							
-//							throw new XmlSchemaException("Package Schema is invalid", ve.Exception );
-//							
-//						}) );
+//						_packageSchema = XmlSchema.Read( fs, null );
 //						
 //					}
+					
+//					_packageSchema.Compile( new ValidationEventHandler( delegate(Object sender, ValidationEventArgs ve) {
+//						
+//						throw new XmlSchemaException("Package Schema is invalid", ve.Exception );
+//						
+//					}));
+					
+					using(MemoryStream ms = new MemoryStream( Resources.PackageSchema )) {
+						
+						_packageSchema = XmlSchema.Read( ms, new ValidationEventHandler( delegate(Object sender, ValidationEventArgs ve) {
+							
+							throw new XmlSchemaException("Package Schema is invalid", ve.Exception );
+							
+						}) );
+						
+					}
 				}
 				return _packageSchema;
 			}
@@ -199,7 +201,9 @@ namespace Anolis.Core.Packages {
 		
 		public Set(XmlElement setElement) : base(setElement) {
 			
-			Mutex = new SetCollection();
+			Children = new SetCollection();
+			Operations = new OperationCollection();
+			Mutex    = new SetCollection();
 			// set Mutex members after all the siblings have been read in
 			
 			foreach(XmlElement e in setElement.ChildNodes) {
@@ -212,6 +216,12 @@ namespace Anolis.Core.Packages {
 						
 						break;
 					case "patch":
+						
+						PatchOperation patch = new PatchOperation( e );
+						Operations.Add( patch );
+						
+						break;
+						
 					case "file":
 					case "filetype":
 						break;

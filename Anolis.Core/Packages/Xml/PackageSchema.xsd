@@ -13,11 +13,12 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 		<xs:complexType>
 			<xs:sequence>
 				
-				<xs:element name="set" type="packageSet" />
+				<xs:element name="set" type="packageSet" maxOccurs="unbounded" />
 				
 			</xs:sequence>
 			
 			<!-- <package> attributes -->
+			<xs:attribute name="id"          type="xs:ID"      use="required" />
 			<xs:attribute name="name"        type="xs:string"  use="required" />
 			<xs:attribute name="version"     type="xs:decimal" use="required" />
 			<xs:attribute name="attribution" type="xs:string"  use="required" />
@@ -41,7 +42,7 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 							<xs:complexType>
 								
 								<!-- <res /> attributes -->
-								<xs:attribute name="type" type="resourceType"   use="required" />
+								<xs:attribute name="type" type="xs:string"      use="required" />
 								<xs:attribute name="name" type="xs:string"      use="required" />
 								<xs:attribute name="lang" type="xs:unsignedInt" use="optional" />
 								<xs:attribute name="src"  type="xs:anyURI"      use="required" />
@@ -133,14 +134,14 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 		</xs:restriction>
 	</xs:simpleType>
 	
-	<xs:simpleType name="resourceType">
+<!--	<xs:simpleType name="resourceType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="icondir" />
 			<xs:enumeration value="bitmap" />
 			<xs:enumeration value="cursordir" />
-			<!-- TODO: Finish off -->
+			<!- - TODO: Finish off - ->
 		</xs:restriction>
-	</xs:simpleType>
+	</xs:simpleType> -->
 	
 	<xs:simpleType name="extraType">
 		<xs:restriction base="xs:string">

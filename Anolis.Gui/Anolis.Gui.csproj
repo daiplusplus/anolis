@@ -67,6 +67,12 @@
     <Compile Include="Pages\0-BaseInteriorPage.Designer.cs">
       <DependentUpon>0-BaseInteriorPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\I-G-Installing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\I-G-Installing.Designer.cs">
+      <DependentUpon>I-G-Installing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\D-C-Destination.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -125,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\B-MainAction.resx">
       <DependentUpon>B-MainAction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\I-G-Installing.resx">
+      <DependentUpon>I-G-Installing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\D-C-Destination.resx">
       <DependentUpon>D-C-Destination.cs</DependentUpon>

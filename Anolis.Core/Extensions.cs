@@ -1,4 +1,5 @@
 ﻿using System;
+using XmlElement = System.Xml.XmlElement;
 
 namespace System.Runtime.CompilerServices {
 	

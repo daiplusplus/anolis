@@ -18,11 +18,9 @@ namespace Anolis.Gui.Pages {
 			
 			WizardForm.EnableNext = true;
 			
-			Package = PackageInfo.Package;
+			PopulateTreeview();
 			
 		}
-		
-		private Package Package { get; set; }
 		
 		public override BaseWizardPage PrevPage {
 			get { return Program.PageICSelectPackage; }
@@ -36,30 +34,31 @@ namespace Anolis.Gui.Pages {
 			
 			__packageView.Nodes.Clear();
 			
-			TreeNode root = new TreeNode("Package: " + Package.Name);
-			
-			__packageView.Nodes.Add( root );
-			
-			foreach(PackageItem item in Package.Children) {
-				
-				PopulateTreeview( root, item );
-			}
+			PopulateTreeview( __packageView.Nodes, null, PackageInfo.Package.Children);
 			
 		}
 		
-		private void PopulateTreeview(TreeNode parent, PackageItem item) {
+		private void PopulateTreeview(TreeNodeCollection parent, OperationCollection ops, SetCollection children) {
 			
-			if( item is Set ) {
+			if( ops != null )
+			foreach(Operation op in ops) {
 				
-				TreeNode thisNode = new TreeNode( item.Name );
-				thisNode.Checked = item.Enabled;
+				TreeNode node = new TreeNode( op.Name ) { Checked = op.Enabled, Tag = op };
+				parent.Add( node );
 				
-				parent.Nodes.Add( thisNode );
+			}
+			
+			foreach(PackageItem item in children) {
 				
-				foreach(PackageItem child in (item as Set).Children) {
+				TreeNode node = new TreeNode( item.Name ) { Checked = item.Enabled, Tag = item };
+				
+				parent.Add( node );
+				
+				if( item is Set ) {
 					
-					PopulateTreeview( thisNode, item );
+					PopulateTreeview( node.Nodes, (item as Set).Operations, (item as Set).Children );
 				}
+				
 			}
 			
 		}

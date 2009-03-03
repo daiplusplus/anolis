@@ -2,12 +2,14 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 
+using Anolis.Resourcer.CommandLine;
+
 namespace Anolis.Resourcer {
 	
 	public static class Program {
 		
 		[STAThread]
-		public static void Main(String[] args) {
+		public static Int32 Main(String[] args) {
 			
 #if !DEBUG
 			try {
@@ -16,11 +18,29 @@ namespace Anolis.Resourcer {
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
 				
+				Console.WriteLine("testing, lol");
+				
+				CommandLineParser cmd = new CommandLineParser(args);
+				
+				CommandLineFlag scriptFlag = cmd.GetFlag("script");
+				if( scriptFlag != null ) {
+					
+					return StatelessResourceEditor.ProcessScript( scriptFlag.Argument );
+				}
+				
+				if( cmd.Args.Count > 1 ) {
+					
+					return StatelessResourceEditor.PerformOneOff(cmd);
+				}
+				
 				MainForm main = new MainForm();
-				main.CommandLineArgs = args;
+				
+				if( cmd.Strings.Count == 1 )
+					main.OpenSourceOnLoad = cmd.Strings[0].String;
 				
 				Application.Run( main );
-
+				
+				return 0;
 #if !DEBUG				
 			} catch (Exception ex) {
 				

@@ -10,13 +10,16 @@ namespace Anolis.Core.Packages {
 		
 		public PatchOperation(XmlElement operationElement) : base(operationElement) {
 			
-			
+			Name = System.IO.Path.GetFileName( operationElement.GetAttribute("path") );
 			
 		}
 		
 		public String File { get; private set; }
 		
 		public override void Execute() {
+			
+			// determine if it's necessary to open it interactively or non-interactively
+			// i.e. if the lang attribute is is set on all the res elements
 			
 			// open the resource source in non-interactive mode
 			ResourceSource src = ResourceSource.Open( File, false );
