@@ -54,7 +54,7 @@ namespace Anolis.Resourcer {
 			_viewList.SelectedItemChanged += new EventHandler<ResourceListViewEventArgs>(_viewList_SelectedItemChanged);
 		}
 		
-		public String[] CommandLineArgs { get; set; }
+		public String OpenSourceOnLoad { get; set; }
 		
 		private void MainForm_Load(Object sender, EventArgs e) {
 			
@@ -71,15 +71,9 @@ namespace Anolis.Resourcer {
 			ToolbarUpdate(true, true, true);
 			StatusbarUpdate();
 			
-			if( CommandLineArgs != null && CommandLineArgs.Length > 0 ) {
+			if( OpenSourceOnLoad != null && OpenSourceOnLoad.Length > 0 && File.Exists( OpenSourceOnLoad ) ) {
 				
-				String filename = CommandLineArgs[0];
-				if( File.Exists( filename ) ) {
-					
-					SourceLoad( filename, false );
-					
-				}
-				
+				SourceLoad( OpenSourceOnLoad, false );
 			}
 			
 			// Ugly hack time, pre-initialise the Cultures class on a separate thread

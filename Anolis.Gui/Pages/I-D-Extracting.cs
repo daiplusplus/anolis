@@ -88,7 +88,13 @@ namespace Anolis.Gui.Pages {
 					sb.Append(" ");
 					if( ve.Exception != null ) {
 						sb.Append( ve.Exception.Message );
+						sb.Append(" (");
+						sb.Append( ve.Exception.LineNumber );
+						sb.Append(", ");
+						sb.Append( ve.Exception.LinePosition );
+						sb.Append(")");
 					}
+					
 					sb.AppendLine();
 				}
 				
@@ -106,15 +112,15 @@ namespace Anolis.Gui.Pages {
 				return;
 				
 			} 
-#if DEBUG
-			catch(Exception ex) {
-				
-				String x = ex.Message;
-				
-				return;
-				
-			}
-#endif
+//#if DEBUG
+//			catch(Exception ex) {
+//				
+//				String x = ex.Message;
+//				
+//				return;
+//				
+//			}
+//#endif
 			
 			// verify all the referenced files are there
 			
