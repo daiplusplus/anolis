@@ -106,51 +106,11 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
-/*		public static Package FromFile(String packageXmlFilename, Object useObsolete) {
-			
-			using(FileStream fs = new FileStream(packageXmlFilename, FileMode.Open, FileAccess.Read, FileShare.Read)) {
-				
-				XmlValidatingReader vrdr = new XmlValidatingReader( new XmlTextReader( packageXmlFilename ) );
-				vrdr.ValidationType = ValidationType.Schema;
-				vrdr.Schemas.Add( PackageSchema );
-				
-				Collection<ValidationEventArgs> validationMessages = new Collection<ValidationEventArgs>();
-				
-				vrdr.ValidationEventHandler += new ValidationEventHandler(delegate(Object sender, ValidationEventArgs ve) {
-					
-					validationMessages.Add( ve );
-					
-				});
-				
-				XmlDocument doc = new XmlDocument();
-				doc.Load( vrdr );
-				
-				XmlElement packageElement = doc.DocumentElement;
-				
-				return new Package( packageElement );
-				
-			}
-			
-			
-		} */
-		
 		private static XmlSchema _packageSchema;
 		
 		public static XmlSchema PackageSchema {
 			get {
 				if(_packageSchema == null) {
-					
-//					using(FileStream fs = new FileStream( @"D:\Users\David\My Documents\Visual Studio Projects\Anolis\Anolis.Core\Packages\Xml\PackageSchema.xsd", FileMode.Open)) {
-//						
-//						_packageSchema = XmlSchema.Read( fs, null );
-//						
-//					}
-					
-//					_packageSchema.Compile( new ValidationEventHandler( delegate(Object sender, ValidationEventArgs ve) {
-//						
-//						throw new XmlSchemaException("Package Schema is invalid", ve.Exception );
-//						
-//					}));
 					
 					using(MemoryStream ms = new MemoryStream( Resources.PackageSchema )) {
 						

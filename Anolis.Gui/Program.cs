@@ -38,6 +38,7 @@ namespace Anolis.Gui {
 			//wiz.Title = "Anolis Installer";
 			wiz.HasHelp = false;
 			wiz.CancelClicked += new EventHandler(wiz_CancelClicked);
+			wiz.Title   = "Anolis Package Installer";
 			
 			wiz.LoadPage( PageAWelcome );
 			wiz.ShowDialog();
