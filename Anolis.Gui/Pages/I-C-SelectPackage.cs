@@ -21,7 +21,7 @@ namespace Anolis.Gui.Pages {
 		private void SelectPackage_Load(object sender, EventArgs e) {
 			
 			// Load the embedded list
-			String[] embedded = PackageManager.GetEmbeddedPackages();
+			String[] embedded = EmbeddedPackageManager.GetEmbeddedPackages();
 			__embedList.Items.Clear();
 			
 			foreach(String name in embedded) {
@@ -41,7 +41,7 @@ namespace Anolis.Gui.Pages {
 				
 				String packageName = __embedList.SelectedItem as String;
 				
-				Stream stream = PackageManager.GetEmbeddedPackage( GetType().Assembly, packageName );
+				Stream stream = EmbeddedPackageManager.GetEmbeddedPackage( GetType().Assembly, packageName );
 				
 				PackageInfo.Source     = PackageSource.Embedded;
 				PackageInfo.SourcePath = packageName;

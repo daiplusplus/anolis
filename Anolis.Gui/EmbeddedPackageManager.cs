@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace Anolis.Gui {
 	
-	public static class PackageManager {
+	public static class EmbeddedPackageManager {
 		
 		
 #region Embedded Packages
