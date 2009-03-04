@@ -25,19 +25,19 @@
 		private void InitializeComponent() {
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
 			this.@__packageView = new System.Windows.Forms.TreeView();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.label1 = new System.Windows.Forms.Label();
+			this.@__infoPicture = new System.Windows.Forms.PictureBox();
+			this.@__infoLbl = new System.Windows.Forms.Label();
 			this.@__banner.SuspendLayout();
 			this.@__content.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.@__infoPicture)).BeginInit();
 			this.SuspendLayout();
 			this.@__banner.Controls.SetChildIndex(this.@__bannerTitle, 0);
 			this.@__banner.Controls.SetChildIndex(this.@__bannerSubtitle, 0);
 			// 
 			// __content
 			// 
-			this.@__content.Controls.Add(this.label1);
-			this.@__content.Controls.Add(this.pictureBox1);
+			this.@__content.Controls.Add(this.@__infoLbl);
+			this.@__content.Controls.Add(this.@__infoPicture);
 			this.@__content.Controls.Add(this.@__packageView);
 			// 
 			// __bannerSubtitle
@@ -58,25 +58,26 @@
 			this.@__packageView.CheckBoxes = true;
 			this.@__packageView.Location = new System.Drawing.Point(0, 0);
 			this.@__packageView.Name = "__packageView";
-			this.@__packageView.Size = new System.Drawing.Size(254, 228);
+			this.@__packageView.Size = new System.Drawing.Size(241, 228);
 			this.@__packageView.TabIndex = 0;
 			// 
-			// pictureBox1
+			// __infoPicture
 			// 
-			this.pictureBox1.Location = new System.Drawing.Point(260, 3);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(193, 115);
-			this.pictureBox1.TabIndex = 1;
-			this.pictureBox1.TabStop = false;
+			this.@__infoPicture.Location = new System.Drawing.Point(247, 0);
+			this.@__infoPicture.Margin = new System.Windows.Forms.Padding(0);
+			this.@__infoPicture.Name = "__infoPicture";
+			this.@__infoPicture.Size = new System.Drawing.Size(209, 156);
+			this.@__infoPicture.TabIndex = 1;
+			this.@__infoPicture.TabStop = false;
 			// 
-			// label1
+			// __infoLbl
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(260, 121);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(35, 13);
-			this.label1.TabIndex = 2;
-			this.label1.Text = "label1";
+			this.@__infoLbl.BackColor = System.Drawing.Color.Transparent;
+			this.@__infoLbl.Location = new System.Drawing.Point(247, 160);
+			this.@__infoLbl.Name = "__infoLbl";
+			this.@__infoLbl.Size = new System.Drawing.Size(193, 36);
+			this.@__infoLbl.TabIndex = 3;
+			this.@__infoLbl.Text = "The selected item \'{0}\' does not have any information associated with it";
 			// 
 			// ModifyPackagePage
 			// 
@@ -85,8 +86,7 @@
 			this.Name = "ModifyPackagePage";
 			this.@__banner.ResumeLayout(false);
 			this.@__content.ResumeLayout(false);
-			this.@__content.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.@__infoPicture)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -95,7 +95,7 @@
 
 		private System.Windows.Forms.OpenFileDialog __ofd;
 		private System.Windows.Forms.TreeView __packageView;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.PictureBox __infoPicture;
+		private System.Windows.Forms.Label __infoLbl;
 	}
 }

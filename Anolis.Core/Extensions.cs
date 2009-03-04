@@ -1,6 +1,9 @@
 ﻿using System;
 using XmlElement = System.Xml.XmlElement;
 
+// Extension methods seem to require System.Core.dll, which is not in .NET2.0
+// so here's an ersatz Extension attribute class
+
 namespace System.Runtime.CompilerServices {
 	
 	[AttributeUsage(AttributeTargets.Method)]
@@ -14,8 +17,7 @@ namespace System.Runtime.CompilerServices {
 }
 
 namespace Anolis.Core {
-
-// Extension methods seem to require System.Core.dll, which is not in .NET2.0
+	
 	public static class Extensions {
 		
 		public static Byte[] SubArray(this Byte[] array, Int32 startIndex, Int32 length) {

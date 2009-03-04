@@ -8,7 +8,7 @@ namespace Anolis.Core.Packages {
 	
 	public class PatchOperation : Operation {
 		
-		public PatchOperation(XmlElement operationElement) : base(operationElement) {
+		public PatchOperation(Package package, XmlElement operationElement) : base(package, operationElement) {
 			
 			Name = System.IO.Path.GetFileName( operationElement.GetAttribute("path") );
 			

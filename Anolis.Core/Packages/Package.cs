@@ -12,28 +12,44 @@ namespace Anolis.Core.Packages {
 	
 	public abstract class PackageItem {
 		
-		protected PackageItem(XmlElement itemElement) {
+		internal PackageItem(String rootDir, XmlElement itemElement) {
 			
 			Id          = itemElement.GetAttribute("id");
 			Name        = itemElement.GetAttribute("name");
 			Description = itemElement.GetAttribute("desc");
 			
-			Enabled     = true;
+			String descImg = itemElement.GetAttribute("descImg");
+			if(descImg.Length > 0) {
+				DescriptionImage = Image.FromFile( Path.Combine( rootDir, descImg ) );
+			}
+			
+			String enabled = itemElement.GetAttribute("enabled");
+			if(enabled.Length > 0) {
+				Enabled = enabled != "false" && enabled != "0"; // with xs:boolean both "false" and "0" are valid values
+			} else {
+				Enabled = true;
+			}
+			
 			
 		}
 		
-		public Boolean Enabled     { get; set; }
-		public String  Id          { get; protected set; }
-		public String  Name        { get; protected set; }
-		public String  Description { get; protected set; }
+		protected PackageItem(Package package, XmlElement itemElement) : this(package.RootDirectory.FullName, itemElement) {
+		}
+		
+		public String  Id               { get; protected set; }
+		public String  Name             { get; protected set; }
+		public String  Description      { get; protected set; }
+		public Image   DescriptionImage { get; protected set; }
+		public Boolean Enabled          { get; set; }
 		
 	}
 	
 	/// <summary>Represents a collection of resource sets</summary>
 	public class Package : PackageItem {
 		
-		internal Package(XmlElement packageElement) : base(packageElement) {
+		internal Package(DirectoryInfo root, XmlElement packageElement) : base(root.FullName, packageElement) {
 			
+			RootDirectory = root;
 			Children    = new SetCollection();
 			
 			Version     = Single.Parse( packageElement.Attributes["version"].Value );
@@ -43,7 +59,7 @@ namespace Anolis.Core.Packages {
 			
 			foreach(XmlElement setElement in packageElement.ChildNodes) {
 				
-				Set s = new Set( setElement );
+				Set s = new Set(this, setElement );
 				Children.Add( s );
 				
 			}
@@ -56,6 +72,8 @@ namespace Anolis.Core.Packages {
 		public Uri    UpdateUri   { get; private set; }
 		
 		public SetCollection Children { get; private set; }
+		
+		public DirectoryInfo RootDirectory { get; private set; }
 		
 		//////////////////////////////
 		
@@ -101,7 +119,7 @@ namespace Anolis.Core.Packages {
 			
 			XmlElement packageElement = doc.DocumentElement;
 			
-			return new Package( packageElement );
+			return new Package( new DirectoryInfo( Path.GetDirectoryName(packageXmlFilename) ), packageElement );
 			
 			
 		}
@@ -159,7 +177,7 @@ namespace Anolis.Core.Packages {
 	/// <summary>An arbitrary grouping of elements</summary>
 	public class Set : PackageItem {
 		
-		public Set(XmlElement setElement) : base(setElement) {
+		public Set(Package package, XmlElement setElement) : base(package, setElement) {
 			
 			Children = new SetCollection();
 			Operations = new OperationCollection();
@@ -171,13 +189,13 @@ namespace Anolis.Core.Packages {
 				switch(e.Name) {
 					case "set":
 						
-						Set set = new Set( e );
+						Set set = new Set(package, e );
 						Children.Add( set );
 						
 						break;
 					case "patch":
 						
-						PatchOperation patch = new PatchOperation( e );
+						PatchOperation patch = new PatchOperation(package, e );
 						Operations.Add( patch );
 						
 						break;
