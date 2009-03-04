@@ -11,6 +11,15 @@ namespace Anolis.Gui.Pages {
 			InitializeComponent();
 			
 			this.Load += new EventHandler(Extracting_Load);
+			this.__packageView.AfterSelect += new TreeViewEventHandler(__packageView_AfterSelect);
+			
+		}
+		
+		private void __packageView_AfterSelect(object sender, TreeViewEventArgs e) {
+			
+			PackageItem item = e.Node.Tag as PackageItem;
+			
+			PopulatePackageItemInfo( item );
 			
 		}
 		
@@ -61,6 +70,29 @@ namespace Anolis.Gui.Pages {
 				
 			}
 			
+		}
+		
+		private void PopulatePackageItemInfo(PackageItem item) {
+			
+			if(item == null) {
+				__infoPicture.Image = null;
+				__infoLbl.Text      = null;
+				return;
+			}
+			
+			if(item.DescriptionImage == null) {
+				
+				__infoPicture.Visible = false;
+				__infoLbl.Top         = __infoPicture.Top;
+				
+			} else {
+				
+				__infoPicture.Image   = item.DescriptionImage;
+				__infoPicture.Visible = true;
+				__infoLbl.Top         = __infoPicture.Bottom + 3;
+			}
+			
+			__infoLbl.Text = item.Description == null ? Anolis.Gui.Properties.Resources.PageI_E_NoInfo : item.Description;
 		}
 		
 	}

@@ -91,11 +91,11 @@
     <Compile Include="Pages\I-C-SelectPackage.Designer.cs">
       <DependentUpon>I-C-SelectPackage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\G-Finished.cs">
+    <Compile Include="Pages\Z-Finished.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\G-Finished.Designer.cs">
-      <DependentUpon>G-Finished.cs</DependentUpon>
+    <Compile Include="Pages\Z-Finished.Designer.cs">
+      <DependentUpon>Z-Finished.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\I-F-InstallationOptions.cs">
       <SubType>UserControl</SubType>
@@ -144,8 +144,8 @@
     <EmbeddedResource Include="Pages\I-C-SelectPackage.resx">
       <DependentUpon>I-C-SelectPackage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\G-Finished.resx">
-      <DependentUpon>G-Finished.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\Z-Finished.resx">
+      <DependentUpon>Z-Finished.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\I-F-InstallationOptions.resx">
       <DependentUpon>I-F-InstallationOptions.cs</DependentUpon>

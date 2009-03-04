@@ -9,20 +9,20 @@ namespace Anolis.Core.Packages {
 	
 	public abstract class Operation : PackageItem {
 		
-		protected Operation(XmlElement operationElement) : base(operationElement) {
+		protected Operation(Package package, XmlElement operationElement) : base(package, operationElement) {
 		}
 		
 		public abstract void Execute();
 		
-		public static Operation FromElement(XmlElement operationElement) {
+		public static Operation FromElement(Package package, XmlElement operationElement) {
 			
 			switch(operationElement.Name) {
 				case "patch":
-					return new PatchOperation(operationElement);
+					return new PatchOperation(package, operationElement);
 				case "file":
-					return new FileOperation(operationElement);
+					return new FileOperation(package, operationElement);
 				case "extra":
-					return new ExtraOperation(operationElement);
+					return new ExtraOperation(package, operationElement);
 				default:
 					// TODO: Allow additional libraries or code-generation to specify their own stuff
 					// Define types in the Package XML? http://www.codeproject.com/KB/dotnet/evaluator.aspx
@@ -35,7 +35,7 @@ namespace Anolis.Core.Packages {
 	
 	public class FileOperation : Operation {
 		
-		public FileOperation(XmlElement operationElement) : base(operationElement) {
+		public FileOperation(Package package, XmlElement operationElement) : base(package, operationElement) {
 		}
 		
 		/// <summary>Gets the Path to the file as specified in the Package definition file.</summary>
@@ -56,7 +56,7 @@ namespace Anolis.Core.Packages {
 	
 	public class ExtraOperation : Operation {
 		
-		public ExtraOperation(XmlElement operationElement) : base(operationElement) {
+		public ExtraOperation(Package package, XmlElement operationElement) : base(package, operationElement) {
 		}
 		
 		public override void Execute() {
