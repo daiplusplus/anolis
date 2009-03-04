@@ -58,6 +58,7 @@
 			this.@__packageView.CheckBoxes = true;
 			this.@__packageView.Location = new System.Drawing.Point(0, 0);
 			this.@__packageView.Name = "__packageView";
+			this.@__packageView.ShowRootLines = false;
 			this.@__packageView.Size = new System.Drawing.Size(241, 228);
 			this.@__packageView.TabIndex = 0;
 			// 

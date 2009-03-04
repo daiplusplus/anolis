@@ -720,7 +720,7 @@ namespace Anolis.Resourcer {
 				sb.Append(';');
 			}
 			
-			if( sb[ sb.Length - 1 ] == ';' ) sb.Remove(sb.Length - 2, 1);
+			if( sb[ sb.Length - 1 ] == ';' ) sb.Remove(sb.Length - 1, 1);
 			
 			String retval = sb.ToString();
 			

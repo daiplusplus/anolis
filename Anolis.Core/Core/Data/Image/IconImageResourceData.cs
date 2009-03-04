@@ -106,7 +106,7 @@ namespace Anolis.Core.Data {
 		
 		private IntPtr _unmanagedMemory;
 		
-		private IconCursorImageResourceData(IntPtr unmanagedPointer, Icon icon, ResourceLang lang, Byte[] rawData) : base(icon.ToBitmap(), lang, rawData) {
+		private IconCursorImageResourceData(IntPtr unmanagedPointer, Icon icon, ResourceLang lang, Byte[] rawData) : base( GetImage(icon), lang, rawData) {
 			
 			_unmanagedMemory = unmanagedPointer;
 			
@@ -273,6 +273,25 @@ typdef struct {
 		
 		protected override ResourceTypeIdentifier GetRecommendedTypeId() {
 			return new ResourceTypeIdentifier( IsIcon ? Win32ResourceType.IconImage : Win32ResourceType.CursorImage );
+		}
+		
+		private static Bitmap GetImage(Icon icon) {
+			
+			// Icon.ToBitmap() throws when dealing with certain icon image types, like the (seemingly perfectly valid) 2-color bitmaps in Apple QuickTime 7's QuickTime.cpl control panel
+			// it should be possible to work-around it in future by creating the bitmap myself
+			
+			// but for now just use the old method, even if it can throw under certain circumstances
+			
+			try {
+				
+				return icon.ToBitmap();
+			
+			} catch(ArgumentException) {
+				// TODO: Create the bitmap manually
+				throw;
+				
+			}
+			
 		}
 		
 	}
