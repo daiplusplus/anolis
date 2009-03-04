@@ -34,31 +34,24 @@ namespace Anolis.Core {
 			
 			if( _types.Count == 0 ) return false;
 			
-			ResourceLang lang = GetNextLang();
+			ResourceLang lang;
 			
-			if( _onlyLoaded ) {
+			do {
 				
-				while( !lang.DataIsLoaded ) {
-					
-					lang = GetNextLang();
-					
-					if(lang == null) return false;
-				}
+				lang = GetNextLang();
 				
-			}
+				if( lang == null ) return false; // lang will be null when all the langs have been iterated through
+				
+			} while( _onlyLoaded && !lang.DataIsLoaded );
 			
-			if(lang == null) {
-				return false;
-			} else {
-				_currentData = lang.Data;
-				return true;
-			}
+			_currentData = lang.Data; // this may lazy-load the data
+			return true;
 			
 		}
 		
 		private ResourceLang GetNextLang() {
 			
-			// TODO: Can we be guaranteed there will never be any cases of there being a ResourceName with no child ResourceLangs, or ResourceTypes with no ResourceNames?
+			// HACK: Can we be guaranteed there will never be any cases of there being a ResourceName with no child ResourceLangs, or ResourceTypes with no ResourceNames?
 			
 			_li++;
 			
@@ -72,18 +65,26 @@ namespace Anolis.Core {
 				
 				_ni = 0;
 				_ti++;
-				
 			}
 			
-			if( _ti >= _types.Count ) { // if done all the types, return false
+			if( _ti >= _types.Count ) { // if done all the types, return null
 				
 				return null;
 			}
 			
-			ResourceLang currentLang = _types[ _ti ].Names[ _ni ].Langs[ _li ];
-			
-			return currentLang;
-			
+			try {
+				
+				ResourceLang currentLang = _types[ _ti ].Names[ _ni ].Langs[ _li ];
+				
+				if( currentLang == null ) throw new AnolisException("Null ResourceLang encountered");
+				
+				return currentLang;
+				
+			} catch(ArgumentOutOfRangeException) {
+				
+				throw new AnolisException("argh, wtf, lol");
+				
+			}
 		}
 		
 		public void Reset() {

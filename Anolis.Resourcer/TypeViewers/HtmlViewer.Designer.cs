@@ -29,7 +29,6 @@
 			// __browser
 			// 
 			this.@__browser.AllowNavigation = false;
-			this.@__browser.AllowWebBrowserDrop = false;
 			this.@__browser.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.@__browser.Location = new System.Drawing.Point(0, 0);
 			this.@__browser.MinimumSize = new System.Drawing.Size(20, 20);
