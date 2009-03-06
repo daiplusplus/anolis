@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 using W3b.Wizards;
 
-namespace Anolis.Gui.Pages {
+namespace Anolis.Installer.Pages {
 	
 	public partial class FinishedPage : W3b.Wizards.Wizard97.ExteriorPage {
 		

@@ -1,4 +1,4 @@
-﻿namespace Anolis.Gui.Pages {
+﻿namespace Anolis.Installer.Pages {
 	partial class BaseInteriorPage {
 		/// <summary> 
 		/// Required designer variable.
@@ -46,7 +46,7 @@
 			// __bannerImage
 			// 
 			this.@__bannerImage.Dock = System.Windows.Forms.DockStyle.Right;
-			this.@__bannerImage.Image = global::Anolis.Gui.Properties.Resources.Banner;
+			this.@__bannerImage.Image = global::Anolis.Installer.Properties.Resources.Banner;
 			this.@__bannerImage.Location = new System.Drawing.Point(397, 0);
 			this.@__bannerImage.Name = "__bannerImage";
 			this.@__bannerImage.Size = new System.Drawing.Size(106, 58);

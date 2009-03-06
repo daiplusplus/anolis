@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Resourcer", "Anolis.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Console", "Anolis.Console\Anolis.Console.csproj", "{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Gui", "Anolis.Gui\Anolis.Gui.csproj", "{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Installer", "Anolis.Gui\Anolis.Installer.csproj", "{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.XisImporter", "Anolis.XisImporter\Anolis.XisImporter.csproj", "{44B1E627-100F-40B9-ABCE-08356D1C3C1D}"
 EndProject
@@ -38,15 +38,15 @@ Global
 		SccProjectUniqueName3 = Anolis.Resourcer\\Anolis.Resourcer.csproj
 		SccProjectName3 = Anolis.Resourcer
 		SccLocalPath3 = Anolis.Resourcer
-		SccProjectUniqueName4 = Anolis.Gui\\Anolis.Gui.csproj
-		SccProjectName4 = Anolis.Gui
-		SccLocalPath4 = Anolis.Gui
-		SccProjectUniqueName5 = Anolis.XisImporter\\Anolis.XisImporter.csproj
-		SccProjectName5 = Anolis.XisImporter
-		SccLocalPath5 = Anolis.XisImporter
-		SccProjectUniqueName6 = Anolis.Packager\\Anolis.Packager.csproj
-		SccProjectName6 = Anolis.Packager
-		SccLocalPath6 = Anolis.Packager
+		SccProjectUniqueName4 = Anolis.XisImporter\\Anolis.XisImporter.csproj
+		SccProjectName4 = Anolis.XisImporter
+		SccLocalPath4 = Anolis.XisImporter
+		SccProjectUniqueName5 = Anolis.Packager\\Anolis.Packager.csproj
+		SccProjectName5 = Anolis.Packager
+		SccLocalPath5 = Anolis.Packager
+		SccProjectUniqueName6 = Anolis.Gui\\Anolis.Installer.csproj
+		SccProjectName6 = Anolis.Gui
+		SccLocalPath6 = Anolis.Gui
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

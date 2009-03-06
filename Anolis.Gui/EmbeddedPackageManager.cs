@@ -6,7 +6,7 @@ using System.Resources;
 using Anolis.Core.Packages;
 using System.Collections;
 
-namespace Anolis.Gui {
+namespace Anolis.Installer {
 	
 	public static class EmbeddedPackageManager {
 		

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Anolis.Core.Packages;
 using System.IO;
 using W3b.Wizards;
-namespace Anolis.Gui.Pages {
+namespace Anolis.Installer.Pages {
 	
 	public partial class InstallingPage : BaseInteriorPage {
 		

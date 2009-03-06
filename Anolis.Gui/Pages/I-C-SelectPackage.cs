@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using Anolis.Core.Packages;
 using W3b.Wizards;
-namespace Anolis.Gui.Pages {
+namespace Anolis.Installer.Pages {
 	
 	public partial class SelectPackagePage : BaseInteriorPage {
 		
