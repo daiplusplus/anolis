@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Resourcer", "Anolis.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Console", "Anolis.Console\Anolis.Console.csproj", "{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Installer", "Anolis.Gui\Anolis.Installer.csproj", "{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.XisImporter", "Anolis.XisImporter\Anolis.XisImporter.csproj", "{44B1E627-100F-40B9-ABCE-08356D1C3C1D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F1AA86BE-FDC7-4B61-827F-8F6C43DE81F1}"
@@ -25,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Packager", "Anolis.P
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
+		SccNumberOfProjects = 6
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs03.codeplex.com/
 		SccLocalPath0 = .
@@ -44,9 +42,6 @@ Global
 		SccProjectUniqueName5 = Anolis.Packager\\Anolis.Packager.csproj
 		SccProjectName5 = Anolis.Packager
 		SccLocalPath5 = Anolis.Packager
-		SccProjectUniqueName6 = Anolis.Gui\\Anolis.Installer.csproj
-		SccProjectName6 = Anolis.Gui
-		SccLocalPath6 = Anolis.Gui
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,12 +74,6 @@ Global
 		{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}.Release|x86.ActiveCfg = Release|x86
 		{53D9E79D-1B46-4E69-B8F1-E8EC3A50B0B7}.Release|x86.Build.0 = Release|x86
-		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Release|x86.ActiveCfg = Release|Any CPU
 		{44B1E627-100F-40B9-ABCE-08356D1C3C1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{44B1E627-100F-40B9-ABCE-08356D1C3C1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44B1E627-100F-40B9-ABCE-08356D1C3C1D}.Debug|x86.ActiveCfg = Debug|Any CPU
