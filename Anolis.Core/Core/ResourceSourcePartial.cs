@@ -8,28 +8,6 @@ namespace Anolis.Core {
 	/// <summary>The stateful set of resources within a ResourceSource.</summary>
 	public abstract partial class ResourceSource : IEnumerable<ResourceData> {
 		
-		/*
-		 * Okay, so....
-		 * 
-		 * ResourceCollection's methods: Add, Remove, etc... don't remove objects from the underlying collections, but just MARK them for that action when ResourceSource.CommitChanges is called
-		 * 
-		 * The ResourceTypes collections and the rest are exposed via ReadOnlyCollections
-		 * 
-		 * so far, so good
-		 * 
-		 * Adding is performed simply:
-		 *		public void Add(ResourceIdentifier type, ResourceIdentifier name, uint16 lang, ResourceData data);
-		 *		
-		 *	and:
-		 *		public void Add(ResourceType type, ResourceName name, uint16 lang, ResourceData data); // assuming type, and name already exist in the source
-		 * 
-		 * this class also has its own enumerator which enumerates all ResourceDatas that have had their data loaded
-		 * 
-		 * Subclasses of ResourceSource need to be able to add items to the list without them being marked as 'new'
-		 *	maybe make THIS the new ResourceSource abstract class? that way they can be protected members
-		 * 
-		 */
-		
 		private void InitResourceSourceCollections() {
 			
 			_types = new List<ResourceType>();
@@ -88,7 +66,16 @@ namespace Anolis.Core {
 			
 			data.Lang = lang;
 			
-			data.Action = ResourceDataAction.Add;
+			if(IsBlind) {
+				
+				if(data.Action == ResourceDataAction.None)
+					data.Action = ResourceDataAction.Add;
+				
+			} else {
+				
+				data.Action = ResourceDataAction.Add; // when in blind (i.e. non-interactive) mode allow use of the Add method to add ResourceData instances that act as Update or Delete instructions
+				
+			}
 			
 			return lang;
 			

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Xml;
 
 using Anolis.Core;
@@ -10,24 +11,26 @@ namespace Anolis.Core.Packages {
 		
 		public PatchOperation(XmlElement operationElement) : base(operationElement) {
 			
-			Name = System.IO.Path.GetFileName( operationElement.GetAttribute("path") );
-			
 		}
-		
-		public String File { get; private set; }
 		
 		public override void Execute() {
 			
-			// determine if it's necessary to open it interactively or non-interactively
+			if( !File.Exists( Path ) ) return; // TODO: Log it?
+			
+			// determine if it's necessary to open it blindly or not
 			// i.e. if the lang attribute is is set on all the res elements
 			
-			// open the resource source in non-interactive mode
-			ResourceSource src = ResourceSource.Open( File, false );
+			// open the resource source in blind mode for performance
+			ResourceSource src = ResourceSource.Open( Path, false, true );
 			
 			// TODO: How is the DummyResourceData exposed?
 			// well that's for deletes and 1:1 binary resources
 			// but the point remains...
 			
+		}
+		
+		protected override String OperationName {
+			get { return "Res patch"; }
 		}
 		
 	}

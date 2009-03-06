@@ -282,6 +282,8 @@ typdef struct {
 			
 			// but for now just use the old method, even if it can throw under certain circumstances
 			
+			// actually, I think the exception is only raised when debugging. I can never seem to repro this when using a non-attached Release version (I can open all of QuickTime.cpl's icon images perfectly fine)
+			
 			try {
 				
 				return icon.ToBitmap();

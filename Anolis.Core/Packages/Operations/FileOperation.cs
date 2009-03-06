@@ -22,5 +22,9 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
+		protected override string OperationName {
+			get { return "File"; }
+		}
+		
 	}
 }

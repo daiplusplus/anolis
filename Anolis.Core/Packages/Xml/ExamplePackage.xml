@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- 2009-03-04: this file is out of date and does not validate against the PackageSchema1 schema -->
+
 <package name="My Example Package" version="1.0" attribution="W3bbo et al." website="http://www.mywebsite.com/packs" updateUri="http://www.mywebsite.com/packs/packageInfo.txt" icon="" image="" desc="">
 <!-- packageInfo.txt is a three-line text file. Line 1 must be identical to the name="" attribute. Line 2 is a decimal string of the latest version. Line 3 is an absolute URL of where to download the latest version from  -->
 	

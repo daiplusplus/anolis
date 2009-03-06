@@ -14,9 +14,9 @@ namespace Anolis.Core.Data {
 			return Compatibility.All;
 		}
 		
-		public override ResourceData FromResource(ResourceLang lang, byte[] data) {
+		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
 			
-			return new DummyResourceData(lang, data);
+			return new DummyResourceData(ResourceDataAction.None, data);
 		}
 		
 		public override ResourceData FromFile(System.IO.Stream stream, String extension, ResourceSource source) {
@@ -28,14 +28,22 @@ namespace Anolis.Core.Data {
 			get { return null; }
 		}
 		
-		public override string Name {
+		public override String Name {
 			get { return "Placeholder Resource Data"; }
 		}
 	}
 	
 	public sealed class DummyResourceData : ResourceData {
 		
-		public DummyResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
+		public DummyResourceData(ResourceDataAction action, ResourceData data) : this(action, null, data.RawData) {	
+		}
+		
+		public DummyResourceData(ResourceDataAction action, Byte[] rawData) : this(action, null, rawData) {	
+		}
+		
+		public DummyResourceData(ResourceDataAction action, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
+			
+			base.Action = action;
 		}
 		
 		protected override String[] SupportedFilters {

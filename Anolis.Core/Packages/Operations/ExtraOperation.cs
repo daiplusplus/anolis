@@ -12,5 +12,9 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
+		protected override String OperationName {
+			get { return "Extra"; }
+		}
+		
 	}
 }
