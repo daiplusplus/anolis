@@ -89,7 +89,7 @@ namespace Anolis.Installer.Pages {
 				__infoLbl.Top         = __infoPicture.Bottom + 3;
 			}
 			
-			__infoLbl.Text = item.Description == null ? Anolis.Gui.Properties.Resources.PageI_E_NoInfo : item.Description;
+			__infoLbl.Text = item.Description == null ? Anolis.Installer.Properties.Resources.PageI_E_NoInfo : item.Description;
 		}
 		
 		private Dictionary<String,Image> _packageItemImages = new Dictionary<String,Image>();
