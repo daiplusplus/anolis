@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Anolis.Gui.Pages {
+namespace Anolis.Installer.Pages {
 	public partial class BaseInteriorPage : W3b.Wizards.Wizard97.InteriorPage {
 		
 		public BaseInteriorPage() {

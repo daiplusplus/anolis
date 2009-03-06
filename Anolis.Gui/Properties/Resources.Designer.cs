@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Anolis.Gui.Properties {
+namespace Anolis.Installer.Properties {
     using System;
     
     

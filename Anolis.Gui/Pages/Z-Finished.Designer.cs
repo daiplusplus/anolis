@@ -1,4 +1,4 @@
-﻿namespace Anolis.Gui.Pages {
+﻿namespace Anolis.Installer.Pages {
 	partial class FinishedPage {
 		/// <summary> 
 		/// Required designer variable.

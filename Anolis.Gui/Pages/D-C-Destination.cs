@@ -6,9 +6,9 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using W3b.Wizards;
-namespace Anolis.Gui.Pages {
+namespace Anolis.Installer.Pages {
 	
-	public partial class DestinationPage : Anolis.Gui.Pages.BaseInteriorPage {
+	public partial class DestinationPage : Anolis.Installer.Pages.BaseInteriorPage {
 		
 		public DestinationPage() {
 			InitializeComponent();

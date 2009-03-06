@@ -5,8 +5,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using W3b.Wizards;
-namespace Anolis.Gui.Pages {
-	public partial class DownloadingPage : Anolis.Gui.Pages.BaseInteriorPage {
+namespace Anolis.Installer.Pages {
+	public partial class DownloadingPage : Anolis.Installer.Pages.BaseInteriorPage {
 		
 		public DownloadingPage() {
 			InitializeComponent();

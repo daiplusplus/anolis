@@ -5,10 +5,10 @@ using System.Windows.Forms;
 
 using W3b.Wizards;
 
-using Anolis.Gui.Pages;
+using Anolis.Installer.Pages;
 using Anolis.Core.Packages;
 
-namespace Anolis.Gui {
+namespace Anolis.Installer {
 	
 	public static class Program {
 		
