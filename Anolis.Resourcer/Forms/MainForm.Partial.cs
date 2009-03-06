@@ -84,7 +84,7 @@ namespace Anolis.Resourcer {
 			
 			try {
 				
-				ResourceSource source = ResourceSource.Open(path, false);
+				ResourceSource source = ResourceSource.Open(path, false, false);
 				
 				if(source == null) return;
 				
@@ -190,7 +190,7 @@ namespace Anolis.Resourcer {
 			
 			if( CurrentSource == null || !CurrentSource.HasUnsavedChanges || CurrentSource.IsReadOnly ) return;
 			
-			CurrentSource.CommitChanges(true);
+			CurrentSource.CommitChanges();
 			
 		}
 		

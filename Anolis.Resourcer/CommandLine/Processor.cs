@@ -41,7 +41,7 @@ namespace Anolis.Resourcer.CommandLine {
 			switch(operation.Argument) {
 				case "del":
 					
-					ResourceSource source = ResourceSource.OpenNonInteractive( resSource.Argument );
+					ResourceSource source = ResourceSource.Open( resSource.Argument, false, true );
 					
 					
 					break;

@@ -10,7 +10,14 @@ namespace Anolis.Core.Packages {
 	public abstract class Operation : PackageItem {
 		
 		protected Operation(XmlElement operationElement) : base(operationElement) {
+			
+			Path = operationElement.GetAttribute("path");
+			
 		}
+		
+		protected abstract String OperationName { get; }
+		
+		public String Path { get; set; }
 		
 		public abstract void Execute();
 		
@@ -31,7 +38,9 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
-		public String Path { get; set; }
+		public override String ToString() {
+			return OperationName + ": " + base.ToString();
+		}
 		
 	}
 }

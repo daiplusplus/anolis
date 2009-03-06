@@ -16,18 +16,12 @@ namespace Anolis.Core.Source {
 		private IntPtr   _moduleHandle;
 		private ResourceSourceInfo _sourceInfo;
 		
-		public PEResourceSource(String filename, Boolean interactive, Boolean readOnly) : base( readOnly || IsPathReadonly(filename) ) {
-			
-			_path = filename;
-			
-		}
-		
-		public PEResourceSource(String filename, Boolean readOnly) : base(readOnly || IsPathReadonly(filename) ) {
+		public PEResourceSource(String filename, Boolean isReadOnly, Boolean isBlind) : base( isReadOnly || IsPathReadonly(filename), isBlind) {
 			
 			FileInfo = new FileInfo( _path = filename );
 			if(!FileInfo.Exists) throw new FileNotFoundException("The specified Win32 PE Image was not found", filename);
 			
-			Reload();
+			if( !isBlind) Reload();
 			
 		}
 		
@@ -41,14 +35,14 @@ namespace Anolis.Core.Source {
 			
 		}
 		
-		public override void CommitChanges(Boolean reload) {
+		public override void CommitChanges() {
 			
 			if( IsReadOnly ) throw new InvalidOperationException("Changes cannot be commited because the current ResourceSource is read-only");
 			
 			// Unload self
-			Unload();
+			if(!IsBlind) Unload();
 			
-			IntPtr updateHandle = NativeMethods.BeginUpdateResource( this._path, false );
+			IntPtr updateHandle = NativeMethods.BeginUpdateResource( _path, false );
 			
 			foreach(ResourceData data in this) {
 				
@@ -86,7 +80,7 @@ namespace Anolis.Core.Source {
 			
 			NativeMethods.EndUpdateResource(updateHandle, false);
 			
-			if(reload) Reload();
+			if(!IsBlind) Reload();
 			
 		}
 		
@@ -107,19 +101,11 @@ namespace Anolis.Core.Source {
 		
 		private void Unload() {
 			
-			NativeMethods.FreeLibrary( _moduleHandle );
+			if( _moduleHandle != IntPtr.Zero )
+				NativeMethods.FreeLibrary( _moduleHandle );
 		}
 		
-		private Int32 timesCalled = 0;
-		private System.Diagnostics.Stopwatch swAll = new System.Diagnostics.Stopwatch();
-		private System.Diagnostics.Stopwatch swMem = new System.Diagnostics.Stopwatch();
-		private System.Diagnostics.Stopwatch swMan = new System.Diagnostics.Stopwatch();
-		private System.Diagnostics.Stopwatch swDat = new System.Diagnostics.Stopwatch();
-		
 		public override ResourceData GetResourceData(ResourceLang lang) {
-
-timesCalled++;
-swAll.Start();
 			
 			if( lang.Name.Type.Source != this ) throw new ArgumentException("Provided resource does not exist in this Image");
 			// TODO: Check that ResourceLang refers to a Resource that actually does exist in this resource and is not a pending add operation
@@ -129,8 +115,6 @@ swAll.Start();
 			// use SizeOfResource to get the length of the byte array
 			// then LockResource to get a pointer to it. Use Marshal to get a byte array and take it from there
 			
-	swMem.Start();
-			
 			IntPtr resInfo = NativeMethods.FindResourceEx( _moduleHandle, lang.Name.Type.Identifier.NativeId, lang.Name.Identifier.NativeId, lang.LanguageId );
 			IntPtr resData = NativeMethods.LoadResource  ( _moduleHandle, resInfo );
 			Int32  size    = NativeMethods.SizeOfResource( _moduleHandle, resInfo );
@@ -139,24 +123,13 @@ swAll.Start();
 			
 			IntPtr resPtr  = NativeMethods.LockResource( resData ); // there is no method to unlock resources, but they should be freed anyway
 			
-	swMem.Stop();
-	swMan.Start();
-			
 			Byte[] data = new Byte[ size ];
 			
 			Marshal.Copy( resPtr, data, 0, size );
 			
 			NativeMethods.FreeResource( resData );
-	
-	swMan.Stop();
-	
-	swDat.Start();
 			
 			ResourceData retval = ResourceData.FromResource(lang, data);
-			
-	swDat.Stop();
-	
-swAll.Stop();
 			
 			return retval;
 			

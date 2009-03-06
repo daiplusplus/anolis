@@ -34,11 +34,10 @@ namespace Anolis.Gui {
 			
 			PageUCSelectBackup = new SelectBackupPage();
 			
-			IWizardForm wiz = WizardFactory.Create();
-			//wiz.Title = "Anolis Installer";
-			wiz.HasHelp = false;
+			IWizardForm wiz   = new W3b.Wizards.Wizard97.Wizard97WizardForm(); // WizardFactory.Create(); // HACK: Always use Wizard97 for now to avoid Vista/Win7 users getting errors since AeroWizard isn't finished
 			wiz.CancelClicked += new EventHandler(wiz_CancelClicked);
-			wiz.Title   = "Anolis Package Installer";
+			wiz.HasHelp       = false;
+			wiz.Title         = "Anolis Package Installer";
 			
 			wiz.LoadPage( PageAWelcome );
 			wiz.ShowDialog();

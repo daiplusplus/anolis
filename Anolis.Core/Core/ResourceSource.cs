@@ -8,9 +8,10 @@ namespace Anolis.Core {
 	
 	public abstract partial class ResourceSource : IDisposable {
 		
-		protected ResourceSource(Boolean readOnly) {
+		protected ResourceSource(Boolean isReadOnly, Boolean isBlind) {
 			
-			IsReadOnly = readOnly;
+			IsReadOnly = isReadOnly;
+			IsBlind    = isBlind;
 			
 			InitResourceSourceCollections();
 			
@@ -19,6 +20,7 @@ namespace Anolis.Core {
 		//////////////////////
 		
 		public Boolean IsReadOnly { get; private set; }
+		public Boolean IsBlind    { get; private set; }
 		
 		/// <summary>Returns information about this ResourceSource in a Key/Value pair.</summary>
 		public virtual ResourceSourceInfo SourceInfo { get { return null; } }
@@ -34,7 +36,7 @@ namespace Anolis.Core {
 		
 		//////////////////////
 		
-		public static ResourceSource Open(String filename, Boolean readOnly) {
+		public static ResourceSource Open(String filename, Boolean readOnly, Boolean blind) {
 			
 			// get the file type of the file to load
 			// if PE executable (a dll, native exe, etc)
@@ -45,23 +47,19 @@ namespace Anolis.Core {
 //				case ".DLL":
 //				case ".SCR":
 //				case ".CPL":
-					return new PEResourceSource(filename, readOnly);
+					return new PEResourceSource(filename, readOnly, blind);
 //			}
 //			
 //			throw new NotImplementedException("Anolis does not support files that aren't PE/COFF Executables as ResourceSources yet");
 			
 		}
 		
-		public static ResourceSource OpenNonInteractive(String filename) {
-			
-			return new PEResourceSource(filename, false);
-			
-		}
-		
 		//////////////////////
 		// ResourceSource State Mutators
 		
-		public abstract void CommitChanges(Boolean reload);
+		/// <summary>Commits all pending operations (like Adding, Updates, and Deletions) to the source. After completion all ResourceData instances will have an Action of None.</summary>
+		/// <remarks>Unless Blind mode is specified during construction, the ResourceSource subclass may opt to fully reload itself after commiting changes.</remarks>
+		public abstract void CommitChanges();
 		
 		/// <summary>Actually reloads all the data into the source.</summary>
 		public abstract void Reload();
