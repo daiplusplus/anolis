@@ -125,6 +125,12 @@
     <Compile Include="Forms\OptionsForm.Designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PendingOperationsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PendingOperationsForm.Designer.cs">
+      <DependentUpon>PendingOperationsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ReplaceResourceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PendingOperationsForm.resx">
+      <DependentUpon>PendingOperationsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ReplaceResourceForm.resx">
       <DependentUpon>ReplaceResourceForm.cs</DependentUpon>
