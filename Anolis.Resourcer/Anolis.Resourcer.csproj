@@ -288,6 +288,13 @@
     <Content Include="Resources\ImageViewer\Zoom100.png" />
     <Content Include="Resources\ImageViewer\ZoomIn.png" />
     <Content Include="Resources\ImageViewer\ZoomOut.png" />
+    <None Include="Resources\ListView\Icon16.png" />
+    <None Include="Resources\ListView\Icon32.png" />
+    <None Include="Resources\ListView\Icon96.png" />
+    <None Include="Resources\ListView\NavUpUp.png" />
+    <None Include="Resources\ListView\NavBackOver.png" />
+    <None Include="Resources\ListView\NavBackUp.png" />
+    <None Include="Resources\ListView\NavUpOver.png" />
     <Content Include="Resources\MainIcon.ico" />
     <Content Include="Resources\ResTree\Add.png" />
     <Content Include="Resources\ResTree\Delete.png" />

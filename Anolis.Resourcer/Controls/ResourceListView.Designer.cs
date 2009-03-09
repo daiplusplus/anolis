@@ -25,11 +25,6 @@
 		private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.ToolStripSeparator @__cArrangeSep;
-			System.Windows.Forms.ToolStripLabel @__tIconSizeLbl;
-			System.Windows.Forms.ToolStripSeparator @__tSizeSep;
-			System.Windows.Forms.ToolStripSeparator @__tSep1;
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResourceListView));
-			System.Windows.Forms.ToolStripSeparator @__tSep2;
 			this.@__list = new System.Windows.Forms.ListView();
 			this.@__c = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.@__cView = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,32 +40,12 @@
 			this.@__cArrangeLang = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__cArrangeGroup = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__t = new System.Windows.Forms.ToolStrip();
-			this.@__tIconSize = new System.Windows.Forms.ToolStripDropDownButton();
-			this.@__tSize16 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tSize24 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tSize32 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tSize48 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tSize128 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tSize256 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tSizeCustom = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__iconDepth = new System.Windows.Forms.ToolStripDropDownButton();
-			this.@__tColor32 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tColor24 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tColor16 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tColor8 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tColor4 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tThumbnailsLbl = new System.Windows.Forms.ToolStripLabel();
-			this.@__tThumbnails = new System.Windows.Forms.ToolStripDropDownButton();
-			this.@__tThumb64 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tThumb96 = new System.Windows.Forms.ToolStripMenuItem();
-			this.@__tThumb256 = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__size16 = new System.Windows.Forms.ToolStripButton();
+			this.@__size32 = new System.Windows.Forms.ToolStripButton();
+			this.@__size96 = new System.Windows.Forms.ToolStripButton();
 			this.@__progessBar = new System.Windows.Forms.ToolStripProgressBar();
 			this.@__bg = new System.ComponentModel.BackgroundWorker();
 			@__cArrangeSep = new System.Windows.Forms.ToolStripSeparator();
-			@__tIconSizeLbl = new System.Windows.Forms.ToolStripLabel();
-			@__tSizeSep = new System.Windows.Forms.ToolStripSeparator();
-			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
-			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			this.@__c.SuspendLayout();
 			this.@__t.SuspendLayout();
 			this.SuspendLayout();
@@ -79,22 +54,6 @@
 			// 
 			@__cArrangeSep.Name = "__cArrangeSep";
 			@__cArrangeSep.Size = new System.Drawing.Size(145, 6);
-			// 
-			// __tIconSizeLbl
-			// 
-			@__tIconSizeLbl.Name = "__tIconSizeLbl";
-			@__tIconSizeLbl.Size = new System.Drawing.Size(37, 22);
-			@__tIconSizeLbl.Text = "Icons:";
-			// 
-			// __tSizeSep
-			// 
-			@__tSizeSep.Name = "__tSizeSep";
-			@__tSizeSep.Size = new System.Drawing.Size(149, 6);
-			// 
-			// __tSep1
-			// 
-			@__tSep1.Name = "__tSep1";
-			@__tSep1.Size = new System.Drawing.Size(6, 25);
 			// 
 			// __list
 			// 
@@ -204,13 +163,9 @@
 			// 
 			this.@__t.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.@__t.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            @__tIconSizeLbl,
-            this.@__tIconSize,
-            this.@__iconDepth,
-            @__tSep1,
-            this.@__tThumbnailsLbl,
-            this.@__tThumbnails,
-            @__tSep2,
+            this.@__size16,
+            this.@__size32,
+            this.@__size96,
             this.@__progessBar});
 			this.@__t.Location = new System.Drawing.Point(0, 0);
 			this.@__t.Name = "__t";
@@ -219,157 +174,37 @@
 			this.@__t.TabIndex = 1;
 			this.@__t.Text = "toolStrip1";
 			// 
-			// __tIconSize
+			// __size16
 			// 
-			this.@__tIconSize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.@__tIconSize.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.@__tSize16,
-            this.@__tSize24,
-            this.@__tSize32,
-            this.@__tSize48,
-            this.@__tSize128,
-            this.@__tSize256,
-            @__tSizeSep,
-            this.@__tSizeCustom});
-			this.@__tIconSize.Image = ((System.Drawing.Image)(resources.GetObject("__tIconSize.Image")));
-			this.@__tIconSize.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__tIconSize.Name = "__tIconSize";
-			this.@__tIconSize.Size = new System.Drawing.Size(50, 22);
-			this.@__tIconSize.Text = "32x32";
+			this.@__size16.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.@__size16.Image = global::Anolis.Resourcer.Properties.Resources.Icon16;
+			this.@__size16.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__size16.Name = "__size16";
+			this.@__size16.Size = new System.Drawing.Size(23, 22);
+			this.@__size16.Text = "16x16";
 			// 
-			// __tSize16
+			// __size32
 			// 
-			this.@__tSize16.Name = "__tSize16";
-			this.@__tSize16.Size = new System.Drawing.Size(152, 22);
-			this.@__tSize16.Text = "16x16";
+			this.@__size32.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.@__size32.Image = global::Anolis.Resourcer.Properties.Resources.Icon32;
+			this.@__size32.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__size32.Name = "__size32";
+			this.@__size32.Size = new System.Drawing.Size(23, 22);
+			this.@__size32.Text = "32x32";
 			// 
-			// __tSize24
+			// __size96
 			// 
-			this.@__tSize24.Name = "__tSize24";
-			this.@__tSize24.Size = new System.Drawing.Size(152, 22);
-			this.@__tSize24.Text = "24x24";
-			// 
-			// __tSize32
-			// 
-			this.@__tSize32.Name = "__tSize32";
-			this.@__tSize32.Size = new System.Drawing.Size(152, 22);
-			this.@__tSize32.Text = "32x32";
-			// 
-			// __tSize48
-			// 
-			this.@__tSize48.Name = "__tSize48";
-			this.@__tSize48.Size = new System.Drawing.Size(152, 22);
-			this.@__tSize48.Text = "48x48";
-			// 
-			// __tSize128
-			// 
-			this.@__tSize128.Name = "__tSize128";
-			this.@__tSize128.Size = new System.Drawing.Size(152, 22);
-			this.@__tSize128.Text = "128x128";
-			// 
-			// __tSize256
-			// 
-			this.@__tSize256.Name = "__tSize256";
-			this.@__tSize256.Size = new System.Drawing.Size(152, 22);
-			this.@__tSize256.Text = "256x256";
-			// 
-			// __tSizeCustom
-			// 
-			this.@__tSizeCustom.Name = "__tSizeCustom";
-			this.@__tSizeCustom.Size = new System.Drawing.Size(152, 22);
-			this.@__tSizeCustom.Text = "Custom...";
-			// 
-			// __iconDepth
-			// 
-			this.@__iconDepth.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.@__iconDepth.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.@__tColor32,
-            this.@__tColor24,
-            this.@__tColor16,
-            this.@__tColor8,
-            this.@__tColor4});
-			this.@__iconDepth.Image = ((System.Drawing.Image)(resources.GetObject("__iconDepth.Image")));
-			this.@__iconDepth.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__iconDepth.Name = "__iconDepth";
-			this.@__iconDepth.Size = new System.Drawing.Size(49, 22);
-			this.@__iconDepth.Text = "Color:";
-			// 
-			// __tColor32
-			// 
-			this.@__tColor32.Name = "__tColor32";
-			this.@__tColor32.Size = new System.Drawing.Size(152, 22);
-			this.@__tColor32.Text = "Up to 32-bit";
-			// 
-			// __tColor24
-			// 
-			this.@__tColor24.Name = "__tColor24";
-			this.@__tColor24.Size = new System.Drawing.Size(152, 22);
-			this.@__tColor24.Text = "Up to 24-bit";
-			// 
-			// __tColor16
-			// 
-			this.@__tColor16.Name = "__tColor16";
-			this.@__tColor16.Size = new System.Drawing.Size(152, 22);
-			this.@__tColor16.Text = "Up to 16-bit";
-			// 
-			// __tColor8
-			// 
-			this.@__tColor8.Name = "__tColor8";
-			this.@__tColor8.Size = new System.Drawing.Size(152, 22);
-			this.@__tColor8.Text = "Up to 256-color";
-			// 
-			// __tColor4
-			// 
-			this.@__tColor4.Name = "__tColor4";
-			this.@__tColor4.Size = new System.Drawing.Size(152, 22);
-			this.@__tColor4.Text = "Up to 16-color";
-			// 
-			// __tThumbnailsLbl
-			// 
-			this.@__tThumbnailsLbl.Name = "__tThumbnailsLbl";
-			this.@__tThumbnailsLbl.Size = new System.Drawing.Size(64, 22);
-			this.@__tThumbnailsLbl.Text = "Thumbnails:";
-			// 
-			// __tThumbnails
-			// 
-			this.@__tThumbnails.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.@__tThumbnails.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.@__tThumb64,
-            this.@__tThumb96,
-            this.@__tThumb256});
-			this.@__tThumbnails.Image = ((System.Drawing.Image)(resources.GetObject("__tThumbnails.Image")));
-			this.@__tThumbnails.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__tThumbnails.Name = "__tThumbnails";
-			this.@__tThumbnails.Size = new System.Drawing.Size(50, 22);
-			this.@__tThumbnails.Text = "96x96";
-			// 
-			// __tThumb64
-			// 
-			this.@__tThumb64.Name = "__tThumb64";
-			this.@__tThumb64.Size = new System.Drawing.Size(152, 22);
-			this.@__tThumb64.Text = "64x64";
-			// 
-			// __tThumb96
-			// 
-			this.@__tThumb96.Name = "__tThumb96";
-			this.@__tThumb96.Size = new System.Drawing.Size(152, 22);
-			this.@__tThumb96.Text = "96x96";
-			// 
-			// __tThumb256
-			// 
-			this.@__tThumb256.Name = "__tThumb256";
-			this.@__tThumb256.Size = new System.Drawing.Size(152, 22);
-			this.@__tThumb256.Text = "256x256";
+			this.@__size96.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.@__size96.Image = global::Anolis.Resourcer.Properties.Resources.Icon96;
+			this.@__size96.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__size96.Name = "__size96";
+			this.@__size96.Size = new System.Drawing.Size(23, 22);
+			this.@__size96.Text = "96x96";
 			// 
 			// __progessBar
 			// 
 			this.@__progessBar.Name = "__progessBar";
 			this.@__progessBar.Size = new System.Drawing.Size(150, 22);
-			// 
-			// __tSep2
-			// 
-			@__tSep2.Name = "__tSep2";
-			@__tSep2.Size = new System.Drawing.Size(6, 25);
 			// 
 			// __bg
 			// 
@@ -408,26 +243,10 @@
 		private System.Windows.Forms.ToolStripMenuItem __cArrangeLang;
 		private System.Windows.Forms.ToolStripMenuItem __cArrangeGroup;
 		private System.Windows.Forms.ToolStrip __t;
-		private System.Windows.Forms.ToolStripDropDownButton __tIconSize;
-		private System.Windows.Forms.ToolStripMenuItem __tSize16;
-		private System.Windows.Forms.ToolStripMenuItem __tSize24;
-		private System.Windows.Forms.ToolStripMenuItem __tSize32;
-		private System.Windows.Forms.ToolStripMenuItem __tSize48;
-		private System.Windows.Forms.ToolStripMenuItem __tSize128;
-		private System.Windows.Forms.ToolStripMenuItem __tSize256;
-		private System.Windows.Forms.ToolStripMenuItem __tSizeCustom;
-		private System.Windows.Forms.ToolStripLabel __tThumbnailsLbl;
-		private System.Windows.Forms.ToolStripDropDownButton __tThumbnails;
-		private System.Windows.Forms.ToolStripMenuItem __tThumb64;
-		private System.Windows.Forms.ToolStripMenuItem __tThumb96;
-		private System.Windows.Forms.ToolStripMenuItem __tThumb256;
-		private System.Windows.Forms.ToolStripDropDownButton __iconDepth;
-		private System.Windows.Forms.ToolStripMenuItem __tColor32;
-		private System.Windows.Forms.ToolStripMenuItem __tColor24;
-		private System.Windows.Forms.ToolStripMenuItem __tColor16;
-		private System.Windows.Forms.ToolStripMenuItem __tColor8;
-		private System.Windows.Forms.ToolStripMenuItem __tColor4;
 		private System.Windows.Forms.ToolStripProgressBar __progessBar;
 		private System.ComponentModel.BackgroundWorker __bg;
+		private System.Windows.Forms.ToolStripButton __size16;
+		private System.Windows.Forms.ToolStripButton __size32;
+		private System.Windows.Forms.ToolStripButton __size96;
 	}
 }

@@ -23,6 +23,7 @@ namespace Anolis.Resourcer {
 			this.AllowDrop = true;
 			
 			this.Load      += new EventHandler(MainForm_Load);
+			this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 			this.DragDrop  += new DragEventHandler(MainForm_DragDrop);
 			this.DragEnter += new DragEventHandler(MainForm_DragEnter);
 			
@@ -30,8 +31,9 @@ namespace Anolis.Resourcer {
 			
 			this.__tSrcOpen.ButtonClick     += new EventHandler(__tSrcOpen_ButtonClick);
 			this.__tSrcOpen.DropDownOpening += new EventHandler(__tSrcOpen_DropDownOpening);
-			this.__tSrcMruClear.Click += new EventHandler(__tSrcMruClear_Click);
-			this.__tSrcSave.Click           += new EventHandler(__tSrcSave_Click);
+			this.__tSrcMruClear.Click       += new EventHandler(__tSrcMruClear_Click);
+			this.__tSrcSave.ButtonClick     += new EventHandler(__tSrcSave_Click);
+			this.__tSrcSavePending.Click    += new EventHandler(__tSrcSavePending_Click);
 			this.__tSrcReve.Click           += new EventHandler(__tSrcReve_Click);
 			this.__tResAdd.Click            += new EventHandler(__tResAdd_Click);
 			this.__tResExt.Click            += new EventHandler(__tResExt_Click);
@@ -81,6 +83,11 @@ namespace Anolis.Resourcer {
 			Thread thread = new Thread( delegate() { Cultures.Initialise(); } );
 			thread.Start();
 			
+		}
+		
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+			
+			e.Cancel = !SourceUnload();
 		}
 		
 #region UI Events
@@ -251,6 +258,11 @@ namespace Anolis.Resourcer {
 		private void __tSrcSave_Click(Object sender, EventArgs e) {
 			
 			this.SourceSave();
+		}
+		
+		private void __tSrcSavePending_Click(object sender, EventArgs e) {
+			
+			SavePendingOperationsShow();
 		}
 		
 		///////////////////////////////////////

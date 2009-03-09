@@ -298,6 +298,43 @@ namespace Anolis.Core {
 			
 		}
 		
+		public virtual ResourceName GetName(ResourceTypeIdentifier typeId, ResourceIdentifier nameId) {
+			
+			if(LoadMode == 0) throw new ArgumentException("The specified ResourceSource has not enumerated its resources");
+			
+			foreach(ResourceType type in AllTypes) {
+				
+				if( type.Identifier == typeId ) {
+					
+					foreach(ResourceName name in type.Names) {
+						
+						if(name.Identifier == nameId) {
+							
+							return name;
+						}
+					}
+					
+				}//if
+				
+			}//foreach
+			
+			return null;
+			
+		}
+		
+		public virtual ResourceLang GetLang(ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId) {
+			
+			ResourceName name = GetName(typeId, nameId);
+			if(name == null) return null;
+			
+			foreach(ResourceLang lang in name.Langs) {
+				
+				if(lang.LanguageId == langId) return lang;
+			}
+			
+			return null;
+		}
+		
 		//////////////////////////////////
 		
 		private void EnsureReadOnly() {

@@ -56,15 +56,15 @@ namespace Anolis.Core.Data {
 			
 			if(extension != "ico") throw new ArgumentException("ico is the only supported extension");
 			
-			// TODO: Finish handling this
+			IconDirectoryResourceData originalData = currentLang.Data as IconDirectoryResourceData;
+			if(originalData == null) throw new ResourceDataException("Unexpected original data subclass");
 			
-			ResIconDir originalDir = ResIconDirHelper.FromResource( currentLang, currentLang.Data.RawData );
+			ResIconDir original = originalData.IconDirectory;
 			
-			ResIconDir dir = ResIconDirHelper.FromFile(stream, currentLang.LanguageId, currentLang.Name.Type.Source);
+			// Loads the icons in the stream into 'original'
+			ResIconDirHelper.FromFile(stream, currentLang.LanguageId, currentLang.Name.Type.Source, original);
 			
-			foreach(IconDirectoryMember member in originalDir.Members) dir.UnderlyingAdd( member );
-			
-			return new IconDirectoryResourceData(dir, null);
+			return new IconDirectoryResourceData(original, null);
 		}
 	}
 	
@@ -81,13 +81,16 @@ namespace Anolis.Core.Data {
 			BitCount     = bitCount;
 			Size         = size;
 			
+			if( BitCount == 0) { // this regularly happens, so let's fix it
+				BitCount = (UInt16)Math.Log( ColorCount, 2);
+			}
+			
 			Description = String.Format(
 				Cult.InvariantCulture,
-				"{0}x{1} {2}-bit{3}",
+				"{0}x{1} {2}-bit",
 				dimensions.Width,
 				dimensions.Height,
-				bitCount,
-				colorCount != 0 ? " (" + colorCount + ')' : String.Empty
+				BitCount
 			);
 			
 		}
@@ -107,6 +110,7 @@ namespace Anolis.Core.Data {
 			// sort by color depth first, then size
 			
 			Int32 color = BitCount.CompareTo( other.BitCount );
+			
 			if(color != 0) return color;
 			
 			return -Dimensions.Width.CompareTo( other.Dimensions.Width );
@@ -164,5 +168,6 @@ namespace Anolis.Core.Data {
 		public override DirectoryMemberCollection Members {
 			get { return _members; }
 		}
+		
 	}
 }

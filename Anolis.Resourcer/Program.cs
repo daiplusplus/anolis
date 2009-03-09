@@ -18,19 +18,41 @@ namespace Anolis.Resourcer {
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
 				
-				Console.WriteLine("testing, lol");
-				
 				CommandLineParser cmd = new CommandLineParser(args);
 				
-				CommandLineFlag scriptFlag = cmd.GetFlag("script");
-				if( scriptFlag != null ) {
+				CommandLineFlag batchFlag = cmd.GetFlag("batch");
+				if( batchFlag != null ) {
 					
-					return StatelessResourceEditor.ProcessBatch( scriptFlag.Argument );
+					return StatelessResourceEditor.ProcessBatch( batchFlag.Argument );
 				}
 				
 				if( cmd.Args.Count > 1 ) {
 					
-					return StatelessResourceEditor.PerformOneOff(cmd);
+					Int32 retval = StatelessResourceEditor.PerformOneOff(cmd);
+					
+					switch(retval) {
+						case 2: // file not found
+							
+							MessageBox.Show("File not found error: " + cmd.ToString(), "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+							
+							break;
+						case 1: // syntax error
+							
+							String message = 
+@"Anolis.Resourcer.exe -batch:""C:\batchfile.txt""
+Anolis.Resourcer.exe -op:add -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME  -lang:1033  -file:""C:\foo\icon.ico""
+Anolis.Resourcer.exe -op:upd -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME [-lang:1033] -file:""C:\foo\icon.ico""
+Anolis.Resourcer.exe -op:ext -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME  -lang:1033  -file:""C:\foo\icon.ico""
+Anolis.Resourcer.exe -op:del -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME [-lang:1033]";
+							
+							MessageBox.Show("Syntax error: " + cmd.ToString() + "\r\n\r\nExpected:\r\n" + message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+							
+							break;
+						case 0: // OK
+							break;
+					}
+					
+					return retval;
 				}
 				
 				MainForm main = new MainForm();

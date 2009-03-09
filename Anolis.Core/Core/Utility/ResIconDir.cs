@@ -34,7 +34,7 @@ namespace Anolis.Core.Utility {
 		public ResourceSource Source { get; private set; }
 		public UInt16         Lang   { get; private set; }
 		
-		public void UnderlyingAdd(IconDirectoryMember existingMember) {
+		internal void UnderlyingAdd(IconDirectoryMember existingMember) {
 			
 			_members.Add( existingMember );
 		}
@@ -53,8 +53,10 @@ namespace Anolis.Core.Utility {
 				
 				// it already exists, so just update the associated ResourceLang
 				ResourceLang lang = orig.ResourceData.Lang;
-				lang.SwapData( newMember.ResourceData ); // TODO: how will this react with SwapData's call to OnRemove?
+				lang.SwapData( newMember.ResourceData );
 				_members.Add( newMember );
+				
+				_members.Remove( orig );
 				
 			} else {
 				

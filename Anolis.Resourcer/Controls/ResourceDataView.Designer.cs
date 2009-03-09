@@ -43,7 +43,7 @@
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__viewers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.@__viewers.FormattingEnabled = true;
-			this.@__viewers.Location = new System.Drawing.Point(3, 3);
+			this.@__viewers.Location = new System.Drawing.Point(3, 5);
 			this.@__viewers.Name = "__viewers";
 			this.@__viewers.Size = new System.Drawing.Size(754, 21);
 			this.@__viewers.TabIndex = 4;

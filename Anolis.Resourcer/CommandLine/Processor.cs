@@ -81,16 +81,19 @@ namespace Anolis.Resourcer.CommandLine {
 					
 					return OneOffDelete( resSource.Argument, typeId, nameId );
 					
+				case "add":
+					
+					return OneOffAdd( resSource.Argument, typeId, nameId, langId, dataFile.Argument );
+					
 				case "upd":
 					
-					//ResourceData data = ResourceData.FromFile( dataFile.Argument, 
+					return dataLang != null ?
+						OneOffUpdate(resSource.Argument, typeId, nameId, langId, dataFile.Argument) :
+						OneOffUpdate(resSource.Argument, typeId, nameId,         dataFile.Argument);
 					
-					break;
 				case "ext":
 					
-					
-					
-					break;
+					return OneOffExtract(resSource.Argument, typeId, nameId, langId, dataFile.Argument);
 			}
 			
 			return 0;
@@ -104,7 +107,8 @@ namespace Anolis.Resourcer.CommandLine {
 			
 			// delete all the ResourceLangs that match this typeId/nameId criterion. When reloaded the ResourceName should no-longer exist
 			
-			ResourceName name = GetName( source, typeId, nameId );
+			ResourceName name = source.GetName( typeId, nameId );
+			if(name == null) return 1;
 			
 			foreach(ResourceLang lang in name.Langs) source.Remove( lang );
 			
@@ -113,13 +117,24 @@ namespace Anolis.Resourcer.CommandLine {
 			return 0;
 		}
 		
-#endregion
+		private static Int32 OneOffDelete( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId) {
 			
+			ResourceSource source = ResourceSource.Open( sourceFilename, false, ResourceSourceLoadMode.Blind );
+			
+			source.Remove( typeId, nameId, langId );
+			
+			source.CommitChanges();
+			
+			return 0;
+		}
+		
+#endregion
+		
 #region Add
 		
 		private static Int32 OneOffAdd( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, String dataFilename ) {
 			
-			ResourceSource source = ResourceSource.Open( sourceFilename, false, ResourceSourceLoadMode.Blind );
+			ResourceSource source = ResourceSource.Open( sourceFilename, false, ResourceSourceLoadMode.EnumerateOnly );
 			
 			ResourceData data = ResourceData.FromFileToAdd( dataFilename, langId, source );
 			
@@ -132,29 +147,62 @@ namespace Anolis.Resourcer.CommandLine {
 		
 #endregion
 		
-		private static ResourceName GetName(ResourceSource source, ResourceTypeIdentifier typeId, ResourceIdentifier nameId) {
+		
+#region Update
+		
+		private static Int32 OneOffUpdate( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, String dataFilename ) {
 			
-			if(source.LoadMode == 0) throw new ArgumentException("The specified ResourceSource has not enumerated its resources");
+			ResourceSource source = ResourceSource.Open( sourceFilename, false, ResourceSourceLoadMode.LazyLoadData );
 			
-			foreach(ResourceType type in source.AllTypes) {
+			ResourceLang lang = source.GetLang(typeId, nameId, langId);
+			
+			ResourceData newData = ResourceData.FromFileToUpdate( dataFilename, lang );
+			lang.SwapData( newData );
+			
+			source.CommitChanges();
+			
+			return 0;
+		}
+		
+		private static Int32 OneOffUpdate( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, String dataFilename ) {
+			
+			ResourceSource source = ResourceSource.Open( sourceFilename, false, ResourceSourceLoadMode.LazyLoadData );
+			
+			// for each lang in name, update
+			ResourceName name = source.GetName(typeId, nameId);
+			if(name == null) return 1;
+			
+			foreach(ResourceLang lang in name.Langs) {
 				
-				if( type.Identifier == typeId ) {
-					
-					foreach(ResourceName name in type.Names) {
-						
-						if(name.Identifier == nameId) {
-							
-							return name;
-						}
-					}
-					
-				}//if
+				ResourceData newData = ResourceData.FromFileToUpdate( dataFilename, lang );
+				lang.SwapData( newData );
 				
-			}//foreach
+			}
 			
-			return null;
+			source.CommitChanges();
+			
+			return 0;
 			
 		}
+		
+#endregion
+		
+#region Extract
+		
+		private static Int32 OneOffExtract( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, String dataFilename) {
+			
+			ResourceSource source = ResourceSource.Open( sourceFilename, true, ResourceSourceLoadMode.LazyLoadData );
+			
+			ResourceLang lang = source.GetLang( typeId, nameId, langId );
+			
+			if(lang == null) return 1;
+			
+			lang.Data.Save( dataFilename );
+			
+			return 0;
+		}
+		
+#endregion
 		
 	}
 }

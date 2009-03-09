@@ -27,6 +27,7 @@ namespace Anolis.Resourcer {
 			System.Windows.Forms.ToolStripSeparator @__tSep1;
 			System.Windows.Forms.ToolStripSeparator @__tSep2;
 			System.Windows.Forms.ToolStripSeparator @__tSrcMruSep;
+			System.Windows.Forms.ToolStripSeparator @__tSrcSaveSep;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.@__sSep1 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__sSep2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -35,6 +36,9 @@ namespace Anolis.Resourcer {
 			this.@__treeType = new System.Windows.Forms.ImageList(this.components);
 			this.@__treeStateImages = new System.Windows.Forms.ImageList(this.components);
 			this.@__split = new System.Windows.Forms.SplitContainer();
+			this.@__nav = new System.Windows.Forms.ToolStrip();
+			this.@__navBack = new System.Windows.Forms.ToolStripButton();
+			this.@__navUp = new System.Windows.Forms.ToolStripButton();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
 			this.@__sfd = new System.Windows.Forms.SaveFileDialog();
 			this.@__status = new System.Windows.Forms.StatusStrip();
@@ -46,8 +50,9 @@ namespace Anolis.Resourcer {
 			this.@__tSrcMruInfo = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__tSrcMruClear = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__tSrcSave = new System.Windows.Forms.ToolStripSplitButton();
-			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.backupOriginalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__tSrcSaveSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__tSrcSaveBackup = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__tSrcSavePending = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__tSrcReve = new System.Windows.Forms.ToolStripButton();
 			this.@__tResAdd = new System.Windows.Forms.ToolStripButton();
 			this.@__tResExt = new System.Windows.Forms.ToolStripButton();
@@ -64,8 +69,10 @@ namespace Anolis.Resourcer {
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSrcMruSep = new System.Windows.Forms.ToolStripSeparator();
+			@__tSrcSaveSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__split.Panel1.SuspendLayout();
 			this.@__split.SuspendLayout();
+			this.@__nav.SuspendLayout();
 			this.@__status.SuspendLayout();
 			this.@__t.SuspendLayout();
 			this.@__treeMenu.SuspendLayout();
@@ -85,7 +92,12 @@ namespace Anolis.Resourcer {
 			// __tSrcMruSep
 			// 
 			@__tSrcMruSep.Name = "__tSrcMruSep";
-			@__tSrcMruSep.Size = new System.Drawing.Size(159, 6);
+			@__tSrcMruSep.Size = new System.Drawing.Size(148, 6);
+			// 
+			// __tSrcSaveSep
+			// 
+			@__tSrcSaveSep.Name = "__tSrcSaveSep";
+			@__tSrcSaveSep.Size = new System.Drawing.Size(177, 6);
 			// 
 			// __sSep1
 			// 
@@ -102,18 +114,17 @@ namespace Anolis.Resourcer {
 			// __resCMSep
 			// 
 			this.@__resCMSep.Name = "__resCMSep";
-			this.@__resCMSep.Size = new System.Drawing.Size(141, 6);
+			this.@__resCMSep.Size = new System.Drawing.Size(130, 6);
 			// 
 			// __tree
 			// 
-			this.@__tree.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.@__tree.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.@__tree.ImageIndex = 0;
 			this.@__tree.ImageList = this.@__treeType;
-			this.@__tree.Location = new System.Drawing.Point(0, 0);
+			this.@__tree.Location = new System.Drawing.Point(0, 25);
 			this.@__tree.Name = "__tree";
 			this.@__tree.SelectedImageIndex = 0;
-			this.@__tree.Size = new System.Drawing.Size(150, 378);
+			this.@__tree.Size = new System.Drawing.Size(150, 353);
 			this.@__tree.StateImageList = this.@__treeStateImages;
 			this.@__tree.TabIndex = 3;
 			// 
@@ -151,9 +162,38 @@ namespace Anolis.Resourcer {
 			// __split.Panel1
 			// 
 			this.@__split.Panel1.Controls.Add(this.@__tree);
+			this.@__split.Panel1.Controls.Add(this.@__nav);
 			this.@__split.Size = new System.Drawing.Size(635, 378);
 			this.@__split.SplitterDistance = 150;
 			this.@__split.TabIndex = 4;
+			// 
+			// __nav
+			// 
+			this.@__nav.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+			this.@__nav.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.@__navBack,
+            this.@__navUp});
+			this.@__nav.Location = new System.Drawing.Point(0, 0);
+			this.@__nav.Name = "__nav";
+			this.@__nav.Size = new System.Drawing.Size(150, 25);
+			this.@__nav.TabIndex = 4;
+			// 
+			// __navBack
+			// 
+			this.@__navBack.Image = global::Anolis.Resourcer.Properties.Resources.NavBackUp;
+			this.@__navBack.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__navBack.Margin = new System.Windows.Forms.Padding(1, 1, 0, 2);
+			this.@__navBack.Name = "__navBack";
+			this.@__navBack.Size = new System.Drawing.Size(49, 22);
+			this.@__navBack.Text = "Back";
+			// 
+			// __navUp
+			// 
+			this.@__navUp.Image = global::Anolis.Resourcer.Properties.Resources.NavUpUp;
+			this.@__navUp.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__navUp.Name = "__navUp";
+			this.@__navUp.Size = new System.Drawing.Size(40, 22);
+			this.@__navUp.Text = "Up";
 			// 
 			// __status
 			// 
@@ -230,39 +270,48 @@ namespace Anolis.Resourcer {
 			// 
 			this.@__tSrcMruInfo.Enabled = false;
 			this.@__tSrcMruInfo.Name = "__tSrcMruInfo";
-			this.@__tSrcMruInfo.Size = new System.Drawing.Size(162, 22);
+			this.@__tSrcMruInfo.Size = new System.Drawing.Size(151, 22);
 			this.@__tSrcMruInfo.Text = "Recent Files List";
 			// 
 			// __tSrcMruClear
 			// 
 			this.@__tSrcMruClear.Name = "__tSrcMruClear";
-			this.@__tSrcMruClear.Size = new System.Drawing.Size(162, 22);
+			this.@__tSrcMruClear.Size = new System.Drawing.Size(151, 22);
 			this.@__tSrcMruClear.Text = "Clear List";
 			// 
 			// __tSrcSave
 			// 
 			this.@__tSrcSave.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveAsToolStripMenuItem,
-            this.backupOriginalToolStripMenuItem});
+            this.@__tSrcSaveSaveAs,
+            this.@__tSrcSaveBackup,
+            @__tSrcSaveSep,
+            this.@__tSrcSavePending});
 			this.@__tSrcSave.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_SrcSave;
 			this.@__tSrcSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__tSrcSave.Margin = new System.Windows.Forms.Padding(0);
 			this.@__tSrcSave.Name = "__tSrcSave";
 			this.@__tSrcSave.Padding = new System.Windows.Forms.Padding(3);
-			this.@__tSrcSave.Size = new System.Drawing.Size(70, 68);
+			this.@__tSrcSave.Size = new System.Drawing.Size(70, 71);
 			this.@__tSrcSave.Text = "Save";
 			this.@__tSrcSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
-			// saveAsToolStripMenuItem
+			// __tSrcSaveSaveAs
 			// 
-			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-			this.saveAsToolStripMenuItem.Text = "Save As...";
+			this.@__tSrcSaveSaveAs.Name = "__tSrcSaveSaveAs";
+			this.@__tSrcSaveSaveAs.Size = new System.Drawing.Size(180, 22);
+			this.@__tSrcSaveSaveAs.Text = "Save As...";
 			// 
-			// backupOriginalToolStripMenuItem
+			// __tSrcSaveBackup
 			// 
-			this.backupOriginalToolStripMenuItem.Name = "backupOriginalToolStripMenuItem";
-			this.backupOriginalToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-			this.backupOriginalToolStripMenuItem.Text = "Backup Source...";
+			this.@__tSrcSaveBackup.Name = "__tSrcSaveBackup";
+			this.@__tSrcSaveBackup.Size = new System.Drawing.Size(180, 22);
+			this.@__tSrcSaveBackup.Text = "Backup Source...";
+			// 
+			// __tSrcSavePending
+			// 
+			this.@__tSrcSavePending.Name = "__tSrcSavePending";
+			this.@__tSrcSavePending.Size = new System.Drawing.Size(180, 22);
+			this.@__tSrcSavePending.Text = "Pending Operations...";
 			// 
 			// __tSrcReve
 			// 
@@ -359,36 +408,36 @@ namespace Anolis.Resourcer {
             this.@__resCMCancel});
 			this.@__treeMenu.Name = "__resCM";
 			this.@__treeMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.@__treeMenu.Size = new System.Drawing.Size(145, 120);
+			this.@__treeMenu.Size = new System.Drawing.Size(134, 120);
 			// 
 			// __resCMCast
 			// 
 			this.@__resCMCast.Name = "__resCMCast";
-			this.@__resCMCast.Size = new System.Drawing.Size(144, 22);
+			this.@__resCMCast.Size = new System.Drawing.Size(133, 22);
 			this.@__resCMCast.Text = "Cast {0} as:";
 			// 
 			// __resCMExtract
 			// 
 			this.@__resCMExtract.Name = "__resCMExtract";
-			this.@__resCMExtract.Size = new System.Drawing.Size(144, 22);
+			this.@__resCMExtract.Size = new System.Drawing.Size(133, 22);
 			this.@__resCMExtract.Text = "Extract {0}";
 			// 
 			// __resCMReplace
 			// 
 			this.@__resCMReplace.Name = "__resCMReplace";
-			this.@__resCMReplace.Size = new System.Drawing.Size(144, 22);
+			this.@__resCMReplace.Size = new System.Drawing.Size(133, 22);
 			this.@__resCMReplace.Text = "Replace {0}";
 			// 
 			// __resCMDelete
 			// 
 			this.@__resCMDelete.Name = "__resCMDelete";
-			this.@__resCMDelete.Size = new System.Drawing.Size(144, 22);
+			this.@__resCMDelete.Size = new System.Drawing.Size(133, 22);
 			this.@__resCMDelete.Text = "Delete {0}";
 			// 
 			// __resCMCancel
 			// 
 			this.@__resCMCancel.Name = "__resCMCancel";
-			this.@__resCMCancel.Size = new System.Drawing.Size(144, 22);
+			this.@__resCMCancel.Size = new System.Drawing.Size(133, 22);
 			this.@__resCMCancel.Text = "Cancel {0}";
 			// 
 			// MainForm
@@ -404,7 +453,10 @@ namespace Anolis.Resourcer {
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.Text = "Anolis Resourcer";
 			this.@__split.Panel1.ResumeLayout(false);
+			this.@__split.Panel1.PerformLayout();
 			this.@__split.ResumeLayout(false);
+			this.@__nav.ResumeLayout(false);
+			this.@__nav.PerformLayout();
 			this.@__status.ResumeLayout(false);
 			this.@__status.PerformLayout();
 			this.@__t.ResumeLayout(false);
@@ -446,10 +498,14 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.ImageList __treeStateImages;
 		private System.Windows.Forms.ImageList __treeType;
 		private System.Windows.Forms.ToolStripSplitButton __tSrcSave;
-		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem backupOriginalToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem __tSrcSaveSaveAs;
+		private System.Windows.Forms.ToolStripMenuItem __tSrcSaveBackup;
 		private System.Windows.Forms.ToolStripMenuItem __tSrcMruInfo;
 		private System.Windows.Forms.ToolStripMenuItem __tSrcMruClear;
+		private System.Windows.Forms.ToolStripMenuItem __tSrcSavePending;
+		private System.Windows.Forms.ToolStrip __nav;
+		private System.Windows.Forms.ToolStripButton __navBack;
+		private System.Windows.Forms.ToolStripButton __navUp;
 	}
 }
 
