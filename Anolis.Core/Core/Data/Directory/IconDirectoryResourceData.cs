@@ -58,9 +58,11 @@ namespace Anolis.Core.Data {
 			
 			// TODO: Finish handling this
 			
-//			ResIconDir originalDir = ResIconDirHelper.FromResource( currentLang, currentLang.Data.RawData );
+			ResIconDir originalDir = ResIconDirHelper.FromResource( currentLang, currentLang.Data.RawData );
 			
 			ResIconDir dir = ResIconDirHelper.FromFile(stream, currentLang.LanguageId, currentLang.Name.Type.Source);
+			
+			foreach(IconDirectoryMember member in originalDir.Members) dir.UnderlyingAdd( member );
 			
 			return new IconDirectoryResourceData(dir, null);
 		}

@@ -68,6 +68,18 @@ namespace Anolis.Core.Utility {
 			_updated = true;
 		}
 		
+		public void RemoveMemberImage(IconDirectoryMember member) {
+			
+			if( _members.IndexOf( member) == -1 ) return;
+			
+			ResourceLang lang = member.ResourceData.Lang;
+			
+			_members.Remove( member );
+			
+			Source.Remove( lang );
+			
+		}
+		
 		private IconDirectoryMember FindMember(IconDirectoryMember newMember) {
 			
 			foreach(IconDirectoryMember member in _members) if( member.CompareTo( newMember ) == 0 ) return member;
