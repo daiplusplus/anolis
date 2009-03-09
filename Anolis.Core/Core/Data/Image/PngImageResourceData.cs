@@ -10,8 +10,8 @@ namespace Anolis.Core.Data {
 			if(typeId.KnownType == Win32ResourceType.Unknown) return Compatibility.Maybe;
 			if(typeId.KnownType != Win32ResourceType.Custom) return Compatibility.No;
 			
-			if(typeId.StringId == "PNG") return Compatibility.Yes;
-			if(typeId.StringId == "PNGF") return Compatibility.Yes;
+			if(typeId.StringId == "PNG")     return Compatibility.Yes;
+			if(typeId.StringId == "PNGF")    return Compatibility.Yes;
 			if(typeId.StringId == "PNGFILE") return Compatibility.Yes;
 			
 			return Compatibility.Maybe;
@@ -35,13 +35,21 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override ResourceData FromFile(System.IO.Stream stream, String extension, ResourceSource source) {
-			Byte[] data = GetAllBytesFromStream(stream);
-			return FromResource(null, data);
+		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+			return FromFile(stream, extension);
+		}
+		
+		public override ResourceData FromFileToUpdate(System.IO.Stream stream, string extension, ResourceLang currentLang) {
+			return FromFile(stream, extension);
 		}
 		
 		public override string Name {
 			get { return "PNG Image"; }
+		}
+		
+		private ResourceData FromFile(System.IO.Stream stream, String extension) {
+			Byte[] data = GetAllBytesFromStream(stream);
+			return FromResource(null, data);
 		}
 	}
 	

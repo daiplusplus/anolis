@@ -16,12 +16,14 @@ namespace Anolis.Core.Source {
 		private IntPtr   _moduleHandle;
 		private ResourceSourceInfo _sourceInfo;
 		
-		public PEResourceSource(String filename, Boolean isReadOnly, Boolean isBlind) : base( isReadOnly || IsPathReadonly(filename), isBlind) {
+		public PEResourceSource(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode) : base( isReadOnly || IsPathReadonly(filename), mode) {
+			
+			if( mode == ResourceSourceLoadMode.PreemptiveLoad ) throw new NotImplementedException("Support for preemptive data loading is not implemented yet");
 			
 			FileInfo = new FileInfo( _path = filename );
 			if(!FileInfo.Exists) throw new FileNotFoundException("The specified Win32 PE Image was not found", filename);
 			
-			if( !isBlind) Reload();
+			if(LoadMode > 0) Reload();
 			
 		}
 		
@@ -40,47 +42,45 @@ namespace Anolis.Core.Source {
 			if( IsReadOnly ) throw new InvalidOperationException("Changes cannot be commited because the current ResourceSource is read-only");
 			
 			// Unload self
-			if(!IsBlind) Unload();
+			if(LoadMode > 0) Unload();
 			
 			IntPtr updateHandle = NativeMethods.BeginUpdateResource( _path, false );
 			
-			foreach(ResourceData data in this) {
+			foreach(ResourceLang lang in AllActiveLangs) {
 				
-				if(data.Action != ResourceDataAction.None) {
+				IntPtr pData;
+				Int32 length;
+				
+				if(lang.Action == ResourceDataAction.Delete) {
 					
-					IntPtr pData;
-					Int32 length;
+					// pData must be NULL to delete resource
+					pData  = IntPtr.Zero;
+					length = 0;
 					
-					if(data.Action == ResourceDataAction.Delete) {
-						
-						// pData must be NULL to delete resource
-						pData  = IntPtr.Zero;
-						length = 0;
-						
-					} else {
-						
-						length = data.RawData.Length;
-						pData = Marshal.AllocHGlobal( length );
-						
-						Marshal.Copy( data.RawData, 0, pData, length );
-					}
+				} else {
 					
-					IntPtr typeId = data.Lang.Name.Type.Identifier.NativeId;
-					IntPtr nameId = data.Lang.Name.Identifier.NativeId;
-					ushort langId = data.Lang.LanguageId;
+					if( !lang.DataIsLoaded ) throw new AnolisException("Cannot perform action when ResourceData is not loaded");
 					
-					NativeMethods.UpdateResource( updateHandle, typeId, nameId, langId, pData, length );
+					length = lang.Data.RawData.Length;
+					pData  = Marshal.AllocHGlobal( length );
 					
-					Marshal.FreeHGlobal( pData );
-					
-					data.Action = ResourceDataAction.None;
-					
+					Marshal.Copy( lang.Data.RawData, 0, pData, length );
 				}
+				
+				IntPtr typeId = lang.Name.Type.Identifier.NativeId;
+				IntPtr nameId = lang.Name.Identifier.NativeId;
+				ushort langId = lang.LanguageId;
+				
+				NativeMethods.UpdateResource( updateHandle, typeId, nameId, langId, pData, length );
+				
+				Marshal.FreeHGlobal( pData );
+				
+				lang.Action = ResourceDataAction.None;
 			}
 			
 			NativeMethods.EndUpdateResource(updateHandle, false);
 			
-			if(!IsBlind) Reload();
+			if(LoadMode > 0) Reload();
 			
 		}
 		
@@ -107,9 +107,9 @@ namespace Anolis.Core.Source {
 		
 		public override ResourceData GetResourceData(ResourceLang lang) {
 			
-			if( lang.Name.Type.Source != this ) throw new ArgumentException("Provided resource does not exist in this Image");
+			if( lang.Name.Type.Source != this ) throw new ArgumentException("The specified ResourceLang does not exist in this ResourceSource");
+			
 			// TODO: Check that ResourceLang refers to a Resource that actually does exist in this resource and is not a pending add operation
-			// TODO: Find the TypePtr and NamePtr implementations; they need re-adding to the ResourceIdentifier class
 			
 			// use FindResourceEx and LoadResource to get a handle to the resource
 			// use SizeOfResource to get the length of the byte array

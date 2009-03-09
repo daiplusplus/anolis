@@ -94,8 +94,17 @@ namespace Anolis.Resourcer {
 			
 			__lang.Items.AddRange( sortByDisplayName ? Cultures.CulturesByName : Cultures.CulturesByLcid );
 			
-			__lang.SelectedIndex = 0;
+			//__lang.SelectedItem = Cultures.CurrentCulture; // TODO: this doesn't work for some reason
 			
+			Int32 currentLcid = CultureInfo.CurrentCulture.LCID;
+			foreach(ListBoxItem<CultureInfo> c in __lang.Items) {
+				
+				if(c.Item.LCID == currentLcid) {
+					__lang.SelectedItem = c;
+					break;
+				}
+			}
+			// maybe I should just set 1033 as the default...
 		}
 		
 		//////////////////////////////
@@ -168,7 +177,9 @@ namespace Anolis.Resourcer {
 			
 			ResourceDataFactory factory = _filters[ __ofd.FilterIndex - 1].X;
 			
-			_data = ResourceData.FromFile( __ofd.FileName, MainForm.LatestInstance.CurrentSource );
+			_data = ResourceData.FromFileToAdd( __ofd.FileName, 1033, MainForm.LatestInstance.CurrentSource );
+			
+			SetDetailsEnabled( true );
 			
 			///////////////////////////
 			// Recommended Type
@@ -212,18 +223,6 @@ namespace Anolis.Resourcer {
 			
 			__nameAuto.Checked = true;
 			__nameCustom.Value = MainForm.LatestInstance.CurrentSource.GetUnusedName( typeId ).IntegerId.Value;
-			
-			///////////////////////////
-			// Recommended Lang
-			
-			Int32 currentLcid = CultureInfo.CurrentCulture.LCID;
-			foreach(ListBoxItem<CultureInfo> c in __lang.Items) {
-				
-				if(c.Item.LCID == currentLcid) {
-					__lang.SelectedItem = c;
-					break;
-				}
-			}
 			
 		}
 		
@@ -296,7 +295,13 @@ namespace Anolis.Resourcer {
 		
 		//////////////////////////////
 		
-		
+		private void SetDetailsEnabled(Boolean value) {
+			
+			this.__langGrp.Enabled = !value;
+			this.__fileGrp.Enabled = !value;
+			this.__typeGrp.Enabled = value;
+			this.__nameGrp.Enabled = value;
+		}
 		
 		//////////////////////////////
 		

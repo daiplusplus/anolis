@@ -13,7 +13,7 @@ namespace Anolis.Core {
 		
 		private List<ResourceLang> _langs;
 		
-		public ResourceName(IntPtr namePointer, ResourceType type) {
+		internal ResourceName(IntPtr namePointer, ResourceType type) {
 			
 			Identifier = new ResourceIdentifier(namePointer);
 			Type       = type;
@@ -33,6 +33,13 @@ namespace Anolis.Core {
 	
 	public class ResourceNameCollection : ReadOnlyCollection<ResourceName> {
 		internal ResourceNameCollection(List<ResourceName> list) : base(list) {}
+		
+		public ResourceName this[ResourceIdentifier nameId] {
+			get {
+				foreach(ResourceName name in this) if(name.Identifier.Equals(nameId)) return name;
+				return null;
+			}
+		}
 	}
 	
 }

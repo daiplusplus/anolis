@@ -44,15 +44,18 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override ResourceData FromFile(Stream stream, String extension, ResourceSource source) {
-			
-			LastErrorMessage = "Not implemented";
-			return null;
-			
+		public override String Name {
+			get { return "Icon Directory Member Image"; }
 		}
 		
-		public override String Name {
-			get { return "Icon Sub-Image"; }
+		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+			LastErrorMessage = "Not supported";
+			return null;
+		}
+		
+		public override ResourceData FromFileToUpdate(Stream stream, string extension, ResourceLang currentLang) {
+			LastErrorMessage = "Not supported";
+			return null;
 		}
 	}
 	
@@ -90,23 +93,31 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override ResourceData FromFile(Stream stream, String extension, ResourceSource source) {
-			
-			throw new NotImplementedException();
-			
-		}
-		
 		public override string Name {
 			get { return "Cursor"; }
+		}
+		
+		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+			LastErrorMessage = "Not implemented";
+			return null;
+		}
+		
+		public override ResourceData FromFileToUpdate(Stream stream, string extension, ResourceLang currentLang) {
+			LastErrorMessage = "Not implemented";
+			return null;
 		}
 	}
 	
 	/// <summary>Magically represents both Icons and Cursors.</summary>
 	public sealed class IconCursorImageResourceData : ImageResourceData {
 		
+		private static Int32 instantiations = 0;
+		
 		private IntPtr _unmanagedMemory;
 		
 		private IconCursorImageResourceData(IntPtr unmanagedPointer, Icon icon, ResourceLang lang, Byte[] rawData) : base( GetImage(icon), lang, rawData) {
+			
+			instantiations++;
 			
 			_unmanagedMemory = unmanagedPointer;
 			
@@ -115,6 +126,8 @@ namespace Anolis.Core.Data {
 		}
 		
 		private IconCursorImageResourceData(IntPtr unmanagedPointer, Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
+			
+			instantiations++;
 			
 			_unmanagedMemory = unmanagedPointer;
 			

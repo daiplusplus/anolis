@@ -8,19 +8,18 @@ namespace Anolis.Core {
 	
 	public abstract partial class ResourceSource : IDisposable {
 		
-		protected ResourceSource(Boolean isReadOnly, Boolean isBlind) {
+		protected ResourceSource(Boolean isReadOnly, ResourceSourceLoadMode mode) {
 			
 			IsReadOnly = isReadOnly;
-			IsBlind    = isBlind;
+			LoadMode   = mode;
 			
-			InitResourceSourceCollections();
-			
+			InitialiseEnumerables();
 		}
 		
 		//////////////////////
 		
-		public Boolean IsReadOnly { get; private set; }
-		public Boolean IsBlind    { get; private set; }
+		public Boolean                IsReadOnly { get; private set; }
+		public ResourceSourceLoadMode LoadMode   { get; private set; }
 		
 		/// <summary>Returns information about this ResourceSource in a Key/Value pair.</summary>
 		public virtual ResourceSourceInfo SourceInfo { get { return null; } }
@@ -36,7 +35,7 @@ namespace Anolis.Core {
 		
 		//////////////////////
 		
-		public static ResourceSource Open(String filename, Boolean readOnly, Boolean blind) {
+		public static ResourceSource Open(String filename, Boolean readOnly, ResourceSourceLoadMode mode) {
 			
 			// get the file type of the file to load
 			// if PE executable (a dll, native exe, etc)
@@ -47,7 +46,7 @@ namespace Anolis.Core {
 //				case ".DLL":
 //				case ".SCR":
 //				case ".CPL":
-					return new PEResourceSource(filename, readOnly, blind);
+					return new PEResourceSource(filename, readOnly, mode);
 //			}
 //			
 //			throw new NotImplementedException("Anolis does not support files that aren't PE/COFF Executables as ResourceSources yet");
@@ -69,6 +68,17 @@ namespace Anolis.Core {
 	public class ResourceSourceInfo : Dictionary<String,String> {
 		// TODO: Maybe later make a ReadOnlyKeyedCollection
 		// see: http://www.cuttingedge.it/blogs/steven/pivot/entry.php?id=29
+	}
+	
+	public enum ResourceSourceLoadMode {
+		/// <summary>The ResourceSource will not enumerate ResourceLangs nor load ResourceData (even if lazy-loaded)</summary>
+		Blind          = 0,
+		/// <summary>The ResourceSource will enumerate ResourceLangs when created, but will not load ResourceData (even if lazy-loaded)</summary>
+		EnumerateOnly  = 1,
+		/// <summary>The ResourceSource will enumerate ResourceLangs when created and will load ResourceData lazily</summary>
+		LazyLoadData   = 2,
+		/// <summary>The ResourceSource will enumerate ResourceLangs when created and will load all ResourceData preemptively</summary>
+		PreemptiveLoad = 3
 	}
 	
 }

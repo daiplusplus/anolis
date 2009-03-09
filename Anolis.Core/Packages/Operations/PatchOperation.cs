@@ -20,8 +20,6 @@ namespace Anolis.Core.Packages {
 			// determine if it's necessary to open it blindly or not
 			// i.e. if the lang attribute is is set on all the res elements
 			
-			// open the resource source in blind mode for performance
-			ResourceSource src = ResourceSource.Open( Path, false, true );
 			
 			// TODO: How is the DummyResourceData exposed?
 			// well that's for deletes and 1:1 binary resources

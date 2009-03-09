@@ -19,10 +19,18 @@ namespace Anolis.Core.Data {
 			return new UnknownResourceData(lang, data);
 		}
 		
-		public override ResourceData FromFile(System.IO.Stream stream, String extension, ResourceSource source) {
+		private ResourceData FromFile(System.IO.Stream stream, String extension) {
 			
 			Byte[] data = GetAllBytesFromStream(stream);
 			return new UnknownResourceData(extension, null, data);
+		}
+		
+		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+			return FromFile(stream, extension);
+		}
+		
+		public override ResourceData FromFileToUpdate(System.IO.Stream stream, string extension, ResourceLang currentLang) {
+			return FromFile(stream, extension);
 		}
 		
 		public override String OpenFileFilter {

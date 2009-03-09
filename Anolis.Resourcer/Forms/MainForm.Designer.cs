@@ -85,7 +85,7 @@ namespace Anolis.Resourcer {
 			// __tSrcMruSep
 			// 
 			@__tSrcMruSep.Name = "__tSrcMruSep";
-			@__tSrcMruSep.Size = new System.Drawing.Size(148, 6);
+			@__tSrcMruSep.Size = new System.Drawing.Size(159, 6);
 			// 
 			// __sSep1
 			// 
@@ -102,7 +102,7 @@ namespace Anolis.Resourcer {
 			// __resCMSep
 			// 
 			this.@__resCMSep.Name = "__resCMSep";
-			this.@__resCMSep.Size = new System.Drawing.Size(130, 6);
+			this.@__resCMSep.Size = new System.Drawing.Size(141, 6);
 			// 
 			// __tree
 			// 
@@ -113,7 +113,7 @@ namespace Anolis.Resourcer {
 			this.@__tree.Location = new System.Drawing.Point(0, 0);
 			this.@__tree.Name = "__tree";
 			this.@__tree.SelectedImageIndex = 0;
-			this.@__tree.Size = new System.Drawing.Size(148, 376);
+			this.@__tree.Size = new System.Drawing.Size(150, 378);
 			this.@__tree.StateImageList = this.@__treeStateImages;
 			this.@__tree.TabIndex = 3;
 			// 
@@ -142,7 +142,6 @@ namespace Anolis.Resourcer {
 			// 
 			// __split
 			// 
-			this.@__split.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.@__split.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.@__split.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
 			this.@__split.Location = new System.Drawing.Point(0, 74);
@@ -231,13 +230,13 @@ namespace Anolis.Resourcer {
 			// 
 			this.@__tSrcMruInfo.Enabled = false;
 			this.@__tSrcMruInfo.Name = "__tSrcMruInfo";
-			this.@__tSrcMruInfo.Size = new System.Drawing.Size(151, 22);
+			this.@__tSrcMruInfo.Size = new System.Drawing.Size(162, 22);
 			this.@__tSrcMruInfo.Text = "Recent Files List";
 			// 
 			// __tSrcMruClear
 			// 
 			this.@__tSrcMruClear.Name = "__tSrcMruClear";
-			this.@__tSrcMruClear.Size = new System.Drawing.Size(151, 22);
+			this.@__tSrcMruClear.Size = new System.Drawing.Size(162, 22);
 			this.@__tSrcMruClear.Text = "Clear List";
 			// 
 			// __tSrcSave
@@ -256,13 +255,13 @@ namespace Anolis.Resourcer {
 			// saveAsToolStripMenuItem
 			// 
 			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
 			this.saveAsToolStripMenuItem.Text = "Save As...";
 			// 
 			// backupOriginalToolStripMenuItem
 			// 
 			this.backupOriginalToolStripMenuItem.Name = "backupOriginalToolStripMenuItem";
-			this.backupOriginalToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.backupOriginalToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
 			this.backupOriginalToolStripMenuItem.Text = "Backup Source...";
 			// 
 			// __tSrcReve
@@ -360,36 +359,36 @@ namespace Anolis.Resourcer {
             this.@__resCMCancel});
 			this.@__treeMenu.Name = "__resCM";
 			this.@__treeMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.@__treeMenu.Size = new System.Drawing.Size(134, 120);
+			this.@__treeMenu.Size = new System.Drawing.Size(145, 120);
 			// 
 			// __resCMCast
 			// 
 			this.@__resCMCast.Name = "__resCMCast";
-			this.@__resCMCast.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMCast.Size = new System.Drawing.Size(144, 22);
 			this.@__resCMCast.Text = "Cast {0} as:";
 			// 
 			// __resCMExtract
 			// 
 			this.@__resCMExtract.Name = "__resCMExtract";
-			this.@__resCMExtract.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMExtract.Size = new System.Drawing.Size(144, 22);
 			this.@__resCMExtract.Text = "Extract {0}";
 			// 
 			// __resCMReplace
 			// 
 			this.@__resCMReplace.Name = "__resCMReplace";
-			this.@__resCMReplace.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMReplace.Size = new System.Drawing.Size(144, 22);
 			this.@__resCMReplace.Text = "Replace {0}";
 			// 
 			// __resCMDelete
 			// 
 			this.@__resCMDelete.Name = "__resCMDelete";
-			this.@__resCMDelete.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMDelete.Size = new System.Drawing.Size(144, 22);
 			this.@__resCMDelete.Text = "Delete {0}";
 			// 
 			// __resCMCancel
 			// 
 			this.@__resCMCancel.Name = "__resCMCancel";
-			this.@__resCMCancel.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMCancel.Size = new System.Drawing.Size(144, 22);
 			this.@__resCMCancel.Text = "Cancel {0}";
 			// 
 			// MainForm

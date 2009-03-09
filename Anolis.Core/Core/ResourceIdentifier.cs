@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 
+using NumberStyles = System.Globalization.NumberStyles;
 using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Core {
@@ -73,6 +75,34 @@ namespace Anolis.Core {
 			
 		}
 		
+		/// <summary>Creates a ResourceTypeIdentifier instance from a string which may represent a Known Win32 Resource Type, a number, or a string id (in that order)</summary>
+		/// <param name="shortStyle">Set to True to allow short-style identifiers like "icon" or "bmp" (for IconDirectory and Bitmap respectively) to be parsed as being Known Win32 types as opposed to their full names</param>
+		public static ResourceIdentifier CreateFromString(String ambiguousString) {
+			
+			if(ambiguousString == null) throw new ArgumentNullException("ambiguousString");
+			if(ambiguousString.Length == 0) throw new ArgumentOutOfRangeException("ambiguousString", "Length must be greater than 0");
+			
+			String ambiguousStringUpper = ambiguousString.ToUpperInvariant();
+			
+			// is the string a number?
+			
+			Int32 number;
+			NumberStyles numStyle = ambiguousStringUpper.StartsWith("0x") ? NumberStyles.HexNumber : NumberStyles.Integer;
+			
+			if( Int32.TryParse( ambiguousStringUpper, numStyle, Cult.InvariantCulture, out number ) ) {
+				
+				return new ResourceIdentifier( new IntPtr( number ) );
+			}
+			
+			// finally, interpret it as a string identifier
+			// HACK: I'll forgoe '#' prefix support, it only applies to internal resources anyway
+			// what about numbers that are meant to represent strings? I'll do if it anyone encounters a file that uses that system. I'd need a way to denote it, maybe with " symbols?
+			
+			return new ResourceIdentifier( ambiguousString );
+			
+		}
+		
+		
 		~ResourceIdentifier() {
 			Dispose();
 		}
@@ -136,7 +166,7 @@ namespace Anolis.Core {
 		/// <param name="id">Converts this String id into a marshaled NativeId HGlobalAuto.</param>
 		public ResourceTypeIdentifier(String id) : base(id) {
 			
-			KnownType    = Win32ResourceType.Custom;
+			KnownType = Win32ResourceType.Custom;
 			
 		}
 		
@@ -185,16 +215,62 @@ namespace Anolis.Core {
 			
 		}
 		
+		/// <summary>Creates a ResourceTypeIdentifier instance from a string which may represent a Known Win32 Resource Type, a number, or a string id (in that order)</summary>
+		/// <param name="shortStyle">Set to True to allow short-style identifiers like "icon" or "bmp" (for IconDirectory and Bitmap respectively) to be parsed as being Known Win32 types as opposed to their full names</param>
+		public static ResourceTypeIdentifier CreateFromString(String ambiguousString, Boolean shortStyle) {
+			
+			if(ambiguousString == null) throw new ArgumentNullException("ambiguousString");
+			if(ambiguousString.Length == 0) throw new ArgumentOutOfRangeException("ambiguousString", "Length must be greater than 0");
+			
+			String ambiguousStringUpper = ambiguousString.ToUpperInvariant();
+			
+			if( shortStyle && _resourceTypeShortNames.ContainsKey(ambiguousStringUpper) ) {
+				
+				return new ResourceTypeIdentifier( _resourceTypeShortNames[ ambiguousStringUpper ] );
+			}
+			
+			// try the Win32ResourceTypes
+			
+			String[] winNames = Enum.GetNames( typeof(Win32ResourceType) );
+			foreach(String name in winNames) {
+				
+				if( String.Equals( ambiguousStringUpper, name, StringComparison.OrdinalIgnoreCase ) ) {
+					
+					return new ResourceTypeIdentifier( (Win32ResourceType)Enum.Parse( typeof(Win32ResourceType), name, true ) );
+					
+				}
+			}
+			
+			// is the string a number?
+			
+			Int32 number;
+			NumberStyles numStyle = ambiguousStringUpper.StartsWith("0x") ? NumberStyles.HexNumber : NumberStyles.Integer;
+			
+			if( Int32.TryParse( ambiguousStringUpper, numStyle, Cult.InvariantCulture, out number ) ) {
+				
+				return new ResourceTypeIdentifier( new IntPtr( number ) );
+			}
+			
+			// finally, interpret it as a string identifier
+			// HACK: I'll forgoe '#' prefix support, it only applies to internal resources anyway
+			// what about numbers that are meant to represent strings? I'll do if it anyone encounters a file that uses that system. I'd need a way to denote it, maybe with " symbols?
+			
+			return new ResourceTypeIdentifier( ambiguousString );
+			
+		}
+		
 		public Win32ResourceType KnownType { get; private set; }
 		
 #region Type Friendly Names
 		
-		private static System.Collections.Generic.Dictionary<Int32,String> _resourceTypeFriendlyNames;
+		private static Dictionary<Int32,String> _resourceTypeFriendlyNames;
+		
+		private static Dictionary<String,Win32ResourceType> _resourceTypeShortNames;
 		
 		// TODO: Maybe make these entries in a Resources set in this assembly so it can be localised? (irony aside, of course)
 		
 		static ResourceTypeIdentifier() {
-			_resourceTypeFriendlyNames = new System.Collections.Generic.Dictionary<Int32,String>();
+			_resourceTypeFriendlyNames = new Dictionary<Int32,String>();
 			_resourceTypeFriendlyNames.Add(0, "Unknown");
 			_resourceTypeFriendlyNames.Add(1, "Cursor Image");
 			_resourceTypeFriendlyNames.Add(2, "Bitmap");
@@ -220,6 +296,11 @@ namespace Anolis.Core {
 			_resourceTypeFriendlyNames.Add(22, "Icon (Animated)");
 			_resourceTypeFriendlyNames.Add(23, "HTML");
 			_resourceTypeFriendlyNames.Add(24, "Manifest");
+			
+			_resourceTypeShortNames = new Dictionary<String,Win32ResourceType>();
+			_resourceTypeShortNames.Add("ICON"  , Win32ResourceType.IconDirectory);
+			_resourceTypeShortNames.Add("CURSOR", Win32ResourceType.CursorDirectory);
+			_resourceTypeShortNames.Add("BMP"   , Win32ResourceType.Bitmap);
 		}
 		
 		public static String GetTypeFriendlyName(Int32 integerId) {

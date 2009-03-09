@@ -18,8 +18,8 @@ namespace Anolis.Core.Data {
 		/// <summary>Returns null if unsuccessful.</summary>
 		public abstract ResourceData FromResource(ResourceLang lang, Byte[] data);
 		
-		/// <summary>Returns null if unsuccessful.</summary>
-		public abstract ResourceData FromFile(Stream stream, String extension, ResourceSource currentSource);
+		public abstract ResourceData FromFileToAdd   (Stream stream, String extension, UInt16 lang, ResourceSource currentSource);
+		public abstract ResourceData FromFileToUpdate(Stream stream, String extension, ResourceLang currentLang);
 		
 		/// <summary>Gets the (human-readable) message as to why the previously loaded resource could not be loaded.</summary>
 		public virtual String LastErrorMessage { get; protected set; }

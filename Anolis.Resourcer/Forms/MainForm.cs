@@ -125,7 +125,7 @@ namespace Anolis.Resourcer {
 			
 			if(!lang.DataIsLoaded) node.StateImageKey = "";
 			else {
-				switch(lang.Data.Action) {
+				switch(lang.Action) {
 					case Anolis.Core.Data.ResourceDataAction.Add:
 						node.StateImageKey = "Add";
 						return;
@@ -321,8 +321,8 @@ namespace Anolis.Resourcer {
 					
 					__tResRep.Enabled = this.CurrentData != null;
 					__tResExt.Enabled = this.CurrentData != null;
-					__tResDel.Enabled = this.CurrentData != null;
-					__tResCan.Enabled = this.CurrentData != null && this.CurrentData.Action != Anolis.Core.Data.ResourceDataAction.None;
+					__tResDel.Enabled = this.CurrentData != null && this.CurrentData.Lang.Action != Anolis.Core.Data.ResourceDataAction.Delete;
+					__tResCan.Enabled = this.CurrentData != null && this.CurrentData.Lang.Action != Anolis.Core.Data.ResourceDataAction.None;
 					
 				}
 			

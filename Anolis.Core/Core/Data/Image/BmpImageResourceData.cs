@@ -50,7 +50,15 @@ namespace Anolis.Core.Data {
 			get { return "BmpImage (*.bmp)|*.bmp"; }
 		}
 		
-		public override ResourceData FromFile(Stream stream, String extension, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+			return FromFile(stream, extension);
+		}
+		
+		public override ResourceData FromFileToUpdate(System.IO.Stream stream, string extension, ResourceLang currentLang) {
+			return FromFile(stream, extension);
+		}
+		
+		private ResourceData FromFile(Stream stream, String extension) {
 			
 			if(extension == "bmp") {
 				
@@ -79,6 +87,7 @@ namespace Anolis.Core.Data {
 		public override String Name {
 			get { return "Bitmap"; }
 		}
+		
 	}
 	
 	public sealed class BmpImageResourceData : ImageResourceData {

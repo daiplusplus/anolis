@@ -11,24 +11,19 @@ namespace Anolis.Core.Data {
 	
 	public abstract class DirectoryResourceData : ResourceData {
 		
-		public    DirectoryMemberCollection    Members           { get; private set; }
-		protected Collection<IDirectoryMember> UnderlyingMembers { get; private set; }
-		
 		protected DirectoryResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
-			
-			UnderlyingMembers = new Collection<IDirectoryMember>();
-			Members           = new DirectoryMemberCollection( UnderlyingMembers );
-			
 		}
 		
 		protected internal override void OnRemove(Boolean underlyingDelete, Remove deleteFunction) {
 			
-			foreach(IDirectoryMember member in UnderlyingMembers) {
+			foreach(IDirectoryMember member in Members) {
 				
-				deleteFunction( member.ResourceData );
+				deleteFunction( member.ResourceData.Lang );
 			}
 			
 		}
+		
+		public abstract DirectoryMemberCollection Members { get; }
 		
 	}
 	
@@ -37,7 +32,7 @@ namespace Anolis.Core.Data {
 		}
 	}
 	
-	public interface IDirectoryMember {
+	public interface IDirectoryMember : IComparable<IDirectoryMember> {
 		String Description { get; }
 		ResourceData ResourceData { get; }
 	}

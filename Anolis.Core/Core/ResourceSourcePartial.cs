@@ -1,4 +1,6 @@
 ﻿using System;
+using IEnumerator = System.Collections.IEnumerator;
+using IEnumerable = System.Collections.IEnumerable;
 using System.Collections.Generic;
 
 using Anolis.Core.Data;
@@ -6,26 +8,27 @@ using Anolis.Core.Data;
 namespace Anolis.Core {
 	
 	/// <summary>The stateful set of resources within a ResourceSource.</summary>
-	public abstract partial class ResourceSource : IEnumerable<ResourceData> {
+	public abstract partial class ResourceSource {
 		
-		private void InitResourceSourceCollections() {
+		private void InitialiseEnumerables() {
 			
-			_types = new List<ResourceType>();
-			Types  = new ResourceTypeCollection(_types);
+			_types         = new List<ResourceType>();
 			
+			AllTypes       = new ResourceTypeCollection(_types);
+			AllLangs       = new ResourceLangEnumerable( AllTypes, null );
+			AllActiveLangs = new ResourceLangEnumerable( AllTypes, l => l.Action != ResourceDataAction.None );
+			AllLoadedLangs = new ResourceLangEnumerable( AllTypes, l => l.DataIsLoaded );
 		}
 		
 		private List<ResourceType> _types;
-		
-		public ResourceTypeCollection Types { get; private set; }
 		
 		public Boolean HasUnsavedChanges {
 			get {
 				
 				if( IsReadOnly ) return false;
 				
-				foreach(ResourceData data in this) {
-					if(data.Action != ResourceDataAction.None) return true;
+				foreach(ResourceLang lang in AllActiveLangs) {
+					return true; // if there is just one ResourceLang with a non-None action then this will be hit
 				}
 				
 				return false;
@@ -34,6 +37,23 @@ namespace Anolis.Core {
 		
 		//////////////////////////////////
 		
+		protected ResourceType UnderlyingFind(Predicate<ResourceType> match) {
+			
+			return _types.Find(match);
+		}
+		
+		protected ResourceName UnderlyingFind(ResourceType type, Predicate<ResourceName> match) {
+			
+			return type.UnderlyingNames.Find( match );
+		}
+		
+		//////////////////////////////////
+		
+#region Resource Tree Mutators
+		
+	#region Add
+		
+		/// <summary>Adds the specified ResourceData to this ResourceSource instance. If the specified ResourceType or ResourceName or ResourceLang does not exist they will be created. If the specified ResourceLang does exist an exception will be thrown (as you're meant to use Update to replace existing resources)</summary>
 		public ResourceLang Add(ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, ResourceData data) {
 			
 			EnsureReadOnly();
@@ -56,29 +76,15 @@ namespace Anolis.Core {
 			}
 			
 			ResourceLang lang = null;
-			foreach(ResourceLang lon in name.Langs) if(lon.LanguageId == langId) { lang = lon; break; }
-			if(lang == null) {
-				
-				lang = new ResourceLang(langId, name, data);
-				
-				name.UnderlyingLangs.Add( lang );
-			}
+			if(LoadMode > 0) foreach(ResourceLang lon in name.Langs) if(lon.LanguageId == langId) { lang = lon; break; }
+			if(lang != null) throw new AnolisException("The specified ResourceLang already exists");
 			
-			data.Lang = lang;
+			lang = new ResourceLang(langId, name, data);
+			lang.Action = ResourceDataAction.Add;
 			
-			if(IsBlind) {
-				
-				if(data.Action == ResourceDataAction.None)
-					data.Action = ResourceDataAction.Add;
-				
-			} else {
-				
-				data.Action = ResourceDataAction.Add; // when in blind (i.e. non-interactive) mode allow use of the Add method to add ResourceData instances that act as Update or Delete instructions
-				
-			}
+			name.UnderlyingLangs.Add( lang );
 			
 			return lang;
-			
 		}
 		
 		/// <summary>Adds the specified ResourceType to the ResourceSource structure without invalidating the structure.</summary>
@@ -102,64 +108,131 @@ namespace Anolis.Core {
 			
 		}
 		
-		//////////////////////////////////
+	#endregion
+	
+	#region Update
 		
-		protected ResourceType UnderlyingFind(Predicate<ResourceType> match) {
-			
-			return _types.Find(match);
-		}
-		
-		protected ResourceName UnderlyingFind(ResourceType type, Predicate<ResourceName> match) {
-			
-			return type.UnderlyingNames.Find( match );
-		}
-		
-		//////////////////////////////////
-		
-		public void Cancel(ResourceData data) {
-			
-			switch(data.Action) {
-				case ResourceDataAction.Add:
-					
-					UnderlyingRemove( data );
-					break;
-					
-				case ResourceDataAction.Delete:
-					
-					data.Action = ResourceDataAction.None;
-					break;
-					
-				case ResourceDataAction.None:
-					break;
-					
-				case ResourceDataAction.Update:
-					
-					// TODO: Reload the original ResourceData
-					throw new NotImplementedException();
-					
-//					break;
-			}
-		}
-		
-		public void Remove(ResourceData data) {
+		/// <summary>Provides an alternative way to update a ResourceLang's data, originally designed for use in Blind mode.</summary>
+		public ResourceLang Update(ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, ResourceData newData) {
 			
 			EnsureReadOnly();
 			
-			switch(data.Action) {
+			ResourceType type =  _types.Find( t => t.Identifier.Equals( typeId ));
+			if(type == null) {
+				// add it
+				type = new ResourceType(typeId.NativeId, this);
+				
+				UnderlyingAdd( type );
+			}
+			
+			ResourceName name = null;
+			foreach(ResourceName nom in type.Names) if(nom.Identifier.Equals(nameId)) { name = nom; break; }
+			if(name == null) {
+				
+				name = new ResourceName(nameId.NativeId, type);
+				
+				type.UnderlyingNames.Add( name );
+			}
+			
+			ResourceLang lang = null;
+			if(LoadMode > 0) foreach(ResourceLang lon in name.Langs) if(lon.LanguageId == langId) { lang = lon; break; }
+			
+			if(lang == null)
+				lang = new ResourceLang(langId, name, newData);
+			
+			lang.Action = ResourceDataAction.Update;
+			
+			name.UnderlyingLangs.Add( lang );
+			
+			return lang;
+		}
+		
+	#endregion
+	
+	#region Cancel
+		
+		public void Cancel(ResourceLang lang) {
+			
+			switch(lang.Action) {
 				case ResourceDataAction.Add:
 					
-					data.OnRemove( true, new ResourceData.Remove( Remove ) );
+					UnderlyingRemove( lang.Data );
+					break;
 					
-					Cancel( data );
+				case ResourceDataAction.Delete:
+					
+					lang.Action = ResourceDataAction.None;
+					break;
+					
+				case ResourceDataAction.None:
+					break;
+					
+				case ResourceDataAction.Update:
+					
+					lang.Rollback();
+					break;
+			}
+		}
+		
+	#endregion
+	
+	#region Remove
+		
+		public ResourceLang Remove(ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId) {
+			
+			if(LoadMode > 0) throw new InvalidOperationException("This Remove overload can only be used in Blind mode");
+			
+			EnsureReadOnly();
+			
+			ResourceType type =  _types.Find( t => t.Identifier.Equals( typeId ));
+			if(type == null) {
+				// add it
+				type = new ResourceType(typeId.NativeId, this);
+				
+				UnderlyingAdd( type );
+			}
+			
+			ResourceName name = null;
+			foreach(ResourceName nom in type.Names) if(nom.Identifier.Equals(nameId)) { name = nom; break; }
+			if(name == null) {
+				
+				name = new ResourceName(nameId.NativeId, type);
+				
+				type.UnderlyingNames.Add( name );
+			}
+			
+			ResourceLang lang = null;
+			foreach(ResourceLang lon in name.Langs) if(lon.LanguageId == langId) { lang = lon; break; }
+			if(lang != null && lang.Action != ResourceDataAction.Delete) throw new AnolisException("The specified ResourceLang already exists with an Action other than to Delete");
+			
+			lang = new ResourceLang(langId, name);
+			lang.Action = ResourceDataAction.Delete;
+			
+			name.UnderlyingLangs.Add( lang );
+			
+			return lang;
+		}
+		
+		public void Remove(ResourceLang lang) {
+			
+			EnsureReadOnly();
+			
+			switch(lang.Action) {
+				
+				case ResourceDataAction.Add:
+					
+					lang.Data.OnRemove( true, new ResourceData.Remove( Remove ) );
+					
+					Cancel( lang );
 					break;
 					
 				case ResourceDataAction.Update:
 				case ResourceDataAction.Delete:
 				case ResourceDataAction.None:
 					
-					data.Action = ResourceDataAction.Delete;
+					lang.Action = ResourceDataAction.Delete;
 					
-					data.OnRemove( false, new ResourceData.Remove( Remove ) );
+					lang.Data.OnRemove( false, new ResourceData.Remove( Remove ) );
 					
 					break;
 			}
@@ -186,25 +259,15 @@ namespace Anolis.Core {
 			
 		}
 		
-		//////////////////////////////////
+	#endregion
 		
-		public IEnumerator<ResourceData> GetEnumerator() {
-			
-			return new ResourceEnumerator(this.Types, true);
-		}
+#endregion
 		
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
-			
-			return GetEnumerator();
-		}
-		
-		//////////////////////////////////
-				
 		/// <summary>Returns an unused integer ResourceIdentifier for a ResourceName that is not currently being used.</summary>
 		public virtual ResourceIdentifier GetUnusedName(ResourceTypeIdentifier typeId) {
 			
 			// get the type then enumerate through all the integer Ids.
-			ResourceType type = this.Types[ typeId ];
+			ResourceType type = this.AllTypes[ typeId ];
 			if(type == null) {
 				// then just use "1"
 				return new ResourceIdentifier(1);
@@ -240,6 +303,20 @@ namespace Anolis.Core {
 		private void EnsureReadOnly() {
 			if( IsReadOnly ) throw new InvalidOperationException("This ResourceSet is marked as read-only.");
 		}
+		
+		//////////////////////////////////
+		
+#region Enumerables
+		
+		public ResourceTypeCollection AllTypes       { get; private set; }
+		
+		public ResourceLangEnumerable AllLangs       { get; internal set; }
+		
+		public ResourceLangEnumerable AllActiveLangs { get; internal set; }
+		
+		public ResourceLangEnumerable AllLoadedLangs { get; internal set; }
+		
+#endregion
 		
 	}
 }

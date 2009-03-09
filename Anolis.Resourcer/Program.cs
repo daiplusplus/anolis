@@ -25,7 +25,7 @@ namespace Anolis.Resourcer {
 				CommandLineFlag scriptFlag = cmd.GetFlag("script");
 				if( scriptFlag != null ) {
 					
-					return StatelessResourceEditor.ProcessScript( scriptFlag.Argument );
+					return StatelessResourceEditor.ProcessBatch( scriptFlag.Argument );
 				}
 				
 				if( cmd.Args.Count > 1 ) {

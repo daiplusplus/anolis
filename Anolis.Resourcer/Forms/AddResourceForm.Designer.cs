@@ -41,21 +41,28 @@
 			this.@__nameCustom = new System.Windows.Forms.NumericUpDown();
 			this.@__nameIntRad = new System.Windows.Forms.RadioButton();
 			this.@__langGrp = new System.Windows.Forms.GroupBox();
+			this.@__langWarning = new System.Windows.Forms.Label();
 			this.@__langSort = new System.Windows.Forms.Button();
 			this.@__lang = new System.Windows.Forms.ComboBox();
 			this.@__cancel = new System.Windows.Forms.Button();
 			this.@__ok = new System.Windows.Forms.Button();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
+			this.@__fileGrp = new System.Windows.Forms.GroupBox();
+			this.@__resourceDetails = new System.Windows.Forms.Panel();
+			this.@__action = new System.Windows.Forms.Panel();
 			this.@__typeGrp.SuspendLayout();
 			this.@__nameGrp.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.@__nameCustom)).BeginInit();
 			this.@__langGrp.SuspendLayout();
+			this.@__fileGrp.SuspendLayout();
+			this.@__resourceDetails.SuspendLayout();
+			this.@__action.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __fileLbl
 			// 
 			this.@__fileLbl.AutoSize = true;
-			this.@__fileLbl.Location = new System.Drawing.Point(9, 9);
+			this.@__fileLbl.Location = new System.Drawing.Point(12, 30);
 			this.@__fileLbl.Name = "__fileLbl";
 			this.@__fileLbl.Size = new System.Drawing.Size(23, 13);
 			this.@__fileLbl.TabIndex = 0;
@@ -65,15 +72,16 @@
 			// 
 			this.@__file.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__file.Location = new System.Drawing.Point(38, 6);
+			this.@__file.Location = new System.Drawing.Point(41, 27);
 			this.@__file.Name = "__file";
-			this.@__file.Size = new System.Drawing.Size(190, 21);
+			this.@__file.ReadOnly = true;
+			this.@__file.Size = new System.Drawing.Size(183, 21);
 			this.@__file.TabIndex = 0;
 			// 
 			// __fileBrowse
 			// 
 			this.@__fileBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__fileBrowse.Location = new System.Drawing.Point(234, 4);
+			this.@__fileBrowse.Location = new System.Drawing.Point(230, 25);
 			this.@__fileBrowse.Name = "__fileBrowse";
 			this.@__fileBrowse.Size = new System.Drawing.Size(75, 23);
 			this.@__fileBrowse.TabIndex = 1;
@@ -90,17 +98,18 @@
 			this.@__typeGrp.Controls.Add(this.@__typeKnown);
 			this.@__typeGrp.Controls.Add(this.@__typeStringRad);
 			this.@__typeGrp.Controls.Add(this.@__typeWin32Rad);
-			this.@__typeGrp.Location = new System.Drawing.Point(12, 41);
+			this.@__typeGrp.Location = new System.Drawing.Point(12, 189);
 			this.@__typeGrp.Name = "__typeGrp";
-			this.@__typeGrp.Size = new System.Drawing.Size(297, 192);
+			this.@__typeGrp.Size = new System.Drawing.Size(311, 187);
 			this.@__typeGrp.TabIndex = 3;
 			this.@__typeGrp.TabStop = false;
 			this.@__typeGrp.Text = "Resource Type";
 			// 
 			// __typeSort
 			// 
+			this.@__typeSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__typeSort.Image = global::Anolis.Resourcer.Properties.Resources.ARF_SortByLCID;
-			this.@__typeSort.Location = new System.Drawing.Point(261, 95);
+			this.@__typeSort.Location = new System.Drawing.Point(275, 95);
 			this.@__typeSort.Name = "__typeSort";
 			this.@__typeSort.Size = new System.Drawing.Size(30, 30);
 			this.@__typeSort.TabIndex = 5;
@@ -108,29 +117,35 @@
 			// 
 			// __typeWarning
 			// 
+			this.@__typeWarning.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__typeWarning.Location = new System.Drawing.Point(12, 16);
 			this.@__typeWarning.Name = "__typeWarning";
-			this.@__typeWarning.Size = new System.Drawing.Size(279, 59);
+			this.@__typeWarning.Size = new System.Drawing.Size(293, 59);
 			this.@__typeWarning.TabIndex = 4;
 			this.@__typeWarning.Text = resources.GetString("__typeWarning.Text");
 			// 
 			// __typeString
 			// 
+			this.@__typeString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__typeString.Location = new System.Drawing.Point(43, 154);
 			this.@__typeString.MaxLength = 255;
 			this.@__typeString.Name = "__typeString";
-			this.@__typeString.Size = new System.Drawing.Size(234, 21);
+			this.@__typeString.Size = new System.Drawing.Size(262, 21);
 			this.@__typeString.TabIndex = 3;
 			// 
 			// __typeKnown
 			// 
+			this.@__typeKnown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__typeKnown.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.@__typeKnown.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.@__typeKnown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.@__typeKnown.FormattingEnabled = true;
 			this.@__typeKnown.Location = new System.Drawing.Point(43, 101);
 			this.@__typeKnown.Name = "__typeKnown";
-			this.@__typeKnown.Size = new System.Drawing.Size(212, 21);
+			this.@__typeKnown.Size = new System.Drawing.Size(226, 21);
 			this.@__typeKnown.TabIndex = 1;
 			// 
 			// __typeStringRad
@@ -164,19 +179,21 @@
 			this.@__nameGrp.Controls.Add(this.@__nameAuto);
 			this.@__nameGrp.Controls.Add(this.@__nameCustom);
 			this.@__nameGrp.Controls.Add(this.@__nameIntRad);
-			this.@__nameGrp.Location = new System.Drawing.Point(12, 239);
+			this.@__nameGrp.Location = new System.Drawing.Point(12, 382);
 			this.@__nameGrp.Name = "__nameGrp";
-			this.@__nameGrp.Size = new System.Drawing.Size(297, 136);
+			this.@__nameGrp.Size = new System.Drawing.Size(311, 123);
 			this.@__nameGrp.TabIndex = 4;
 			this.@__nameGrp.TabStop = false;
 			this.@__nameGrp.Text = "Resource Name";
 			// 
 			// __nameString
 			// 
+			this.@__nameString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__nameString.Location = new System.Drawing.Point(43, 88);
 			this.@__nameString.MaxLength = 255;
 			this.@__nameString.Name = "__nameString";
-			this.@__nameString.Size = new System.Drawing.Size(234, 21);
+			this.@__nameString.Size = new System.Drawing.Size(262, 21);
 			this.@__nameString.TabIndex = 4;
 			// 
 			// __nameStringRad
@@ -204,6 +221,7 @@
 			// 
 			// __nameCustom
 			// 
+			this.@__nameCustom.Enabled = false;
 			this.@__nameCustom.Location = new System.Drawing.Point(196, 41);
 			this.@__nameCustom.Maximum = new decimal(new int[] {
             1,
@@ -230,19 +248,32 @@
 			// 
 			this.@__langGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__langGrp.Controls.Add(this.@__langWarning);
 			this.@__langGrp.Controls.Add(this.@__langSort);
 			this.@__langGrp.Controls.Add(this.@__lang);
-			this.@__langGrp.Location = new System.Drawing.Point(12, 381);
+			this.@__langGrp.Location = new System.Drawing.Point(12, 12);
 			this.@__langGrp.Name = "__langGrp";
-			this.@__langGrp.Size = new System.Drawing.Size(297, 61);
+			this.@__langGrp.Size = new System.Drawing.Size(311, 105);
 			this.@__langGrp.TabIndex = 5;
 			this.@__langGrp.TabStop = false;
 			this.@__langGrp.Text = "Resource Language";
 			// 
+			// __langWarning
+			// 
+			this.@__langWarning.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__langWarning.Location = new System.Drawing.Point(12, 17);
+			this.@__langWarning.Name = "__langWarning";
+			this.@__langWarning.Size = new System.Drawing.Size(293, 40);
+			this.@__langWarning.TabIndex = 2;
+			this.@__langWarning.Text = "The resource language must be set before continuing. Once the Resource Data has b" +
+				"een instantiated the language cannot be changed.";
+			// 
 			// __langSort
 			// 
+			this.@__langSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__langSort.Image = global::Anolis.Resourcer.Properties.Resources.ARF_SortByLCID;
-			this.@__langSort.Location = new System.Drawing.Point(261, 22);
+			this.@__langSort.Location = new System.Drawing.Point(275, 63);
 			this.@__langSort.Name = "__langSort";
 			this.@__langSort.Size = new System.Drawing.Size(30, 30);
 			this.@__langSort.TabIndex = 1;
@@ -250,20 +281,22 @@
 			// 
 			// __lang
 			// 
+			this.@__lang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__lang.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.@__lang.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.@__lang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.@__lang.FormattingEnabled = true;
-			this.@__lang.Location = new System.Drawing.Point(15, 28);
+			this.@__lang.Location = new System.Drawing.Point(15, 69);
 			this.@__lang.Name = "__lang";
-			this.@__lang.Size = new System.Drawing.Size(240, 21);
+			this.@__lang.Size = new System.Drawing.Size(254, 21);
 			this.@__lang.TabIndex = 0;
 			// 
 			// __cancel
 			// 
 			this.@__cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.@__cancel.Location = new System.Drawing.Point(234, 448);
+			this.@__cancel.Location = new System.Drawing.Point(248, 7);
 			this.@__cancel.Name = "__cancel";
 			this.@__cancel.Size = new System.Drawing.Size(75, 23);
 			this.@__cancel.TabIndex = 3;
@@ -273,34 +306,66 @@
 			// __ok
 			// 
 			this.@__ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__ok.Location = new System.Drawing.Point(153, 448);
+			this.@__ok.Location = new System.Drawing.Point(167, 7);
 			this.@__ok.Name = "__ok";
 			this.@__ok.Size = new System.Drawing.Size(75, 23);
 			this.@__ok.TabIndex = 2;
 			this.@__ok.Text = "OK";
 			this.@__ok.UseVisualStyleBackColor = true;
 			// 
+			// __fileGrp
+			// 
+			this.@__fileGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__fileGrp.Controls.Add(this.@__fileLbl);
+			this.@__fileGrp.Controls.Add(this.@__file);
+			this.@__fileGrp.Controls.Add(this.@__fileBrowse);
+			this.@__fileGrp.Location = new System.Drawing.Point(12, 123);
+			this.@__fileGrp.Name = "__fileGrp";
+			this.@__fileGrp.Size = new System.Drawing.Size(311, 60);
+			this.@__fileGrp.TabIndex = 6;
+			this.@__fileGrp.TabStop = false;
+			this.@__fileGrp.Text = "Resource Data File";
+			// 
+			// __resourceDetails
+			// 
+			this.@__resourceDetails.AutoScroll = true;
+			this.@__resourceDetails.Controls.Add(this.@__langGrp);
+			this.@__resourceDetails.Controls.Add(this.@__fileGrp);
+			this.@__resourceDetails.Controls.Add(this.@__typeGrp);
+			this.@__resourceDetails.Controls.Add(this.@__nameGrp);
+			this.@__resourceDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.@__resourceDetails.Location = new System.Drawing.Point(0, 0);
+			this.@__resourceDetails.Name = "__resourceDetails";
+			this.@__resourceDetails.Size = new System.Drawing.Size(335, 520);
+			this.@__resourceDetails.TabIndex = 7;
+			// 
+			// __action
+			// 
+			this.@__action.Controls.Add(this.@__ok);
+			this.@__action.Controls.Add(this.@__cancel);
+			this.@__action.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.@__action.Location = new System.Drawing.Point(0, 520);
+			this.@__action.Name = "__action";
+			this.@__action.Size = new System.Drawing.Size(335, 40);
+			this.@__action.TabIndex = 8;
+			// 
 			// AddResourceForm
 			// 
 			this.AcceptButton = this.@__ok;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScroll = true;
 			this.CancelButton = this.@__cancel;
-			this.ClientSize = new System.Drawing.Size(321, 480);
-			this.Controls.Add(this.@__ok);
-			this.Controls.Add(this.@__cancel);
-			this.Controls.Add(this.@__langGrp);
-			this.Controls.Add(this.@__nameGrp);
-			this.Controls.Add(this.@__typeGrp);
-			this.Controls.Add(this.@__fileBrowse);
-			this.Controls.Add(this.@__file);
-			this.Controls.Add(this.@__fileLbl);
-			this.Font = new System.Drawing.Font("Tahoma", 8.25F);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.ClientSize = new System.Drawing.Size(335, 560);
+			this.Controls.Add(this.@__resourceDetails);
+			this.Controls.Add(this.@__action);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "AddResourceForm";
+			this.ShowIcon = false;
+			this.ShowInTaskbar = false;
+			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.Text = "Add Resource Data";
 			this.@__typeGrp.ResumeLayout(false);
 			this.@__typeGrp.PerformLayout();
@@ -308,8 +373,11 @@
 			this.@__nameGrp.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.@__nameCustom)).EndInit();
 			this.@__langGrp.ResumeLayout(false);
+			this.@__fileGrp.ResumeLayout(false);
+			this.@__fileGrp.PerformLayout();
+			this.@__resourceDetails.ResumeLayout(false);
+			this.@__action.ResumeLayout(false);
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -337,5 +405,9 @@
 		private System.Windows.Forms.Label __typeWarning;
 		private System.Windows.Forms.Button __langSort;
 		private System.Windows.Forms.Button __typeSort;
+		private System.Windows.Forms.GroupBox __fileGrp;
+		private System.Windows.Forms.Label __langWarning;
+		private System.Windows.Forms.Panel __resourceDetails;
+		private System.Windows.Forms.Panel __action;
 	}
 }

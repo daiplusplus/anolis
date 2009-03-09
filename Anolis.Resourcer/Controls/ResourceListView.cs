@@ -316,7 +316,7 @@ namespace Anolis.Resourcer.Controls {
 			if(data is IconDirectoryResourceData) {
 				
 				IconDirectoryResourceData icoDir = data as IconDirectoryResourceData;
-				IconDirectoryMember bestMember = icoDir.GetIconForSize( (Size)__tIconSize.Tag );
+				IconDirectoryMember bestMember = icoDir.IconDirectory.GetIconForSize( (Size)__tIconSize.Tag );
 				
 				if(bestMember == null) return null;
 				
