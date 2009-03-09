@@ -68,7 +68,7 @@ namespace Anolis.Core.Utility {
 					
 					Size dimensions = new Size( img.bWidth == 0 ? 256 : img.bWidth, img.bHeight == 0 ? 256 : img.bHeight );
 					
-					retval.UnderlyingAdd( new IconDirectoryMember(rd, dimensions, img.bColorCount, img.bReserved, img.wPlanes, img.wBitCount, img.dwBytesInRes ) ); 
+					retval.Members.Add( new IconDirectoryMember(rd, dimensions, img.bColorCount, img.bReserved, img.wPlanes, img.wBitCount, img.dwBytesInRes ) ); 
 					
 				}
 				
@@ -105,14 +105,14 @@ namespace Anolis.Core.Utility {
 		
 #region From File
 		
-		public static ResIconDir FromFile(Stream stream, UInt16 lang, ResourceSource source) {
+		public static void FromFile(Stream stream, UInt16 lang, ResourceSource source, ResIconDir resDir) {
 			
-			if(stream.Length < Marshal.SizeOf(typeof(IconDirectory))) return null;
+			if(stream.Length < Marshal.SizeOf(typeof(IconDirectory))) return;
 			
 			BinaryReader rdr = new BinaryReader(stream);
 			
 			IconDirectory? tDir = ReadIcoHeader( rdr );
-			if(tDir == null) return null;
+			if(tDir == null) return;
 			
 			IconDirectory dir = tDir.Value;
 			
@@ -131,8 +131,6 @@ namespace Anolis.Core.Utility {
 			
 			IconImageResourceDataFactory factory = GetIconImageFactory();
 			
-			ResIconDir retval = new ResIconDir(lang, source);
-			
 			for(int i=0;i<dir.wCount;i++) {
 				
 				FileIconDirectoryEntry img = subImages[i];
@@ -148,8 +146,16 @@ namespace Anolis.Core.Utility {
 				IconCursorImageResourceData memberImageData = factory.FromResource(null, data) as IconCursorImageResourceData;
 				IconDirectoryMember         member          = new IconDirectoryMember(memberImageData, dimensions, img.bColorCount, img.bReserved, img.wPlanes, img.wBitCount, img.dwBytesInRes);
 				
-				retval.AddUpdateMemberImage( member );
+				resDir.AddUpdateMemberImage( member );
 			}
+			
+		}
+		
+		public static ResIconDir FromFile(Stream stream, UInt16 lang, ResourceSource source) {
+			
+			ResIconDir retval = new ResIconDir(lang, source);
+			
+			FromFile(stream, lang, source, retval);
 			
 			return retval;
 			

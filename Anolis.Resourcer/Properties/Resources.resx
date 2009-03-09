@@ -226,4 +226,25 @@
   <data name="ImageViewer_Information" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ImageViewer\Information.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Icon16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ListView\Icon16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ListView\Icon32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon96" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ListView\Icon96.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NavBackOver" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ListView\NavBackOver.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NavBackUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ListView\NavBackUp.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NavUpOver" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ListView\NavUpOver.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NavUpUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ListView\NavUpUp.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -11,6 +11,8 @@ namespace Anolis.Resourcer.Controls {
 		private ImageList _images;
 		private ResourceListViewMode _mode;
 		
+		private Object _currentObject;
+		
 		public ResourceListView() {
 			InitializeComponent();
 			
@@ -19,27 +21,24 @@ namespace Anolis.Resourcer.Controls {
 			
 			__list.LargeImageList = _images;
 			
-			__tSize16 .Tag = new Size(16,16);
-			__tSize32 .Tag = new Size(32,32);
-			__tSize48 .Tag = new Size(48,48);
-			__tSize128.Tag = new Size(128,128);
-			__tSize256.Tag = new Size(256,256);
-			
-			__tIconSize.Tag = (Size)__tSize32.Tag;
-			
-			foreach(ToolStripItem item in __tIconSize.DropDownItems) {
-				
-				ToolStripDropDownItem dd = item as ToolStripDropDownItem;
-				if(dd == null) continue;
-				
-				item.Click += new EventHandler(delegate(object sender, EventArgs e) { __tIconSize.Tag = ((ToolStripDropDownItem)sender).Tag;} );
-				
-			}
-			
 			__list.SelectedIndexChanged += new EventHandler(__list_SelectedIndexChanged);
 			__list.ItemActivate         += new EventHandler(__list_ItemActivate);
 			
+			__size16.Click += new EventHandler(__size_Click); __size16.Tag = new Size(16, 16);
+			__size32.Click += new EventHandler(__size_Click); __size32.Tag = new Size(32, 32);
+			__size96.Click += new EventHandler(__size_Click); __size96.Tag = new Size(96, 96);
+			
 			__bg.DoWork += new System.ComponentModel.DoWorkEventHandler(PopulateResourceType);
+		}
+		
+		private void __size_Click(object sender, EventArgs e) {
+			
+			SetIconSize( (Size)(sender as ToolStripButton).Tag );
+			
+			__size16.Checked = sender == __size16;
+			__size32.Checked = sender == __size32;
+			__size96.Checked = sender == __size96;
+			
 		}
 		
 #region Events
@@ -85,12 +84,11 @@ namespace Anolis.Resourcer.Controls {
 		
 		public void ShowResourceType(ResourceType type) {
 			
+			_currentObject = type;
 			_mode = ResourceListViewMode.Name;
 			
 			__list.Items.Clear();
 			_images.Images.Clear();
-			
-			_images.ImageSize = (Size)__tIconSize.Tag;
 			
 			// SubItems:
 			// 0: Name
@@ -212,6 +210,27 @@ namespace Anolis.Resourcer.Controls {
 			public Image Image;
 		}
 		
+		private void SetIconSize(Size size) {
+			
+			_images.ImageSize = size;
+			
+			// reload
+			
+			switch(_mode) {
+				case ResourceListViewMode.Type:
+					// TODO: ShowResourceSource
+					break;
+				case ResourceListViewMode.Name:
+					
+					ShowResourceType( _currentObject as ResourceType );
+					break;
+				case ResourceListViewMode.Lang:
+					ShowResourceName( _currentObject as ResourceName );
+					break;
+			}
+			
+		}
+		
 		/// <remarks>Returns null if the ResourceName has no ResourceLang children</remarks>
 		private String[] GetSubItemsForName(ResourceName name) {
 			
@@ -254,12 +273,12 @@ namespace Anolis.Resourcer.Controls {
 		
 		public void ShowResourceName(ResourceName name) {
 			
+			_currentObject = name;
+			
 			_mode = ResourceListViewMode.Lang;
 			
 			__list.Items.Clear();
 			_images.Images.Clear();
-			
-			_images.ImageSize = (Size)__tIconSize.Tag;
 			
 			foreach(ResourceLang lang in name.Langs) {
 				
@@ -316,7 +335,7 @@ namespace Anolis.Resourcer.Controls {
 			if(data is IconDirectoryResourceData) {
 				
 				IconDirectoryResourceData icoDir = data as IconDirectoryResourceData;
-				IconDirectoryMember bestMember = icoDir.IconDirectory.GetIconForSize( (Size)__tIconSize.Tag );
+				IconDirectoryMember bestMember = icoDir.IconDirectory.GetIconForSize( _images.ImageSize );
 				
 				if(bestMember == null) return null;
 				
@@ -341,7 +360,8 @@ namespace Anolis.Resourcer.Controls {
 			} else if(data is ImageResourceData) {
 				
 				ImageResourceData imgData = data as ImageResourceData;
-				Size s = (Size)__tIconSize.Tag;
+				
+				Size s = _images.ImageSize;
 				
 				Image thumb = imgData.Image.GetThumbnailImage( s.Width, s.Height, new Image.GetThumbnailImageAbort(delegate() { return true; }), IntPtr.Zero);
 				

@@ -42,14 +42,22 @@ namespace Anolis.Resourcer {
 		
 		public static MainForm LatestInstance { get; private set; }
 		
+		private void MainFormRefresh() {
+			
+			TreePopulate();
+			
+			// TODO: Refresh the current ListView, it should have overlay icons methinks
+			
+		}
+		
 #region ResourceSource
 		
 		/// <summary>Presents a File Open Dialog to the user and either loads the selected source or does nothing if nothing was selected or the FOD was cancelled.</summary>
 		private void SourceLoadDialog() {
 			
 			__ofd.Filter =
-				CreateFileFilter("Portable Executable", "exe", "dll", "scr", "ocx", "cpl") + '|' +
-				CreateFileFilter("New Executable", "exe", "dll", "icl") + '|' +
+				CreateFileFilter("Win32 Executable", "exe", "dll", "scr", "ocx", "cpl", "msstyles") + '|' +
+//				CreateFileFilter("New Executable", "exe", "dll", "icl") + '|' +
 				"All Files (*.*)|*.*";
 			
 			if(__ofd.ShowDialog(this) != DialogResult.OK) return;
@@ -120,9 +128,14 @@ namespace Anolis.Resourcer {
 		/// <summary>Prompts the user to save the CurrentSource or to cancel the operation. Returns False if operation was cancelled.</summary>
 		private Boolean SourceUnload() {
 			
+			if( CurrentSource == null ) return true;
+			
 			if( CurrentSource.HasUnsavedChanges ) {
 				
-				String message = String.Format(Cult.CurrentCulture, "Save changes to {0} before closing?", CurrentSource.Name);
+				int nofChanges = 0;
+				foreach(ResourceLang change in CurrentSource.AllActiveLangs) nofChanges++;
+				
+				String message = String.Format(Cult.CurrentCulture, "Save {0} change{1} to {2} before closing?", nofChanges, nofChanges == 1 ? "" : "s", CurrentSource.Name);
 				
 				DialogResult r = MessageBox.Show(this, message, "Anolis Resourcer", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
 				switch(r) {
@@ -135,8 +148,6 @@ namespace Anolis.Resourcer {
 					case DialogResult.No:
 						return true;
 					case DialogResult.Cancel:
-						return false;
-					
 					default:
 						return false;
 				}
@@ -192,6 +203,7 @@ namespace Anolis.Resourcer {
 			
 			CurrentSource.CommitChanges();
 			
+			MainFormRefresh();
 		}
 		
 		private void SourceRevertConfirm() {
@@ -279,13 +291,14 @@ namespace Anolis.Resourcer {
 				//DialogResult r = MessageBox.Show("Do you want to delete just this ResourceData for the directory, or the directory and all of its members?", "Anolis Resourcer", MessageBoxButtons.);
 				// TODO: How do you do a messagebox with custom button labels?
 				
+				DialogResult r = MessageBox.Show("You are attempting to delete an Icon or Cursor directory resource. This will also delete all associated Icon or Cursor member images. Are you sure you want to continue?", "Anolis Resourcer", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+				if( r != DialogResult.OK ) return;
 			}
 			
 			if( CurrentData is IconCursorImageResourceData ) {
 				
 				DialogResult r = MessageBox.Show("You are attempting to delete an Icon or Cursor member image. This will render the state of the parent Icon or Cursor Directory invalid and will cause errors in any applications attempting to read the icon. Are you sure you want to continue?", "Anolis Resourcer", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
 				if( r != DialogResult.OK ) return;
-				
 			}
 			
 			CurrentSource.Remove( CurrentData.Lang );
@@ -310,7 +323,8 @@ namespace Anolis.Resourcer {
 				
 				TreeAdd( lang );
 				
-				TreeRefresh( lang );
+				//TreeRefresh( lang );
+				MainFormRefresh();
 				
 			}
 			
@@ -375,6 +389,8 @@ namespace Anolis.Resourcer {
 		/// <summary>Clears and Repopulates the Resource tree based on the information gleaned from the currrent ResourceSource.</summary>
 		private void TreePopulate() {
 			
+			__tree.BeginUpdate();
+			
 			__tree.Nodes.Clear();
 			
 			if(CurrentSource == null) return;
@@ -406,25 +422,21 @@ namespace Anolis.Resourcer {
 				__tree.Nodes.Add( typeNode );
 			}
 			
+			__tree.EndUpdate();
 		}
 		
 		private String TreeStateImageKey(ResourceLang lang) {
 			
-			if( lang.DataIsLoaded ) {
-				
-				switch(lang.Action) {
-					case ResourceDataAction.Add:
-						return "Add";
-					case ResourceDataAction.Update:
-						return "Upd";
-					case ResourceDataAction.Delete:
-						return "Del";
-				}
-				
+			switch(lang.Action) {
+				case ResourceDataAction.Add:
+					return "Add";
+				case ResourceDataAction.Update:
+					return "Upd";
+				case ResourceDataAction.Delete:
+					return "Del";
+				default:
+					return String.Empty;
 			}
-			
-			return "";
-			
 		}
 		
 		private void TreeMenuPopulate() {
@@ -595,6 +607,13 @@ namespace Anolis.Resourcer {
 					__split.Panel2.Controls.Add( control );
 				}
 			}
+			
+		}
+		
+		private void SavePendingOperationsShow() {
+			
+			PendingOperationsForm pendingForm = new PendingOperationsForm();
+			pendingForm.ShowDialog(this);
 			
 		}
 		

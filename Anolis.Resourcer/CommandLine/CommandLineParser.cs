@@ -54,6 +54,13 @@ namespace Anolis.Resourcer.CommandLine {
 			return null;
 		}
 		
+		public override String ToString() {
+			
+			StringBuilder sb = new StringBuilder();
+			foreach(String a in Args) sb.Append( a );
+			return sb.ToString();
+		}
+		
 	}
 	
 	public abstract class CommandLineItem {
