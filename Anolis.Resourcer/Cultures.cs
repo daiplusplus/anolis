@@ -7,6 +7,7 @@ namespace Anolis.Resourcer {
 		
 		private static ListBoxItem<CultureInfo>[] _culturesByName;
 		private static ListBoxItem<CultureInfo>[] _culturesByLcid;
+		private static CultureInfo                _currentCulture;
 		
 		private static Object  _initLock = new Object();
 		private static Boolean _isinit   = false;
@@ -26,12 +27,15 @@ namespace Anolis.Resourcer {
 				for(int i=0;i<cultures.Length;i++) {
 					
 					CultureInfo cult = cultures[i];
+					if(cult.LCID == CultureInfo.CurrentCulture.LCID) _currentCulture = cult;
 					
 					String itemText = cult.DisplayName + " (" + cult.LCID.ToString(CultureInfo.InvariantCulture) + ')';
 					
 					culturesList[i] = new ListBoxItem<CultureInfo>( cult, itemText );
 					
 				}
+				
+				if( _currentCulture == null ) throw new Anolis.Core.AnolisException("CurrentCulture not found");
 				
 				_culturesByName = new ListBoxItem<CultureInfo>[ culturesList.Length ];
 				_culturesByLcid = new ListBoxItem<CultureInfo>[ culturesList.Length ];
@@ -59,6 +63,13 @@ namespace Anolis.Resourcer {
 			get {
 				if( _culturesByLcid == null ) Initialise();
 				return _culturesByLcid;
+			}
+		}
+		
+		public static CultureInfo CurrentCulture {
+			get {
+				if( _currentCulture == null ) Initialise();
+				return _currentCulture;
 			}
 		}
 		

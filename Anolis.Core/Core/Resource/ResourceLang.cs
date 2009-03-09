@@ -15,17 +15,20 @@ namespace Anolis.Core {
 		public ResourceName Name { get; private set; }
 		
 		private ResourceData _data;
+		private ResourceData _dataOld;
 		
 		////////////////////////////////
 		
-		/// <summary>Constructs a ResourceLang with the ResourceData already loaded. For when adding resources to a PE rather than loading from.</summary>
-		public ResourceLang(UInt16 languageId, ResourceName name, ResourceData data) {
+		/// <summary>Constructs a ResourceLang with the ResourceData already loaded. Used when adding resources to a ResourceSource rather than loading them from a ResourceSource to begin with</summary>
+		internal ResourceLang(UInt16 languageId, ResourceName name, ResourceData data) {
 			LanguageId = languageId;
 			Name       = name;
 			_data      = data;
+			if(data != null)
+				data.Lang  = this;
 		}
 		
-		public ResourceLang(UInt16 languageId, ResourceName name) : this(languageId, name, null) {
+		internal ResourceLang(UInt16 languageId, ResourceName name) : this(languageId, name, null) {
 		}
 		
 		public override String ToString() {
@@ -34,13 +37,13 @@ namespace Anolis.Core {
 		
 #region ResourceData Operations
 		
-		/// <summary>Lazy-loads the ResourceData associated with this ResourceLang from the Resource Source if the resource data is not already loaded.</summary>
+		/// <summary>Lazy-loads the ResourceData associated with this ResourceLang from the ResourceSource if the resource data is not already loaded.</summary>
 		public ResourceData Data {
 			get {
 				
 				if(_data == null) {
 					
-					_data = this.Name.Type.Source.GetResourceData(this);
+					_data = _dataOld = this.Name.Type.Source.GetResourceData(this);
 					
 				}
 				
@@ -48,12 +51,12 @@ namespace Anolis.Core {
 			}
 		}
 		
-		/// <summary>Indicates if .Data has been loaded already. Useful for consumer optimisation.</summary>
+		/// <summary>Indicates if .Data has been loaded (or rather, is not null) already. Useful for consumer optimisation.</summary>
 		public Boolean DataIsLoaded { get { return _data != null; } }
 		
 		public void SwapData(ResourceData data) {
 			
-			data.Action = ResourceDataAction.Update;
+			Action = ResourceDataAction.Update;
 			
 			data.Lang = this;
 			
@@ -67,8 +70,14 @@ namespace Anolis.Core {
 			
 			ResourceData d = factory.FromResource(this, Data.RawData);
 			
-			SwapData( d );
+			_data = d;
+		}
+		
+		public ResourceDataAction Action { get; internal set; }
+		
+		internal void Rollback() {
 			
+			_data = _dataOld;
 		}
 		
 #endregion

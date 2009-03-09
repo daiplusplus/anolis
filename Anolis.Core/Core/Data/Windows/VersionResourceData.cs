@@ -27,7 +27,11 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override ResourceData FromFile(System.IO.Stream stream, String extension, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+			throw new NotSupportedException();
+		}
+		
+		public override ResourceData FromFileToUpdate(System.IO.Stream stream, string extension, ResourceLang currentLang) {
 			throw new NotSupportedException();
 		}
 		

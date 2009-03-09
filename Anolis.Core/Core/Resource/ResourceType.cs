@@ -14,7 +14,7 @@ namespace Anolis.Core {
 		private List<ResourceName> _names;
 		
 		/// <summary>Constructs a Win32 resource type based on a Win32 resource type LPCTSTR.</summary>
-		public ResourceType(IntPtr typePointer, ResourceSource source) {
+		internal ResourceType(IntPtr typePointer, ResourceSource source) {
 			
 			Identifier = new ResourceTypeIdentifier(typePointer);
 			Source     = source;

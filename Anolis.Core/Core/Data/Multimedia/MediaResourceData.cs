@@ -57,13 +57,11 @@ namespace Anolis.Core.Data {
 		public override ResourceData FromResource(ResourceLang lang, byte[] data) {
 			
 			return new RiffMediaResourceData(lang, data);
-			
 		}
 		
-		public override ResourceData FromFile(Stream stream, String extension, ResourceSource currentSource) {
+		private ResourceData FromFile(Stream stream, String extension) {
 			
 			return FromResource(null, GetAllBytesFromStream(stream) );
-			
 		}
 		
 		public override string Name {
@@ -72,6 +70,16 @@ namespace Anolis.Core.Data {
 		
 		public override string OpenFileFilter {
 			get { return "RiffMedia (*.avi; *.wav)|*.avi; *.wav"; }
+		}
+		
+		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+			
+			return FromFile(stream, extension);
+		}
+		
+		public override ResourceData FromFileToUpdate(Stream stream, string extension, ResourceLang currentLang) {
+			
+			return FromFile(stream, extension);
 		}
 	}
 	

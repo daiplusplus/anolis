@@ -41,18 +41,15 @@
 			this.@__makesUseOf = new System.Windows.Forms.Label();
 			this.@__friendsLbl = new System.Windows.Forms.Label();
 			this.@__linksLbl = new System.Windows.Forms.Label();
-			this.@__aboutCreditsRoles = new System.Windows.Forms.Label();
 			this.@__aboutFriendsNames = new System.Windows.Forms.Label();
 			this.@__aboutLinksNames = new System.Windows.Forms.Label();
 			this.@__aboutFriendsRafael = new System.Windows.Forms.LinkLabel();
-			this.@__aboutCredits = new System.Windows.Forms.Label();
 			this.@__aboutFriendsMsfn = new System.Windows.Forms.LinkLabel();
 			this.@__aboutFriendsC9 = new System.Windows.Forms.LinkLabel();
 			this.@__aboutFriendsLong = new System.Windows.Forms.LinkLabel();
 			this.@__aboutLinkVize = new System.Windows.Forms.LinkLabel();
 			this.@__aboutLinkXpize = new System.Windows.Forms.LinkLabel();
 			this.@__aboutLinkAnolis = new System.Windows.Forms.LinkLabel();
-			this.@__aboutCreditsNames = new System.Windows.Forms.Label();
 			this.@__aboutBlurb = new System.Windows.Forms.Label();
 			this.@__aboutAnolis = new System.Windows.Forms.Label();
 			this.@__tLegal = new System.Windows.Forms.TabPage();
@@ -237,18 +234,15 @@
 			this.@__tAbout.Controls.Add(this.@__makesUseOf);
 			this.@__tAbout.Controls.Add(this.@__friendsLbl);
 			this.@__tAbout.Controls.Add(this.@__linksLbl);
-			this.@__tAbout.Controls.Add(this.@__aboutCreditsRoles);
 			this.@__tAbout.Controls.Add(this.@__aboutFriendsNames);
 			this.@__tAbout.Controls.Add(this.@__aboutLinksNames);
 			this.@__tAbout.Controls.Add(this.@__aboutFriendsRafael);
-			this.@__tAbout.Controls.Add(this.@__aboutCredits);
 			this.@__tAbout.Controls.Add(this.@__aboutFriendsMsfn);
 			this.@__tAbout.Controls.Add(this.@__aboutFriendsC9);
 			this.@__tAbout.Controls.Add(this.@__aboutFriendsLong);
 			this.@__tAbout.Controls.Add(this.@__aboutLinkVize);
 			this.@__tAbout.Controls.Add(this.@__aboutLinkXpize);
 			this.@__tAbout.Controls.Add(this.@__aboutLinkAnolis);
-			this.@__tAbout.Controls.Add(this.@__aboutCreditsNames);
 			this.@__tAbout.Controls.Add(this.@__aboutBlurb);
 			this.@__tAbout.Controls.Add(this.@__aboutAnolis);
 			this.@__tAbout.Location = new System.Drawing.Point(4, 22);
@@ -262,7 +256,7 @@
 			// __makesUseOf
 			// 
 			this.@__makesUseOf.AutoSize = true;
-			this.@__makesUseOf.Location = new System.Drawing.Point(9, 136);
+			this.@__makesUseOf.Location = new System.Drawing.Point(9, 103);
 			this.@__makesUseOf.Name = "__makesUseOf";
 			this.@__makesUseOf.Size = new System.Drawing.Size(328, 13);
 			this.@__makesUseOf.TabIndex = 18;
@@ -287,17 +281,6 @@
 			this.@__linksLbl.Size = new System.Drawing.Size(36, 13);
 			this.@__linksLbl.TabIndex = 16;
 			this.@__linksLbl.Text = "Links";
-			// 
-			// __aboutCreditsRoles
-			// 
-			this.@__aboutCreditsRoles.AutoSize = true;
-			this.@__aboutCreditsRoles.Location = new System.Drawing.Point(106, 71);
-			this.@__aboutCreditsRoles.Name = "__aboutCreditsRoles";
-			this.@__aboutCreditsRoles.Size = new System.Drawing.Size(237, 52);
-			this.@__aboutCreditsRoles.TabIndex = 15;
-			this.@__aboutCreditsRoles.Text = "Lead Developer\r\nAssistant to Lead\r\nSolved the Vista problem and saved Christmas!\r" +
-				"\nCreator of XPize and Vize; grandfather to Anolis";
-			this.@__aboutCreditsRoles.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// __aboutFriendsNames
 			// 
@@ -327,16 +310,6 @@
 			this.@__aboutFriendsRafael.TabIndex = 12;
 			this.@__aboutFriendsRafael.TabStop = true;
 			this.@__aboutFriendsRafael.Text = "http://www.withinwindows.com";
-			// 
-			// __aboutCredits
-			// 
-			this.@__aboutCredits.AutoSize = true;
-			this.@__aboutCredits.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-			this.@__aboutCredits.Location = new System.Drawing.Point(10, 51);
-			this.@__aboutCredits.Name = "__aboutCredits";
-			this.@__aboutCredits.Size = new System.Drawing.Size(50, 13);
-			this.@__aboutCredits.TabIndex = 11;
-			this.@__aboutCredits.Text = "Credits:";
 			// 
 			// __aboutFriendsMsfn
 			// 
@@ -404,23 +377,15 @@
 			this.@__aboutLinkAnolis.TabStop = true;
 			this.@__aboutLinkAnolis.Text = "http://www.codeplex.com/anolis";
 			// 
-			// __aboutCreditsNames
-			// 
-			this.@__aboutCreditsNames.AutoSize = true;
-			this.@__aboutCreditsNames.Location = new System.Drawing.Point(10, 71);
-			this.@__aboutCreditsNames.Name = "__aboutCreditsNames";
-			this.@__aboutCreditsNames.Size = new System.Drawing.Size(63, 52);
-			this.@__aboutCreditsNames.TabIndex = 2;
-			this.@__aboutCreditsNames.Text = "W3bbo\r\nHappyDude\r\nSven Groot\r\nXPero";
-			// 
 			// __aboutBlurb
 			// 
 			this.@__aboutBlurb.AutoSize = true;
 			this.@__aboutBlurb.Location = new System.Drawing.Point(10, 34);
 			this.@__aboutBlurb.Name = "__aboutBlurb";
-			this.@__aboutBlurb.Size = new System.Drawing.Size(264, 13);
+			this.@__aboutBlurb.Size = new System.Drawing.Size(281, 52);
 			this.@__aboutBlurb.TabIndex = 1;
-			this.@__aboutBlurb.Text = "Resource hacker for the Anolis project. GPL Licensed.";
+			this.@__aboutBlurb.Text = "Resource hacker for the Anolis project. GPL Licensed.\r\n\r\nBy David Rees\r\nSignifica" +
+				"nt contributions by Sven Groot and Stanley Chan";
 			// 
 			// __aboutAnolis
 			// 
@@ -541,7 +506,6 @@
 		private System.Windows.Forms.Button __ok;
 		private System.Windows.Forms.Label __aboutBlurb;
 		private System.Windows.Forms.Label __aboutAnolis;
-		private System.Windows.Forms.Label __aboutCreditsNames;
 		private System.Windows.Forms.LinkLabel __aboutLinkXpize;
 		private System.Windows.Forms.LinkLabel __aboutLinkAnolis;
 		private System.Windows.Forms.LinkLabel __aboutLinkVize;
@@ -550,7 +514,6 @@
 		private System.Windows.Forms.LinkLabel __aboutFriendsC9;
 		private System.Windows.Forms.LinkLabel __aboutFriendsLong;
 		private System.Windows.Forms.LinkLabel __aboutFriendsMsfn;
-		private System.Windows.Forms.Label __aboutCredits;
 		private System.Windows.Forms.GroupBox __sUiGrp;
 		private System.Windows.Forms.Label __sUISimpleLbl;
 		private System.Windows.Forms.Label __sUIButtonsLargeLbl;
@@ -566,7 +529,6 @@
 		private System.Windows.Forms.LinkLabel __aboutFriendsRafael;
 		private System.Windows.Forms.Label __aboutFriendsNames;
 		private System.Windows.Forms.Label __aboutLinksNames;
-		private System.Windows.Forms.Label __aboutCreditsRoles;
 		private System.Windows.Forms.Label __linksLbl;
 		private System.Windows.Forms.Label __friendsLbl;
 		private System.Windows.Forms.Label __makesUseOf;

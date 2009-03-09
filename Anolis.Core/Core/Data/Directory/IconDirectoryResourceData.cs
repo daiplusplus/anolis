@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 
 using Anolis.Core.Native;
+using Anolis.Core.Utility;
 
 using Cult = System.Globalization.CultureInfo;
 
@@ -31,34 +32,44 @@ namespace Anolis.Core.Data {
 			get { return "IconDirectory (*.ico)|*.ico"; }
 		}
 		
-		public override ResourceData FromResource(ResourceLang lang, byte[] data) {
+		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
 			
-			IconDirectoryResourceData rd;
-			if( IconDirectoryResourceData.TryCreateFromRes(lang, data, out rd) ) return rd;
+			ResIconDir dir = ResIconDirHelper.FromResource(lang, data);
 			
-			return null;
-			
-		}
-		
-		public override ResourceData FromFile(Stream stream, String extension, ResourceSource source) {
-			
-			IconDirectoryResourceData rd;
-			if( IconDirectoryResourceData.TryCreateFromFile(stream, extension, source, out rd) ) return rd;
-			
-			return null;
-			
+			return new IconDirectoryResourceData(dir, lang);
 		}
 		
 		public override string Name {
 			get { return "Icon Directory"; }
 		}
+		
+		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 lang, ResourceSource currentSource) {
+			
+			if(extension != "ico") throw new ArgumentException("ico is the only supported extension");
+			
+			ResIconDir dir = ResIconDirHelper.FromFile(stream, lang, currentSource);
+			
+			return new IconDirectoryResourceData(dir, null);
+		}
+		
+		public override ResourceData FromFileToUpdate(Stream stream, String extension, ResourceLang currentLang) {
+			
+			if(extension != "ico") throw new ArgumentException("ico is the only supported extension");
+			
+			// TODO: Finish handling this
+			
+//			ResIconDir originalDir = ResIconDirHelper.FromResource( currentLang, currentLang.Data.RawData );
+			
+			ResIconDir dir = ResIconDirHelper.FromFile(stream, currentLang.LanguageId, currentLang.Name.Type.Source);
+			
+			return new IconDirectoryResourceData(dir, null);
+		}
 	}
 	
-	public sealed class IconDirectoryMember : IDirectoryMember {
+	public sealed class IconDirectoryMember : IDirectoryMember, IComparable<IconDirectoryMember> {
 		
-		internal IconDirectoryMember(String description, IconCursorImageResourceData data, Size dimensions, Byte colorCount, Byte reserved, UInt16 planes, UInt16 bitCount, UInt32 size) {
+		internal IconDirectoryMember(IconCursorImageResourceData data, Size dimensions, Byte colorCount, Byte reserved, UInt16 planes, UInt16 bitCount, UInt32 size) {
 			
-			Description  = description;
 			ResourceData = data;
 			
 			Dimensions   = dimensions;
@@ -67,6 +78,15 @@ namespace Anolis.Core.Data {
 			Planes       = planes;
 			BitCount     = bitCount;
 			Size         = size;
+			
+			Description = String.Format(
+				Cult.InvariantCulture,
+				"{0}x{1} {2}-bit{3}",
+				dimensions.Width,
+				dimensions.Height,
+				bitCount,
+				colorCount != 0 ? " (" + colorCount + ')' : String.Empty
+			);
 			
 		}
 		
@@ -80,430 +100,67 @@ namespace Anolis.Core.Data {
 		public UInt16       BitCount     { get; private set; }
 		public UInt32       Size         { get; private set; }
 		
+		public Int32 CompareTo(IconDirectoryMember other) {
+			
+			// sort by color depth first, then size
+			
+			Int32 color = BitCount.CompareTo( other.BitCount );
+			if(color != 0) return color;
+			
+			return -Dimensions.Width.CompareTo( other.Dimensions.Width );
+			
+		}
+		
+		Int32 IComparable<IconDirectoryMember>.CompareTo(IconDirectoryMember other) {
+			
+			return CompareTo( other );
+		}
+		
+		public Int32 CompareTo(IDirectoryMember other) {
+			
+			IconDirectoryMember other2 = other as IconDirectoryMember;
+			if(other2 == null) return -1;
+			
+			return CompareTo(other2);
+		}
+		
+		public override string ToString() {
+			return Description;
+		}
 	}
 	
 	public sealed class IconDirectoryResourceData : DirectoryResourceData {
 		
-		private IconDirectoryResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
+		internal IconDirectoryResourceData(ResIconDir directory, ResourceLang lang) : base(lang, directory.GetRawData() ) {
+			
+			if(directory == null) throw new ArgumentNullException("directory");
+			
+			IconDirectory = directory;
+			
+			_members = new DirectoryMemberCollection( directory.Members );
 		}
 		
-		public static Boolean TryCreateFromRes(ResourceLang lang, Byte[] rawData, out IconDirectoryResourceData typed) {
-			
-			Int32 sizeOfIconDir = Marshal.SizeOf(typeof(IconDirectory));
-			Int32 sizeOfDirEntr = Marshal.SizeOf(typeof(ResIconDirectoryEntry));
-			
-			// the data in here is an ICONDIR structure
-			
-			IntPtr p = Marshal.AllocHGlobal(rawData.Length);
-			Marshal.Copy(rawData, 0, p, rawData.Length);
-			
-			// this could be vastly simplified by correctly marshaling the member array of IconDirectory
-			// but that's a can of worms, I'd rather not
-			IconDirectory dir = (IconDirectory)Marshal.PtrToStructure(p, typeof(IconDirectory));
-			
-			Marshal.FreeHGlobal( p );
-			
-			if(dir.wType != 1) throw new InvalidOperationException("Provided rawData was not that of an icon's");
-			
-			ResIconDirectoryEntry[] subImages = new ResIconDirectoryEntry[dir.wCount];
-			
-			for(int i=0;i<dir.wCount;i++) {
-				
-				Int32 byteOffset = sizeOfIconDir + sizeOfDirEntr * i;
-				
-				p = Marshal.AllocHGlobal( sizeOfDirEntr );
-				Marshal.Copy( rawData, byteOffset, p, sizeOfDirEntr );
-				
-				ResIconDirectoryEntry img = (ResIconDirectoryEntry)Marshal.PtrToStructure(p, typeof(ResIconDirectoryEntry));
-				
-				subImages[i] = img;
-			}
-			
-			IconDirectoryResourceData retval = new IconDirectoryResourceData(lang, rawData);
-			
-			// then we might be able to get the resourcedata for the subimages to include in the directory
-			
-			// find the Icon Image resource type
-			ResourceType iconType = null;
-			
-			foreach(ResourceType type in lang.Name.Type.Source.Types) {
-				if(type.Identifier.KnownType == Win32ResourceType.IconImage) {
-					iconType = type;
-					break;
-				}
-			}
-			
-			if(iconType != null) {
-				
-				foreach(ResIconDirectoryEntry img in subImages) {
-					
-					IconCursorImageResourceData rd = GetDataFromWid(iconType, lang, img.wId);
-					
-					Int32 width, height;
-					
-					String description = String.Format(
-						Cult.InvariantCulture,
-						"{0}x{1} {2}-bit",
-						width  = (img.bWidth == 0 ? 256 : img.bWidth),
-						height = (img.bHeight == 0 ? 256 : img.bHeight),
-						img.wBitCount
-					);
-					
-					retval.UnderlyingMembers.Add(
-						new IconDirectoryMember(description, rd, new Size(width, height), img.bColorCount, img.bReserved, img.wPlanes, img.wBitCount, img.dwBytesInRes )
-					);
-					
-				}
-				
-			}
-			
-			typed = retval;
-			return true;
-			
-		}
-		
-		private static IconCursorImageResourceData GetDataFromWid(ResourceType type, ResourceLang thisLang, ushort wId) {
-			
-			ResourceName name = null;
-			
-			foreach(ResourceName nom in type.Names) {
-				if(nom.Identifier.IntegerId == wId) { name = nom; break; }
-			}
-			
-			if(name == null) return null;
-			
-			ResourceLang lang = null;
-			
-			foreach(ResourceLang lan in name.Langs) {
-				if(lan.LanguageId == thisLang.LanguageId) { lang = lan; break; } // because a ResourceName can have multiple languages associated with it. I'm after the ResourceLang's resource data related to this Directory's lang
-			}
-			
-			IconCursorImageResourceData data = lang.Data as IconCursorImageResourceData;
-			
-			return data;
-			
-		}
-		
-		public static Boolean TryCreateFromFile(Stream stream, String extension, ResourceSource source, out IconDirectoryResourceData typed) {
-			
-			typed = null;
-			
-			if(extension != "ico") throw MEEx(extension);
-			
-			if(stream.Length < Marshal.SizeOf(typeof(IconDirectory))) return false;
-			
-			BinaryReader rdr = new BinaryReader(stream);
-			
-			IconDirectory? tDir = ReadIcoHeader( rdr );
-			if(tDir == null) return false;
-			
-			IconDirectory dir = tDir.Value;
-			
-			///////////////////////////////
-			
-			// rdr is now at the beginning of the array of FileIconDirectoryMembers
-			
-			FileIconDirectoryEntry[] subImages = new FileIconDirectoryEntry[dir.wCount];
-			
-			for(int i=0;i<dir.wCount;i++) {
-				
-				subImages[i] = ReadFileDirMember(rdr);
-			}
-			
-			/////////////////////////////
-			
-			// now for image data itself
-			
-			IconImageResourceDataFactory factory = GetIconImageFactory();
-			
-			IconCursorImageResourceData[] images = new IconCursorImageResourceData[ dir.wCount ];
-			
-			IconDirectoryMember[] members = new IconDirectoryMember[ dir.wCount ];
-			
-			for(int i=0;i<dir.wCount;i++) {
-				
-				FileIconDirectoryEntry img = subImages[i];
-				
-				stream.Seek(img.dwImageOffset, SeekOrigin.Begin);
-				
-				Byte[] data = new Byte[ img.dwBytesInRes ];
-				
-				stream.Read(data, 0, (int)img.dwBytesInRes);
-				
-				images[i] = factory.FromResource(null, data) as IconCursorImageResourceData;
-				
-				String description = String.Format(
-					Cult.InvariantCulture,
-					"{0}x{1} {2}-bit",
-					img.bWidth == 0 ? 256 : img.bWidth,
-					img.bHeight == 0 ? 256 : img.bHeight,
-					img.wBitCount
-				);
-				
-				Size dimensions = new Size( img.bWidth == 0 ? 256 : img.bWidth, img.bHeight == 0 ? 256 : img.bHeight );
-				
-				members[i] = new IconDirectoryMember(description, images[i], dimensions, img.bColorCount, img.bReserved, img.wPlanes, img.wBitCount, img.dwBytesInRes);
-				
-			}
-			
-			Byte[] reconstructed = ReconstructRawData(dir, subImages, images, source);
-			
-			IconDirectoryResourceData retval = new IconDirectoryResourceData(null, reconstructed);
-			
-			for(int i=0;i<images.Length;i++) {
-				
-				retval.UnderlyingMembers.Add( members[i] );
-			}
-			
-			
-			/////////////////////////////
-			
-			typed = retval;
-			
-			return true;
-			
-		}
-		
-		/// <summary>Checks the ICO Header is okay and returns the number of images.</summary>
-		private static IconDirectory? ReadIcoHeader(BinaryReader rdr) {
-			
-			IconDirectory dir;
-			
-			dir.wReserved = rdr.ReadUInt16();
-			dir.wType     = rdr.ReadUInt16();
-			dir.wCount    = rdr.ReadUInt16();
-			
-			if( dir.wReserved != 0 ) return null;
-			if( dir.wType     != 1 ) return null;
-			
-			return dir;
-			
-		}
-		
-		private static FileIconDirectoryEntry ReadFileDirMember(BinaryReader rdr) {
-			
-			FileIconDirectoryEntry file;
-			
-			file.bWidth        = rdr.ReadByte();
-			file.bHeight       = rdr.ReadByte();
-			file.bColorCount   = rdr.ReadByte();
-			file.bReserved     = rdr.ReadByte();
-			
-			file.wPlanes       = rdr.ReadUInt16();
-			file.wBitCount     = rdr.ReadUInt16();
-			
-			file.dwBytesInRes  = rdr.ReadUInt32();
-			file.dwImageOffset = rdr.ReadUInt32();
-			
-			return file;
-			
-		}
-		
-		
-		private static IconImageResourceDataFactory _factory;
-		
-		private static IconImageResourceDataFactory GetIconImageFactory() {
-			
-			if( _factory != null ) return _factory;
-			
-			ResourceTypeIdentifier typeId = new ResourceTypeIdentifier( new IntPtr( (int)Win32ResourceType.IconImage ) );
-			
-			ResourceDataFactory[] factories = ResourceDataFactory.GetFactoriesForType( typeId );
-			
-			foreach(ResourceDataFactory f in factories) {
-				
-				if(f is IconImageResourceDataFactory) {
-					
-					_factory = f as IconImageResourceDataFactory;
-					break;
-				}
-			}
-			
-			if(_factory == null) throw ME( new ApplicationException("Unable to locate IconImageResourceDataFactory") );
-			
-			return _factory;
-		}
-		
-		private static Byte[] ReconstructRawData(IconDirectory dir, FileIconDirectoryEntry[] ents, IconCursorImageResourceData[] images, ResourceSource source) {
-			
-			Int32 sizeOfIconDirectory = Marshal.SizeOf(typeof(IconDirectory));
-			Int32 sizeOfResIconDirEnt = Marshal.SizeOf(typeof(ResIconDirectoryEntry));
-			
-			Int32 sizeOfData =
-				sizeOfIconDirectory +
-				sizeOfResIconDirEnt * dir.wCount;
-			
-			IntPtr p = Marshal.AllocHGlobal( sizeOfData );
-			Marshal.StructureToPtr(dir, p, true);
-			
-			IntPtr q = Inc(p, Marshal.SizeOf(typeof(IconDirectory)));
-			
-			for(int i=0;i<ents.Length;i++) {
-				
-				FileIconDirectoryEntry e = ents[i];
-				
-				ResourceTypeIdentifier iconImageTypeId = new ResourceTypeIdentifier( new IntPtr( (int)Win32ResourceType.IconImage ) );
-				ResourceIdentifier nameId = source.GetUnusedName(iconImageTypeId);
-				source.Add(iconImageTypeId, nameId, 1033, images[i]);
-				
-				ResIconDirectoryEntry d = new ResIconDirectoryEntry() {
-					bWidth       = e.bWidth,
-					bHeight      = e.bHeight,
-					bColorCount  = e.bColorCount,
-					bReserved    = e.bReserved,
-					wPlanes      = e.wPlanes,
-					wBitCount    = e.wBitCount,
-					dwBytesInRes = e.dwBytesInRes,
-					wId          = (ushort)images[i].Lang.Name.Identifier.NativeId
-				};
-				
-				Marshal.StructureToPtr(d, q, true);
-				q = Inc(q, sizeOfResIconDirEnt);
-			}
-			
-			Byte[] data = new Byte[ sizeOfData ];
-			Marshal.Copy(p, data, 0, sizeOfData);
-			
-			Marshal.FreeHGlobal( p );
-			
-			return data;
-			
-			// Major problem:
-			// RawData of a directory contains the ResourceNames of the entries in the ResourceSource
-			// seeming as this source does not exist, what should go in their place?
-			
-			// idea:
-			// when a ResourceData is created from a file it is passed the current ResourceSource which it can 'preliminarily add' the datas to
-			//	a UI will need to be presented to prompt the user for details if not in Simple Mode. A UI is presented anyway, so this works.
-			
-			// this way the IconCursorImageResourceData has been added to the ResourceSource (with the Action.Add property) and this method can
-			//	just query ResourceName. Simple (sort-of)
-			
-		}
-		
-		private static IntPtr Inc(IntPtr p, Int32 amount) {
-			
-			if( IntPtr.Size == 4 ) {
-				
-				return new IntPtr( p.ToInt32() + amount );
-				
-			} else if(IntPtr.Size == 8) {
-				
-				return new IntPtr( p.ToInt64() + amount );
-				
-			} else {
-				throw new Exception("Unsupported IntPtr Size");
-			}
-			
-		}
+		public ResIconDir IconDirectory { get; private set; }
 		
 		protected override String[] SupportedFilters {
 			get { return new String[] { "Icon File (*.ico)|*.ico" }; }
-		}
-		
-		protected override void SaveAs(Stream stream, String extension) {
-			
-			if(extension != "ico") throw MEEx(extension);
-			
-			BinaryWriter wtr = new BinaryWriter(stream);
-			
-			Int64 offsetFrom = stream.Position;
-			
-			// Write IconHeader ( IconDirectory )
-			
-			wtr.Write( (UInt16)0 ); // wReserved
-			wtr.Write( (UInt16)1 ); // wType
-			wtr.Write( (UInt16)this.Members.Count ); // wCount
-			
-			// Write out the array of directory entries, calculating the offsets first
-			
-			UInt32[] offsets = new UInt32[ Members.Count ];
-			
-			UInt32 offsetFromEndOfDirectory =
-				(UInt32)stream.Position + (UInt32)( Members.Count * Marshal.SizeOf(typeof(FileIconDirectoryEntry)) );
-			
-			for(int i=0;i<Members.Count;i++) {
-				
-				IconDirectoryMember m = Members[i] as IconDirectoryMember;
-				
-				// Offset is from the start of the file
-				offsets[i] = offsetFromEndOfDirectory;
-				
-				offsetFromEndOfDirectory += m.Size;
-				
-			}
-			
-			for(int i=0;i<Members.Count;i++) {
-				
-				IconDirectoryMember member = Members[i] as IconDirectoryMember;
-				
-				wtr.Write( (Byte)member.Dimensions.Width );
-				wtr.Write( (Byte)member.Dimensions.Height );
-				wtr.Write( member.ColorCount );
-				wtr.Write( member.Reserved );
-				wtr.Write( member.Planes );
-				wtr.Write( member.BitCount );
-				wtr.Write( member.Size );
-				wtr.Write( offsets[i] );
-				
-			}
-			
-			// Write out the actual images
-			
-			for(int i=0;i<Members.Count;i++) {
-				
-				IconDirectoryMember m = Members[i] as IconDirectoryMember;
-				
-				wtr.Write( m.ResourceData.RawData );
-				
-			}
-			
-			// and we're done
-			
-		}
-		
-		public IconDirectoryMember GetIconForSize(Size size) {
-			
-			// search for an identical or larger match (larger results can be scaled down)
-			
-			// sorted by size, then color depth; so the first dimensions match will be of the highest color depth
-			IconDirectoryMember[] sortedIcons = new IconDirectoryMember[Members.Count];
-			
-			Members.CopyTo( sortedIcons, 0 );
-			Array.Sort<IconDirectoryMember>(sortedIcons, delegate(IconDirectoryMember x, IconDirectoryMember y) {
-				
-				// compare y to x because we want it in descending order
-				Int32 sizeComparison = y.Dimensions.Width.CompareTo( x.Dimensions.Width );
-				return sizeComparison == 0 ? y.BitCount.CompareTo( x.BitCount ) : sizeComparison;
-				
-			});
-			
-			IconDirectoryMember bestMatch = null;
-			
-			foreach(IconDirectoryMember member in sortedIcons) {
-				
-				if( member.Dimensions == size ) return member;
-				
-				if(bestMatch == null) bestMatch = member;
-				
-				if( member.Dimensions.Width > size.Width ) {
-					
-					if(bestMatch == null) bestMatch = member;
-					else {
-						
-						if( member.Dimensions.Width < bestMatch.Dimensions.Width ) bestMatch = member;
-						
-					}
-				}
-			}
-			
-			return bestMatch;
-			
 		}
 		
 		protected override ResourceTypeIdentifier GetRecommendedTypeId() {
 			return new ResourceTypeIdentifier( Win32ResourceType.IconDirectory );
 		}
 		
+		protected override void SaveAs(Stream stream, String extension) {
+			
+			if(extension != "ico") throw new ArgumentException("ico is the only supported extension");
+			
+			IconDirectory.Save(stream);
+		}
+		
+		private DirectoryMemberCollection _members;
+		
+		public override DirectoryMemberCollection Members {
+			get { return _members; }
+		}
 	}
 }

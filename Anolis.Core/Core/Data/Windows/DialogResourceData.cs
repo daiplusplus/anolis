@@ -21,16 +21,20 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override ResourceData FromFile(Stream stream, String extension, ResourceSource currentSource) {
-			throw new NotImplementedException();
-		}
-		
 		public override String Name {
 			get { throw new NotImplementedException(); }
 		}
 		
 		public override String OpenFileFilter {
 			get { throw new NotImplementedException(); }
+		}
+		
+		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+			throw new NotSupportedException();
+		}
+		
+		public override ResourceData FromFileToUpdate(Stream stream, string extension, ResourceLang currentLang) {
+			throw new NotSupportedException();
 		}
 	}
 	

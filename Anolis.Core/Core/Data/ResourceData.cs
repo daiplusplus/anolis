@@ -15,7 +15,7 @@ namespace Anolis.Core.Data {
 			}
 			set {
 				_data = value;
-				Action = ResourceDataAction.Update;
+				if(Lang != null) Lang.Action = ResourceDataAction.Update;
 				
 				Reinitialise();
 			}
@@ -23,12 +23,13 @@ namespace Anolis.Core.Data {
 		
 		public ResourceLang Lang { get; internal set; }
 		
-		public ResourceDataAction Action { get; internal set; }
-		
+		/// <summary>Called when this ResourceData is being removed from the ResourceSource. ResourceDatas that have dependencies on this ResourceData must be appropriately dealt with (e.g. removed) when this is called.</summary>
+		/// <param name="underlyingDelete">If true then the ResourceData is just being removed the collection of resources. If false it is being deleted from the ResourceSource</param>
+		/// <param name="deleteFunction">A delegate to call in order to remove any dependent ResourceData instances</param>
 		protected internal virtual void OnRemove(Boolean underlyingDelete, Remove deleteFunction) {
 		}
 		
-		protected internal delegate void Remove(ResourceData data);
+		protected internal delegate void Remove(ResourceLang lang);
 		
 		////////////////////////////////////
 		
@@ -36,15 +37,6 @@ namespace Anolis.Core.Data {
 			
 			Lang    = lang;
 			_data   = rawData;
-			Action  = ResourceDataAction.None; // action would be set by the ResourceSource using it and is none of our concern
-		}
-		
-		protected static ResourceDataException ME(Exception ex) {
-			return new ResourceDataException(ex);
-		}
-		
-		protected static ResourceDataException MEEx(String extension) {
-			return new ResourceDataException( new ArgumentException("Unsupported extension \"" + extension + '"', "extension") );
 		}
 		
 		public static ResourceData FromResource(ResourceLang lang, Byte[] rawData) {
@@ -71,8 +63,21 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		/// <summary>Creates a ResourceData instance from a stream containing data convertible into a resource. For instance a stream containing a  *.bmp file's content can be converted into a BITMAP resource.</summary>
-		public static ResourceData FromFile(Stream stream, String extension, ResourceSource source) {
+		/// <summary>Creates a ResourceData instance from a file containing data convertible into a resource ready to add to the specified ResourceSource (but doesn't actually add it). For instance a *.bmp can be converted into a BITMAP resource.</summary>
+		public static ResourceData FromFileToAdd(String filename, UInt16 langId, ResourceSource source) {
+			
+			if(filename == null) throw new ArgumentNullException("filename");
+			if( !File.Exists(filename) ) throw new FileNotFoundException("The file to load the resource data from was not found", filename);
+			
+			using(Stream stream = File.OpenRead(filename)) {
+				
+				return FromFileToAdd( stream, Path.GetExtension(filename), langId, source );
+			}
+			
+		}
+		
+		/// <summary>Creates a ResourceData instance from a stream containing data convertible into a resource ready to add to the specified ResourceSource (but doesn't actually add it). For instance a stream containing a  *.bmp file's content can be converted into a BITMAP resource.</summary>
+		public static ResourceData FromFileToAdd(Stream stream, String extension, UInt16 langId, ResourceSource source) {
 			
 			// 'intelligent reading' of the file itself is too resource intensive. Better just to trust the extension.
 			
@@ -89,26 +94,50 @@ namespace Anolis.Core.Data {
 				
 				if(i >= factories.Length) throw new Exception("Unable to locate factory for resource data.");
 				
-				data = factories[i++].FromFile( stream, extension, source );
+				data = factories[i++].FromFileToAdd( stream, extension, langId, source );
 				
 			}
 			
 			return data;
 			
-			throw new NotImplementedException();
-			
 		}
 		
-		/// <summary>Creates a ResourceData instance from a file containing data convertible into a resource. For instance a *.bmp can be converted into a BITMAP resource.</summary>
-		public static ResourceData FromFile(String filename, ResourceSource source) {
+		/// <summary>Creates a ResourceData instance from a file containing data convertible into a resource ready to replace the specified ResourceLang (but doesn't actually replace it). For instance a *.bmp can be converted into a BITMAP resource.</summary>
+		public static ResourceData FromFileToUpdate(String filename, ResourceLang lang) {
 			
 			if(filename == null) throw new ArgumentNullException("filename");
 			if( !File.Exists(filename) ) throw new FileNotFoundException("The file to load the resource data from was not found", filename);
 			
 			using(Stream stream = File.OpenRead(filename)) {
 				
-				return FromFile( stream, Path.GetExtension(filename), source );
+				return FromFileToUpdate( stream, Path.GetExtension(filename), lang );
 			}
+			
+		}
+		
+		/// <summary>Creates a ResourceData instance from a stream containing data convertible into a resource ready to replace the specified ResourceLang (but doesn't actually replace it). For instance a stream containing a  *.bmp file's content can be converted into a BITMAP resource.</summary>
+		public static ResourceData FromFileToUpdate(Stream stream, String extension, ResourceLang lang) {
+			
+			// 'intelligent reading' of the file itself is too resource intensive. Better just to trust the extension.
+			
+			extension = extension.ToLowerInvariant();
+			if(extension.StartsWith(".")) extension = extension.Substring(1);
+			
+			ResourceDataFactory[] factories = ResourceDataFactory.GetFactoriesForExtension( extension );
+			
+			// try the factories in order of compatibility.
+			
+			Int32 i = 0;
+			ResourceData data = null;
+			while(data == null) {
+				
+				if(i >= factories.Length) throw new Exception("Unable to locate factory for resource data.");
+				
+				data = factories[i++].FromFileToUpdate(stream, extension, lang);
+				
+			}
+			
+			return data;
 			
 		}
 		

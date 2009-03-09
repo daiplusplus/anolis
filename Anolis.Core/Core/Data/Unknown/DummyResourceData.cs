@@ -33,15 +33,40 @@ namespace Anolis.Core.Data {
 		}
 	}
 	
+	/// <summary>Represents an resource operation when the ResourceSource is opened in blind mode.</summary>
+	/// <remarks>DummyResourceData can exist on itself with no data to denote a resource-deletion operation. For resource inserts and updates you need to wrap an existing ResourceData with the DummyResource data and set the appropriate action.</remarks>
 	public sealed class DummyResourceData : ResourceData {
 		
-		public DummyResourceData(ResourceDataAction action, ResourceData data) : this(action, null, data.RawData) {	
+		public static DummyResourceData CreateToDelete() {
+			
+			return new DummyResourceData(ResourceDataAction.Delete, null, null);
 		}
 		
-		public DummyResourceData(ResourceDataAction action, Byte[] rawData) : this(action, null, rawData) {	
+		public static DummyResourceData CreateToAdd(ResourceData newData) {
+			
+			EnsureCompatible( newData );
+			
+			return new DummyResourceData(ResourceDataAction.Add, null, newData.RawData);
 		}
 		
-		public DummyResourceData(ResourceDataAction action, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
+		public static DummyResourceData CreateToUpdate(ResourceData updatedData) {
+			
+			EnsureCompatible( updatedData );
+			
+			return new DummyResourceData(ResourceDataAction.Update, null, updatedData.RawData);
+		}
+		
+		private static void EnsureCompatible(ResourceData data) {
+			
+			if( !IsResourceDataCompatible(data ) ) throw new ArgumentException("The provided ResourceData instance is incompatible with DummyResourceData");
+		}
+		
+		public static Boolean IsResourceDataCompatible(ResourceData data) {
+			
+			return !( data is DirectoryResourceData );
+		}
+		
+		private DummyResourceData(ResourceDataAction action, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
 			
 			base.Action = action;
 		}

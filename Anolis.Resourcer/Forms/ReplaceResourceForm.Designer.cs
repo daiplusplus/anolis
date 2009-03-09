@@ -196,6 +196,7 @@
 			this.MinimizeBox = false;
 			this.Name = "ReplaceResourceForm";
 			this.ShowIcon = false;
+			this.ShowInTaskbar = false;
 			this.Text = "Replace Resource";
 			this.@__originalResourceGrp.ResumeLayout(false);
 			this.@__originalResourceGrp.PerformLayout();

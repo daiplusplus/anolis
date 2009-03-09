@@ -84,7 +84,7 @@ namespace Anolis.Resourcer {
 			
 			try {
 				
-				ResourceSource source = ResourceSource.Open(path, false, false);
+				ResourceSource source = ResourceSource.Open(path, false, ResourceSourceLoadMode.LazyLoadData );
 				
 				if(source == null) return;
 				
@@ -288,7 +288,7 @@ namespace Anolis.Resourcer {
 				
 			}
 			
-			CurrentSource.Remove( CurrentData );
+			CurrentSource.Remove( CurrentData.Lang );
 			
 			ToolbarUpdate(false, true, false);
 			TreeRefresh( CurrentData.Lang );
@@ -379,7 +379,7 @@ namespace Anolis.Resourcer {
 			
 			if(CurrentSource == null) return;
 			
-			foreach(ResourceType type in CurrentSource.Types) {
+			foreach(ResourceType type in CurrentSource.AllTypes) {
 				
 				TreeNode typeNode = new TreeNode( type.Identifier.FriendlyName ) { Tag = type };
 				typeNode.ImageKey = typeNode.SelectedImageKey = TreeNodeImageListTypeKey(type.Identifier);
@@ -412,7 +412,7 @@ namespace Anolis.Resourcer {
 			
 			if( lang.DataIsLoaded ) {
 				
-				switch(lang.Data.Action) {
+				switch(lang.Action) {
 					case ResourceDataAction.Add:
 						return "Add";
 					case ResourceDataAction.Update:
@@ -464,6 +464,8 @@ namespace Anolis.Resourcer {
 				castMi.Tag    = new Object[] { lang, factory };
 				
 				__resCMCast.DropDownItems.Add( castMi );
+				
+				castMi.Enabled = false;
 			}
 			
 			///////////////////////////////
@@ -474,9 +476,9 @@ namespace Anolis.Resourcer {
 			
 			///////////////////////////////
 			
-			String action = lang.Data.Action == ResourceDataAction.None ? "Operation" : lang.Data.Action.ToString();
+			String action = lang.Action == ResourceDataAction.None ? "Operation" : lang.Action.ToString();
 			
-			__resCMCancel.Enabled = lang.Data.Action == ResourceDataAction.None;
+			__resCMCancel.Enabled = lang.Action == ResourceDataAction.None;
 			__resCMCancel.Text    = String.Format(Cult.CurrentCulture, "Cancel {0}", action );
 			
 		}

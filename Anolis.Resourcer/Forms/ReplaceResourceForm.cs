@@ -50,7 +50,7 @@ namespace Anolis.Resourcer {
 			__repFilename.Text = __ofd.FileName;
 			
 			try {
-				_replacement = ResourceData.FromFile( __ofd.FileName, _initial.Lang.Name.Type.Source );
+				_replacement = ResourceData.FromFileToUpdate( __ofd.FileName, _initial.Lang );
 			} catch( AnolisException ex) {
 				
 				__repSubclass.Text = "Unable to load file into a resource: " + ex.Message;

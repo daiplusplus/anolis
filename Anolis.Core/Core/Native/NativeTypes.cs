@@ -293,10 +293,10 @@ namespace Anolis.Core.Native {
 	internal struct FileIconDirectoryEntry {
 		public byte bWidth;
 		public byte bHeight;
-		public byte bColorCount;
+		public byte bColorCount; // Number of colors in image (0 if >=8bpp)
 		public byte bReserved;
 		public ushort wPlanes;
-		public ushort wBitCount;
+		public ushort wBitCount; // Bits per pixel
 		public uint dwBytesInRes;
 		public uint dwImageOffset;
 	}

@@ -32,7 +32,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override String OpenFileFilter {
-			get { return "JpegImage (*.jpg, *.jpeg, *.jfif)|*.jpg, *.jpeg, *.jfif"; }
+			get { return "JpegImage (*.jpg, *.jpeg, *.jfif)|*.jpg;*.jpeg;*.jfif"; }
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
@@ -45,12 +45,20 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override ResourceData FromFile(System.IO.Stream stream, String extension, ResourceSource source) {
+		private ResourceData FromFile(System.IO.Stream stream, String extension) {
 			
 			Byte[] data = GetAllBytesFromStream(stream);
 			
 			return FromResource(null, data);
 			
+		}
+		
+		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+			return FromFile(stream, extension);
+		}
+		
+		public override ResourceData FromFileToUpdate(System.IO.Stream stream, string extension, ResourceLang currentLang) {
+			return FromFile(stream, extension);
 		}
 		
 		public override String Name {
