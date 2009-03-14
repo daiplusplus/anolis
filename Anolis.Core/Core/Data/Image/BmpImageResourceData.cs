@@ -94,7 +94,7 @@ namespace Anolis.Core.Data {
 		
 		private Dib _dib;
 		
-		private BmpImageResourceData(Dib dib, Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
+		private BmpImageResourceData(Dib dib, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
 			_dib = dib;
 		}
 		
@@ -102,17 +102,9 @@ namespace Anolis.Core.Data {
 			
 			Dib dib = new Dib( rawData );
 			
-			Bitmap bmp = dib.ToBitmap();
-			
-			if(bmp == null) {
-				typed = null;
-				return false;
-			}
-			
-			typed = new BmpImageResourceData(dib, bmp, lang, rawData);
+			typed = new BmpImageResourceData(dib, lang, rawData);
 			
 			return true;
-			
 		}
 		
 		protected override void SaveAs(Stream stream, String extension) {
@@ -129,6 +121,18 @@ namespace Anolis.Core.Data {
 				
 			}
 			
+		}
+		
+		private Image _image;
+		
+		public override Image Image {
+			get {
+				if( _image == null ) {
+					_image = _dib.ToBitmap();
+					if(_image == null) throw new ResourceDataException("Invalid DIB Bitmap Format");
+				}
+				return _image;
+			}
 		}
 		
 		protected override String[] SupportedFilters {

@@ -66,7 +66,9 @@ namespace Anolis.Core.Data {
 		
 		// There is no need to override the SaveAs method since the bytes are the same
 		
-		private GifImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
+		private GifImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
+			
+			_image = image;
 		}
 		
 		internal static Boolean TryCreate(ResourceLang lang, Byte[] data, out GifImageResourceData typed) {
@@ -126,6 +128,12 @@ namespace Anolis.Core.Data {
 		
 		protected override ResourceTypeIdentifier GetRecommendedTypeId() {
 			return new ResourceTypeIdentifier("GIF");
+		}
+		
+		private Image _image;
+		
+		public override Image Image {
+			get { return _image; }
 		}
 		
 	}
