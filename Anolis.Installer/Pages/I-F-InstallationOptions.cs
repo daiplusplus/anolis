@@ -12,13 +12,21 @@ namespace Anolis.Installer.Pages {
 	public partial class InstallationOptionsPage : BaseInteriorPage {
 		
 		public InstallationOptionsPage() {
+			
 			InitializeComponent();
 			
-			this.Load += new EventHandler(Extracting_Load);
-			
+			this.PageLoad   += new EventHandler(InstallationOptionsPage_PageLoad);
+			this.PageUnload += new EventHandler<PageChangeEventArgs>(InstallationOptionsPage_PageUnload);
 		}
 		
-		private void Extracting_Load(object sender, EventArgs e) {
+		private void InstallationOptionsPage_PageLoad(object sender, EventArgs e) {
+			
+			WizardForm.NextText = "Install";
+		}
+		
+		private void InstallationOptionsPage_PageUnload(object sender, PageChangeEventArgs e) {
+			
+			WizardForm.NextText = "Next";
 		}
 		
 		public override BaseWizardPage PrevPage {
@@ -26,7 +34,7 @@ namespace Anolis.Installer.Pages {
 		}
 		
 		public override BaseWizardPage NextPage {
-			get { return null; }
+			get { return Program.PageIGInstalling; }
 		}
 		
 	}

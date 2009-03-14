@@ -5,7 +5,7 @@ namespace Anolis.Core.Packages {
 	
 	public class FileOperation : Operation {
 		
-		public FileOperation(XmlElement operationElement) : base(operationElement) {
+		public FileOperation(Package package, XmlElement operationElement) : base(package, operationElement) {
 			
 			
 			
@@ -13,8 +13,6 @@ namespace Anolis.Core.Packages {
 		
 		/// <summary>Gets the actual, working, path to the file (if it exists).</summary>
 		public String ResolvedPath { get; private set; }
-		
-		//public FileCondition Condition { get; private set; }
 		
 		public override void Execute() {
 			
@@ -26,5 +24,10 @@ namespace Anolis.Core.Packages {
 			get { return "File"; }
 		}
 		
+		public override Boolean Merge(Operation operation) {
+			
+			// check if the Condition is the same
+			return false;
+		}
 	}
 }

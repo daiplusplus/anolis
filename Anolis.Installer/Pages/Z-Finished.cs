@@ -12,11 +12,17 @@ namespace Anolis.Installer.Pages {
 	public partial class FinishedPage : W3b.Wizards.Wizard97.ExteriorPage {
 		
 		public FinishedPage() {
+			InitializeComponent();
+		}
+		
+		private void FinishedPage_PageLoad(object sender, EventArgs e) {
 			
 			this.WizardForm.EnablePrev = false;
 			
 			this.WizardForm.NextText = "Reboot";
 			this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked);
+			
+			this.PageLoad += new EventHandler(FinishedPage_PageLoad);
 		}
 		
 		private void WizardForm_NextClicked(object sender, EventArgs e) {

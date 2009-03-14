@@ -15,6 +15,12 @@ namespace Anolis.Installer.Pages {
 			InitializeComponent();
 			
 			this.Load += new EventHandler(Extracting_Load);
+			this.PageLoad += new EventHandler(ExtractingPage_PageLoad);
+		}
+		
+		private void ExtractingPage_PageLoad(object sender, EventArgs e) {
+			
+			
 		}
 		
 		private void Extracting_Load(object sender, EventArgs e) {

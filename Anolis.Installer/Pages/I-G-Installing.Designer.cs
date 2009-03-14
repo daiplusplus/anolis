@@ -27,6 +27,8 @@
 			this.@__progress = new System.Windows.Forms.ProgressBar();
 			this.@__statusLabel = new System.Windows.Forms.Label();
 			this.@__packageMessages = new System.Windows.Forms.TextBox();
+			this.@__bw = new System.ComponentModel.BackgroundWorker();
+			this.@__showLog = new System.Windows.Forms.Button();
 			this.@__banner.SuspendLayout();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
@@ -35,17 +37,18 @@
 			// 
 			// __content
 			// 
+			this.@__content.Controls.Add(this.@__showLog);
 			this.@__content.Controls.Add(this.@__packageMessages);
 			this.@__content.Controls.Add(this.@__statusLabel);
 			this.@__content.Controls.Add(this.@__progress);
 			// 
 			// __bannerSubtitle
 			// 
-			this.@__bannerSubtitle.Text = "Please wait whilst the installer prepares the package for installation";
+			this.@__bannerSubtitle.Text = "Your selected package is being installed";
 			// 
 			// __bannerTitle
 			// 
-			this.@__bannerTitle.Text = "Preparing Package";
+			this.@__bannerTitle.Text = "Installing Package";
 			// 
 			// __ofd
 			// 
@@ -84,11 +87,20 @@
 			this.@__packageMessages.Visible = false;
 			this.@__packageMessages.WordWrap = false;
 			// 
-			// ExtractingPage
+			// __showLog
+			// 
+			this.@__showLog.Location = new System.Drawing.Point(360, 80);
+			this.@__showLog.Name = "__showLog";
+			this.@__showLog.Size = new System.Drawing.Size(75, 23);
+			this.@__showLog.TabIndex = 3;
+			this.@__showLog.Text = "Show Log";
+			this.@__showLog.UseVisualStyleBackColor = true;
+			// 
+			// InstallingPage
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Name = "ExtractingPage";
+			this.Name = "InstallingPage";
 			this.@__banner.ResumeLayout(false);
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();
@@ -102,5 +114,7 @@
 		private System.Windows.Forms.Label __statusLabel;
 		private System.Windows.Forms.ProgressBar __progress;
 		private System.Windows.Forms.TextBox __packageMessages;
+		private System.ComponentModel.BackgroundWorker __bw;
+		private System.Windows.Forms.Button __showLog;
 	}
 }

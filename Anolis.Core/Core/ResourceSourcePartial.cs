@@ -27,11 +27,9 @@ namespace Anolis.Core {
 				
 				if( IsReadOnly ) return false;
 				
-				foreach(ResourceLang lang in AllActiveLangs) {
-					return true; // if there is just one ResourceLang with a non-None action then this will be hit
-				}
+				IEnumerator<ResourceLang> e = AllActiveLangs.GetEnumerator();
+				return e.MoveNext(); // if there is just one ResourceLang with a non-None action then this will return true
 				
-				return false;
 			}
 		}
 		
@@ -304,11 +302,11 @@ namespace Anolis.Core {
 			
 			foreach(ResourceType type in AllTypes) {
 				
-				if( type.Identifier == typeId ) {
+				if( type.Identifier.Equals(typeId) ) {
 					
 					foreach(ResourceName name in type.Names) {
 						
-						if(name.Identifier == nameId) {
+						if(name.Identifier.Equals(nameId) ) {
 							
 							return name;
 						}

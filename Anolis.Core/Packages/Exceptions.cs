@@ -26,6 +26,13 @@ namespace Anolis.Core.Packages {
 	[Serializable]
 	public class PackageValidationException : PackageException {
 		
+		// should I suppress FxCop on the first two constructors?
+		public PackageValidationException() {
+		}
+		
+		public PackageValidationException(String message) : base(message) {
+		}
+		
 		public PackageValidationException(String message, Collection<ValidationEventArgs> errors) : base(message) {
 			
 			ValidationErrors = errors;

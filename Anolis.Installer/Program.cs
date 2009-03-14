@@ -28,16 +28,19 @@ namespace Anolis.Installer {
 			PageIDExtracting    = new ExtractingPage();
 			PageIEModifyPackage = new ModifyPackagePage();
 			PageIFInstallationOptions = new InstallationOptionsPage();
+			PageIGInstalling    = new InstallingPage();
 			
-			PageDCDestination = new DestinationPage();
-			PageDDDownloading = new DownloadingPage();
+			PageDCDestination   = new DestinationPage();
+			PageDDDownloading   = new DownloadingPage();
 			
-			PageUCSelectBackup = new SelectBackupPage();
+			PageUCSelectBackup  = new SelectBackupPage();
 			
-			IWizardForm wiz   = new W3b.Wizards.Wizard97.Wizard97WizardForm(); // WizardFactory.Create(); // HACK: Always use Wizard97 for now to avoid Vista/Win7 users getting errors since AeroWizard isn't finished
-			wiz.CancelClicked += new EventHandler(wiz_CancelClicked);
-			wiz.HasHelp       = false;
-			wiz.Title         = "Anolis Package Installer";
+			PageZFinished       = new FinishedPage();
+			
+			IWizardForm wiz     = new W3b.Wizards.Wizard97.Wizard97WizardForm(); // WizardFactory.Create(); // HACK: Always use Wizard97 for now to avoid Vista/Win7 users getting errors since AeroWizard isn't finished
+			wiz.CancelClicked  += new EventHandler(wiz_CancelClicked);
+			wiz.HasHelp         = false;
+			wiz.Title           = "Anolis Package Installer";
 			
 			wiz.LoadPage( PageAWelcome );
 			wiz.ShowDialog();
@@ -55,18 +58,21 @@ namespace Anolis.Installer {
 			
 		}
 		
-		internal static WelcomePage             PageAWelcome       { get; private set; }
-		internal static MainActionPage          PageBMainAction    { get; private set; }
+		internal static WelcomePage             PageAWelcome        { get; private set; }
+		internal static MainActionPage          PageBMainAction     { get; private set; }
 		
 		internal static SelectPackagePage       PageICSelectPackage { get; private set; }
 		internal static ExtractingPage          PageIDExtracting    { get; private set; }
 		internal static ModifyPackagePage       PageIEModifyPackage { get; private set; }
 		internal static InstallationOptionsPage PageIFInstallationOptions { get; private set; }
+		internal static InstallingPage          PageIGInstalling    { get; private set; }
 		
-		internal static DestinationPage         PageDCDestination { get; private set; }
-		internal static DownloadingPage         PageDDDownloading { get; private set; }
+		internal static DestinationPage         PageDCDestination   { get; private set; }
+		internal static DownloadingPage         PageDDDownloading   { get; private set; }
 		
-		internal static SelectBackupPage        PageUCSelectBackup { get; private set; }
+		internal static SelectBackupPage        PageUCSelectBackup  { get; private set; }
+		
+		internal static FinishedPage            PageZFinished       { get; private set; }
 		
 	}
 	

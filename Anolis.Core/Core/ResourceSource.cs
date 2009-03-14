@@ -31,7 +31,14 @@ namespace Anolis.Core {
 		/// <summary>Extracts the Resource Data for the specified Resource.</summary>
 		public abstract ResourceData GetResourceData(ResourceLang lang);
 		
-		public virtual void Dispose() {}
+		public void Dispose() {
+			
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		
+		protected virtual void Dispose(Boolean managed) {
+		}
 		
 		//////////////////////
 		

@@ -68,7 +68,7 @@ namespace Anolis.Core.Data {
 		}
 	}
 	
-	public sealed class IconDirectoryMember : IDirectoryMember, IComparable<IconDirectoryMember> {
+	public sealed class IconDirectoryMember : IDirectoryMember, IComparable<IconDirectoryMember>, IEquatable<IconDirectoryMember> {
 		
 		internal IconDirectoryMember(IconCursorImageResourceData data, Size dimensions, Byte colorCount, Byte reserved, UInt16 planes, UInt16 bitCount, UInt32 size) {
 			
@@ -105,6 +105,12 @@ namespace Anolis.Core.Data {
 		public UInt16       BitCount     { get; private set; }
 		public UInt32       Size         { get; private set; }
 		
+		public override String ToString() {
+			return Description;
+		}
+		
+#region Comparable
+		
 		public Int32 CompareTo(IconDirectoryMember other) {
 			
 			// sort by color depth first, then size
@@ -130,9 +136,27 @@ namespace Anolis.Core.Data {
 			return CompareTo(other2);
 		}
 		
-		public override string ToString() {
-			return Description;
+#endregion
+		
+		
+#region Equatable
+		
+		public Boolean Equals(IDirectoryMember other) {
+			return Equals(other as IconDirectoryMember);
 		}
+		
+		public Boolean Equals(IconDirectoryMember other) {
+			
+			if(other == null) return false;
+			
+			return Dimensions.Equals( other.Dimensions ) &&
+			       BitCount.Equals( other.BitCount ) &&
+			       ColorCount.Equals( other.ColorCount );
+			
+		}
+		
+#endregion
+		
 	}
 	
 	public sealed class IconDirectoryResourceData : DirectoryResourceData {

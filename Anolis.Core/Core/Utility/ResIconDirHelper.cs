@@ -10,7 +10,7 @@ using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Core.Utility {
 	
-	public class ResIconDirHelper {
+	public static class ResIconDirHelper {
 		
 #region From Resource
 		

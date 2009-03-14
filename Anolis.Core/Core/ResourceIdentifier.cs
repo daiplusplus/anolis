@@ -87,7 +87,7 @@ namespace Anolis.Core {
 			// is the string a number?
 			
 			Int32 number;
-			NumberStyles numStyle = ambiguousStringUpper.StartsWith("0x") ? NumberStyles.HexNumber : NumberStyles.Integer;
+			NumberStyles numStyle = ambiguousStringUpper.StartsWith("0x", StringComparison.OrdinalIgnoreCase) ? NumberStyles.HexNumber : NumberStyles.Integer;
 			
 			if( Int32.TryParse( ambiguousStringUpper, numStyle, Cult.InvariantCulture, out number ) ) {
 				
@@ -102,12 +102,17 @@ namespace Anolis.Core {
 			
 		}
 		
-		
-		~ResourceIdentifier() {
-			Dispose();
+		public void Dispose() {
+			Dispose(true);
+			GC.SuppressFinalize(this);
 		}
 		
-		public void Dispose() {
+		protected virtual void Dispose(Boolean managed) {
+			
+			if(managed) {
+				
+			}
+			
 			if( StringId != null ) Marshal.FreeHGlobal( NativeId );
 		}
 		
@@ -120,7 +125,7 @@ namespace Anolis.Core {
 				
 				String ids = Marshal.PtrToStringAuto( id );
 				
-				return ids.StartsWith("#") ? IdentifierType.IntegerString : IdentifierType.String;
+				return ids.StartsWith("#", StringComparison.OrdinalIgnoreCase) ? IdentifierType.IntegerString : IdentifierType.String;
 				
 			} else {
 				
@@ -244,7 +249,7 @@ namespace Anolis.Core {
 			// is the string a number?
 			
 			Int32 number;
-			NumberStyles numStyle = ambiguousStringUpper.StartsWith("0x") ? NumberStyles.HexNumber : NumberStyles.Integer;
+			NumberStyles numStyle = ambiguousStringUpper.StartsWith("0x", StringComparison.OrdinalIgnoreCase) ? NumberStyles.HexNumber : NumberStyles.Integer;
 			
 			if( Int32.TryParse( ambiguousStringUpper, numStyle, Cult.InvariantCulture, out number ) ) {
 				
@@ -263,51 +268,59 @@ namespace Anolis.Core {
 		
 #region Type Friendly Names
 		
-		private static Dictionary<Int32,String> _resourceTypeFriendlyNames;
-		
-		private static Dictionary<String,Win32ResourceType> _resourceTypeShortNames;
+		private static Dictionary<Int32,String>             _resourceTypeFriendlyNames = InitResourceTypeFriendlyNames();
+		private static Dictionary<String,Win32ResourceType> _resourceTypeShortNames    = InitResourceTypeShortNames();
 		
 		// TODO: Maybe make these entries in a Resources set in this assembly so it can be localised? (irony aside, of course)
 		
-		static ResourceTypeIdentifier() {
-			_resourceTypeFriendlyNames = new Dictionary<Int32,String>();
-			_resourceTypeFriendlyNames.Add(0, "Unknown");
-			_resourceTypeFriendlyNames.Add(1, "Cursor Image");
-			_resourceTypeFriendlyNames.Add(2, "Bitmap");
-			_resourceTypeFriendlyNames.Add(3, "Icon Image");
-			_resourceTypeFriendlyNames.Add(4, "Menu");
-			_resourceTypeFriendlyNames.Add(5, "Dialog");
-			_resourceTypeFriendlyNames.Add(6, "String Table");
-			_resourceTypeFriendlyNames.Add(7, "Font Directory");
-			_resourceTypeFriendlyNames.Add(8, "Font");
-			_resourceTypeFriendlyNames.Add(9, "Accelerator");
-			_resourceTypeFriendlyNames.Add(10, "RC Data");
-			_resourceTypeFriendlyNames.Add(11, "Message Table");
-			_resourceTypeFriendlyNames.Add(12, "Cursor Directory");
-			// 13 = unknown
-			_resourceTypeFriendlyNames.Add(14, "Icon Directory");
-			// 15 = unknown
-			_resourceTypeFriendlyNames.Add(16, "Version");
-			_resourceTypeFriendlyNames.Add(17, "DLG Include");
-			// 18 = unknown
-			_resourceTypeFriendlyNames.Add(19, "Plug and Play");
-			_resourceTypeFriendlyNames.Add(20, "VXD");
-			_resourceTypeFriendlyNames.Add(21, "Cursor (Animated)");
-			_resourceTypeFriendlyNames.Add(22, "Icon (Animated)");
-			_resourceTypeFriendlyNames.Add(23, "HTML");
-			_resourceTypeFriendlyNames.Add(24, "Manifest");
+		private static Dictionary<Int32,String> InitResourceTypeFriendlyNames() {
 			
-			_resourceTypeShortNames = new Dictionary<String,Win32ResourceType>();
-			_resourceTypeShortNames.Add("ICON"  , Win32ResourceType.IconDirectory);
-			_resourceTypeShortNames.Add("CURSOR", Win32ResourceType.CursorDirectory);
-			_resourceTypeShortNames.Add("BMP"   , Win32ResourceType.Bitmap);
+			Dictionary<Int32,String> resourceTypeFriendlyNames = new Dictionary<Int32,String>();
+			resourceTypeFriendlyNames.Add(0, "Unknown");
+			resourceTypeFriendlyNames.Add(1, "Cursor Image");
+			resourceTypeFriendlyNames.Add(2, "Bitmap");
+			resourceTypeFriendlyNames.Add(3, "Icon Image");
+			resourceTypeFriendlyNames.Add(4, "Menu");
+			resourceTypeFriendlyNames.Add(5, "Dialog");
+			resourceTypeFriendlyNames.Add(6, "String Table");
+			resourceTypeFriendlyNames.Add(7, "Font Directory");
+			resourceTypeFriendlyNames.Add(8, "Font");
+			resourceTypeFriendlyNames.Add(9, "Accelerator");
+			resourceTypeFriendlyNames.Add(10, "RC Data");
+			resourceTypeFriendlyNames.Add(11, "Message Table");
+			resourceTypeFriendlyNames.Add(12, "Cursor Directory");
+			// 13 = unknown
+			resourceTypeFriendlyNames.Add(14, "Icon Directory");
+			// 15 = unknown
+			resourceTypeFriendlyNames.Add(16, "Version");
+			resourceTypeFriendlyNames.Add(17, "DLG Include");
+			// 18 = unknown
+			resourceTypeFriendlyNames.Add(19, "Plug and Play");
+			resourceTypeFriendlyNames.Add(20, "VXD");
+			resourceTypeFriendlyNames.Add(21, "Cursor (Animated)");
+			resourceTypeFriendlyNames.Add(22, "Icon (Animated)");
+			resourceTypeFriendlyNames.Add(23, "HTML");
+			resourceTypeFriendlyNames.Add(24, "Manifest");
+			
+			return resourceTypeFriendlyNames;
+		}
+		
+		private static Dictionary<String,Win32ResourceType> InitResourceTypeShortNames() {
+			
+			Dictionary<String,Win32ResourceType> resourceTypeShortNames = new Dictionary<String,Win32ResourceType>();
+			resourceTypeShortNames.Add("ICON"   , Win32ResourceType.IconDirectory);
+			resourceTypeShortNames.Add("ICONDIR", Win32ResourceType.IconDirectory);
+			resourceTypeShortNames.Add("CURSOR" , Win32ResourceType.CursorDirectory);
+			resourceTypeShortNames.Add("BMP"    , Win32ResourceType.Bitmap);
+			
+			return resourceTypeShortNames;
 		}
 		
 		public static String GetTypeFriendlyName(Int32 integerId) {
 			
 			return _resourceTypeFriendlyNames.ContainsKey( integerId ) ?
 				_resourceTypeFriendlyNames[ integerId ] :
-				_resourceTypeFriendlyNames[0] + " (" + integerId.ToString() + ")";
+				_resourceTypeFriendlyNames[0] + " (" + integerId.ToString(Cult.InvariantCulture) + ")";
 		}
 		
 		private static Win32ResourceType GetKnownType(Int32 integerId) {

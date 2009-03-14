@@ -33,27 +33,27 @@ namespace Anolis.Core {
 			
 		}
 		
-		public static String Left(this String s, Int32 length) {
+		public static String Left(this String str, Int32 length) {
 			
-			if(length < 0)        throw new ArgumentOutOfRangeException("length", length, "value cannot be less than zero");
-			if(length > s.Length) throw new ArgumentOutOfRangeException("length", length, "value cannot be greater than the length of the string");
+			if(length < 0)          throw new ArgumentOutOfRangeException("length", length, "value cannot be less than zero");
+			if(length > str.Length) throw new ArgumentOutOfRangeException("length", length, "value cannot be greater than the length of the string");
 			
-			return s.Substring(0, length);
-			
-		}
-		
-		public static String Right(this String s, Int32 length) {
-			
-			if(length < 0)        throw new ArgumentOutOfRangeException("length", length, "value cannot be less than zero");
-			if(length > s.Length) throw new ArgumentOutOfRangeException("length", length, "value cannot be greater than the length of the string");
-			
-			return s.Substring( s.Length - length );
+			return str.Substring(0, length);
 			
 		}
 		
-		public static Int32 IndexOf(this Array a, Object o) {
+		public static String Right(this String str, Int32 length) {
 			
-			return Array.IndexOf( a, o );
+			if(length < 0)          throw new ArgumentOutOfRangeException("length", length, "value cannot be less than zero");
+			if(length > str.Length) throw new ArgumentOutOfRangeException("length", length, "value cannot be greater than the length of the string");
+			
+			return str.Substring( str.Length - length );
+			
+		}
+		
+		public static Int32 IndexOf(this Array array, Object item) {
+			
+			return Array.IndexOf( array, item );
 			
 		}
 		

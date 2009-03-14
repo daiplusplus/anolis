@@ -5,6 +5,8 @@ using System.IO;
 using System.Runtime.InteropServices;
 using Anolis.Core.Native;
 
+using Cult = System.Globalization.CultureInfo;
+
 namespace Anolis.Core.Data {
 	
 	public class VersionResourceDataFactory : ResourceDataFactory {
@@ -48,7 +50,7 @@ namespace Anolis.Core.Data {
 		
 		private VersionResourceData(VersionItem root, Byte[] rawData, ResourceLang lang) : base(lang, rawData) {
 			
-			VsVersionInfo = root;
+			VSVersionInfo = root;
 			
 		}
 		
@@ -94,11 +96,11 @@ namespace Anolis.Core.Data {
 						if(item.Value == null) {
 							
 							Byte[] ffiBytes = rdr.ReadBytes( item.ValueLength ); // this is where FixedFileInfo goes						
-							Byte[] padding2 = Pad(rdr);
+							/*Byte[] padding2 = */ Pad(rdr);
 							
 							if(ffiBytes.Length >= 52) { // 52 == 0x34
 								
-								VsFixedFileInfo ffi = new VsFixedFileInfo( ffiBytes );
+								VSFixedFileInfo ffi = new VSFixedFileInfo( ffiBytes );
 								
 								if(ffi.dwSignature != 0xFEEF04BD) throw new InvalidOperationException("Unrecognised VS_VERSIONINFO Signature");
 								
@@ -153,7 +155,7 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		private static Dictionary<String,String> FfiToDict(VsFixedFileInfo ffi) {
+		private static Dictionary<String,String> FfiToDict(VSFixedFileInfo ffi) {
 			
 			Dictionary<String,String> d = new Dictionary<String,String>();
 			
@@ -182,7 +184,7 @@ namespace Anolis.Core.Data {
 		
 		private static String GetUInt32String(UInt32 u) {
 			
-			return u.ToString() + " - " + u.ToString("X");
+			return u.ToString(Cult.InvariantCulture) + " - " + u.ToString("X", Cult.InvariantCulture);
 		}
 		
 		private static Byte[] Pad(BinaryReader rdr) {
@@ -297,7 +299,7 @@ namespace Anolis.Core.Data {
 		
 #region Actual Data
 		
-		public VersionItem VsVersionInfo { get; private set; }
+		public VersionItem VSVersionInfo { get; private set; }
 		
 #endregion
 		

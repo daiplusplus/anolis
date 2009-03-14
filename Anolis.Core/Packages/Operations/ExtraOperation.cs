@@ -5,7 +5,7 @@ namespace Anolis.Core.Packages {
 	
 	public class ExtraOperation : Operation {
 		
-		public ExtraOperation(XmlElement operationElement) : base(operationElement) {
+		public ExtraOperation(Package package, XmlElement operationElement) : base(package, operationElement) {
 		}
 		
 		public override void Execute() {
@@ -16,5 +16,8 @@ namespace Anolis.Core.Packages {
 			get { return "Extra"; }
 		}
 		
+		public override Boolean Merge(Operation operation) {
+			return false;
+		}
 	}
 }

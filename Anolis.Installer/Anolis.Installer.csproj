@@ -19,6 +19,21 @@
     <TargetFrameworkSubset>
     </TargetFrameworkSubset>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,81 +57,65 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="W3b.Wizards, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_ref\W3b.Wizards\W3b.Wizards.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmbeddedPackageManager.cs" />
     <Compile Include="Pages\A-Welcome.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\A-Welcome.Designer.cs">
       <DependentUpon>A-Welcome.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\B-MainAction.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\B-MainAction.Designer.cs">
       <DependentUpon>B-MainAction.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\0-BaseInteriorPage.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\0-BaseInteriorPage.Designer.cs">
       <DependentUpon>0-BaseInteriorPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\I-G-Installing.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\I-G-Installing.Designer.cs">
       <DependentUpon>I-G-Installing.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\D-C-Destination.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\D-C-Destination.Designer.cs">
       <DependentUpon>D-C-Destination.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\D-D-Downloading.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\D-D-Downloading.Designer.cs">
       <DependentUpon>D-D-Downloading.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\I-C-SelectPackage.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\I-C-SelectPackage.Designer.cs">
       <DependentUpon>I-C-SelectPackage.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\I-F-InstallationOptions.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\I-F-InstallationOptions.Designer.cs">
       <DependentUpon>I-F-InstallationOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\I-E-ModifyPackage.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\I-E-ModifyPackage.Designer.cs">
       <DependentUpon>I-E-ModifyPackage.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\I-D-Extracting.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\I-D-Extracting.Designer.cs">
       <DependentUpon>I-D-Extracting.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\U-C-SelectBackup.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\U-C-SelectBackup.Designer.cs">
       <DependentUpon>U-C-SelectBackup.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\Z-Finished.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\Z-Finished.designer.cs">
       <DependentUpon>Z-Finished.cs</DependentUpon>
@@ -192,6 +191,33 @@
       <Project>{967BF434-D4F9-41E3-8B82-433987DEB4A6}</Project>
       <Name>Anolis.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
