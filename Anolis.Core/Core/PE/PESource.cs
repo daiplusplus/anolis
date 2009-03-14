@@ -101,6 +101,8 @@ namespace Anolis.Core.Source {
 		
 		private void Unload() {
 			
+			// HACK: should I dispose of all ResourceTypeIdentifiers and ResourceIdentifiers?
+			
 			if( _moduleHandle != IntPtr.Zero )
 				NativeMethods.FreeLibrary( _moduleHandle );
 		}
@@ -150,18 +152,25 @@ namespace Anolis.Core.Source {
 		////////////////////////////
 		// Destructor / Dispose
 		
-		~PEResourceSource() {
-			Dispose(false);
-		}
-		
-		public override void Dispose() {
-			Dispose(true);
-			GC.SuppressFinalize( this );
-		}
-		
-		public void Dispose(Boolean disposeManaged) {
+		protected override void Dispose(Boolean managed) {
+			
 			Unload();
+			
+			base.Dispose(managed);
 		}
+		
+//		~PEResourceSource() {
+//			Dispose(false);
+//		}
+//		
+//		public override sealed void Dispose() {
+//			Dispose(true);
+//			GC.SuppressFinalize( this );
+//		}
+//		
+//		public void Dispose(Boolean disposeManaged) {
+//			Unload();
+//		}
 		
 #region ResourceSourceInfo
 		
@@ -173,15 +182,15 @@ namespace Anolis.Core.Source {
 			_sourceInfo.Add("Modified", FileInfo.LastWriteTime .ToString(Cult.InvariantCulture));
 			_sourceInfo.Add("Created" , FileInfo.CreationTime  .ToString(Cult.InvariantCulture));
 			
-			using(FileStream stream = FileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.Read)) {
-				
-				BinaryReader br = new BinaryReader(stream);
-				
-				// I CBA to work out how to read a COFF/PE header right now
-				
-			}
-			
-			_sourceInfo = null;
+//			using(FileStream stream = FileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.Read)) {
+//				
+//				BinaryReader br = new BinaryReader(stream);
+//				
+//				// I CBA to work out how to read a COFF/PE header right now
+//				
+//			}
+//			
+//			_sourceInfo = null;
 			
 		}
 		

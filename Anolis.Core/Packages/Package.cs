@@ -5,22 +5,30 @@ using System.Xml.Schema;
 using System.Text;
 using System.IO;
 
+using N = System.Globalization.NumberStyles;
+
 using ProgressEventArgs = Anolis.Core.Packages.PackageProgressEventArgs;
+using System.Collections.Generic;
 
 namespace Anolis.Core.Packages {
 	
 	/// <summary>Represents a collection of resource sets</summary>
-	public class Package : PackageItemContainer {
+	public class Package {
 		
-		internal Package(DirectoryInfo root, XmlElement packageElement) : base(packageElement) {
+		internal Package(DirectoryInfo root, XmlElement packageElement) {
 			
 			RootDirectory = root;
 			
-			Version     = Single.Parse( packageElement.Attributes["version"].Value );
+			Version     = Single.Parse( packageElement.Attributes["version"].Value, N.AllowDecimalPoint | N.AllowLeadingWhite | System.Globalization.NumberStyles.AllowTrailingWhite, System.Globalization.CultureInfo.InvariantCulture );
 			Attribution = packageElement.Attributes["attribution"].Value;
 			Website     = new Uri( packageElement.Attributes["website"].Value );
 			if(packageElement.Attributes["updateUri"] != null) UpdateUri = new Uri( packageElement.Attributes["updateUri"].Value );
 			
+			PackageImages = new Dictionary<String,System.Drawing.Image>();
+			Log           = new Collection<LogItem>();
+			
+			// Load it up
+			RootSet       = new Set(this, packageElement);
 		}
 		
 		public Single Version     { get; private set; }
@@ -29,6 +37,8 @@ namespace Anolis.Core.Packages {
 		public Uri    UpdateUri   { get; private set; }
 		
 		public DirectoryInfo RootDirectory { get; private set; }
+		
+		internal Dictionary<String,System.Drawing.Image> PackageImages { get; private set; }
 		
 		//////////////////////////////
 		
@@ -101,6 +111,12 @@ namespace Anolis.Core.Packages {
 		
 		//////////////////////////////
 		
+		public Set                 RootSet { get; private set; }
+		
+		public Collection<LogItem> Log     { get; private set; }
+		
+		//////////////////////////////
+		
 		protected void OnProgressEvent(ProgressEventArgs e) {
 			
 			if( ProgressEvent != null ) ProgressEvent(this, e);
@@ -108,32 +124,81 @@ namespace Anolis.Core.Packages {
 		
 		public event EventHandler<ProgressEventArgs> ProgressEvent;
 		
-	}
-	
-	/// <summary>An arbitrary grouping of elements</summary>
-	public class Set : PackageItemContainer {
 		
-		public Set(XmlElement element) : base(element) {
+		
+		public void Execute() {
 			
-			Mutex    = new SetCollection();
-			// set Mutex members after all the siblings have been read in
+			///////////////////////////////////
+			// Flatten
 			
-			String mutex = element.Attributes["mutex"] != null ? element.Attributes["mutex"].Value : String.Empty;
-			if(mutex.Length > 0) {
+			OnProgressEvent( new PackageProgressEventArgs( 0, "Flattening Package Tree" ) );
+			
+			List<Operation> operations = new List<Operation>();
+			
+			RootSet.Flatten(operations);
+			
+			List<Operation> obsoleteOperations = new List<Operation>();
+			
+			Dictionary<String,Operation> uniques = new Dictionary<String,Operation>();
+			foreach(Operation op in operations) {
 				
-				MutexIds = mutex.Split(' ');
+				Operation originalOperation;
+				if( uniques.TryGetValue( op.Key, out originalOperation ) ) {
+					
+					if( originalOperation.Merge( op ) )
+						obsoleteOperations.Add( op );
+					
+				} else {
+					
+					uniques.Add( op.Key, op );
+				}
 				
 			}
 			
+			operations.RemoveAll( op => obsoleteOperations.Contains( op ) );
+			
+			///////////////////////////////////
+			// Prepare
+			
+			PackageUtility.AllowProtectedRenames();
+			
+			///////////////////////////////////
+			// Install
+			
+			float i = 0, cnt = operations.Count;
+			
+			foreach(Operation op in operations) {
+				
+				OnProgressEvent( new PackageProgressEventArgs( (int)( 100 * i++ / cnt ), op.ToString() ) );
+				
+				op.Execute();
+				
+			}
+			
+			OnProgressEvent( new PackageProgressEventArgs( 100, "Complete" ) );
+			
 		}
 		
-		internal String[] MutexIds    { get; private set; }
-		
-		public SetCollection Mutex    { get; private set; }
 		
 	}
 	
-	public class SetCollection : Collection<Set> {
+	public class LogItem {
+		
+		public LogItem(LogSeverity severity, String message) {
+			
+			Severity = severity;
+			Message  = message;
+		}
+		
+		public LogSeverity Severity { get; private set; }
+		public String      Message  { get; private set; }
+	}
+	
+	public enum LogSeverity {
+		FatalError,
+		Error,
+		Warning,
+		Info
 	}
 	
 }

@@ -92,12 +92,12 @@ namespace Anolis.Resourcer {
 			// __tSrcMruSep
 			// 
 			@__tSrcMruSep.Name = "__tSrcMruSep";
-			@__tSrcMruSep.Size = new System.Drawing.Size(148, 6);
+			@__tSrcMruSep.Size = new System.Drawing.Size(159, 6);
 			// 
 			// __tSrcSaveSep
 			// 
 			@__tSrcSaveSep.Name = "__tSrcSaveSep";
-			@__tSrcSaveSep.Size = new System.Drawing.Size(177, 6);
+			@__tSrcSaveSep.Size = new System.Drawing.Size(188, 6);
 			// 
 			// __sSep1
 			// 
@@ -114,7 +114,7 @@ namespace Anolis.Resourcer {
 			// __resCMSep
 			// 
 			this.@__resCMSep.Name = "__resCMSep";
-			this.@__resCMSep.Size = new System.Drawing.Size(130, 6);
+			this.@__resCMSep.Size = new System.Drawing.Size(141, 6);
 			// 
 			// __tree
 			// 
@@ -180,6 +180,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __navBack
 			// 
+			this.@__navBack.Enabled = false;
 			this.@__navBack.Image = global::Anolis.Resourcer.Properties.Resources.NavBackUp;
 			this.@__navBack.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__navBack.Margin = new System.Windows.Forms.Padding(1, 1, 0, 2);
@@ -189,6 +190,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __navUp
 			// 
+			this.@__navUp.Enabled = false;
 			this.@__navUp.Image = global::Anolis.Resourcer.Properties.Resources.NavUpUp;
 			this.@__navUp.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__navUp.Name = "__navUp";
@@ -270,13 +272,13 @@ namespace Anolis.Resourcer {
 			// 
 			this.@__tSrcMruInfo.Enabled = false;
 			this.@__tSrcMruInfo.Name = "__tSrcMruInfo";
-			this.@__tSrcMruInfo.Size = new System.Drawing.Size(151, 22);
+			this.@__tSrcMruInfo.Size = new System.Drawing.Size(162, 22);
 			this.@__tSrcMruInfo.Text = "Recent Files List";
 			// 
 			// __tSrcMruClear
 			// 
 			this.@__tSrcMruClear.Name = "__tSrcMruClear";
-			this.@__tSrcMruClear.Size = new System.Drawing.Size(151, 22);
+			this.@__tSrcMruClear.Size = new System.Drawing.Size(162, 22);
 			this.@__tSrcMruClear.Text = "Clear List";
 			// 
 			// __tSrcSave
@@ -298,19 +300,19 @@ namespace Anolis.Resourcer {
 			// __tSrcSaveSaveAs
 			// 
 			this.@__tSrcSaveSaveAs.Name = "__tSrcSaveSaveAs";
-			this.@__tSrcSaveSaveAs.Size = new System.Drawing.Size(180, 22);
+			this.@__tSrcSaveSaveAs.Size = new System.Drawing.Size(191, 22);
 			this.@__tSrcSaveSaveAs.Text = "Save As...";
 			// 
 			// __tSrcSaveBackup
 			// 
 			this.@__tSrcSaveBackup.Name = "__tSrcSaveBackup";
-			this.@__tSrcSaveBackup.Size = new System.Drawing.Size(180, 22);
+			this.@__tSrcSaveBackup.Size = new System.Drawing.Size(191, 22);
 			this.@__tSrcSaveBackup.Text = "Backup Source...";
 			// 
 			// __tSrcSavePending
 			// 
 			this.@__tSrcSavePending.Name = "__tSrcSavePending";
-			this.@__tSrcSavePending.Size = new System.Drawing.Size(180, 22);
+			this.@__tSrcSavePending.Size = new System.Drawing.Size(191, 22);
 			this.@__tSrcSavePending.Text = "Pending Operations...";
 			// 
 			// __tSrcReve
@@ -408,36 +410,36 @@ namespace Anolis.Resourcer {
             this.@__resCMCancel});
 			this.@__treeMenu.Name = "__resCM";
 			this.@__treeMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.@__treeMenu.Size = new System.Drawing.Size(134, 120);
+			this.@__treeMenu.Size = new System.Drawing.Size(145, 120);
 			// 
 			// __resCMCast
 			// 
 			this.@__resCMCast.Name = "__resCMCast";
-			this.@__resCMCast.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMCast.Size = new System.Drawing.Size(144, 22);
 			this.@__resCMCast.Text = "Cast {0} as:";
 			// 
 			// __resCMExtract
 			// 
 			this.@__resCMExtract.Name = "__resCMExtract";
-			this.@__resCMExtract.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMExtract.Size = new System.Drawing.Size(144, 22);
 			this.@__resCMExtract.Text = "Extract {0}";
 			// 
 			// __resCMReplace
 			// 
 			this.@__resCMReplace.Name = "__resCMReplace";
-			this.@__resCMReplace.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMReplace.Size = new System.Drawing.Size(144, 22);
 			this.@__resCMReplace.Text = "Replace {0}";
 			// 
 			// __resCMDelete
 			// 
 			this.@__resCMDelete.Name = "__resCMDelete";
-			this.@__resCMDelete.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMDelete.Size = new System.Drawing.Size(144, 22);
 			this.@__resCMDelete.Text = "Delete {0}";
 			// 
 			// __resCMCancel
 			// 
 			this.@__resCMCancel.Name = "__resCMCancel";
-			this.@__resCMCancel.Size = new System.Drawing.Size(133, 22);
+			this.@__resCMCancel.Size = new System.Drawing.Size(144, 22);
 			this.@__resCMCancel.Text = "Cancel {0}";
 			// 
 			// MainForm

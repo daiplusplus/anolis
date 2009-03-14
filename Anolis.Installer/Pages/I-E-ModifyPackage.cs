@@ -14,7 +14,7 @@ namespace Anolis.Installer.Pages {
 			
 			InitializeComponent();
 			
-			this.Load += new EventHandler(Extracting_Load);
+			this.PageLoad += new EventHandler(ModifyPackagePage_Load);
 			this.__packageView.AfterSelect += new TreeViewEventHandler(__packageView_AfterSelect);
 			
 		}
@@ -27,7 +27,7 @@ namespace Anolis.Installer.Pages {
 			
 		}
 		
-		private void Extracting_Load(object sender, EventArgs e) {
+		private void ModifyPackagePage_Load(object sender, EventArgs e) {
 			
 			WizardForm.EnableNext = true;
 			
@@ -47,7 +47,7 @@ namespace Anolis.Installer.Pages {
 			
 			__packageView.Nodes.Clear();
 			
-			TreeNode root = PopulateTreeview( __packageView.Nodes, PackageInfo.Package);
+			TreeNode root = PopulateTreeview( __packageView.Nodes, PackageInfo.Package.RootSet);
 			root.Expand();
 			
 		}
@@ -58,7 +58,7 @@ namespace Anolis.Installer.Pages {
 			
 			parent.Add( node );
 			
-			PackageItemContainer c = item as PackageItemContainer;
+			Set c = item as Set;
 			if(c != null) {
 				
 				foreach(PackageItem set in c.Children)   PopulateTreeview(node.Nodes, set);
@@ -84,35 +84,26 @@ namespace Anolis.Installer.Pages {
 				
 			} else {
 				
-				__infoPicture.Image   = GetPackageItemImage( item );
+				__infoPicture.Image   = item.DescriptionImage;
 				__infoPicture.Visible = true;
 				__infoLbl.Top         = __infoPicture.Bottom + 3;
 			}
 			
-			__infoLbl.Text = item.Description == null ? Anolis.Installer.Properties.Resources.PageI_E_NoInfo : item.Description;
-		}
-		
-		private Dictionary<String,Image> _packageItemImages = new Dictionary<String,Image>();
-		
-		private Image GetPackageItemImage(PackageItem item) {
-			
-			if( item.DescriptionImage == null ) return null;
-			
-			if( !_packageItemImages.ContainsKey(item.DescriptionImage) ) {
+			if( String.IsNullOrEmpty( item.Description ) ) {
 				
-				try {
-					Image i = Image.FromFile( System.IO.Path.Combine( PackageInfo.Package.RootDirectory.FullName, item.DescriptionImage ) );
+				if(item is Operation) {
 					
-					_packageItemImages.Add( item.DescriptionImage, i );
-				} catch(OutOfMemoryException) {
-					_packageItemImages.Add( item.DescriptionImage, null );
-				} catch(System.IO.FileNotFoundException) {
-					_packageItemImages.Add( item.DescriptionImage, null );
+					__infoLbl.Text = (item as Operation).Path;
+				} else {
+					
+					__infoLbl.Text = Anolis.Installer.Properties.Resources.PageI_E_NoInfo;
 				}
 				
+			} else {
+				
+				__infoLbl.Text = item.Description;
+				
 			}
-			
-			return _packageItemImages[item.DescriptionImage];
 			
 		}
 		

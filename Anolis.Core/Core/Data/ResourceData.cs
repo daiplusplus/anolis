@@ -4,7 +4,7 @@ using System.IO;
 namespace Anolis.Core.Data {
 	
 	/// <summary>ResourceData contains the resource data (rather than ResourceLang). It is lazy-loaded by ResourceLang (i.e. when the resource data is requested the data is extracted from the source and an instance of ResourceData is constructed with that data</summary>
-	public abstract class ResourceData {
+	public abstract class ResourceData : IDisposable {
 		
 		private Byte[] _data;
 		
@@ -17,7 +17,7 @@ namespace Anolis.Core.Data {
 				_data = value;
 				if(Lang != null) Lang.Action = ResourceDataAction.Update;
 				
-				Reinitialise();
+				Reinitialize();
 			}
 		}
 		
@@ -82,7 +82,7 @@ namespace Anolis.Core.Data {
 			// 'intelligent reading' of the file itself is too resource intensive. Better just to trust the extension.
 			
 			extension = extension.ToLowerInvariant();
-			if(extension.StartsWith(".")) extension = extension.Substring(1);
+			if(extension.StartsWith(".", StringComparison.OrdinalIgnoreCase)) extension = extension.Substring(1);
 			
 			ResourceDataFactory[] factories = ResourceDataFactory.GetFactoriesForExtension( extension );
 			
@@ -121,7 +121,7 @@ namespace Anolis.Core.Data {
 			// 'intelligent reading' of the file itself is too resource intensive. Better just to trust the extension.
 			
 			extension = extension.ToLowerInvariant();
-			if(extension.StartsWith(".")) extension = extension.Substring(1);
+			if(extension.StartsWith(".", StringComparison.OrdinalIgnoreCase)) extension = extension.Substring(1);
 			
 			ResourceDataFactory[] factories = ResourceDataFactory.GetFactoriesForExtension( extension );
 			
@@ -209,7 +209,17 @@ namespace Anolis.Core.Data {
 		}
 		
 		/// <summary>Called when the RawData is set. A notification to subclasses to recreate any stateful data.</summary>
-		protected virtual void Reinitialise() {
+		protected virtual void Reinitialize() {
+		}
+		
+		public void Dispose() {
+			
+			Dispose(true);
+			
+			GC.SuppressFinalize(this);
+		}
+		
+		protected virtual void Dispose(Boolean managed) {
 		}
 		
 	}

@@ -111,13 +111,9 @@ namespace Anolis.Core.Data {
 	/// <summary>Magically represents both Icons and Cursors.</summary>
 	public sealed class IconCursorImageResourceData : ImageResourceData {
 		
-		private static Int32 instantiations = 0;
-		
 		private IntPtr _unmanagedMemory;
 		
 		private IconCursorImageResourceData(IntPtr unmanagedPointer, Icon icon, ResourceLang lang, Byte[] rawData) : base( GetImage(icon), lang, rawData) {
-			
-			instantiations++;
 			
 			_unmanagedMemory = unmanagedPointer;
 			
@@ -127,18 +123,21 @@ namespace Anolis.Core.Data {
 		
 		private IconCursorImageResourceData(IntPtr unmanagedPointer, Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
 			
-			instantiations++;
-			
 			_unmanagedMemory = unmanagedPointer;
 			
 			// Icon is null
 			Size = image.Size;
 		}
 		
-		~IconCursorImageResourceData() {
+		protected override void Dispose(Boolean managed) {
+			
+			if(managed) {
+				this.Icon.Dispose();
+			}
 			
 			Marshal.FreeHGlobal( _unmanagedMemory );
 			
+			base.Dispose(managed);
 		}
 		
 		public Size Size { get; private set; }

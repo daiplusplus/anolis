@@ -74,11 +74,11 @@ namespace Anolis.Resourcer.TypeViewers {
 			if(vd == null) return;
 			
 			TreeNode ffi = new TreeNode( "VS_FIXEDFILEINFO" );
-			ffi.Tag = vd.VsVersionInfo;
+			ffi.Tag = vd.VSVersionInfo;
 			
 			__versionItems.Nodes.Add( ffi );
 			
-			foreach(VersionResourceData.VersionItem child in vd.VsVersionInfo.Children) {
+			foreach(VersionResourceData.VersionItem child in vd.VSVersionInfo.Children) {
 				
 				AddNode( __versionItems.Nodes, child );
 			}

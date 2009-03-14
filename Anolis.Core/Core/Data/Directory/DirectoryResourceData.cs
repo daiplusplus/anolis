@@ -32,7 +32,7 @@ namespace Anolis.Core.Data {
 		}
 	}
 	
-	public interface IDirectoryMember : IComparable<IDirectoryMember> {
+	public interface IDirectoryMember : IComparable<IDirectoryMember>, IEquatable<IDirectoryMember> {
 		String Description { get; }
 		ResourceData ResourceData { get; }
 	}

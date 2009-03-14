@@ -46,7 +46,9 @@ namespace Anolis.Core {
 			get { return _currentLang; }
 		}
 		
-		public void Dispose() {}
+		public void Dispose() {
+			GC.SuppressFinalize(this);
+		}
 		
 		Object System.Collections.IEnumerator.Current {
 			get { return this.Current; }

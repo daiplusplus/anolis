@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Anolis.Core.Packages {
 	
-	public abstract class PackageArchive {
+	public abstract class PackageArchive : IDisposable {
 		
 		protected PackageArchive(String name) {
 			Name = name;
@@ -40,6 +40,15 @@ namespace Anolis.Core.Packages {
 		
 		public event EventHandler<PackageProgressEventArgs> PackageProgressEvent;
 		
+		public void Dispose() {
+			
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		
+		protected virtual void Dispose(Boolean managed) {
+		}
+		
 #region Async Extract
 		
 		/// <summary>Starts extracting the package on a separate thread to a temporary directory.</summary>
@@ -71,12 +80,18 @@ namespace Anolis.Core.Packages {
 				
 				Extract( tempDir );
 				
-			} catch (Exception ex) {
+			} catch (PackageException ex) {
 				
 				OnPackageProgressEvent(new PackageProgressEventArgs(100, "Exception: " + ex.Message));
 				completionCallback( null );
 				
 				return;
+			} catch(Exception ex) {
+				
+				OnPackageProgressEvent(new PackageProgressEventArgs(100, "Exception: " + ex.Message));
+				completionCallback( null );
+				
+				throw;
 			}
 			
 			OnPackageProgressEvent(new PackageProgressEventArgs(100, "Extraction complete"));

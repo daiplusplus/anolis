@@ -44,13 +44,13 @@ namespace Anolis.Core.Data {
 		/// <summary>Saves the underlying Image to the specified Stream using the specified Image format at 100% quality (where possible).</summary>
 		protected void ConvertAndSaveImageAs(Stream saveTo, String extension) {
 			
-			ImageResourceDataSaveFormats format;
+			ImageResourceDataSaveFormat format;
 			switch(extension) {
-				case "jpg": format = ImageResourceDataSaveFormats.Jpeg; break;
-				case "exf": format = ImageResourceDataSaveFormats.Exif; break;
-				case "gif": format = ImageResourceDataSaveFormats.Gif; break;
-				case "png": format = ImageResourceDataSaveFormats.Png; break;
-				case "bmp": format = ImageResourceDataSaveFormats.Bmp; break;
+				case "jpg": format = ImageResourceDataSaveFormat.Jpeg; break;
+				case "exf": format = ImageResourceDataSaveFormat.Exif; break;
+				case "gif": format = ImageResourceDataSaveFormat.Gif; break;
+				case "png": format = ImageResourceDataSaveFormat.Png; break;
+				case "bmp": format = ImageResourceDataSaveFormat.Bmp; break;
 				default:
 					throw new NotSupportedException("Unrecognised image file format extension \"" + extension + '"');
 			}
@@ -60,33 +60,33 @@ namespace Anolis.Core.Data {
 		}
 		
 		/// <summary>Saves the underlying Image to the specified Stream using the specified Image format at 100% quality (where possible).</summary>
-		protected void ConvertAndSaveImageAs(Stream saveTo, ImageResourceDataSaveFormats format) {
+		protected void ConvertAndSaveImageAs(Stream saveTo, ImageResourceDataSaveFormat format) {
 			
 			EncoderParameters paras = new EncoderParameters(1);
 			paras.Param[0] = new EncoderParameter(Encoder.Quality, 100);
 			
 			switch(format) {
-				case ImageResourceDataSaveFormats.Jpeg:
+				case ImageResourceDataSaveFormat.Jpeg:
 					
 					Image.Save(saveTo, GetEncoder(ImageFormat.Jpeg), paras);
 					break;
 				
-				case ImageResourceDataSaveFormats.Exif:
+				case ImageResourceDataSaveFormat.Exif:
 					
 					Image.Save(saveTo, GetEncoder(ImageFormat.Exif), paras);
 					break;
 					
-				case ImageResourceDataSaveFormats.Gif:
+				case ImageResourceDataSaveFormat.Gif:
 					
 					Image.Save(saveTo, GetEncoder(ImageFormat.Gif), paras);
 					break;
 					
-				case ImageResourceDataSaveFormats.Png:
+				case ImageResourceDataSaveFormat.Png:
 				
 					Image.Save(saveTo, GetEncoder(ImageFormat.Png), paras);
 					break;
 					
-				case ImageResourceDataSaveFormats.Bmp:
+				case ImageResourceDataSaveFormat.Bmp:
 					
 					Image.Save(saveTo, GetEncoder(ImageFormat.Bmp), paras);
 					break;
@@ -104,9 +104,18 @@ namespace Anolis.Core.Data {
 			return null;
 		}
 		
+		protected override void Dispose(Boolean managed) {
+			
+			if(managed) {
+				this.Image.Dispose();
+			}
+			
+			base.Dispose(managed);
+		}
+		
 	}
 	
-	public enum ImageResourceDataSaveFormats {
+	public enum ImageResourceDataSaveFormat {
 		Jpeg,
 		Exif,
 		Gif,

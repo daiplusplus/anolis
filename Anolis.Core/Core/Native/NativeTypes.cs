@@ -306,17 +306,17 @@ namespace Anolis.Core.Native {
 #region Version
 	
 	[StructLayout(LayoutKind.Sequential, Pack=2)]
-	internal struct VsVersionInfo {
+	internal struct VSVersionInfo {
 		public UInt16 wLength;
 		public UInt16 wValueLength;
 		public UInt16 wType;
 		public String szKey;
 		public Byte[] Padding1;
-		public VsFixedFileInfo Value;
+		public VSFixedFileInfo Value;
 		public Byte[] Padding2;
 		public UInt16[] Children;
 		
-//		public VsVersionInfo(BinaryReader rdr) {
+//		public VSVersionInfo(BinaryReader rdr) {
 //			wLength      = rdr.ReadUInt16();
 //			wValueLength = rdr.ReadUInt16();
 //			wType        = rdr.ReadUInt16();
@@ -328,7 +328,7 @@ namespace Anolis.Core.Native {
 #if UNIONS
 	
 	[StructLayout(LayoutKind.Explicit, Pack=2)]
-	internal struct VsFixedFileInfo {
+	internal struct VSFixedFileInfo {
 		[FieldOffset(0x00)] public UInt32 dwSignature;
 		[FieldOffset(0x04)] public UInt32 dwStrucVersion;
 		[FieldOffset(0x08)] public UInt32 dwFileVersionMS;
@@ -336,16 +336,16 @@ namespace Anolis.Core.Native {
 		[FieldOffset(0x10)] public UInt32 dwProductVersionMS; 
 		[FieldOffset(0x14)] public UInt32 dwProductVersionLS; 
 		[FieldOffset(0x18)] public UInt32 dwFileFlagsMask; 
-		[FieldOffset(0x1C)] public VsFixedFileFlags dwFileFlags; 
-		[FieldOffset(0x20)] public VsFixedFileOS    dwFileOS; 
-		[FieldOffset(0x24)] public VsFixedFileType  dwFileType;
+		[FieldOffset(0x1C)] public VSFixedFileFlags dwFileFlags; 
+		[FieldOffset(0x20)] public VSFixedFileOS    dwFileOS; 
+		[FieldOffset(0x24)] public VSFixedFileType  dwFileType;
 		[FieldOffset(0x28)] public UInt32 dwFileSubType;
-		[FieldOffset(0x28)] public VsFixedFileSubTypeDriver dwFileSubTypeDriver;
-		[FieldOffset(0x28)] public VsFixedFileSubTypeFont   dwFileSubTypeFont;
+		[FieldOffset(0x28)] public VSFixedFileSubTypeDriver dwFileSubTypeDriver;
+		[FieldOffset(0x28)] public VSFixedFileSubTypeFont   dwFileSubTypeFont;
 		[FieldOffset(0x2C)] public UInt32 dwFileDateMS; 
 		[FieldOffset(0x30)] public UInt32 dwFileDateLS;
 		
-		public VsFixedFileInfo(BinaryReader rdr) {
+		public VSFixedFileInfo(BinaryReader rdr) {
 			
 			dwFileSubTypeDriver = 0;
 			dwFileSubTypeFont   = 0;
@@ -357,15 +357,15 @@ namespace Anolis.Core.Native {
 			dwProductVersionMS = rdr.ReadUInt32();
 			dwProductVersionLS = rdr.ReadUInt32();
 			dwFileFlagsMask    = rdr.ReadUInt32();
-			dwFileFlags        = (VsFixedFileFlags)rdr.ReadUInt32();
-			dwFileOS           = (VsFixedFileOS)   rdr.ReadUInt32();
-			dwFileType         = (VsFixedFileType) rdr.ReadUInt32();
+			dwFileFlags        = (VSFixedFileFlags)rdr.ReadUInt32();
+			dwFileOS           = (VSFixedFileOS)   rdr.ReadUInt32();
+			dwFileType         = (VSFixedFileType) rdr.ReadUInt32();
 			dwFileSubType      = rdr.ReadUInt32();
 			dwFileDateMS       = rdr.ReadUInt32();
 			dwFileDateLS       = rdr.ReadUInt32();
 		}
 		
-		public VsFixedFileInfo(Byte[] data) {
+		public VSFixedFileInfo(Byte[] data) {
 			
 			if(data.Length < 0x34) throw new ArgumentException("data needs to be at least 0x34 bytes long", "data");
 			
@@ -379,9 +379,9 @@ namespace Anolis.Core.Native {
 			dwProductVersionMS = ReadUInt32(data, 0x10);
 			dwProductVersionLS = ReadUInt32(data, 0x14);
 			dwFileFlagsMask    = ReadUInt32(data, 0x18);
-			dwFileFlags        = (VsFixedFileFlags)ReadUInt32(data, 0x1C);
-			dwFileOS           = (VsFixedFileOS)   ReadUInt32(data, 0x20);
-			dwFileType         = (VsFixedFileType) ReadUInt32(data, 0x24);
+			dwFileFlags        = (VSFixedFileFlags)ReadUInt32(data, 0x1C);
+			dwFileOS           = (VSFixedFileOS)   ReadUInt32(data, 0x20);
+			dwFileType         = (VSFixedFileType) ReadUInt32(data, 0x24);
 			dwFileSubType      = ReadUInt32(data, 0x28);
 			dwFileDateMS       = ReadUInt32(data, 0x2C);
 			dwFileDateLS       = ReadUInt32(data, 0x30);
@@ -432,7 +432,7 @@ namespace Anolis.Core.Native {
 #endif
 	
 	[Flags]
-	internal enum VsFixedFileFlags : uint {
+	internal enum VSFixedFileFlags : uint {
 		Debug         = 0x01,
 		InfoInferred  = 0x02,
 		Patched       = 0x04,
@@ -442,7 +442,7 @@ namespace Anolis.Core.Native {
 	}
 	
 	[Flags]
-	internal enum VsFixedFileOS : uint {
+	internal enum VSFixedFileOS : uint {
 		Unknown = 0x00000000,
 		DOS     = 0x00010000,
 		OS216   = 0x00020000,
@@ -456,7 +456,7 @@ namespace Anolis.Core.Native {
 		Win32   = 0x00000004
 	}
 	
-	internal enum VsFixedFileType : uint {
+	internal enum VSFixedFileType : uint {
 		Unknown     = 0x0,
 		Application = 0x1,
 		Dll         = 0x2,
@@ -466,7 +466,7 @@ namespace Anolis.Core.Native {
 		StaticLib   = 0x7
 	}
 	
-	internal enum VsFixedFileSubTypeDriver : uint {
+	internal enum VSFixedFileSubTypeDriver : uint {
 		Unknown                  = 0x0,
 		// Driver specific
 		
@@ -484,7 +484,7 @@ namespace Anolis.Core.Native {
 		DriverVersionedPrinter   = 0xC
 	}
 	
-	internal enum VsFixedFileSubTypeFont : uint {
+	internal enum VSFixedFileSubTypeFont : uint {
 		FontRaster               = 0x1,
 		FontVector               = 0x2,
 		FontTrueType             = 0x3

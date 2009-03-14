@@ -76,7 +76,7 @@
 			this.@__infoLbl.BackColor = System.Drawing.Color.Transparent;
 			this.@__infoLbl.Location = new System.Drawing.Point(247, 160);
 			this.@__infoLbl.Name = "__infoLbl";
-			this.@__infoLbl.Size = new System.Drawing.Size(193, 36);
+			this.@__infoLbl.Size = new System.Drawing.Size(193, 68);
 			this.@__infoLbl.TabIndex = 3;
 			this.@__infoLbl.Text = "The selected item \'{0}\' does not have any information associated with it";
 			// 

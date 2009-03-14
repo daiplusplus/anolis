@@ -2,6 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 
 using Cult = System.Globalization.CultureInfo;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Anolis.Core.Native {
 	
@@ -51,16 +52,16 @@ namespace Anolis.Core.Native {
 			UpdateMui     = 0x20
 		}
 		
-		[return: MarshalAs(UnmanagedType.Bool)]
 		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean EnumResourceTypesEx(IntPtr hModule, EnumResTypeProc callback, IntPtr userParam, MuiResourceFlags flags, UInt16 langId);
 		
-		[return: MarshalAs(UnmanagedType.Bool)]
 		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean EnumResourceNamesEx(IntPtr hModule, IntPtr type, EnumResNameProc callback, IntPtr userParam, MuiResourceFlags flags, UInt16 langId);
 		
-		[return: MarshalAs(UnmanagedType.Bool)]
 		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean EnumResourceLanguagesEx(IntPtr hModule, IntPtr type, IntPtr name, EnumResLangProc callback, IntPtr userParam, MuiResourceFlags flags, UInt16 langId);
 		
 #endregion
@@ -177,12 +178,15 @@ namespace Anolis.Core.Native {
 		}
 		
 		[DllImport("Gdi32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean DeleteObject(IntPtr objectHandle);
 		
-		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[DllImport("User32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean DestroyCursor(IntPtr cursorHandle);
 		
-		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[DllImport("User32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean DestroyIcon(IntPtr iconHandle);
 		
 #endregion
@@ -196,6 +200,7 @@ namespace Anolis.Core.Native {
 		public static extern void GetNativeSystemInfo(out SystemInfo systemInfo);
 		
 		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean IsWow64Process(IntPtr hProcess, out Boolean isWow64Process);
 		
 #endregion
@@ -285,6 +290,24 @@ namespace Anolis.Core.Native {
 			return message;
 			
 		}
+		
+#region Package System
+		
+		[DllImport("kernel32.dll", SetLastError=true, CharSet=CharSet.Unicode)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean MoveFileEx(String lpExistingFileName, String lpNewFileName, MoveFileFlags dwFlags);
+		
+		[Flags]
+		public enum MoveFileFlags {
+			ReplaceExisting    = 0x00000001,
+			CopyAllowed        = 0x00000002,
+			DelayUntilReboot   = 0x00000004,
+			WriteThrough       = 0x00000008,
+			CreateHardlink     = 0x00000010,
+			FailIfNotTrackable = 0x00000020
+		}
+		
+#endregion
 		
 	}
 	

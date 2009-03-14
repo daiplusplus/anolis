@@ -15,7 +15,6 @@ namespace Anolis.Core.Utility {
 	/// <summary>Represents an Icon Directory as a Resource, used for reconstructing an IconDirectoryResourceData's RawData</summary>
 	public class ResIconDir {
 		
-		
 		private Byte[]  _rawData;
 		private Boolean _updated = true;
 		
@@ -208,8 +207,6 @@ namespace Anolis.Core.Utility {
 		public void Save(Stream stream) {
 			
 			BinaryWriter wtr = new BinaryWriter(stream);
-			
-			Int64 offsetFrom = stream.Position;
 			
 			// Write IconHeader ( IconDirectory )
 			

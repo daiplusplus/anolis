@@ -5,7 +5,7 @@ using W3b.TarLzma;
 
 namespace Anolis.Core.Packages {
 	
-	public class TarLzmaPackageArchive : PackageArchive {
+	public class TarLzmaPackageArchive : PackageArchive, IDisposable {
 		
 		private TarLzmaDecoder _dec;
 		private String         _destinationDir;
@@ -35,5 +35,13 @@ namespace Anolis.Core.Packages {
 			
 			return Package.FromFile( packageXmlFilename );
 		}
+		
+		protected override void Dispose(Boolean managed) {
+			
+			if( managed ) _dec.Dispose();
+			
+			base.Dispose(managed);
+		}
+		
 	}
 }

@@ -109,13 +109,15 @@
     <Compile Include="Packages\Exceptions.cs" />
     <Compile Include="Packages\Operations\ExtraOperation.cs" />
     <Compile Include="Packages\Operations\FileOperation.cs" />
+    <Compile Include="Packages\Operations\NotImplementedOperation.cs" />
     <Compile Include="Packages\Operations\Operation.cs" />
     <Compile Include="Packages\Operations\PatchOperation.cs" />
     <Compile Include="Packages\Archives\TarLzmaPackageArchive.cs" />
     <Compile Include="Packages\Package.cs" />
     <Compile Include="Packages\Archives\PackageArchive.cs" />
     <Compile Include="Packages\PackageItem.cs" />
-    <Compile Include="Packages\PackageItemContainer.cs" />
+    <Compile Include="Packages\PackageUtility.cs" />
+    <Compile Include="Packages\Set.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
