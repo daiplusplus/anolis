@@ -113,20 +113,20 @@ namespace Anolis.Core.Data {
 		
 		private IntPtr _unmanagedMemory;
 		
-		private IconCursorImageResourceData(IntPtr unmanagedPointer, Icon icon, ResourceLang lang, Byte[] rawData) : base( GetImage(icon), lang, rawData) {
+		private IntPtr _hIcon;
+		
+		private IconCursorImageResourceData(IntPtr unmanagedPointer, IntPtr hIcon, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
 			
 			_unmanagedMemory = unmanagedPointer;
 			
-			Icon = icon;
-			Size = icon.Size;
+			_hIcon = hIcon;
 		}
 		
-		private IconCursorImageResourceData(IntPtr unmanagedPointer, Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
+		private IconCursorImageResourceData(IntPtr unmanagedPointer, Image image, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
 			
 			_unmanagedMemory = unmanagedPointer;
 			
-			// Icon is null
-			Size = image.Size;
+			_image = image;
 		}
 		
 		protected override void Dispose(Boolean managed) {
@@ -140,9 +140,27 @@ namespace Anolis.Core.Data {
 			base.Dispose(managed);
 		}
 		
-		public Size Size { get; private set; }
+		private Icon _icon;
 		
-		public Icon Icon { get; private set; }
+		public Icon Icon {
+			get {
+				if( _icon == null ) {
+					_icon = System.Drawing.Icon.FromHandle( _hIcon );
+				}
+				return _icon;
+			}
+		}
+		
+		private Image _image;
+		
+		public override Image Image {
+			get {
+				if( _image == null ) {
+					_image = Icon.ToBitmap();
+				}
+				return _image;
+			}
+		}
 		
 		public Boolean IsIcon { get; private set; }
 		
@@ -158,7 +176,7 @@ namespace Anolis.Core.Data {
 				Image image;
 				if(!ImageResourceData.TryCreateImage(rawData, out image)) { typed = null; return false; }
 				
-				typed = new IconCursorImageResourceData(IntPtr.Zero, image, lang, rawData) { Size = image.Size, IsIcon = isIcon };
+				typed = new IconCursorImageResourceData(IntPtr.Zero, image, lang, rawData) { IsIcon = isIcon };
 				return true;
 				
 			}
@@ -179,11 +197,9 @@ namespace Anolis.Core.Data {
 				return false;
 			}
 			
-			Icon icon = Icon.FromHandle( hIcon );
-			
 			// because the Icon is born out of unmanaged data I cannot free the handle here; do it in the finaliser
 			
-			typed = new IconCursorImageResourceData(p, icon, lang, rawData) { IsIcon = isIcon };
+			typed = new IconCursorImageResourceData(p, hIcon, lang, rawData) { IsIcon = isIcon };
 			return true;
 			
 		}

@@ -68,7 +68,9 @@ namespace Anolis.Core.Data {
 	
 	public sealed class JpegImageResourceData : ImageResourceData {
 		
-		private JpegImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(image, lang, rawData) {
+		private JpegImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
+			
+			_image = image;
 		}
 		
 		public static Boolean TryCreate(ResourceLang lang, Byte[] data, out JpegImageResourceData typed) {
@@ -126,6 +128,12 @@ namespace Anolis.Core.Data {
 		
 		protected override ResourceTypeIdentifier GetRecommendedTypeId() {
 			return new ResourceTypeIdentifier("JPEG");
+		}
+		
+		private Image _image;
+		
+		public override Image Image {
+			get { return _image; }
 		}
 		
 	}

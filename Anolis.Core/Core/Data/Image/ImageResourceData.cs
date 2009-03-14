@@ -11,15 +11,9 @@ namespace Anolis.Core.Data {
 	
 	public abstract class ImageResourceData : ResourceData {
 		
-		public virtual Image Image { get; private set; }
+		public abstract Image Image { get; }
 		
 		protected ImageResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
-		}
-		
-		protected ImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
-			
-			Image = image;
-			
 		}
 		
 		protected static Boolean TryCreateImage(Byte[] data, out Image image) {
