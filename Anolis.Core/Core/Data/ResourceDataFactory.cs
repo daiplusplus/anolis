@@ -150,12 +150,12 @@ namespace Anolis.Core.Data {
 				foreach(FactoryLocation loc in locations) {
 					
 					switch(loc.Type) {
-						case FactoryLocationType.Directory:
-							
-							// recursivly search for all DLLs
-							if(Directory.Exists(loc.Path)) RecurseDirectory(list, new DirectoryInfo(loc.Path));
-							
-							break;
+//						case FactoryLocationType.Directory:
+//							
+//							// recursivly search for all DLLs
+//							if(Directory.Exists(loc.Path)) RecurseDirectory(list, new DirectoryInfo(loc.Path));
+//							
+//							break;
 						case FactoryLocationType.Filename:
 							
 							LoadFactoriesFromAssembly(list, loc.Path);

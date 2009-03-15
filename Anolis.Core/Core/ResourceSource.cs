@@ -38,6 +38,16 @@ namespace Anolis.Core {
 		}
 		
 		protected virtual void Dispose(Boolean managed) {
+			
+			if(managed) {
+				
+				foreach(ResourceLang lang in this.AllLoadedLangs) {
+					
+					lang.Data.Dispose();
+				}
+				
+			}
+			
 		}
 		
 		//////////////////////

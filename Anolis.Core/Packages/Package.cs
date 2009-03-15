@@ -195,7 +195,7 @@ namespace Anolis.Core.Packages {
 	}
 	
 	public enum LogSeverity {
-		FatalError,
+		Fatal,
 		Error,
 		Warning,
 		Info

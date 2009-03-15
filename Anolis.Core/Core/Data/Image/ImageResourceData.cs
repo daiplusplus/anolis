@@ -100,10 +100,6 @@ namespace Anolis.Core.Data {
 		
 		protected override void Dispose(Boolean managed) {
 			
-			if(managed) {
-				this.Image.Dispose();
-			}
-			
 			base.Dispose(managed);
 		}
 		

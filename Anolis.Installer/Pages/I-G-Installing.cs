@@ -16,6 +16,9 @@ namespace Anolis.Installer.Pages {
 			
 			this.PageLoad += new EventHandler(InstallingPage_PageLoad);
 			this.__showLog.Click += new EventHandler(__showLog_Click);
+			
+			__bw.DoWork += new DoWorkEventHandler(__bw_DoWork);
+			__bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(__bw_RunWorkerCompleted);
 		}
 		
 		private void __showLog_Click(object sender, EventArgs e) {
@@ -43,26 +46,48 @@ namespace Anolis.Installer.Pages {
 			
 			PackageInfo.Package.ProgressEvent += new EventHandler<PackageProgressEventArgs>(Package_ProgressEvent);
 			
-			__bw.DoWork += new DoWorkEventHandler(__bw_DoWork);
-			
 			__bw.RunWorkerAsync();
 		}
 		
-		private void __bw_DoWork(object sender, DoWorkEventArgs e) {
+		private void __bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
 			
-			try {
-				PackageInfo.Package.Execute();
-			} catch(Exception ex) {
+			Exception ex = e.Error;
+			if(ex != null) {
 				
 				Invoke( new MethodInvoker( delegate() {
 					
-					throw ex;
+					throw new Exception("Error during installation", ex);
 					
 				}));
 				
 			}
 			
-			WizardForm.LoadPage( Program.PageZFinished );
+			// dump log to HDD
+			
+			using(StreamWriter wtr = new StreamWriter( System.IO.Path.Combine( Environment.CurrentDirectory,"AnolisInstaller.log"), true)) {
+				
+				wtr.WriteLine("Anolis.Resourcer - Package.Execute() Completed at " + DateTime.Now.ToString("s"));
+				
+				foreach(LogItem item in PackageInfo.Package.Log) {
+					
+					wtr.Write( item.Severity );
+					wtr.Write(" - ");
+					wtr.WriteLine( item.Message );
+				}
+				
+			}
+			
+		}
+		
+		private void __bw_DoWork(object sender, DoWorkEventArgs e) {
+			
+			PackageInfo.Package.Execute();
+			
+			Invoke( new MethodInvoker( delegate() {
+				
+				WizardForm.LoadPage( Program.PageZFinished );
+			}));
+			
 		}
 		
 		private void Package_ProgressEvent(object sender, PackageProgressEventArgs e) {

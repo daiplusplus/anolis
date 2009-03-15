@@ -135,6 +135,15 @@ namespace Anolis.Core.Data {
 			}
 		}
 		
+		protected override void Dispose(bool managed) {
+			
+			if(managed) {
+				if( _image != null ) _image.Dispose();
+			}
+			
+			base.Dispose(managed);
+		}
+		
 		protected override String[] SupportedFilters {
 			get { return new String[] {
 				"BMP Image (*.bmp)|*.bmp",
