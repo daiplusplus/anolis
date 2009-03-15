@@ -34,14 +34,10 @@ namespace Anolis.Core.Data {
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
 			
 			IconCursorImageResourceData rd;
-			String message;
 			
-			if( IconCursorImageResourceData.TryCreate(true, lang, data, out message, out rd) ) return rd;
-			
-			LastErrorMessage = message;
+			if( IconCursorImageResourceData.TryCreate(true, lang, data, out rd) ) return rd;
 			
 			return null;
-			
 		}
 		
 		public override String Name {
@@ -83,11 +79,8 @@ namespace Anolis.Core.Data {
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
 			
 			IconCursorImageResourceData rd;
-			String message;
 			
-			if( IconCursorImageResourceData.TryCreate(false, lang, data, out message, out rd) ) return rd;
-			
-			LastErrorMessage = message;
+			if( IconCursorImageResourceData.TryCreate(false, lang, data, out rd) ) return rd;
 			
 			return null;
 			
@@ -111,31 +104,50 @@ namespace Anolis.Core.Data {
 	/// <summary>Magically represents both Icons and Cursors.</summary>
 	public sealed class IconCursorImageResourceData : ImageResourceData {
 		
-		private IntPtr _unmanagedMemory;
+		/// <summary>Unmanaged pointer to the memory holding the data that makes up the GDI icon pointed to by hIcon created by CreateIconFromResource</summary>
+		private IntPtr _p;
 		
 		private IntPtr _hIcon;
 		
-		private IconCursorImageResourceData(IntPtr unmanagedPointer, IntPtr hIcon, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
-			
-			_unmanagedMemory = unmanagedPointer;
-			
-			_hIcon = hIcon;
+		private IconCursorImageResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
 		}
 		
-		private IconCursorImageResourceData(IntPtr unmanagedPointer, Image image, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
-			
-			_unmanagedMemory = unmanagedPointer;
-			
+		private IconCursorImageResourceData(Image image, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
 			_image = image;
+		}
+		
+		private void CreateIcon() {
+			
+			// "Almost" cheating; this uses Win32's icon function, but in a nice way that doesn't break my conceptual model
+			
+			// and to think I'd need to manually process the DIB information to extract and recreate Bitmaps
+			
+			// although I might want to do that in future if I wanted to display the AND and XOR masks separately
+			
+			_p = Marshal.AllocHGlobal( RawData.Length );
+			Marshal.Copy( RawData, 0, _p, RawData.Length );
+			
+			_hIcon = NativeMethods.CreateIconFromResource( _p, (uint)RawData.Length, IsIcon);
+			if(_hIcon == IntPtr.Zero) {
+				String message = NativeMethods.GetLastErrorString();
+				throw new ResourceDataException("CreateIconFromResourceEx Failed " + message);
+			}
+			
+			// because the Icon is born out of unmanaged data I cannot free the handle here; do it in the Disposer
+			
+			_icon = System.Drawing.Icon.FromHandle( _hIcon );
+			
 		}
 		
 		protected override void Dispose(Boolean managed) {
 			
 			if(managed) {
-				this.Icon.Dispose();
+				if( _image != null ) _image.Dispose();
+				if( _icon  != null ) _icon.Dispose();
 			}
 			
-			Marshal.FreeHGlobal( _unmanagedMemory );
+			NativeMethods.DestroyIcon( _hIcon );
+			if( _p != IntPtr.Zero ) Marshal.FreeHGlobal( _p );
 			
 			base.Dispose(managed);
 		}
@@ -144,9 +156,7 @@ namespace Anolis.Core.Data {
 		
 		public Icon Icon {
 			get {
-				if( _icon == null ) {
-					_icon = System.Drawing.Icon.FromHandle( _hIcon );
-				}
+				if( _icon == null ) CreateIcon();
 				return _icon;
 			}
 		}
@@ -164,9 +174,7 @@ namespace Anolis.Core.Data {
 		
 		public Boolean IsIcon { get; private set; }
 		
-		public static Boolean TryCreate(Boolean isIcon, ResourceLang lang, Byte[] rawData, out String message, out IconCursorImageResourceData typed) {
-			
-			message = null;
+		public static Boolean TryCreate(Boolean isIcon, ResourceLang lang, Byte[] rawData, out IconCursorImageResourceData typed) {
 			
 			// rawData is an ICONIMAGE structure OR a PNG image
 			
@@ -176,30 +184,12 @@ namespace Anolis.Core.Data {
 				Image image;
 				if(!ImageResourceData.TryCreateImage(rawData, out image)) { typed = null; return false; }
 				
-				typed = new IconCursorImageResourceData(IntPtr.Zero, image, lang, rawData) { IsIcon = isIcon };
+				typed = new IconCursorImageResourceData(image, lang, rawData) { IsIcon = isIcon };
 				return true;
 				
 			}
 			
-			// "Almost" cheating; this uses Win32's icon function, but in a nice way that doesn't break my conceptual model
-			
-			// and to think I'd need to manually process the DIB information to extract and recreate Bitmaps
-			
-			// although I might want to do that in future if I wanted to display the AND and XOR masks separately
-			
-			IntPtr p = Marshal.AllocHGlobal( rawData.Length );
-			Marshal.Copy( rawData, 0, p, rawData.Length );
-			
-			IntPtr hIcon = NativeMethods.CreateIconFromResource(p, (uint)rawData.Length, isIcon);
-			if(hIcon == IntPtr.Zero) {
-				message = NativeMethods.GetLastErrorString();
-				typed = null;
-				return false;
-			}
-			
-			// because the Icon is born out of unmanaged data I cannot free the handle here; do it in the finaliser
-			
-			typed = new IconCursorImageResourceData(p, hIcon, lang, rawData) { IsIcon = isIcon };
+			typed = new IconCursorImageResourceData(lang, rawData) { IsIcon = isIcon };
 			return true;
 			
 		}

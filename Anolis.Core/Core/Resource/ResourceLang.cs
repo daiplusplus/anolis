@@ -60,6 +60,8 @@ namespace Anolis.Core {
 			
 			data.Lang = this;
 			
+			// it might be an idea to dispose of _data before it's reassigned, but there's no way of finding its reference count
+			
 			_data = data;
 			
 		}
