@@ -205,6 +205,183 @@ namespace Anolis.Core.Native {
 		
 #endregion
 		
+#region Privileges
+		
+		public enum TokenDesiredAccess : uint {
+			STANDARD_RIGHTS_REQUIRED = 0x000F0000,
+			STANDARD_RIGHTS_READ     = 0x00020000,
+			TOKEN_ASSIGN_PRIMARY     = 0x0001,
+			TOKEN_DUPLICATE          = 0x0002,
+			TOKEN_IMPERSONATE        = 0x0004,
+			TOKEN_QUERY              = 0x0008,
+			TOKEN_QUERY_SOURCE       = 0x0010,
+			TOKEN_ADJUST_PRIVILEGES  = 0x0020,
+			TOKEN_ADJUST_GROUPS      = 0x0040,
+			TOKEN_ADJUST_DEFAULT     = 0x0080,
+			TOKEN_ADJUST_SESSIONID   = 0x0100,
+			TOKEN_READ               = STANDARD_RIGHTS_READ | TOKEN_QUERY,
+			TOKEN_ALL_ACCESS         = 
+				STANDARD_RIGHTS_REQUIRED |
+				TOKEN_ASSIGN_PRIMARY |
+				TOKEN_DUPLICATE |
+				TOKEN_IMPERSONATE |
+				TOKEN_QUERY |
+				TOKEN_QUERY_SOURCE |
+				TOKEN_ADJUST_PRIVILEGES |
+				TOKEN_ADJUST_GROUPS |
+				TOKEN_ADJUST_DEFAULT |
+				TOKEN_ADJUST_SESSIONID
+		}
+		
+		[DllImport("kernel32.dll")]
+		public static extern IntPtr GetCurrentProcess();
+		
+		[DllImport("advapi32.dll", SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool AdjustTokenPrivileges(IntPtr TokenHandle, [MarshalAs(UnmanagedType.Bool)]Boolean disableAllPrivileges, ref TokenPrivileges newState, UInt32 zero, IntPtr null1, IntPtr null2);
+		
+		[DllImport("advapi32.dll", SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool OpenProcessToken(IntPtr processHandle, TokenDesiredAccess desiredAccess, out IntPtr tokenHandle);
+		
+		[DllImport("advapi32.dll", SetLastError=true, CharSet=CharSet.Auto)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool LookupPrivilegeValue(String systemName, String name, out Luid luid);
+		
+		public struct TokenPrivileges {
+			
+			public UInt32 PrivilegeCount;
+			
+			[MarshalAs(UnmanagedType.ByValArray, SizeConst=1)]
+			public LuidAndAttributes[] Privileges;
+		}
+		
+		[StructLayout(LayoutKind.Sequential)]
+		public struct LuidAndAttributes {
+			public Luid Luid;
+			public UInt32 Attributes;
+		}
+		
+		[StructLayout(LayoutKind.Sequential)]
+		public struct Luid {
+			public UInt32 LowPart;
+			public Int32 HighPart;
+		}
+		
+		public enum Privileges : uint {
+			Enabled          =       0x02,
+			Removed          =       0x04,
+			
+			EnabledByDefault =       0x01,
+			UsedForAccess    = 0x80000000
+		}
+		
+		public static class SePrivileges {
+			public const string ASSIGNPRIMARYTOKEN = "SeAssignPrimaryTokenPrivilege";
+			public const string AUDIT = "SeAuditPrivilege";
+			public const string BACKUP = "SeBackupPrivilege";
+			public const string CHANGE_NOTIFY = "SeChangeNotifyPrivilege";
+			public const string CREATE_GLOBAL = "SeCreateGlobalPrivilege";
+			public const string CREATE_PAGEFILE = "SeCreatePagefilePrivilege";
+			public const string CREATE_PERMANENT = "SeCreatePermanentPrivilege";
+			public const string CREATE_SYMBOLIC_LINK = "SeCreateSymbolicLinkPrivilege";
+			public const string CREATE_TOKEN = "SeCreateTokenPrivilege";
+			public const string DEBUG = "SeDebugPrivilege";
+			public const string ENABLE_DELEGATION = "SeEnableDelegationPrivilege";
+			public const string IMPERSONATE = "SeImpersonatePrivilege";
+			public const string INC_BAPRIORITY = "SeIncreaseBasePriorityPrivilege";
+			public const string INCREAQUOTA = "SeIncreaseQuotaPrivilege";
+			public const string INC_WORKING_SET = "SeIncreaseWorkingSetPrivilege";
+			public const string LOAD_DRIVER = "SeLoadDriverPrivilege";
+			public const string LOCK_MEMORY = "SeLockMemoryPrivilege";
+			public const string MACHINE_ACCOUNT = "SeMachineAccountPrivilege";
+			public const string MANAGE_VOLUME = "SeManageVolumePrivilege";
+			public const string PROF_SINGLE_PROCESS = "SeProfileSingleProcessPrivilege";
+			public const string RELABEL = "SeRelabelPrivilege";
+			public const string REMOTE_SHUTDOWN = "SeRemoteShutdownPrivilege";
+			public const string RESTORE = "SeRestorePrivilege";
+			public const string SECURITY = "SeSecurityPrivilege";
+			public const string SHUTDOWN = "SeShutdownPrivilege";
+			public const string SYNC_AGENT = "SeSyncAgentPrivilege";
+			public const string SYSTEM_ENVIRONMENT = "SeSystemEnvironmentPrivilege";
+			public const string SYSTEM_PROFILE = "SeSystemProfilePrivilege";
+			public const string SYSTEMTIME = "SeSystemtimePrivilege";
+			public const string TAKE_OWNERSHIP = "SeTakeOwnershipPrivilege";
+			public const string TCB = "SeTcbPrivilege";
+			public const string TIME_ZONE = "SeTimeZonePrivilege";
+			public const string TRUSTED_CREDMAN_ACCESS = "SeTrustedCredManAccessPrivilege";
+			public const string UNDOCK = "SeUndockPrivilege";
+			public const string UNSOLICITED_INPUT = "SeUnsolicitedInputPrivilege";
+		}
+		
+#endregion
+		
+		
+#region Shutdown
+		
+		[DllImport("user32.dll", SetLastError = true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean ExitWindowsEx(ExitWindows uFlags, ShutdownReason dwReason);
+		
+		[Flags]
+		public enum ExitWindows : uint {
+			// ONE of the following five:
+			LogOff = 0x00,
+			ShutDown = 0x01,
+			Reboot = 0x02,
+			PowerOff = 0x08,
+			RestartApps = 0x40,
+			// plus AT MOST ONE of the following two:
+			Force = 0x04,
+			ForceIfHung = 0x10,
+		}
+		
+		[Flags]
+		public enum ShutdownReason : uint {
+			MajorApplication = 0x00040000,
+			MajorHardware = 0x00010000,
+			MajorLegacyApi = 0x00070000,
+			MajorOperatingSystem = 0x00020000,
+			MajorOther = 0x00000000,
+			MajorPower = 0x00060000,
+			MajorSoftware = 0x00030000,
+			MajorSystem = 0x00050000,
+			
+			MinorBlueScreen = 0x0000000F,
+			MinorCordUnplugged = 0x0000000b,
+			MinorDisk = 0x00000007,
+			MinorEnvironment = 0x0000000c,
+			MinorHardwareDriver = 0x0000000d,
+			MinorHotfix = 0x00000011,
+			MinorHung = 0x00000005,
+			MinorInstallation = 0x00000002,
+			MinorMaintenance = 0x00000001,
+			MinorMMC = 0x00000019,
+			MinorNetworkConnectivity = 0x00000014,
+			MinorNetworkCard = 0x00000009,
+			MinorOther = 0x00000000,
+			MinorOtherDriver = 0x0000000e,
+			MinorPowerSupply = 0x0000000a,
+			MinorProcessor = 0x00000008,
+			MinorReconfig = 0x00000004,
+			MinorSecurity = 0x00000013,
+			MinorSecurityFix = 0x00000012,
+			MinorSecurityFixUninstall = 0x00000018,
+			MinorServicePack = 0x00000010,
+			MinorServicePackUninstall = 0x00000016,
+			MinorTermSrv = 0x00000020,
+			MinorUnstable = 0x00000006,
+			MinorUpgrade = 0x00000003,
+			MinorWMI = 0x00000015,
+			
+			FlagUserDefined = 0x40000000,
+			FlagPlanned = 0x80000000
+		}
+		
+#endregion
+		
+#region Loading Libraries
+		
 		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
 		public static extern IntPtr GetModuleHandle(String modulePath);
 		
@@ -228,6 +405,10 @@ namespace Anolis.Core.Native {
 		
 		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
 		public static extern IntPtr FreeLibrary(IntPtr moduleHandle);
+		
+#endregion
+		
+#region Errors
 		
 		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
 		public static extern Int32 FormatMessage(FormatMessageFlags flags, IntPtr source, Int32 messageId, Int32 languageId, out String buffer, Int32 size, IntPtr arguments);
@@ -266,8 +447,7 @@ namespace Anolis.Core.Native {
 			ArgumentArray  = 0x2000
 		}
 		
-		
-		public static String GetErrorString(Int32 errorCode) {
+		private static String GetErrorString(Int32 errorCode) {
 			
 			String failed = "Unable to FormatMessage({0}), cause: {1}";
 			
@@ -290,6 +470,8 @@ namespace Anolis.Core.Native {
 			return message;
 			
 		}
+		
+#endregion
 		
 #region Package System
 		

@@ -30,5 +30,44 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
+		public static void InitShutdown() {
+			
+			IntPtr processHandle = NativeMethods.GetCurrentProcess();
+			
+			NativeMethods.TokenDesiredAccess access = 
+				NativeMethods.TokenDesiredAccess.TOKEN_ADJUST_PRIVILEGES |
+				NativeMethods.TokenDesiredAccess.TOKEN_QUERY;
+			
+			IntPtr processToken;
+			
+			if(!NativeMethods.OpenProcessToken( processHandle, access, out processToken)) {
+				
+				throw new AnolisException("OpenProcessToken Failed: " + NativeMethods.GetLastErrorString() );
+			}
+			
+			NativeMethods.Luid luid;
+			
+			if(!NativeMethods.LookupPrivilegeValue( null, NativeMethods.SePrivileges.SHUTDOWN, out luid)) {
+				
+				throw new AnolisException("LookupPrivilegeValue Failed: " + NativeMethods.GetLastErrorString() );
+			}
+			
+			NativeMethods.TokenPrivileges tk = new NativeMethods.TokenPrivileges();
+			tk.PrivilegeCount = 1;
+			tk.Privileges = new NativeMethods.LuidAndAttributes[1];
+			tk.Privileges[0].Attributes = (uint)NativeMethods.Privileges.Enabled;
+			
+			if(!NativeMethods.AdjustTokenPrivileges( processToken, false, ref tk, 0, IntPtr.Zero, IntPtr.Zero)) {
+				
+				throw new AnolisException("AdjustTokenPrivileges Failed: " + NativeMethods.GetLastErrorString() );
+			}
+			
+			if(!NativeMethods.ExitWindowsEx(NativeMethods.ExitWindows.ShutDown, 0)) {
+				
+				throw new AnolisException("ExitWindowsEx Failed: " + NativeMethods.GetLastErrorString() );
+			}
+			
+		}
+		
 	}
 }
