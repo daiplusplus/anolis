@@ -13,16 +13,17 @@ namespace Anolis.Installer.Pages {
 		
 		public FinishedPage() {
 			InitializeComponent();
+			
+			this.PageLoad += new EventHandler(FinishedPage_PageLoad);
 		}
 		
 		private void FinishedPage_PageLoad(object sender, EventArgs e) {
 			
 			this.WizardForm.EnablePrev = false;
+			this.WizardForm.EnableNext = true;
 			
-			this.WizardForm.NextText = "Reboot";
+			this.WizardForm.NextText = "Restart";
 			this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked);
-			
-			this.PageLoad += new EventHandler(FinishedPage_PageLoad);
 		}
 		
 		private void WizardForm_NextClicked(object sender, EventArgs e) {
@@ -33,6 +34,10 @@ namespace Anolis.Installer.Pages {
 			// there are 3 main shutdown functions: ExitWindows[Ex], InitiateSystemShutdown[Ex], and InitiateShutdown[Ex]
 			// only ExitWindows works from Windows 95. InitiateSystemShutdown is NT onwards, and InitiateShutdown is NT6 onwards
 			
+			
+			//Anolis.Core.Packages.PackageUtility.InitShutdown();
+			// hack for now:
+			System.Diagnostics.Process.Start("shutdown -r -t 0");
 		}
 		
 		public override BaseWizardPage PrevPage {
