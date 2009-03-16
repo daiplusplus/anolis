@@ -18,6 +18,8 @@ namespace Anolis.Installer {
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			
+			ProgramMode = ProgramMode.None;
+			
 			// Set up the wizard
 			
 			// create the pages
@@ -74,6 +76,8 @@ namespace Anolis.Installer {
 		
 		internal static FinishedPage            PageZFinished       { get; private set; }
 		
+		
+		internal static ProgramMode             ProgramMode         { get; set; }
 	}
 	
 	internal static class ToolsInfo {
@@ -102,6 +106,13 @@ namespace Anolis.Installer {
 		Archive,
 		Embedded,
 		File
+	}
+	
+	internal enum ProgramMode {
+		None             = 0,
+		InstallPackage,
+		UninstallPackage,
+		InstallTools
 	}
 	
 }

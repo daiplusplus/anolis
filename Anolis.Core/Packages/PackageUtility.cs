@@ -39,7 +39,7 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
-		public static Boolean CreateSystemRestorePoint(String name, SystemRestoreType type) {
+		public static Boolean CreateSystemRestorePoint(String name, SystemRestoreType type, SystemRestoreEventType eventType) {
 			
 			// use WMI for now rather than the native API
 			
@@ -51,9 +51,9 @@ namespace Anolis.Core.Packages {
 			ManagementClass clas = new ManagementClass(scope, path, getOpts);
 			
 			ManagementBaseObject inParams = clas.GetMethodParameters("CreateRestorePoint");
-			inParams["Description"] = name;
-			inParams["RestorePointType"] = (int)type;
-			inParams["EventType"] = 100;
+			inParams["Description"]       = name;
+			inParams["RestorePointType"]  = (int)type;
+			inParams["EventType"]         = (int)eventType;
 			
 			ManagementBaseObject outParams = clas.InvokeMethod("CreateRestorePoint", inParams, null);
 			Object ret = outParams.Properties["ReturnValue"];
