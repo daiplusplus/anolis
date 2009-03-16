@@ -21,7 +21,7 @@ namespace Anolis.Core.Packages {
 			
 			Version     = Single.Parse( packageElement.Attributes["version"].Value, N.AllowDecimalPoint | N.AllowLeadingWhite | System.Globalization.NumberStyles.AllowTrailingWhite, System.Globalization.CultureInfo.InvariantCulture );
 			Attribution = packageElement.Attributes["attribution"].Value;
-			Website     = new Uri( packageElement.Attributes["website"].Value );
+			Website     = packageElement.GetAttribute("website").Length > 0 ? new Uri( packageElement.Attributes["website"].Value ) : null;
 			if(packageElement.Attributes["updateUri"] != null) UpdateUri = new Uri( packageElement.Attributes["updateUri"].Value );
 			
 			PackageImages = new Dictionary<String,System.Drawing.Image>();

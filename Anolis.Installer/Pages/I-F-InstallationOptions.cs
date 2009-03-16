@@ -24,7 +24,7 @@ namespace Anolis.Installer.Pages {
 		
 		private void __bw_DoWork(object sender, DoWorkEventArgs e) {
 			
-			Anolis.Core.Packages.PackageUtility.CreateSystemRestorePoint("Installed Anolis Package '" + PackageInfo.Package.RootSet.Name + '\'', Anolis.Core.Packages.PackageUtility.SystemRestoreType.ApplicationInstall);
+			
 			
 		}
 		
