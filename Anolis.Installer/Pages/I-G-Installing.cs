@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using Anolis.Core.Packages;
 using System.IO;
 using W3b.Wizards;
+
+
 namespace Anolis.Installer.Pages {
 	
 	public partial class InstallingPage : BaseInteriorPage {
@@ -81,7 +83,16 @@ namespace Anolis.Installer.Pages {
 		
 		private void __bw_DoWork(object sender, DoWorkEventArgs e) {
 			
-			PackageInfo.Package.Execute();
+			CreatePointA();
+			
+			try {
+			
+				PackageInfo.Package.Execute();
+				
+			} finally {
+				
+				CreatePointB();
+			}
 			
 			Invoke( new MethodInvoker( delegate() {
 				
@@ -108,6 +119,60 @@ namespace Anolis.Installer.Pages {
 		public override BaseWizardPage NextPage {
 			get { return null; }
 		}
+		
+#region System Restore
+		
+		private void CreatePointA() {
+			
+			if( PackageInfo.SystemRestore ) {
+				
+				Invoke( new MethodInvoker( delegate() {
+					
+					__progress.Style = ProgressBarStyle.Marquee;
+					__statusLabel.Text = "Creating System Restore Point";
+					
+				}));
+				
+				String pointName = "Installed Anolis Package '" + PackageInfo.Package.RootSet.Name + '\'';
+				
+				PackageUtility.CreateSystemRestorePoint( pointName, PackageUtility.SystemRestoreType.ApplicationInstall, PackageUtility.SystemRestoreEventType.BeginSystemChange );
+				
+				Invoke( new MethodInvoker( delegate() {
+					
+					__progress.Style = ProgressBarStyle.Blocks;
+					
+				}));
+				
+			}
+			
+		}
+		
+		private void CreatePointB() {
+			
+			if( PackageInfo.SystemRestore ) {
+				
+				Invoke( new MethodInvoker( delegate() {
+					
+					__progress.Style = ProgressBarStyle.Marquee;
+					__statusLabel.Text = "Finishing System Restore Point";
+					
+				}));
+				
+				String pointName = "Installed Anolis Package '" + PackageInfo.Package.RootSet.Name + '\'';
+				
+				PackageUtility.CreateSystemRestorePoint( pointName, PackageUtility.SystemRestoreType.ApplicationInstall, PackageUtility.SystemRestoreEventType.EndSystemChange );
+				
+				Invoke( new MethodInvoker( delegate() {
+					
+					__progress.Style = ProgressBarStyle.Blocks;
+					
+				}));
+				
+			}
+			
+		}
+		
+#endregion
 		
 	}
 }

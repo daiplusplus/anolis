@@ -116,6 +116,12 @@ namespace Anolis.Core.Utility {
 			
 		}
 		
+		public Byte[] GetDibBytes() {
+			
+			return _dibData;
+		}
+		
+		/// <summary>Saves the DIB to the specified Stream, writing the File Header</summary>
 		public void Save(Stream stream) {
 			
 			if(!stream.CanWrite) throw new ArgumentException("Cannot write to stream");
