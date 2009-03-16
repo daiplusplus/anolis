@@ -94,6 +94,8 @@ namespace Anolis.Installer {
 		
 		public static Package        Package    { get; set; }
 		
+		public static Boolean        SystemRestore { get; set; }
+		
 	}
 	
 	internal enum PackageSource {

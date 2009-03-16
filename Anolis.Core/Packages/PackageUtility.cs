@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Management;
 using Microsoft.Win32;
 
 using Anolis.Core.Native;
@@ -30,43 +31,55 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
-		public static void InitShutdown() {
+		public static void InitRestart() {
 			
-			IntPtr processHandle = NativeMethods.GetCurrentProcess();
+			NativeMethods.EnableProcessToken( NativeMethods.SePrivileges.SHUTDOWN );
 			
-			NativeMethods.TokenDesiredAccess access = 
-				NativeMethods.TokenDesiredAccess.TOKEN_ADJUST_PRIVILEGES |
-				NativeMethods.TokenDesiredAccess.TOKEN_QUERY;
+			NativeMethods.ExitWindowsEx(NativeMethods.ExitWindows.Reboot, 0);
 			
-			IntPtr processToken;
+		}
+		
+		public static Boolean CreateSystemRestorePoint(String name, SystemRestoreType type) {
 			
-			if(!NativeMethods.OpenProcessToken( processHandle, access, out processToken)) {
+			// use WMI for now rather than the native API
+			
+			ManagementScope scope = new ManagementScope(@"\\localhost\root\default");
+			ManagementPath  path  = new ManagementPath("SystemRestore");
+			
+			ObjectGetOptions getOpts = new ObjectGetOptions();
+			
+			ManagementClass clas = new ManagementClass(scope, path, getOpts);
+			
+			ManagementBaseObject inParams = clas.GetMethodParameters("CreateRestorePoint");
+			inParams["Description"] = name;
+			inParams["RestorePointType"] = (int)type;
+			inParams["EventType"] = 100;
+			
+			ManagementBaseObject outParams = clas.InvokeMethod("CreateRestorePoint", inParams, null);
+			Object ret = outParams.Properties["ReturnValue"];
+			
+			if(ret is Int32) {
 				
-				throw new AnolisException("OpenProcessToken Failed: " + NativeMethods.GetLastErrorString() );
-			}
-			
-			NativeMethods.Luid luid;
-			
-			if(!NativeMethods.LookupPrivilegeValue( null, NativeMethods.SePrivileges.SHUTDOWN, out luid)) {
+				return (int)ret == 0;
+			} else {
 				
-				throw new AnolisException("LookupPrivilegeValue Failed: " + NativeMethods.GetLastErrorString() );
+				return false;
 			}
-			
-			NativeMethods.TokenPrivileges tk = new NativeMethods.TokenPrivileges();
-			tk.PrivilegeCount = 1;
-			tk.Privileges = new NativeMethods.LuidAndAttributes[1];
-			tk.Privileges[0].Attributes = (uint)NativeMethods.Privileges.Enabled;
-			
-			if(!NativeMethods.AdjustTokenPrivileges( processToken, false, ref tk, 0, IntPtr.Zero, IntPtr.Zero)) {
-				
-				throw new AnolisException("AdjustTokenPrivileges Failed: " + NativeMethods.GetLastErrorString() );
-			}
-			
-			if(!NativeMethods.ExitWindowsEx(NativeMethods.ExitWindows.ShutDown, 0)) {
-				
-				throw new AnolisException("ExitWindowsEx Failed: " + NativeMethods.GetLastErrorString() );
-			}
-			
+		}
+		
+		public enum SystemRestoreType {
+			ApplicationInstall   = 0,
+			ApplicationUninstall = 1,
+			DeviceDriverInstall  = 10,
+			ModifySettings       = 12,
+			CancelledOperation   = 13
+		}
+		
+		public enum SystemRestoreEventType {
+			BeginSystemChange       = 100,
+			EndSystemChange         = 101,
+			BeginNestedSystemChange = 102,
+			EndNestedSystemChange   = 103
 		}
 		
 	}
