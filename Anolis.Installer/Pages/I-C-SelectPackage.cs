@@ -37,7 +37,16 @@ namespace Anolis.Installer.Pages {
 			// TODO: Error messages etc
 			// UnloadEventArgs should have a .Cancel property which will be set to true if the user's info isn't valid
 			
+			if( e.PageToBeLoaded != Program.PageIDExtracting ) return;
+			
 			if( __embedRad.Checked ) {
+				
+				if( __embedList.SelectedItem == null ) {
+					
+					MessageBox.Show(this, "Select an embedded package before continuing", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					e.Cancel = true;
+					return;
+				}
 				
 				String packageName = __embedList.SelectedItem as String;
 				
@@ -50,7 +59,7 @@ namespace Anolis.Installer.Pages {
 			} else if( __packRad.Checked ) {
 				
 				if( !File.Exists( __packFilename.Text ) ) {
-					MessageBox.Show(this, "The file \"" + __packFilename.Text + "\" does not exist", "Anolis", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					MessageBox.Show(this, "The file \"" + __packFilename.Text + "\" does not exist", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 					e.Cancel = true;
 					return;
 				}
@@ -63,7 +72,7 @@ namespace Anolis.Installer.Pages {
 			} else if( __anopRad.Checked ) {
 				
 				if( !File.Exists( __anopFilename.Text ) ) {
-					MessageBox.Show(this, "The file \"" + __anopFilename.Text + "\" does not exist", "Anolis", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					MessageBox.Show(this, "The file \"" + __anopFilename.Text + "\" does not exist", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 					e.Cancel = true;
 					return;
 				}

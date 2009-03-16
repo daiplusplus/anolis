@@ -30,6 +30,7 @@
 			this.@__backupDesc = new System.Windows.Forms.Label();
 			this.@__sysres = new System.Windows.Forms.CheckBox();
 			this.@__sysResDesc = new System.Windows.Forms.Label();
+			this.@__bw = new System.ComponentModel.BackgroundWorker();
 			this.@__banner.SuspendLayout();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
@@ -129,6 +130,7 @@
 		private System.Windows.Forms.Label __sysResDesc;
 		private System.Windows.Forms.CheckBox __sysres;
 		private System.Windows.Forms.Label __backupDesc;
+		private System.ComponentModel.BackgroundWorker __bw;
 
 	}
 }

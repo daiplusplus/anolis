@@ -207,73 +207,31 @@ namespace Anolis.Core.Native {
 		
 #region Privileges
 		
-		public enum TokenDesiredAccess : uint {
-			STANDARD_RIGHTS_REQUIRED = 0x000F0000,
-			STANDARD_RIGHTS_READ     = 0x00020000,
-			TOKEN_ASSIGN_PRIMARY     = 0x0001,
-			TOKEN_DUPLICATE          = 0x0002,
-			TOKEN_IMPERSONATE        = 0x0004,
-			TOKEN_QUERY              = 0x0008,
-			TOKEN_QUERY_SOURCE       = 0x0010,
-			TOKEN_ADJUST_PRIVILEGES  = 0x0020,
-			TOKEN_ADJUST_GROUPS      = 0x0040,
-			TOKEN_ADJUST_DEFAULT     = 0x0080,
-			TOKEN_ADJUST_SESSIONID   = 0x0100,
-			TOKEN_READ               = STANDARD_RIGHTS_READ | TOKEN_QUERY,
-			TOKEN_ALL_ACCESS         = 
-				STANDARD_RIGHTS_REQUIRED |
-				TOKEN_ASSIGN_PRIMARY |
-				TOKEN_DUPLICATE |
-				TOKEN_IMPERSONATE |
-				TOKEN_QUERY |
-				TOKEN_QUERY_SOURCE |
-				TOKEN_ADJUST_PRIVILEGES |
-				TOKEN_ADJUST_GROUPS |
-				TOKEN_ADJUST_DEFAULT |
-				TOKEN_ADJUST_SESSIONID
+		/// <summary>An Luid is a 64-bit value guaranteed to be unique only on the system on which it was generated. The uniqueness of a locally unique identifier (Luid) is guaranteed only until the system is restarted.</summary>
+		[StructLayout(LayoutKind.Sequential, Pack=1)]
+		internal struct Luid {
+			/// <summary>The low order part of the 64 bit value.</summary>
+			public int LowPart;
+			/// <summary>The high order part of the 64 bit value.</summary>
+			public int HighPart;
 		}
 		
-		[DllImport("kernel32.dll")]
-		public static extern IntPtr GetCurrentProcess();
-		
-		[DllImport("advapi32.dll", SetLastError=true)]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool AdjustTokenPrivileges(IntPtr TokenHandle, [MarshalAs(UnmanagedType.Bool)]Boolean disableAllPrivileges, ref TokenPrivileges newState, UInt32 zero, IntPtr null1, IntPtr null2);
-		
-		[DllImport("advapi32.dll", SetLastError=true)]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool OpenProcessToken(IntPtr processHandle, TokenDesiredAccess desiredAccess, out IntPtr tokenHandle);
-		
-		[DllImport("advapi32.dll", SetLastError=true, CharSet=CharSet.Auto)]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool LookupPrivilegeValue(String systemName, String name, out Luid luid);
-		
-		public struct TokenPrivileges {
-			
-			public UInt32 PrivilegeCount;
-			
-			[MarshalAs(UnmanagedType.ByValArray, SizeConst=1)]
-			public LuidAndAttributes[] Privileges;
-		}
-		
-		[StructLayout(LayoutKind.Sequential)]
-		public struct LuidAndAttributes {
+		/// <summary>The LuidAndAttributes structure represents a locally unique identifier (Luid) and its attributes.</summary>
+		[StructLayout(LayoutKind.Sequential, Pack=1)]
+		internal struct LuidAndAttributes {
+			/// <summary>Specifies an Luid value.</summary>
 			public Luid Luid;
-			public UInt32 Attributes;
+			/// <summary>Specifies attributes of the Luid. This value contains up to 32 one-bit flags. Its meaning is dependent on the definition and use of the Luid.</summary>
+			public int Attributes;
 		}
 		
-		[StructLayout(LayoutKind.Sequential)]
-		public struct Luid {
-			public UInt32 LowPart;
-			public Int32 HighPart;
-		}
-		
-		public enum Privileges : uint {
-			Enabled          =       0x02,
-			Removed          =       0x04,
-			
-			EnabledByDefault =       0x01,
-			UsedForAccess    = 0x80000000
+		/// <summary>The TokenPrivileges structure contains information about a set of privileges for an access token.</summary>
+		[StructLayout(LayoutKind.Sequential, Pack=1)]
+		internal struct TokenPrivileges {
+			/// <summary>Specifies the number of entries in the Privileges array.</summary>
+			public int PrivilegeCount ;
+			/// <summary>Specifies an array of LuidAndAttributes structures. Each structure contains the Luid and attributes of a privilege.</summary>
+			public LuidAndAttributes Privileges;
 		}
 		
 		public static class SePrivileges {
@@ -314,8 +272,65 @@ namespace Anolis.Core.Native {
 			public const string UNSOLICITED_INPUT = "SeUnsolicitedInputPrivilege";
 		}
 		
-#endregion
+		/// <summary>The OpenProcessToken function opens the access token associated with a process.</summary>
+		/// <param name="ProcessHandle">Handle to the process whose access token is opened.</param>
+		/// <param name="DesiredAccess">Specifies an access mask that specifies the requested types of access to the access token. These requested access types are compared with the token's discretionary access-control list (DACL) to determine which accesses are granted or denied.</param>
+		/// <param name="TokenHandle">Pointer to a handle identifying the newly-opened access token when the function returns.</param>
+		/// <returns>If the function succeeds, the return value is nonzero.<br></br><br>If the function fails, the return value is zero. To get extended error information, call Marshal.GetLastWin32Error.</br></returns>
+		[DllImport("advapi32.dll", CharSet=CharSet.Ansi)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean OpenProcessToken(IntPtr processHandle, Int32 desiredAccess, ref IntPtr tokenHandle);
 		
+		/// <summary>The LookupPrivilegeValue function retrieves the locally unique identifier (Luid) used on a specified system to locally represent the specified privilege name.</summary>
+		/// <param name="lpSystemName">Pointer to a null-terminated string specifying the name of the system on which the privilege name is looked up. If a null string is specified, the function attempts to find the privilege name on the local system.</param>
+		/// <param name="lpName">Pointer to a null-terminated string that specifies the name of the privilege, as defined in the Winnt.h header file. For example, this parameter could specify the constant SE_SECURITY_NAME, or its corresponding string, "SeSecurityPrivilege".</param>
+		/// <param name="lpLuid">Pointer to a variable that receives the locally unique identifier by which the privilege is known on the system, specified by the lpSystemName parameter.</param>
+		/// <returns>If the function succeeds, the return value is nonzero.<br></br><br>If the function fails, the return value is zero. To get extended error information, call Marshal.GetLastWin32Error.</br></returns>
+		[DllImport("advapi32.dll", CharSet=CharSet.Unicode)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean LookupPrivilegeValue(String systemName, String name, ref Luid lpLuid);
+		
+		
+		/// <summary>The AdjustTokenPrivileges function enables or disables privileges in the specified access token. Enabling or disabling privileges in an access token requires TOKEN_ADJUST_PRIVILEGES access.</summary>
+		/// <param name="tokenHandle">Handle to the access token that contains the privileges to be modified. The handle must have TOKEN_ADJUST_PRIVILEGES access to the token. If the PreviousState parameter is not NULL, the handle must also have TOKEN_QUERY access.</param>
+		/// <param name="disableAllPrivileges">Specifies whether the function disables all of the token's privileges. If this value is TRUE, the function disables all privileges and ignores the NewState parameter. If it is FALSE, the function modifies privileges based on the information pointed to by the NewState parameter.</param>
+		/// <param name="mewState">Pointer to a TokenPrivileges structure that specifies an array of privileges and their attributes. If the DisableAllPrivileges parameter is FALSE, AdjustTokenPrivileges enables or disables these privileges for the token. If you set the SE_PRIVILEGE_ENABLED attribute for a privilege, the function enables that privilege; otherwise, it disables the privilege. If DisableAllPrivileges is TRUE, the function ignores this parameter.</param>
+		/// <param name="bufferLength">Specifies the size, in bytes, of the buffer pointed to by the PreviousState parameter. This parameter can be zero if the PreviousState parameter is NULL.</param>
+		/// <param name="previousState">Pointer to a buffer that the function fills with a TokenPrivileges structure that contains the previous state of any privileges that the function modifies. This parameter can be NULL.</param>
+		/// <param name="returnLength">Pointer to a variable that receives the required size, in bytes, of the buffer pointed to by the PreviousState parameter. This parameter can be NULL if PreviousState is NULL.</param>
+		/// <returns>If the function succeeds, the return value is nonzero. To determine whether the function adjusted all of the specified privileges, call Marshal.GetLastWin32Error.</returns>
+		[DllImport( "advapi32.dll", CharSet=CharSet.Ansi)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean AdjustTokenPrivileges(IntPtr tokenHandle, Int32 disableAllPrivileges, ref TokenPrivileges newState, Int32 bufferLength, ref TokenPrivileges previousState, ref int returnLength);
+		
+		public static void EnableProcessToken(String sePrivilege) {
+			
+			IntPtr tokenHandle = IntPtr.Zero;
+			Luid privilegeLuid = new Luid();
+			TokenPrivileges newPrivileges = new TokenPrivileges();
+			TokenPrivileges tokenPrivileges;
+			
+			const int TOKEN_ADJUST_PRIVILEGES = 0x20;
+			const int TOKEN_QUERY             = 0x08;
+			const int SE_PRIVILEGE_ENABLED    = 0x02;
+			
+			if(!OpenProcessToken(System.Diagnostics.Process.GetCurrentProcess().Handle, TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, ref tokenHandle))
+				throw new AnolisException("OpenProcessToken failed: " + GetLastErrorString() );
+			
+			if(!LookupPrivilegeValue(null, sePrivilege, ref privilegeLuid))
+				throw new AnolisException("LookupPrivilegeValue failed: " +  GetLastErrorString() );
+			
+			tokenPrivileges.PrivilegeCount        = 1;
+			tokenPrivileges.Privileges.Attributes = SE_PRIVILEGE_ENABLED;
+			tokenPrivileges.Privileges.Luid       = privilegeLuid;
+			
+			int size = 4;
+			if(!AdjustTokenPrivileges(tokenHandle, 0, ref tokenPrivileges, 4 + (12 * tokenPrivileges.PrivilegeCount), ref newPrivileges, ref size))
+				throw new AnolisException("AdjustTokenPrivileges failed: " + GetLastErrorString() );
+			
+		}
+		
+#endregion
 		
 #region Shutdown
 		
@@ -473,7 +488,7 @@ namespace Anolis.Core.Native {
 		
 #endregion
 		
-#region Package System
+#region MoveFileEx
 		
 		[DllImport("kernel32.dll", SetLastError=true, CharSet=CharSet.Unicode)]
 		[return: MarshalAs(UnmanagedType.Bool)]
@@ -488,6 +503,24 @@ namespace Anolis.Core.Native {
 			CreateHardlink     = 0x00000010,
 			FailIfNotTrackable = 0x00000020
 		}
+		
+#endregion
+		
+#region System Restore
+		
+		// I'll do it the proper way later, but for now it's easier just to use WMI
+/*		
+		public struct RestorePointInfo {
+		
+		}
+		
+		public struct StateManagerStatus {
+		
+		}
+		
+		[DllImport("SrClient.dll", SetLastError=true, CharSet=CharSet.Unicode)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean SRSetRestorePoint(RestorePointInfo restorePointSpec, out StateManagerStatus managerStatus); */
 		
 #endregion
 		
