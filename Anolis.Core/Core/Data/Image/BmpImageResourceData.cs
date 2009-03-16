@@ -94,7 +94,7 @@ namespace Anolis.Core.Data {
 		
 		private Dib _dib;
 		
-		private BmpImageResourceData(Dib dib, ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
+		private BmpImageResourceData(Dib dib, ResourceLang lang, Byte[] rawData) : base(lang, dib.GetDibBytes() ) {
 			_dib = dib;
 		}
 		
