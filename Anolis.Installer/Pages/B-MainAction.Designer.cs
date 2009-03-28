@@ -69,10 +69,9 @@
 			// 
 			// __optInstallNotes
 			// 
-			this.@__optInstallNotes.AutoSize = true;
 			this.@__optInstallNotes.Location = new System.Drawing.Point(39, 44);
 			this.@__optInstallNotes.Name = "__optInstallNotes";
-			this.@__optInstallNotes.Size = new System.Drawing.Size(393, 13);
+			this.@__optInstallNotes.Size = new System.Drawing.Size(414, 31);
 			this.@__optInstallNotes.TabIndex = 1;
 			this.@__optInstallNotes.Text = "Installs a package located in this Anolis distribution or elsewhere in this compu" +
 				"ter";
@@ -110,17 +109,16 @@
 			// 
 			// __optCreateNotes
 			// 
-			this.@__optCreateNotes.AutoSize = true;
 			this.@__optCreateNotes.Location = new System.Drawing.Point(39, 165);
 			this.@__optCreateNotes.Name = "__optCreateNotes";
-			this.@__optCreateNotes.Size = new System.Drawing.Size(358, 13);
+			this.@__optCreateNotes.Size = new System.Drawing.Size(414, 31);
 			this.@__optCreateNotes.TabIndex = 5;
 			this.@__optCreateNotes.Text = "Downloads tools so you can easily make your own package or distribution";
 			// 
 			// MainActionPage
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.Name = "MainActionPage";
 			this.@__banner.ResumeLayout(false);
 			this.@__content.ResumeLayout(false);

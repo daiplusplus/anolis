@@ -62,7 +62,7 @@
 			// 
 			// D_Downloading
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			
 			this.Name = "D_Downloading";
 			this.@__banner.ResumeLayout(false);
 			this.@__content.ResumeLayout(false);

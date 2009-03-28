@@ -7,6 +7,7 @@ using W3b.Wizards;
 
 using Anolis.Installer.Pages;
 using Anolis.Core.Packages;
+using System.Text;
 
 namespace Anolis.Installer {
 	
@@ -15,37 +16,62 @@ namespace Anolis.Installer {
 		[STAThread]
 		public static void Main() {
 			
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
+			IWizardForm wiz = null;
 			
-			ProgramMode = ProgramMode.None;
+			try {
+				
+				Application.EnableVisualStyles();
+				Application.SetCompatibleTextRenderingDefault(false);
+				
+				ProgramMode = ProgramMode.None;
+				
+				// Set up the wizard
+				
+				// create the pages
+				PageAWelcome        = new WelcomePage();
+				PageBMainAction     = new MainActionPage();
+				
+				PageICSelectPackage = new SelectPackagePage();
+				PageIDExtracting    = new ExtractingPage();
+				PageIEModifyPackage = new ModifyPackagePage();
+				PageIFInstallationOptions = new InstallationOptionsPage();
+				PageIGInstalling    = new InstallingPage();
+				
+				PageDCDestination   = new DestinationPage();
+				PageDDDownloading   = new DownloadingPage();
+				
+				PageUCSelectBackup  = new SelectBackupPage();
+				
+				PageZFinished       = new FinishedPage();
+				
+				wiz = new W3b.Wizards.Wizard97.Wizard97WizardForm(); // WizardFactory.Create();
+				wiz.CancelClicked  += new EventHandler(wiz_CancelClicked);
+				wiz.HasHelp         = false;
+				wiz.Title           = "Anolis Package Installer";
+				wiz.LoadPage( PageAWelcome );
+				
+			} catch(Exception ex) {
+				
+				StringBuilder sb = new StringBuilder();
+				while(ex != null) {
+					
+					sb.Append( ex.Message );
+					sb.Append("\r\n");
+					sb.Append( ex.StackTrace );
+					
+					if(ex.InnerException != null) {
+						sb.Append("\r\n\r\n");
+					}
+					
+					ex = ex.InnerException;
+				}
+				
+				MessageBox.Show( sb.ToString(), "Anolis Installer - Initialisation Exception", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				return;
+			}
 			
-			// Set up the wizard
 			
-			// create the pages
-			PageAWelcome        = new WelcomePage();
-			PageBMainAction     = new MainActionPage();
-			
-			PageICSelectPackage = new SelectPackagePage();
-			PageIDExtracting    = new ExtractingPage();
-			PageIEModifyPackage = new ModifyPackagePage();
-			PageIFInstallationOptions = new InstallationOptionsPage();
-			PageIGInstalling    = new InstallingPage();
-			
-			PageDCDestination   = new DestinationPage();
-			PageDDDownloading   = new DownloadingPage();
-			
-			PageUCSelectBackup  = new SelectBackupPage();
-			
-			PageZFinished       = new FinishedPage();
-			
-			IWizardForm wiz     = new W3b.Wizards.Wizard97.Wizard97WizardForm(); // WizardFactory.Create(); // HACK: Always use Wizard97 for now to avoid Vista/Win7 users getting errors since AeroWizard isn't finished
-			wiz.CancelClicked  += new EventHandler(wiz_CancelClicked);
-			wiz.HasHelp         = false;
-			wiz.Title           = "Anolis Package Installer";
-			
-			wiz.LoadPage( PageAWelcome );
-			wiz.ShowDialog();
+			wiz.Run();
 			
 		}
 		

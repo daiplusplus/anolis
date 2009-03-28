@@ -73,7 +73,7 @@
 			// 
 			// U_SelectBackup
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			
 			this.Name = "U_SelectBackup";
 			this.@__banner.ResumeLayout(false);
 			this.@__content.ResumeLayout(false);
