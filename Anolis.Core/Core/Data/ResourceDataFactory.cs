@@ -27,6 +27,7 @@ namespace Anolis.Core.Data {
 		/// <summary>Gets the (human-readable) name of the data handled by this IResourceDataFactory.</summary>
 		public abstract String Name { get; }
 		
+		/// <summary>Gets the filter to use in open-file dialogs. Return null if opening from files is not supported.</summary>
 		public abstract String OpenFileFilter { get; }
 		
 		protected static Byte[] GetAllBytesFromStream(Stream stream) {
@@ -246,14 +247,21 @@ namespace Anolis.Core.Data {
 			factories.Add( new IconImageResourceDataFactory() );
 			factories.Add( new CursorImageResourceDataFactory() );
 			
+			factories.Add( new RiffMediaResourceDataFactory() );
+			
 			// Directories
 			factories.Add( new IconDirectoryResourceDataFactory() );
 //			factories.Add( new CursorDirectoryResourceDataFactory() );
 			
-			// The Rest
-			factories.Add( new RiffMediaResourceDataFactory() );
-			factories.Add( new UnknownResourceDataFactory() );
+			// Windows
 			factories.Add( new VersionResourceDataFactory() );
+			factories.Add( new DialogResourceDataFactory() );
+			factories.Add( new StringTableResourceDataFactory() );
+			factories.Add( new MenuResourceDataFactory() );
+			
+			// The Rest
+			factories.Add( new SgmlResourceDataFactory() );
+			factories.Add( new UnknownResourceDataFactory() );
 			
 		}
 		

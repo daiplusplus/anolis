@@ -63,7 +63,7 @@ namespace Anolis.Core {
 //				case ".DLL":
 //				case ".SCR":
 //				case ".CPL":
-					return new PEResourceSource(filename, readOnly, mode);
+					return new Win32ResourceSource(filename, readOnly, mode);
 //			}
 //			
 //			throw new NotImplementedException("Anolis does not support files that aren't PE/COFF Executables as ResourceSources yet");

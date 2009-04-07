@@ -71,9 +71,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\AnolisException.cs" />
+    <Compile Include="Core\Data\Windows\SgmlResourceData.cs" />
+    <Compile Include="Core\Data\Windows\MenuResourceData.cs" />
     <Compile Include="Core\Data\Windows\DialogResourceData.cs" />
+    <Compile Include="Core\Data\Windows\StringTableResourceData.cs" />
     <Compile Include="Core\Data\Windows\VersionResourceData.cs" />
-    <None Include="Core\PE\NESource.cs" />
+    <None Include="Core\Source\NESource.cs" />
+    <Compile Include="Core\Source\ManagedSource.cs" />
+    <Compile Include="Core\Source\ResResourceSource.cs" />
     <Compile Include="Core\Resource.cs" />
     <Compile Include="Core\Data\Directory\CursorDirectoryResourceData.cs" />
     <Compile Include="Core\Data\Directory\DirectoryResourceData.cs" />
@@ -106,7 +111,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Core\Native\NativeTypes.cs" />
     <Compile Include="Core\Native\NativeMethods.cs" />
-    <Compile Include="Core\PE\PESource.cs" />
+    <Compile Include="Core\Source\Win32ResourceSource.cs" />
     <Compile Include="Packages\Exceptions.cs" />
     <Compile Include="Packages\Operations\ExtraOperation.cs" />
     <Compile Include="Packages\Operations\FileOperation.cs" />

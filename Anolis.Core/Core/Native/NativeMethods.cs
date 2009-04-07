@@ -2,7 +2,6 @@ using System;
 using System.Runtime.InteropServices;
 
 using Cult = System.Globalization.CultureInfo;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Anolis.Core.Native {
 	
@@ -301,7 +300,7 @@ namespace Anolis.Core.Native {
 		/// <returns>If the function succeeds, the return value is nonzero. To determine whether the function adjusted all of the specified privileges, call Marshal.GetLastWin32Error.</returns>
 		[DllImport( "advapi32.dll", CharSet=CharSet.Ansi)]
 		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern Boolean AdjustTokenPrivileges(IntPtr tokenHandle, Int32 disableAllPrivileges, ref TokenPrivileges newState, Int32 bufferLength, ref TokenPrivileges previousState, ref int returnLength);
+		public static extern Boolean AdjustTokenPrivileges(IntPtr tokenHandle, Int32 disableAllPrivileges, ref TokenPrivileges newState, Int32 bufferLength, ref TokenPrivileges previousState, ref Int32 returnLength);
 		
 		public static void EnableProcessToken(String sePrivilege) {
 			
