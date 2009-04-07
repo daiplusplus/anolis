@@ -82,7 +82,7 @@ namespace Anolis.Core.Data {
 			item.Type        = rdr.ReadUInt16();
 			item.Key         = GetKey(mode, rdr, out item._mode );
 			
-			Pad(rdr);
+			rdr.Align4();
 			
 			mode = item.Mode;
 			
@@ -96,7 +96,7 @@ namespace Anolis.Core.Data {
 						if(item.Value == null) {
 							
 							Byte[] ffiBytes = rdr.ReadBytes( item.ValueLength ); // this is where FixedFileInfo goes						
-							/*Byte[] padding2 = */ Pad(rdr);
+							/*Byte[] padding2 = */ rdr.Align4();
 							
 							if(ffiBytes.Length >= 52) { // 52 == 0x34
 								
@@ -143,11 +143,11 @@ namespace Anolis.Core.Data {
 				// the reader was corrupted before entering the third String of the first StringTable of the StringFileInfo
 				// so let's see if padding here helps
 				
-				Pad( rdr );
+				rdr.Align4();
 				
 			}
 			
-			Pad( rdr );
+			rdr.Align4();
 			
 			item.Children = children.ToArray();
 			
@@ -185,16 +185,6 @@ namespace Anolis.Core.Data {
 		private static String GetUInt32String(UInt32 u) {
 			
 			return u.ToString(Cult.InvariantCulture) + " - " + u.ToString("X", Cult.InvariantCulture);
-		}
-		
-		private static Byte[] Pad(BinaryReader rdr) {
-			
-			Int64 pos = rdr.BaseStream.Position;
-			pos = (pos + 3) & ~3;
-			
-			Int64 offset = pos - rdr.BaseStream.Position;
-			
-			return rdr.ReadBytes( (int)offset );
 		}
 		
 		public enum Mode {
@@ -236,14 +226,7 @@ namespace Anolis.Core.Data {
 			newMode = mode;
 			
 			// these strings are null-terminated
-			
-			StringBuilder sb = new StringBuilder();
-			Char c;
-			while( (c = rdr.ReadChar()) != 0 ) {
-				sb.Append( c );
-			}
-			
-			String retval = sb.ToString();
+			String retval = rdr.ReadSZString();
 			
 			if(mode == Mode.StringFileInfoOrVarFileInfo) {
 				if     (retval == "StringFileInfo") newMode = Mode.StringFileInfo;

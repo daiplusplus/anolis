@@ -3,6 +3,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Text;
 
 namespace Anolis.Core.Native {
 	
@@ -551,6 +552,170 @@ namespace Anolis.Core.Native {
 	}
 
 
+#endregion
+	
+#region Menus
+	
+	// Template Header
+	
+	/// <summary>Renamed from MenuItemTemplateHeader</summary>
+	[StructLayout(LayoutKind.Sequential,Pack=2)]
+	internal struct MenuTemplateHeader {
+		
+		public UInt16 wVersion;
+		public UInt16 wOffset;
+		
+		public MenuTemplateHeader(BinaryReader rdr) {
+			wVersion = rdr.ReadUInt16();
+			wOffset  = rdr.ReadUInt16();
+		}
+	}
+	
+	[StructLayout(LayoutKind.Sequential,Pack=2)]
+	internal struct MenuExTemplateHeader {
+		
+		public UInt16 wVersion;
+		public UInt16 wOffset;
+		public UInt32 dwHelpId;
+		
+		public MenuExTemplateHeader(BinaryReader rdr) {
+			wVersion = rdr.ReadUInt16();
+			wOffset  = rdr.ReadUInt16();
+			dwHelpId = rdr.ReadUInt32();
+		}
+	}
+	
+	// Template Items
+	
+	internal struct MenuTemplateItem {
+		
+		public UInt16 mtOption;
+		public UInt16 mtId;
+		public String mtString;
+		
+		public MenuTemplateItem(BinaryReader rdr) {
+			mtOption = rdr.ReadUInt16();
+			mtId     = rdr.ReadUInt16();
+			
+			StringBuilder sb = new StringBuilder();
+			Char c;
+			while( (c = rdr.ReadChar()) != 0 ) {
+				sb.Append( c );
+			}
+			mtString = sb.ToString();
+		}
+	}
+	
+	[Flags]
+	public enum MenuTemplateItemOptions : ushort {
+		/// <summary>Indicates that the menu item has a check mark next to it. (0x0008)</summary>
+		Checked = 0x0008,
+		/// <summary>Indicates that the menu item is initially inactive and drawn with a gray effect. (0x0001)</summary>
+		Greyed  = 0x0001,
+		/// <summary>Indicates that the menu item has a vertical separator to its left. (0x4000)</summary>
+		Help    = 0x4000,
+		/// <summary>Indicates that the menu item is placed in a new column. The old and new columns are separated by a bar. (0x0020)</summary>
+		MenuBarBreak = 0x0020,
+		/// <summary>Indicates that the menu item is placed in a new column. (0x0040)</summary>
+		MenuBreak = 0x0040,
+		/// <summary>Indicates that the owner window of the menu is responsible for drawing all visual aspects of the menu item, including highlighted, selected, and inactive states. This option is not valid for an item in a menu bar. (0x0100)</summary>
+		OwnerDraw = 0x0100,
+		/// <summary>Indicates that the item is one that opens a drop-down menu or submenu. (0x0010)</summary>
+		Popup = 0x0010
+	}
+	
+	internal struct MenuExTemplateItem {
+		
+		public UInt32 dwHelpId;
+//		public MenuExTemplateItemType dwType;
+		public MenuExTemplateItemState dwState;
+		public UInt32 menuId;
+		public UInt16 bResInfo;
+		public String szText;
+		
+		public MenuExTemplateItem(BinaryReader rdr) {
+			
+			dwHelpId = rdr.ReadUInt32();
+			// dwType is commented out because it doesn't seem to be used and makes the text line up right.
+//			dwType   = (MenuExTemplateItemType)rdr.ReadUInt32();
+			dwState  = (MenuExTemplateItemState)rdr.ReadUInt32();
+			menuId   = rdr.ReadUInt32();
+			bResInfo = rdr.ReadUInt16();
+			
+			// szText is always aligned on a WORD boundary
+			rdr.Align2();
+			szText   = rdr.ReadSZString();
+			
+			// the next MenuExTemplateItem will be aligned on a DWORD boundary
+			rdr.Align4();
+		}
+		
+	}
+	
+	[Flags]
+	internal enum MenuExTemplateItemType : uint {
+		
+		Bitmap       = 0x0004,
+		MenuBarBreak = 0x0020,
+		MenuBreak    = 0x0040,
+		OwnerDraw    = 0x0100,
+		RadioCheck   = 0x0200,
+		RightJustify = 0x4000,
+		RightOrder   = 0x2000,
+		Separator    = 0x0800,
+		String       = 0x0000
+	}
+	
+	[Flags]
+	internal enum MenuExTemplateItemState : uint {
+		
+		Checked      = 0x0008,
+		Default      = 0x1000,
+		Disabled     = 0x0001,
+		Enabled      = 0x0000,
+		Grayed       = 0x0003,
+		Hilite       = 0x0080,
+		Unchecked    = 0x0000,
+		Unhilite     = 0x0000
+	}
+	
+#endregion
+	
+#region *.res Files
+	
+	private struct ResourceHeader {
+		UInt32 DataSize;
+		UInt32 HeaderSize;
+		Object Type;
+		Object Name;
+		UInt32 DataVersion;
+		UInt16 MemoryFlags;
+		UInt16 LanguageId;
+		UInt32 Version;
+		UInt32 Characteristics;
+		
+		public ResourceHeader(BinaryReader rdr) {
+			
+			DataSize   = rdr.ReadUInt32();
+			HeaderSize = rdr.ReadUInt32();
+			
+			UInt16 typeWord0 = rdr.ReadUInt16();
+			if(typeWord0 == 0xFFFF) {
+				// then the next UInt16 is the numeric TypeId
+				
+				Type = rdr.ReadUInt16();
+				
+			} else {
+				// then typeWord0 concat'd with the rest of the chars (until null) is the string TypeId
+				
+				Char c0 = (Char)typeWord0;
+				Type = c0 + rdr.ReadSZString();
+				
+			}
+			
+		}
+	};
+	
 #endregion
 	
 }

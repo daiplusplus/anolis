@@ -4,6 +4,7 @@ using Microsoft.Win32;
 
 using Anolis.Core.Native;
 using MoveFileFlags = Anolis.Core.Native.NativeMethods.MoveFileFlags;
+using System.Security.Principal;
 
 namespace Anolis.Core.Packages {
 	
@@ -80,6 +81,14 @@ namespace Anolis.Core.Packages {
 			EndSystemChange         = 101,
 			BeginNestedSystemChange = 102,
 			EndNestedSystemChange   = 103
+		}
+		
+		public static Boolean IsElevatedAdministrator {
+			get {
+				WindowsIdentity identity = WindowsIdentity.GetCurrent();
+				WindowsPrincipal principal = new WindowsPrincipal(identity);
+				return principal.IsInRole(WindowsBuiltInRole.Administrator);
+			}
 		}
 		
 	}

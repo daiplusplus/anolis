@@ -8,25 +8,24 @@ namespace Anolis.Core.Data {
 	public class DialogResourceDataFactory : ResourceDataFactory {
 		
 		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
-			throw new NotImplementedException();
+			return (typeId.KnownType == Win32ResourceType.Dialog) ? Compatibility.Yes : Compatibility.No;
 		}
 		
 		public override Compatibility HandlesExtension(String filenameExtension) {
-			throw new NotImplementedException();
+			return Compatibility.No;
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
 			
 			return DialogResourceData.TryCreate(lang, data);
-			
 		}
 		
 		public override String Name {
-			get { throw new NotImplementedException(); }
+			get { return "Dialog Box"; }
 		}
 		
 		public override String OpenFileFilter {
-			get { throw new NotImplementedException(); }
+			get { return null; }
 		}
 		
 		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {

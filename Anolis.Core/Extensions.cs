@@ -1,5 +1,7 @@
 ﻿using System;
 using XmlElement = System.Xml.XmlElement;
+using System.IO;
+using System.Text;
 
 // Extension methods seem to require System.Core.dll, which is not in .NET2.0
 // so here's an ersatz Extension attribute class
@@ -55,6 +57,57 @@ namespace Anolis.Core {
 			
 			return Array.IndexOf( array, item );
 			
+		}
+		
+		/// <summary>Reads a null-terminated string.</summary>
+		public static String ReadSZString(this BinaryReader rdr) {
+			
+			StringBuilder sb = new StringBuilder();
+			Char c;
+			while( (c = rdr.ReadChar()) != 0 ) {
+				sb.Append( c );
+			}
+			
+			return sb.ToString();
+		}
+		
+		/// <summary>Reads a null-terminated string.</summary>
+		public static String ReadSZString(this BinaryReader rdr, Int32 charWidth) {
+			
+			// need to find a way to override the .ReadChar so it uses a particular encoding
+			
+			StringBuilder sb = new StringBuilder();
+			Char c;
+			while( (c = rdr.ReadChar()) != 0 ) {
+				sb.Append( c );
+			}
+			
+			return sb.ToString();
+		}
+		
+		public static Byte[] Align2(this BinaryReader rdr) {
+			
+/*			Int64 pos = rdr.BaseStream.Position;
+			pos = (pos + 1) & ~1;
+			
+			Int64 offset = pos - rdr.BaseStream.Position;
+			
+			return rdr.ReadBytes( (int)offset );*/
+			
+			Int64 pos = rdr.BaseStream.Position;
+			Int32 rem = (int)(pos % 2L);
+			
+			return rdr.ReadBytes( rem );
+		}
+		
+		public static Byte[] Align4(this BinaryReader rdr) {
+			
+			Int64 pos = rdr.BaseStream.Position;
+			pos = (pos + 3) & ~3;
+			
+			Int64 offset = pos - rdr.BaseStream.Position;
+			
+			return rdr.ReadBytes( (int)offset );
 		}
 		
 	}
