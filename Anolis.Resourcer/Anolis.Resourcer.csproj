@@ -162,8 +162,17 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TypeViewers\HtmlViewer.resx">
-      <DependentUpon>HtmlViewer.cs</DependentUpon>
+    <EmbeddedResource Include="TypeViewers\MenuDialogHelperForm.resx">
+      <DependentUpon>MenuDialogHelperForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TypeViewers\MenuDialogViewer.resx">
+      <DependentUpon>MenuDialogViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TypeViewers\StringTableViewer.resx">
+      <DependentUpon>StringTableViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TypeViewers\SgmlViewer.resx">
+      <DependentUpon>SgmlViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TypeViewers\IconCursorViewer.resx">
       <DependentUpon>IconCursorViewer.cs</DependentUpon>
@@ -202,11 +211,29 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="TypeViewers\HtmlViewer.cs">
+    <Compile Include="TypeViewers\MenuDialogHelperForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TypeViewers\MenuDialogHelperForm.Designer.cs">
+      <DependentUpon>MenuDialogHelperForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TypeViewers\MenuDialogViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TypeViewers\HtmlViewer.Designer.cs">
-      <DependentUpon>HtmlViewer.cs</DependentUpon>
+    <Compile Include="TypeViewers\MenuDialogViewer.Designer.cs">
+      <DependentUpon>MenuDialogViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TypeViewers\StringTableViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TypeViewers\StringTableViewer.Designer.cs">
+      <DependentUpon>StringTableViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TypeViewers\SgmlViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TypeViewers\SgmlViewer.Designer.cs">
+      <DependentUpon>SgmlViewer.cs</DependentUpon>
     </Compile>
     <None Include="TypeViewers\MediaViewer.cs">
       <SubType>UserControl</SubType>

@@ -1,5 +1,5 @@
 ﻿namespace Anolis.Resourcer.TypeViewers {
-	partial class HtmlViewer {
+	partial class SgmlViewer {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>

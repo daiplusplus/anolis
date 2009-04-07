@@ -14,18 +14,17 @@ using Anolis.Core.Data;
 
 namespace Anolis.Resourcer.TypeViewers {
 	
-	public partial class HtmlViewer : TypeViewer {
+	public partial class SgmlViewer : TypeViewer {
 		
-		public HtmlViewer() {
+		public SgmlViewer() {
 			InitializeComponent();
 		}
 		
 		public override TypeViewerCompatibility CanHandleResource(ResourceData data) {
 			
-			//if( data is  ) return TypeViewerCompatibility.Ideal;
+			if( data is SgmlResourceData ) return TypeViewerCompatibility.Ideal;
 			
 			return TypeViewerCompatibility.None;
-			
 		}
 		
 		public override void RenderResource(ResourceData resource) {
@@ -38,7 +37,7 @@ namespace Anolis.Resourcer.TypeViewers {
 		}
 		
 		public override string ViewerName {
-			get { return "HTML Viewer"; }
+			get { return "SGML (HTML/XML) Viewer"; }
 		}
 		
 	}
