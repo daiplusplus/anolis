@@ -61,6 +61,8 @@ namespace Anolis.Resourcer {
 				isAssoc == TriState.True  ? CheckState.Checked : 
 				isAssoc == TriState.False ? CheckState.Unchecked : CheckState.Indeterminate;
 			
+			__sAssoc.Enabled = Anolis.Core.Packages.PackageUtility.IsElevatedAdministrator;
+			
 		}
 		
 		private void __legalToggle_Click(object sender, EventArgs e) {

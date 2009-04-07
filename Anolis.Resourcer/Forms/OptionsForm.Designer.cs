@@ -32,10 +32,8 @@
 			this.@__sLibLbl = new System.Windows.Forms.Label();
 			this.@__sUiGrp = new System.Windows.Forms.GroupBox();
 			this.@__sAssocLbl = new System.Windows.Forms.Label();
-			this.@__sUISimpleLbl = new System.Windows.Forms.Label();
 			this.@__sAssoc = new System.Windows.Forms.CheckBox();
 			this.@__sUIButtonsLargeLbl = new System.Windows.Forms.Label();
-			this.@__sUISimple = new System.Windows.Forms.CheckBox();
 			this.@__sUIButtonsLarge = new System.Windows.Forms.CheckBox();
 			this.@__tAbout = new System.Windows.Forms.TabPage();
 			this.@__makesUseOf = new System.Windows.Forms.Label();
@@ -58,6 +56,7 @@
 			this.@__cancel = new System.Windows.Forms.Button();
 			this.@__ok = new System.Windows.Forms.Button();
 			this.@__update = new System.Windows.Forms.Button();
+			this.@__sAssocWarnLbl = new System.Windows.Forms.Label();
 			this.@__tabs.SuspendLayout();
 			this.@__tSettings.SuspendLayout();
 			this.@__sMoreGrp.SuspendLayout();
@@ -102,9 +101,9 @@
 			this.@__sMoreGrp.Controls.Add(this.@__sLibAdd);
 			this.@__sMoreGrp.Controls.Add(this.@__sLib);
 			this.@__sMoreGrp.Controls.Add(this.@__sLibLbl);
-			this.@__sMoreGrp.Location = new System.Drawing.Point(9, 159);
+			this.@__sMoreGrp.Location = new System.Drawing.Point(9, 139);
 			this.@__sMoreGrp.Name = "__sMoreGrp";
-			this.@__sMoreGrp.Size = new System.Drawing.Size(337, 164);
+			this.@__sMoreGrp.Size = new System.Drawing.Size(337, 184);
 			this.@__sMoreGrp.TabIndex = 2;
 			this.@__sMoreGrp.TabStop = false;
 			this.@__sMoreGrp.Text = "Library Options";
@@ -113,7 +112,7 @@
 			// 
 			this.@__sLibDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__sLibDel.Enabled = false;
-			this.@__sLibDel.Location = new System.Drawing.Point(274, 135);
+			this.@__sLibDel.Location = new System.Drawing.Point(274, 155);
 			this.@__sLibDel.Name = "__sLibDel";
 			this.@__sLibDel.Size = new System.Drawing.Size(57, 23);
 			this.@__sLibDel.TabIndex = 2;
@@ -124,7 +123,7 @@
 			// 
 			this.@__sLibAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__sLibAdd.Enabled = false;
-			this.@__sLibAdd.Location = new System.Drawing.Point(207, 135);
+			this.@__sLibAdd.Location = new System.Drawing.Point(207, 155);
 			this.@__sLibAdd.Name = "__sLibAdd";
 			this.@__sLibAdd.Size = new System.Drawing.Size(61, 23);
 			this.@__sLibAdd.TabIndex = 1;
@@ -140,7 +139,7 @@
 			this.@__sLib.Location = new System.Drawing.Point(9, 32);
 			this.@__sLib.Multiline = true;
 			this.@__sLib.Name = "__sLib";
-			this.@__sLib.Size = new System.Drawing.Size(322, 98);
+			this.@__sLib.Size = new System.Drawing.Size(322, 118);
 			this.@__sLib.TabIndex = 0;
 			// 
 			// __sLibLbl
@@ -156,15 +155,14 @@
 			// 
 			this.@__sUiGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__sUiGrp.Controls.Add(this.@__sAssocWarnLbl);
 			this.@__sUiGrp.Controls.Add(this.@__sAssocLbl);
-			this.@__sUiGrp.Controls.Add(this.@__sUISimpleLbl);
 			this.@__sUiGrp.Controls.Add(this.@__sAssoc);
 			this.@__sUiGrp.Controls.Add(this.@__sUIButtonsLargeLbl);
-			this.@__sUiGrp.Controls.Add(this.@__sUISimple);
 			this.@__sUiGrp.Controls.Add(this.@__sUIButtonsLarge);
 			this.@__sUiGrp.Location = new System.Drawing.Point(6, 6);
 			this.@__sUiGrp.Name = "__sUiGrp";
-			this.@__sUiGrp.Size = new System.Drawing.Size(340, 147);
+			this.@__sUiGrp.Size = new System.Drawing.Size(340, 127);
 			this.@__sUiGrp.TabIndex = 1;
 			this.@__sUiGrp.TabStop = false;
 			this.@__sUiGrp.Text = "Resourcer";
@@ -172,25 +170,16 @@
 			// __sAssocLbl
 			// 
 			this.@__sAssocLbl.AutoSize = true;
-			this.@__sAssocLbl.Location = new System.Drawing.Point(15, 119);
+			this.@__sAssocLbl.Location = new System.Drawing.Point(15, 80);
 			this.@__sAssocLbl.Name = "__sAssocLbl";
 			this.@__sAssocLbl.Size = new System.Drawing.Size(301, 13);
 			this.@__sAssocLbl.TabIndex = 1;
 			this.@__sAssocLbl.Text = "Resourcer will be an option on the \"Open With\" context menu";
 			// 
-			// __sUISimpleLbl
-			// 
-			this.@__sUISimpleLbl.AutoSize = true;
-			this.@__sUISimpleLbl.Location = new System.Drawing.Point(15, 39);
-			this.@__sUISimpleLbl.Name = "__sUISimpleLbl";
-			this.@__sUISimpleLbl.Size = new System.Drawing.Size(311, 13);
-			this.@__sUISimpleLbl.TabIndex = 3;
-			this.@__sUISimpleLbl.Text = "Hide advanced program features and simplify the resource tree";
-			// 
 			// __sAssoc
 			// 
 			this.@__sAssoc.AutoSize = true;
-			this.@__sAssoc.Location = new System.Drawing.Point(6, 99);
+			this.@__sAssoc.Location = new System.Drawing.Point(6, 60);
 			this.@__sAssoc.Name = "__sAssoc";
 			this.@__sAssoc.Size = new System.Drawing.Size(237, 17);
 			this.@__sAssoc.TabIndex = 2;
@@ -200,29 +189,18 @@
 			// __sUIButtonsLargeLbl
 			// 
 			this.@__sUIButtonsLargeLbl.AutoSize = true;
-			this.@__sUIButtonsLargeLbl.Location = new System.Drawing.Point(15, 79);
+			this.@__sUIButtonsLargeLbl.Location = new System.Drawing.Point(15, 40);
 			this.@__sUIButtonsLargeLbl.Name = "__sUIButtonsLargeLbl";
 			this.@__sUIButtonsLargeLbl.Size = new System.Drawing.Size(213, 13);
 			this.@__sUIButtonsLargeLbl.TabIndex = 2;
 			this.@__sUIButtonsLargeLbl.Text = "Use 48x48 rather than 24x24 toolbar icons";
-			// 
-			// __sUISimple
-			// 
-			this.@__sUISimple.AutoSize = true;
-			this.@__sUISimple.Enabled = false;
-			this.@__sUISimple.Location = new System.Drawing.Point(6, 19);
-			this.@__sUISimple.Name = "__sUISimple";
-			this.@__sUISimple.Size = new System.Drawing.Size(70, 17);
-			this.@__sUISimple.TabIndex = 0;
-			this.@__sUISimple.Text = "Simple UI";
-			this.@__sUISimple.UseVisualStyleBackColor = true;
 			// 
 			// __sUIButtonsLarge
 			// 
 			this.@__sUIButtonsLarge.AutoSize = true;
 			this.@__sUIButtonsLarge.Checked = true;
 			this.@__sUIButtonsLarge.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.@__sUIButtonsLarge.Location = new System.Drawing.Point(6, 59);
+			this.@__sUIButtonsLarge.Location = new System.Drawing.Point(6, 20);
 			this.@__sUIButtonsLarge.Name = "__sUIButtonsLarge";
 			this.@__sUIButtonsLarge.Size = new System.Drawing.Size(121, 17);
 			this.@__sUIButtonsLarge.TabIndex = 1;
@@ -465,6 +443,15 @@
 			this.@__update.Text = "Check for Updates...";
 			this.@__update.UseVisualStyleBackColor = true;
 			// 
+			// __sAssocWarnLbl
+			// 
+			this.@__sAssocWarnLbl.AutoSize = true;
+			this.@__sAssocWarnLbl.Location = new System.Drawing.Point(15, 101);
+			this.@__sAssocWarnLbl.Name = "__sAssocWarnLbl";
+			this.@__sAssocWarnLbl.Size = new System.Drawing.Size(226, 13);
+			this.@__sAssocWarnLbl.TabIndex = 3;
+			this.@__sAssocWarnLbl.Text = "This feature requires Administrative privileges";
+			// 
 			// OptionsForm
 			// 
 			this.AcceptButton = this.@__ok;
@@ -515,9 +502,7 @@
 		private System.Windows.Forms.LinkLabel __aboutFriendsLong;
 		private System.Windows.Forms.LinkLabel __aboutFriendsMsfn;
 		private System.Windows.Forms.GroupBox __sUiGrp;
-		private System.Windows.Forms.Label __sUISimpleLbl;
 		private System.Windows.Forms.Label __sUIButtonsLargeLbl;
-		private System.Windows.Forms.CheckBox __sUISimple;
 		private System.Windows.Forms.CheckBox __sUIButtonsLarge;
 		private System.Windows.Forms.GroupBox __sMoreGrp;
 		private System.Windows.Forms.Label __sAssocLbl;
@@ -534,5 +519,6 @@
 		private System.Windows.Forms.Label __makesUseOf;
 		private System.Windows.Forms.Button __legalToggle;
 		private System.Windows.Forms.Button __update;
+		private System.Windows.Forms.Label __sAssocWarnLbl;
 	}
 }

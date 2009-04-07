@@ -38,14 +38,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
     <Reference Include="W3b.TarLzma, Version=1.0.0.0, Culture=neutral, PublicKeyToken=afbbd1ad3e927857, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_ref\W3b.TarLzma\W3b.TarLzma.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DistributorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DistributorForm.Designer.cs">
+      <DependentUpon>DistributorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TarLzmaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +62,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DistributorForm.resx">
+      <DependentUpon>DistributorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TarLzmaForm.resx">
       <DependentUpon>TarLzmaForm.cs</DependentUpon>
     </EmbeddedResource>

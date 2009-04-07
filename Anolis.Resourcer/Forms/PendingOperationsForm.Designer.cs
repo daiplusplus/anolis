@@ -67,8 +67,7 @@
 			// 
 			// __cancel
 			// 
-			this.@__cancel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)));
+			this.@__cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.@__cancel.Enabled = false;
 			this.@__cancel.Location = new System.Drawing.Point(12, 233);
 			this.@__cancel.Name = "__cancel";

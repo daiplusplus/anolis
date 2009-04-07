@@ -50,6 +50,10 @@ namespace Anolis.Installer {
 				wiz.Title           = "Anolis Package Installer";
 				wiz.LoadPage( PageAWelcome );
 				
+				// preload resources
+				System.Drawing.Image image = Anolis.Installer.Properties.Resources.Background;
+				image = Anolis.Installer.Properties.Resources.Banner;
+				
 			} catch(Exception ex) {
 				
 				StringBuilder sb = new StringBuilder();
