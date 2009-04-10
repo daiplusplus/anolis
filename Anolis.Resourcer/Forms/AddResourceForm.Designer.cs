@@ -353,8 +353,8 @@
 			// AddResourceForm
 			// 
 			this.AcceptButton = this.@__ok;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.AutoScroll = true;
 			this.CancelButton = this.@__cancel;
 			this.ClientSize = new System.Drawing.Size(335, 560);

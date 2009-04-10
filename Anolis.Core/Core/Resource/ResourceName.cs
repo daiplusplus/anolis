@@ -13,6 +13,15 @@ namespace Anolis.Core {
 		
 		private List<ResourceLang> _langs;
 		
+		internal ResourceName(ResourceIdentifier nameId, ResourceType type) {
+			
+			Identifier = nameId;
+			Type       = type;
+			
+			_langs     = new List<ResourceLang>();
+			Langs      = new ResourceLangCollection(_langs);
+		}
+		
 		internal ResourceName(IntPtr namePointer, ResourceType type) {
 			
 			Identifier = new ResourceIdentifier(namePointer);
@@ -20,10 +29,9 @@ namespace Anolis.Core {
 			
 			_langs     = new List<ResourceLang>();
 			Langs      = new ResourceLangCollection(_langs);
-			
 		}
 		
-		public override string ToString() {
+		public override String ToString() {
 			return Identifier.FriendlyName;
 		}
 		

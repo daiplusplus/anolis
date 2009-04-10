@@ -29,6 +29,9 @@ namespace Anolis.Resourcer {
 			this.__aboutFriendsC9  .Click += new EventHandler(__aboutLink_Click);
 			this.__aboutFriendsRafael.Click += new EventHandler(__aboutLink_Click);
 
+			this.__sAssoc.Click += new EventHandler(__sAssoc_Click);
+			__sAssoc.Tag = false;
+			
 			this.__legalToggle.Click += new EventHandler(__legalToggle_Click);
 			this.__legalToggle.Tag = false;
 
@@ -79,7 +82,9 @@ namespace Anolis.Resourcer {
 		private void __ok_Click(Object sender, EventArgs e) {
 			
 			S.Toolbar24 = !__sUIButtonsLarge.Checked;
-			if( __sAssoc.CheckState != CheckState.Indeterminate ) S.AssociateWithFiles( __sAssoc.Checked );
+			if( __sAssoc.Enabled && (Boolean)__sAssoc.Tag && __sAssoc.CheckState != CheckState.Indeterminate ) {
+				S.AssociateWithFiles( __sAssoc.Checked );
+			}
 			
 			DialogResult = DialogResult.OK;
 			
@@ -146,6 +151,10 @@ namespace Anolis.Resourcer {
 				MessageBox.Show(this, "You already have the most recent build of Resourcer", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 			}
 			
+		}
+		
+		private void __sAssoc_Click(object sender, EventArgs e) {
+			__sAssoc.Tag = true;
 		}
 		
 	}

@@ -27,16 +27,17 @@
 			this.@__menu = new System.Windows.Forms.MainMenu(this.components);
 			this.SuspendLayout();
 			// 
-			// MenuHelperForm
+			// MenuDialogHelperForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.ClientSize = new System.Drawing.Size(254, 106);
 			this.ControlBox = false;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.Menu = this.@__menu;
 			this.MinimizeBox = false;
-			this.Name = "MenuHelperForm";
+			this.Name = "MenuDialogHelperForm";
 			this.ShowIcon = false;
 			this.Text = "Menu Preview Form";
 			this.ResumeLayout(false);

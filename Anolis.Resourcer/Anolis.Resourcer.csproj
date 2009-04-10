@@ -307,6 +307,8 @@
     <None Include="Resources\DirectoryViewer\Zoomable.png" />
     <None Include="Resources\AddResource\SortByLCID.png" />
     <None Include="Resources\AddResource\SortByName.png" />
+    <None Include="Resources\Dialogs\Run.png" />
+    <None Include="Resources\anolisLogo50.png" />
     <Content Include="Resources\ImageViewer\Center.png" />
     <None Include="Resources\ImageViewer\Empty.png" />
     <None Include="Resources\ImageViewer\Information.png" />

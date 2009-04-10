@@ -530,28 +530,186 @@ namespace Anolis.Core.Native {
 	
 #region Dialogs
 	
+	[StructLayout(LayoutKind.Sequential,Pack=1)]
+	internal struct DlgTemplate {
+		public UInt32 style;
+		public UInt32 dwExtendedStyle;
+		public UInt16 cdit;
+		public Int16  x;
+		public Int16  y;
+		public Int16  cx;
+		public Int16  cy;
+		
+		public Object exMenu;
+		public Object exWindowClass;
+		public String exTitle;
+		
+		public UInt16 exfSize;
+		public String exfTypeface;
+		
+		public DlgTemplate(BinaryReader rdr) {
+			style           = rdr.ReadUInt32();
+			dwExtendedStyle = rdr.ReadUInt32();
+			cdit            = rdr.ReadUInt16();
+			x               = rdr.ReadInt16();
+			y               = rdr.ReadInt16();
+			cx              = rdr.ReadInt16();
+			cy              = rdr.ReadInt16();
+			
+			// there's a bunch stuff in the Remarks section that's painful, yet similar to DlgTemplateEx
+			// "the DLGTEMPLATE structure is always immediately followed by three variable-length arrays that specify the menu, class, and title for the dialog box."
+			
+			exMenu        = rdr.ReadIdentifier();
+			exWindowClass = rdr.ReadIdentifier();
+			exTitle       = rdr.ReadSZString();
+			
+			if( (style & 0x40) == 0x40 ) {
+				
+				exfSize     = rdr.ReadUInt16();
+				exfTypeface = rdr.ReadSZString();
+			} else {
+				
+				exfSize     = 0;
+				exfTypeface = null;
+			}
+		}
+	}
+	
 	[StructLayout(LayoutKind.Sequential,Pack=2)]
 	internal struct DlgItemTemplate {
 		public UInt32 style;
 		public UInt32 dwExtendedStyle;
-		public UInt16 x;
-		public UInt16 y;
-		public UInt16 cx;
-		public UInt16 cy;
+		public Int16  x;
+		public Int16  y;
+		public Int16  cx;
+		public Int16  cy;
 		public UInt16 id;
+		
+		public Object exWindowClass;
+		public Object exTitle;
+		public Byte[] exCreationData;
 		
 		public DlgItemTemplate(BinaryReader rdr) {
 			style           = rdr.ReadUInt32();
 			dwExtendedStyle = rdr.ReadUInt32();
-			x               = rdr.ReadUInt16();
-			y               = rdr.ReadUInt16();
-			cx              = rdr.ReadUInt16();
-			cy              = rdr.ReadUInt16();
+			x               = rdr.ReadInt16();
+			y               = rdr.ReadInt16();
+			cx              = rdr.ReadInt16();
+			cy              = rdr.ReadInt16();
 			id              = rdr.ReadUInt16();
+			
+			// as with DlgTemplate there exists trailing data
+			// "the DLGITEMTEMPLATE structure is always immediately followed by three variable-length arrays specifying the class, title, and creation data for the control. Each array consists of one or more 16-bit elements."
+			
+			exWindowClass  = rdr.ReadIdentifier();
+			exTitle        = rdr.ReadIdentifier();
+			exCreationData = null;
+			
+			rdr.Align2();
+			
+			UInt16 creationSize = rdr.ReadUInt16();
+			if(creationSize > 0) {
+				exCreationData = rdr.ReadBytes( creationSize - 2 );
+				// creationSize's value includes the 2 bytes in the first word containing the size
+			}
 		}
 	}
-
-
+	
+	[StructLayout(LayoutKind.Sequential,Pack=1)]
+	internal struct DlgTemplateEx {
+		public UInt16 dlgVer;
+		public UInt16 signature;
+		public UInt32 helpId;
+		public UInt32 exStyle;
+		public UInt32 style;
+		public UInt16 cDlgItems;
+		public Int16  x;
+		public Int16  y;
+		public Int16  cx;
+		public Int16  cy;
+		public Object menu;
+		public Object windowClass;
+		public String title;
+		public UInt16 pointSize;
+		public UInt16 weight;
+		public Byte   italic;
+		public Byte   charset;
+		public String typeface;
+		
+		public DlgTemplateEx(BinaryReader rdr) {
+			dlgVer    = rdr.ReadUInt16();
+			signature = rdr.ReadUInt16();
+			helpId    = rdr.ReadUInt32();
+			exStyle   = rdr.ReadUInt32();
+			style     = rdr.ReadUInt32();
+			
+			cDlgItems = rdr.ReadUInt16();
+			
+			x           = rdr.ReadInt16();
+			y           = rdr.ReadInt16();
+			cx          = rdr.ReadInt16();
+			cy          = rdr.ReadInt16();
+			
+			menu        = rdr.ReadIdentifier();
+			windowClass = rdr.ReadIdentifier();
+			title       = rdr.ReadSZString();
+			
+			if( (style & 0x40) == 0x40 ) {
+				// 0x40 = DS_SETFONT
+				
+				pointSize   = rdr.ReadUInt16();
+				weight      = rdr.ReadUInt16();
+				italic      = rdr.ReadByte();
+				charset     = rdr.ReadByte();
+				typeface    = rdr.ReadSZString();
+			} else {
+				
+				pointSize   = 0;
+				weight      = 0;
+				italic      = 0;
+				charset     = 0;
+				typeface    = null;
+			}
+			
+		}
+	}
+	
+	[StructLayout(LayoutKind.Sequential,Pack=2)]
+	internal struct DlgItemTemplateEx {
+		public UInt32 helpId;
+		public UInt32 exStyle;
+		public UInt32 style;
+		public Int16  x;
+		public Int16  y;
+		public Int16  cx;
+		public Int16  cy;
+		public UInt32 id;
+		public Object windowClass;
+		public Object title;
+		public UInt16 extraCount;
+		public Byte[] creationData;
+		
+		public DlgItemTemplateEx(BinaryReader rdr) {
+			helpId      = rdr.ReadUInt32();
+			exStyle     = rdr.ReadUInt32();
+			style       = rdr.ReadUInt32();
+			x           = rdr.ReadInt16();
+			y           = rdr.ReadInt16();
+			cx          = rdr.ReadInt16();
+			cy          = rdr.ReadInt16();
+			id          = rdr.ReadUInt32();
+			windowClass = rdr.ReadIdentifier();
+			title       = rdr.ReadIdentifier();
+			extraCount  = rdr.ReadUInt16();
+			creationData = null;
+			
+			if(extraCount > 0) {
+				rdr.Align2();
+				creationData = rdr.ReadBytes( extraCount );
+			}
+		}
+	}
+	
 #endregion
 	
 #region Menus
@@ -589,13 +747,20 @@ namespace Anolis.Core.Native {
 	
 	internal struct MenuTemplateItem {
 		
-		public UInt16 mtOption;
+		public MenuTemplateItemOptions mtOption;
 		public UInt16 mtId;
 		public String mtString;
 		
 		public MenuTemplateItem(BinaryReader rdr) {
-			mtOption = rdr.ReadUInt16();
-			mtId     = rdr.ReadUInt16();
+			
+			mtOption = (MenuTemplateItemOptions)rdr.ReadUInt16();
+			
+			if((mtOption & MenuTemplateItemOptions.Popup) == MenuTemplateItemOptions.Popup) {
+				// Popup items don't have an ID attribute
+				mtId = 0;
+			} else {
+				mtId = rdr.ReadUInt16();
+			}
 			
 			StringBuilder sb = new StringBuilder();
 			Char c;
@@ -608,20 +773,25 @@ namespace Anolis.Core.Native {
 	
 	[Flags]
 	public enum MenuTemplateItemOptions : ushort {
-		/// <summary>Indicates that the menu item has a check mark next to it. (0x0008)</summary>
-		Checked = 0x0008,
+		
 		/// <summary>Indicates that the menu item is initially inactive and drawn with a gray effect. (0x0001)</summary>
-		Greyed  = 0x0001,
-		/// <summary>Indicates that the menu item has a vertical separator to its left. (0x4000)</summary>
-		Help    = 0x4000,
+		Greyed       = 0x0001,
+		Inactive     = 0x0002,
+		Bitmap       = 0x0004,
+		/// <summary>Indicates that the menu item has a check mark next to it. (0x0008)</summary>
+		Checked      = 0x0008,
 		/// <summary>Indicates that the menu item is placed in a new column. The old and new columns are separated by a bar. (0x0020)</summary>
 		MenuBarBreak = 0x0020,
 		/// <summary>Indicates that the menu item is placed in a new column. (0x0040)</summary>
-		MenuBreak = 0x0040,
+		MenuBreak    = 0x0040,
 		/// <summary>Indicates that the owner window of the menu is responsible for drawing all visual aspects of the menu item, including highlighted, selected, and inactive states. This option is not valid for an item in a menu bar. (0x0100)</summary>
-		OwnerDraw = 0x0100,
+		OwnerDraw    = 0x0100,
+		/// <summary>Indicates that the menu item has a vertical separator to its left. (0x4000)</summary>
+		Help         = 0x4000,
+		
 		/// <summary>Indicates that the item is one that opens a drop-down menu or submenu. (0x0010)</summary>
-		Popup = 0x0010
+		Popup        = 0x0010,
+		EndMenu      = 0x0080
 	}
 	
 	internal struct MenuExTemplateItem {
@@ -630,7 +800,7 @@ namespace Anolis.Core.Native {
 //		public MenuExTemplateItemType dwType;
 		public MenuExTemplateItemState dwState;
 		public UInt32 menuId;
-		public UInt16 bResInfo;
+		public MenuExTemplateItemInfo bResInfo;
 		public String szText;
 		
 		public MenuExTemplateItem(BinaryReader rdr) {
@@ -640,7 +810,7 @@ namespace Anolis.Core.Native {
 //			dwType   = (MenuExTemplateItemType)rdr.ReadUInt32();
 			dwState  = (MenuExTemplateItemState)rdr.ReadUInt32();
 			menuId   = rdr.ReadUInt32();
-			bResInfo = rdr.ReadUInt16();
+			bResInfo = (MenuExTemplateItemInfo)rdr.ReadUInt16();
 			
 			// szText is always aligned on a WORD boundary
 			rdr.Align2();
@@ -650,6 +820,12 @@ namespace Anolis.Core.Native {
 			rdr.Align4();
 		}
 		
+	}
+	
+	[Flags]
+	internal enum MenuExTemplateItemInfo : ushort {
+		LastItem    = 0x0080,
+		HasChildren = 0x0001
 	}
 	
 	[Flags]
@@ -683,38 +859,57 @@ namespace Anolis.Core.Native {
 	
 #region *.res Files
 	
-	private struct ResourceHeader {
-		UInt32 DataSize;
-		UInt32 HeaderSize;
-		Object Type;
-		Object Name;
-		UInt32 DataVersion;
-		UInt16 MemoryFlags;
-		UInt16 LanguageId;
-		UInt32 Version;
-		UInt32 Characteristics;
+	internal struct ResourceHeader {
+		/// <summary>Size of the ResourceData following this header</summary>
+		public UInt32 DataSize;
+		public UInt32 HeaderSize;
+		public Object Type;
+		public Object Name;
+		public UInt32 DataVersion;
+		public MemoryFlags MemoryFlags;
+		public UInt16 LanguageId;
+		public UInt32 Version;
+		public UInt32 Characteristics;
 		
 		public ResourceHeader(BinaryReader rdr) {
 			
-			DataSize   = rdr.ReadUInt32();
-			HeaderSize = rdr.ReadUInt32();
+			Int64 pos = rdr.BaseStream.Position;
 			
-			UInt16 typeWord0 = rdr.ReadUInt16();
-			if(typeWord0 == 0xFFFF) {
-				// then the next UInt16 is the numeric TypeId
+			DataSize        = rdr.ReadUInt32();
+			HeaderSize      = rdr.ReadUInt32();
+			Type            = rdr.ReadIdentifier();
+			Name            = rdr.ReadIdentifier();
+			rdr.Align4();
+			
+			DataVersion     = rdr.ReadUInt32();
+			MemoryFlags     = (MemoryFlags)rdr.ReadUInt16();
+			LanguageId      = rdr.ReadUInt16();
+			Version         = rdr.ReadUInt32();
+			Characteristics = rdr.ReadUInt32();
+			
+			// Despite the docs, HeaderSize is the total size of the header INCLUDING DataSize and HeaderSize (i.e. inclusive of those 8 bytes )
+			Int32 cruft = (int)(rdr.BaseStream.Position - pos);
+			if( cruft > HeaderSize ) {
 				
-				Type = rdr.ReadUInt16();
-				
-			} else {
-				// then typeWord0 concat'd with the rest of the chars (until null) is the string TypeId
-				
-				Char c0 = (Char)typeWord0;
-				Type = c0 + rdr.ReadSZString();
-				
+				Byte[] cruftBytes = rdr.ReadBytes( cruft );
 			}
-			
 		}
+		
+
+		
 	};
+	
+	[Flags]
+	internal enum MemoryFlags : ushort {
+		
+		Movable     = 0x0010,
+		Fixed       = unchecked( (ushort)~Movable ),
+		Pure        = 0x0020,
+		Impure      = unchecked( (ushort)~Pure ),
+		Preload     = 0x0040,
+		LoadOnCall  = unchecked( (ushort)~Preload ),
+		Discardable = 0x1000
+	}
 	
 #endregion
 	
