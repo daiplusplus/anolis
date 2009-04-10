@@ -2,6 +2,10 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections.ObjectModel;
+
+using Anolis.Core.Native;
+using Anolis.Core.Utility;
 
 namespace Anolis.Core.Data {
 	
@@ -45,9 +49,68 @@ namespace Anolis.Core.Data {
 		
 		internal static DialogResourceData TryCreate(ResourceLang lang, Byte[] rawData) {
 			
+			if(rawData.Length < 18) {
+				return null;
+			}
 			
-			return null;
+			MemoryStream stream = new MemoryStream(rawData);
+			BinaryReader rdr = new BinaryReader(stream, Encoding.Unicode);
 			
+			Boolean isTemplateEx = true;;
+			Byte[] templateExSignature = new Byte[] { 0x01, 0x00, 0xFF, 0xFF };
+			for(int i=0;i<templateExSignature.Length;i++) if( rawData[i] != templateExSignature[i] ) {
+				isTemplateEx = false;
+				break;
+			}
+			
+			Dialog d = isTemplateEx ? BuildEx(rdr) : Build(rdr);
+			
+			DialogResourceData ret = new DialogResourceData(lang, rawData);
+			ret.Dialog = d;
+			
+			return ret;
+		}
+		
+		private static Dialog Build(BinaryReader rdr) {
+			
+			DlgTemplate header = new DlgTemplate(rdr);
+			
+			List<DlgItemTemplate> ctrls = new List<DlgItemTemplate>();
+			
+			rdr.Align4();
+			
+			for(int i=0;i<header.cdit;i++) {
+				
+				DlgItemTemplate ctrl = new DlgItemTemplate(rdr);
+				ctrls.Add( ctrl );
+				
+				rdr.Align4();
+			}
+			
+			Dialog ret = new Dialog(header);
+			foreach(DlgItemTemplate itemT in ctrls) ret.Controls.Add( new DialogControl(itemT) );
+			return ret;
+		}
+		
+		private static Dialog BuildEx(BinaryReader rdr) {
+			
+			DlgTemplateEx header = new DlgTemplateEx(rdr);
+			
+			List<DlgItemTemplateEx> ctrls = new List<DlgItemTemplateEx>();
+			
+			rdr.Align4();
+			
+			for(int i=0;i<header.cDlgItems;i++) {
+				
+				DlgItemTemplateEx ctrl = new DlgItemTemplateEx(rdr);
+				ctrls.Add( ctrl );
+				
+				rdr.Align4();
+			}
+			
+			Dialog ret = new Dialog(header);
+			foreach(DlgItemTemplateEx itemT in ctrls) ret.Controls.Add( new DialogControl(itemT) );
+			return ret;
 		}
 		
 		protected override void SaveAs(System.IO.Stream stream, String extension) {
@@ -61,7 +124,9 @@ namespace Anolis.Core.Data {
 		protected override ResourceTypeIdentifier GetRecommendedTypeId() {
 			return new ResourceTypeIdentifier(Win32ResourceType.Dialog);
 		}
+		
+		public Dialog Dialog { get; private set; }
+		
 	}
-	
 	
 }

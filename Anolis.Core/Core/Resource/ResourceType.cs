@@ -13,6 +13,16 @@ namespace Anolis.Core {
 		
 		private List<ResourceName> _names;
 		
+		internal ResourceType(ResourceTypeIdentifier typeId, ResourceSource source) {
+			
+			Identifier = typeId;
+			Source     = source;
+			
+			_names     = new List<ResourceName>();
+			Names      = new ResourceNameCollection(_names); // ResourceNameCollection is a read-only decorator of any List
+			
+		}
+		
 		/// <summary>Constructs a Win32 resource type based on a Win32 resource type LPCTSTR.</summary>
 		internal ResourceType(IntPtr typePointer, ResourceSource source) {
 			

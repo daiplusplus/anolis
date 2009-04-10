@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using Anolis.Core.Native;
+using Anolis.Core.Utility;
 
 namespace Anolis.Core.Data {
 	
@@ -23,11 +24,11 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override String Name {
-			get { throw new NotImplementedException(); }
+			get { return "Menu"; }
 		}
 		
 		public override String OpenFileFilter {
-			get { throw new NotImplementedException(); }
+			get { return null; }
 		}
 		
 		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {
@@ -45,7 +46,7 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public Menu Menu { get; private set; }
+		public DialogMenu Menu { get; private set; }
 		
 		internal static MenuResourceData TryCreate(ResourceLang lang, Byte[] rawData) {
 			
@@ -53,13 +54,23 @@ namespace Anolis.Core.Data {
 			
 			// rawData is an array of MenuTemplate instances, aligned to DWORD boundaries (fun)
 			
-			List<MenuItem> items = new List<MenuItem>();
 			// if the first byte is '1' then it's MenuEx, otherwise its an old-style menu
 			
 			using(MemoryStream stream = new MemoryStream(rawData))
 			using(BinaryReader rdr = new BinaryReader( stream, Encoding.Unicode )) {
 				
-				Menu menu = (rawData[0] == 1) ? CreateEx(rdr) : CreateOld(rdr);
+				DialogMenu menu;
+				
+				switch( rawData[0] ) {
+					case 0:
+						menu = Create(rdr);
+						break;
+					case 1:
+						menu = CreateEx(rdr);
+						break;
+					default:
+						throw new ResourceDataException("Unsupported Menu version word: '" + rawData[0].ToString() + "'");
+				}
 				
 				MenuResourceData ret = new MenuResourceData(lang, rawData);
 				ret.Menu = menu;
@@ -69,17 +80,67 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		private static Menu CreateOld(BinaryReader rdr) {
+		private static DialogMenu Create(BinaryReader rdr) {
 			
+			List<MenuTemplateItem> itemTs = new List<MenuTemplateItem>();
 			
+			MenuTemplateHeader header = new MenuTemplateHeader(rdr);
+			rdr.ReadBytes( header.wOffset );
 			
-			return null;
+			while(rdr.BaseStream.Position < rdr.BaseStream.Length) {
+				
+				MenuTemplateItem itemT = new MenuTemplateItem(rdr);
+				itemTs.Add( itemT );
+			}
+			
+			DialogMenuItem root = new DialogMenuItem("Root");
+			
+			lock(_buildLock) {
+				
+				i = 0;
+				BuildMenu(root, itemTs);
+				
+			}
+			
+			return new DialogMenu(root);
 		}
 		
-		private static Menu CreateEx(BinaryReader rdr) {
+		private static Object _buildLock = new Object();
+		private static Int32 i;
+		
+		private static void BuildMenu(DialogMenuItem current, List<MenuTemplateItem> itemTs) {
 			
-			List<MenuExTemplateItem> items = new List<MenuExTemplateItem>();
-						
+			while(i < itemTs.Count) {
+				
+				MenuTemplateItem itemT = itemTs[i++];
+				
+				DialogMenuItem item = new DialogMenuItem(itemT.mtString);
+				
+				if( HasChildren(itemT) ) {
+					
+					BuildMenu( item, itemTs );
+					
+				}
+				
+				current.Children.Add( item );
+				
+				if( IsLast(itemT) ) return;
+				
+			}
+		
+		}
+		
+		private static Boolean HasChildren(MenuTemplateItem itemT) {
+			return (itemT.mtOption & MenuTemplateItemOptions.Popup)    == MenuTemplateItemOptions.Popup;
+		}
+		private static Boolean IsLast(MenuTemplateItem itemT) {
+			return ((itemT.mtOption & MenuTemplateItemOptions.EndMenu) == MenuTemplateItemOptions.EndMenu);
+		}
+		
+		private static DialogMenu CreateEx(BinaryReader rdr) {
+			
+			List<MenuExTemplateItem> itemTs = new List<MenuExTemplateItem>();
+			
 			MenuExTemplateHeader header = new MenuExTemplateHeader(rdr);
 			// header.wOffset is bytes offset from the wOffset member
 			// so if it's 4 then just ignore it since those 4 bytes are taken up by the dwHelpId member
@@ -90,12 +151,47 @@ namespace Anolis.Core.Data {
 			
 			while(rdr.BaseStream.Position < rdr.BaseStream.Length) {
 				
-				MenuExTemplateItem item = new MenuExTemplateItem(rdr);
+				MenuExTemplateItem itemT = new MenuExTemplateItem(rdr);
 				
-				items.Add( item );
+				itemTs.Add( itemT );
 			}
 			
-			return null;
+			DialogMenuItem root = new DialogMenuItem("Root");
+			
+			Int32 i = 0;
+			BuildMenuEx(root, itemTs, ref i );
+			
+			return new DialogMenu(root);
+		}
+		
+		private static void BuildMenuEx(DialogMenuItem current, List<MenuExTemplateItem> itemTs, ref Int32 pos) {
+			
+			for(int i=pos;i<itemTs.Count;i++) {
+				
+				MenuExTemplateItem itemT = itemTs[i];
+				
+				DialogMenuItem item = new DialogMenuItem(itemT.szText);
+				
+				if( HasChildren(itemT) ) {
+					
+					i++;
+					BuildMenuEx( item, itemTs, ref i );
+					
+				}
+				
+				current.Children.Add( item );
+				
+				if( IsLast(itemT) ) return;
+				
+			}
+			
+		}
+		
+		private static Boolean HasChildren(MenuExTemplateItem itemT) {
+			return (itemT.bResInfo & MenuExTemplateItemInfo.HasChildren) == MenuExTemplateItemInfo.HasChildren;
+		}
+		private static Boolean IsLast(MenuExTemplateItem itemT) {
+			return (itemT.bResInfo & MenuExTemplateItemInfo.LastItem) == MenuExTemplateItemInfo.LastItem;
 		}
 		
 		protected override void SaveAs(System.IO.Stream stream, String extension) {
@@ -110,45 +206,5 @@ namespace Anolis.Core.Data {
 			return new ResourceTypeIdentifier(Win32ResourceType.Menu);
 		}
 	}
-	
-	public class Menu {
-		
-		private IList<MenuItem> _children;
-		
-		public Menu(IList<MenuItem> children) {
-			
-			_children = children;
-			Children = new MenuItemCollection( _children );
-		}
-		
-		public MenuItemCollection Children { get; private set; }
-		
-	}
-	
-	public class MenuItem {
-		
-		private List<MenuItem> _children;
-		
-		public MenuItem(String text) {
-			
-			Text = text;
-			
-			_children = new List<MenuItem>();
-			Children = new MenuItemCollection( _children );
-		}
-		
-		public String             Text     { get; private set; }
-		
-		public MenuItemCollection Children { get; private set; }
-		
-	}
-	
-	public class MenuItemCollection : System.Collections.ObjectModel.ReadOnlyCollection<MenuItem> {
-		
-		public MenuItemCollection(IList<MenuItem> underlying) : base(underlying) {
-		}
-		
-	}
-	
 	
 }

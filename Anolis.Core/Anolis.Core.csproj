@@ -76,7 +76,8 @@
     <Compile Include="Core\Data\Windows\DialogResourceData.cs" />
     <Compile Include="Core\Data\Windows\StringTableResourceData.cs" />
     <Compile Include="Core\Data\Windows\VersionResourceData.cs" />
-    <None Include="Core\Source\NESource.cs" />
+    <Compile Include="Core\Source\FileResourceSource.cs" />
+    <Compile Include="Core\Source\NESource.cs" />
     <Compile Include="Core\Source\ManagedSource.cs" />
     <Compile Include="Core\Source\ResResourceSource.cs" />
     <Compile Include="Core\Resource.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Core\Resource\ResourceLang.cs" />
     <Compile Include="Core\Resource\ResourceName.cs" />
     <Compile Include="Core\Resource\ResourceType.cs" />
+    <Compile Include="Core\Utility\Dialog.cs" />
     <Compile Include="Core\Utility\Dib.cs" />
     <Compile Include="Core\Utility\Environment.cs" />
     <Compile Include="Core\Utility\ResIconDir.cs" />

@@ -45,7 +45,14 @@ namespace Anolis.Resourcer.Controls {
 #if MEDIAVIEWER
 				new MediaViewer(),
 #endif
-				new StringTableViewer(), new VersionViewer(), new ImageViewer(), new IconCursorViewer(), new RawViewer(), new TextViewer(), new SgmlViewer()
+				new MenuDialogViewer(),
+				new StringTableViewer(),
+				new VersionViewer(),
+				new ImageViewer(),
+				new IconCursorViewer(),
+				new RawViewer(),
+				new TextViewer(),
+				new SgmlViewer()
 			);
 			
 			Array.Reverse( viewers );
@@ -107,11 +114,8 @@ namespace Anolis.Resourcer.Controls {
 			
 #if !DEBUG
 			try {
-#endif
 				
-				viewer.RenderResource( data );
-
-#if !DEBUG				
+				viewer.RenderResource( data );			
 			} catch (AnolisException ex) {
 				
 				String exTemplate = "\r\nMessage:\r\n{0}\r\n\r\nStack Trace:\r\n{1}";
@@ -128,6 +132,8 @@ namespace Anolis.Resourcer.Controls {
 				else ShowViewer(viewer, data);
 				
 			}
+#else
+			viewer.RenderResource( data );
 #endif
 			
 			// don't load it if it's already the currently displayed viewer

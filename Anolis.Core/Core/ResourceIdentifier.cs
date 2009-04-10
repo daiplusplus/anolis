@@ -220,6 +220,21 @@ namespace Anolis.Core {
 			
 		}
 		
+		public ResourceTypeIdentifier(Int32 id) : base(id) {
+			
+			// check it isn't a Win32ResourceType
+			Int32[] vals = (int[])Enum.GetValues(typeof(Win32ResourceType));
+			foreach(Int32 v in vals) if(v == id) {
+				
+				FriendlyName = GetTypeFriendlyName( IntegerId.Value );
+				KnownType    = (Win32ResourceType)id;
+				return;
+			}
+			
+			KnownType = Win32ResourceType.Unknown;
+			
+		}
+		
 		/// <summary>Creates a ResourceTypeIdentifier instance from a string which may represent a Known Win32 Resource Type, a number, or a string id (in that order)</summary>
 		/// <param name="shortStyle">Set to True to allow short-style identifiers like "icon" or "bmp" (for IconDirectory and Bitmap respectively) to be parsed as being Known Win32 types as opposed to their full names</param>
 		public static ResourceTypeIdentifier CreateFromString(String ambiguousString, Boolean shortStyle) {
@@ -301,6 +316,8 @@ namespace Anolis.Core {
 			resourceTypeFriendlyNames.Add(22, "Icon (Animated)");
 			resourceTypeFriendlyNames.Add(23, "HTML");
 			resourceTypeFriendlyNames.Add(24, "Manifest");
+			// 25-240 = unknown
+			resourceTypeFriendlyNames.Add(241, "Toolbar");
 			
 			return resourceTypeFriendlyNames;
 		}
@@ -387,6 +404,8 @@ namespace Anolis.Core {
 		Html                    = 23,
 		/// <summary>24</summary>
 		Manifest                = 24,
+		/// <summary>241</summary>
+		Toolbar                 = 241,
 		/// <summary>-1 - ResourceType is not a known Win32 Resource Type. Refer to the StringId property for the type's name.</summary>
 		Custom                  = -1,
 		/// <summary>0 - ResourceType's type identifier refers to an unknown resource type that is not a string.</summary>

@@ -6,9 +6,27 @@ namespace Anolis.Core.Utility {
 	
 	public static class Environment {
 		
+		private static Boolean? _isX64;
 		private static Boolean? _isWow64;
 		private static Int32?   _spLevel;
 		private static Boolean? _isGteVista;
+		
+		/// <summary>Returns true if this process is running as x64 on an x64 system.</summary>
+		public static Boolean IsX64 {
+			get {
+				
+				if( _isX64 == null ) {
+					
+					SystemInfo si;
+					NativeMethods.GetSystemInfo(out si);
+					
+					_isX64 = si.wProcessorArchitecture == ProcessorArchitecture.Amd64;
+					
+				}
+				
+				return _isX64.Value;
+			}
+		}
 		
 		/// <summary>Returns true if this process is running as x86 on an x64 system (i.e. it's running under Wow64).</summary>
 		public static Boolean IsWow64 {

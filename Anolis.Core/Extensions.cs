@@ -59,22 +59,10 @@ namespace Anolis.Core {
 			
 		}
 		
-		/// <summary>Reads a null-terminated string.</summary>
-		public static String ReadSZString(this BinaryReader rdr) {
-			
-			StringBuilder sb = new StringBuilder();
-			Char c;
-			while( (c = rdr.ReadChar()) != 0 ) {
-				sb.Append( c );
-			}
-			
-			return sb.ToString();
-		}
+#region Binary Reader
 		
 		/// <summary>Reads a null-terminated string.</summary>
-		public static String ReadSZString(this BinaryReader rdr, Int32 charWidth) {
-			
-			// need to find a way to override the .ReadChar so it uses a particular encoding
+		public static String ReadSZString(this BinaryReader rdr) {
 			
 			StringBuilder sb = new StringBuilder();
 			Char c;
@@ -109,6 +97,67 @@ namespace Anolis.Core {
 			
 			return rdr.ReadBytes( (int)offset );
 		}
+		
+		public static Object ReadIdentifier(this BinaryReader rdr) {
+			
+			UInt16 word0 = rdr.ReadUInt16();
+			if(word0 == 0x0000) return null;
+			if(word0 == 0xFFFF) {
+				// then the next UInt16 is a numeric identifier
+				
+				return rdr.ReadUInt16();
+				
+			} else {
+				// then word0 is the first character in a null-terminated string
+				// so concatenate it with the string it's about to read in
+				
+				Char c0 = (Char)word0;
+				return c0 + rdr.ReadSZString();
+				
+			}
+			
+		}
+		
+#endregion
+		
+#region BinaryWriter
+		
+		public static void WriteSZString(this BinaryWriter wtr, String s) {
+			
+			Char[] chars = s.ToCharArray();
+			
+			wtr.Write( chars );
+			wtr.Write( 0x00 );
+			
+		}
+		
+		public static void Align2(this BinaryWriter wtr) {
+			
+			Int64 pos = wtr.BaseStream.Position;
+			Int32 rem = (int)(pos % 2L);
+			
+			Byte[] writeThis = new Byte[rem];
+			writeThis.Initialize();
+			
+			wtr.Write( writeThis );
+			
+		}
+		
+		public static void Align4(this BinaryWriter wtr) {
+			
+			Int64 pos = wtr.BaseStream.Position;
+			pos = (pos + 3) & ~3;
+			
+			Int64 rem = pos - wtr.BaseStream.Position;
+			
+			Byte[] writeThis = new Byte[rem];
+			writeThis.Initialize();
+			
+			wtr.Write( writeThis );
+			
+		}
+		
+#endregion
 		
 	}
 }

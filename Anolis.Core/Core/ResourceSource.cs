@@ -4,7 +4,16 @@ using Anolis.Core.Source;
 
 using Anolis.Core.Data;
 
+using Path = System.IO.Path;
+using System.IO;
+
 namespace Anolis.Core {
+	
+	public abstract class ResourceSourceFactory {
+		
+		public abstract ResourceSource Create(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode);
+		
+	}
 	
 	public abstract partial class ResourceSource : IDisposable {
 		
@@ -54,19 +63,27 @@ namespace Anolis.Core {
 		
 		public static ResourceSource Open(String filename, Boolean readOnly, ResourceSourceLoadMode mode) {
 			
+			// TODO: Adopt a Factory pattern for Resource Sources because different types can share extensions
+			// e.g. Managed executes, New Executables, Portable Executables etc
+			// and in fact, Managed and PE can both be read by Win32
+			
 			// get the file type of the file to load
 			// if PE executable (a dll, native exe, etc)
 			
-//			String ext = System.IO.Path.GetExtension(filename).ToUpperInvariant();
-//			switch(ext) {
-//				case ".EXE":
-//				case ".DLL":
-//				case ".SCR":
-//				case ".CPL":
+			// what about the "Resource Template *.rct" format?
+			// XN makes a reference to "DCT" as an alias extension for *.res files
+			
+			String ext = Path.GetExtension(filename).ToUpperInvariant();
+			switch(ext) {
+				case ".RES":
+					return new ResResourceSource(filename, readOnly, mode);
+//				case ".ICL":
+//					return new NEResourceSource(filename, readOnly, mode);
+//				case ".RC":
+//					return new RCResourceSource(filename, readOnly, mode);
+				default:
 					return new Win32ResourceSource(filename, readOnly, mode);
-//			}
-//			
-//			throw new NotImplementedException("Anolis does not support files that aren't PE/COFF Executables as ResourceSources yet");
+			}
 			
 		}
 		

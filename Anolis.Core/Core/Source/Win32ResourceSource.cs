@@ -10,30 +10,15 @@ using Marshal = System.Runtime.InteropServices.Marshal;
 namespace Anolis.Core.Source {
 	
 	/// <summary>Encapsulates a resource source that can be handled by Win32's Resource editing API.</summary>
-	public sealed class Win32ResourceSource : ResourceSource {
+	public sealed class Win32ResourceSource : FileResourceSource {
 		
-		private String   _path;
 		private IntPtr   _moduleHandle;
-		private ResourceSourceInfo _sourceInfo;
 		
-		public Win32ResourceSource(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode) : base( isReadOnly || IsPathReadonly(filename), mode) {
+		public Win32ResourceSource(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode) : base(filename, isReadOnly, mode) {
 			
 			if( mode == ResourceSourceLoadMode.PreemptiveLoad ) throw new NotImplementedException("Support for preemptive data loading is not implemented yet");
 			
-			FileInfo = new FileInfo( _path = filename );
-			if(!FileInfo.Exists) throw new FileNotFoundException("The specified Win32 PE Image was not found", filename);
-			
 			if(LoadMode > 0) Reload();
-			
-		}
-		
-		public override String Name {
-			get { return Path.GetFileName( _path ); }
-		}
-		
-		private static Boolean IsPathReadonly(String filename) {
-			
-			return ( File.GetAttributes(filename) & FileAttributes.ReadOnly ) == FileAttributes.ReadOnly;
 			
 		}
 		
@@ -44,7 +29,7 @@ namespace Anolis.Core.Source {
 			// Unload self
 			if(LoadMode > 0) Unload();
 			
-			IntPtr updateHandle = NativeMethods.BeginUpdateResource( _path, false );
+			IntPtr updateHandle = NativeMethods.BeginUpdateResource( FileInfo.FullName, false );
 			
 			foreach(ResourceLang lang in AllActiveLangs) {
 				
@@ -86,7 +71,7 @@ namespace Anolis.Core.Source {
 		
 		public override void Reload() {
 			
-			_moduleHandle = NativeMethods.LoadLibraryEx( _path, IntPtr.Zero, NativeMethods.LoadLibraryFlags.LoadLibraryAsDatafile );
+			_moduleHandle = NativeMethods.LoadLibraryEx( FileInfo.FullName, IntPtr.Zero, NativeMethods.LoadLibraryFlags.LoadLibraryAsDatafile );
 			
 			if( _moduleHandle == IntPtr.Zero ) {
 				
@@ -138,18 +123,6 @@ namespace Anolis.Core.Source {
 		}
 		
 		////////////////////////////
-		// Useful implementation-specific bits
-		
-		public FileInfo FileInfo { get; private set; }
-		
-		public override ResourceSourceInfo SourceInfo {
-			get {
-				if(_sourceInfo == null) GetSourceInfo();
-				return _sourceInfo;
-			}
-		}
-		
-		////////////////////////////
 		// Destructor / Dispose
 		
 		protected override void Dispose(Boolean managed) {
@@ -171,30 +144,6 @@ namespace Anolis.Core.Source {
 //		public void Dispose(Boolean disposeManaged) {
 //			Unload();
 //		}
-		
-#region ResourceSourceInfo
-		
-		private void GetSourceInfo() {
-			
-			_sourceInfo = new ResourceSourceInfo();
-			_sourceInfo.Add("Size"    , FileInfo.Length        .ToString(Cult.InvariantCulture));
-			_sourceInfo.Add("Accessed", FileInfo.LastAccessTime.ToString(Cult.InvariantCulture));
-			_sourceInfo.Add("Modified", FileInfo.LastWriteTime .ToString(Cult.InvariantCulture));
-			_sourceInfo.Add("Created" , FileInfo.CreationTime  .ToString(Cult.InvariantCulture));
-			
-//			using(FileStream stream = FileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.Read)) {
-//				
-//				BinaryReader br = new BinaryReader(stream);
-//				
-//				// I CBA to work out how to read a COFF/PE header right now
-//				
-//			}
-//			
-//			_sourceInfo = null;
-			
-		}
-		
-#endregion
 		
 #region Resource Enumeration
 		
@@ -308,12 +257,6 @@ namespace Anolis.Core.Source {
 		}
 		
 	#endregion
-		
-#endregion
-		
-#region Resource Updates
-		
-		
 		
 #endregion
 		
