@@ -24,6 +24,8 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.@__hex = new Be.Windows.Forms.HexBox();
+			this.@__loading = new System.Windows.Forms.Label();
+			this.@__bw = new System.ComponentModel.BackgroundWorker();
 			this.SuspendLayout();
 			// 
 			// __hex
@@ -45,19 +47,36 @@
 			this.@__hex.UseFixedBytesPerLine = true;
 			this.@__hex.VScrollBarVisible = true;
 			// 
+			// __loading
+			// 
+			this.@__loading.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__loading.AutoSize = true;
+			this.@__loading.Location = new System.Drawing.Point(292, 212);
+			this.@__loading.Name = "__loading";
+			this.@__loading.Size = new System.Drawing.Size(54, 13);
+			this.@__loading.TabIndex = 1;
+			this.@__loading.Text = "Loading...";
+			this.@__loading.Visible = false;
+			// 
 			// RawViewer
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.@__loading);
 			this.Controls.Add(this.@__hex);
 			this.Name = "RawViewer";
 			this.Size = new System.Drawing.Size(644, 447);
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
 
 		private Be.Windows.Forms.HexBox __hex;
+		private System.Windows.Forms.Label __loading;
+		private System.ComponentModel.BackgroundWorker __bw;
 	}
 }

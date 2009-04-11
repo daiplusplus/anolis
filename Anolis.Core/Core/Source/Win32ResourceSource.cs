@@ -71,14 +71,18 @@ namespace Anolis.Core.Source {
 		
 		public override void Reload() {
 			
+			Unload();
+			
 			_moduleHandle = NativeMethods.LoadLibraryEx( FileInfo.FullName, IntPtr.Zero, NativeMethods.LoadLibraryFlags.LoadLibraryAsDatafile );
 			
 			if( _moduleHandle == IntPtr.Zero ) {
 				
 				String win32Message = NativeMethods.GetLastErrorString();
 				
-				throw new ApplicationException("PE/COFF ResourceSource could not be loaded: " + win32Message);
+				throw new AnolisException("PE/COFF ResourceSource could not be loaded: " + win32Message);
 			}
+			
+			UnderlyingClear();
 			
 			PopulateResources();
 			
@@ -86,10 +90,15 @@ namespace Anolis.Core.Source {
 		
 		private void Unload() {
 			
-			// HACK: should I dispose of all ResourceTypeIdentifiers and ResourceIdentifiers?
+			if( _moduleHandle != IntPtr.Zero ) {
+				
+				if( !NativeMethods.FreeLibrary( _moduleHandle ) ) {
+					
+					throw new AnolisException("FreeLibrary Failed");
+				}
+			}
 			
-			if( _moduleHandle != IntPtr.Zero )
-				NativeMethods.FreeLibrary( _moduleHandle );
+			_moduleHandle = IntPtr.Zero;
 		}
 		
 		public override ResourceData GetResourceData(ResourceLang lang) {

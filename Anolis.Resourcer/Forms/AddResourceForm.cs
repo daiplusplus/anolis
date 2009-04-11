@@ -27,7 +27,8 @@ namespace Anolis.Resourcer {
 			PopulateWin32Types(true);
 			
 			PopulateLanguages(true);
-			
+
+			this.__continue  .Click += new EventHandler(__continue_Click);
 			this.__fileBrowse.Click += new EventHandler(__fileBrowse_Click);
 			this.__langSort  .Click += new EventHandler(__langSort_Click);
 			this.__typeSort  .Click += new EventHandler(__typeSort_Click);
@@ -41,6 +42,15 @@ namespace Anolis.Resourcer {
 		private void __nameAuto_CheckedChanged(Object sender, EventArgs e) {
 			
 			__nameCustom.Enabled = !__nameAuto.Checked;
+			
+		}
+		
+		public void LoadFile(String filename) {
+			
+			__continue.Visible = true;
+			__fileBrowse.Visible = false;
+			
+			__file.Text = filename;
 			
 		}
 		
@@ -62,18 +72,18 @@ namespace Anolis.Resourcer {
 			
 			List<Pair<String,Win32ResourceType>> items = new List<Pair<String,Win32ResourceType>>();
 			
-			for(int i=1;i<=24;i++) { // skip -1 = Custom and 0 = Unknown
+			Int32[] vals = (Int32[])Enum.GetValues(typeof(Win32ResourceType));
+			foreach(Int32 v in vals) {
 				
-				if( Enum.IsDefined(typeof(Win32ResourceType), i ) ) {// <0, >25, 13, 15, and 18 are undefined
-					
-					Win32ResourceType val = (Win32ResourceType)i;
-					String           name = ResourceTypeIdentifier.GetTypeFriendlyName( i ) + " (" + i.ToString(CultureInfo.InvariantCulture) + ')';
-					
-					Pair<String,Win32ResourceType> item = new Pair<String,Win32ResourceType>(name, val);
-					
-					items.Add( item );
-					
-				}
+				if(v <= 0) continue;
+				
+				Win32ResourceType val = (Win32ResourceType)v;
+				
+				String           name = ResourceTypeIdentifier.GetTypeFriendlyName( v ) + " (" + v.ToString(CultureInfo.InvariantCulture) + ')';
+				
+				Pair<String,Win32ResourceType> item = new Pair<String,Win32ResourceType>(name, val);
+				
+				items.Add( item );
 				
 			}
 			
@@ -115,7 +125,10 @@ namespace Anolis.Resourcer {
 			this.Close();
 		}
 		
-		//
+		private void __continue_Click(object sender, EventArgs e) {
+			
+			CreateResourceData();
+		}
 		
 		private void __fileBrowse_Click(Object sender, EventArgs e) {
 			
@@ -174,8 +187,6 @@ namespace Anolis.Resourcer {
 		//////////////////////////////
 		
 		private void CreateResourceData() {
-			
-			ResourceDataFactory factory = _filters[ __ofd.FilterIndex - 1].X;
 			
 			_data = ResourceData.FromFileToAdd( __ofd.FileName, 1033, MainForm.LatestInstance.CurrentSource );
 			

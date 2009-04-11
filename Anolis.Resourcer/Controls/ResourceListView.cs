@@ -28,7 +28,11 @@ namespace Anolis.Resourcer.Controls {
 			__size32.Click += new EventHandler(__size_Click); __size32.Tag = new Size(32, 32);
 			__size96.Click += new EventHandler(__size_Click); __size96.Tag = new Size(96, 96);
 			
+			// bgq = feed-in queue for background worker which is used to wait for __bg to finish without blocking the main thread (see the calls to Invoke() )
+			__bg.WorkerSupportsCancellation = true;
+			__bg.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(__bg_ProgressChanged);
 			__bg.DoWork += new System.ComponentModel.DoWorkEventHandler(PopulateResourceType);
+			__bgq.DoWork += new System.ComponentModel.DoWorkEventHandler(__bgq_DoWork);
 		}
 		
 		private void __size_Click(object sender, EventArgs e) {
@@ -82,6 +86,8 @@ namespace Anolis.Resourcer.Controls {
 		
 #endregion
 		
+		private Boolean _showingResourceType;
+		
 		public void ShowResourceType(ResourceType type) {
 			
 			_currentObject = type;
@@ -96,6 +102,8 @@ namespace Anolis.Resourcer.Controls {
 			// 2: Lang[0] LangId
 			// 3: Lang[0] Size
 			
+			__bg.CancelAsync();
+			
 			Boolean showIcons = true;
 			
 			if(type.Names.Count > 256) {
@@ -107,8 +115,17 @@ namespace Anolis.Resourcer.Controls {
 				
 			}
 			
-			__bg.RunWorkerAsync( new Object[] { showIcons, type.Names } );
-			__bg.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(__bg_ProgressChanged);
+			__bgq.RunWorkerAsync( new Object[] { showIcons, type.Names } );
+		}
+		
+		private void __bgq_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e) {
+			
+			while(_showingResourceType) {
+				System.Threading.Thread.Sleep(5);
+			}
+			
+			__bg.RunWorkerAsync( e.Argument );
+			
 		}
 		
 		private void __bg_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e) {
@@ -117,23 +134,32 @@ namespace Anolis.Resourcer.Controls {
 			if( p > 100 ) p = 100;
 			else if( p < 0 ) p = 0;
 			
-			__progessBar.Value = p;
+			this.BeginInvoke( new MethodInvoker( delegate() {
+				__progessBar.Value = p;
+			}));
 			
 		}
 		
 		private void PopulateResourceType(Object sender, System.ComponentModel.DoWorkEventArgs e) {
+			
+			_showingResourceType = true;
 			
 			Object[] args = e.Argument as Object[];
 			
 			Boolean showIcons            = (Boolean)args[0];
 			ResourceNameCollection names = args[1] as ResourceNameCollection;
 			
-			Invoke( new MethodInvoker(delegate() { __list.BeginUpdate(); } ) );
+			BeginInvoke( new MethodInvoker(delegate() { __list.BeginUpdate(); } ) );
 			
 			Single nof = names.Count;
 			Single i   = 1;
 			
 			foreach(ResourceName name in names) {
+				
+				if(__bg.CancellationPending) {
+					e.Cancel = true;
+					break;
+				}
 				
 				ListViewItem item;
 				
@@ -157,11 +183,11 @@ namespace Anolis.Resourcer.Controls {
 							Bitmap bmp = thumb.Icon.ToBitmap();
 							
 							//Invoke( new MethodInvoker(delegate() { _images.Images.Add( imageListKey, thumb.Icon ); } ) );
-							Invoke( new MethodInvoker(delegate() { _images.Images.Add( imageListKey, bmp ); } ) );
+							BeginInvoke( new MethodInvoker(delegate() { _images.Images.Add( imageListKey, bmp ); } ) );
 							
 						} else {
 							
-							Invoke( new MethodInvoker(delegate() { _images.Images.Add( imageListKey,  thumb.Image ); } ) );
+							BeginInvoke( new MethodInvoker(delegate() { _images.Images.Add( imageListKey,  thumb.Image ); } ) );
 							
 						}
 						
@@ -189,8 +215,9 @@ namespace Anolis.Resourcer.Controls {
 				__bg.ReportProgress( Convert.ToInt32( 100 * i / nof ) );
 			}
 			
-			Invoke( new MethodInvoker(delegate() { __list.EndUpdate(); }) );
+			BeginInvoke( new MethodInvoker(delegate() { __list.EndUpdate(); }) );
 			
+			_showingResourceType = false;
 		}
 		
 		private class ListViewThumb {
@@ -273,10 +300,14 @@ namespace Anolis.Resourcer.Controls {
 		
 		public void ShowResourceName(ResourceName name) {
 			
+			// this isn't using background worker because a ResourceName rarely has more than a single data
+			// and when it does they're often loaded fast enough
+			
 			_currentObject = name;
 			
 			_mode = ResourceListViewMode.Lang;
 			
+			__list.BeginUpdate();
 			__list.Items.Clear();
 			_images.Images.Clear();
 			
@@ -314,6 +345,8 @@ namespace Anolis.Resourcer.Controls {
 				__list.Items.Add( item );
 				
 			}
+			
+			__list.EndUpdate();
 			
 		}
 		

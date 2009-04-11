@@ -45,6 +45,7 @@
 			this.@__size96 = new System.Windows.Forms.ToolStripButton();
 			this.@__progessBar = new System.Windows.Forms.ToolStripProgressBar();
 			this.@__bg = new System.ComponentModel.BackgroundWorker();
+			this.@__bgq = new System.ComponentModel.BackgroundWorker();
 			@__cArrangeSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__c.SuspendLayout();
 			this.@__t.SuspendLayout();
@@ -53,7 +54,7 @@
 			// __cArrangeSep
 			// 
 			@__cArrangeSep.Name = "__cArrangeSep";
-			@__cArrangeSep.Size = new System.Drawing.Size(156, 6);
+			@__cArrangeSep.Size = new System.Drawing.Size(145, 6);
 			// 
 			// __list
 			// 
@@ -72,7 +73,7 @@
             this.@__cView,
             this.@__cArrange});
 			this.@__c.Name = "__c";
-			this.@__c.Size = new System.Drawing.Size(169, 48);
+			this.@__c.Size = new System.Drawing.Size(158, 48);
 			// 
 			// __cView
 			// 
@@ -83,37 +84,37 @@
             this.@__cViewList,
             this.@__cViewDetails});
 			this.@__cView.Name = "__cView";
-			this.@__cView.Size = new System.Drawing.Size(168, 22);
+			this.@__cView.Size = new System.Drawing.Size(157, 22);
 			this.@__cView.Text = "View";
 			// 
 			// __cViewThumbnails
 			// 
 			this.@__cViewThumbnails.Name = "__cViewThumbnails";
-			this.@__cViewThumbnails.Size = new System.Drawing.Size(138, 22);
+			this.@__cViewThumbnails.Size = new System.Drawing.Size(127, 22);
 			this.@__cViewThumbnails.Text = "Thumbnails";
 			// 
 			// __cViewTiles
 			// 
 			this.@__cViewTiles.Name = "__cViewTiles";
-			this.@__cViewTiles.Size = new System.Drawing.Size(138, 22);
+			this.@__cViewTiles.Size = new System.Drawing.Size(127, 22);
 			this.@__cViewTiles.Text = "Tiles";
 			// 
 			// __cViewIcons
 			// 
 			this.@__cViewIcons.Name = "__cViewIcons";
-			this.@__cViewIcons.Size = new System.Drawing.Size(138, 22);
+			this.@__cViewIcons.Size = new System.Drawing.Size(127, 22);
 			this.@__cViewIcons.Text = "Icons";
 			// 
 			// __cViewList
 			// 
 			this.@__cViewList.Name = "__cViewList";
-			this.@__cViewList.Size = new System.Drawing.Size(138, 22);
+			this.@__cViewList.Size = new System.Drawing.Size(127, 22);
 			this.@__cViewList.Text = "List";
 			// 
 			// __cViewDetails
 			// 
 			this.@__cViewDetails.Name = "__cViewDetails";
-			this.@__cViewDetails.Size = new System.Drawing.Size(138, 22);
+			this.@__cViewDetails.Size = new System.Drawing.Size(127, 22);
 			this.@__cViewDetails.Text = "Details";
 			// 
 			// __cArrange
@@ -126,37 +127,37 @@
             @__cArrangeSep,
             this.@__cArrangeGroup});
 			this.@__cArrange.Name = "__cArrange";
-			this.@__cArrange.Size = new System.Drawing.Size(168, 22);
+			this.@__cArrange.Size = new System.Drawing.Size(157, 22);
 			this.@__cArrange.Text = "Arrange Icons By";
 			// 
 			// __cArrangeName
 			// 
 			this.@__cArrangeName.Name = "__cArrangeName";
-			this.@__cArrangeName.Size = new System.Drawing.Size(159, 22);
+			this.@__cArrangeName.Size = new System.Drawing.Size(148, 22);
 			this.@__cArrangeName.Text = "Name";
 			// 
 			// __cArrangeSize
 			// 
 			this.@__cArrangeSize.Name = "__cArrangeSize";
-			this.@__cArrangeSize.Size = new System.Drawing.Size(159, 22);
+			this.@__cArrangeSize.Size = new System.Drawing.Size(148, 22);
 			this.@__cArrangeSize.Text = "Size";
 			// 
 			// __cArrangeType
 			// 
 			this.@__cArrangeType.Name = "__cArrangeType";
-			this.@__cArrangeType.Size = new System.Drawing.Size(159, 22);
+			this.@__cArrangeType.Size = new System.Drawing.Size(148, 22);
 			this.@__cArrangeType.Text = "Type";
 			// 
 			// __cArrangeLang
 			// 
 			this.@__cArrangeLang.Name = "__cArrangeLang";
-			this.@__cArrangeLang.Size = new System.Drawing.Size(159, 22);
+			this.@__cArrangeLang.Size = new System.Drawing.Size(148, 22);
 			this.@__cArrangeLang.Text = "Language";
 			// 
 			// __cArrangeGroup
 			// 
 			this.@__cArrangeGroup.Name = "__cArrangeGroup";
-			this.@__cArrangeGroup.Size = new System.Drawing.Size(159, 22);
+			this.@__cArrangeGroup.Size = new System.Drawing.Size(148, 22);
 			this.@__cArrangeGroup.Text = "Show in Groups";
 			// 
 			// __t
@@ -213,8 +214,8 @@
 			// 
 			// ResourceListView
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.@__t);
 			this.Controls.Add(this.@__list);
 			this.Name = "ResourceListView";
@@ -249,5 +250,6 @@
 		private System.Windows.Forms.ToolStripButton __size16;
 		private System.Windows.Forms.ToolStripButton __size32;
 		private System.Windows.Forms.ToolStripButton __size96;
+		private System.ComponentModel.BackgroundWorker __bgq;
 	}
 }

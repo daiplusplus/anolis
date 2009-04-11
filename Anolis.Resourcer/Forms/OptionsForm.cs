@@ -22,12 +22,6 @@ namespace Anolis.Resourcer {
 			this.__ok.Click += new EventHandler(__ok_Click);
 			
 			this.__aboutLinkAnolis .Click += new EventHandler(__aboutLink_Click);
-			this.__aboutLinkXpize  .Click += new EventHandler(__aboutLink_Click);
-			this.__aboutLinkVize   .Click += new EventHandler(__aboutLink_Click);
-			this.__aboutFriendsMsfn.Click += new EventHandler(__aboutLink_Click);
-			this.__aboutFriendsLong.Click += new EventHandler(__aboutLink_Click);
-			this.__aboutFriendsC9  .Click += new EventHandler(__aboutLink_Click);
-			this.__aboutFriendsRafael.Click += new EventHandler(__aboutLink_Click);
 
 			this.__sAssoc.Click += new EventHandler(__sAssoc_Click);
 			__sAssoc.Tag = false;
@@ -50,6 +44,8 @@ namespace Anolis.Resourcer {
 		private void OptionsForm_Load(object sender, EventArgs e) {
 			
 			__legalText.Text = Anolis.Core.Resources.LegalOverview;
+			
+			__version.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 			
 			LoadSettings();
 		}

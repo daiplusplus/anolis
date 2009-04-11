@@ -79,8 +79,8 @@
 			// PendingOperationsForm
 			// 
 			this.AcceptButton = this.@__ok;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.@__ok;
 			this.ClientSize = new System.Drawing.Size(343, 268);
 			this.Controls.Add(this.@__cancel);

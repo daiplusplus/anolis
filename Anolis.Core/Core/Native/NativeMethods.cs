@@ -418,7 +418,8 @@ namespace Anolis.Core.Native {
 		public static extern IntPtr LoadLibraryEx(String modulePath, IntPtr fileHandle, LoadLibraryFlags flags);
 		
 		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
-		public static extern IntPtr FreeLibrary(IntPtr moduleHandle);
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean FreeLibrary(IntPtr moduleHandle);
 		
 #endregion
 		

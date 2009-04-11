@@ -13,8 +13,6 @@ namespace Anolis.Resourcer {
 		
 		public BaseForm() {
 			
-			UpdateFonts();
-			
 			if( Settings.Settings.Default.Gimmicks ) {
 				
 				FadeInit();
@@ -25,6 +23,13 @@ namespace Anolis.Resourcer {
 		}
 		
 #region Fade
+		
+		private void BaseForm_Load(object sender, EventArgs e) {
+			
+			if(!DesignMode) UpdateFonts();
+			
+			FadeInBegin();
+		}
 		
 		private void FadeInit() {
 			
@@ -63,13 +68,6 @@ namespace Anolis.Resourcer {
 		
 		private void FadeStop() {
 			_t.Change(Th.Timeout.Infinite, Th.Timeout.Infinite);
-		}
-		
-		private void BaseForm_Load(object sender, EventArgs e) {
-			
-			UpdateFonts();
-			
-			FadeInBegin();
 		}
 		
 #endregion

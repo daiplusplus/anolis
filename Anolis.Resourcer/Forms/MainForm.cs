@@ -24,8 +24,14 @@ namespace Anolis.Resourcer {
 			
 			this.Load      += new EventHandler(MainForm_Load);
 			this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
-			this.DragDrop  += new DragEventHandler(MainForm_DragDrop);
 			this.DragEnter += new DragEventHandler(MainForm_DragEnter);
+			this.DragLeave += new EventHandler(MainForm_DragLeave);
+
+			this.__dropTarget.DragEnter       += new DragEventHandler(__dropTarget_DragEnter);
+			this.__dropTarget.DragLeave       += new EventHandler(__dropTarget_DragLeave);
+			this.__dropTarget.DropDataAdd     += new EventHandler(__dropTarget_DropDataAdd);
+			this.__dropTarget.DropDataReplace += new EventHandler(__dropTarget_DropDataReplace);
+			this.__dropTarget.DropSourceLoad  += new EventHandler(__dropTarget_DropSourceLoad);
 			
 			ToolStripManager.Renderer = new Anolis.Resourcer.Controls.ToolStripImprovedSystemRenderer();
 			
@@ -33,6 +39,7 @@ namespace Anolis.Resourcer {
 			this.__tSrcOpen.DropDownOpening += new EventHandler(__tSrcOpen_DropDownOpening);
 			this.__tSrcMruClear.Click       += new EventHandler(__tSrcMruClear_Click);
 			this.__tSrcSave.ButtonClick     += new EventHandler(__tSrcSave_Click);
+			this.__tSrcSaveBackup.Click     += new EventHandler(__tSrcSaveBackup_Click);
 			this.__tSrcSavePending.Click    += new EventHandler(__tSrcSavePending_Click);
 			this.__tSrcReve.Click           += new EventHandler(__tSrcReve_Click);
 			this.__tResAdd.Click            += new EventHandler(__tResAdd_Click);
@@ -245,7 +252,7 @@ namespace Anolis.Resourcer {
 			this.SourceLoad( path, true );
 		}
 		
-		private void __tSrcMruClear_Click(object sender, EventArgs e) {
+		private void __tSrcMruClear_Click(Object sender, EventArgs e) {
 			
 			MruClear();
 		}
@@ -260,7 +267,12 @@ namespace Anolis.Resourcer {
 			this.SourceSave();
 		}
 		
-		private void __tSrcSavePending_Click(object sender, EventArgs e) {
+		private void __tSrcSaveBackup_Click(Object sender, EventArgs e) {
+			
+			this.SourceBackup();
+		}
+		
+		private void __tSrcSavePending_Click(Object sender, EventArgs e) {
 			
 			SavePendingOperationsShow();
 		}
@@ -312,6 +324,11 @@ namespace Anolis.Resourcer {
 					this.Text = "Anolis Resourcer";
 				else
 					this.Text = CurrentSource.Name + (isReadOnly ? " [Read-Only]" : "") + " - Anolis Resourcer";
+				
+				if(CurrentSource != null) {
+					__tSrcSaveBackup.Enabled = !CurrentSource.IsReadOnly;
+					__tSrcSaveBackup.Text = "Backup " + CurrentSource.Name + "...";
+				}
 				
 			}
 			
@@ -427,31 +444,88 @@ namespace Anolis.Resourcer {
 		
 	#region Drag 'n' Drop
 		
-		private void MainForm_DragDrop(Object sender, DragEventArgs e) {
+		private void MainForm_DragEnter(Object sender, DragEventArgs e) {
 			
-			if( !e.Data.GetDataPresent(DataFormats.FileDrop) ) return;
+			System.Diagnostics.Debug.WriteLine("MainForm_DragEnter");
+			
+			if(e.Data.GetDataPresent(DataFormats.FileDrop)) {
 				
-			String[] filenames = e.Data.GetData(DataFormats.FileDrop) as String[];
-			if(filenames == null) return;
-			if(filenames.Length < 1) return;
+				__dropTarget.DropDataAddEnabled     = CurrentSource != null;
+				__dropTarget.DropDataReplaceEnabled = CurrentData != null;
+				
+				__dropTarget.Location = new System.Drawing.Point( (Width - __dropTarget.Width)/2, (Height - __dropTarget.Height)/2 );
+				__dropTarget.Visible = true;
+				__dropTarget.BringToFront();
+				
+			}
+		}
+		
+		private Boolean __dropTargetHasDrag;
+		
+		private void __dropTarget_DragEnter(object sender, DragEventArgs e) {
 			
-			// just load the first file
+			__dropTargetHasDrag = true;
 			
-			SourceLoad( filenames[0], false );
+			System.Diagnostics.Debug.WriteLine("dropTarget_DragEnter");
+			
+			__dropTarget.DropDataAddEnabled     = CurrentSource != null;
+			__dropTarget.DropDataReplaceEnabled = CurrentData != null;
+			
+			__dropTarget.Visible = true;
 			
 		}
 		
-		private void MainForm_DragEnter(Object sender, DragEventArgs e) {
-
-			if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
+		private void __dropTarget_DragLeave(object sender, EventArgs e) {
+			
+			__dropTargetHasDrag = false;
+		}
+		
+		private void MainForm_DragLeave(object sender, EventArgs e) {
+			
+			System.Diagnostics.Debug.WriteLine("MainForm_DragLeave");
+			
+			// MainForm_DragLeave is fired before __dropTarget_DragEnter, hmm
+			
+			// delay 1 second. The __dropTarget_DragEnter will set a flag to show the drag is currently on there
+			// if it isn't, hide it
+			
+			// gah, this doesn't seem to be working right
+			System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
+			t.Interval = 1000;
+			t.Tick += new EventHandler(delegate(Object s, EventArgs ea) {
 				
-				e.Effect = DragDropEffects.Move;
+				if( !__dropTargetHasDrag ) __dropTarget.Visible = false;
+				t.Stop();
+			});
+			t.Start();
+		}
+		
+		private void __dropTarget_DropSourceLoad(object sender, EventArgs e) {
+			
+			String filename = __dropTarget.DropFile;
+			
+			SourceLoad( filename, false );
+			
+		}
+		
+		private void __dropTarget_DropDataReplace(object sender, EventArgs e) {
+			
+			if( CurrentSource != null && CurrentData != null ) {
 				
-			} else {
-				
-				e.Effect = DragDropEffects.None;
+				DataReplace( __dropTarget.DropFile );
 				
 			}
+			
+		}
+		
+		private void __dropTarget_DropDataAdd(object sender, EventArgs e) {
+			
+			if( CurrentSource != null ) {
+				
+				DataImport( __dropTarget.DropFile );
+				
+			}
+			
 		}
 		
 	#endregion
