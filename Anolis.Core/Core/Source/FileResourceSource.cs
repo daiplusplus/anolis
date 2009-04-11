@@ -20,7 +20,7 @@ namespace Anolis.Core.Source {
 			return ( File.GetAttributes(filename) & FileAttributes.ReadOnly ) == FileAttributes.ReadOnly;
 		}
 		
-		public FileInfo FileInfo { get; private set; }
+		public FileInfo FileInfo { get; protected set; }
 		
 		public override String Name {
 			get { return Path.GetFileName( FileInfo.FullName ); }

@@ -50,7 +50,6 @@ namespace Anolis.Resourcer {
 			this.@__tSrcMruInfo = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__tSrcMruClear = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__tSrcSave = new System.Windows.Forms.ToolStripSplitButton();
-			this.@__tSrcSaveSaveAs = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__tSrcSaveBackup = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__tSrcSavePending = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__tSrcReve = new System.Windows.Forms.ToolStripButton();
@@ -66,6 +65,7 @@ namespace Anolis.Resourcer {
 			this.@__resCMReplace = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__resCMDelete = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__resCMCancel = new System.Windows.Forms.ToolStripMenuItem();
+			this.@__dropTarget = new Anolis.Resourcer.Controls.DropTarget();
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSrcMruSep = new System.Windows.Forms.ToolStripSeparator();
@@ -177,11 +177,9 @@ namespace Anolis.Resourcer {
 			this.@__nav.Name = "__nav";
 			this.@__nav.Size = new System.Drawing.Size(150, 25);
 			this.@__nav.TabIndex = 4;
-			this.@__nav.Visible = false;
 			// 
 			// __navBack
 			// 
-			this.@__navBack.Enabled = false;
 			this.@__navBack.Image = global::Anolis.Resourcer.Properties.Resources.NavBackUp;
 			this.@__navBack.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__navBack.Margin = new System.Windows.Forms.Padding(1, 1, 0, 2);
@@ -191,7 +189,6 @@ namespace Anolis.Resourcer {
 			// 
 			// __navUp
 			// 
-			this.@__navUp.Enabled = false;
 			this.@__navUp.Image = global::Anolis.Resourcer.Properties.Resources.NavUpUp;
 			this.@__navUp.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__navUp.Name = "__navUp";
@@ -285,7 +282,6 @@ namespace Anolis.Resourcer {
 			// __tSrcSave
 			// 
 			this.@__tSrcSave.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.@__tSrcSaveSaveAs,
             this.@__tSrcSaveBackup,
             @__tSrcSaveSep,
             this.@__tSrcSavePending});
@@ -297,12 +293,6 @@ namespace Anolis.Resourcer {
 			this.@__tSrcSave.Size = new System.Drawing.Size(70, 71);
 			this.@__tSrcSave.Text = "Save";
 			this.@__tSrcSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			// 
-			// __tSrcSaveSaveAs
-			// 
-			this.@__tSrcSaveSaveAs.Name = "__tSrcSaveSaveAs";
-			this.@__tSrcSaveSaveAs.Size = new System.Drawing.Size(180, 22);
-			this.@__tSrcSaveSaveAs.Text = "Save As...";
 			// 
 			// __tSrcSaveBackup
 			// 
@@ -443,11 +433,20 @@ namespace Anolis.Resourcer {
 			this.@__resCMCancel.Size = new System.Drawing.Size(133, 22);
 			this.@__resCMCancel.Text = "Cancel {0}";
 			// 
+			// __dropTarget
+			// 
+			this.@__dropTarget.Location = new System.Drawing.Point(200, 100);
+			this.@__dropTarget.Name = "__dropTarget";
+			this.@__dropTarget.Size = new System.Drawing.Size(376, 93);
+			this.@__dropTarget.TabIndex = 0;
+			this.@__dropTarget.Visible = false;
+			// 
 			// MainForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(635, 474);
+			this.Controls.Add(this.@__dropTarget);
 			this.Controls.Add(this.@__split);
 			this.Controls.Add(this.@__t);
 			this.Controls.Add(this.@__status);
@@ -501,7 +500,6 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.ImageList __treeStateImages;
 		private System.Windows.Forms.ImageList __treeType;
 		private System.Windows.Forms.ToolStripSplitButton __tSrcSave;
-		private System.Windows.Forms.ToolStripMenuItem __tSrcSaveSaveAs;
 		private System.Windows.Forms.ToolStripMenuItem __tSrcSaveBackup;
 		private System.Windows.Forms.ToolStripMenuItem __tSrcMruInfo;
 		private System.Windows.Forms.ToolStripMenuItem __tSrcMruClear;
@@ -509,6 +507,7 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.ToolStrip __nav;
 		private System.Windows.Forms.ToolStripButton __navBack;
 		private System.Windows.Forms.ToolStripButton __navUp;
+		private Anolis.Resourcer.Controls.DropTarget __dropTarget;
 	}
 }
 

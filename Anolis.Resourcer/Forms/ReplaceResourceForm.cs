@@ -43,14 +43,14 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		private void __browse_Click(Object sender, EventArgs e) {
+		public void LoadReplacement(String filename) {
 			
-			if( __ofd.ShowDialog(this) != DialogResult.OK ) return;
-			
-			__repFilename.Text = __ofd.FileName;
+			__repFilename.Text = filename;
 			
 			try {
+				
 				_replacement = ResourceData.FromFileToUpdate( __ofd.FileName, _initial.Lang );
+				
 			} catch( AnolisException ex) {
 				
 				__repSubclass.Text = "Unable to load file into a resource: " + ex.Message;
@@ -65,6 +65,13 @@ namespace Anolis.Resourcer {
 				__repSubclass.Text = _replacement.GetType().Name;
 			}
 			
+		}
+		
+		private void __browse_Click(Object sender, EventArgs e) {
+			
+			if( __ofd.ShowDialog(this) != DialogResult.OK ) return;
+			
+			LoadReplacement( __ofd.FileName );
 		}
 		
 		private ResourceData _initial;

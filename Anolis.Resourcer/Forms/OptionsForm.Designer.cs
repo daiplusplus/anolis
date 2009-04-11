@@ -32,24 +32,16 @@
 			this.@__sUIButtonsLargeLbl = new System.Windows.Forms.Label();
 			this.@__sUIButtonsLarge = new System.Windows.Forms.CheckBox();
 			this.@__sMoreGrp = new System.Windows.Forms.GroupBox();
-			this.@__sLib = new System.Windows.Forms.ListBox();
 			this.@__sLibDel = new System.Windows.Forms.Button();
 			this.@__sLibAdd = new System.Windows.Forms.Button();
+			this.@__sLib = new System.Windows.Forms.ListBox();
 			this.@__sLibLbl = new System.Windows.Forms.Label();
 			this.@__tAbout = new System.Windows.Forms.TabPage();
+			this.@__version = new System.Windows.Forms.Label();
+			this.@__versionLbl = new System.Windows.Forms.Label();
 			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.@__makesUseOf = new System.Windows.Forms.Label();
-			this.@__friendsLbl = new System.Windows.Forms.Label();
 			this.@__linksLbl = new System.Windows.Forms.Label();
-			this.@__aboutFriendsNames = new System.Windows.Forms.Label();
-			this.@__aboutLinksNames = new System.Windows.Forms.Label();
-			this.@__aboutFriendsRafael = new System.Windows.Forms.LinkLabel();
-			this.@__aboutFriendsMsfn = new System.Windows.Forms.LinkLabel();
-			this.@__aboutFriendsC9 = new System.Windows.Forms.LinkLabel();
-			this.@__aboutFriendsLong = new System.Windows.Forms.LinkLabel();
-			this.@__aboutLinkVize = new System.Windows.Forms.LinkLabel();
-			this.@__aboutLinkXpize = new System.Windows.Forms.LinkLabel();
 			this.@__aboutLinkAnolis = new System.Windows.Forms.LinkLabel();
 			this.@__aboutBlurb = new System.Windows.Forms.Label();
 			this.@__aboutAnolis = new System.Windows.Forms.Label();
@@ -64,7 +56,6 @@
 			this.@__sUiGrp.SuspendLayout();
 			this.@__sMoreGrp.SuspendLayout();
 			this.@__tAbout.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.@__tLegal.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -116,7 +107,7 @@
 			this.@__sAssocWarnLbl.AutoSize = true;
 			this.@__sAssocWarnLbl.Location = new System.Drawing.Point(15, 101);
 			this.@__sAssocWarnLbl.Name = "__sAssocWarnLbl";
-			this.@__sAssocWarnLbl.Size = new System.Drawing.Size(226, 13);
+			this.@__sAssocWarnLbl.Size = new System.Drawing.Size(218, 13);
 			this.@__sAssocWarnLbl.TabIndex = 3;
 			this.@__sAssocWarnLbl.Text = "This feature requires Administrative privileges";
 			// 
@@ -125,7 +116,7 @@
 			this.@__sAssocLbl.AutoSize = true;
 			this.@__sAssocLbl.Location = new System.Drawing.Point(15, 80);
 			this.@__sAssocLbl.Name = "__sAssocLbl";
-			this.@__sAssocLbl.Size = new System.Drawing.Size(301, 13);
+			this.@__sAssocLbl.Size = new System.Drawing.Size(299, 13);
 			this.@__sAssocLbl.TabIndex = 1;
 			this.@__sAssocLbl.Text = "Resourcer will be an option on the \"Open With\" context menu";
 			// 
@@ -134,7 +125,7 @@
 			this.@__sAssoc.AutoSize = true;
 			this.@__sAssoc.Location = new System.Drawing.Point(6, 60);
 			this.@__sAssoc.Name = "__sAssoc";
-			this.@__sAssoc.Size = new System.Drawing.Size(237, 17);
+			this.@__sAssoc.Size = new System.Drawing.Size(232, 17);
 			this.@__sAssoc.TabIndex = 2;
 			this.@__sAssoc.Text = "Associate with exe, dll, cpl, ocx and scr files";
 			this.@__sAssoc.UseVisualStyleBackColor = true;
@@ -144,7 +135,7 @@
 			this.@__sUIButtonsLargeLbl.AutoSize = true;
 			this.@__sUIButtonsLargeLbl.Location = new System.Drawing.Point(15, 40);
 			this.@__sUIButtonsLargeLbl.Name = "__sUIButtonsLargeLbl";
-			this.@__sUIButtonsLargeLbl.Size = new System.Drawing.Size(213, 13);
+			this.@__sUIButtonsLargeLbl.Size = new System.Drawing.Size(207, 13);
 			this.@__sUIButtonsLargeLbl.TabIndex = 2;
 			this.@__sUIButtonsLargeLbl.Text = "Use 48x48 rather than 24x24 toolbar icons";
 			// 
@@ -176,6 +167,28 @@
 			this.@__sMoreGrp.TabStop = false;
 			this.@__sMoreGrp.Text = "Library Options";
 			// 
+			// __sLibDel
+			// 
+			this.@__sLibDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.@__sLibDel.Enabled = false;
+			this.@__sLibDel.Location = new System.Drawing.Point(259, 155);
+			this.@__sLibDel.Name = "__sLibDel";
+			this.@__sLibDel.Size = new System.Drawing.Size(75, 23);
+			this.@__sLibDel.TabIndex = 2;
+			this.@__sLibDel.Text = "Remove";
+			this.@__sLibDel.UseVisualStyleBackColor = true;
+			// 
+			// __sLibAdd
+			// 
+			this.@__sLibAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.@__sLibAdd.Enabled = false;
+			this.@__sLibAdd.Location = new System.Drawing.Point(178, 155);
+			this.@__sLibAdd.Name = "__sLibAdd";
+			this.@__sLibAdd.Size = new System.Drawing.Size(75, 23);
+			this.@__sLibAdd.TabIndex = 1;
+			this.@__sLibAdd.Text = "Add...";
+			this.@__sLibAdd.UseVisualStyleBackColor = true;
+			// 
 			// __sLib
 			// 
 			this.@__sLib.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -186,28 +199,6 @@
 			this.@__sLib.Name = "__sLib";
 			this.@__sLib.Size = new System.Drawing.Size(325, 116);
 			this.@__sLib.TabIndex = 3;
-			// 
-			// __sLibDel
-			// 
-			this.@__sLibDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__sLibDel.Enabled = false;
-			this.@__sLibDel.Location = new System.Drawing.Point(277, 155);
-			this.@__sLibDel.Name = "__sLibDel";
-			this.@__sLibDel.Size = new System.Drawing.Size(57, 23);
-			this.@__sLibDel.TabIndex = 2;
-			this.@__sLibDel.Text = "Remove";
-			this.@__sLibDel.UseVisualStyleBackColor = true;
-			// 
-			// __sLibAdd
-			// 
-			this.@__sLibAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__sLibAdd.Enabled = false;
-			this.@__sLibAdd.Location = new System.Drawing.Point(210, 155);
-			this.@__sLibAdd.Name = "__sLibAdd";
-			this.@__sLibAdd.Size = new System.Drawing.Size(61, 23);
-			this.@__sLibAdd.TabIndex = 1;
-			this.@__sLibAdd.Text = "Add";
-			this.@__sLibAdd.UseVisualStyleBackColor = true;
 			// 
 			// __sLibLbl
 			// 
@@ -220,19 +211,11 @@
 			// 
 			// __tAbout
 			// 
+			this.@__tAbout.Controls.Add(this.@__version);
+			this.@__tAbout.Controls.Add(this.@__versionLbl);
 			this.@__tAbout.Controls.Add(this.linkLabel1);
-			this.@__tAbout.Controls.Add(this.pictureBox1);
 			this.@__tAbout.Controls.Add(this.@__makesUseOf);
-			this.@__tAbout.Controls.Add(this.@__friendsLbl);
 			this.@__tAbout.Controls.Add(this.@__linksLbl);
-			this.@__tAbout.Controls.Add(this.@__aboutFriendsNames);
-			this.@__tAbout.Controls.Add(this.@__aboutLinksNames);
-			this.@__tAbout.Controls.Add(this.@__aboutFriendsRafael);
-			this.@__tAbout.Controls.Add(this.@__aboutFriendsMsfn);
-			this.@__tAbout.Controls.Add(this.@__aboutFriendsC9);
-			this.@__tAbout.Controls.Add(this.@__aboutFriendsLong);
-			this.@__tAbout.Controls.Add(this.@__aboutLinkVize);
-			this.@__tAbout.Controls.Add(this.@__aboutLinkXpize);
 			this.@__tAbout.Controls.Add(this.@__aboutLinkAnolis);
 			this.@__tAbout.Controls.Add(this.@__aboutBlurb);
 			this.@__tAbout.Controls.Add(this.@__aboutAnolis);
@@ -244,173 +227,84 @@
 			this.@__tAbout.Text = "About";
 			this.@__tAbout.UseVisualStyleBackColor = true;
 			// 
+			// __version
+			// 
+			this.@__version.AutoSize = true;
+			this.@__version.Location = new System.Drawing.Point(10, 153);
+			this.@__version.Name = "__version";
+			this.@__version.Size = new System.Drawing.Size(106, 13);
+			this.@__version.TabIndex = 23;
+			this.@__version.Text = "%VersionGoesHere%";
+			// 
+			// __versionLbl
+			// 
+			this.@__versionLbl.AutoSize = true;
+			this.@__versionLbl.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+			this.@__versionLbl.Location = new System.Drawing.Point(9, 138);
+			this.@__versionLbl.Name = "__versionLbl";
+			this.@__versionLbl.Size = new System.Drawing.Size(49, 13);
+			this.@__versionLbl.TabIndex = 22;
+			this.@__versionLbl.Text = "Version";
+			// 
 			// linkLabel1
 			// 
 			this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.linkLabel1.AutoSize = true;
 			this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(0, 14);
-			this.linkLabel1.Location = new System.Drawing.Point(273, 167);
+			this.linkLabel1.Location = new System.Drawing.Point(9, 199);
 			this.linkLabel1.Name = "linkLabel1";
-			this.linkLabel1.Size = new System.Drawing.Size(70, 13);
+			this.linkLabel1.Size = new System.Drawing.Size(184, 14);
 			this.linkLabel1.TabIndex = 20;
 			this.linkLabel1.TabStop = true;
 			this.linkLabel1.Text = "http://anol.is";
-			// 
-			// pictureBox1
-			// 
-			this.pictureBox1.Image = global::Anolis.Resourcer.Properties.Resources.anolisLogo50;
-			this.pictureBox1.Location = new System.Drawing.Point(7, 4);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(50, 47);
-			this.pictureBox1.TabIndex = 19;
-			this.pictureBox1.TabStop = false;
+			this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
 			// 
 			// __makesUseOf
 			// 
 			this.@__makesUseOf.AutoSize = true;
-			this.@__makesUseOf.Location = new System.Drawing.Point(9, 108);
+			this.@__makesUseOf.Location = new System.Drawing.Point(9, 113);
 			this.@__makesUseOf.Name = "__makesUseOf";
-			this.@__makesUseOf.Size = new System.Drawing.Size(328, 13);
+			this.@__makesUseOf.Size = new System.Drawing.Size(326, 13);
 			this.@__makesUseOf.TabIndex = 18;
 			this.@__makesUseOf.Text = "Resourcer makes use of the Be HexBox control, used under license";
-			// 
-			// __friendsLbl
-			// 
-			this.@__friendsLbl.AutoSize = true;
-			this.@__friendsLbl.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-			this.@__friendsLbl.Location = new System.Drawing.Point(9, 228);
-			this.@__friendsLbl.Name = "__friendsLbl";
-			this.@__friendsLbl.Size = new System.Drawing.Size(48, 13);
-			this.@__friendsLbl.TabIndex = 17;
-			this.@__friendsLbl.Text = "Friends";
 			// 
 			// __linksLbl
 			// 
 			this.@__linksLbl.AutoSize = true;
 			this.@__linksLbl.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-			this.@__linksLbl.Location = new System.Drawing.Point(9, 142);
+			this.@__linksLbl.Location = new System.Drawing.Point(9, 186);
 			this.@__linksLbl.Name = "__linksLbl";
 			this.@__linksLbl.Size = new System.Drawing.Size(36, 13);
 			this.@__linksLbl.TabIndex = 16;
 			this.@__linksLbl.Text = "Links";
 			// 
-			// __aboutFriendsNames
-			// 
-			this.@__aboutFriendsNames.AutoSize = true;
-			this.@__aboutFriendsNames.Location = new System.Drawing.Point(9, 251);
-			this.@__aboutFriendsNames.Name = "__aboutFriendsNames";
-			this.@__aboutFriendsNames.Size = new System.Drawing.Size(88, 52);
-			this.@__aboutFriendsNames.TabIndex = 14;
-			this.@__aboutFriendsNames.Text = "MSFN\r\nChannel9\r\nLong Zheng\r\nRafael Rivera Jr.";
-			// 
-			// __aboutLinksNames
-			// 
-			this.@__aboutLinksNames.AutoSize = true;
-			this.@__aboutLinksNames.Location = new System.Drawing.Point(9, 167);
-			this.@__aboutLinksNames.Name = "__aboutLinksNames";
-			this.@__aboutLinksNames.Size = new System.Drawing.Size(96, 52);
-			this.@__aboutLinksNames.TabIndex = 13;
-			this.@__aboutLinksNames.Text = "Anolis\r\nAnolis @ Codeplex\r\nxpize\r\nVize";
-			// 
-			// __aboutFriendsRafael
-			// 
-			this.@__aboutFriendsRafael.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__aboutFriendsRafael.AutoSize = true;
-			this.@__aboutFriendsRafael.LinkArea = new System.Windows.Forms.LinkArea(0, 28);
-			this.@__aboutFriendsRafael.Location = new System.Drawing.Point(184, 290);
-			this.@__aboutFriendsRafael.Name = "__aboutFriendsRafael";
-			this.@__aboutFriendsRafael.Size = new System.Drawing.Size(159, 13);
-			this.@__aboutFriendsRafael.TabIndex = 12;
-			this.@__aboutFriendsRafael.TabStop = true;
-			this.@__aboutFriendsRafael.Text = "http://www.withinwindows.com";
-			// 
-			// __aboutFriendsMsfn
-			// 
-			this.@__aboutFriendsMsfn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__aboutFriendsMsfn.AutoSize = true;
-			this.@__aboutFriendsMsfn.LinkArea = new System.Windows.Forms.LinkArea(0, 19);
-			this.@__aboutFriendsMsfn.Location = new System.Drawing.Point(231, 251);
-			this.@__aboutFriendsMsfn.Name = "__aboutFriendsMsfn";
-			this.@__aboutFriendsMsfn.Size = new System.Drawing.Size(113, 13);
-			this.@__aboutFriendsMsfn.TabIndex = 10;
-			this.@__aboutFriendsMsfn.TabStop = true;
-			this.@__aboutFriendsMsfn.Text = "http://www.msfn.com";
-			// 
-			// __aboutFriendsC9
-			// 
-			this.@__aboutFriendsC9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__aboutFriendsC9.AutoSize = true;
-			this.@__aboutFriendsC9.LinkArea = new System.Windows.Forms.LinkArea(0, 24);
-			this.@__aboutFriendsC9.Location = new System.Drawing.Point(210, 264);
-			this.@__aboutFriendsC9.Name = "__aboutFriendsC9";
-			this.@__aboutFriendsC9.Size = new System.Drawing.Size(134, 13);
-			this.@__aboutFriendsC9.TabIndex = 9;
-			this.@__aboutFriendsC9.TabStop = true;
-			this.@__aboutFriendsC9.Text = "http://channel9.msdn.com";
-			// 
-			// __aboutFriendsLong
-			// 
-			this.@__aboutFriendsLong.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__aboutFriendsLong.AutoSize = true;
-			this.@__aboutFriendsLong.LinkArea = new System.Windows.Forms.LinkArea(0, 32);
-			this.@__aboutFriendsLong.Location = new System.Drawing.Point(168, 277);
-			this.@__aboutFriendsLong.Name = "__aboutFriendsLong";
-			this.@__aboutFriendsLong.Size = new System.Drawing.Size(176, 13);
-			this.@__aboutFriendsLong.TabIndex = 7;
-			this.@__aboutFriendsLong.TabStop = true;
-			this.@__aboutFriendsLong.Text = "http://www.istartedsomething.com";
-			// 
-			// __aboutLinkVize
-			// 
-			this.@__aboutLinkVize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__aboutLinkVize.AutoSize = true;
-			this.@__aboutLinkVize.LinkArea = new System.Windows.Forms.LinkArea(0, 21);
-			this.@__aboutLinkVize.Location = new System.Drawing.Point(227, 206);
-			this.@__aboutLinkVize.Name = "__aboutLinkVize";
-			this.@__aboutLinkVize.Size = new System.Drawing.Size(117, 13);
-			this.@__aboutLinkVize.TabIndex = 5;
-			this.@__aboutLinkVize.TabStop = true;
-			this.@__aboutLinkVize.Text = "http://www.vizeos.net";
-			// 
-			// __aboutLinkXpize
-			// 
-			this.@__aboutLinkXpize.AutoSize = true;
-			this.@__aboutLinkXpize.LinkArea = new System.Windows.Forms.LinkArea(0, 20);
-			this.@__aboutLinkXpize.Location = new System.Drawing.Point(232, 193);
-			this.@__aboutLinkXpize.Name = "__aboutLinkXpize";
-			this.@__aboutLinkXpize.Size = new System.Drawing.Size(112, 13);
-			this.@__aboutLinkXpize.TabIndex = 4;
-			this.@__aboutLinkXpize.TabStop = true;
-			this.@__aboutLinkXpize.Text = "http://www.xpize.net";
-			// 
 			// __aboutLinkAnolis
 			// 
 			this.@__aboutLinkAnolis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__aboutLinkAnolis.AutoSize = true;
 			this.@__aboutLinkAnolis.LinkArea = new System.Windows.Forms.LinkArea(0, 30);
-			this.@__aboutLinkAnolis.Location = new System.Drawing.Point(180, 180);
+			this.@__aboutLinkAnolis.Location = new System.Drawing.Point(9, 212);
 			this.@__aboutLinkAnolis.Name = "__aboutLinkAnolis";
-			this.@__aboutLinkAnolis.Size = new System.Drawing.Size(164, 13);
+			this.@__aboutLinkAnolis.Size = new System.Drawing.Size(184, 14);
 			this.@__aboutLinkAnolis.TabIndex = 3;
 			this.@__aboutLinkAnolis.TabStop = true;
 			this.@__aboutLinkAnolis.Text = "http://www.codeplex.com/anolis";
+			this.@__aboutLinkAnolis.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
 			// 
 			// __aboutBlurb
 			// 
 			this.@__aboutBlurb.AutoSize = true;
-			this.@__aboutBlurb.Location = new System.Drawing.Point(9, 27);
+			this.@__aboutBlurb.Location = new System.Drawing.Point(9, 32);
 			this.@__aboutBlurb.Name = "__aboutBlurb";
-			this.@__aboutBlurb.Size = new System.Drawing.Size(321, 65);
+			this.@__aboutBlurb.Size = new System.Drawing.Size(277, 65);
 			this.@__aboutBlurb.TabIndex = 1;
-			this.@__aboutBlurb.Text = "                   Resource hacker for the Anolis project. GPL Licensed.\r\n\r\nBy Da" +
-				"vid Rees\r\nSignificant contributions by Sven Groot and Stanley Chan\r\nAcknowledgem" +
-				"ents to Colin Wilson and Angus Johnson";
+			this.@__aboutBlurb.Text = "Resource hacker for the Anolis project. GPL Licensed.\r\n\r\nBy David Rees\r\nSignifica" +
+				"nt contributions by Sven Groot and Stanley Chan\r\nAcknowledgements to Colin Wilso" +
+				"n and Angus Johnson";
 			// 
 			// __aboutAnolis
 			// 
 			this.@__aboutAnolis.AutoSize = true;
 			this.@__aboutAnolis.Font = new System.Drawing.Font("Tahoma", 14F, System.Drawing.FontStyle.Bold);
-			this.@__aboutAnolis.Location = new System.Drawing.Point(63, 4);
+			this.@__aboutAnolis.Location = new System.Drawing.Point(8, 9);
 			this.@__aboutAnolis.Name = "__aboutAnolis";
 			this.@__aboutAnolis.Size = new System.Drawing.Size(171, 23);
 			this.@__aboutAnolis.TabIndex = 0;
@@ -487,8 +381,8 @@
 			// OptionsForm
 			// 
 			this.AcceptButton = this.@__ok;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.@__cancel;
 			this.ClientSize = new System.Drawing.Size(375, 413);
 			this.Controls.Add(this.@__update);
@@ -510,7 +404,6 @@
 			this.@__sMoreGrp.PerformLayout();
 			this.@__tAbout.ResumeLayout(false);
 			this.@__tAbout.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.@__tLegal.ResumeLayout(false);
 			this.@__tLegal.PerformLayout();
 			this.ResumeLayout(false);
@@ -526,14 +419,9 @@
 		private System.Windows.Forms.Button __ok;
 		private System.Windows.Forms.Label __aboutBlurb;
 		private System.Windows.Forms.Label __aboutAnolis;
-		private System.Windows.Forms.LinkLabel __aboutLinkXpize;
 		private System.Windows.Forms.LinkLabel __aboutLinkAnolis;
-		private System.Windows.Forms.LinkLabel __aboutLinkVize;
 		private System.Windows.Forms.TabPage __tLegal;
 		private System.Windows.Forms.TextBox __legalText;
-		private System.Windows.Forms.LinkLabel __aboutFriendsC9;
-		private System.Windows.Forms.LinkLabel __aboutFriendsLong;
-		private System.Windows.Forms.LinkLabel __aboutFriendsMsfn;
 		private System.Windows.Forms.GroupBox __sUiGrp;
 		private System.Windows.Forms.Label __sUIButtonsLargeLbl;
 		private System.Windows.Forms.CheckBox __sUIButtonsLarge;
@@ -543,17 +431,14 @@
 		private System.Windows.Forms.Button __sLibDel;
 		private System.Windows.Forms.Button __sLibAdd;
 		private System.Windows.Forms.Label __sLibLbl;
-		private System.Windows.Forms.LinkLabel __aboutFriendsRafael;
-		private System.Windows.Forms.Label __aboutFriendsNames;
-		private System.Windows.Forms.Label __aboutLinksNames;
 		private System.Windows.Forms.Label __linksLbl;
-		private System.Windows.Forms.Label __friendsLbl;
 		private System.Windows.Forms.Label __makesUseOf;
 		private System.Windows.Forms.Button __legalToggle;
 		private System.Windows.Forms.Button __update;
 		private System.Windows.Forms.Label __sAssocWarnLbl;
-		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.LinkLabel linkLabel1;
 		private System.Windows.Forms.ListBox __sLib;
+		private System.Windows.Forms.Label __version;
+		private System.Windows.Forms.Label __versionLbl;
 	}
 }

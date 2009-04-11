@@ -39,6 +39,11 @@ namespace Anolis.Core.Data {
 			_data   = rawData;
 		}
 		
+		~ResourceData() {
+			
+			Dispose();
+		}
+		
 		public static ResourceData FromResource(ResourceLang lang, Byte[] rawData) {
 			
 			ResourceTypeIdentifier typeId = lang.Name.Type.Identifier;

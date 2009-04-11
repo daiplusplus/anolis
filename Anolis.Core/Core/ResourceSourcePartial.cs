@@ -49,6 +49,26 @@ namespace Anolis.Core {
 		
 #region Resource Tree Mutators
 		
+		protected void UnderlyingClear() {
+			
+			foreach(ResourceType type in _types) {
+				
+				foreach(ResourceName name in type.UnderlyingNames) {
+					
+					name.Identifier.Dispose();
+					
+					name.UnderlyingLangs.Clear();
+					
+				}
+				
+				type.Identifier.Dispose();
+				
+				type.UnderlyingNames.Clear();
+			}
+			
+			_types.Clear();
+		}
+		
 	#region Add
 		
 		/// <summary>Adds the specified ResourceData to this ResourceSource instance. If the specified ResourceType or ResourceName or ResourceLang does not exist they will be created. If the specified ResourceLang does exist an exception will be thrown (as you're meant to use Update to replace existing resources)</summary>

@@ -50,6 +50,7 @@
 			this.@__fileGrp = new System.Windows.Forms.GroupBox();
 			this.@__resourceDetails = new System.Windows.Forms.Panel();
 			this.@__action = new System.Windows.Forms.Panel();
+			this.@__continue = new System.Windows.Forms.Button();
 			this.@__typeGrp.SuspendLayout();
 			this.@__nameGrp.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.@__nameCustom)).BeginInit();
@@ -317,6 +318,7 @@
 			// 
 			this.@__fileGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__fileGrp.Controls.Add(this.@__continue);
 			this.@__fileGrp.Controls.Add(this.@__fileLbl);
 			this.@__fileGrp.Controls.Add(this.@__file);
 			this.@__fileGrp.Controls.Add(this.@__fileBrowse);
@@ -350,11 +352,21 @@
 			this.@__action.Size = new System.Drawing.Size(335, 40);
 			this.@__action.TabIndex = 8;
 			// 
+			// __continue
+			// 
+			this.@__continue.Location = new System.Drawing.Point(230, 25);
+			this.@__continue.Name = "__continue";
+			this.@__continue.Size = new System.Drawing.Size(75, 23);
+			this.@__continue.TabIndex = 2;
+			this.@__continue.Text = "Continue";
+			this.@__continue.UseVisualStyleBackColor = true;
+			this.@__continue.Visible = false;
+			// 
 			// AddResourceForm
 			// 
 			this.AcceptButton = this.@__ok;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
 			this.CancelButton = this.@__cancel;
 			this.ClientSize = new System.Drawing.Size(335, 560);
@@ -409,5 +421,6 @@
 		private System.Windows.Forms.Label __langWarning;
 		private System.Windows.Forms.Panel __resourceDetails;
 		private System.Windows.Forms.Panel __action;
+		private System.Windows.Forms.Button __continue;
 	}
 }

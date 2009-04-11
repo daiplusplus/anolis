@@ -10,8 +10,11 @@ using Cult             = System.Globalization.CultureInfo;
 using TypeViewerList   = System.Collections.Generic.List<Anolis.Resourcer.TypeViewers.TextViewer>;
 using StringCollection = System.Collections.Specialized.StringCollection;
 
-using Path = System.IO.Path;
-using File = System.IO.File;
+using Path     = System.IO.Path;
+using File     = System.IO.File;
+using FileInfo = System.IO.FileInfo;
+
+using FileResourceSource = Anolis.Core.Source.FileResourceSource;
 
 namespace Anolis.Resourcer {
 	
@@ -50,6 +53,22 @@ namespace Anolis.Resourcer {
 			
 		}
 		
+#region Navigation
+		
+		private class NavigateItem {
+			
+		}
+		
+		private void NavigateBack() {
+			
+		}
+		
+		private void NavigateUp() {
+			
+		}
+		
+#endregion
+		
 #region ResourceSource
 		
 		/// <summary>Presents a File Open Dialog to the user and either loads the selected source or does nothing if nothing was selected or the FOD was cancelled.</summary>
@@ -66,6 +85,7 @@ namespace Anolis.Resourcer {
 			
 		}
 		
+		/// <summary>Calls SourceUnload (which prompts the user) if there's a source currently loaded, then loads the specified source.</summary>
 		private void SourceLoad(String path, Boolean removeFromMruOnError) {
 			
 			// TODO: Where do I ask to save unsaved changes?
@@ -162,23 +182,18 @@ namespace Anolis.Resourcer {
 		/// <summary>Makes a copy of the current pre-modified Resource Source. It asks the user for a save location.</summary>
 		private void SourceBackup() {
 			
+			if(CurrentSource.IsReadOnly) return;
+			
+			FileResourceSource source = CurrentSource as FileResourceSource;
+			if(source == null) {
+				
+				MessageBox.Show(this, "The current source file is not file-based and cannot be backed-up.", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				return;
+			}
+			
 			if( __sfd.ShowDialog(this) != DialogResult.OK ) return;
 				
-			
-			
-		}
-		
-		private void SaveSourceAs() {
-			
-			// make a backup
-			
-			// save to this, but don't reload
-			
-			// rename this to the filename given in the SFD
-			
-			// rename the original backup to this
-			
-			// reload the original
+			File.Copy( source.FileInfo.FullName, __sfd.FileName );
 			
 		}
 		
@@ -226,7 +241,7 @@ namespace Anolis.Resourcer {
 			
 			if( CurrentSource == null ) return;
 			
-			
+			CurrentSource.Reload();
 			
 		}
 		
@@ -309,7 +324,13 @@ namespace Anolis.Resourcer {
 		
 		private void DataImport() {
 			
+			DataImport(null);
+		}
+		
+		private void DataImport(String dataFilename) {
+			
 			AddResourceForm form = new AddResourceForm();
+			if(dataFilename != null) form.LoadFile( dataFilename );
 			
 			if(form.ShowDialog(this) == DialogResult.OK) {
 				
@@ -346,9 +367,24 @@ namespace Anolis.Resourcer {
 				ResourceLang lang = CurrentData.Lang;
 				lang.SwapData( newData );
 				
-			} else {
+			}
+			
+		}
+		
+		private void DataReplace(String newDataFilename) {
+			
+			if( CurrentData == null ) throw new InvalidOperationException("There is no current ResourceData.");
+			
+			ReplaceResourceForm form = new ReplaceResourceForm();
+			form.InitialResource = CurrentData;
+			form.LoadReplacement( newDataFilename );
+			
+			if( form.ShowDialog() != DialogResult.OK ) return;
+			ResourceData newData = form.ReplacementResource;
+			if(newData != null) {
 				
-				// Remove temporary stuff
+				ResourceLang lang = CurrentData.Lang;
+				lang.SwapData( newData );
 				
 			}
 			
