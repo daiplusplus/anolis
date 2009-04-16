@@ -31,11 +31,11 @@
 			this.@__sysres = new System.Windows.Forms.CheckBox();
 			this.@__sysResDesc = new System.Windows.Forms.Label();
 			this.@__bw = new System.ComponentModel.BackgroundWorker();
-			this.@__banner.SuspendLayout();
+
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
-			this.@__banner.Controls.SetChildIndex(this.@__bannerTitle, 0);
-			this.@__banner.Controls.SetChildIndex(this.@__bannerSubtitle, 0);
+
+
 			// 
 			// __content
 			// 
@@ -46,19 +46,11 @@
 			this.@__content.Controls.Add(this.@__backupBrowse);
 			this.@__content.Controls.Add(this.@__backupPath);
 			// 
-			// __bannerSubtitle
-			// 
-			this.@__bannerSubtitle.Text = "Select a backup directory and other options";
-			// 
-			// __bannerTitle
-			// 
-			this.@__bannerTitle.Text = "Installation Options";
-			// 
 			// __backupPath
 			// 
 			this.@__backupPath.Location = new System.Drawing.Point(44, 65);
 			this.@__backupPath.Name = "__backupPath";
-			this.@__backupPath.Size = new System.Drawing.Size(257, 21);
+			this.@__backupPath.Size = new System.Drawing.Size(257, 20);
 			this.@__backupPath.TabIndex = 1;
 			// 
 			// __backupBrowse
@@ -75,7 +67,7 @@
 			this.@__backup.AutoSize = true;
 			this.@__backup.Location = new System.Drawing.Point(22, 18);
 			this.@__backup.Name = "__backup";
-			this.@__backup.Size = new System.Drawing.Size(289, 17);
+			this.@__backup.Size = new System.Drawing.Size(284, 17);
 			this.@__backup.TabIndex = 3;
 			this.@__backup.Text = "Create uninstallation backup directory (Recommended)";
 			this.@__backup.UseVisualStyleBackColor = true;
@@ -85,7 +77,7 @@
 			this.@__backupDesc.AutoSize = true;
 			this.@__backupDesc.Location = new System.Drawing.Point(41, 38);
 			this.@__backupDesc.Name = "__backupDesc";
-			this.@__backupDesc.Size = new System.Drawing.Size(393, 13);
+			this.@__backupDesc.Size = new System.Drawing.Size(385, 13);
 			this.@__backupDesc.TabIndex = 4;
 			this.@__backupDesc.Text = "You must create a backup directory if you wish to uninstall this package in futur" +
 				"e";
@@ -95,7 +87,7 @@
 			this.@__sysres.AutoSize = true;
 			this.@__sysres.Location = new System.Drawing.Point(22, 101);
 			this.@__sysres.Name = "__sysres";
-			this.@__sysres.Size = new System.Drawing.Size(246, 17);
+			this.@__sysres.Size = new System.Drawing.Size(242, 17);
 			this.@__sysres.TabIndex = 5;
 			this.@__sysres.Text = "Create System Restore Point (Recommended)";
 			this.@__sysres.UseVisualStyleBackColor = true;
@@ -111,10 +103,10 @@
 			// 
 			// InstallationOptionsPage
 			// 
-			
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.Name = "InstallationOptionsPage";
-			this.@__banner.ResumeLayout(false);
+			this.PageTitle = "Installation Options";
+			this.Subtitle = "Select a backup directory and other options";
+
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();
 			this.ResumeLayout(false);

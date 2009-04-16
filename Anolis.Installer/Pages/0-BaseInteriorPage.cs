@@ -6,20 +6,22 @@ using System.Text;
 using System.Windows.Forms;
 using Anolis.Installer.Properties;
 
+using W3b.Wizards.WindowsForms;
+
 namespace Anolis.Installer.Pages {
-	public partial class BaseInteriorPage : W3b.Wizards.Wizard97.InteriorPage {
+	
+	public class BaseInteriorPage : InteriorPage {
 		
-		public BaseInteriorPage() {
-			InitializeComponent();
-			
-			base.__banner.Paint += new PaintEventHandler(__banner_Paint);
+		private static Bitmap _bannerImage = GetBannerImage();
+		
+		private static Bitmap GetBannerImage() {
+			return Resources.Banner;
 		}
 		
-		private void __banner_Paint(object sender, PaintEventArgs e) {
+		public BaseInteriorPage() {
 			
-			Image anole = Resources.Banner;
+			BannerImage = _bannerImage;
 			
-			e.Graphics.DrawImage( anole, __banner.Width - anole.Width, __banner.Height - anole.Height );
 		}
 	}
 }

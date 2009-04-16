@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using Anolis.Core.Packages;
 using System.IO;
-using W3b.Wizards;
+using W3b.Wizards.WindowsForms;
 namespace Anolis.Installer.Pages {
 	
 	public partial class ExtractingPage : BaseInteriorPage {

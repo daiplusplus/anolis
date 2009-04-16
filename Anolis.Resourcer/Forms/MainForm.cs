@@ -28,7 +28,7 @@ namespace Anolis.Resourcer {
 			this.DragLeave += new EventHandler(MainForm_DragLeave);
 
 			this.__dropTarget.DragEnter       += new DragEventHandler(__dropTarget_DragEnter);
-			this.__dropTarget.DragLeave       += new EventHandler(__dropTarget_DragLeave);
+			this.__dropTarget.DragLeave2      += new EventHandler(__dropTarget_DragLeave);
 			this.__dropTarget.DropDataAdd     += new EventHandler(__dropTarget_DropDataAdd);
 			this.__dropTarget.DropDataReplace += new EventHandler(__dropTarget_DropDataReplace);
 			this.__dropTarget.DropSourceLoad  += new EventHandler(__dropTarget_DropSourceLoad);
@@ -48,13 +48,19 @@ namespace Anolis.Resourcer {
 			this.__tResDel.Click            += new EventHandler(__tResDel_Click);
 			this.__tResCan.Click            += new EventHandler(__tResCan_Click);
 			this.__tGenOpt.Click            += new EventHandler(__tGenOptions_Click);
-			
+
+			this.__tree.NodeMouseClick += new TreeNodeMouseClickEventHandler(__tree_NodeMouseClick);
 			this.__tree.AfterSelect         += new TreeViewEventHandler(__tree_AfterSelect);
 			this.__treeMenu.Opening         += new System.ComponentModel.CancelEventHandler(__treeMenu_Opening);
 			
 			//this.__treeStateImages.Images.Add( "Add", Properties.Resources.Tree_Add );
 			//this.__treeStateImages.Images.Add( "Upd", Properties.Resources.Tree_Edit );
 			//this.__treeStateImages.Images.Add( "Del", Properties.Resources.Tree_Delete );
+			
+			_history = new System.Collections.Generic.Stack<NavigateItem>();
+			__navBack.Click += new EventHandler(__navBack_Click);
+			__navUp.Click += new EventHandler(__navUp_Click);
+			this.__tree.ImageList = MainForm.TypeImages16;
 			
 			_viewData = new ResourceDataView();
 			_viewList = new ResourceListView();
@@ -101,9 +107,20 @@ namespace Anolis.Resourcer {
 		
 	#region Treeview
 		
+		private void __tree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
+			// TODO: Find a way to enable the Loading of items that are selected, but were re-clicked
+			// if the line below is uncommented then the list is loaded twice which causes a threading exception
+//			__tree_AfterSelect(sender, new TreeViewEventArgs(e.Node, TreeViewAction.ByMouse) );
+		}
+		
 		private void __tree_AfterSelect(Object sender, TreeViewEventArgs e) {
 			
+			System.Diagnostics.Debug.WriteLine("afterSelect");
+			
 			TreeNode node = e.Node;
+			
+			ResourceSource source = node.Tag as ResourceSource;
+			if(source != null) { ListLoad(); return; }
 			
 			ResourceType type = node.Tag as ResourceType;
 			if(type != null) { ListLoad(type); return; }
@@ -486,12 +503,12 @@ namespace Anolis.Resourcer {
 			
 			// MainForm_DragLeave is fired before __dropTarget_DragEnter, hmm
 			
-			// delay 1 second. The __dropTarget_DragEnter will set a flag to show the drag is currently on there
+			// delay 20ms. The __dropTarget_DragEnter will set a flag to show the drag is currently on there
 			// if it isn't, hide it
 			
 			// gah, this doesn't seem to be working right
 			System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
-			t.Interval = 1000;
+			t.Interval = 20;
 			t.Tick += new EventHandler(delegate(Object s, EventArgs ea) {
 				
 				if( !__dropTargetHasDrag ) __dropTarget.Visible = false;
@@ -597,7 +614,21 @@ namespace Anolis.Resourcer {
 		}
 		
 	#endregion
+	
+	#region Navigation
 		
+		private void __navUp_Click(object sender, EventArgs e) {
+			
+			NavigateUp();
+		}
+		
+		private void __navBack_Click(object sender, EventArgs e) {
+			
+			NavigateBack();
+		}
+		
+	#endregion
+	
 #endregion
 
 	}

@@ -250,7 +250,76 @@
   <data name="Dialogs_Run" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Dialogs\Run.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="anolisLogo50" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\anolisLogo50.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Type_Accelerator16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Accelerator16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Accelerator32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Accelerator32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Binary16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Binary16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Binary32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Binary32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Bitmap16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Bitmap16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Bitmap32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Bitmap32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_ColorTable16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\ColorTable16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_ColorTable32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\ColorTable32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Cursor16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Cursor16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Cursor32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Cursor32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Dialog16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Dialog16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Dialog32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Dialog32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_File16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\File16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_File32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\File32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Html16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Html16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Html32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Html32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Icon16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Icon16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Icon32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Icon32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Menu16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Menu16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Menu32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Menu32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Toolbar16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Toolbar16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Toolbar32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Toolbar32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Xml16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Xml16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Type_Xml32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResourceTypes\Xml32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

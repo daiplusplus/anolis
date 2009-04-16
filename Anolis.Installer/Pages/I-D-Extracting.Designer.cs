@@ -27,25 +27,17 @@
 			this.@__progress = new System.Windows.Forms.ProgressBar();
 			this.@__statusLabel = new System.Windows.Forms.Label();
 			this.@__packageMessages = new System.Windows.Forms.TextBox();
-			this.@__banner.SuspendLayout();
+
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
-			this.@__banner.Controls.SetChildIndex(this.@__bannerTitle, 0);
-			this.@__banner.Controls.SetChildIndex(this.@__bannerSubtitle, 0);
+
+
 			// 
 			// __content
 			// 
 			this.@__content.Controls.Add(this.@__packageMessages);
 			this.@__content.Controls.Add(this.@__statusLabel);
 			this.@__content.Controls.Add(this.@__progress);
-			// 
-			// __bannerSubtitle
-			// 
-			this.@__bannerSubtitle.Text = "Please wait whilst the installer prepares the package for installation";
-			// 
-			// __bannerTitle
-			// 
-			this.@__bannerTitle.Text = "Preparing Package";
 			// 
 			// __ofd
 			// 
@@ -64,7 +56,7 @@
 			this.@__statusLabel.AutoSize = true;
 			this.@__statusLabel.Location = new System.Drawing.Point(19, 80);
 			this.@__statusLabel.Name = "__statusLabel";
-			this.@__statusLabel.Size = new System.Drawing.Size(106, 13);
+			this.@__statusLabel.Size = new System.Drawing.Size(98, 13);
 			this.@__statusLabel.TabIndex = 1;
 			this.@__statusLabel.Text = "{0}% complete - {1}";
 			// 
@@ -86,10 +78,10 @@
 			// 
 			// ExtractingPage
 			// 
-			
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.Name = "ExtractingPage";
-			this.@__banner.ResumeLayout(false);
+			this.PageTitle = "Preparing Package";
+			this.Subtitle = "Please wait whilst the installer prepares the package for installation";
+
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();
 			this.ResumeLayout(false);

@@ -53,17 +53,174 @@ namespace Anolis.Resourcer {
 			
 		}
 		
+#region Resource Type Images
+		
+		private static ImageList _typeImages16;
+		private static ImageList _typeImages32;
+		
+		public static ImageList TypeImages16 {
+			get {
+				
+				if( _typeImages16 == null ) {
+					
+					_typeImages16 = new ImageList();
+					_typeImages16.ColorDepth = ColorDepth.Depth32Bit;
+					_typeImages16.ImageSize = new System.Drawing.Size(16, 16);
+					
+					_typeImages16.Images.Add("Accelerator", Properties.Resources.Type_Accelerator16);
+					_typeImages16.Images.Add("Binary", Properties.Resources.Type_Binary16);
+					_typeImages16.Images.Add("Bitmap", Properties.Resources.Type_Bitmap16);
+					_typeImages16.Images.Add("ColorTable", Properties.Resources.Type_ColorTable16);
+					_typeImages16.Images.Add("Cursor", Properties.Resources.Type_Cursor16);
+					_typeImages16.Images.Add("Dialog", Properties.Resources.Type_Dialog16);
+					_typeImages16.Images.Add("File", Properties.Resources.Type_File16);
+					_typeImages16.Images.Add("Html", Properties.Resources.Type_Html16);
+					_typeImages16.Images.Add("Icon", Properties.Resources.Type_Icon16);
+					_typeImages16.Images.Add("Menu", Properties.Resources.Type_Menu16);
+					_typeImages16.Images.Add("Toolbar", Properties.Resources.Type_Toolbar16);
+					_typeImages16.Images.Add("Xml", Properties.Resources.Type_Xml16);
+					
+				}
+				return _typeImages16;
+				
+			}
+		}
+		
+		public static ImageList TypeImages32 {
+			get {
+				
+				if( _typeImages32 == null ) {
+					
+					_typeImages32 = new ImageList();
+					_typeImages32.ColorDepth = ColorDepth.Depth32Bit;
+					_typeImages32.ImageSize = new System.Drawing.Size(32, 32);
+					
+					_typeImages32.Images.Add("Accelerator", Properties.Resources.Type_Accelerator32);
+					_typeImages32.Images.Add("Binary", Properties.Resources.Type_Binary32);
+					_typeImages32.Images.Add("Bitmap", Properties.Resources.Type_Bitmap32);
+					_typeImages32.Images.Add("ColorTable", Properties.Resources.Type_ColorTable32);
+					_typeImages32.Images.Add("Cursor", Properties.Resources.Type_Cursor32);
+					_typeImages32.Images.Add("Dialog", Properties.Resources.Type_Dialog32);
+					_typeImages32.Images.Add("File", Properties.Resources.Type_File32);
+					_typeImages32.Images.Add("Html", Properties.Resources.Type_Html32);
+					_typeImages32.Images.Add("Icon", Properties.Resources.Type_Icon32);
+					_typeImages32.Images.Add("Menu", Properties.Resources.Type_Menu32);
+					_typeImages32.Images.Add("Toolbar", Properties.Resources.Type_Toolbar32);
+					_typeImages32.Images.Add("Xml", Properties.Resources.Type_Xml32);
+					
+				}
+				return _typeImages32;
+				
+			}
+		}
+		
+#endregion
+		
 #region Navigation
 		
+		private ViewMode _currentViewMode;
+		
+		private System.Collections.Generic.Stack<NavigateItem> _history;
+		
 		private class NavigateItem {
+			public ViewMode ViewMode;
+			public Object Argument;
+		}
+		
+		private enum ViewMode {
+			ViewSource,
+			ViewType,
+			ViewName,
+			ViewLangData,
+			Other
+		}
+		
+		private void NavigateUpdateUI() {
+			
+			__navBack.Enabled = _history.Count > 0;
+			__navUp.Enabled   = (_currentViewMode != ViewMode.ViewSource && _currentViewMode != ViewMode.Other);
+		}
+		
+		private void NavigateClear() {
+			
+			_history.Clear();
+			__navBack.Enabled = false;
+			__navUp.Enabled   = false;
 			
 		}
 		
 		private void NavigateBack() {
 			
+			NavigateItem item = _history.Pop();
+			switch(item.ViewMode) {
+				case ViewMode.ViewSource:
+					
+					ListLoad();
+					break;
+					
+				case ViewMode.ViewType:
+					
+					ListLoad( item.Argument as ResourceType );
+					break;
+					
+				case ViewMode.ViewName:
+					
+					ListLoad( item.Argument as ResourceName );
+					break;
+					
+				case ViewMode.ViewLangData:
+					
+					DataLoad( item.Argument as ResourceLang );
+					break;
+					
+				case ViewMode.Other:
+					break;
+			}
+			
 		}
 		
 		private void NavigateUp() {
+			
+			switch(_currentViewMode) {
+				case ViewMode.ViewLangData:
+					ListLoad( _viewData.CurrentData.Lang.Name );
+					break;
+				case ViewMode.ViewName:
+					ListLoad( (_viewList.CurrentObject as ResourceName).Type );
+					break;
+				case ViewMode.ViewType:
+					ListLoad();
+					break;
+				case ViewMode.ViewSource:
+					break;
+			}
+			
+		}
+		
+		/// <summary>Pushes the current view to the top of the history stack and updates the Navigation UI</summary>
+		private void NavigateAdd() {
+			
+			NavigateItem item = new NavigateItem();
+			item.ViewMode = _currentViewMode;
+			switch(item.ViewMode) {
+				case ViewMode.ViewSource:
+					// don't reference the current source, we don't want to lose memory from the GC
+//					item.Argument = CurrentSource;
+					break;
+				case ViewMode.ViewType:
+					item.Argument = (_viewList.CurrentObject as ResourceName).Type;
+					break;
+				case ViewMode.ViewName:
+					item.Argument = _viewList.CurrentObject as ResourceName;
+					break;
+				case ViewMode.ViewLangData:
+					item.Argument = _viewData.CurrentData;
+					break;
+			}
+			
+			_history.Push( item );
+			
+			NavigateUpdateUI();
 			
 		}
 		
@@ -126,6 +283,8 @@ namespace Anolis.Resourcer {
 				StatusbarUpdate();
 				
 				TreePopulate();
+				
+				ListLoad();
 				
 			} catch (AnolisException aex) {
 				
@@ -272,7 +431,11 @@ namespace Anolis.Resourcer {
 			
 			EnsureView( _viewData );
 			
+			_currentViewMode = ViewMode.ViewLangData;
+			
 			_viewData.ShowResource( CurrentData );
+			
+			NavigateUpdateUI();
 		}
 		
 		private void DataExport() {
@@ -404,18 +567,40 @@ namespace Anolis.Resourcer {
 		
 #region ResourceType and ResourceName
 		
+		/// <summary>Lists the types in the current resource source</summary>
+		private void ListLoad() {
+			
+			EnsureView( _viewList );
+			
+			_currentViewMode = ViewMode.ViewSource;
+			
+			_viewList.ShowResourceSource( CurrentSource );
+			
+			NavigateAdd();
+			
+			NavigateUpdateUI();
+		}
+		
 		private void ListLoad(ResourceType type) {
 			
 			EnsureView( _viewList );
 			
+			_currentViewMode = ViewMode.ViewType;
+			
 			_viewList.ShowResourceType(type);
+			
+			NavigateUpdateUI();
 		}
 		
 		private void ListLoad(ResourceName name) {
 			
 			EnsureView( _viewList );
 			
+			_currentViewMode = ViewMode.ViewName;
+			
 			_viewList.ShowResourceName(name);
+			
+			NavigateUpdateUI();
 		}
 		
 #endregion
@@ -430,6 +615,10 @@ namespace Anolis.Resourcer {
 			__tree.Nodes.Clear();
 			
 			if(CurrentSource == null) return;
+			
+			TreeNode root = new TreeNode( CurrentSource.Name ) { Tag = CurrentSource };
+			root.ImageKey = root.SelectedImageKey = "File";
+			__tree.Nodes.Add( root );
 			
 			foreach(ResourceType type in CurrentSource.AllTypes) {
 				
@@ -455,8 +644,10 @@ namespace Anolis.Resourcer {
 					
 				}
 				
-				__tree.Nodes.Add( typeNode );
+				root.Nodes.Add( typeNode );
 			}
+			
+			root.Expand();
 			
 			__tree.EndUpdate();
 		}
@@ -531,7 +722,7 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		private String TreeNodeImageListTypeKey(ResourceTypeIdentifier typeId) {
+		public static String TreeNodeImageListTypeKey(ResourceTypeIdentifier typeId) {
 			
 			switch(typeId.KnownType) {
 				case Win32ResourceType.Accelerator:
@@ -549,9 +740,12 @@ namespace Anolis.Resourcer {
 				case Win32ResourceType.IconImage:
 					return "Icon";
 				case Win32ResourceType.Html:
+					return "Html";
 				case Win32ResourceType.Manifest:
 					return "Xml";
-//				case Win32ResourceType.Version:
+				case Win32ResourceType.Toolbar:
+					return "Toolbar";
+				case Win32ResourceType.Version:
 				case Win32ResourceType.Custom:
 				default:
 					return "Binary";

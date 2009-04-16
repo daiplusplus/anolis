@@ -29,11 +29,11 @@
 			this.@__packageMessages = new System.Windows.Forms.TextBox();
 			this.@__bw = new System.ComponentModel.BackgroundWorker();
 			this.@__showLog = new System.Windows.Forms.Button();
-			this.@__banner.SuspendLayout();
+
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
-			this.@__banner.Controls.SetChildIndex(this.@__bannerTitle, 0);
-			this.@__banner.Controls.SetChildIndex(this.@__bannerSubtitle, 0);
+
+
 			// 
 			// __content
 			// 
@@ -41,14 +41,6 @@
 			this.@__content.Controls.Add(this.@__packageMessages);
 			this.@__content.Controls.Add(this.@__statusLabel);
 			this.@__content.Controls.Add(this.@__progress);
-			// 
-			// __bannerSubtitle
-			// 
-			this.@__bannerSubtitle.Text = "Your selected package is being installed";
-			// 
-			// __bannerTitle
-			// 
-			this.@__bannerTitle.Text = "Installing Package";
 			// 
 			// __ofd
 			// 
@@ -67,7 +59,7 @@
 			this.@__statusLabel.AutoSize = true;
 			this.@__statusLabel.Location = new System.Drawing.Point(19, 80);
 			this.@__statusLabel.Name = "__statusLabel";
-			this.@__statusLabel.Size = new System.Drawing.Size(106, 13);
+			this.@__statusLabel.Size = new System.Drawing.Size(98, 13);
 			this.@__statusLabel.TabIndex = 1;
 			this.@__statusLabel.Text = "{0}% complete - {1}";
 			// 
@@ -98,10 +90,10 @@
 			// 
 			// InstallingPage
 			// 
-			
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.Name = "InstallingPage";
-			this.@__banner.ResumeLayout(false);
+			this.PageTitle = "Installing Package";
+			this.Subtitle = "Your selected package is being installed";
+
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();
 			this.ResumeLayout(false);

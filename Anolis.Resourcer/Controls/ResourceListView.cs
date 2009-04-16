@@ -8,18 +8,12 @@ namespace Anolis.Resourcer.Controls {
 	
 	public partial class ResourceListView : UserControl {
 		
-		private ImageList _images;
 		private ResourceListViewMode _mode;
 		
 		private Object _currentObject;
 		
 		public ResourceListView() {
 			InitializeComponent();
-			
-			_images = new ImageList();
-			_images.ColorDepth = ColorDepth.Depth32Bit;
-			
-			__list.LargeImageList = _images;
 			
 			__list.SelectedIndexChanged += new EventHandler(__list_SelectedIndexChanged);
 			__list.ItemActivate         += new EventHandler(__list_ItemActivate);
@@ -44,6 +38,8 @@ namespace Anolis.Resourcer.Controls {
 			__size96.Checked = sender == __size96;
 			
 		}
+		
+		public Object CurrentObject { get { return _currentObject; } }
 		
 #region Events
 		
@@ -94,7 +90,8 @@ namespace Anolis.Resourcer.Controls {
 			_mode = ResourceListViewMode.Name;
 			
 			__list.Items.Clear();
-			_images.Images.Clear();
+			__images.Images.Clear();
+			__list.LargeImageList = __images;
 			
 			// SubItems:
 			// 0: Name
@@ -183,11 +180,11 @@ namespace Anolis.Resourcer.Controls {
 							Bitmap bmp = thumb.Icon.ToBitmap();
 							
 							//Invoke( new MethodInvoker(delegate() { _images.Images.Add( imageListKey, thumb.Icon ); } ) );
-							BeginInvoke( new MethodInvoker(delegate() { _images.Images.Add( imageListKey, bmp ); } ) );
+							BeginInvoke( new MethodInvoker(delegate() { __images.Images.Add( imageListKey, bmp ); } ) );
 							
 						} else {
 							
-							BeginInvoke( new MethodInvoker(delegate() { _images.Images.Add( imageListKey,  thumb.Image ); } ) );
+							BeginInvoke( new MethodInvoker(delegate() { __images.Images.Add( imageListKey,  thumb.Image ); } ) );
 							
 						}
 						
@@ -208,7 +205,7 @@ namespace Anolis.Resourcer.Controls {
 				item.Tag = name;
 				
 				// does this create a new MethodInvoker for every call?
-				Invoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
+				BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
 				
 				i++;
 				
@@ -220,32 +217,16 @@ namespace Anolis.Resourcer.Controls {
 			_showingResourceType = false;
 		}
 		
-		private class ListViewThumb {
-			
-			public ListViewThumb(Icon ico) {
-				Icon = ico;
-				IsIcon = true;
-			}
-			
-			public ListViewThumb(Image img) {
-				Image = img;
-				IsIcon = false;
-			}
-			
-			public Boolean IsIcon;
-			public Icon Icon;
-			public Image Image;
-		}
-		
 		private void SetIconSize(Size size) {
 			
-			_images.ImageSize = size;
+			__images.ImageSize = size;
 			
 			// reload
 			
 			switch(_mode) {
 				case ResourceListViewMode.Type:
-					// TODO: ShowResourceSource
+					
+					ShowResourceSource( _currentObject as ResourceSource );
 					break;
 				case ResourceListViewMode.Name:
 					
@@ -287,14 +268,27 @@ namespace Anolis.Resourcer.Controls {
 			
 		}
 		
-		private ListViewThumb GetIconForResourceName(ResourceName name) {
+		public void ShowResourceSource(ResourceSource source) {
 			
-			if(name.Langs.Count == 1) {
+			_currentObject = source;
+			
+			_mode = ResourceListViewMode.Type;
+			__list.BeginUpdate();
+			__list.Items.Clear();
+			__list.LargeImageList = __images.ImageSize.Width == 16 ? MainForm.TypeImages16 : MainForm.TypeImages32;
+			
+			foreach(ResourceType type in source.AllTypes) {
 				
-				return GetIconForResourceLang( name.Langs[0] );
+				ListViewItem item = new ListViewItem( type.Identifier.FriendlyName );
+				item.ImageKey = MainForm.TreeNodeImageListTypeKey( type.Identifier );
+				
+				item.Tag = type;
+				
+				__list.Items.Add( item );
+				
 			}
 			
-			return null;
+			__list.EndUpdate();
 			
 		}
 		
@@ -309,7 +303,8 @@ namespace Anolis.Resourcer.Controls {
 			
 			__list.BeginUpdate();
 			__list.Items.Clear();
-			_images.Images.Clear();
+			__list.LargeImageList = __images;
+			__images.Images.Clear();
 			
 			foreach(ResourceLang lang in name.Langs) {
 				
@@ -326,11 +321,11 @@ namespace Anolis.Resourcer.Controls {
 					
 					if(thumb.IsIcon) {
 						
-						_images.Images.Add( imageListKey, thumb.Icon );
+						__images.Images.Add( imageListKey, thumb.Icon );
 						
 					} else {
 						
-						_images.Images.Add( imageListKey, thumb.Image );
+						__images.Images.Add( imageListKey, thumb.Image );
 					}
 					
 					item = new ListViewItem(subitems, imageListKey );
@@ -361,6 +356,40 @@ namespace Anolis.Resourcer.Controls {
 			
 		}
 		
+#region GetIconFor
+		
+		private class ListViewThumb {
+			
+			public ListViewThumb(Icon ico) {
+				Icon = ico;
+				IsIcon = true;
+			}
+			
+			public ListViewThumb(Image img) {
+				Image = img;
+				IsIcon = false;
+			}
+			
+			public Boolean IsIcon;
+			public Icon Icon;
+			public Image Image;
+		}
+		
+		private ListViewThumb GetIconForResourceName(ResourceName name) {
+			
+			if(name.Langs.Count == 1) {
+				
+				return GetIconForResourceLang( name.Langs[0] );
+			}
+			
+			// use the type's icon
+			
+			String key = MainForm.TreeNodeImageListTypeKey( name.Type.Identifier );
+			Image image = __images.ImageSize.Width == 16 ? MainForm.TypeImages16.Images[key] :  MainForm.TypeImages32.Images[key];
+			
+			return new ListViewThumb( image );
+		}
+		
 		private ListViewThumb GetIconForResourceLang(ResourceLang lang) {
 			
 			ResourceData data = lang.Data;
@@ -368,7 +397,7 @@ namespace Anolis.Resourcer.Controls {
 			if(data is IconDirectoryResourceData) {
 				
 				IconDirectoryResourceData icoDir = data as IconDirectoryResourceData;
-				IconDirectoryMember bestMember = icoDir.IconDirectory.GetIconForSize( _images.ImageSize );
+				IconDirectoryMember bestMember = icoDir.IconDirectory.GetIconForSize( __images.ImageSize );
 				
 				if(bestMember == null) return null;
 				
@@ -394,7 +423,7 @@ namespace Anolis.Resourcer.Controls {
 				
 				ImageResourceData imgData = data as ImageResourceData;
 				
-				Size s = _images.ImageSize;
+				Size s = __images.ImageSize;
 				
 				Image thumb = imgData.Image.GetThumbnailImage( s.Width, s.Height, new Image.GetThumbnailImageAbort(delegate() { return true; }), IntPtr.Zero);
 				
@@ -403,11 +432,16 @@ namespace Anolis.Resourcer.Controls {
 			} else {
 				
 				// choose an icon based on the ResourceType
-				return null;
+				String key = MainForm.TreeNodeImageListTypeKey( lang.Name.Type.Identifier );
+				Image image = __images.ImageSize.Width == 16 ? MainForm.TypeImages16.Images[key] :  MainForm.TypeImages32.Images[key];
+				
+				return new ListViewThumb( image );
 				
 			}
 			
 		}
+		
+#endregion
 		
 	}
 	

@@ -5,11 +5,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using W3b.Wizards;
+using W3b.Wizards.WindowsForms;
 
 namespace Anolis.Installer.Pages {
 	
-	public partial class WelcomePage : W3b.Wizards.Wizard97.ExteriorPage {
+	public partial class WelcomePage : ExteriorPage {
 		
 		public WelcomePage() {
 			
@@ -21,6 +21,7 @@ namespace Anolis.Installer.Pages {
 		private void WelcomePage_Load(object sender, EventArgs e) {
 			
 			WizardForm.EnableNext = true;
+			
 		}
 		
 		public override BaseWizardPage NextPage {

@@ -44,15 +44,17 @@ namespace Anolis.Installer {
 				
 				PageZFinished       = new FinishedPage();
 				
-				wiz = new W3b.Wizards.Wizard97.Wizard97WizardForm(); // WizardFactory.Create();
+				wiz                 = WizardFactory.Create();
 				wiz.CancelClicked  += new EventHandler(wiz_CancelClicked);
 				wiz.HasHelp         = false;
 				wiz.Title           = "Anolis Package Installer";
+				(wiz as Form).Icon  = Anolis.Installer.Properties.Resources.PackageIcon;
 				wiz.LoadPage( PageAWelcome );
 				
 				// preload resources
-				System.Drawing.Image image = Anolis.Installer.Properties.Resources.Background;
-				image = Anolis.Installer.Properties.Resources.Banner;
+				System.Drawing.Image
+					image = Anolis.Installer.Properties.Resources.Background;
+					image = Anolis.Installer.Properties.Resources.Banner;
 				
 			} catch(Exception ex) {
 				

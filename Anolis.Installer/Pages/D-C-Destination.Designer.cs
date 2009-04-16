@@ -30,11 +30,11 @@
 			this.@__progGroupMe = new System.Windows.Forms.RadioButton();
 			this.@__destLbl = new System.Windows.Forms.Label();
 			this.@__fbd = new System.Windows.Forms.FolderBrowserDialog();
-			this.@__banner.SuspendLayout();
+
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
-			this.@__banner.Controls.SetChildIndex(this.@__bannerTitle, 0);
-			this.@__banner.Controls.SetChildIndex(this.@__bannerSubtitle, 0);
+
+
 			// 
 			// __content
 			// 
@@ -45,19 +45,11 @@
 			this.@__content.Controls.Add(this.@__destBrowse);
 			this.@__content.Controls.Add(this.@__destPath);
 			// 
-			// __bannerSubtitle
-			// 
-			this.@__bannerSubtitle.Text = "Select a directory in which to place the downloaded files and set other options";
-			// 
-			// __bannerTitle
-			// 
-			this.@__bannerTitle.Text = "Destination Directory and Installation Options";
-			// 
 			// __destPath
 			// 
 			this.@__destPath.Location = new System.Drawing.Point(132, 43);
 			this.@__destPath.Name = "__destPath";
-			this.@__destPath.Size = new System.Drawing.Size(237, 21);
+			this.@__destPath.Size = new System.Drawing.Size(237, 20);
 			this.@__destPath.TabIndex = 0;
 			this.@__destPath.Text = "%programfiles%\\Anolis";
 			// 
@@ -77,7 +69,7 @@
 			this.@__progGroup.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.@__progGroup.Location = new System.Drawing.Point(22, 105);
 			this.@__progGroup.Name = "__progGroup";
-			this.@__progGroup.Size = new System.Drawing.Size(249, 17);
+			this.@__progGroup.Size = new System.Drawing.Size(240, 17);
 			this.@__progGroup.TabIndex = 2;
 			this.@__progGroup.Text = "Create Anolis program group in the start menu";
 			this.@__progGroup.UseVisualStyleBackColor = true;
@@ -88,7 +80,7 @@
 			this.@__progGroupAll.Checked = true;
 			this.@__progGroupAll.Location = new System.Drawing.Point(42, 128);
 			this.@__progGroupAll.Name = "__progGroupAll";
-			this.@__progGroupAll.Size = new System.Drawing.Size(83, 17);
+			this.@__progGroupAll.Size = new System.Drawing.Size(81, 17);
 			this.@__progGroupAll.TabIndex = 3;
 			this.@__progGroupAll.TabStop = true;
 			this.@__progGroupAll.Text = "For all users";
@@ -99,7 +91,7 @@
 			this.@__progGroupMe.AutoSize = true;
 			this.@__progGroupMe.Location = new System.Drawing.Point(42, 151);
 			this.@__progGroupMe.Name = "__progGroupMe";
-			this.@__progGroupMe.Size = new System.Drawing.Size(79, 17);
+			this.@__progGroupMe.Size = new System.Drawing.Size(76, 17);
 			this.@__progGroupMe.TabIndex = 4;
 			this.@__progGroupMe.Text = "Just for me";
 			this.@__progGroupMe.UseVisualStyleBackColor = true;
@@ -109,15 +101,16 @@
 			this.@__destLbl.AutoSize = true;
 			this.@__destLbl.Location = new System.Drawing.Point(19, 46);
 			this.@__destLbl.Name = "__destLbl";
-			this.@__destLbl.Size = new System.Drawing.Size(107, 13);
+			this.@__destLbl.Size = new System.Drawing.Size(103, 13);
 			this.@__destLbl.TabIndex = 5;
 			this.@__destLbl.Text = "Destination directory";
 			// 
 			// DestinationPage
 			// 
-			
 			this.Name = "DestinationPage";
-			this.@__banner.ResumeLayout(false);
+			this.PageTitle = "Destination Directory and Installation Options";
+			this.Subtitle = "Select a directory in which to place the downloaded files and set other options";
+
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();
 			this.ResumeLayout(false);
