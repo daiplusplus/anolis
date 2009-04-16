@@ -5,7 +5,9 @@ using System.Drawing;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
-using W3b.Wizards;
+using W3b.Wizards.WindowsForms;
+
+
 namespace Anolis.Installer.Pages {
 	
 	public partial class DestinationPage : Anolis.Installer.Pages.BaseInteriorPage {

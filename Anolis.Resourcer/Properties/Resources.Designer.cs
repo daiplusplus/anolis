@@ -60,13 +60,6 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap anolisLogo50 {
-            get {
-                object obj = ResourceManager.GetObject("anolisLogo50", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap ARF_SortByLCID {
             get {
                 object obj = ResourceManager.GetObject("ARF_SortByLCID", resourceCulture);
@@ -364,6 +357,174 @@ namespace Anolis.Resourcer.Properties {
         internal static System.Drawing.Bitmap Tree_Edit {
             get {
                 object obj = ResourceManager.GetObject("Tree_Edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Accelerator16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Accelerator16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Accelerator32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Accelerator32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Binary16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Binary16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Binary32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Binary32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Bitmap16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Bitmap16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Bitmap32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Bitmap32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_ColorTable16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_ColorTable16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_ColorTable32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_ColorTable32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Cursor16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Cursor16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Cursor32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Cursor32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Dialog16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Dialog16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Dialog32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Dialog32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_File16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_File16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_File32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_File32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Html16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Html16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Html32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Html32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Icon16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Icon16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Icon32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Icon32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Menu16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Menu16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Menu32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Menu32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Toolbar16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Toolbar16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Toolbar32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Toolbar32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Xml16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Xml16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Xml32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Xml32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

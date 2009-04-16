@@ -72,6 +72,8 @@ namespace Anolis.Resourcer.Controls {
 		
 #endregion
 		
+		public ResourceData CurrentData { get { return _data; } }
+		
 		public void ShowResource(ResourceData data) {
 			
 			_data = data;

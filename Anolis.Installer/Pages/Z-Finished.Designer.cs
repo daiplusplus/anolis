@@ -73,7 +73,7 @@
 			// FinishedPage
 			// 
 			
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+			
 			this.BackgroundImage = global::Anolis.Installer.Properties.Resources.Background;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.Name = "FinishedPage";

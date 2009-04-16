@@ -74,6 +74,13 @@ namespace Anolis.Installer.Properties {
             }
         }
         
+        internal static System.Drawing.Icon PackageIcon {
+            get {
+                object obj = ResourceManager.GetObject("PackageIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to The selected item &apos;{0}&apos; does not have any information associated with it.
         /// </summary>

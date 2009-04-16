@@ -33,8 +33,7 @@ namespace Anolis.Resourcer {
 			this.@__sSep2 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__resCMSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__tree = new System.Windows.Forms.TreeView();
-			this.@__treeType = new System.Windows.Forms.ImageList(this.components);
-			this.@__treeStateImages = new System.Windows.Forms.ImageList(this.components);
+			this.@__stateImages = new System.Windows.Forms.ImageList(this.components);
 			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__nav = new System.Windows.Forms.ToolStrip();
 			this.@__navBack = new System.Windows.Forms.ToolStripButton();
@@ -119,37 +118,20 @@ namespace Anolis.Resourcer {
 			// __tree
 			// 
 			this.@__tree.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.@__tree.ImageIndex = 0;
-			this.@__tree.ImageList = this.@__treeType;
 			this.@__tree.Location = new System.Drawing.Point(0, 25);
 			this.@__tree.Name = "__tree";
-			this.@__tree.SelectedImageIndex = 0;
+			this.@__tree.ShowRootLines = false;
 			this.@__tree.Size = new System.Drawing.Size(150, 353);
-			this.@__tree.StateImageList = this.@__treeStateImages;
+			this.@__tree.StateImageList = this.@__stateImages;
 			this.@__tree.TabIndex = 3;
 			// 
-			// __treeType
+			// __stateImages
 			// 
-			this.@__treeType.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("__treeType.ImageStream")));
-			this.@__treeType.TransparentColor = System.Drawing.Color.Transparent;
-			this.@__treeType.Images.SetKeyName(0, "File");
-			this.@__treeType.Images.SetKeyName(1, "Binary");
-			this.@__treeType.Images.SetKeyName(2, "Bitmap");
-			this.@__treeType.Images.SetKeyName(3, "ColorTable");
-			this.@__treeType.Images.SetKeyName(4, "Cursor");
-			this.@__treeType.Images.SetKeyName(5, "Dialog");
-			this.@__treeType.Images.SetKeyName(6, "Accelerator");
-			this.@__treeType.Images.SetKeyName(7, "Icon");
-			this.@__treeType.Images.SetKeyName(8, "Menu");
-			this.@__treeType.Images.SetKeyName(9, "Xml");
-			// 
-			// __treeStateImages
-			// 
-			this.@__treeStateImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("__treeStateImages.ImageStream")));
-			this.@__treeStateImages.TransparentColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.@__treeStateImages.Images.SetKeyName(0, "Add");
-			this.@__treeStateImages.Images.SetKeyName(1, "Delete");
-			this.@__treeStateImages.Images.SetKeyName(2, "Edit");
+			this.@__stateImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("__stateImages.ImageStream")));
+			this.@__stateImages.TransparentColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+			this.@__stateImages.Images.SetKeyName(0, "Add");
+			this.@__stateImages.Images.SetKeyName(1, "Delete");
+			this.@__stateImages.Images.SetKeyName(2, "Edit");
 			// 
 			// __split
 			// 
@@ -180,6 +162,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __navBack
 			// 
+			this.@__navBack.Enabled = false;
 			this.@__navBack.Image = global::Anolis.Resourcer.Properties.Resources.NavBackUp;
 			this.@__navBack.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__navBack.Margin = new System.Windows.Forms.Padding(1, 1, 0, 2);
@@ -189,6 +172,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __navUp
 			// 
+			this.@__navUp.Enabled = false;
 			this.@__navUp.Image = global::Anolis.Resourcer.Properties.Resources.NavUpUp;
 			this.@__navUp.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__navUp.Name = "__navUp";
@@ -435,6 +419,10 @@ namespace Anolis.Resourcer {
 			// 
 			// __dropTarget
 			// 
+			this.@__dropTarget.AllowDrop = true;
+			this.@__dropTarget.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.@__dropTarget.DropDataAddEnabled = true;
+			this.@__dropTarget.DropDataReplaceEnabled = true;
 			this.@__dropTarget.Location = new System.Drawing.Point(200, 100);
 			this.@__dropTarget.Name = "__dropTarget";
 			this.@__dropTarget.Size = new System.Drawing.Size(376, 93);
@@ -443,8 +431,8 @@ namespace Anolis.Resourcer {
 			// 
 			// MainForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.ClientSize = new System.Drawing.Size(635, 474);
 			this.Controls.Add(this.@__dropTarget);
 			this.Controls.Add(this.@__split);
@@ -497,8 +485,7 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.ToolStripSeparator __resCMSep;
 		private System.Windows.Forms.ToolStripButton __tResCan;
 		private System.Windows.Forms.ToolStripMenuItem __resCMCancel;
-		private System.Windows.Forms.ImageList __treeStateImages;
-		private System.Windows.Forms.ImageList __treeType;
+		private System.Windows.Forms.ImageList __stateImages;
 		private System.Windows.Forms.ToolStripSplitButton __tSrcSave;
 		private System.Windows.Forms.ToolStripMenuItem __tSrcSaveBackup;
 		private System.Windows.Forms.ToolStripMenuItem __tSrcMruInfo;

@@ -5,11 +5,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using W3b.Wizards;
+using W3b.Wizards.WindowsForms;
 
 namespace Anolis.Installer.Pages {
 	
-	public partial class FinishedPage : W3b.Wizards.Wizard97.ExteriorPage {
+	public partial class FinishedPage : ExteriorPage {
 		
 		public FinishedPage() {
 			InitializeComponent();

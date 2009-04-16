@@ -27,26 +27,18 @@
 			this.@__packageView = new System.Windows.Forms.TreeView();
 			this.@__infoPicture = new System.Windows.Forms.PictureBox();
 			this.@__infoLbl = new System.Windows.Forms.Label();
-			this.@__banner.SuspendLayout();
+
 			this.@__content.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.@__infoPicture)).BeginInit();
 			this.SuspendLayout();
-			this.@__banner.Controls.SetChildIndex(this.@__bannerTitle, 0);
-			this.@__banner.Controls.SetChildIndex(this.@__bannerSubtitle, 0);
+
+
 			// 
 			// __content
 			// 
 			this.@__content.Controls.Add(this.@__infoLbl);
 			this.@__content.Controls.Add(this.@__infoPicture);
 			this.@__content.Controls.Add(this.@__packageView);
-			// 
-			// __bannerSubtitle
-			// 
-			this.@__bannerSubtitle.Text = "You can choose whether or not to install components of this package";
-			// 
-			// __bannerTitle
-			// 
-			this.@__bannerTitle.Text = "Modify Package";
 			// 
 			// __ofd
 			// 
@@ -82,10 +74,10 @@
 			// 
 			// ModifyPackagePage
 			// 
-			
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.Name = "ModifyPackagePage";
-			this.@__banner.ResumeLayout(false);
+			this.PageTitle = "Modify Package";
+			this.Subtitle = "You can choose whether or not to install components of this package";
+
 			this.@__content.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.@__infoPicture)).EndInit();
 			this.ResumeLayout(false);

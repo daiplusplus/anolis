@@ -25,104 +25,101 @@
 		private void InitializeComponent() {
 			this.@__optInstallRad = new System.Windows.Forms.RadioButton();
 			this.@__optInstallNotes = new System.Windows.Forms.Label();
-			this.@__optUndo = new System.Windows.Forms.RadioButton();
+			this.@__optUndoRad = new System.Windows.Forms.RadioButton();
 			this.@__optUndoNotes = new System.Windows.Forms.Label();
 			this.@__optCreateRad = new System.Windows.Forms.RadioButton();
 			this.@__optCreateNotes = new System.Windows.Forms.Label();
-			this.@__banner.SuspendLayout();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
-			this.@__banner.Controls.SetChildIndex(this.@__bannerTitle, 0);
-			this.@__banner.Controls.SetChildIndex(this.@__bannerSubtitle, 0);
 			// 
 			// __content
 			// 
-			this.@__content.Controls.Add(this.@__optCreateNotes);
 			this.@__content.Controls.Add(this.@__optCreateRad);
-			this.@__content.Controls.Add(this.@__optUndoNotes);
-			this.@__content.Controls.Add(this.@__optUndo);
-			this.@__content.Controls.Add(this.@__optInstallNotes);
+			this.@__content.Controls.Add(this.@__optUndoRad);
 			this.@__content.Controls.Add(this.@__optInstallRad);
-			// 
-			// __bannerSubtitle
-			// 
-			this.@__bannerSubtitle.Size = new System.Drawing.Size(356, 30);
-			this.@__bannerSubtitle.Text = "Choose an operation to perform";
-			// 
-			// __bannerTitle
-			// 
-			this.@__bannerTitle.Size = new System.Drawing.Size(378, 15);
-			this.@__bannerTitle.Text = "Select a Task";
+			this.@__content.Controls.Add(this.@__optCreateNotes);
+			this.@__content.Controls.Add(this.@__optUndoNotes);
+			this.@__content.Controls.Add(this.@__optInstallNotes);
 			// 
 			// __optInstallRad
 			// 
-			this.@__optInstallRad.AutoSize = true;
+			this.@__optInstallRad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__optInstallRad.BackColor = System.Drawing.Color.Transparent;
 			this.@__optInstallRad.Checked = true;
-			this.@__optInstallRad.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.@__optInstallRad.Location = new System.Drawing.Point(22, 24);
+			this.@__optInstallRad.Location = new System.Drawing.Point(22, 20);
 			this.@__optInstallRad.Name = "__optInstallRad";
-			this.@__optInstallRad.Size = new System.Drawing.Size(122, 17);
+			this.@__optInstallRad.Size = new System.Drawing.Size(434, 25);
 			this.@__optInstallRad.TabIndex = 0;
 			this.@__optInstallRad.TabStop = true;
 			this.@__optInstallRad.Text = "Install a package";
-			this.@__optInstallRad.UseVisualStyleBackColor = true;
+			this.@__optInstallRad.UseVisualStyleBackColor = false;
 			// 
 			// __optInstallNotes
 			// 
-			this.@__optInstallNotes.Location = new System.Drawing.Point(39, 44);
+			this.@__optInstallNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__optInstallNotes.BackColor = System.Drawing.Color.Transparent;
+			this.@__optInstallNotes.Location = new System.Drawing.Point(39, 50);
 			this.@__optInstallNotes.Name = "__optInstallNotes";
-			this.@__optInstallNotes.Size = new System.Drawing.Size(414, 31);
+			this.@__optInstallNotes.Size = new System.Drawing.Size(417, 40);
 			this.@__optInstallNotes.TabIndex = 1;
 			this.@__optInstallNotes.Text = "Installs a package located in this Anolis distribution or elsewhere in this compu" +
 				"ter";
 			// 
-			// __optUndo
+			// __optUndoRad
 			// 
-			this.@__optUndo.AutoSize = true;
-			this.@__optUndo.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.@__optUndo.Location = new System.Drawing.Point(22, 78);
-			this.@__optUndo.Name = "__optUndo";
-			this.@__optUndo.Size = new System.Drawing.Size(248, 17);
-			this.@__optUndo.TabIndex = 2;
-			this.@__optUndo.Text = "Undo changes made by this distribution";
-			this.@__optUndo.UseVisualStyleBackColor = true;
+			this.@__optUndoRad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__optUndoRad.BackColor = System.Drawing.Color.Transparent;
+			this.@__optUndoRad.Location = new System.Drawing.Point(22, 79);
+			this.@__optUndoRad.Name = "__optUndoRad";
+			this.@__optUndoRad.Size = new System.Drawing.Size(434, 25);
+			this.@__optUndoRad.TabIndex = 2;
+			this.@__optUndoRad.Text = "Undo changes made by this distribution";
+			this.@__optUndoRad.UseVisualStyleBackColor = false;
 			// 
 			// __optUndoNotes
 			// 
-			this.@__optUndoNotes.Location = new System.Drawing.Point(39, 98);
+			this.@__optUndoNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__optUndoNotes.BackColor = System.Drawing.Color.Transparent;
+			this.@__optUndoNotes.Location = new System.Drawing.Point(40, 108);
 			this.@__optUndoNotes.Name = "__optUndoNotes";
-			this.@__optUndoNotes.Size = new System.Drawing.Size(414, 33);
+			this.@__optUndoNotes.Size = new System.Drawing.Size(416, 40);
 			this.@__optUndoNotes.TabIndex = 3;
 			this.@__optUndoNotes.Text = "Recovers files to their before-patched status. You will need the backup directory" +
 				" that was created during installation";
 			// 
 			// __optCreateRad
 			// 
-			this.@__optCreateRad.AutoSize = true;
-			this.@__optCreateRad.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.@__optCreateRad.Location = new System.Drawing.Point(22, 145);
+			this.@__optCreateRad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__optCreateRad.BackColor = System.Drawing.Color.Transparent;
+			this.@__optCreateRad.Location = new System.Drawing.Point(22, 152);
 			this.@__optCreateRad.Name = "__optCreateRad";
-			this.@__optCreateRad.Size = new System.Drawing.Size(237, 17);
+			this.@__optCreateRad.Size = new System.Drawing.Size(434, 25);
 			this.@__optCreateRad.TabIndex = 4;
 			this.@__optCreateRad.Text = "Make my own package or distribution";
-			this.@__optCreateRad.UseVisualStyleBackColor = true;
+			this.@__optCreateRad.UseVisualStyleBackColor = false;
 			// 
 			// __optCreateNotes
 			// 
-			this.@__optCreateNotes.Location = new System.Drawing.Point(39, 165);
+			this.@__optCreateNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__optCreateNotes.BackColor = System.Drawing.Color.Transparent;
+			this.@__optCreateNotes.Location = new System.Drawing.Point(39, 180);
 			this.@__optCreateNotes.Name = "__optCreateNotes";
-			this.@__optCreateNotes.Size = new System.Drawing.Size(414, 31);
+			this.@__optCreateNotes.Size = new System.Drawing.Size(417, 34);
 			this.@__optCreateNotes.TabIndex = 5;
 			this.@__optCreateNotes.Text = "Downloads tools so you can easily make your own package or distribution";
 			// 
 			// MainActionPage
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.Name = "MainActionPage";
-			this.@__banner.ResumeLayout(false);
+			this.PageTitle = "Select a Task";
+			this.Subtitle = "Choose an operation to perform";
 			this.@__content.ResumeLayout(false);
-			this.@__content.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -134,6 +131,6 @@
 		private System.Windows.Forms.Label __optCreateNotes;
 		private System.Windows.Forms.RadioButton __optCreateRad;
 		private System.Windows.Forms.Label __optUndoNotes;
-		private System.Windows.Forms.RadioButton __optUndo;
+		private System.Windows.Forms.RadioButton __optUndoRad;
 	}
 }

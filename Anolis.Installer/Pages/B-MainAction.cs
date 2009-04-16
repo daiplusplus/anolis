@@ -4,7 +4,10 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+
 using W3b.Wizards;
+using W3b.Wizards.WindowsForms;
+
 namespace Anolis.Installer.Pages {
 	
 	public partial class MainActionPage : BaseInteriorPage {
@@ -13,6 +16,15 @@ namespace Anolis.Installer.Pages {
 			InitializeComponent();
 			
 			this.PageUnload += new EventHandler<PageChangeEventArgs>(MainActionPage_PageUnload);
+
+			this.Load += new EventHandler(MainActionPage_Load);
+		}
+		
+		private void MainActionPage_Load(object sender, EventArgs e) {
+			
+			__optCreateRad.Font = new Font( __optCreateRad.Font, FontStyle.Bold );
+			__optInstallRad.Font = new Font( __optCreateRad.Font, FontStyle.Bold );
+			__optUndoRad.Font = new Font( __optCreateRad.Font, FontStyle.Bold );
 		}
 		
 		private void MainActionPage_PageUnload(object sender, PageChangeEventArgs e) {
@@ -26,7 +38,7 @@ namespace Anolis.Installer.Pages {
 				
 				Program.ProgramMode = ProgramMode.InstallPackage;
 				
-			} else if( __optUndo.Checked ) {
+			} else if( __optUndoRad.Checked ) {
 				
 				Program.ProgramMode = ProgramMode.UninstallPackage;
 				
@@ -48,7 +60,7 @@ namespace Anolis.Installer.Pages {
 					
 					return Program.PageICSelectPackage;
 					
-				} else if( __optUndo.Checked ) {
+				} else if( __optUndoRad.Checked ) {
 					
 					return Program.PageUCSelectBackup;
 					

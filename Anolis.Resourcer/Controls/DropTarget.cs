@@ -19,12 +19,33 @@ namespace Anolis.Resourcer.Controls {
 			
 			this.__sourceOpen.DragEnter += new DragEventHandler(file_DragEnter);
 			this.__sourceOpen.DragDrop += new DragEventHandler(file_DragDrop);
+			this.__sourceOpen.DragLeave += new EventHandler(file_DragLeave);
 			
 			this.__dataAdd.DragEnter += new DragEventHandler(file_DragEnter);
 			this.__dataAdd.DragDrop += new DragEventHandler(file_DragDrop);
+			this.__sourceOpen.DragLeave += new EventHandler(file_DragLeave);
 			
 			this.__dataReplace.DragEnter += new DragEventHandler(file_DragEnter);
 			this.__dataReplace.DragDrop += new DragEventHandler(file_DragDrop);
+			this.__sourceOpen.DragLeave += new EventHandler(file_DragLeave);
+		}
+		
+		protected override void OnDragLeave(EventArgs e) {
+			
+			// wait 10ms to see if it's on any of the buttons
+			
+			Timer timer = new Timer();
+			timer.Interval = 10;
+			timer.Tick += new EventHandler(delegate(Object sender, EventArgs e2) {
+				
+				if( !_buttonsHaveDrag ) {
+					if( DragLeave2 != null ) DragLeave2(this, e);
+				}
+				timer.Stop();
+				
+			});
+			timer.Start();
+			
 		}
 		
 		// TODO: Replace Button instances with "push buttons" that can be set into "pushed" appearance on drag-enter
@@ -80,14 +101,21 @@ namespace Anolis.Resourcer.Controls {
 			
 		}
 		
+		private Boolean _buttonsHaveDrag;
+		
 		private void file_DragEnter(object sender, DragEventArgs e) {
 			
-			System.Diagnostics.Debug.WriteLine("file_DragEnter");
+			_buttonsHaveDrag = true;
 			
 			if( e.Data.GetDataPresent(DataFormats.FileDrop) ) {
 				e.Effect = DragDropEffects.Link;
 			}
 			
+		}
+		
+		private void file_DragLeave(object sender, EventArgs e) {
+			
+			_buttonsHaveDrag = false;
 		}
 		
 		public String DropFile {
@@ -98,6 +126,7 @@ namespace Anolis.Resourcer.Controls {
 		public event EventHandler DropDataAdd;
 		public event EventHandler DropDataReplace;
 		
+		public event EventHandler DragLeave2;
 		
 	}
 }

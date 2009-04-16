@@ -46,6 +46,7 @@
 			this.@__progessBar = new System.Windows.Forms.ToolStripProgressBar();
 			this.@__bg = new System.ComponentModel.BackgroundWorker();
 			this.@__bgq = new System.ComponentModel.BackgroundWorker();
+			this.@__images = new System.Windows.Forms.ImageList(this.components);
 			@__cArrangeSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__c.SuspendLayout();
 			this.@__t.SuspendLayout();
@@ -61,6 +62,7 @@
 			this.@__list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__list.LargeImageList = this.@__images;
 			this.@__list.Location = new System.Drawing.Point(0, 28);
 			this.@__list.Name = "__list";
 			this.@__list.Size = new System.Drawing.Size(537, 316);
@@ -212,6 +214,12 @@
 			// 
 			this.@__bg.WorkerReportsProgress = true;
 			// 
+			// __images
+			// 
+			this.@__images.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+			this.@__images.ImageSize = new System.Drawing.Size(32, 32);
+			this.@__images.TransparentColor = System.Drawing.Color.Transparent;
+			// 
 			// ResourceListView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -251,5 +259,6 @@
 		private System.Windows.Forms.ToolStripButton __size32;
 		private System.Windows.Forms.ToolStripButton __size96;
 		private System.ComponentModel.BackgroundWorker __bgq;
+		private System.Windows.Forms.ImageList __images;
 	}
 }
