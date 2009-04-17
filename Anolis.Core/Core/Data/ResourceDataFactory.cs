@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
+
 using Anolis.Core.Utility;
+using Anolis.Core.Source;
 
 namespace Anolis.Core.Data {
 	
@@ -27,8 +29,17 @@ namespace Anolis.Core.Data {
 		/// <summary>Gets the (human-readable) name of the data handled by this IResourceDataFactory.</summary>
 		public abstract String Name { get; }
 		
+		protected abstract String GetOpenFileFilter();
+		
+		private String _off;
+		
 		/// <summary>Gets the filter to use in open-file dialogs. Return null if opening from files is not supported.</summary>
-		public abstract String OpenFileFilter { get; }
+		public virtual String OpenFileFilter {
+			get {
+				if( _off == null ) _off = GetOpenFileFilter();
+				return _off;
+			}
+		}
 		
 		protected static Byte[] GetAllBytesFromStream(Stream stream) {
 			

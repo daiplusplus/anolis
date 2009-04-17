@@ -6,7 +6,7 @@ using System.Text;
 namespace Anolis.Resourcer.Settings {
 	
 	/// <summary>Encapsulates a Most-Recently-Used list of strings.</summary>
-	public class Mru {
+	internal class Mru {
 		
 		private List<String> _entries;
 		
@@ -78,6 +78,12 @@ namespace Anolis.Resourcer.Settings {
 		
 		private void EnsureCapacity() {
 			while(_entries.Count > Capacity) _entries.RemoveAt( Capacity );
+		}
+		
+		public void Save(Settings s) {
+			s.MruCount = this.Items.Length;
+			s.MruList.Clear();
+			s.MruList.AddRange( Items );
 		}
 		
 		public String[] Items {

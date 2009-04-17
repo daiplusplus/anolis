@@ -57,9 +57,9 @@ namespace Anolis.Resourcer.Controls {
 			
 			__toolsColor.Image = __toolsColorTrans.Image;
 			
-			__toolsColorWhite.Tag = Color.White;
-			__toolsColorBlack.Tag = Color.Black;
-			__toolsColorGrey.Tag = Color.Gray;
+			__toolsColorWhite  .Tag = Color.White;
+			__toolsColorBlack  .Tag = Color.Black;
+			__toolsColorGrey   .Tag = Color.Gray;
 			__toolsColorMagenta.Tag = Color.Magenta;
 			
 			foreach(ToolStripItem item in __toolsColor.DropDownItems) {
@@ -82,6 +82,11 @@ namespace Anolis.Resourcer.Controls {
 			
 			__infoPanel.Visible = __toolsInfo.Checked;
 			
+			RefreshInfoView();
+		}
+		
+		private void RefreshInfoView() {
+			
 			if(!__infoPanel.Visible) return;
 			
 			if( Image != null ) {
@@ -92,6 +97,12 @@ namespace Anolis.Resourcer.Controls {
 				__iFormat.Text = GetRawFormatName( Image.RawFormat );
 				__iPxFormat.Text = Image.PixelFormat.ToString();
 				
+			} else {
+				
+				__iWidth   .Text = "";
+				__iHeight  .Text = "";
+				__iFormat  .Text = "";
+				__iPxFormat.Text = "";
 			}
 			
 		}
@@ -206,7 +217,10 @@ namespace Anolis.Resourcer.Controls {
 		
 		public Image Image {
 			get { return __pb.Image; }
-			set { __pb.Image = value; }
+			set {
+				__pb.Image = value;
+				RefreshInfoView();
+			}
 		}
 		
 	}

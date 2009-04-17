@@ -33,8 +33,8 @@ namespace Anolis.Core.Data {
 			return FromFile(stream, extension);
 		}
 		
-		public override String OpenFileFilter {
-			get { return "All Files (*.*)|*.*"; }
+		protected override String GetOpenFileFilter() {
+			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("All Files", "*");
 		}
 		
 		public override string Name {

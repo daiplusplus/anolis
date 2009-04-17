@@ -188,7 +188,7 @@ namespace Anolis.Resourcer {
 		
 		private void CreateResourceData() {
 			
-			_data = ResourceData.FromFileToAdd( __ofd.FileName, 1033, MainForm.LatestInstance.CurrentSource );
+			_data = ResourceData.FromFileToAdd( __file.Text, 1033, MainForm.LatestInstance.CurrentSource );
 			
 			SetDetailsEnabled( true );
 			

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
+using Anolis.Core.Source;
 using Anolis.Core.Data;
 using Anolis.Core.Native;
 

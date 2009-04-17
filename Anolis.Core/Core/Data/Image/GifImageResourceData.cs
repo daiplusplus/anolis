@@ -23,8 +23,8 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override String OpenFileFilter {
-			get { return "GifImage (*.gif)|*.gif"; }
+		protected override String GetOpenFileFilter() {
+			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("GifImage", "gif");
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {

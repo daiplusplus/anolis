@@ -36,8 +36,8 @@ namespace Anolis.Core.Data {
 			get { return "String Table"; }
 		}
 		
-		public override String OpenFileFilter {
-			get { return null; }
+		protected override String GetOpenFileFilter() {
+			return null;
 		}
 	}
 	

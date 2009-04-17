@@ -23,11 +23,20 @@ namespace Anolis.Resourcer.Controls {
 			
 			this.__dataAdd.DragEnter += new DragEventHandler(file_DragEnter);
 			this.__dataAdd.DragDrop += new DragEventHandler(file_DragDrop);
-			this.__sourceOpen.DragLeave += new EventHandler(file_DragLeave);
+			this.__dataAdd.DragLeave += new EventHandler(file_DragLeave);
 			
 			this.__dataReplace.DragEnter += new DragEventHandler(file_DragEnter);
 			this.__dataReplace.DragDrop += new DragEventHandler(file_DragDrop);
-			this.__sourceOpen.DragLeave += new EventHandler(file_DragLeave);
+			this.__dataReplace.DragLeave += new EventHandler(file_DragLeave);
+			
+			this.VisibleChanged += new EventHandler(DropTarget_VisibleChanged);
+		}
+		
+		private void DropTarget_VisibleChanged(object sender, EventArgs e) {
+			
+			__sourceOpen.Checked = false;
+			__dataAdd.Checked = false;
+			__dataReplace.Checked = false;
 		}
 		
 		protected override void OnDragLeave(EventArgs e) {
@@ -47,8 +56,6 @@ namespace Anolis.Resourcer.Controls {
 			timer.Start();
 			
 		}
-		
-		// TODO: Replace Button instances with "push buttons" that can be set into "pushed" appearance on drag-enter
 		
 		public Boolean DropDataAddEnabled {
 			get { return __dataAdd.Enabled; }
@@ -81,7 +88,7 @@ namespace Anolis.Resourcer.Controls {
 			if( ProcessDrop(e) ) {
 				
 				EventHandler call = null;
-				switch( (sender as Button).Tag as String ) {
+				switch( (sender as CheckBox).Tag as String ) {
 					case "SourceLoad":
 						call = this.DropSourceLoad;
 						break;
@@ -105,6 +112,9 @@ namespace Anolis.Resourcer.Controls {
 		
 		private void file_DragEnter(object sender, DragEventArgs e) {
 			
+			CheckBox box = sender as CheckBox;
+			box.Checked = true;
+			
 			_buttonsHaveDrag = true;
 			
 			if( e.Data.GetDataPresent(DataFormats.FileDrop) ) {
@@ -114,6 +124,9 @@ namespace Anolis.Resourcer.Controls {
 		}
 		
 		private void file_DragLeave(object sender, EventArgs e) {
+			
+			CheckBox box = sender as CheckBox;
+			box.Checked = false;
 			
 			_buttonsHaveDrag = false;
 		}

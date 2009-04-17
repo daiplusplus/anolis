@@ -4,6 +4,7 @@ using System.Text;
 
 using Stream = System.IO.Stream;
 using Anolis.Core.Utility;
+using Anolis.Core.Source;
 
 namespace Anolis.Core.Data {
 	
@@ -46,8 +47,8 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override String OpenFileFilter {
-			get { return "BmpImage (*.bmp)|*.bmp"; }
+		protected override String GetOpenFileFilter() {
+			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("BmpImage", "bmp", "dib", "rle");
 		}
 		
 		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {

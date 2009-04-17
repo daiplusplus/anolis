@@ -42,8 +42,8 @@ namespace Anolis.Core.Data {
 			get { return "SGML"; }
 		}
 		
-		public override String OpenFileFilter {
-			get { return "HTML File|*.htm;*.html|XML File|*.xml|SGML File|*.sgml"; }
+		protected override String GetOpenFileFilter() {
+			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("Sgml", "htm", "html", "xml", "sgml");
 		}
 		
 		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 lang, ResourceSource currentSource) {

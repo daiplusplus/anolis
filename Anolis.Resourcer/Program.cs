@@ -17,6 +17,8 @@ namespace Anolis.Resourcer {
 				
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
+
+//				Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
 				
 				CommandLineParser cmd = new CommandLineParser(args);
 				
@@ -62,6 +64,8 @@ Anolis.Resourcer.exe -op:del -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME [-l
 				
 				Application.Run( main );
 				
+				Settings.Settings.Default.Save();
+				
 				return 0;
 #if !DEBUG				
 			} catch (Exception ex) {
@@ -88,12 +92,15 @@ Anolis.Resourcer.exe -op:del -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME [-l
 					}
 					
 				}
-				throw ex;			
+				throw ex;
 				
 			}
 #endif
 			
 		}
+		
+//		private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e) {			
+//		}
 		
 		public static String IfYouAreReadingThisThenYouHaveNoLife() {
 			return "no, really you are wasting your time because the complete source code is on http://www.codeplex.com/anolis";

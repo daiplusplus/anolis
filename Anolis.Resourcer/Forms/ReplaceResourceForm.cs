@@ -49,7 +49,7 @@ namespace Anolis.Resourcer {
 			
 			try {
 				
-				_replacement = ResourceData.FromFileToUpdate( __ofd.FileName, _initial.Lang );
+				_replacement = ResourceData.FromFileToUpdate( filename, _initial.Lang );
 				
 			} catch( AnolisException ex) {
 				

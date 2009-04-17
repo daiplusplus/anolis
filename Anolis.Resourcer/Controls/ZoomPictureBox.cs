@@ -7,7 +7,9 @@ using System.Windows.Forms;
 
 namespace Anolis.Resourcer.Controls {
 	
-	[Description("Represents a Windows picture box control for displaying, panning, and zooming an image."), Designer(typeof(ZoomPictureBoxDesigner)), DefaultProperty("Image")]
+	[Description("Represents a Windows picture box control for displaying, panning, and zooming an image.")]
+	[Designer(typeof(ZoomPictureBoxDesigner))]
+	[DefaultProperty("Image")]
 	public partial class ZoomPictureBox : ScrollableControl {
 		
 		private Image             _image;
@@ -108,8 +110,29 @@ namespace Anolis.Resourcer.Controls {
 				return;
 			}
 			
-			Matrix zoomMatrix = new Matrix(_zoom, 0, 0, _zoom, 0, 0);
-			zoomMatrix.Translate( AutoScrollPosition.X / _zoom, AutoScrollPosition.Y / _zoom);
+			Matrix zoomMatrix = new Matrix(
+				
+				_zoom,     0,
+				0    , _zoom,
+				0    ,     0
+			);
+			
+			if( Centered ) {
+				
+				Rectangle thisRect = DeflateRectangle(ClientRectangle, Padding);
+				
+				Int32 xOffset = (thisRect.Width  - _image.Width) / 2;
+				Int32 yOffset = (thisRect.Height - _image.Height) / 2;
+				
+				// TODO: Get this matrix translation right
+				zoomMatrix.Translate( (xOffset + AutoScrollPosition.X) / _zoom, (yOffset + AutoScrollPosition.Y) / _zoom);
+				
+			} else {
+				
+				zoomMatrix.Translate( AutoScrollPosition.X / _zoom, AutoScrollPosition.Y / _zoom);
+			}
+			
+			
 			
 			e.Graphics.Transform = zoomMatrix;
 			e.Graphics.InterpolationMode = _interpolationMode;
@@ -132,14 +155,15 @@ namespace Anolis.Resourcer.Controls {
 			Rectangle rect = DeflateRectangle( ClientRectangle, Padding );
 			if( _image == null ) return rect;
 			
-			if(Centered) {
-				Rectangle retVal = new Rectangle();
-				retVal.X = ( rect.Width  - _image.Width  ) / 2;
-				retVal.Y = ( rect.Height - _image.Height ) / 2;
-				retVal.Size = _image.Size;
-				return retVal;
-			}
-			else return new Rectangle( 0, 0, _image.Width, _image.Height );
+//			if(Centered) {
+//				Rectangle retVal = new Rectangle();
+//				retVal.X = ( rect.Width  - _image.Width  ) / 2;
+//				retVal.Y = ( rect.Height - _image.Height ) / 2;
+//				retVal.Size = _image.Size;
+//				return retVal;
+//			}
+//			else
+				return new Rectangle( 0, 0, _image.Width, _image.Height );
 			
 			
 		}
