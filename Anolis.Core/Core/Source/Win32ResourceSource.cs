@@ -9,6 +9,33 @@ using Marshal = System.Runtime.InteropServices.Marshal;
 
 namespace Anolis.Core.Source {
 	
+	public sealed class Win32ResourceSourceFactory : ResourceSourceFactory {
+		
+		public override ResourceSource Create(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode) {
+			
+			return new Win32ResourceSource(filename, isReadOnly, mode);
+		}
+		
+		protected override String GetOpenFileFilter() {
+			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("Win32 Executable", "exe", "dll", "cpl", "ocx", "scr", "msstyles");
+		}
+		
+		public override Compatibility HandlesExtension(String extension) {
+			switch( extension.ToUpperInvariant() ) {
+				case "EXE":
+				case "DLL":
+				case "CPL":
+				case "OCX":
+				case "SCR":
+				case "MSSTYLES":
+					return Compatibility.Yes;
+				default:
+					return Compatibility.Maybe;
+			}
+		}
+		
+	}
+	
 	/// <summary>Encapsulates a resource source that can be handled by Win32's Resource editing API.</summary>
 	public sealed class Win32ResourceSource : FileResourceSource {
 		

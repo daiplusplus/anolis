@@ -22,8 +22,8 @@ namespace Anolis.Core.Data {
 			return Compatibility.No;
 		}
 		
-		public override String OpenFileFilter {
-			get { return "PngImage (*.png|*.png"; }
+		protected override String GetOpenFileFilter() {
+			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("PngImage", "png");
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, byte[] data) {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Anolis.Core.Core.Source {
+namespace Anolis.Core.Source {
 	
 	public class ManagedSource {
 		

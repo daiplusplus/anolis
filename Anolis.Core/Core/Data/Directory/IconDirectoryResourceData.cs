@@ -28,8 +28,8 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override String OpenFileFilter {
-			get { return "IconDirectory (*.ico)|*.ico"; }
+		protected override String GetOpenFileFilter() {
+			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("IconDirectory", "ico");
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {

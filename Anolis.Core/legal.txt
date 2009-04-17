@@ -15,7 +15,7 @@ The source for his Vista dialogs toolkit is available from http://www.ookii.org/
 Anolis.Resourcer makes use of the Be.HexBox control, which is distributed with the Be Shared Source license
 
 =======================================
- Anolis.Core, Anolis.Resourcer, Anolis.Console, and Anolis.Gui
+ Anolis.Core, Anolis.Resourcer, Anolis.Console, and Anolis.Installer
 =======================================
 
 Copyright (C) 2008-2009 David Rees

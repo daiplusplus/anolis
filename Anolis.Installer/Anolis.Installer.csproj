@@ -59,62 +59,77 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="W3b.Wizards, Version=1.0.3393.41650, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_ref\W3b.Wizards\W3b.Wizards.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmbeddedPackageManager.cs" />
     <Compile Include="Pages\A-Welcome.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\A-Welcome.Designer.cs">
       <DependentUpon>A-Welcome.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\B-MainAction.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\B-MainAction.Designer.cs">
       <DependentUpon>B-MainAction.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\0-BaseInteriorPage.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\I-G-Installing.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\I-G-Installing.Designer.cs">
       <DependentUpon>I-G-Installing.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\D-C-Destination.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\D-C-Destination.Designer.cs">
       <DependentUpon>D-C-Destination.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\D-D-Downloading.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\D-D-Downloading.Designer.cs">
       <DependentUpon>D-D-Downloading.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\I-C-SelectPackage.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\I-C-SelectPackage.Designer.cs">
       <DependentUpon>I-C-SelectPackage.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\I-F-InstallationOptions.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\I-F-InstallationOptions.Designer.cs">
       <DependentUpon>I-F-InstallationOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\I-E-ModifyPackage.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\I-E-ModifyPackage.Designer.cs">
       <DependentUpon>I-E-ModifyPackage.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\I-D-Extracting.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\I-D-Extracting.Designer.cs">
       <DependentUpon>I-D-Extracting.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\U-C-SelectBackup.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\U-C-SelectBackup.Designer.cs">
       <DependentUpon>U-C-SelectBackup.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\Z-Finished.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pages\Z-Finished.designer.cs">
       <DependentUpon>Z-Finished.cs</DependentUpon>

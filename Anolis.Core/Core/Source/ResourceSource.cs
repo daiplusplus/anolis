@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Anolis.Core.Source;
 
 using Anolis.Core.Data;
@@ -9,9 +10,79 @@ using System.IO;
 
 namespace Anolis.Core {
 	
-	public abstract class ResourceSourceFactory {
+	namespace Source {
 		
-		public abstract ResourceSource Create(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode);
+		public abstract class ResourceSourceFactory {
+			
+#region Static
+			
+			private static ReadOnlyCollection<ResourceSourceFactory> _factoriesRo;
+			private static List<ResourceSourceFactory> _factories;
+			
+			public static ReadOnlyCollection<ResourceSourceFactory> ListFactories() {
+				
+				if( _factories == null ) {
+					_factories = new List<ResourceSourceFactory>();
+					_factories.Add( new Win32ResourceSourceFactory() );
+					_factories.Add( new ResResourceSourceFactory() );
+					
+					_factoriesRo = new ReadOnlyCollection<ResourceSourceFactory>( _factories );
+				}
+				
+				return _factoriesRo;
+			}
+			
+			public static ResourceSourceFactory GetFactoryForExtension(String extension) {
+				
+				// just return the first match
+				
+				ResourceSourceFactory maybeMatch = null;
+				ResourceSourceFactory allMatch   = null;
+				
+				IList<ResourceSourceFactory> factories = ListFactories();
+				foreach(ResourceSourceFactory factory in factories) {
+					
+					Compatibility compat = factory.HandlesExtension( extension );
+					
+					switch(compat) {
+						case Compatibility.Yes:
+							return factory;
+						case Compatibility.Maybe:
+							if( maybeMatch != null ) maybeMatch = factory;
+							break;
+						case Compatibility.All:
+							if( allMatch != null ) allMatch = factory;
+							break;
+					}
+					
+				}
+				
+				if( maybeMatch != null ) return maybeMatch;
+				return allMatch;
+				
+			}
+				
+#endregion
+			
+#region Instance
+			
+			public abstract Compatibility HandlesExtension(String extension);
+			
+			public abstract ResourceSource Create(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode);
+			
+			protected abstract String GetOpenFileFilter();
+			
+			private String _off;
+			
+			public virtual String OpenFileFilter {
+				get {
+					if( _off == null ) _off = GetOpenFileFilter();
+					return _off;
+				}
+			}
+			
+#endregion
+		}
 		
 	}
 	
@@ -63,28 +134,12 @@ namespace Anolis.Core {
 		
 		public static ResourceSource Open(String filename, Boolean readOnly, ResourceSourceLoadMode mode) {
 			
-			// TODO: Adopt a Factory pattern for Resource Sources because different types can share extensions
-			// e.g. Managed executes, New Executables, Portable Executables etc
-			// and in fact, Managed and PE can both be read by Win32
-			
-			// get the file type of the file to load
-			// if PE executable (a dll, native exe, etc)
-			
-			// what about the "Resource Template *.rct" format?
-			// XN makes a reference to "DCT" as an alias extension for *.res files
-			
 			String ext = Path.GetExtension(filename).ToUpperInvariant();
-			switch(ext) {
-				case ".RES":
-					return new ResResourceSource(filename, readOnly, mode);
-//				case ".ICL":
-//					return new NEResourceSource(filename, readOnly, mode);
-//				case ".RC":
-//					return new RCResourceSource(filename, readOnly, mode);
-				default:
-					return new Win32ResourceSource(filename, readOnly, mode);
-			}
+			if(ext.StartsWith(".")) ext = ext.Substring(1);
 			
+			ResourceSourceFactory factory = ResourceSourceFactory.GetFactoryForExtension( ext );
+			
+			return factory.Create( filename, readOnly, mode );
 		}
 		
 		//////////////////////

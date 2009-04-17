@@ -88,7 +88,7 @@ namespace Anolis.Resourcer {
 			
 			if( OpenSourceOnLoad != null && OpenSourceOnLoad.Length > 0 && File.Exists( OpenSourceOnLoad ) ) {
 				
-				SourceLoad( OpenSourceOnLoad, false );
+				SourceLoad( OpenSourceOnLoad, null, false );
 			}
 			
 			// Ugly hack time, pre-initialise the Cultures class on a separate thread
@@ -101,6 +101,8 @@ namespace Anolis.Resourcer {
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
 			
 			e.Cancel = !SourceUnload();
+			
+			Mru.Save( Settings.Settings.Default );
 		}
 		
 #region UI Events
@@ -266,7 +268,7 @@ namespace Anolis.Resourcer {
 			
 			String path = (sender as ToolStripItem).Tag as String;
 			
-			this.SourceLoad( path, true );
+			this.SourceLoad( path, null, true );
 		}
 		
 		private void __tSrcMruClear_Click(Object sender, EventArgs e) {
@@ -521,7 +523,7 @@ namespace Anolis.Resourcer {
 			
 			String filename = __dropTarget.DropFile;
 			
-			SourceLoad( filename, false );
+			SourceLoad( filename, null, false );
 			
 		}
 		

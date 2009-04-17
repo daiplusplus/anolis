@@ -6,6 +6,27 @@ using Anolis.Core.Native;
 
 namespace Anolis.Core.Source {
 	
+	public sealed class ResResourceSourceFactory : ResourceSourceFactory {
+		
+		public override ResourceSource Create(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode) {
+			
+			return new ResResourceSource(filename, isReadOnly, mode);
+		}
+		
+		public override Compatibility HandlesExtension(String extension) {
+			switch( extension.ToUpperInvariant() ) {
+				case "RES":
+					return Compatibility.Yes;
+				default:
+					return Compatibility.No;
+			}
+		}
+		
+		protected override String GetOpenFileFilter() {
+			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("Compiled Resource Script", "res");
+		}
+	}
+	
 	public class ResResourceSource : FileResourceSource {
 		
 		private FileStream _stream;

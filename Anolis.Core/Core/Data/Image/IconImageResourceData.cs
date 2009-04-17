@@ -27,6 +27,10 @@ namespace Anolis.Core.Data {
 			return Compatibility.No;
 		}
 		
+		protected override String GetOpenFileFilter() {
+			return null;
+		}
+		
 		public override String OpenFileFilter {
 			get { return null; }
 		}
@@ -72,6 +76,9 @@ namespace Anolis.Core.Data {
 			return Compatibility.No;
 		}
 		
+		protected override String GetOpenFileFilter() {
+			return null;
+		}
 		public override String OpenFileFilter {
 			get { return null; }
 		}

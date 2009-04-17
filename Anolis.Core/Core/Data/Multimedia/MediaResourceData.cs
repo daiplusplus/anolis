@@ -68,8 +68,8 @@ namespace Anolis.Core.Data {
 			get { return "RIFF Resource"; }
 		}
 		
-		public override string OpenFileFilter {
-			get { return "RiffMedia (*.avi; *.wav)|*.avi; *.wav"; }
+		protected override String GetOpenFileFilter() {
+			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("RiffMedia", "avi", "wav");
 		}
 		
 		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {

@@ -15,6 +15,8 @@ using File     = System.IO.File;
 using FileInfo = System.IO.FileInfo;
 
 using FileResourceSource = Anolis.Core.Source.FileResourceSource;
+using Anolis.Core.Source;
+using System.Collections.Generic;
 
 namespace Anolis.Resourcer {
 	
@@ -231,22 +233,26 @@ namespace Anolis.Resourcer {
 		/// <summary>Presents a File Open Dialog to the user and either loads the selected source or does nothing if nothing was selected or the FOD was cancelled.</summary>
 		private void SourceLoadDialog() {
 			
-			__ofd.Filter =
-				CreateFileFilter("Win32 Executable", "exe", "dll", "scr", "ocx", "cpl", "msstyles") + '|' +
-//				CreateFileFilter("New Executable", "exe", "dll", "icl") + '|' +
-				"All Files (*.*)|*.*";
+			IList<ResourceSourceFactory> factories = ResourceSourceFactory.ListFactories();
+			
+			String filter = String.Empty;
+			foreach(ResourceSourceFactory factory in factories) filter += factory.OpenFileFilter + '|';
+			
+			filter += "All Files (*.*)|*.*";
+			__ofd.Filter = filter;
 			
 			if(__ofd.ShowDialog(this) != DialogResult.OK) return;
 			
-			SourceLoad( __ofd.FileName, false );
+			
+			// filterIndex is from 1
+			ResourceSourceFactory selectedFactory = __ofd.FilterIndex > factories.Count ? null : factories[ __ofd.FilterIndex - 1 ];
+			
+			SourceLoad( __ofd.FileName, selectedFactory, false );
 			
 		}
 		
 		/// <summary>Calls SourceUnload (which prompts the user) if there's a source currently loaded, then loads the specified source.</summary>
-		private void SourceLoad(String path, Boolean removeFromMruOnError) {
-			
-			// TODO: Where do I ask to save unsaved changes?
-			// maybe a SourceUnload method?
+		private void SourceLoad(String path, ResourceSourceFactory selectedFactory, Boolean removeFromMruOnError) {
 			
 			if( CurrentSource != null ) {
 				if(!SourceUnload()) return;
@@ -269,7 +275,13 @@ namespace Anolis.Resourcer {
 			
 			try {
 				
-				ResourceSource source = ResourceSource.Open(path, false, ResourceSourceLoadMode.LazyLoadData );
+				ResourceSource source;
+				
+				if( selectedFactory != null ) {
+					source = selectedFactory.Create( path, false, ResourceSourceLoadMode.LazyLoadData );
+				} else {
+					source = ResourceSource.Open(path, false, ResourceSourceLoadMode.LazyLoadData );
+				}
 				
 				if(source == null) return;
 				
@@ -314,7 +326,7 @@ namespace Anolis.Resourcer {
 				int nofChanges = 0;
 				foreach(ResourceLang change in CurrentSource.AllActiveLangs) nofChanges++;
 				
-				String message = String.Format(Cult.CurrentCulture, "Save {0} change{1} to {2} before closing?", nofChanges, nofChanges == 1 ? "" : "s", CurrentSource.Name);
+				String message = String.Format(Cult.CurrentCulture, "Save {0} change{1} to \"{2}\" before closing?", nofChanges, nofChanges == 1 ? "" : "s", CurrentSource.Name);
 				
 				DialogResult r = MessageBox.Show(this, message, "Anolis Resourcer", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
 				switch(r) {
@@ -945,35 +957,6 @@ namespace Anolis.Resourcer {
 			retval += '\\' + lang.Name.Identifier.FriendlyName;
 			
 			retval += '\\' + lang.LanguageId.ToString(Cult.InvariantCulture);
-			
-			return retval;
-			
-		}
-		
-		private static String CreateFileFilter(String description, params String[] extensions) {
-			
-			StringBuilder sb = new StringBuilder();
-			
-			sb.Append( description );
-			sb.Append( '(' );
-			
-			foreach(String ext in extensions) {
-				sb.Append("*.");
-				sb.Append( ext );
-				sb.Append(';');
-			}
-			
-			sb.Append(")|");
-			
-			foreach(String ext in extensions) {
-				sb.Append("*.");
-				sb.Append( ext );
-				sb.Append(';');
-			}
-			
-			if( sb[ sb.Length - 1 ] == ';' ) sb.Remove(sb.Length - 1, 1);
-			
-			String retval = sb.ToString();
 			
 			return retval;
 			
