@@ -9,7 +9,7 @@ using Anolis.Core.Source;
 
 namespace Anolis.Core.Data {
 	
-	public abstract class ResourceDataFactory {
+	public abstract class ResourceDataFactory : FactoryBase {
 		
 		/// <summary>Indicates the compatibility between the specified ResourceType and this factory's ResourceData.</summary>
 		public abstract Compatibility HandlesType(ResourceTypeIdentifier typeId);
@@ -60,7 +60,7 @@ namespace Anolis.Core.Data {
 			
 			if( _openFileFilters == null ) {
 				
-				ResourceDataFactoryCollection factories = GetFactories(null);
+				ResourceDataFactoryCollection factories = GetFactories();
 				
 				List<Pair<ResourceDataFactory, String>> filters = new List<Pair<ResourceDataFactory, String>>(factories.Count);
 				
@@ -90,7 +90,7 @@ namespace Anolis.Core.Data {
 				List<ResourceDataFactory> may = new List<ResourceDataFactory>();
 				List<ResourceDataFactory> all = new List<ResourceDataFactory>();
 				
-				foreach(ResourceDataFactory factory in GetFactories(null)) {
+				foreach(ResourceDataFactory factory in GetFactories()) {
 					
 					switch(factory.HandlesType(typeId)) {
 						case Compatibility.Yes:
@@ -123,7 +123,7 @@ namespace Anolis.Core.Data {
 				List<ResourceDataFactory> may = new List<ResourceDataFactory>();
 				List<ResourceDataFactory> all = new List<ResourceDataFactory>();
 				
-				foreach(ResourceDataFactory factory in GetFactories(null)) {
+				foreach(ResourceDataFactory factory in GetFactories()) {
 					
 					switch(factory.HandlesExtension(filenameExtension)) {
 						case Compatibility.Yes:
@@ -149,40 +149,15 @@ namespace Anolis.Core.Data {
 		
 		private static ResourceDataFactoryCollection _factories;
 		
-		private static ResourceDataFactoryCollection GetFactories(FactoryLocation[] locations) {
+		private static ResourceDataFactoryCollection GetFactories() {
 			
 			if( _factories == null ) {
-				
-				if(locations == null) locations = new FactoryLocation[] { new FactoryLocation( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ), FactoryLocationType.Directory ) };
 				
 				List<ResourceDataFactory> list = new List<ResourceDataFactory>();
 				
 				Prepopulate( list );
 				
-				foreach(FactoryLocation loc in locations) {
-					
-					switch(loc.Type) {
-//						case FactoryLocationType.Directory:
-//							
-//							// recursivly search for all DLLs
-//							if(Directory.Exists(loc.Path)) RecurseDirectory(list, new DirectoryInfo(loc.Path));
-//							
-//							break;
-						case FactoryLocationType.Filename:
-							
-							LoadFactoriesFromAssembly(list, loc.Path);
-							
-							break;
-						case FactoryLocationType.Wildcard:
-							
-							throw new NotSupportedException();
-//							
-//							String path = loc.Path.Substring(0, 
-//							
-//							break;
-					}
-					
-				}
+				LoadFactoriesFromAssemblies<ResourceDataFactory>(list);
 				
 				_factories = new ResourceDataFactoryCollection( list );
 				
@@ -194,58 +169,7 @@ namespace Anolis.Core.Data {
 		
 		private static readonly Type _type = typeof(ResourceDataFactory);
 		
-		private static void RecurseDirectory(List<ResourceDataFactory> list, DirectoryInfo directory) {
-			
-			foreach(FileInfo file in directory.GetFiles("*.dll")) {
-				
-				LoadFactoriesFromAssembly(list, file.FullName);
-				
-			}
-			
-			foreach(DirectoryInfo dir in directory.GetDirectories()) {
-				RecurseDirectory(list, dir );
-			}
-			
-		}
 		
-		private static List<String> _assembliesLoaded = new List<String>();
-		private static String       _thisAssemblyFilename = Assembly.GetExecutingAssembly().Location.ToLowerInvariant();
-		
-		private static void LoadFactoriesFromAssembly(List<ResourceDataFactory> list, String assemblyFilename) {
-			
-			if(_assembliesLoaded.Contains(assemblyFilename.ToLowerInvariant())) return;
-			
-			_assembliesLoaded.Add( assemblyFilename.ToLowerInvariant() );
-			
-			if(!File.Exists(assemblyFilename)) return;
-			if( String.Equals(assemblyFilename, _thisAssemblyFilename, StringComparison.OrdinalIgnoreCase) ) return;
-			
-			Assembly assembly;
-			
-			try {
-				
-				assembly = Assembly.LoadFile(assemblyFilename);
-				
-			} catch(FileLoadException) {
-				return;
-			} catch(BadImageFormatException) {
-				return;
-			}
-			
-			Type[] types = assembly.GetTypes();
-			
-			foreach(Type t in types) {
-				
-				if( t.IsSubclassOf( _type ) ) {
-					
-					ResourceDataFactory f = Activator.CreateInstance( t ) as ResourceDataFactory;
-					list.Add( f );
-					
-				}
-				
-			}
-			
-		}
 		
 		private static void Prepopulate(List<ResourceDataFactory> factories) {
 			
@@ -280,32 +204,14 @@ namespace Anolis.Core.Data {
 	
 #endregion
 	
-	public class FactoryLocation {
-		
-		public String              Path { get; private set; }
-		public FactoryLocationType Type { get; private set; }
-		
-		public FactoryLocation(String path, FactoryLocationType type) {
-			Path = path;
-			Type = type;
-		}
-		
-	}
-	
-	public enum FactoryLocationType {
-		Filename,
-		Directory,
-		Wildcard
-	}
-	
 	public enum Compatibility {
-		/// <summary>The ResourceData supports this type.</summary>
+		/// <summary>This is fully supported.</summary>
 		Yes,
-		/// <summary>The ResourceData supports all types. It will be de-prioritised.</summary>
+		/// <summary>This is supported because it supports everything in some kind of lowest-common-denominator capacity.</summary>
 		All,
-		/// <summary>The ResourceData supports this type under certain conditions.</summary>
+		/// <summary>This might be supported. It may throw an error or it may succeed.</summary>
 		Maybe,
-		/// <summary>The ResourceData will never support this type no matter what the conditions.</summary>
+		/// <summary>This is explicitly not supported.</summary>
 		No
 	}
 	

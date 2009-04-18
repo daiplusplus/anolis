@@ -76,6 +76,7 @@
     <Compile Include="Core\Data\Windows\DialogResourceData.cs" />
     <Compile Include="Core\Data\Windows\StringTableResourceData.cs" />
     <Compile Include="Core\Data\Windows\VersionResourceData.cs" />
+    <Compile Include="Core\FactoryBase.cs" />
     <Compile Include="Core\Source\FileResourceSource.cs" />
     <Compile Include="Core\Source\NESource.cs" />
     <Compile Include="Core\Source\ManagedSource.cs" />

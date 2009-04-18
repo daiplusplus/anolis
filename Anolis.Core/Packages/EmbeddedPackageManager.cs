@@ -23,6 +23,9 @@ namespace Anolis.Core.Packages {
 		internal Assembly Assembly             { get; set; }
 		internal String   ManifestResourceName { get; set; }
 		
+		public override String ToString() {
+			return Name;
+		}
 	}
 	
 	public static class EmbeddedPackageManager {

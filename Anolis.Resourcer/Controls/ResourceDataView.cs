@@ -10,53 +10,13 @@ namespace Anolis.Resourcer.Controls {
 	
 	public partial class ResourceDataView : UserControl {
 		
-		private class TypeViewerWrapper {
-			
-			public TypeViewerCompatibility Recommended { get; set; }
-			public TypeViewer Viewer { get; private set; }
-			public TypeViewerWrapper(TypeViewer viewer) {
-				Viewer = viewer;
-			}
-			public override string ToString() {
-				return Viewer.ViewerName +
-					(Recommended == TypeViewerCompatibility.Ideal ? " (Recommended)" : 
-					(Recommended == TypeViewerCompatibility.None  ? " (Not recommended)" : ""));
-			}
-			public static TypeViewerWrapper[] FromArray(params TypeViewer[] viewers) {
-				
-				TypeViewerWrapper[] retval = new TypeViewerWrapper[viewers.Length];
-				for(int i=0;i<viewers.Length;i++) retval[i] = new TypeViewerWrapper( viewers[i] );
-				
-				return retval;
-			}
-		}
-		
 		private ResourceData _data;
-		private TypeViewerWrapper[] _viewers;
 		
 		private TypeViewer _currentViewer;
 		
 		public ResourceDataView() {
 			
 			InitializeComponent();
-			
-			// reverse the array because ShowResource chooses the /last/ compatible viewer. Reversing this list makes RawViewer preferable over TextViewer
-			TypeViewerWrapper[] viewers = TypeViewerWrapper.FromArray(
-#if MEDIAVIEWER
-				new MediaViewer(),
-#endif
-				new MenuDialogViewer(),
-				new StringTableViewer(),
-				new VersionViewer(),
-				new ImageViewer(),
-				new IconCursorViewer(),
-				new RawViewer(),
-				new TextViewer(),
-				new SgmlViewer()
-			);
-			
-			Array.Reverse( viewers );
-			_viewers = viewers;
 			
 			__viewers.SelectionChangeCommitted  += new EventHandler(__viewers_SelectionChangeCommitted); // don't use SelectedIndexChange since that's raised by my code
 		}
@@ -88,7 +48,7 @@ namespace Anolis.Resourcer.Controls {
 			List<TypeViewerWrapper> iViewers = new List<TypeViewerWrapper>();
 			List<TypeViewerWrapper> wViewers = new List<TypeViewerWrapper>();
 			
-			foreach(TypeViewerWrapper w in _viewers) {
+			foreach(TypeViewerWrapper w in TypeViewerFactory.GetViewers() ) {
 				
 				w.Recommended = w.Viewer.CanHandleResource(data);
 				

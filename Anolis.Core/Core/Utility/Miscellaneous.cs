@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
+using System.Reflection;
+using Anolis.Core.Source;
+
 namespace Anolis.Core.Utility {
 	
 	public static class Miscellaneous {
@@ -38,6 +41,99 @@ namespace Anolis.Core.Utility {
 			return retval;
 			
 		}
+		
+		public static String TrimPath(String path, Int32 maxLength) {
+			
+			Char[] chars = new Char[] { '/', '\\' };
+			
+			if(path.Length <= maxLength) return path;
+			
+			String truncated = path;
+			while(truncated.Length > maxLength) {
+				// take stuff out from the middle
+				// so starting from the middle search for the first slash remove it to the next slash on
+				Int32 midSlashIdx = truncated.LastIndexOfAny( chars, truncated.Length / 2 );
+				if( midSlashIdx == -1 ) return truncated;
+				
+				Int32 nextSlashForwardIdx = truncated.IndexOfAny( chars, midSlashIdx + 4 );
+				
+				truncated = truncated.Substring(0, midSlashIdx) + @"\.." + truncated.Substring( nextSlashForwardIdx );
+			}
+			
+			return truncated;
+		}
+		
+#region Extensibility
+		
+		/// <summary>Tells the factories where they can find additional assemblies. This only takes effect if the factories haven't already enumerated types</summary>
+		public static void SetAssemblyFilenames(String[] assemblies) {
+			
+			FactoryBase.AssemblyFilenames = assemblies;
+		}
+		
+		public static Boolean IsAssembly(String filename) {
+			
+			try {
+				
+				AssemblyName name = AssemblyName.GetAssemblyName( filename );
+				
+				return true;
+			
+			} catch( ArgumentException ) {
+				
+				return false;
+				
+			} catch( BadImageFormatException ) {
+				
+				return false;
+			}
+			
+		}
+		
+		/// <summary>Searches the specified assembly for objects derived (or implementing) superType then instantiates and returns them.</summary>
+		public static T[] InstantiateTypes<T>(Assembly assembly, Type superType) where T : class {
+			
+			Type[] types = assembly.GetTypes();
+			
+			List<T> retval = new List<T>();
+			
+			if( superType.IsInterface ) {
+				
+				foreach(Type t in types) {
+					
+					if( t.IsClass && !t.IsAbstract ) continue;
+					
+					if( t.GetInterface( superType.FullName ) == null ) continue;
+					
+					// if it implements the interface and is constructable
+					ConstructorInfo constructor = t.GetConstructor( new Type[] { } );
+					if(constructor != null) retval.Add( Activator.CreateInstance( t ) as T );
+					
+				}
+				
+			} else if( superType.IsClass ) {
+				
+				foreach(Type t in types) {
+					
+					if( t.IsClass && !t.IsAbstract ) continue;
+					
+					if( t.IsSubclassOf( superType ) ) {
+						
+						// if it derives from superType and is constructable
+						ConstructorInfo constructor = t.GetConstructor( new Type[] { } );
+						if(constructor != null) retval.Add( Activator.CreateInstance( t ) as T );
+						
+					}
+					
+				}
+				
+			}
+			
+			return retval.ToArray();
+			
+		}
+		
+#endregion
 		
 	}
 }

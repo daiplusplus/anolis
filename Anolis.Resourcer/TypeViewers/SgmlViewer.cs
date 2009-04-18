@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
 using System.IO;
-using Anolis.Core;
 
-using Anolis.Resourcer.TypeViewers;
 using Anolis.Core.Data;
 
 namespace Anolis.Resourcer.TypeViewers {

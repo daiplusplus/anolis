@@ -21,12 +21,12 @@ namespace Anolis.Installer.Pages {
 		private void SelectPackage_Load(object sender, EventArgs e) {
 			
 			// Load the embedded list
-			String[] embedded = EmbeddedPackageManager.GetEmbeddedPackages();
+			EmbeddedPackage[] embedded = EmbeddedPackageManager.GetEmbeddedPackages();
 			__embedList.Items.Clear();
 			
-			foreach(String name in embedded) {
+			foreach(EmbeddedPackage package in embedded) {
 				
-				__embedList.Items.Add( name );
+				__embedList.Items.Add( package );
 				
 			}
 			
@@ -48,13 +48,13 @@ namespace Anolis.Installer.Pages {
 					return;
 				}
 				
-				String packageName = __embedList.SelectedItem as String;
+				EmbeddedPackage package = __embedList.SelectedItem as EmbeddedPackage;
 				
-				Stream stream = EmbeddedPackageManager.GetEmbeddedPackage( GetType().Assembly, packageName );
+				Stream stream = EmbeddedPackageManager.GetEmbeddedPackage( package );
 				
 				PackageInfo.Source     = PackageSource.Embedded;
-				PackageInfo.SourcePath = packageName;
-				PackageInfo.Archive = PackageArchive.FromStream( packageName, PackageSubclass.LzmaTarball, stream );
+				PackageInfo.SourcePath = package.Name;
+				PackageInfo.Archive    = PackageArchive.FromStream( package.Name, PackageSubclass.LzmaTarball, stream );
 			
 			} else if( __packRad.Checked ) {
 				
