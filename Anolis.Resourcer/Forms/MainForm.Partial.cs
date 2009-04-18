@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Windows.Forms;
 
 using Anolis.Core;
@@ -12,7 +11,6 @@ using StringCollection = System.Collections.Specialized.StringCollection;
 
 using Path     = System.IO.Path;
 using File     = System.IO.File;
-using FileInfo = System.IO.FileInfo;
 
 using FileResourceSource = Anolis.Core.Source.FileResourceSource;
 using Anolis.Core.Source;
@@ -792,7 +790,7 @@ namespace Anolis.Resourcer {
 			
 			for(int i=mruItems.Length - 1;i>=0;i--) {
 				
-				String text = (i+1).ToString(Cult.InvariantCulture) + ' ' + TrimPath( mruItems[i], 80 );
+				String text = (i+1).ToString(Cult.InvariantCulture) + ' ' + Core.Utility.Miscellaneous.TrimPath( mruItems[i], 80 );
 				
 				ToolStripItem item = new ToolStripMenuItem( text );
 				item.Tag = mruItems[i];
@@ -918,27 +916,6 @@ namespace Anolis.Resourcer {
 				
 			}
 			
-		}
-		
-		private static String TrimPath(String path, Int32 maxLength) {
-			
-			Char[] chars = new Char[] { '/', '\\' };
-			
-			if(path.Length <= maxLength) return path;
-			
-			String truncated = path;
-			while(truncated.Length > maxLength) {
-				// take stuff out from the middle
-				// so starting from the middle search for the first slash remove it to the next slash on
-				Int32 midSlashIdx = truncated.LastIndexOfAny( chars, truncated.Length / 2 );
-				if( midSlashIdx == -1 ) return truncated;
-				
-				Int32 nextSlashForwardIdx = truncated.IndexOfAny( chars, midSlashIdx + 1 );
-				
-				truncated = truncated.Substring(0, midSlashIdx) + @"\..." + truncated.Substring( nextSlashForwardIdx );
-			}
-			
-			return truncated;
 		}
 		
 		public static String GetResourcePath(ResourceLang lang) {

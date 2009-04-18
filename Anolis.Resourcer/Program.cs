@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 
+using G = System.Collections.Generic;
+using S = Anolis.Resourcer.Settings.Settings;
 using Anolis.Resourcer.CommandLine;
 
 namespace Anolis.Resourcer {
@@ -19,6 +21,20 @@ namespace Anolis.Resourcer {
 				Application.SetCompatibleTextRenderingDefault(false);
 
 //				Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+				
+				///////////////////////////////
+				// Load Extensibility
+				if( S.Default.LoadAssemblies != null ) {
+					
+					String[] assemblyFilenames = new String[ S.Default.LoadAssemblies.Count ];
+					for(int i=0;i<assemblyFilenames.Length;i++) {
+						assemblyFilenames[i] = S.Default.LoadAssemblies[i];
+					}
+					
+					if( assemblyFilenames.Length > 0 )
+						Anolis.Core.Utility.Miscellaneous.SetAssemblyFilenames( assemblyFilenames );
+					
+				}
 				
 				CommandLineParser cmd = new CommandLineParser(args);
 				

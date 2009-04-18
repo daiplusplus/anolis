@@ -12,7 +12,7 @@ namespace Anolis.Core {
 	
 	namespace Source {
 		
-		public abstract class ResourceSourceFactory {
+		public abstract class ResourceSourceFactory : FactoryBase {
 			
 #region Static
 			
@@ -22,15 +22,21 @@ namespace Anolis.Core {
 			public static ReadOnlyCollection<ResourceSourceFactory> ListFactories() {
 				
 				if( _factories == null ) {
+					
+					// Prepopulate
 					_factories = new List<ResourceSourceFactory>();
 					_factories.Add( new Win32ResourceSourceFactory() );
 					_factories.Add( new ResResourceSourceFactory() );
+					
+					LoadFactoriesFromAssemblies<ResourceSourceFactory>( _factories );
 					
 					_factoriesRo = new ReadOnlyCollection<ResourceSourceFactory>( _factories );
 				}
 				
 				return _factoriesRo;
 			}
+			
+			
 			
 			public static ResourceSourceFactory GetFactoryForExtension(String extension) {
 				

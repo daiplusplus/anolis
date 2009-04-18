@@ -51,6 +51,8 @@
 			this.@__cancel = new System.Windows.Forms.Button();
 			this.@__ok = new System.Windows.Forms.Button();
 			this.@__update = new System.Windows.Forms.Button();
+			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
+			this.label1 = new System.Windows.Forms.Label();
 			this.@__tabs.SuspendLayout();
 			this.@__tSettings.SuspendLayout();
 			this.@__sUiGrp.SuspendLayout();
@@ -156,6 +158,7 @@
 			this.@__sMoreGrp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__sMoreGrp.Controls.Add(this.label1);
 			this.@__sMoreGrp.Controls.Add(this.@__sLibDel);
 			this.@__sMoreGrp.Controls.Add(this.@__sLibAdd);
 			this.@__sMoreGrp.Controls.Add(this.@__sLib);
@@ -165,12 +168,13 @@
 			this.@__sMoreGrp.Size = new System.Drawing.Size(340, 184);
 			this.@__sMoreGrp.TabIndex = 2;
 			this.@__sMoreGrp.TabStop = false;
-			this.@__sMoreGrp.Text = "Library Options";
+			this.@__sMoreGrp.Text = "Extensibility";
 			// 
 			// __sLibDel
 			// 
 			this.@__sLibDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__sLibDel.Enabled = false;
+			this.@__sLibDel.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.@__sLibDel.Location = new System.Drawing.Point(259, 155);
 			this.@__sLibDel.Name = "__sLibDel";
 			this.@__sLibDel.Size = new System.Drawing.Size(75, 23);
@@ -181,7 +185,7 @@
 			// __sLibAdd
 			// 
 			this.@__sLibAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__sLibAdd.Enabled = false;
+			this.@__sLibAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.@__sLibAdd.Location = new System.Drawing.Point(178, 155);
 			this.@__sLibAdd.Name = "__sLibAdd";
 			this.@__sLibAdd.Size = new System.Drawing.Size(75, 23);
@@ -195,19 +199,19 @@
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__sLib.FormattingEnabled = true;
 			this.@__sLib.IntegralHeight = false;
-			this.@__sLib.Location = new System.Drawing.Point(9, 33);
+			this.@__sLib.Location = new System.Drawing.Point(9, 66);
 			this.@__sLib.Name = "__sLib";
-			this.@__sLib.Size = new System.Drawing.Size(325, 116);
+			this.@__sLib.Size = new System.Drawing.Size(325, 83);
 			this.@__sLib.TabIndex = 3;
 			// 
 			// __sLibLbl
 			// 
-			this.@__sLibLbl.AutoSize = true;
-			this.@__sLibLbl.Location = new System.Drawing.Point(6, 17);
+			this.@__sLibLbl.Location = new System.Drawing.Point(9, 17);
 			this.@__sLibLbl.Name = "__sLibLbl";
-			this.@__sLibLbl.Size = new System.Drawing.Size(229, 13);
+			this.@__sLibLbl.Size = new System.Drawing.Size(325, 33);
 			this.@__sLibLbl.TabIndex = 0;
-			this.@__sLibLbl.Text = "Load additional ResourceData subclasses from";
+			this.@__sLibLbl.Text = "Load ResourceData, ResourceSource, and TypeViewer subclasses from these assemblie" +
+				"s:";
 			// 
 			// __tAbout
 			// 
@@ -326,7 +330,7 @@
 			this.@__legalToggle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.@__legalToggle.Location = new System.Drawing.Point(3, 312);
 			this.@__legalToggle.Name = "__legalToggle";
-			this.@__legalToggle.Size = new System.Drawing.Size(128, 23);
+			this.@__legalToggle.Size = new System.Drawing.Size(170, 23);
 			this.@__legalToggle.TabIndex = 1;
 			this.@__legalToggle.Text = "View GPLv2 License";
 			this.@__legalToggle.UseVisualStyleBackColor = true;
@@ -349,6 +353,7 @@
 			// 
 			this.@__cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.@__cancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.@__cancel.Location = new System.Drawing.Point(294, 383);
 			this.@__cancel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.@__cancel.Name = "__cancel";
@@ -360,6 +365,7 @@
 			// __ok
 			// 
 			this.@__ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.@__ok.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.@__ok.Location = new System.Drawing.Point(213, 383);
 			this.@__ok.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.@__ok.Name = "__ok";
@@ -371,12 +377,27 @@
 			// __update
 			// 
 			this.@__update.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.@__update.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.@__update.Location = new System.Drawing.Point(6, 383);
 			this.@__update.Name = "__update";
 			this.@__update.Size = new System.Drawing.Size(137, 23);
 			this.@__update.TabIndex = 4;
 			this.@__update.Text = "Check for Updates...";
 			this.@__update.UseVisualStyleBackColor = true;
+			// 
+			// __ofd
+			// 
+			this.@__ofd.FileName = "openFileDialog1";
+			this.@__ofd.Filter = "Managed Assemblies (*.exe;*.dll)|*.exe;*.dll";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(9, 50);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(291, 13);
+			this.label1.TabIndex = 4;
+			this.label1.Text = "Extensibility changes require a program restart to take effect.";
 			// 
 			// OptionsForm
 			// 
@@ -440,5 +461,7 @@
 		private System.Windows.Forms.ListBox __sLib;
 		private System.Windows.Forms.Label __version;
 		private System.Windows.Forms.Label __versionLbl;
+		private System.Windows.Forms.OpenFileDialog __ofd;
+		private System.Windows.Forms.Label label1;
 	}
 }
