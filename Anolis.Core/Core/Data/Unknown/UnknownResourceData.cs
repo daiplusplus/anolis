@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,22 +20,22 @@ namespace Anolis.Core.Data {
 			return new UnknownResourceData(lang, data);
 		}
 		
-		private ResourceData FromFile(System.IO.Stream stream, String extension) {
+		private static ResourceData FromFile(Stream stream, String extension) {
 			
 			Byte[] data = GetAllBytesFromStream(stream);
 			return new UnknownResourceData(extension, null, data);
 		}
 		
-		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {
 			return FromFile(stream, extension);
 		}
 		
-		public override ResourceData FromFileToUpdate(System.IO.Stream stream, string extension, ResourceLang currentLang) {
+		public override ResourceData FromFileToUpdate(Stream stream, string extension, ResourceLang currentLang) {
 			return FromFile(stream, extension);
 		}
 		
 		protected override String GetOpenFileFilter() {
-			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("All Files", "*");
+			return CreateFileFilter("All Files", "*");
 		}
 		
 		public override string Name {

@@ -43,9 +43,8 @@ namespace Anolis.Core.Data {
 		
 		protected static Byte[] GetAllBytesFromStream(Stream stream) {
 			
-			if( stream is MemoryStream ) {
-				return (stream as MemoryStream).ToArray();
-			}
+			MemoryStream ms = stream as MemoryStream;
+			if(ms != null) return ms.ToArray();
 			
 			Byte[] data = new Byte[ stream.Length ];
 			stream.Read( data, 0, data.Length );

@@ -21,9 +21,9 @@ namespace Anolis.Core.Data {
 		public override Compatibility HandlesExtension(String filenameExtension) {
 			
 			switch(filenameExtension) {
-				case "jpeg":
-				case "jpg":
-				case "jfif":
+				case "JPEG":
+				case "JPG":
+				case "JFIF":
 					return Compatibility.Yes;
 			}
 			
@@ -32,7 +32,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		protected override String GetOpenFileFilter() {
-			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("JpegImage", "jpg", "jpeg", "jfif");
+			return CreateFileFilter("JpegImage", "jpg", "jpeg", "jfif");
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {

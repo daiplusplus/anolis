@@ -73,7 +73,7 @@ namespace Anolis.Core.Packages {
 			ApplicationUninstall = 1,
 			DeviceDriverInstall  = 10,
 			ModifySettings       = 12,
-			CancelledOperation   = 13
+			CanceledOperation    = 13
 		}
 		
 		public enum SystemRestoreEventType {

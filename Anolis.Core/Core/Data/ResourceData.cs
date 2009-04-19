@@ -13,15 +13,47 @@ namespace Anolis.Core.Data {
 			get {
 				return _data;
 			}
-			set {
-				_data = value;
-				if(Lang != null) Lang.Action = ResourceDataAction.Update;
+//			set {
+//				_data = value;
+//				if(Lang != null) Lang.Action = ResourceDataAction.Update;
+//				
+//				Reinitialize();
+//			}
+		}
+//		/// <summary>Called when the RawData is set. A notification to subclasses to recreate any stateful data.</summary>
+//		protected virtual void Reinitialize() {
+//		}
+		
+		public ResourceLang Lang { get; internal set; }
+		
+		public String[] SaveFileFilters {
+			
+			get {
 				
-				Reinitialize();
+				String[] supported = SupportedFilters;
+				Array.Resize<String>(ref supported, supported.Length + 1);
+				supported[supported.Length - 1] = "Raw Resource Data (*.bin)|*.bin";
+				
+				return supported;
 			}
 		}
 		
-		public ResourceLang Lang { get; internal set; }
+		/// <summary>Returns an array of supported File Filters. Return an empty array (never null) if it does not support custom saving.</summary>
+		protected abstract String[] SupportedFilters { get; }
+		
+		/// <summary>Returns the TypeIdentifier of the best-match/recommended ResourceType for this ResourceData.</summary>
+		protected abstract ResourceTypeIdentifier GetRecommendedTypeId();
+		
+		private ResourceTypeIdentifier _recommendedTypeId;
+		
+		public ResourceTypeIdentifier RecommendedTypeId {
+			get {
+				
+				if( _recommendedTypeId == null ) _recommendedTypeId = GetRecommendedTypeId();
+				
+				return _recommendedTypeId;
+			}
+		}
 		
 		/// <summary>Called when this ResourceData is being removed from the ResourceSource. ResourceDatas that have dependencies on this ResourceData must be appropriately dealt with (e.g. removed) when this is called.</summary>
 		/// <param name="underlyingDelete">If true then the ResourceData is just being removed the collection of resources. If false it is being deleted from the ResourceSource</param>
@@ -29,9 +61,7 @@ namespace Anolis.Core.Data {
 		protected internal virtual void OnRemove(Boolean underlyingDelete, Remove deleteFunction) {
 		}
 		
-		protected internal delegate void Remove(ResourceLang lang);
-		
-		////////////////////////////////////
+#region Constructor
 		
 		protected ResourceData(ResourceLang lang, Byte[] rawData) {
 			
@@ -41,8 +71,61 @@ namespace Anolis.Core.Data {
 		
 		~ResourceData() {
 			
-			Dispose();
+			Dispose(false);
 		}
+		
+		public void Dispose() {
+			
+			Dispose(true);
+			
+			GC.SuppressFinalize(this);
+		}
+		
+		protected virtual void Dispose(Boolean managed) {
+		}
+		
+#endregion
+	
+#region Save
+		
+		/// <summary>
+		///		<para>Saves the Resource Data to disk. The extension is inferred from the path and the file format selected that way. Ensure the extension is supported by querying SaveFileFilters first.</para>
+		///		<para>If the file exists it will be overwritten.</para>
+		///		<para>Use the .bin extension to save the raw resource data regardless of ResourceData subclass.</para>
+		///	</summary>
+		public void Save(String filename) {
+			
+			if(filename == null) throw new ArgumentNullException("filename");
+			
+			using(Stream stream = File.Open( filename, FileMode.Create, FileAccess.Write, FileShare.None )) {
+				
+				Save(stream, Path.GetExtension(filename) );
+			}
+			
+		}
+		
+		public void Save(Stream stream, String extension) {
+			
+			if( extension[0] == '.' ) extension = extension.Substring(1);
+			
+			if(extension == "bin") {
+				
+				stream.Write( this.RawData, 0, this.RawData.Length );
+				
+			} else if(SupportedFilters.Length > 0) {
+				
+				SaveAs(stream, extension);
+			}
+		}
+		
+		protected abstract void SaveAs(Stream stream, String extension);
+		
+#endregion
+		
+		protected internal delegate void Remove(ResourceLang lang);
+		
+		
+#region Static
 		
 		public static ResourceData FromResource(ResourceLang lang, Byte[] rawData) {
 			
@@ -125,7 +208,7 @@ namespace Anolis.Core.Data {
 			
 			// 'intelligent reading' of the file itself is too resource intensive. Better just to trust the extension.
 			
-			extension = extension.ToLowerInvariant();
+			extension = extension.ToUpperInvariant();
 			if(extension.StartsWith(".", StringComparison.OrdinalIgnoreCase)) extension = extension.Substring(1);
 			
 			ResourceDataFactory[] factories = ResourceDataFactory.GetFactoriesForExtension( extension );
@@ -146,86 +229,8 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		////////////////////////////////////
+#endregion
 		
-		/// <summary>
-		///		<para>Saves the Resource Data to disk. The extension is inferred from the path and the file format selected that way. Ensure the extension is supported by querying SaveFileFilters first.</para>
-		///		<para>If the file exists it will be overwritten.</para>
-		///		<para>Use the .bin extension to save the raw resource data regardless of ResourceData subclass.</para>
-		///	</summary>
-		public void Save(String path) {
-			
-			// TODO: Standardise the use of 'path', 'filename', and 'filepath' in the source code.
-			// I'm of the opinion that 'path' must always be absolute and 'filename' can be relative or absolute, 'filepath' need not exist
-			// Should standardise 'if file exists, overwrite?' behaviour too
-			
-			if(path == null) throw new ArgumentNullException("path");
-			
-			using(Stream stream = File.Create(path)) {
-				
-				Save(stream, Path.GetExtension(path) );
-			}
-			
-		}
-		
-		public void Save(Stream stream, String extension) {
-			
-			if( extension[0] == '.' ) extension = extension.Substring(1);
-			
-			if(extension == "bin") {
-				
-				stream.Write( this.RawData, 0, this.RawData.Length );
-				
-			} else if(SupportedFilters.Length > 0) {
-				
-				SaveAs(stream, extension);
-			}
-		}
-		
-		protected abstract void SaveAs(Stream stream, String extension);
-		
-		public String[] SaveFileFilters {
-			
-			get {
-				
-				String[] supported = SupportedFilters;
-				Array.Resize<String>(ref supported, supported.Length + 1);
-				supported[supported.Length - 1] = "Raw Resource Data (*.bin)|*.bin";
-				
-				return supported;
-			}
-		}
-		
-		/// <summary>Returns an array of supported File Filters. Return an empty array (never null) if it does not support custom saving.</summary>
-		protected abstract String[] SupportedFilters { get; }
-		
-		/// <summary>Returns the TypeIdentifier of the best-match/recommended ResourceType for this ResourceData.</summary>
-		protected abstract ResourceTypeIdentifier GetRecommendedTypeId();
-		
-		private ResourceTypeIdentifier _recommendedTypeId;
-		
-		public ResourceTypeIdentifier RecommendedTypeId {
-			get {
-				
-				if( _recommendedTypeId == null ) _recommendedTypeId = GetRecommendedTypeId();
-				
-				return _recommendedTypeId;
-			}
-		}
-		
-		/// <summary>Called when the RawData is set. A notification to subclasses to recreate any stateful data.</summary>
-		protected virtual void Reinitialize() {
-		}
-		
-		public void Dispose() {
-			
-			Dispose(true);
-			
-			GC.SuppressFinalize(this);
-		}
-		
-		protected virtual void Dispose(Boolean managed) {
-		}
 		
 	}
 	

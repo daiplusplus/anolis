@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Anolis.Core.Data;
 using Anolis.Core.Native;
 
+using Cult = System.Globalization.CultureInfo;
+
 namespace Anolis.Core.Source {
 	
 	public sealed class ResResourceSourceFactory : ResourceSourceFactory {
@@ -23,11 +25,11 @@ namespace Anolis.Core.Source {
 		}
 		
 		protected override String GetOpenFileFilter() {
-			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("Compiled Resource Script", "res");
+			return CreateFileFilter("Compiled Resource Script", "res");
 		}
 	}
 	
-	public class ResResourceSource : FileResourceSource {
+	public sealed class ResResourceSource : FileResourceSource {
 		
 		private FileStream _stream;
 		private List<ResResource> _resources;
@@ -106,7 +108,7 @@ namespace Anolis.Core.Source {
 				
 				// don't do anything if it's empty
 				if( !(header.Type is String )) {
-					Int32 headerType = Convert.ToInt32( header.Type );
+					Int32 headerType = Convert.ToInt32( header.Type, Cult.InvariantCulture );
 					if( headerType == 0 ) {
 						rdr.Align4();
 						continue;
@@ -116,7 +118,7 @@ namespace Anolis.Core.Source {
 				///////////////////////////////
 				// Create ResourceType, Name, and Lang instance
 				
-				ResourceTypeIdentifier typeId = header.Type is String ? new ResourceTypeIdentifier( (String)header.Type ) : new ResourceTypeIdentifier( Convert.ToInt32( header.Type ) );
+				ResourceTypeIdentifier typeId = header.Type is String ? new ResourceTypeIdentifier( (String)header.Type ) : new ResourceTypeIdentifier( Convert.ToInt32( header.Type, Cult.InvariantCulture ) );
 				
 				ResourceType type = UnderlyingFind( t => t.Identifier.Equals( typeId ) );
 				if(type == null) {
@@ -128,7 +130,7 @@ namespace Anolis.Core.Source {
 				
 				///////////////////////////////////////////////////////////
 				
-				ResourceIdentifier nameId = header.Name is String ? new ResourceIdentifier( (String)header.Name ) : new ResourceIdentifier( Convert.ToInt32( header.Name ) );
+				ResourceIdentifier nameId = header.Name is String ? new ResourceIdentifier( (String)header.Name ) : new ResourceIdentifier( Convert.ToInt32( header.Name, Cult.InvariantCulture ) );
 				ResourceName name = UnderlyingFind(type, n => n.Identifier.Equals( nameId ) );
 				if(name == null) {
 					

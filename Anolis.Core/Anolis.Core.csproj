@@ -93,7 +93,6 @@
     <Compile Include="Core\Data\Image\PngImageResourceData.cs" />
     <Compile Include="Core\Data\ResourceDataException.cs" />
     <Compile Include="Core\Data\ResourceDataFactory.cs" />
-    <None Include="Core\Data\Unknown\DummyResourceData.cs" />
     <Compile Include="Core\Data\Unknown\UnknownResourceData.cs" />
     <Compile Include="Core\Data\Multimedia\MediaResourceData.cs" />
     <Compile Include="Core\Source\ResourceSourcePartial.cs" />
@@ -128,7 +127,7 @@
     <Compile Include="Packages\Archives\PackageArchive.cs" />
     <Compile Include="Packages\PackageItem.cs" />
     <Compile Include="Packages\PackageUtility.cs" />
-    <Compile Include="Packages\Set.cs" />
+    <Compile Include="Packages\Group.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

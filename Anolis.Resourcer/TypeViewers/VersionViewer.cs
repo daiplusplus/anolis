@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
@@ -14,7 +15,10 @@ namespace Anolis.Resourcer.TypeViewers {
 		
 		public VersionViewer() {
 			InitializeComponent();
-
+			
+			FontFamily monospaceFam = FontFamily.GenericMonospace;
+			__value.Font = new Font(monospaceFam, this.Font.SizeInPoints, FontStyle.Regular);
+			
 			__versionItems.AfterSelect += new TreeViewEventHandler(__versionItems_AfterSelect);
 		}
 		

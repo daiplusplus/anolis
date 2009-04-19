@@ -8,23 +8,48 @@ namespace Anolis.Resourcer.TypeViewers {
 	
 	public partial class TextViewer : TypeViewer {
 		
+		private ResourceData _data;
+		
 		public TextViewer() {
 			InitializeComponent();
 			
-			__toolsEncoding.Tag = Encoding.UTF8;
-			__toolsEncoding.DropDownItemClicked += new ToolStripItemClickedEventHandler(__toolsEncoding_DropDownItemClicked);
+			this.__text.Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericMonospace, __text.Font.SizeInPoints);
+			
+			this.__toolsFont.Click += new EventHandler(__toolsFont_Click);
+			this.__toolsWrap.CheckedChanged += new EventHandler(__toolsWrap_CheckedChanged);
+			
+			Encoding = Encoding.UTF8;
+			
+			this.__toolsEncAscii  .Tag = Encoding.ASCII;
+			this.__toolsEncUtf7   .Tag = Encoding.UTF7;
+			this.__toolsEncUtf8   .Tag = new UTF8Encoding(false);
+			this.__toolsEncUtf8Bom.Tag = Encoding.UTF8; // new UTF8Encoding(true);
+			this.__toolsEncUtf16LE.Tag = Encoding.Unicode;
+			this.__toolsEncUtf16BE.Tag = Encoding.BigEndianUnicode;
+			this.__toolsEncUtf32  .Tag = Encoding.UTF32;
+			
+			this.__toolsEncoding.DropDownItemClicked += new ToolStripItemClickedEventHandler(__toolsEncoding_DropDownItemClicked);
+			
 		}
 		
 		private void __toolsEncoding_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e) {
-			// change current encoding
-			ToolStripItem item = e.ClickedItem;
-			if(item.Tag != null) __toolsEncoding.Tag = item.Tag;
-			__toolsEncoding.Text = item.Text;
+			
+			ToolStripMenuItem clickedItem = e.ClickedItem as ToolStripMenuItem;
+			clickedItem.Checked = true;
+			
+			// uncheck all other items
+			foreach(ToolStripMenuItem item in __toolsEncoding.DropDownItems) if( item != clickedItem ) item.Checked = false;
+			
+			Encoding = clickedItem.Tag as Encoding;
+			
+			__toolsEncoding.Text = clickedItem.Text;
+			
+			if( _data != null ) RenderResource( _data );
 		}
 		
-		public override void RenderResource(ResourceData resource) {
+		public override void RenderResource(ResourceData resourceData) {
 			
-			Byte[] data = resource.RawData;
+			Byte[] data = (_data = resourceData).RawData;
 			
 			if( data.Length > 1024 * 1024 ) {
 				
@@ -37,7 +62,13 @@ namespace Anolis.Resourcer.TypeViewers {
 				
 			}
 			
-			__text.Text = Encoding.GetString( data );
+			try {
+				__text.Text = Encoding.GetString( data );
+			
+			} catch(EncoderFallbackException fex) {
+				
+				MessageBox.Show(this, "Could not render the text stream using the current encoder: " + fex.Message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+			}
 			
 		}
 		
@@ -50,18 +81,8 @@ namespace Anolis.Resourcer.TypeViewers {
 		}
 		
 		private Encoding Encoding {
+			set { __toolsEncoding.Tag = value; }
 			get { return __toolsEncoding.Tag as Encoding; }
-		}
-		
-		private void LoadEncoding() {
-			
-			__toolsEncoding.DropDownItems.Clear();
-			__toolsEncoding.DropDownItems.Add( new ToolStripMenuItem("ASCII")  { Tag = new ASCIIEncoding() } );
-			__toolsEncoding.DropDownItems.Add( new ToolStripMenuItem("UTF-7")  { Tag = new UTF7Encoding(true) } );
-			__toolsEncoding.DropDownItems.Add( new ToolStripMenuItem("UTF-8")  { Tag = new UTF8Encoding( __toolsBom.Checked ) } );
-			__toolsEncoding.DropDownItems.Add( new ToolStripMenuItem("UTF-16") { Tag = new UnicodeEncoding(__toolsEndian.Checked, __toolsBom.Checked) } );
-			__toolsEncoding.DropDownItems.Add( new ToolStripMenuItem("UTF-32") { Tag = new UTF32Encoding(__toolsEndian.Checked, __toolsBom.Checked) } );
-			
 		}
 		
 #region UI Events
@@ -72,6 +93,11 @@ namespace Anolis.Resourcer.TypeViewers {
 			if(result == DialogResult.OK) {
 				__text.Font = __fdlg.Font;
 			}
+		}
+		
+		private void __toolsWrap_CheckedChanged(object sender, EventArgs e) {
+			
+			__text.WordWrap = __toolsWrap.Checked;
 		}
 		
 #endregion

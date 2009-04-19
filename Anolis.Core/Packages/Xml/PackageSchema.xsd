@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="PackageSchema1" targetNamespace="http://anol.is/PackageSchema1.xsd" elementFormDefault="qualified" xmlns="http://anol.is/PackageSchema1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="en">
+<xs:schema id="PackageSchema11" targetNamespace="http://anol.is/PackageSchema11.xsd" xmlns="http://anol.is/PackageSchema11.xsd" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="en">
 	
 <!-- Path escapes
 
@@ -13,7 +13,7 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 		<xs:complexType>
 			<xs:sequence>
 				
-				<xs:element name="set" type="packageSet" maxOccurs="unbounded" />
+				<xs:element name="group" type="itemGroup" maxOccurs="unbounded" />
 				
 			</xs:sequence>
 			
@@ -27,7 +27,7 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 		</xs:complexType>
 	</xs:element><!-- /package -->
 	
-	<xs:complexType name="packageSet">
+	<xs:complexType name="itemGroup">
 		<xs:choice>
 			
 			<xs:element name="patch" minOccurs="0" maxOccurs="unbounded">
@@ -98,7 +98,7 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 				</xs:complexType>
 			</xs:element>
 			
-			<xs:element name="set" type="packageSet" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="group" type="itemGroup" minOccurs="0" maxOccurs="unbounded" />
 			
 		</xs:choice>
 		

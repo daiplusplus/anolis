@@ -31,9 +31,9 @@ namespace Anolis.Core.Data {
 			// I was thinking of adding a Compatibility.ConvertTo, but that's what Maybe is for...
 			
 			switch(filenameExtension) {
-				case "bmp":
-				case "dib":
-				case "rle":
+				case "BMP":
+				case "DIB":
+				case "RLE":
 					return Compatibility.Yes;
 /*				case "jpg":
 				case "jpeg":
@@ -48,7 +48,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		protected override String GetOpenFileFilter() {
-			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("BmpImage", "bmp", "dib", "rle");
+			return CreateFileFilter("BmpImage", "bmp", "dib", "rle");
 		}
 		
 		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {

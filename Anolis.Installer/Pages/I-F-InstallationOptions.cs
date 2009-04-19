@@ -36,7 +36,7 @@ namespace Anolis.Installer.Pages {
 		
 		private void WizardForm_NextClicked(object sender, EventArgs e) {
 			
-			PackageInfo.SystemRestore = __sysres.Checked;
+			PackageInfo.SystemRestore = __sysRes.Checked;
 		}
 		
 		private void InstallationOptionsPage_PageLoad(object sender, EventArgs e) {

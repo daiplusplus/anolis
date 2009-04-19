@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Anolis.Core {
 	
-	public class FactoryBase {
+	public abstract class FactoryBase {
 		
 		public static String CreateFileFilter(String description, params String[] extensions) {
 			
@@ -15,9 +15,9 @@ namespace Anolis.Core {
 		protected internal static String[] AssemblyFilenames { get; set; }
 		
 		private static List<String> _assembliesLoaded = new List<String>();
-		private static String       _thisAssemblyFilename = Assembly.GetExecutingAssembly().Location.ToLowerInvariant();
+		private static String       _thisAssemblyFilename = Assembly.GetExecutingAssembly().Location;
 		
-		protected static void LoadFactoriesFromAssemblies<T>(List<T> list) where T : class {
+		protected static void LoadFactoriesFromAssemblies<T>(IList<T> list) where T : class {
 			
 			if( AssemblyFilenames == null ) return;
 			
@@ -33,11 +33,11 @@ namespace Anolis.Core {
 			
 		}
 		
-		private static void LoadFactoriesFromAssembly<T>(List<T> list, String assemblyFilename) where T : class {
+		private static void LoadFactoriesFromAssembly<T>(IList<T> list, String assemblyFilename) where T : class {
 			
-			if(_assembliesLoaded.Contains(assemblyFilename.ToLowerInvariant())) return;
+			if(_assembliesLoaded.Contains(assemblyFilename.ToUpperInvariant())) return;
 			
-			_assembliesLoaded.Add( assemblyFilename.ToLowerInvariant() );
+			_assembliesLoaded.Add( assemblyFilename.ToUpperInvariant() );
 			
 			if(!File.Exists(assemblyFilename)) return;
 			if( String.Equals(assemblyFilename, _thisAssemblyFilename, StringComparison.OrdinalIgnoreCase) ) return;
@@ -54,7 +54,7 @@ namespace Anolis.Core {
 				return;
 			}
 			
-			list.AddRange( Utility.Miscellaneous.InstantiateTypes<T>( assembly, typeof(T) ) );
+			list.AddRange2<T>( Utility.Miscellaneous.InstantiateTypes<T>( assembly, typeof(T) ) );
 			
 		}
 		

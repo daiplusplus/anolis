@@ -11,9 +11,9 @@ using System.Collections.Generic;
 namespace Anolis.Core.Packages {
 	
 	/// <summary>An arbitrary grouping of elements</summary>
-	public class Set :  PackageItem {
+	public class Group :  PackageItem {
 		
-		public Set(Package package, XmlElement element) : base(package, element) {
+		public Group(Package package, XmlElement element) : base(package, element) {
 			
 			/////////////////////////////////////////////////////
 			
@@ -23,10 +23,10 @@ namespace Anolis.Core.Packages {
 			foreach(XmlElement e in element.ChildNodes) {
 				
 				switch(e.Name) {
-					case "set":
+					case "group":
 						
-						Set set = new Set(package, e);
-						Children.Add( set );
+						Group group = new Group(package, e);
+						Children.Add( group );
 						
 						break;
 						
@@ -77,7 +77,7 @@ namespace Anolis.Core.Packages {
 		
 		internal void Flatten(List<Operation> operations) {
 			
-			foreach(Set       set in Children)  set.Flatten(operations);
+			foreach(Group       set in Children)  set.Flatten(operations);
 			
 			operations.AddRange( Operations );
 			
@@ -85,6 +85,6 @@ namespace Anolis.Core.Packages {
 		
 	}
 	
-	public class SetCollection : Collection<Set> {
+	public class SetCollection : Collection<Group> {
 	}
 }

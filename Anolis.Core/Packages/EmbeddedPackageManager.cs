@@ -54,7 +54,7 @@ namespace Anolis.Core.Packages {
 						String k = e.Key as String;
 						if( k == null ) continue;
 						
-						if( k.EndsWith("_anop") ) k = k.Substring(0, k.Length - 5);
+						if( k.EndsWith("_anop", StringComparison.Ordinal) ) k = k.Substring(0, k.Length - 5);
 						
 						packages.Add( new EmbeddedPackage( k, inAssembly, resName ) );
 					}
@@ -77,7 +77,7 @@ namespace Anolis.Core.Packages {
 					String k = e.Key as String;
 					if( k == null ) continue;
 					
-					if( k.EndsWith("_anop") ) {
+					if( k.EndsWith("_anop", StringComparison.Ordinal) ) {
 						 k = k.Substring(0, k.Length - 5 );
 						 
 						 if( k == package.Name ) {

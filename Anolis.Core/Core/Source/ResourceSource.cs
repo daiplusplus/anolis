@@ -40,8 +40,9 @@ namespace Anolis.Core {
 			
 			public static ResourceSourceFactory GetFactoryForExtension(String extension) {
 				
-				// just return the first match
+				// return the last match, since that will be the most specific
 				
+				ResourceSourceFactory yesMatch   = null;
 				ResourceSourceFactory maybeMatch = null;
 				ResourceSourceFactory allMatch   = null;
 				
@@ -52,17 +53,19 @@ namespace Anolis.Core {
 					
 					switch(compat) {
 						case Compatibility.Yes:
-							return factory;
+							yesMatch = factory;
+							break;
 						case Compatibility.Maybe:
-							if( maybeMatch != null ) maybeMatch = factory;
+							maybeMatch = factory;
 							break;
 						case Compatibility.All:
-							if( allMatch != null ) allMatch = factory;
+							allMatch = factory;
 							break;
 					}
 					
 				}
 				
+				if(yesMatch != null ) return yesMatch;
 				if( maybeMatch != null ) return maybeMatch;
 				return allMatch;
 				
@@ -141,7 +144,7 @@ namespace Anolis.Core {
 		public static ResourceSource Open(String filename, Boolean readOnly, ResourceSourceLoadMode mode) {
 			
 			String ext = Path.GetExtension(filename).ToUpperInvariant();
-			if(ext.StartsWith(".")) ext = ext.Substring(1);
+			if(ext.StartsWith(".", StringComparison.Ordinal)) ext = ext.Substring(1);
 			
 			ResourceSourceFactory factory = ResourceSourceFactory.GetFactoryForExtension( ext );
 			

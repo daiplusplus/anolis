@@ -71,7 +71,7 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesExtension(String filenameExtension) {
 			
-			if( filenameExtension == "bmp" ) return Compatibility.Maybe;
+			//if( filenameExtension == "BMP" ) return Compatibility.Maybe;
 			
 			return Compatibility.No;
 		}

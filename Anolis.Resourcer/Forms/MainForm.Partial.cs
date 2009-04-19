@@ -137,7 +137,7 @@ namespace Anolis.Resourcer {
 		
 		private void NavigateUpdateUI() {
 			
-			__navBack.Enabled = _history.Count > 0;
+			__navBack.Enabled = _history.Count > 1; // the 0th element will be the start point
 			__navUp.Enabled   = (_currentViewMode != ViewMode.ViewSource && _currentViewMode != ViewMode.Other);
 		}
 		
@@ -151,8 +151,10 @@ namespace Anolis.Resourcer {
 		
 		private void NavigateBack() {
 			
-			NavigateItem item = _history.Pop();
-			switch(item.ViewMode) {
+			NavigateItem thisItem = _history.Pop();
+			NavigateItem lastItem = _history.Pop();
+			
+			switch(lastItem.ViewMode) {
 				case ViewMode.ViewSource:
 					
 					ListLoad();
@@ -160,23 +162,24 @@ namespace Anolis.Resourcer {
 					
 				case ViewMode.ViewType:
 					
-					ListLoad( item.Argument as ResourceType );
+					ListLoad( lastItem.Argument as ResourceType );
 					break;
 					
 				case ViewMode.ViewName:
 					
-					ListLoad( item.Argument as ResourceName );
+					ListLoad( lastItem.Argument as ResourceName );
 					break;
 					
 				case ViewMode.ViewLangData:
 					
-					DataLoad( item.Argument as ResourceLang );
+					DataLoad( lastItem.Argument as ResourceLang );
 					break;
 					
 				case ViewMode.Other:
 					break;
 			}
 			
+			NavigateUpdateUI();
 		}
 		
 		private void NavigateUp() {
@@ -195,6 +198,7 @@ namespace Anolis.Resourcer {
 					break;
 			}
 			
+			NavigateUpdateUI();
 		}
 		
 		/// <summary>Pushes the current view to the top of the history stack and updates the Navigation UI</summary>
@@ -208,7 +212,7 @@ namespace Anolis.Resourcer {
 //					item.Argument = CurrentSource;
 					break;
 				case ViewMode.ViewType:
-					item.Argument = (_viewList.CurrentObject as ResourceName).Type;
+					item.Argument = _viewList.CurrentObject as ResourceType;
 					break;
 				case ViewMode.ViewName:
 					item.Argument = _viewList.CurrentObject as ResourceName;
@@ -281,7 +285,11 @@ namespace Anolis.Resourcer {
 					source = ResourceSource.Open(path, false, ResourceSourceLoadMode.LazyLoadData );
 				}
 				
-				if(source == null) return;
+				if(source == null) {
+					
+					MessageBox.Show(this, "Unable to load the file " + Path.GetFileName(path), "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					return;
+				}
 				
 				CurrentPath = path;
 				
@@ -314,10 +322,12 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		/// <summary>Prompts the user to save the CurrentSource or to cancel the operation. Returns False if operation was cancelled.</summary>
+		/// <summary>Prompts the user to save the CurrentSource or to cancel the operation. If the source is to be uploaded it's Disposes it. Returns False if operation was cancelled.</summary>
 		private Boolean SourceUnload() {
 			
 			if( CurrentSource == null ) return true;
+			
+			Boolean retval = false;
 			
 			if( CurrentSource.HasUnsavedChanges ) {
 				
@@ -332,19 +342,29 @@ namespace Anolis.Resourcer {
 					case DialogResult.Yes:
 						
 						SourceSave();
-						return true;
+						retval = true;
+						break;
 						
 					case DialogResult.No:
-						return true;
+						retval = true;
+						break;
 					case DialogResult.Cancel:
 					default:
-						return false;
+						retval = false;
+						break;
 				}
 				
 			} else {
 				
-				return true;
+				retval = true;
 			}
+			
+			if( retval ) {
+				NavigateClear();
+				CurrentSource.Dispose();
+			}	
+			
+			return retval;
 			
 		}
 		
@@ -445,7 +465,7 @@ namespace Anolis.Resourcer {
 			
 			_viewData.ShowResource( CurrentData );
 			
-			NavigateUpdateUI();
+			NavigateAdd();
 		}
 		
 		private void DataExport() {
@@ -468,7 +488,19 @@ namespace Anolis.Resourcer {
 			
 			if(__sfd.ShowDialog(this) != DialogResult.OK) return;
 			
-			CurrentData.Save( __sfd.FileName );
+			try {
+				
+				CurrentData.Save( __sfd.FileName );
+			
+			} catch(UnauthorizedAccessException aex) {
+				
+				MessageBox.Show(this, "Unable to write the file: " + aex.Message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				
+			} catch(System.IO.IOException iex) {
+				
+				MessageBox.Show(this, "Unable to write the file: " + iex.Message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				
+			}
 			
 		}
 		
@@ -564,7 +596,15 @@ namespace Anolis.Resourcer {
 		}
 		
 		private void DataCancel() {
-			throw new NotImplementedException();
+			
+			if( CurrentData == null ) throw new InvalidOperationException("There is no current ResourceData.");
+			
+			CurrentSource.Cancel( CurrentData.Lang );
+			
+			ToolbarUpdate( false, true, false );
+			
+			TreeRefresh( CurrentData.Lang );
+			
 		}
 		
 		private void DataCast(ResourceLang lang, ResourceDataFactory factory) {
@@ -587,8 +627,6 @@ namespace Anolis.Resourcer {
 			_viewList.ShowResourceSource( CurrentSource );
 			
 			NavigateAdd();
-			
-			NavigateUpdateUI();
 		}
 		
 		private void ListLoad(ResourceType type) {
@@ -599,7 +637,7 @@ namespace Anolis.Resourcer {
 			
 			_viewList.ShowResourceType(type);
 			
-			NavigateUpdateUI();
+			NavigateAdd();
 		}
 		
 		private void ListLoad(ResourceName name) {
@@ -610,7 +648,7 @@ namespace Anolis.Resourcer {
 			
 			_viewList.ShowResourceName(name);
 			
-			NavigateUpdateUI();
+			NavigateAdd();
 		}
 		
 #endregion
@@ -854,6 +892,10 @@ namespace Anolis.Resourcer {
 			
 			PendingOperationsForm pendingForm = new PendingOperationsForm();
 			pendingForm.ShowDialog(this);
+			
+			// in case anything happened, it'd need to be repopulated
+			TreePopulate();
+			ToolbarUpdate( false, true, false );
 			
 		}
 		

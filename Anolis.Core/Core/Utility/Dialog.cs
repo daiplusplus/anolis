@@ -108,6 +108,15 @@ namespace Anolis.Core.Utility {
 		Button,
 		PictureBox,
 		
+	}
+	
+	public enum KnownWindowClass {
+		Button    = 0x0080,
+		Edit      = 0x0081,
+		Static    = 0x0082,
+		ListBox   = 0x0083,
+		ScrollBar = 0x0084,
+		ComboBox  = 0x0085
 	} */
 	
 	
@@ -159,15 +168,6 @@ namespace Anolis.Core.Utility {
 		None,
 		Break,
 		BarBreak
-	}
-	
-	public enum KnownWindowClass : uint {
-		Button    = 0x0080,
-		Edit      = 0x0081,
-		Static    = 0x0082,
-		ListBox   = 0x0083,
-		ScrollBar = 0x0084,
-		ComboBox  = 0x0085
 	}
 	
 }

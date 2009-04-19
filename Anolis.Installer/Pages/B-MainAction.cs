@@ -22,9 +22,9 @@ namespace Anolis.Installer.Pages {
 		
 		private void MainActionPage_Load(object sender, EventArgs e) {
 			
-			__optCreateRad.Font = new Font( __optCreateRad.Font, FontStyle.Bold );
+			__optCreateRad .Font = new Font( __optCreateRad.Font, FontStyle.Bold );
 			__optInstallRad.Font = new Font( __optCreateRad.Font, FontStyle.Bold );
-			__optUndoRad.Font = new Font( __optCreateRad.Font, FontStyle.Bold );
+			__optUndoRad   .Font = new Font( __optCreateRad.Font, FontStyle.Bold );
 		}
 		
 		private void MainActionPage_PageUnload(object sender, PageChangeEventArgs e) {
