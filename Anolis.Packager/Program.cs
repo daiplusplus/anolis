@@ -2,15 +2,18 @@
 using System.Windows.Forms;
 
 namespace Anolis.Packager {
-	static class Program {
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
+	
+	public static class Program {
+		
 		[STAThread]
-		static void Main() {
+		public static void Main() {
+			
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Anolis.Packager.TarLzmaForm());
+			
+			MainForm form = new MainForm();
+			
+			Application.Run( form );
 		}
 	}
 }

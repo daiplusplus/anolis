@@ -17,7 +17,7 @@ namespace Anolis.Core.Source {
 		}
 		
 		protected override String GetOpenFileFilter() {
-			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("Win32 Executable", "exe", "dll", "cpl", "ocx", "scr", "msstyles");
+			return CreateFileFilter("Win32 Executable", "exe", "dll", "cpl", "ocx", "scr", "msstyles", "mui");
 		}
 		
 		public override Compatibility HandlesExtension(String extension) {
@@ -28,6 +28,7 @@ namespace Anolis.Core.Source {
 				case "OCX":
 				case "SCR":
 				case "MSSTYLES":
+				case "MUI":
 					return Compatibility.Yes;
 				default:
 					return Compatibility.Maybe;

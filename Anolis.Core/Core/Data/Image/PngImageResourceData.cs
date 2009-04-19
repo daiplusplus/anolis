@@ -10,20 +10,20 @@ namespace Anolis.Core.Data {
 			if(typeId.KnownType == Win32ResourceType.Unknown) return Compatibility.Maybe;
 			if(typeId.KnownType != Win32ResourceType.Custom) return Compatibility.No;
 			
-			if(typeId.StringId == "PNG")     return Compatibility.Yes;
-			if(typeId.StringId == "PNGF")    return Compatibility.Yes;
-			if(typeId.StringId == "PNGFILE") return Compatibility.Yes;
+			if( String.Equals( typeId.StringId, "PNG"    , StringComparison.OrdinalIgnoreCase)) return Compatibility.Yes;
+			if( String.Equals( typeId.StringId, "PNGF"   , StringComparison.OrdinalIgnoreCase)) return Compatibility.Yes;
+			if( String.Equals( typeId.StringId, "PNGFILE", StringComparison.OrdinalIgnoreCase)) return Compatibility.Yes;
 			
 			return Compatibility.Maybe;
 		}
 		
 		public override Compatibility HandlesExtension(string filenameExtension) {
-			if(filenameExtension == "png") return Compatibility.Yes;
+			if(filenameExtension == "PNG") return Compatibility.Yes;
 			return Compatibility.No;
 		}
 		
 		protected override String GetOpenFileFilter() {
-			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("PngImage", "png");
+			return CreateFileFilter("PngImage", "png");
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, byte[] data) {

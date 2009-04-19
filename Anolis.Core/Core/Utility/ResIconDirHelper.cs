@@ -90,7 +90,14 @@ namespace Anolis.Core.Utility {
 			ResourceLang lang = null;
 			
 			foreach(ResourceLang lan in name.Langs) {
-				if(lan.LanguageId == thisLang.LanguageId) { lang = lan; break; } // because a ResourceName can have multiple languages associated with it. I'm after the ResourceLang's resource data related to this Directory's lang
+				if(thisLang.LanguageId == 0) { // 0 matches any language, so go with the first
+					lang = lan;
+					break;
+				}
+				if(lan.LanguageId == thisLang.LanguageId) {
+					lang = lan;
+					break;
+				} // because a ResourceName can have multiple languages associated with it. I'm after the ResourceLang's resource data related to this Directory's lang
 			}
 			
 			if(lang == null) throw new AnolisException("Directory Subimage language not found"); // this has never happened in the past btw
@@ -208,11 +215,9 @@ namespace Anolis.Core.Utility {
 			
 			foreach(ResourceDataFactory f in factories) {
 				
-				if(f is IconImageResourceDataFactory) {
-					
-					_factory = f as IconImageResourceDataFactory;
-					break;
-				}
+				IconImageResourceDataFactory iif = f as IconImageResourceDataFactory;
+				if(iif != null) return _factory = iif;
+				
 			}
 			
 			return _factory;

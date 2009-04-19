@@ -39,7 +39,6 @@
 			// 
 			this.@__value.BackColor = System.Drawing.SystemColors.Window;
 			this.@__value.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.@__value.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.@__value.Location = new System.Drawing.Point(0, 271);
 			this.@__value.Multiline = true;
 			this.@__value.Name = "__value";

@@ -50,6 +50,7 @@ namespace Anolis.Resourcer {
 			this.__tGenOpt.Click            += new EventHandler(__tGenOptions_Click);
 
 			this.__tree.NodeMouseClick += new TreeNodeMouseClickEventHandler(__tree_NodeMouseClick);
+			this.__tree.BeforeCollapse += new TreeViewCancelEventHandler(__tree_BeforeCollapse);
 			this.__tree.AfterSelect         += new TreeViewEventHandler(__tree_AfterSelect);
 			this.__treeMenu.Opening         += new System.ComponentModel.CancelEventHandler(__treeMenu_Opening);
 			
@@ -113,6 +114,17 @@ namespace Anolis.Resourcer {
 			// TODO: Find a way to enable the Loading of items that are selected, but were re-clicked
 			// if the line below is uncommented then the list is loaded twice which causes a threading exception
 //			__tree_AfterSelect(sender, new TreeViewEventArgs(e.Node, TreeViewAction.ByMouse) );
+		}
+		
+		private void __tree_BeforeCollapse(object sender, TreeViewCancelEventArgs e) {
+			
+			// prevent collapse of the root node: the source
+			
+			if( __tree.Nodes.Count != 1 ) return;
+			
+			TreeNode root = __tree.Nodes[0];
+			if(root == e.Node) e.Cancel = true;
+			
 		}
 		
 		private void __tree_AfterSelect(Object sender, TreeViewEventArgs e) {

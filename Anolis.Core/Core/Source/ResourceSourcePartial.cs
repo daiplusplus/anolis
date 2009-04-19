@@ -40,7 +40,7 @@ namespace Anolis.Core {
 			return _types.Find(match);
 		}
 		
-		protected ResourceName UnderlyingFind(ResourceType type, Predicate<ResourceName> match) {
+		protected static ResourceName UnderlyingFind(ResourceType type, Predicate<ResourceName> match) {
 			
 			return type.UnderlyingNames.Find( match );
 		}
@@ -113,14 +113,14 @@ namespace Anolis.Core {
 		}
 		
 		/// <summary>Adds the specified ResourceName to the specified ResourceType without invalidating the structure. The ResourceType must already exist in this structure.</summary>
-		protected void UnderlyingAdd(ResourceType type, ResourceName name) {
+		protected static void UnderlyingAdd(ResourceType type, ResourceName name) {
 			
 			type.UnderlyingNames.Add( name );
 			
 		}
 		
 		/// <summary>Adds the specified ResourceLang to the specified ResourceName without invalidating the structure. The ResourceName must already exist in this structure.</summary>
-		protected void UnderlyingAdd(ResourceName name, ResourceLang lang) {
+		protected static void UnderlyingAdd(ResourceName name, ResourceLang lang) {
 			
 			name.UnderlyingLangs.Add( lang );
 			

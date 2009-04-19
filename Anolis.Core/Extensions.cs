@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using XmlElement = System.Xml.XmlElement;
 using System.IO;
 using System.Text;
@@ -57,6 +58,15 @@ namespace Anolis.Core {
 			
 			return Array.IndexOf( array, item );
 			
+		}
+		
+		public static void AddRange2<T>(this IList<T> list, IEnumerable<T> items) {
+			
+			// not as fast as AddRange in List<T>, but it'll do
+			
+			foreach(T item in items) {
+				list.Add( item );
+			}
 		}
 		
 #region Binary Reader

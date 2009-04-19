@@ -31,6 +31,6 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 [assembly: AssemblyVersion("0.8.*")]
-[assembly: AssemblyFileVersion("0.8.2.0")]
+[assembly: AssemblyFileVersion("0.8.5")]
 
 [assembly: CLSCompliant(false)]

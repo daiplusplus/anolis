@@ -13,7 +13,7 @@ namespace Anolis.Core.Native {
 
 #region Bitmaps
 	
-	namespace Dib {
+	namespace Gdi {
 		
 		/// <remarks>OS/2 DIB Header. bcBitCount can be one of 1, 4, 8, or 24</remarks>
 		[StructLayout(LayoutKind.Sequential, Pack=2)]

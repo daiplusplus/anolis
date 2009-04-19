@@ -62,17 +62,17 @@
 			this.@__optInstallNotes.BackColor = System.Drawing.Color.Transparent;
 			this.@__optInstallNotes.Location = new System.Drawing.Point(39, 50);
 			this.@__optInstallNotes.Name = "__optInstallNotes";
-			this.@__optInstallNotes.Size = new System.Drawing.Size(417, 40);
+			this.@__optInstallNotes.Size = new System.Drawing.Size(408, 40);
 			this.@__optInstallNotes.TabIndex = 1;
 			this.@__optInstallNotes.Text = "Installs a package located in this Anolis distribution or elsewhere in this compu" +
-				"ter";
+				"ter. The package can be installed to a setup files (I386) folder.";
 			// 
 			// __optUndoRad
 			// 
 			this.@__optUndoRad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__optUndoRad.BackColor = System.Drawing.Color.Transparent;
-			this.@__optUndoRad.Location = new System.Drawing.Point(22, 79);
+			this.@__optUndoRad.Location = new System.Drawing.Point(22, 84);
 			this.@__optUndoRad.Name = "__optUndoRad";
 			this.@__optUndoRad.Size = new System.Drawing.Size(434, 25);
 			this.@__optUndoRad.TabIndex = 2;
@@ -84,7 +84,7 @@
 			this.@__optUndoNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__optUndoNotes.BackColor = System.Drawing.Color.Transparent;
-			this.@__optUndoNotes.Location = new System.Drawing.Point(40, 108);
+			this.@__optUndoNotes.Location = new System.Drawing.Point(40, 113);
 			this.@__optUndoNotes.Name = "__optUndoNotes";
 			this.@__optUndoNotes.Size = new System.Drawing.Size(416, 40);
 			this.@__optUndoNotes.TabIndex = 3;

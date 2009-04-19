@@ -18,6 +18,7 @@
     <SccProvider>SAK</SccProvider>
     <TargetFrameworkSubset>
     </TargetFrameworkSubset>
+    <ApplicationIcon>Resources\Package.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,24 +49,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DistributorForm.cs">
+    <Compile Include="A-Import\Importer.cs" />
+    <Compile Include="D-Distro\DistributorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DistributorForm.Designer.cs">
+    <Compile Include="D-Distro\DistributorForm.Designer.cs">
       <DependentUpon>DistributorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TarLzmaForm.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TarLzmaForm.Designer.cs">
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="C-Compress\TarLzmaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C-Compress\TarLzmaForm.Designer.cs">
       <DependentUpon>TarLzmaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DistributorForm.resx">
+    <EmbeddedResource Include="D-Distro\DistributorForm.resx">
       <DependentUpon>DistributorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TarLzmaForm.resx">
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C-Compress\TarLzmaForm.resx">
       <DependentUpon>TarLzmaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -76,6 +88,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -87,6 +100,26 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Package.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Compress.png" />
+    <None Include="Resources\Create.png" />
+    <None Include="Resources\Distro.png" />
+    <None Include="Resources\Import.png" />
+    <None Include="Resources\Image1.bmp" />
+    <Content Include="Resources\Package.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Anolis.Core\Anolis.Core.csproj">
+      <Project>{967BF434-D4F9-41E3-8B82-433987DEB4A6}</Project>
+      <Name>Anolis.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="B-Define\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

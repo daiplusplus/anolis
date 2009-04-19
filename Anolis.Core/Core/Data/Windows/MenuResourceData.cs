@@ -6,6 +6,8 @@ using System.Text;
 using Anolis.Core.Native;
 using Anolis.Core.Utility;
 
+using Cult = System.Globalization.CultureInfo;
+
 namespace Anolis.Core.Data {
 	
 	public class MenuResourceDataFactory : ResourceDataFactory {
@@ -73,7 +75,7 @@ namespace Anolis.Core.Data {
 						menu = CreateEx(rdr);
 						break;
 					default:
-						throw new ResourceDataException("Unsupported Menu version word: '" + rawData[0].ToString() + "'");
+						throw new ResourceDataException("Unsupported Menu version word: '" + rawData[0].ToString(Cult.InvariantCulture) + "'");
 				}
 				
 				MenuResourceData ret = new MenuResourceData(lang, rawData);

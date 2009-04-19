@@ -5,56 +5,53 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
-namespace Anolis.XisImporter {
+namespace Anolis.Packager.Xis {
 	
-	public class Program {
-
-#if BLACKBOX
-		private	static String p = @"D:\Users\";
-#else
-		private static String p = @"C:\Documents and Settings\";
-#endif
+	public static class XisImporter {
 		
-		private static String q = p + @"David\My Documents\Visual Studio Projects\Anolis\_resources\xpize\";
+		private static String _nsiFilesDirectory;
 		
-		private static String loc = q + @"Files\";
-		private static String scr = q + @"_nsiScripts\";
-		
-		public static void Main(String[] args) {
+		public static void Convert(String nsiFilePath, String nsiFilesDirectory, String outputPath) {
 			
-			// args[0] is the nsi script containing details on each file
-			// args[1] is the folder containing the files
+			_nsiFilesDirectory = nsiFilesDirectory;
 			
-			Section[] sections = NsiReader.ReadFile( scr + "InstallerSystemFilesFull.nsi" );
-			
-			foreach(Section s in sections) {
+			lock(_nsiFilesDirectory) {
 				
-				ProcessSection( s );
+				// args[0] is the nsi script containing details on each file
+				// args[1] is the folder containing the files
+				
+				Section[] sections = NsiReader.ReadFile( nsiFilePath );
+				
+				foreach(Section s in sections) {
+					
+					ProcessSection( s );
+				}
+				
+				// now... write out to Xml
+				
+				XmlDocument doc = new XmlDocument();
+				
+				XmlElement root = doc.CreateElement("package");
+				root.SetAttribute("name", "xpize");
+				
+				doc.AppendChild( root );
+				
+				foreach(Section s in sections) {
+					
+					XmlProcessSection(doc, root, s);
+					
+				}
+				
+				XmlWriterSettings settings = new XmlWriterSettings();
+				settings.IndentChars = "\t";
+				settings.Indent = true;
+				settings.NewLineHandling = NewLineHandling.Replace;
+				
+				XmlWriter wtr = XmlWriter.Create( outputPath, settings );
+				
+				doc.Save( wtr );
+				
 			}
-			
-			// now... write out to Xml, hurrrr!
-			
-			XmlDocument doc = new XmlDocument();
-			
-			XmlElement root = doc.CreateElement("package");
-			root.SetAttribute("name", "xpize");
-			
-			doc.AppendChild( root );
-			
-			foreach(Section s in sections) {
-				
-				XmlProcessSection(doc, root, s);
-				
-			}
-			
-			XmlWriterSettings settings = new XmlWriterSettings();
-			settings.IndentChars = "\t";
-			settings.Indent = true;
-			settings.NewLineHandling = NewLineHandling.Replace;
-			
-			XmlWriter wtr = XmlWriter.Create( q + @"_anolis\Package.xml", settings );
-			
-			doc.Save( wtr );
 			
 		}
 		
@@ -192,28 +189,28 @@ namespace Anolis.XisImporter {
 				String fn = completeFilename.Substring( 18 );
 				if(fn.StartsWith("\\")) fn = fn.Substring(1);
 				
-				retval = Path.Combine( loc + @"Windows\system32", fn );
+				retval = Path.Combine( _nsiFilesDirectory + @"Windows\system32", fn );
 				
 			} else if( completeFilename.StartsWith(@"%windir%") ) {
 				
 				String fn = completeFilename.Substring( 8 );
 				if(fn.StartsWith("\\")) fn = fn.Substring(1);
 				
-				retval = Path.Combine( loc + @"Windows", fn );
+				retval = Path.Combine( _nsiFilesDirectory + @"Windows", fn );
 				
 			} else if( completeFilename.StartsWith(@"%ProgramFiles%") ) {
 				
 				String fn = completeFilename.Substring( 15 );
 				if(fn.StartsWith("\\")) fn = fn.Substring(1);
 				
-				retval = Path.Combine( loc + @"Program Files", fn );
+				retval = Path.Combine( _nsiFilesDirectory + @"Program Files", fn );
 				
 			} else if( completeFilename.StartsWith(@"%CommonProgramFiles%") ) {
 				
 				String fn = completeFilename.Substring( 20 );
 				if(fn.StartsWith("\\")) fn = fn.Substring(1);
 				
-				retval = Path.Combine( loc + @"Program Files\Common Files", fn );
+				retval = Path.Combine( _nsiFilesDirectory + @"Program Files\Common Files", fn );
 			
 			}
 			
@@ -243,7 +240,7 @@ namespace Anolis.XisImporter {
 				String[] parts = line.Split(',');
 				if(parts.Length != 5 && parts.Length != 4) throw new Exception("invalid number of parts");
 				
-				String currentDirRelativeToLoc = folder.FullName.Replace( loc, "" );
+				String currentDirRelativeToLoc = folder.FullName.Replace( _nsiFilesDirectory, "" );
 				
 				Operation o = new Operation();
 				o.Op               = parts[0].Trim('"', ' ');

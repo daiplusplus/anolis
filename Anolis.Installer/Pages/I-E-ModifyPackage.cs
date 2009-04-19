@@ -58,7 +58,7 @@ namespace Anolis.Installer.Pages {
 			
 			parent.Add( node );
 			
-			Set c = item as Set;
+			Group c = item as Group;
 			if(c != null) {
 				
 				foreach(PackageItem set in c.Children)   PopulateTreeview(node.Nodes, set);

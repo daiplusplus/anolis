@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using InvalidDataException = System.IO.InvalidDataException;
 
 using Anolis.Core.Native;
-using Anolis.Core.Native.Dib;
+using Anolis.Core.Native.Gdi;
 
 namespace Anolis.Core.Utility {
 	
@@ -204,7 +204,9 @@ namespace Anolis.Core.Utility {
 		
 		/// <summary>WidthBytes performs DWORD-aligning of DIB scanlines.  The "bits" parameter is the bit count for the scanline (biWidth * biBitCount), and this macro returns the number of DWORD-aligned bytes needed to hold those bits.</summary>
 		protected static uint WidthBytes(uint bits) {
-			return (bits + 31) / 32 * 4;
+			unchecked {
+				return (bits + 31) / 32 * 4;
+			}
 		}
 		
 		private static BitmapV5Header FillBitmapHeader(BinaryReader rdr, DibClass cls) {

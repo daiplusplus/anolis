@@ -34,8 +34,8 @@ namespace Anolis.Resourcer.TypeViewers {
 			
 			viewers.AddRange(
 				new TypeViewer[] {
-					new RawViewer(),
 					new TextViewer(),
+					new RawViewer(),
 					new ImageViewer(),
 					new SgmlViewer(),
 					

@@ -19,12 +19,12 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesExtension(String filenameExtension) {
 			
-			return (filenameExtension == "gif") ? Compatibility.Yes : Compatibility.No;
+			return (filenameExtension == "GIF") ? Compatibility.Yes : Compatibility.No;
 			
 		}
 		
 		protected override String GetOpenFileFilter() {
-			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("GifImage", "gif");
+			return CreateFileFilter("GifImage", "gif");
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
@@ -37,7 +37,7 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		private ResourceData FromFile(Stream stream, String extension) {
+		private static ResourceData FromFile(Stream stream, String extension) {
 			
 			Byte[] data = GetAllBytesFromStream(stream);
 			

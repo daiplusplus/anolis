@@ -28,7 +28,7 @@ namespace Anolis.Core.Packages {
 			Log           = new Collection<LogItem>();
 			
 			// Load it up
-			RootSet       = new Set(this, packageElement);
+			RootSet       = new Group(this, packageElement);
 		}
 		
 		public Single Version     { get; private set; }
@@ -111,7 +111,7 @@ namespace Anolis.Core.Packages {
 		
 		//////////////////////////////
 		
-		public Set                 RootSet { get; private set; }
+		public Group                 RootSet { get; private set; }
 		
 		public Collection<LogItem> Log     { get; private set; }
 		

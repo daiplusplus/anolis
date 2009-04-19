@@ -22,14 +22,14 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesExtension(String filenameExtension) {
 			
-			if(filenameExtension == "ico") return Compatibility.Yes;
+			if(filenameExtension == "ICO") return Compatibility.Yes;
 			
 			return Compatibility.No;
 			
 		}
 		
 		protected override String GetOpenFileFilter() {
-			return Anolis.Core.Utility.Miscellaneous.CreateFileFilter("IconDirectory", "ico");
+			return CreateFileFilter("IconDirectory", "ico");
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
@@ -140,6 +140,13 @@ namespace Anolis.Core.Data {
 		
 		
 #region Equatable
+		
+		public override Boolean Equals(Object obj) {
+			IconDirectoryMember other = obj as IconDirectoryMember;
+			if(other == null) return false;
+			
+			return Equals( other );
+		}
 		
 		public Boolean Equals(IDirectoryMember other) {
 			return Equals(other as IconDirectoryMember);

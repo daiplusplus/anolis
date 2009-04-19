@@ -91,6 +91,7 @@ namespace Anolis.Core.Native {
 		public static extern IntPtr BeginUpdateResource(String filename, [param: MarshalAs(UnmanagedType.Bool)] Boolean deleteAllExistingResources);
 		
 		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean UpdateResource(IntPtr updateHandle, IntPtr type, IntPtr name, UInt16 lang, IntPtr data, Int32 length);
 		
 		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
@@ -112,7 +113,7 @@ namespace Anolis.Core.Native {
     UINT uFlags
 );*/
 		[DllImport("User32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
-		public static extern IntPtr CreateIconFromResourceEx(IntPtr iconData, UInt32 sizeOfIconData, Boolean iconOrCursor, UInt32 version, Int32 desiredWidth, Int32 desiredHeight, IconFlags flags);
+		public static extern IntPtr CreateIconFromResourceEx(IntPtr iconData, UInt32 sizeOfIconData, [MarshalAs(UnmanagedType.Bool)]Boolean iconOrCursor, UInt32 version, Int32 desiredWidth, Int32 desiredHeight, IconFlags flags);
 		
 		public static IntPtr CreateIconFromResource(IntPtr iconData, UInt32 sizeOfIconData, Boolean iconOrCursor) {
 			
@@ -200,7 +201,7 @@ namespace Anolis.Core.Native {
 		
 		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern Boolean IsWow64Process(IntPtr hProcess, out Boolean isWow64Process);
+		public static extern Boolean IsWow64Process(IntPtr hProcess, [MarshalAs(UnmanagedType.Bool)] out Boolean isWow64Process);
 		
 #endregion
 		
