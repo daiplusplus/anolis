@@ -67,7 +67,7 @@
 			// 
 			this.Name = "SelectBackupPage";
 			this.PageTitle = "Select Backup Directory";
-			this.Subtitle = "Select the directory to recover from";
+			this.PageSubtitle = "Select the directory to recover from";
 
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();

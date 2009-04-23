@@ -78,8 +78,9 @@
     <Compile Include="Core\Data\Windows\VersionResourceData.cs" />
     <Compile Include="Core\FactoryBase.cs" />
     <Compile Include="Core\Source\FileResourceSource.cs" />
+    <Compile Include="Core\Source\ManagedResourceSource.cs" />
     <Compile Include="Core\Source\NESource.cs" />
-    <Compile Include="Core\Source\ManagedSource.cs" />
+    <Compile Include="Core\Source\CilResourceSource.cs" />
     <Compile Include="Core\Source\ResResourceSource.cs" />
     <Compile Include="Core\Resource.cs" />
     <Compile Include="Core\Data\Directory\CursorDirectoryResourceData.cs" />
@@ -115,8 +116,8 @@
     <Compile Include="Core\Native\NativeTypes.cs" />
     <Compile Include="Core\Native\NativeMethods.cs" />
     <Compile Include="Core\Source\Win32ResourceSource.cs" />
-    <Compile Include="Packages\EmbeddedPackageManager.cs" />
     <Compile Include="Packages\Exceptions.cs" />
+    <Compile Include="Packages\Expression.cs" />
     <Compile Include="Packages\Operations\ExtraOperation.cs" />
     <Compile Include="Packages\Operations\FileOperation.cs" />
     <Compile Include="Packages\Operations\NotImplementedOperation.cs" />

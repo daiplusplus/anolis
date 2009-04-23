@@ -499,8 +499,8 @@ namespace Anolis.Resourcer {
 			
 			System.Diagnostics.Debug.WriteLine("dropTarget_DragEnter");
 			
-			__dropTarget.DropDataAddEnabled     = CurrentSource != null;
-			__dropTarget.DropDataReplaceEnabled = CurrentData != null;
+			__dropTarget.DropDataAddEnabled     = CurrentSource != null && !CurrentSource.IsReadOnly;
+			__dropTarget.DropDataReplaceEnabled = CurrentData   != null && !CurrentSource.IsReadOnly;
 			
 			__dropTarget.Visible = true;
 			
@@ -541,7 +541,7 @@ namespace Anolis.Resourcer {
 		
 		private void __dropTarget_DropDataReplace(object sender, EventArgs e) {
 			
-			if( CurrentSource != null && CurrentData != null ) {
+			if( CurrentSource != null && CurrentData != null && !CurrentSource.IsReadOnly ) {
 				
 				DataReplace( __dropTarget.DropFile );
 				
@@ -551,7 +551,7 @@ namespace Anolis.Resourcer {
 		
 		private void __dropTarget_DropDataAdd(object sender, EventArgs e) {
 			
-			if( CurrentSource != null ) {
+			if( CurrentSource != null && !CurrentSource.IsReadOnly ) {
 				
 				DataImport( __dropTarget.DropFile );
 				

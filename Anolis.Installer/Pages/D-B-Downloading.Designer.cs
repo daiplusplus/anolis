@@ -56,7 +56,7 @@
 			// 
 			this.Name = "DownloadingPage";
 			this.PageTitle = "Downloading";
-			this.Subtitle = "Now downloading the Anolis program files";
+			this.PageSubtitle = "Now downloading the Anolis program files";
 
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();

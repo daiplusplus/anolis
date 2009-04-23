@@ -31,30 +31,31 @@ namespace Anolis.Installer {
 				PageAWelcome        = new WelcomePage();
 				PageBMainAction     = new MainActionPage();
 				
-				PageICSelectPackage = new SelectPackagePage();
-				PageIDExtracting    = new ExtractingPage();
-				PageIEModifyPackage = new ModifyPackagePage();
-				PageIFInstallationOptions = new InstallationOptionsPage();
-				PageIGInstalling    = new InstallingPage();
+				PageCASelectPackage = new SelectPackagePage();
+				PageCBExtracting    = new ExtractingPage();
+				PageCCUpdatePackage = new UpdatePackagePage();
+				PageCDModifyPackage = new ModifyPackagePage();
+				PageCEInstallOpts   = new InstallationOptionsPage();
+				PageCFInstalling    = new InstallingPage();
 				
-				PageDCDestination   = new DestinationPage();
-				PageDDDownloading   = new DownloadingPage();
+				PageDADestination   = new DestinationPage();
+				PageDBDownloading   = new DownloadingPage();
 				
-				PageUCSelectBackup  = new SelectBackupPage();
+				PageEASelectBackup  = new SelectBackupPage();
 				
-				PageZFinished       = new FinishedPage();
+				PageFFinished       = new FinishedPage();
 				
 				wiz                 = WizardFactory.Create();
 				wiz.CancelClicked  += new EventHandler(wiz_CancelClicked);
 				wiz.HasHelp         = false;
 				wiz.Title           = "Anolis Package Installer";
-				(wiz as Form).Icon  = Anolis.Installer.Properties.Resources.PackageIcon;
+				(wiz as Form).Icon  = InstallerResources.GetIcon("Package");
 				wiz.LoadPage( PageAWelcome );
 				
 				// preload resources
 				System.Drawing.Image
-					image = Anolis.Installer.Properties.Resources.Background;
-					image = Anolis.Installer.Properties.Resources.Banner;
+					image = InstallerResources.GetImage("Background");
+					image = InstallerResources.GetImage("Banner");
 				
 			} catch(Exception ex) {
 				
@@ -95,18 +96,19 @@ namespace Anolis.Installer {
 		internal static WelcomePage             PageAWelcome        { get; private set; }
 		internal static MainActionPage          PageBMainAction     { get; private set; }
 		
-		internal static SelectPackagePage       PageICSelectPackage { get; private set; }
-		internal static ExtractingPage          PageIDExtracting    { get; private set; }
-		internal static ModifyPackagePage       PageIEModifyPackage { get; private set; }
-		internal static InstallationOptionsPage PageIFInstallationOptions { get; private set; }
-		internal static InstallingPage          PageIGInstalling    { get; private set; }
+		internal static SelectPackagePage       PageCASelectPackage { get; private set; }
+		internal static ExtractingPage          PageCBExtracting    { get; private set; }
+		internal static UpdatePackagePage       PageCCUpdatePackage { get; private set; }
+		internal static ModifyPackagePage       PageCDModifyPackage { get; private set; }
+		internal static InstallationOptionsPage PageCEInstallOpts   { get; private set; }
+		internal static InstallingPage          PageCFInstalling    { get; private set; }
 		
-		internal static DestinationPage         PageDCDestination   { get; private set; }
-		internal static DownloadingPage         PageDDDownloading   { get; private set; }
+		internal static DestinationPage         PageDADestination   { get; private set; }
+		internal static DownloadingPage         PageDBDownloading   { get; private set; }
 		
-		internal static SelectBackupPage        PageUCSelectBackup  { get; private set; }
+		internal static SelectBackupPage        PageEASelectBackup  { get; private set; }
 		
-		internal static FinishedPage            PageZFinished       { get; private set; }
+		internal static FinishedPage            PageFFinished       { get; private set; }
 		
 		
 		internal static ProgramMode             ProgramMode         { get; set; }

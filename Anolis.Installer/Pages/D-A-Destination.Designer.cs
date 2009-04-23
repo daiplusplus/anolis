@@ -30,11 +30,8 @@
 			this.@__progGroupMe = new System.Windows.Forms.RadioButton();
 			this.@__destLbl = new System.Windows.Forms.Label();
 			this.@__fbd = new System.Windows.Forms.FolderBrowserDialog();
-
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
-
-
 			// 
 			// __content
 			// 
@@ -47,7 +44,7 @@
 			// 
 			// __destPath
 			// 
-			this.@__destPath.Location = new System.Drawing.Point(132, 43);
+			this.@__destPath.Location = new System.Drawing.Point(128, 43);
 			this.@__destPath.Name = "__destPath";
 			this.@__destPath.Size = new System.Drawing.Size(237, 20);
 			this.@__destPath.TabIndex = 0;
@@ -55,7 +52,7 @@
 			// 
 			// __destBrowse
 			// 
-			this.@__destBrowse.Location = new System.Drawing.Point(375, 41);
+			this.@__destBrowse.Location = new System.Drawing.Point(369, 41);
 			this.@__destBrowse.Name = "__destBrowse";
 			this.@__destBrowse.Size = new System.Drawing.Size(75, 23);
 			this.@__destBrowse.TabIndex = 1;
@@ -98,19 +95,18 @@
 			// 
 			// __destLbl
 			// 
-			this.@__destLbl.AutoSize = true;
-			this.@__destLbl.Location = new System.Drawing.Point(19, 46);
+			this.@__destLbl.Location = new System.Drawing.Point(0, 46);
 			this.@__destLbl.Name = "__destLbl";
-			this.@__destLbl.Size = new System.Drawing.Size(103, 13);
+			this.@__destLbl.Size = new System.Drawing.Size(122, 27);
 			this.@__destLbl.TabIndex = 5;
 			this.@__destLbl.Text = "Destination directory";
+			this.@__destLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// DestinationPage
 			// 
 			this.Name = "DestinationPage";
+			this.PageSubtitle = "Select a directory in which to place the downloaded files and set other options";
 			this.PageTitle = "Destination Directory and Installation Options";
-			this.Subtitle = "Select a directory in which to place the downloaded files and set other options";
-
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();
 			this.ResumeLayout(false);

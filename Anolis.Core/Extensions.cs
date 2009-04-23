@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using XmlElement = System.Xml.XmlElement;
 using System.IO;
 using System.Text;
+using System.Globalization;
 
 // Extension methods seem to require System.Core.dll, which is not in .NET2.0
 // so here's an ersatz Extension attribute class
@@ -45,12 +46,57 @@ namespace Anolis.Core {
 			
 		}
 		
+		public static String LeftFR(this String str, Int32 fromRight) {
+			
+			if(fromRight < 0)          throw new ArgumentOutOfRangeException("fromRight", fromRight, "value cannot be less than zero");
+			if(fromRight > str.Length) throw new ArgumentOutOfRangeException("fromRight", fromRight, "value cannot be greater than the length of the string");
+			
+			return str.Substring(0, str.Length - fromRight );
+			
+		}
+		
 		public static String Right(this String str, Int32 length) {
 			
 			if(length < 0)          throw new ArgumentOutOfRangeException("length", length, "value cannot be less than zero");
 			if(length > str.Length) throw new ArgumentOutOfRangeException("length", length, "value cannot be greater than the length of the string");
 			
 			return str.Substring( str.Length - length );
+			
+		}
+		
+		public static String Tok(this String str, ref Int32 start) {
+			
+			if(start >= str.Length) throw new ArgumentOutOfRangeException("start");
+			
+			Int32 i = start;
+			
+			StringBuilder sb = new StringBuilder();
+			
+			Char c = str[i];
+			
+			// skip whitespace
+			while( i < str.Length ) {
+				
+				c = str[ i ];
+				if( !Char.IsWhiteSpace( c ) ) break;
+				i++;
+			}
+			
+			UnicodeCategory initialCat = Char.GetUnicodeCategory( c );
+			UnicodeCategory currentCat = Char.GetUnicodeCategory( c );
+			while( i < str.Length && initialCat == currentCat ) {
+				
+				c = str[i];
+				sb.Append( str[i++] );
+				
+				if( i >= str.Length ) break;
+				
+				currentCat = Char.GetUnicodeCategory(str, i);
+			}
+			
+			start = i;
+			
+			return sb.ToString();
 			
 		}
 		

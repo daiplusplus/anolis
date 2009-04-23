@@ -34,8 +34,8 @@ namespace Anolis.Resourcer.Controls {
 		
 		private void DropTarget_VisibleChanged(object sender, EventArgs e) {
 			
-			__sourceOpen.Checked = false;
-			__dataAdd.Checked = false;
+			__sourceOpen .Checked = false;
+			__dataAdd    .Checked = false;
 			__dataReplace.Checked = false;
 		}
 		

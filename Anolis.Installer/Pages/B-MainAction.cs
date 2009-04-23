@@ -15,16 +15,20 @@ namespace Anolis.Installer.Pages {
 		public MainActionPage() {
 			InitializeComponent();
 			
+			Localize();
+			
 			this.PageUnload += new EventHandler<PageChangeEventArgs>(MainActionPage_PageUnload);
-
+			
 			this.Load += new EventHandler(MainActionPage_Load);
 		}
 		
+		protected override String LocalizePrefix { get { return "B"; } }
+		
 		private void MainActionPage_Load(object sender, EventArgs e) {
 			
-			__optCreateRad .Font = new Font( __optCreateRad.Font, FontStyle.Bold );
-			__optInstallRad.Font = new Font( __optCreateRad.Font, FontStyle.Bold );
-			__optUndoRad   .Font = new Font( __optCreateRad.Font, FontStyle.Bold );
+			__toolsRad .Font = new Font( __toolsRad.Font, FontStyle.Bold );
+			__installRad.Font = new Font( __toolsRad.Font, FontStyle.Bold );
+			__uninstallRad   .Font = new Font( __toolsRad.Font, FontStyle.Bold );
 		}
 		
 		private void MainActionPage_PageUnload(object sender, PageChangeEventArgs e) {
@@ -34,15 +38,15 @@ namespace Anolis.Installer.Pages {
 				return;
 			}
 			
-			if( __optInstallRad.Checked ) {
+			if( __installRad.Checked ) {
 				
 				Program.ProgramMode = ProgramMode.InstallPackage;
 				
-			} else if( __optUndoRad.Checked ) {
+			} else if( __uninstallRad.Checked ) {
 				
 				Program.ProgramMode = ProgramMode.UninstallPackage;
 				
-			} else if( __optCreateRad.Checked ) {
+			} else if( __toolsRad.Checked ) {
 				
 				Program.ProgramMode = ProgramMode.InstallTools;
 				
@@ -56,17 +60,17 @@ namespace Anolis.Installer.Pages {
 		public override BaseWizardPage NextPage {
 			get {
 				
-				if( __optInstallRad.Checked ) {
+				if( __installRad.Checked ) {
 					
-					return Program.PageICSelectPackage;
+					return Program.PageCASelectPackage;
 					
-				} else if( __optUndoRad.Checked ) {
+				} else if( __uninstallRad.Checked ) {
 					
-					return Program.PageUCSelectBackup;
+					return Program.PageEASelectBackup;
 					
-				} else if( __optCreateRad.Checked ) {
+				} else if( __toolsRad.Checked ) {
 					
-					return Program.PageDCDestination;
+					return Program.PageDADestination;
 					
 				} else {
 					

@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using Anolis.Core.Packages;
 using W3b.Wizards.WindowsForms;
+
 namespace Anolis.Installer.Pages {
 	
 	public partial class SelectPackagePage : BaseInteriorPage {
@@ -16,12 +17,15 @@ namespace Anolis.Installer.Pages {
 			this.__anopBrowse.Click += new EventHandler(__anopBrowse_Click);
 			this.__packBrowse.Click += new EventHandler(__packBrowse_Click);
 			
+			Localize();
 		}
+		
+		protected override String LocalizePrefix { get { return "C_A"; } }
 		
 		private void SelectPackage_Load(object sender, EventArgs e) {
 			
 			// Load the embedded list
-			EmbeddedPackage[] embedded = EmbeddedPackageManager.GetEmbeddedPackages();
+			EmbeddedPackage[] embedded = PackageUtility.GetEmbeddedPackages();
 			__embedList.Items.Clear();
 			
 			foreach(EmbeddedPackage package in embedded) {
@@ -37,7 +41,7 @@ namespace Anolis.Installer.Pages {
 			// TODO: Error messages etc
 			// UnloadEventArgs should have a .Cancel property which will be set to true if the user's info isn't valid
 			
-			if( e.PageToBeLoaded != Program.PageIDExtracting ) return;
+			if( e.PageToBeLoaded != Program.PageCBExtracting ) return;
 			
 			if( __embedRad.Checked ) {
 				
@@ -50,7 +54,7 @@ namespace Anolis.Installer.Pages {
 				
 				EmbeddedPackage package = __embedList.SelectedItem as EmbeddedPackage;
 				
-				Stream stream = EmbeddedPackageManager.GetEmbeddedPackage( package );
+				Stream stream = PackageUtility.GetEmbeddedPackage( package );
 				
 				PackageInfo.Source     = PackageSource.Embedded;
 				PackageInfo.SourcePath = package.Name;
@@ -115,7 +119,7 @@ namespace Anolis.Installer.Pages {
 		}
 		
 		public override BaseWizardPage NextPage {
-			get { return Program.PageIDExtracting; }
+			get { return Program.PageCBExtracting; }
 		}
 		
 		public override BaseWizardPage PrevPage {

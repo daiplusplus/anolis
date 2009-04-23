@@ -41,31 +41,31 @@
 			// 
 			// __content
 			// 
-			this.@__content.Controls.Add(this.@__i386Browse);
-			this.@__content.Controls.Add(this.@__i386Path);
-			this.@__content.Controls.Add(this.@__i386Lbl);
-			this.@__content.Controls.Add(this.@__i386);
 			this.@__content.Controls.Add(this.@__comp);
-			this.@__content.Controls.Add(this.@__sysResDesc);
-			this.@__content.Controls.Add(this.@__sysRes);
-			this.@__content.Controls.Add(this.@__backupDesc);
 			this.@__content.Controls.Add(this.@__backup);
-			this.@__content.Controls.Add(this.@__backupBrowse);
+			this.@__content.Controls.Add(this.@__backupDesc);
 			this.@__content.Controls.Add(this.@__backupPath);
+			this.@__content.Controls.Add(this.@__backupBrowse);
+			this.@__content.Controls.Add(this.@__sysRes);
+			this.@__content.Controls.Add(this.@__sysResDesc);
+			this.@__content.Controls.Add(this.@__i386);
+			this.@__content.Controls.Add(this.@__i386Lbl);
+			this.@__content.Controls.Add(this.@__i386Path);
+			this.@__content.Controls.Add(this.@__i386Browse);
 			// 
 			// __backupPath
 			// 
 			this.@__backupPath.Location = new System.Drawing.Point(91, 85);
 			this.@__backupPath.Name = "__backupPath";
 			this.@__backupPath.Size = new System.Drawing.Size(257, 20);
-			this.@__backupPath.TabIndex = 1;
+			this.@__backupPath.TabIndex = 2;
 			// 
 			// __backupBrowse
 			// 
 			this.@__backupBrowse.Location = new System.Drawing.Point(354, 83);
 			this.@__backupBrowse.Name = "__backupBrowse";
 			this.@__backupBrowse.Size = new System.Drawing.Size(75, 23);
-			this.@__backupBrowse.TabIndex = 2;
+			this.@__backupBrowse.TabIndex = 3;
 			this.@__backupBrowse.Text = "Browse...";
 			this.@__backupBrowse.UseVisualStyleBackColor = true;
 			// 
@@ -77,7 +77,7 @@
 			this.@__backup.Location = new System.Drawing.Point(47, 28);
 			this.@__backup.Name = "__backup";
 			this.@__backup.Size = new System.Drawing.Size(284, 17);
-			this.@__backup.TabIndex = 3;
+			this.@__backup.TabIndex = 1;
 			this.@__backup.Text = "Create uninstallation backup directory (Recommended)";
 			this.@__backup.UseVisualStyleBackColor = true;
 			// 
@@ -98,7 +98,7 @@
 			this.@__sysRes.Location = new System.Drawing.Point(47, 111);
 			this.@__sysRes.Name = "__sysRes";
 			this.@__sysRes.Size = new System.Drawing.Size(242, 17);
-			this.@__sysRes.TabIndex = 5;
+			this.@__sysRes.TabIndex = 4;
 			this.@__sysRes.Text = "Create System Restore Point (Recommended)";
 			this.@__sysRes.UseVisualStyleBackColor = true;
 			// 
@@ -118,7 +118,7 @@
 			this.@__comp.Location = new System.Drawing.Point(14, 5);
 			this.@__comp.Name = "__comp";
 			this.@__comp.Size = new System.Drawing.Size(131, 17);
-			this.@__comp.TabIndex = 7;
+			this.@__comp.TabIndex = 0;
 			this.@__comp.TabStop = true;
 			this.@__comp.Text = "Install to this Computer";
 			this.@__comp.UseVisualStyleBackColor = true;
@@ -129,7 +129,7 @@
 			this.@__i386.Location = new System.Drawing.Point(14, 164);
 			this.@__i386.Name = "__i386";
 			this.@__i386.Size = new System.Drawing.Size(88, 17);
-			this.@__i386.TabIndex = 8;
+			this.@__i386.TabIndex = 5;
 			this.@__i386.Text = "Install to I386";
 			this.@__i386.UseVisualStyleBackColor = true;
 			// 
@@ -147,7 +147,7 @@
 			this.@__i386Browse.Location = new System.Drawing.Point(354, 188);
 			this.@__i386Browse.Name = "__i386Browse";
 			this.@__i386Browse.Size = new System.Drawing.Size(75, 23);
-			this.@__i386Browse.TabIndex = 11;
+			this.@__i386Browse.TabIndex = 7;
 			this.@__i386Browse.Text = "Browse...";
 			this.@__i386Browse.UseVisualStyleBackColor = true;
 			// 
@@ -156,13 +156,13 @@
 			this.@__i386Path.Location = new System.Drawing.Point(91, 190);
 			this.@__i386Path.Name = "__i386Path";
 			this.@__i386Path.Size = new System.Drawing.Size(257, 20);
-			this.@__i386Path.TabIndex = 10;
+			this.@__i386Path.TabIndex = 6;
 			// 
 			// InstallationOptionsPage
 			// 
 			this.Name = "InstallationOptionsPage";
+			this.PageSubtitle = "Select a backup directory and other options";
 			this.PageTitle = "Installation Options";
-			this.Subtitle = "Select a backup directory and other options";
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();
 			this.ResumeLayout(false);

@@ -1,14 +1,76 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Management;
-using Microsoft.Win32;
+using System.Reflection;
+using System.Security.Principal;
+using System.Text;
 
 using Anolis.Core.Native;
+using Microsoft.Win32;
+
+using Path          = System.IO.Path;
+using Stream        = System.IO.Stream;
 using MoveFileFlags = Anolis.Core.Native.NativeMethods.MoveFileFlags;
-using System.Security.Principal;
 
 namespace Anolis.Core.Packages {
 	
+	public class EmbeddedPackage {
+		
+		internal EmbeddedPackage(String name, Assembly assembly, String manifestResourceName) {
+			
+			Name                 = name;
+			
+			Assembly             = assembly;
+			ManifestResourceName = manifestResourceName;
+		}
+		
+		public String Name { get; private set; }
+		
+		internal Assembly Assembly             { get; set; }
+		internal String   ManifestResourceName { get; set; }
+		
+		public override String ToString() {
+			return Name;
+		}
+	}
+	
 	public static class PackageUtility {
+		
+#region Embedded Packages
+		
+				public static EmbeddedPackage[] GetEmbeddedPackages() {
+			
+			return GetEmbeddedPackages( Assembly.GetEntryAssembly() );
+			
+		}
+		
+		public static EmbeddedPackage[] GetEmbeddedPackages(Assembly inAssembly) {
+			
+			List<EmbeddedPackage> packages = new List<EmbeddedPackage>();
+			
+			String[] resourceNames = inAssembly.GetManifestResourceNames();
+			foreach(String resName in resourceNames) {
+				
+				if( resName.EndsWith(".anop", StringComparison.Ordinal) ) {
+					
+					String packName = resName.Substring(0, resName.Length - ".anop".Length );
+					
+					packages.Add( new EmbeddedPackage( packName, inAssembly, resName ) );
+					
+				}
+				
+			}
+			
+			return packages.ToArray();
+			
+		}
+		
+		public static Stream GetEmbeddedPackage(EmbeddedPackage package) {
+			
+			return package.Assembly.GetManifestResourceStream( package.ManifestResourceName );
+		}
+		
+#endregion
 		
 		public static void AllowProtectedRenames() {
 			
@@ -90,6 +152,66 @@ namespace Anolis.Core.Packages {
 				return principal.IsInRole(WindowsBuiltInRole.Administrator);
 			}
 		}
+		
+		public static String ResolvePath(String path, String root) {
+			
+			if( path.IndexOf('%') == -1 ) return path;
+			
+			StringBuilder retval = new StringBuilder();
+			StringBuilder currentEnvVar = new StringBuilder();
+			
+			Boolean inEnvVar = false;
+			for(int i=0;i<path.Length;i++) {
+				Char c = path[i];
+				
+				if(c == '%') inEnvVar = !inEnvVar;
+				if(c == '%' && inEnvVar) {
+					inEnvVar = path.IndexOf('%', i) > -1; // it doesn't count if there isn't another % in the string later on
+					if(inEnvVar) continue; // no point logging the % character
+				}
+				if(c == '%' && !inEnvVar) {
+					continue;
+				}
+				
+				if(!inEnvVar) retval.Append( c );
+				else {
+					
+					currentEnvVar.Append( c );
+					
+					if( path[i+1] == '%' ) { // if we're at the end of an envvar; // TODO: How do I avoid an indexoutofrange?
+						// actually, I don't think this will happen since the check above means we won't be inEnvVar if there isn't another one in the string
+						
+						String envVar = currentEnvVar.ToString(); currentEnvVar.Length = 0;
+						retval.Append( Environment.GetEnvironmentVariable( envVar ) );
+						
+					}
+				}
+			}
+			
+			String ret = retval.ToString();
+			
+			if( !Path.IsPathRooted( ret ) ) {
+				
+				ret = Path.Combine( root, ret );
+			}
+			
+			return ret;
+		}
+		
+		public static void ClearIconCache() {
+			
+			// until I find a better way, just delete it
+			
+			// you can delete it on Windows XP without any trouble
+			// the file is in the same location on Vista, I imagine this is the same in Win7
+			
+			String iconCacheFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			       iconCacheFile = Path.Combine( iconCacheFile, "IconCache.db" );
+			
+			AddPfroEntry( iconCacheFile, null );
+		}
+		
+		// TODO: Move the embedded package management methods to this class
 		
 	}
 }
