@@ -17,7 +17,10 @@ namespace Anolis.Installer.Pages {
 			this.PageLoad += new EventHandler(ModifyPackagePage_Load);
 			this.__packageView.AfterSelect += new TreeViewEventHandler(__packageView_AfterSelect);
 			
+			Localize();
 		}
+		
+		protected override String LocalizePrefix { get { return "C_D"; } }
 		
 		private void __packageView_AfterSelect(object sender, TreeViewEventArgs e) {
 			
@@ -36,11 +39,11 @@ namespace Anolis.Installer.Pages {
 		}
 		
 		public override BaseWizardPage PrevPage {
-			get { return Program.PageICSelectPackage; }
+			get { return Program.PageCCUpdatePackage; }
 		}
 		
 		public override BaseWizardPage NextPage {
-			get { return Program.PageIFInstallationOptions; }
+			get { return Program.PageCEInstallOpts; }
 		}
 		
 		private void PopulateTreeview() {
@@ -96,7 +99,7 @@ namespace Anolis.Installer.Pages {
 					__infoLbl.Text = (item as Operation).Path;
 				} else {
 					
-					__infoLbl.Text = Anolis.Installer.Properties.Resources.PageI_E_NoInfo;
+					__infoLbl.Text = InstallerResources.GetString("C_C_noInfo");
 				}
 				
 			} else {

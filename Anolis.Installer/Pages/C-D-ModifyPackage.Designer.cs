@@ -76,7 +76,7 @@
 			// 
 			this.Name = "ModifyPackagePage";
 			this.PageTitle = "Modify Package";
-			this.Subtitle = "You can choose whether or not to install components of this package";
+			this.PageSubtitle = "You can choose whether or not to install components of this package";
 
 			this.@__content.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.@__infoPicture)).EndInit();

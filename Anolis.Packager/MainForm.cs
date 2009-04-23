@@ -8,8 +8,8 @@ namespace Anolis.Packager {
 		public MainForm() {
 			InitializeComponent();
 			
-			//this.__import.Tag = new 
-			//this.__define
+			this.__import.Tag = new ImportForm();
+			this.__define.Tag = new DefinitionForm();
 			this.__compre.Tag = new TarLzmaForm();
 			this.__distro.Tag = new DistributorForm();
 			

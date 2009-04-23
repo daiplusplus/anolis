@@ -38,6 +38,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ILMerge, Version=2.8.626.0, Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_ref\ILMerge\ILMerge.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -50,12 +54,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="A-Import\Importer.cs" />
+    <Compile Include="A-Import\ImportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="A-Import\ImportForm.Designer.cs">
+      <DependentUpon>ImportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="B-Define\ConditionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="B-Define\ConditionEditor.Designer.cs">
+      <DependentUpon>ConditionEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="B-Define\DefinitionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="B-Define\DefinitionForm.Designer.cs">
+      <DependentUpon>DefinitionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="D-Distro\DistributorForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="D-Distro\DistributorForm.Designer.cs">
       <DependentUpon>DistributorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="D-Distro\Merger.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,14 +125,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Package.ico" />
+    <EmbeddedResource Include="A-Import\ImportForm.resx">
+      <DependentUpon>ImportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="B-Define\ConditionEditor.resx">
+      <DependentUpon>ConditionEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="B-Define\DefinitionForm.resx">
+      <DependentUpon>DefinitionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Package.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Compress.png" />
     <None Include="Resources\Create.png" />
     <None Include="Resources\Distro.png" />
     <None Include="Resources\Import.png" />
-    <None Include="Resources\Image1.bmp" />
     <Content Include="Resources\Package.png" />
   </ItemGroup>
   <ItemGroup>
@@ -117,9 +148,6 @@
       <Project>{967BF434-D4F9-41E3-8B82-433987DEB4A6}</Project>
       <Name>Anolis.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="B-Define\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

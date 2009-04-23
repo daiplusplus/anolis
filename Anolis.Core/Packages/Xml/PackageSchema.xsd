@@ -64,7 +64,7 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 					<xs:attribute name="operation" type="fileOperation" use="required" />
 					<xs:attribute name="path"      type="xs:anyURI"     use="required" />
 					<xs:attribute name="src"       type="xs:anyURI"     use="optional" />
-					<xs:attribute name="condition" type="xs:string" use="optional" />
+					<xs:attribute name="condition" type="xs:string"     use="optional" />
 					
 				</xs:complexType>
 			</xs:element>
@@ -143,9 +143,10 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 			<xs:enumeration value="cursor" />
 			<xs:enumeration value="cursorScheme" />
 			<xs:enumeration value="visualStyle" />
-			<xs:enumeration value="program-xar" />
-			<xs:enumeration value="program-zip" />
+			<xs:enumeration value="programRun" />
+			<xs:enumeration value="programZip" />
 			<xs:enumeration value="screensaver" />
+			<xs:enumeration value="custom" />
 		</xs:restriction>
 	</xs:simpleType>
 	

@@ -21,7 +21,11 @@ namespace Anolis.Installer.Pages {
 			this.PageUnload += new EventHandler<PageChangeEventArgs>(InstallationOptionsPage_PageUnload);
 
 			__bw.DoWork += new DoWorkEventHandler(__bw_DoWork);
+			
+			Localize();
 		}
+		
+		protected override String LocalizePrefix { get { return "C_E"; } }
 		
 		private void __bw_DoWork(object sender, DoWorkEventArgs e) {
 			
@@ -39,22 +43,26 @@ namespace Anolis.Installer.Pages {
 			PackageInfo.SystemRestore = __sysRes.Checked;
 		}
 		
+		private String _oldNextText;
+		
 		private void InstallationOptionsPage_PageLoad(object sender, EventArgs e) {
 			
-			WizardForm.NextText = "Install";
+			_oldNextText = WizardForm.NextText;
+			
+			WizardForm.NextText = InstallerResources.GetString("C_D_installButton");
 		}
 		
 		private void InstallationOptionsPage_PageUnload(object sender, PageChangeEventArgs e) {
 			
-			WizardForm.NextText = "Next";
+			WizardForm.NextText = _oldNextText;
 		}
 		
 		public override BaseWizardPage PrevPage {
-			get { return Program.PageIEModifyPackage; }
+			get { return Program.PageCDModifyPackage; }
 		}
 		
 		public override BaseWizardPage NextPage {
-			get { return Program.PageIGInstalling; }
+			get { return Program.PageCFInstalling; }
 		}
 		
 	}

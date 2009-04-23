@@ -17,6 +17,12 @@ namespace Anolis.Installer.Pages {
 			
 			this.Load += new EventHandler(DestinationPage_Load);
 			this.__progGroup.CheckedChanged += new EventHandler(__progGroup_CheckedChanged);
+			
+			Localize();
+		}
+		
+		protected override string LocalizePrefix {
+			get { return "D_A"; }
 		}
 		
 		private void __progGroup_CheckedChanged(object sender, EventArgs e) {
@@ -32,7 +38,7 @@ namespace Anolis.Installer.Pages {
 		}
 		
 		public override BaseWizardPage NextPage {
-			get { return Program.PageDDDownloading; }
+			get { return Program.PageDBDownloading; }
 		}
 		
 		public override BaseWizardPage PrevPage {

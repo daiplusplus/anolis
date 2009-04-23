@@ -169,9 +169,9 @@
 			// SelectPackagePage
 			// 
 			this.Name = "SelectPackagePage";
-			this.PageTitle = "Select a package to install";
-			this.Subtitle = "The package to install can either be installed on this computer or embedded in th" +
+			this.PageSubtitle = "The package to install can either be installed on this computer or embedded in th" +
 				"is installer";
+			this.PageTitle = "Select a package to install";
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();
 			this.ResumeLayout(false);

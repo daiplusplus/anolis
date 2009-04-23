@@ -16,6 +16,18 @@ namespace Anolis.Installer.Pages {
 			InitializeComponent();
 			
 			this.Load += new EventHandler(WelcomePage_Load);
+			
+			Localize();
+		}
+		
+		private void Localize() {
+			
+			base.WatermarkImage     = InstallerResources.GetImage("Background");
+			base.WatermarkAlignment = ContentAlignment.BottomLeft;
+			base.WatermarkWidth     = WatermarkImage.Width; // 273;
+			
+			this.__title.Text = InstallerResources.GetString("A_Title");
+			this.__inst1.Text = InstallerResources.GetString("A_Message");
 		}
 		
 		private void WelcomePage_Load(object sender, EventArgs e) {

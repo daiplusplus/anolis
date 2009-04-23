@@ -1,5 +1,5 @@
 ﻿namespace Anolis.Installer.Pages {
-	partial class ExtractingPage {
+	partial class InstallingPage {
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
@@ -27,6 +27,8 @@
 			this.@__progress = new System.Windows.Forms.ProgressBar();
 			this.@__statusLabel = new System.Windows.Forms.Label();
 			this.@__packageMessages = new System.Windows.Forms.TextBox();
+			this.@__bw = new System.ComponentModel.BackgroundWorker();
+			this.@__showLog = new System.Windows.Forms.Button();
 
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
@@ -35,6 +37,7 @@
 			// 
 			// __content
 			// 
+			this.@__content.Controls.Add(this.@__showLog);
 			this.@__content.Controls.Add(this.@__packageMessages);
 			this.@__content.Controls.Add(this.@__statusLabel);
 			this.@__content.Controls.Add(this.@__progress);
@@ -76,11 +79,20 @@
 			this.@__packageMessages.Visible = false;
 			this.@__packageMessages.WordWrap = false;
 			// 
-			// ExtractingPage
+			// __showLog
 			// 
-			this.Name = "ExtractingPage";
-			this.PageTitle = "Preparing Package";
-			this.Subtitle = "Please wait whilst the installer prepares the package for installation";
+			this.@__showLog.Location = new System.Drawing.Point(360, 80);
+			this.@__showLog.Name = "__showLog";
+			this.@__showLog.Size = new System.Drawing.Size(75, 23);
+			this.@__showLog.TabIndex = 3;
+			this.@__showLog.Text = "Show Log";
+			this.@__showLog.UseVisualStyleBackColor = true;
+			// 
+			// InstallingPage
+			// 
+			this.Name = "InstallingPage";
+			this.PageTitle = "Installing Package";
+			this.PageSubtitle = "Your selected package is being installed";
 
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();
@@ -94,5 +106,7 @@
 		private System.Windows.Forms.Label __statusLabel;
 		private System.Windows.Forms.ProgressBar __progress;
 		private System.Windows.Forms.TextBox __packageMessages;
+		private System.ComponentModel.BackgroundWorker __bw;
+		private System.Windows.Forms.Button __showLog;
 	}
 }

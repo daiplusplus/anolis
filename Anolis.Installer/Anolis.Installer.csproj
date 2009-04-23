@@ -65,6 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InstallerResources.cs" />
     <Compile Include="Pages\A-Welcome.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -80,115 +81,117 @@
     <Compile Include="Pages\0-BaseInteriorPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\I-G-Installing.cs">
+    <Compile Include="Pages\C-F-Installing.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\I-G-Installing.Designer.cs">
-      <DependentUpon>I-G-Installing.cs</DependentUpon>
+    <Compile Include="Pages\C-F-Installing.Designer.cs">
+      <DependentUpon>C-F-Installing.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\D-C-Destination.cs">
+    <Compile Include="Pages\C-C-UpdatePackage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\D-C-Destination.Designer.cs">
-      <DependentUpon>D-C-Destination.cs</DependentUpon>
+    <Compile Include="Pages\C-C-UpdatePackage.Designer.cs">
+      <DependentUpon>C-C-UpdatePackage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\D-D-Downloading.cs">
+    <Compile Include="Pages\D-A-Destination.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\D-D-Downloading.Designer.cs">
-      <DependentUpon>D-D-Downloading.cs</DependentUpon>
+    <Compile Include="Pages\D-A-Destination.Designer.cs">
+      <DependentUpon>D-A-Destination.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\I-C-SelectPackage.cs">
+    <Compile Include="Pages\D-B-Downloading.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\I-C-SelectPackage.Designer.cs">
-      <DependentUpon>I-C-SelectPackage.cs</DependentUpon>
+    <Compile Include="Pages\D-B-Downloading.Designer.cs">
+      <DependentUpon>D-B-Downloading.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\I-F-InstallationOptions.cs">
+    <Compile Include="Pages\C-A-SelectPackage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\I-F-InstallationOptions.Designer.cs">
-      <DependentUpon>I-F-InstallationOptions.cs</DependentUpon>
+    <Compile Include="Pages\C-A-SelectPackage.Designer.cs">
+      <DependentUpon>C-A-SelectPackage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\I-E-ModifyPackage.cs">
+    <Compile Include="Pages\C-E-InstallationOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\I-E-ModifyPackage.Designer.cs">
-      <DependentUpon>I-E-ModifyPackage.cs</DependentUpon>
+    <Compile Include="Pages\C-E-InstallationOptions.Designer.cs">
+      <DependentUpon>C-E-InstallationOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\I-D-Extracting.cs">
+    <Compile Include="Pages\C-D-ModifyPackage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\I-D-Extracting.Designer.cs">
-      <DependentUpon>I-D-Extracting.cs</DependentUpon>
+    <Compile Include="Pages\C-D-ModifyPackage.Designer.cs">
+      <DependentUpon>C-D-ModifyPackage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\U-C-SelectBackup.cs">
+    <Compile Include="Pages\C-B-Extracting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\U-C-SelectBackup.Designer.cs">
-      <DependentUpon>U-C-SelectBackup.cs</DependentUpon>
+    <Compile Include="Pages\C-B-Extracting.Designer.cs">
+      <DependentUpon>C-B-Extracting.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Z-Finished.cs">
+    <Compile Include="Pages\E-A-SelectBackup.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\Z-Finished.designer.cs">
-      <DependentUpon>Z-Finished.cs</DependentUpon>
+    <Compile Include="Pages\E-A-SelectBackup.Designer.cs">
+      <DependentUpon>E-A-SelectBackup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\F-Finished.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\F-Finished.designer.cs">
+      <DependentUpon>F-Finished.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Pages\0-BaseInteriorPage.resx">
+      <DependentUpon>0-BaseInteriorPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\A-Welcome.resx">
       <DependentUpon>A-Welcome.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\B-MainAction.resx">
       <DependentUpon>B-MainAction.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\I-G-Installing.resx">
-      <DependentUpon>I-G-Installing.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\C-F-Installing.resx">
+      <DependentUpon>C-F-Installing.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\D-C-Destination.resx">
-      <DependentUpon>D-C-Destination.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\C-C-UpdatePackage.resx">
+      <DependentUpon>C-C-UpdatePackage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\D-D-Downloading.resx">
-      <DependentUpon>D-D-Downloading.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\D-A-Destination.resx">
+      <DependentUpon>D-A-Destination.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\I-C-SelectPackage.resx">
-      <DependentUpon>I-C-SelectPackage.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\D-B-Downloading.resx">
+      <DependentUpon>D-B-Downloading.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\I-F-InstallationOptions.resx">
-      <DependentUpon>I-F-InstallationOptions.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\C-A-SelectPackage.resx">
+      <DependentUpon>C-A-SelectPackage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\I-E-ModifyPackage.resx">
-      <DependentUpon>I-E-ModifyPackage.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\C-E-InstallationOptions.resx">
+      <DependentUpon>C-E-InstallationOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\I-D-Extracting.resx">
-      <DependentUpon>I-D-Extracting.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\C-D-ModifyPackage.resx">
+      <DependentUpon>C-D-ModifyPackage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\U-C-SelectBackup.resx">
-      <DependentUpon>U-C-SelectBackup.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\C-B-Extracting.resx">
+      <DependentUpon>C-B-Extracting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\Z-Finished.resx">
-      <DependentUpon>Z-Finished.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\E-A-SelectBackup.resx">
+      <DependentUpon>E-A-SelectBackup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Pages\F-Finished.resx">
+      <DependentUpon>F-Finished.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Wizard.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+      <LastGenOutput>Wizard.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.config" />
     <None Include="app.manifest" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
+    <Compile Include="Resources\Wizard.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Wizard.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

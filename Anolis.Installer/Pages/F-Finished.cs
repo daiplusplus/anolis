@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using Anolis.Core.Packages;
 using W3b.Wizards.WindowsForms;
 
 namespace Anolis.Installer.Pages {
@@ -15,6 +16,17 @@ namespace Anolis.Installer.Pages {
 			InitializeComponent();
 			
 			this.PageLoad += new EventHandler(FinishedPage_PageLoad);
+			
+			Localize();
+		}
+		
+		private void Localize() {
+			
+			base.WatermarkImage     = InstallerResources.GetImage("Background");
+			base.WatermarkAlignment = ContentAlignment.BottomLeft;
+			base.WatermarkWidth     = WatermarkImage.Width; // 273;
+			
+			__title.Text = InstallerResources.GetString("F_Title");
 		}
 		
 		private void FinishedPage_PageLoad(object sender, EventArgs e) {
@@ -28,22 +40,16 @@ namespace Anolis.Installer.Pages {
 				case ProgramMode.InstallPackage:
 				case ProgramMode.UninstallPackage:
 					
-					this.WizardForm.NextText = "Restart";
+					this.WizardForm.NextText = InstallerResources.GetString("F_restartButton");
 					this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Restart);
 					
 					if(Program.ProgramMode == ProgramMode.InstallPackage) {
 						
-						this.__installationComplete.Text = 
-@"Installation has been completed succesfully. Your computer will now restart.
-
-Close all open applications before continuing. Do not attempt to open any new applications.";
+						this.__installationComplete.Text = InstallerResources.GetString("F_installationComplete");
 						
 					} else {
 						
-						this.__installationComplete.Text = 
-@"Uninstallation has been completed succesfully. Your computer will now restart.
-
-Close all open applications before continuing. Do not attempt to open any new applications.";
+						this.__installationComplete.Text = InstallerResources.GetString("F_uninstallationComplete");
 						
 					}
 					
@@ -53,11 +59,10 @@ Close all open applications before continuing. Do not attempt to open any new ap
 				case ProgramMode.None:
 				case ProgramMode.InstallTools:
 					
-					this.WizardForm.NextText = "Finish";
+					this.WizardForm.NextText = InstallerResources.GetString("F_finishButton");
 					this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Quit);
 					
-					this.__installationComplete.Text = 
-@"Installation has been completed succesfully.";
+					this.__installationComplete.Text = InstallerResources.GetString("F_installTools");
 					
 					break;
 			}
@@ -67,7 +72,7 @@ Close all open applications before continuing. Do not attempt to open any new ap
 		private void WizardForm_NextClicked_Restart(Object sender, EventArgs e) {
 			
 			// restart the computer system
-			Anolis.Core.Packages.PackageUtility.InitRestart();
+			PackageUtility.InitRestart();
 		}
 		
 		private void WizardForm_NextClicked_Quit(Object sender, EventArgs e) {

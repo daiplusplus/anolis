@@ -21,7 +21,11 @@ namespace Anolis.Installer.Pages {
 			
 			__bw.DoWork += new DoWorkEventHandler(__bw_DoWork);
 			__bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(__bw_RunWorkerCompleted);
+			
+			Localize();
 		}
+		
+		protected override String LocalizePrefix { get { return "C_F"; } }
 		
 		private void __showLog_Click(object sender, EventArgs e) {
 			
@@ -96,7 +100,7 @@ namespace Anolis.Installer.Pages {
 			
 			Invoke( new MethodInvoker( delegate() {
 				
-				WizardForm.LoadPage( Program.PageZFinished );
+				WizardForm.LoadPage( Program.PageFFinished );
 			}));
 			
 		}
@@ -106,7 +110,7 @@ namespace Anolis.Installer.Pages {
 			Invoke( new MethodInvoker( delegate() {
 				
 				__progress.Value = e.Percentage;
-				__statusLabel.Text = String.Format("{0}% complete - {1}", e.Percentage, e.Message );
+				__statusLabel.Text = String.Format( InstallerResources.GetString("C_E_status") , e.Percentage, e.Message );
 				
 			}));
 			

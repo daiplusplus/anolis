@@ -4,6 +4,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Text;
 using System.IO;
+using System.Net;
 
 using N = System.Globalization.NumberStyles;
 
@@ -21,8 +22,8 @@ namespace Anolis.Core.Packages {
 			
 			Version     = Single.Parse( packageElement.Attributes["version"].Value, N.AllowDecimalPoint | N.AllowLeadingWhite | System.Globalization.NumberStyles.AllowTrailingWhite, System.Globalization.CultureInfo.InvariantCulture );
 			Attribution = packageElement.Attributes["attribution"].Value;
-			Website     = packageElement.GetAttribute("website").Length > 0 ? new Uri( packageElement.Attributes["website"].Value ) : null;
-			if(packageElement.Attributes["updateUri"] != null) UpdateUri = new Uri( packageElement.Attributes["updateUri"].Value );
+			Website     = packageElement.GetAttribute("website")  .Length > 0 ? new Uri( packageElement.Attributes["website"]  .Value ) : null;
+			UpdateUri   = packageElement.GetAttribute("updateUri").Length > 0 ? new Uri( packageElement.Attributes["updateUri"].Value ) : null;
 			
 			PackageImages = new Dictionary<String,System.Drawing.Image>();
 			Log           = new Collection<LogItem>();
@@ -175,10 +176,67 @@ namespace Anolis.Core.Packages {
 				
 			}
 			
+			PackageUtility.ClearIconCache();
+			
 			OnProgressEvent( new PackageProgressEventArgs( 100, "Complete" ) );
 			
 		}
 		
+		/// <summary>A blocking method that returns details of the latest version, if it exists. Returns null under all failure conditions.</summary>
+		public PackageUpdateInfo CheckForUpdates() {
+			
+			if( this.UpdateUri == null ) return null;
+			
+			WebClient client = new WebClient();
+			
+			String data;
+			
+			try {
+				
+				data = client.DownloadString( UpdateUri );
+				
+			} catch(WebException) {
+				return null;
+			}
+			
+			String[] lines = data.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n');
+			
+			// PackageUpdateInfo format specification:
+			// line 1: package name, used for info purposes
+			// line 2: version of the new package
+			// line 3: URI of the package to download, can be zero-length
+			// line 4: URI of a web page with information on the new package, such as how to get it if line 3 is empty
+			// line 5 onwards: reserved and ignored
+			
+			if( lines.Length < 4 ) return null;
+			
+			String name = lines[0];
+			Single version; Uri packageLocation, infoLocation;
+			
+			if( !Single.TryParse ( lines[1], out version ) ) return null;
+			if( !Uri   .TryCreate( lines[2], UriKind.Absolute, out packageLocation ) ) return null;
+			if( !Uri   .TryCreate( lines[3], UriKind.Absolute, out infoLocation    ) ) return null;
+			
+			PackageUpdateInfo info = new PackageUpdateInfo( name, version, packageLocation, infoLocation );
+			return info;
+			
+		}
+		
+	}
+	
+	public class PackageUpdateInfo {
+		
+		internal PackageUpdateInfo(String name, Single version, Uri packageLocation, Uri infoLocation) {
+			
+			Version             = version;
+			PackageLocation     = packageLocation;
+			InformationLocation = infoLocation;
+		}
+		
+		public String  Name { get; private set; }
+		public Single  Version { get; private set; }
+		public Uri     PackageLocation { get; private set; }
+		public Uri     InformationLocation { get; private set; }
 		
 	}
 	

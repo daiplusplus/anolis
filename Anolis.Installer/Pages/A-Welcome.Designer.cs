@@ -54,10 +54,7 @@
 			// 
 			// WelcomePage
 			// 
-			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.Name = "WelcomePage";
-			this.WatermarkAlignment = System.Drawing.ContentAlignment.BottomLeft;
-			this.WatermarkImage = global::Anolis.Installer.Properties.Resources.Background;
 			this.@__openingText.ResumeLayout(false);
 			this.ResumeLayout(false);
 

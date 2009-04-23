@@ -141,12 +141,12 @@ namespace Anolis.Core.Data {
 		
 #region Equatable
 		
-		public override Boolean Equals(Object obj) {
-			IconDirectoryMember other = obj as IconDirectoryMember;
-			if(other == null) return false;
-			
-			return Equals( other );
-		}
+//		public override Boolean Equals(Object obj) {
+//			IconDirectoryMember other = obj as IconDirectoryMember;
+//			if(other == null) return false;
+//			
+//			return Equals( other );
+//		}
 		
 		public Boolean Equals(IDirectoryMember other) {
 			return Equals(other as IconDirectoryMember);

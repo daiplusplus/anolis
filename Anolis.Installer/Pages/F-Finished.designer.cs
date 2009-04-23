@@ -73,8 +73,6 @@
 			// FinishedPage
 			// 
 			
-			
-			this.BackgroundImage = global::Anolis.Installer.Properties.Resources.Background;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.Name = "FinishedPage";
 			this.@__openingText.ResumeLayout(false);

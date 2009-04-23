@@ -16,7 +16,11 @@ namespace Anolis.Installer.Pages {
 			
 			this.Load += new EventHandler(Extracting_Load);
 			this.PageLoad += new EventHandler(ExtractingPage_PageLoad);
+			
+			Localize();
 		}
+		
+		protected override String LocalizePrefix { get { return "C_B"; } }
 		
 		private void ExtractingPage_PageLoad(object sender, EventArgs e) {
 			
@@ -46,7 +50,7 @@ namespace Anolis.Installer.Pages {
 			
 			this.Invoke( new MethodInvoker( delegate() {
 				
-				__statusLabel.Text = e.Message;
+				__statusLbl.Text = e.Message;
 				__progress.Value = e.Percentage;
 				
 			} ) );
@@ -59,14 +63,14 @@ namespace Anolis.Installer.Pages {
 				
 				if( destDir != null ) {
 					
-					__statusLabel.Text = "Instantiating Package";
+					__statusLbl.Text = InstallerResources.GetString("C_B_instantiating");
 					
 					InstantiatePackage( destDir );
 					
 				} else {
 					
 					// the previous PackageProgressEvent method call will contain the error string, so don't set anything and display a message to the user
-					MessageBox.Show(this, "An error occured whilst attempting to extract the package", "Anolis", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					MessageBox.Show(this, InstallerResources.GetString("C_B_error"), "Anolis", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 					
 				}
 				
@@ -132,7 +136,7 @@ namespace Anolis.Installer.Pages {
 			
 			//PackageInfo.Package.
 			
-			WizardForm.LoadPage( Program.PageIEModifyPackage );
+			WizardForm.LoadPage( Program.PageCCUpdatePackage );
 			
 		}
 		
