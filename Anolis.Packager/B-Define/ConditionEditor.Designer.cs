@@ -31,9 +31,9 @@
 			this.@__resultLbl = new System.Windows.Forms.Label();
 			this.@__symbolsLbl = new System.Windows.Forms.Label();
 			this.@__symbols = new System.Windows.Forms.DataGridView();
-			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__sColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.@__sColVal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__result = new System.Windows.Forms.TextBox();
 			this.@__eval = new System.Windows.Forms.Button();
 			this.@__cancel = new System.Windows.Forms.Button();
@@ -125,6 +125,17 @@
 			this.@__symbols.Size = new System.Drawing.Size(225, 210);
 			this.@__symbols.TabIndex = 4;
 			// 
+			// __sColName
+			// 
+			this.@__sColName.HeaderText = "Name";
+			this.@__sColName.Name = "__sColName";
+			// 
+			// __sColVal
+			// 
+			this.@__sColVal.HeaderText = "Value";
+			this.@__sColVal.Name = "__sColVal";
+			this.@__sColVal.Width = 75;
+			// 
 			// __split
 			// 
 			this.@__split.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -146,17 +157,6 @@
 			this.@__split.Size = new System.Drawing.Size(451, 229);
 			this.@__split.SplitterDistance = 213;
 			this.@__split.TabIndex = 5;
-			// 
-			// __sColName
-			// 
-			this.@__sColName.HeaderText = "Name";
-			this.@__sColName.Name = "__sColName";
-			// 
-			// __sColVal
-			// 
-			this.@__sColVal.HeaderText = "Value";
-			this.@__sColVal.Name = "__sColVal";
-			this.@__sColVal.Width = 75;
 			// 
 			// __result
 			// 
@@ -224,6 +224,7 @@
 			this.Controls.Add(this.@__result);
 			this.Controls.Add(this.@__split);
 			this.Controls.Add(this.@__resultLbl);
+			this.DoubleBuffered = true;
 			this.Name = "ConditionEditor";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.Text = "Package Item Condition Editor";

@@ -64,6 +64,7 @@ namespace Anolis.Core {
 			
 		}
 		
+		/// <summary>Returns the next token in <paramref name="str"/> from position <paramref name="start"/>. Barring whitespace, it returns the sequence of characters from <paramref name="start"/> that share the same unicode category.</summary>
 		public static String Tok(this String str, ref Int32 start) {
 			
 			if(start >= str.Length) throw new ArgumentOutOfRangeException("start");
@@ -82,8 +83,9 @@ namespace Anolis.Core {
 				i++;
 			}
 			
-			UnicodeCategory initialCat = Char.GetUnicodeCategory( c );
-			UnicodeCategory currentCat = Char.GetUnicodeCategory( c );
+			Boolean doneRadixPoint = false;
+			UnicodeCategory currentCat, initialCat;
+			initialCat = currentCat = Char.GetUnicodeCategory( c );
 			while( i < str.Length && initialCat == currentCat ) {
 				
 				c = str[i];
@@ -92,6 +94,12 @@ namespace Anolis.Core {
 				if( i >= str.Length ) break;
 				
 				currentCat = Char.GetUnicodeCategory(str, i);
+				
+				// special case exception for radix points, there can only be 1
+				if( initialCat == UnicodeCategory.DecimalDigitNumber && str[i] == '.' && !doneRadixPoint) {
+					currentCat = UnicodeCategory.DecimalDigitNumber;
+					doneRadixPoint = true;
+				}
 			}
 			
 			start = i;
