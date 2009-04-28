@@ -45,7 +45,7 @@ namespace Anolis.Installer {
 				
 				PageFFinished       = new FinishedPage();
 				
-				wiz                 = WizardFactory.Create();
+				wiz                 = new W3b.Wizards.WindowsForms.Aero.AeroWizardForm(); // WizardFactory.Create();
 				wiz.CancelClicked  += new EventHandler(wiz_CancelClicked);
 				wiz.HasHelp         = false;
 				wiz.Title           = "Anolis Package Installer";

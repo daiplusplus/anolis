@@ -9,10 +9,9 @@ namespace Anolis.Core.Packages {
 	using P = Anolis.Core.Packages.Precedence;
 	
 	// TODO:
-		// * Add support for radix points in numbers (you get an error about '.' being undefined)
-		// * Add support for comparison operators ==, !=, <, <=, >, >=
 		// * Add support for boolean operators &&, ||, ^^, !
 		// * Add support for functions, e.g. sin(), a function can be defined in the symbol table: with that functions' expression as the dictionary value
+			// this is a bit hard. I'll leave it for now
 		// I think booleans can be supported by having false == 0 and true == non-zero
 	
 	/// <summary>A C# implementation of Tom Niemann's Operator Precedence Parsing system ( http://epaperpress.com/oper/index.html ).</summary>
@@ -22,22 +21,25 @@ namespace Anolis.Core.Packages {
 /*
 		S = Shift. The input takes precedence over what's at the top of the stack
 		R = Reduce. The stack should be evaluated before the input is processed.
-		      |                    input                           |
-		      | +   -   *   /   ^   M   f   p   c   ,   (   )   $  |
-		   ---| --  --  --  --  --  --  --  --  --  --  --  --  -- |
-		   +  | R,  R,  S,  S,  S,  S,  S,  S,  S,  R,  S,  R,  R  |
-		   -  | R,  R,  S,  S,  S,  S,  S,  S,  S,  R,  S,  R,  R  |
-		   *  | R,  R,  R,  R,  S,  S,  S,  S,  S,  R,  S,  R,  R  |
-		   /  | R,  R,  R,  R,  S,  S,  S,  S,  S,  R,  S,  R,  R  |
-		s  ^  | R,  R,  R,  R,  S,  S,  S,  S,  S,  R,  S,  R,  R  |
-		t  M  | R,  R,  R,  R,  R,  S,  S,  S,  S,  R,  S,  R,  R  |
-		k  f  | E4, E4, E4, E4, E4, E4, E4, E4, E4, E4, S,  R,  R  |
-		   p  | E4, E4, E4, E4, E4, E4, E4, E4, E4, E4, S,  R,  R  |
-		   c  | E4, E4, E4, E4, E4, E4, E4, E4, E4, E4, S,  R,  R  |
-		   ,  | R,  R,  R,  R,  R,  R,  R,  R,  R,  E4, R,  R,  E4 |
-		   (  | S,  S,  S,  S,  S,  S,  S,  S,  S,  S,  S,  S,  E1 |
-		   )  | R,  R,  R,  R,  R,  R,  E3, E3, E3, E4, E2, R,  R  |
-		   $  | S,  S,  S,  S,  S,  S,  S,  S,  S,  E4, S,  E3, A  | */
+		      |                               input                            |
+		      | +   -   *   /   ^   M   ,   (   )   ==  !=  <   <=  >   >=  $  |
+		   ---| --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  -- |
+		   +  | R   R   S   S   S   S   R   S   R   R   R   R   R   R   R   R  |
+		   -  | R   R   S   S   S   S   R   S   R   R   R   R   R   R   R   R  |
+		   *  | R   R   R   R   S   S   R   S   R   R   R   R   R   R   R   R  |
+		   /  | R   R   R   R   S   S   R   S   R   R   R   R   R   R   R   R  |
+		   ^  | R   R   R   R   S   S   R   S   R   R   R   R   R   R   R   R  |
+		   M  | R   R   R   R   R   S   R   S   R   R   R   R   R   R   R   R  |
+		   ,  | R   R   R   R   R   R   E4  R   R   R   R   R   R   R   R   E4 |
+		s  (  | S   S   S   S   S   S   S   S   S   S   S   S   S   S   S   E1 |
+		t  )  | R   R   R   R   R   R   E4  E2  R   R   R   R   R   R   R   R  |
+		k  == | R   R   R   R   R   R   R   S   R   R   R   R   R   R   R   R  |
+		   != | R   R   R   R   R   R   R   S   R   R   R   R   R   R   R   R  |
+		   <  | R   R   R   R   R   R   R   S   R   R   R   R   R   R   R   R  |
+		   <= | R   R   R   R   R   R   R   S   R   R   R   R   R   R   R   R  |
+		   >  | R   R   R   R   R   R   R   S   R   R   R   R   R   R   R   R  |
+		   >= | R   R   R   R   R   R   R   S   R   R   R   R   R   R   R   R  |
+		   $  | S   S   S   S   S   S   E4  S   E3  S   S   S   S   S   S   A  | */
 		   
 		   // comparison operators sit near the bottom of the precdence table, only bitwise operations are lower
 		   // but we're not doing bitwise
@@ -45,19 +47,23 @@ namespace Anolis.Core.Packages {
 		
 		// C# really needs C-style #defines at times...
 		private static readonly P[,] _precedence = {
-			{ P.Reduce,  P.Reduce,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Reduce,  P.Shift,  P.Reduce,  P.Reduce  },
-			{ P.Reduce,  P.Reduce,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Reduce,  P.Shift,  P.Reduce,  P.Reduce  },
-			{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Reduce,  P.Shift,  P.Reduce,  P.Reduce  },
-			{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Reduce,  P.Shift,  P.Reduce,  P.Reduce  },
-			{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Reduce,  P.Shift,  P.Reduce,  P.Reduce  },
-			{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Reduce,  P.Shift,  P.Reduce,  P.Reduce  },
-			{ P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.Shift,  P.Reduce,  P.Reduce  },
-			{ P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.Shift,  P.Reduce,  P.Reduce  },
-			{ P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.ErrorInvalidFunctionArgument, P.Shift,  P.Reduce,  P.Reduce  },
-			{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.ErrorInvalidFunctionArgument, P.Reduce,  P.Reduce,  P.ErrorInvalidFunctionArgument },
-			{ P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.ErrorMissingRightParens },
-			{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.ErrorUnbalancedRightParens, P.ErrorUnbalancedRightParens, P.ErrorUnbalancedRightParens, P.ErrorInvalidFunctionArgument, P.ErrorMissingOperator, P.Reduce,  P.Reduce  },
-			{ P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.ErrorInvalidFunctionArgument, P.Shift,  P.ErrorUnbalancedRightParens, P.Accept  }
+			//  +         -         *         /         ^         M         ,         (         )         ==        !=        <         <=        >         >=       $
+	/*	+	*/{ P.Reduce, P.Reduce, P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	-	*/{ P.Reduce, P.Reduce, P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	*	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Shift,  P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	/	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Shift,  P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	^	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Shift,  P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	M	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	,	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Error4, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Error4 },
+	/*	(	*/{ P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Error1 },
+	/*	)	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Error4, P.Error2, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	==	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift , P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	!=	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	<	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	<=	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	>	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	>=	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
+	/*	$	*/{ P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Error4, P.Shift,  P.Error3, P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Accept }
 		};
 		
 		private Object _lock = new Object();
@@ -132,7 +138,7 @@ namespace Anolis.Core.Packages {
 							return _valueStack.Pop();
 							
 						default:
-							throw new ExpressionException( p.ToString() );
+							throw new ExpressionException( p.ToString() + " at position " + _toki );
 					}
 					
 				}
@@ -159,17 +165,29 @@ namespace Anolis.Core.Packages {
 			} else {
 				
 				switch(s) {
-					case "+": _token = Operator.Add; break;
-					case "-": _token = Operator.Sub; break;
-					case "*": _token = Operator.Mul; break;
-					case "/": _token = Operator.Div; break;
-					case "^": _token = Operator.Pow; break;
-					case "(": _token = Operator.PaL; break;
-					case ")": _token = Operator.PaR; break;
-					case ",": _token = Operator.Cmm; break;
-//					case "f": _token = Operator.Fact; break;
-//					case "p": _token = Operator.Perm; break;
-//					case "c": _token = Operator.Comb; break;
+// Arithmetic
+					case "+" : _token = Operator.Add; break;
+					case "-" : _token = Operator.Sub; break;
+					case "*" : _token = Operator.Mul; break;
+					case "/" : _token = Operator.Div; break;
+					case "^" : _token = Operator.Pow; break;
+// Punctuation
+					case "," : _token = Operator.Cmm; break;
+					case "(" : _token = Operator.PaL; break;
+					case ")" : _token = Operator.PaR; break;
+					
+// Comparison
+					case "==": _token = Operator.CoE; break;
+					case "!=": _token = Operator.CoN; break;
+					case "<" : _token = Operator.CoL; break;
+					case "<=": _token = Operator.CLE; break;
+					case ">" : _token = Operator.CoG; break;
+					case ">=": _token = Operator.CGE; break;
+// Logic
+					case "&&": _token = Operator.And; break;
+					case "||": _token = Operator.Or;  break;
+					case "^^": _token = Operator.Xor; break;
+					case "!" : _token = Operator.Not; break;
 					default:
 						// either a number or a name
 						// if it's a name, resolve it
@@ -186,7 +204,7 @@ namespace Anolis.Core.Packages {
 								
 							} else {
 								
-								throw new ExpressionException("Undefined symbol: \"" + s + '"' );
+								throw new ExpressionException("Undefined symbol: \"" + s + "\" at position " + _toki );
 							}
 							
 						}
@@ -241,7 +259,7 @@ namespace Anolis.Core.Packages {
 				case Operator.Add:
 					
 					// Apply E := E + E
-					EnsureVal(1);
+					EnsureVal(2);
 					Double aa = _valueStack.Pop();
 					Double ab = _valueStack.Pop();
 					_valueStack.Push( aa + ab );
@@ -251,7 +269,7 @@ namespace Anolis.Core.Packages {
 				case Operator.Sub:
 					
 					// Apply E := E - E
-					EnsureVal(1);
+					EnsureVal(2);
 					Double sa = _valueStack.Pop();
 					Double sb = _valueStack.Pop();
 					_valueStack.Push( sb - sa );
@@ -260,7 +278,7 @@ namespace Anolis.Core.Packages {
 				
 				case Operator.Mul:
 					
-					EnsureVal(1);
+					EnsureVal(2);
 					Double ma = _valueStack.Pop();
 					Double mb = _valueStack.Pop();
 					_valueStack.Push( ma * mb );
@@ -269,7 +287,7 @@ namespace Anolis.Core.Packages {
 				
 				case Operator.Div:
 					
-					EnsureVal(1);
+					EnsureVal(2);
 					Double da = _valueStack.Pop();
 					Double db = _valueStack.Pop();
 					_valueStack.Push( db / da );
@@ -278,7 +296,7 @@ namespace Anolis.Core.Packages {
 				
 				case Operator.Neg:
 					
-					EnsureVal(0);
+					EnsureVal(1);
 					Double na = _valueStack.Pop();
 					_valueStack.Push( -na );
 					
@@ -286,7 +304,7 @@ namespace Anolis.Core.Packages {
 				
 				case Operator.Pow:
 					
-					EnsureVal(1);
+					EnsureVal(2);
 					Double pa = _valueStack.Pop();
 					Double pb = _valueStack.Pop();
 					_valueStack.Push( Math.Pow( pb, pa ) );
@@ -297,7 +315,35 @@ namespace Anolis.Core.Packages {
 					
 					_operatorStack.Pop();
 					break;
+				
+				case Operator.CoE:
+				case Operator.CoN:
+				case Operator.CoL:
+				case Operator.CLE:
+				case Operator.CoG:
+				case Operator.CGE:
 					
+					EnsureVal(2);
+					Double ea = _valueStack.Pop();
+					Double eb = _valueStack.Pop();
+					
+					Boolean eq = ea == eb;
+					Boolean lt = eb <  ea;
+					Boolean gt = eb >  ea;
+					
+					Boolean result = eq;
+					
+					if     ( op == Operator.CoE ) _valueStack.Push( eq       ? 1 : 0 );
+					else if( op == Operator.CoN ) _valueStack.Push( eq       ? 0 : 1 );
+					else if( op == Operator.CoL ) _valueStack.Push( lt       ? 1 : 0 );
+					else if( op == Operator.CLE ) _valueStack.Push( lt || eq ? 1 : 0 );
+					else if( op == Operator.CoG ) _valueStack.Push( gt       ? 1 : 0 );
+					else if( op == Operator.CGE ) _valueStack.Push( gt || eq ? 1 : 0 );
+					
+					break;
+					
+					
+				
 //				case Operator.Val:
 //				case Operator.Eof:
 //					throw new InvalidOperationException();
@@ -312,25 +358,37 @@ namespace Anolis.Core.Packages {
 		
 		private void EnsureVal(Int32 depth) {
 			
-			if( _valueStack.Count < depth ) throw new ExpressionException("Syntax error");
+			if( _valueStack.Count < depth ) throw new ExpressionException("Syntax error (EnsureVal) at position " + _toki );
 			
 		}
 		
 	}
 	
 	internal enum Operator { // numbering is importance because it's used as a lookup in the precedence table
+// Arithmetic	
 		Add = 0,
 		Sub = 1,
 		Mul,
 		Div,
 		Pow,
 		Neg, // unary negation
-		Fac, // factorial
-		Per, // nPr
-		Com, // nCr
+// Punctuation
 		Cmm, // comma
 		PaL, // left parens
 		PaR, // right parens
+// Comparison
+		CoE, // Comparison: Equals
+		CoN, // Comparison: Not Equals
+		CoL, // Comparison: Less Than
+		CLE, // Comparison: Less Than or Equal To
+		CoG, // Comparison: Greater Than
+		CGE, // Comparison: Greater Than or Equal To
+// Logic
+		And,
+		Or,
+		Not,
+		Xor,
+// Special
 		Eof, // end of
 		Max, // maximum number of operators
 		Val, // value
@@ -340,10 +398,14 @@ namespace Anolis.Core.Packages {
 		Shift  = 0,
 		Reduce = 1,
 		Accept = 2,
-		ErrorMissingRightParens      = 6,
-		ErrorMissingOperator         = 7,
-		ErrorUnbalancedRightParens   = 8,
-		ErrorInvalidFunctionArgument = 9
+		/// <summary>Missing right parenthesis</summary>
+		Error1 = 6,
+		/// <summary>Missing operator</summary>
+		Error2 = 7,
+		/// <summary>Unbalanced right parenthesis</summary>
+		Error3 = 8,
+		/// <summary>Invalid function argument</summary>
+		Error4 = 9
 	}
 	
 	[Serializable]

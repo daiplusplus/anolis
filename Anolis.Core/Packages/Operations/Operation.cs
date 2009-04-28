@@ -43,7 +43,7 @@ namespace Anolis.Core.Packages {
 				case "file":
 					return new FileOperation(package, operationElement);
 				case "extra":
-					return new ExtraOperation(package, operationElement);
+					return ExtraOperation.Create(package, operationElement);
 				default:
 					// TODO: Allow additional libraries or code-generation to specify their own stuff
 					// Define types in the Package XML? http://www.codeproject.com/KB/dotnet/evaluator.aspx

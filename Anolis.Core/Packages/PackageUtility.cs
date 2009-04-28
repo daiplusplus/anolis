@@ -153,6 +153,8 @@ namespace Anolis.Core.Packages {
 			}
 		}
 		
+		/// <summary>Resolves environment variables inside a path</summary>
+		/// <param name="root">If the resolved path is not rooted, this parameter will be intelligently prepended</param>
 		public static String ResolvePath(String path, String root) {
 			
 			if( path.IndexOf('%') == -1 ) return path;

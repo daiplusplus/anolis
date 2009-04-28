@@ -81,6 +81,16 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 				</xs:complexType>
 			</xs:element>
 			
+			<xs:element name="custom" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					
+					<!-- <custom /> attributes -->
+					<xs:attributeGroup ref="common" />
+					<xs:attribute name="fqn" type="xs:string" use="required" />
+					
+				</xs:complexType>
+			</xs:element>
+			
 			<xs:element name="filetype" minOccurs="0" maxOccurs="unbounded">
 				<xs:complexType>
 					
@@ -146,7 +156,6 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 			<xs:enumeration value="programRun" />
 			<xs:enumeration value="programZip" />
 			<xs:enumeration value="screensaver" />
-			<xs:enumeration value="custom" />
 		</xs:restriction>
 	</xs:simpleType>
 	
