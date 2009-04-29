@@ -150,13 +150,13 @@ namespace Anolis.Resourcer {
 				
 				// so now sort it by LCID
 				
-				__langSort.Image = Properties.Resources.ARF_SortByName;
+				__langSort.Image = Resources.ARF_SortByName;
 				
 				PopulateLanguages( _langSortedByName = !_langSortedByName );
 				
 			} else {
 				
-				__langSort.Image = Properties.Resources.ARF_SortByLCID;
+				__langSort.Image = Resources.ARF_SortByLCID;
 				
 				PopulateLanguages( _langSortedByName = !_langSortedByName );
 			}
@@ -171,13 +171,13 @@ namespace Anolis.Resourcer {
 				
 				// so now sort it by LCID
 				
-				__typeSort.Image = Properties.Resources.ARF_SortByName;
+				__typeSort.Image = Resources.ARF_SortByName;
 				
 				PopulateWin32Types( _typeSortedByName = !_typeSortedByName );
 				
 			} else {
 				
-				__typeSort.Image = Properties.Resources.ARF_SortByLCID;
+				__typeSort.Image = Resources.ARF_SortByLCID;
 				
 				PopulateWin32Types( _typeSortedByName = !_typeSortedByName );
 			}

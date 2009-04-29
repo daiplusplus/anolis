@@ -133,7 +133,7 @@
 			// __toolsWrap
 			// 
 			this.@__toolsWrap.CheckOnClick = true;
-			this.@__toolsWrap.Image = global::Anolis.Resourcer.Properties.Resources.TextViewer_WordWrap;
+			this.@__toolsWrap.Image = global::Anolis.Resourcer.Resources.TextViewer_WordWrap;
 			this.@__toolsWrap.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsWrap.Name = "__toolsWrap";
 			this.@__toolsWrap.Size = new System.Drawing.Size(82, 22);
@@ -141,7 +141,7 @@
 			// 
 			// __toolsFont
 			// 
-			this.@__toolsFont.Image = global::Anolis.Resourcer.Properties.Resources.TextViewer_Font;
+			this.@__toolsFont.Image = global::Anolis.Resourcer.Resources.TextViewer_Font;
 			this.@__toolsFont.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsFont.Name = "__toolsFont";
 			this.@__toolsFont.Size = new System.Drawing.Size(49, 22);

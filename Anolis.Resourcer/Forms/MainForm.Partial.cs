@@ -67,18 +67,20 @@ namespace Anolis.Resourcer {
 					_typeImages16.ColorDepth = ColorDepth.Depth32Bit;
 					_typeImages16.ImageSize = new System.Drawing.Size(16, 16);
 					
-					_typeImages16.Images.Add("Accelerator", Properties.Resources.Type_Accelerator16);
-					_typeImages16.Images.Add("Binary", Properties.Resources.Type_Binary16);
-					_typeImages16.Images.Add("Bitmap", Properties.Resources.Type_Bitmap16);
-					_typeImages16.Images.Add("ColorTable", Properties.Resources.Type_ColorTable16);
-					_typeImages16.Images.Add("Cursor", Properties.Resources.Type_Cursor16);
-					_typeImages16.Images.Add("Dialog", Properties.Resources.Type_Dialog16);
-					_typeImages16.Images.Add("File", Properties.Resources.Type_File16);
-					_typeImages16.Images.Add("Html", Properties.Resources.Type_Html16);
-					_typeImages16.Images.Add("Icon", Properties.Resources.Type_Icon16);
-					_typeImages16.Images.Add("Menu", Properties.Resources.Type_Menu16);
-					_typeImages16.Images.Add("Toolbar", Properties.Resources.Type_Toolbar16);
-					_typeImages16.Images.Add("Xml", Properties.Resources.Type_Xml16);
+					_typeImages16.Images.Add("Accelerator", Resources.Type_Accelerator16);
+					_typeImages16.Images.Add("Binary",      Resources.Type_Binary16);
+					_typeImages16.Images.Add("Bitmap",      Resources.Type_Bitmap16);
+					_typeImages16.Images.Add("ColorTable",  Resources.Type_ColorTable16);
+					_typeImages16.Images.Add("Cursor",      Resources.Type_Cursor16);
+					_typeImages16.Images.Add("Dialog",      Resources.Type_Dialog16);
+					_typeImages16.Images.Add("File",        Resources.Type_File16);
+					_typeImages16.Images.Add("Html",        Resources.Type_Html16);
+					_typeImages16.Images.Add("Icon",        Resources.Type_Icon16);
+					_typeImages16.Images.Add("Menu",        Resources.Type_Menu16);
+					_typeImages16.Images.Add("StringTable", Resources.Type_StringTable16);
+					_typeImages16.Images.Add("Toolbar",     Resources.Type_Toolbar16);
+					_typeImages16.Images.Add("Version",     Resources.Type_Version16);
+					_typeImages16.Images.Add("Xml",         Resources.Type_Xml16);
 					
 				}
 				return _typeImages16;
@@ -95,18 +97,20 @@ namespace Anolis.Resourcer {
 					_typeImages32.ColorDepth = ColorDepth.Depth32Bit;
 					_typeImages32.ImageSize = new System.Drawing.Size(32, 32);
 					
-					_typeImages32.Images.Add("Accelerator", Properties.Resources.Type_Accelerator32);
-					_typeImages32.Images.Add("Binary", Properties.Resources.Type_Binary32);
-					_typeImages32.Images.Add("Bitmap", Properties.Resources.Type_Bitmap32);
-					_typeImages32.Images.Add("ColorTable", Properties.Resources.Type_ColorTable32);
-					_typeImages32.Images.Add("Cursor", Properties.Resources.Type_Cursor32);
-					_typeImages32.Images.Add("Dialog", Properties.Resources.Type_Dialog32);
-					_typeImages32.Images.Add("File", Properties.Resources.Type_File32);
-					_typeImages32.Images.Add("Html", Properties.Resources.Type_Html32);
-					_typeImages32.Images.Add("Icon", Properties.Resources.Type_Icon32);
-					_typeImages32.Images.Add("Menu", Properties.Resources.Type_Menu32);
-					_typeImages32.Images.Add("Toolbar", Properties.Resources.Type_Toolbar32);
-					_typeImages32.Images.Add("Xml", Properties.Resources.Type_Xml32);
+					_typeImages32.Images.Add("Accelerator", Resources.Type_Accelerator32);
+					_typeImages32.Images.Add("Binary",      Resources.Type_Binary32);
+					_typeImages32.Images.Add("Bitmap",      Resources.Type_Bitmap32);
+					_typeImages32.Images.Add("ColorTable",  Resources.Type_ColorTable32);
+					_typeImages32.Images.Add("Cursor",      Resources.Type_Cursor32);
+					_typeImages32.Images.Add("Dialog",      Resources.Type_Dialog32);
+					_typeImages32.Images.Add("File",        Resources.Type_File32);
+					_typeImages32.Images.Add("Html",        Resources.Type_Html32);
+					_typeImages32.Images.Add("Icon",        Resources.Type_Icon32);
+					_typeImages32.Images.Add("Menu",        Resources.Type_Menu32);
+					_typeImages32.Images.Add("StringTable", Resources.Type_StringTable32);
+					_typeImages32.Images.Add("Toolbar",     Resources.Type_Toolbar32);
+					_typeImages32.Images.Add("Version",     Resources.Type_Version32);
+					_typeImages32.Images.Add("Xml",         Resources.Type_Xml32);
 					
 				}
 				return _typeImages32;
@@ -624,7 +628,7 @@ namespace Anolis.Resourcer {
 			
 			_currentViewMode = ViewMode.ViewSource;
 			
-			_viewList.ShowResourceSource( CurrentSource );
+			_viewList.ShowObject( CurrentSource );
 			
 			NavigateAdd();
 		}
@@ -635,7 +639,7 @@ namespace Anolis.Resourcer {
 			
 			_currentViewMode = ViewMode.ViewType;
 			
-			_viewList.ShowResourceType(type);
+			_viewList.ShowObject(type);
 			
 			NavigateAdd();
 		}
@@ -646,7 +650,7 @@ namespace Anolis.Resourcer {
 			
 			_currentViewMode = ViewMode.ViewName;
 			
-			_viewList.ShowResourceName(name);
+			_viewList.ShowObject(name);
 			
 			NavigateAdd();
 		}
@@ -671,7 +675,7 @@ namespace Anolis.Resourcer {
 			foreach(ResourceType type in CurrentSource.AllTypes) {
 				
 				TreeNode typeNode = new TreeNode( type.Identifier.FriendlyName ) { Tag = type };
-				typeNode.ImageKey = typeNode.SelectedImageKey = TreeNodeImageListTypeKey(type.Identifier);
+				typeNode.ImageKey = typeNode.SelectedImageKey = GetTreeNodeImageListTypeKey(type.Identifier);
 				
 				foreach(ResourceName name in type.Names) {
 					
@@ -735,7 +739,7 @@ namespace Anolis.Resourcer {
 			
 			ResourceLang lang = node.Tag as ResourceLang;
 			
-			String path = GetResourcePath( lang );
+			String path = lang.ResourcePath;
 			
 			///////////////////////////////
 			
@@ -770,7 +774,7 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		public static String TreeNodeImageListTypeKey(ResourceTypeIdentifier typeId) {
+		public static String GetTreeNodeImageListTypeKey(ResourceTypeIdentifier typeId) {
 			
 			switch(typeId.KnownType) {
 				case Win32ResourceType.Accelerator:
@@ -791,9 +795,12 @@ namespace Anolis.Resourcer {
 					return "Html";
 				case Win32ResourceType.Manifest:
 					return "Xml";
+				case Win32ResourceType.StringTable:
+					return "StringTable";
 				case Win32ResourceType.Toolbar:
 					return "Toolbar";
 				case Win32ResourceType.Version:
+					return "Version";
 				case Win32ResourceType.Custom:
 				default:
 					return "Binary";
@@ -957,27 +964,6 @@ namespace Anolis.Resourcer {
 				return new String( str );
 				
 			}
-			
-		}
-		
-		public static String GetResourcePath(ResourceLang lang) {
-			
-			String retval = "";
-			
-			if(lang.Name.Type.Identifier.KnownType == Win32ResourceType.Custom) {
-				
-				retval += lang.Name.Type.Identifier.StringId;
-				
-			} else {
-				
-				retval += lang.Name.Type.Identifier.IntegerId.Value.ToString(Cult.InvariantCulture);
-			}
-			
-			retval += '\\' + lang.Name.Identifier.FriendlyName;
-			
-			retval += '\\' + lang.LanguageId.ToString(Cult.InvariantCulture);
-			
-			return retval;
 			
 		}
 		

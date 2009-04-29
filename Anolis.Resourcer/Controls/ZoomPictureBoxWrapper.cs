@@ -23,7 +23,7 @@ namespace Anolis.Resourcer.Controls {
 			LoadBackgroundColors();
 			
 			// HACK: Until I figure out why ZPB displays scrollbars when no image is set here's a dummy:
-			__pb.Image = Properties.Resources.ZPB_Empty;
+			__pb.Image = Resources.ZPB_Empty;
 		}
 		
 		private void __toolsInfo_Click(object sender, EventArgs e) {
@@ -136,7 +136,7 @@ namespace Anolis.Resourcer.Controls {
 			if(item.Tag == null) {
 				
 				__pb.BackColor       = SystemColors.Window;
-				__pb.BackgroundImage = Anolis.Resourcer.Properties.Resources.ImageViewer_TransparentBg;
+				__pb.BackgroundImage = Anolis.Resourcer.Resources.ImageViewer_TransparentBg;
 				
 			} else {
 				

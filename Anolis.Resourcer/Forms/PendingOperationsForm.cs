@@ -56,7 +56,7 @@ namespace Anolis.Resourcer {
 				
 				ListViewItem item = new ListViewItem( new String[] {
 					lang.Action.ToString(),
-					MainForm.GetResourcePath( lang )
+					lang.ResourcePath
 				} );
 				item.Tag = lang;
 				

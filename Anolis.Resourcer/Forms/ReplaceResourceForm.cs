@@ -76,7 +76,7 @@ namespace Anolis.Resourcer {
 			get { return _initial; }
 			set {
 				_initial = value;
-				__origPath.Text = MainForm.GetResourcePath( value.Lang );
+				__origPath.Text = value.Lang.ResourcePath;
 				__origSubclass.Text = value.GetType().Name;
 			}
 		}

@@ -109,7 +109,7 @@
 			// __typeSort
 			// 
 			this.@__typeSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__typeSort.Image = global::Anolis.Resourcer.Properties.Resources.ARF_SortByLCID;
+			this.@__typeSort.Image = global::Anolis.Resourcer.Resources.ARF_SortByLCID;
 			this.@__typeSort.Location = new System.Drawing.Point(275, 95);
 			this.@__typeSort.Name = "__typeSort";
 			this.@__typeSort.Size = new System.Drawing.Size(30, 30);
@@ -273,7 +273,7 @@
 			// __langSort
 			// 
 			this.@__langSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__langSort.Image = global::Anolis.Resourcer.Properties.Resources.ARF_SortByLCID;
+			this.@__langSort.Image = global::Anolis.Resourcer.Resources.ARF_SortByLCID;
 			this.@__langSort.Location = new System.Drawing.Point(275, 63);
 			this.@__langSort.Name = "__langSort";
 			this.@__langSort.Size = new System.Drawing.Size(30, 30);

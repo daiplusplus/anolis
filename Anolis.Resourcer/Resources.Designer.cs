@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Anolis.Resourcer.Properties {
+namespace Anolis.Resourcer {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Anolis.Resourcer.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Anolis.Resourcer.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Anolis.Resourcer.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,6 +70,13 @@ namespace Anolis.Resourcer.Properties {
         internal static System.Drawing.Bitmap ARF_SortByName {
             get {
                 object obj = ResourceManager.GetObject("ARF_SortByName", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Details {
+            get {
+                object obj = ResourceManager.GetObject("Details", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -501,6 +508,20 @@ namespace Anolis.Resourcer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Type_StringTable16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_StringTable16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_StringTable32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_StringTable32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Type_Toolbar16 {
             get {
                 object obj = ResourceManager.GetObject("Type_Toolbar16", resourceCulture);
@@ -511,6 +532,20 @@ namespace Anolis.Resourcer.Properties {
         internal static System.Drawing.Bitmap Type_Toolbar32 {
             get {
                 object obj = ResourceManager.GetObject("Type_Toolbar32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Version16 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Version16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Type_Version32 {
+            get {
+                object obj = ResourceManager.GetObject("Type_Version32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
