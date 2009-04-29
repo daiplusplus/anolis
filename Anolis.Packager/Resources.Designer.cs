@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Anolis.Packager.Properties {
+namespace Anolis.Packager {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Anolis.Packager.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Anolis.Packager.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Anolis.Packager.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -77,6 +77,13 @@ namespace Anolis.Packager.Properties {
         internal static System.Drawing.Bitmap Distro {
             get {
                 object obj = ResourceManager.GetObject("Distro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap IconEdit {
+            get {
+                object obj = ResourceManager.GetObject("IconEdit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

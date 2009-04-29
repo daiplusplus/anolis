@@ -43,6 +43,7 @@ namespace Anolis.Resourcer.TypeViewers {
 					new VersionViewer(),
 					new MenuDialogViewer(),
 					new StringTableViewer(),
+					new AnimationViewer(),
 #if MEDIAVIEWER
 					new MediaViewer(),
 #endif
