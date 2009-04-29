@@ -83,7 +83,7 @@
 			// 
 			// __toolsZoomIn
 			// 
-			this.@__toolsZoomIn.Image = global::Anolis.Resourcer.Properties.Resources.ImageViewer_ZoomIn;
+			this.@__toolsZoomIn.Image = global::Anolis.Resourcer.Resources.ImageViewer_ZoomIn;
 			this.@__toolsZoomIn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.@__toolsZoomIn.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsZoomIn.Name = "__toolsZoomIn";
@@ -92,7 +92,7 @@
 			// 
 			// __toolsZoomOut
 			// 
-			this.@__toolsZoomOut.Image = global::Anolis.Resourcer.Properties.Resources.ImageViewer_ZoomOut;
+			this.@__toolsZoomOut.Image = global::Anolis.Resourcer.Resources.ImageViewer_ZoomOut;
 			this.@__toolsZoomOut.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsZoomOut.Name = "__toolsZoomOut";
 			this.@__toolsZoomOut.Size = new System.Drawing.Size(74, 22);
@@ -100,7 +100,7 @@
 			// 
 			// __toolsZoom100
 			// 
-			this.@__toolsZoom100.Image = global::Anolis.Resourcer.Properties.Resources.ImageViewer_Zoom100;
+			this.@__toolsZoom100.Image = global::Anolis.Resourcer.Resources.ImageViewer_Zoom100;
 			this.@__toolsZoom100.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsZoom100.Name = "__toolsZoom100";
 			this.@__toolsZoom100.Size = new System.Drawing.Size(85, 22);
@@ -119,7 +119,7 @@
 			this.@__toolsCenter.CheckOnClick = true;
 			this.@__toolsCenter.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.@__toolsCenter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.@__toolsCenter.Image = global::Anolis.Resourcer.Properties.Resources.ImageViewer_Center;
+			this.@__toolsCenter.Image = global::Anolis.Resourcer.Resources.ImageViewer_Center;
 			this.@__toolsCenter.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsCenter.Name = "__toolsCenter";
 			this.@__toolsCenter.Size = new System.Drawing.Size(23, 22);
@@ -132,7 +132,7 @@
 			// 
 			// __toolsInterp
 			// 
-			this.@__toolsInterp.Image = global::Anolis.Resourcer.Properties.Resources.ImageViewer_Interpolation;
+			this.@__toolsInterp.Image = global::Anolis.Resourcer.Resources.ImageViewer_Interpolation;
 			this.@__toolsInterp.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsInterp.Name = "__toolsInterp";
 			this.@__toolsInterp.Size = new System.Drawing.Size(98, 22);
@@ -155,7 +155,7 @@
 			// 
 			// __toolsColorTrans
 			// 
-			this.@__toolsColorTrans.Image = global::Anolis.Resourcer.Properties.Resources.ImageViewer_TransparentBg;
+			this.@__toolsColorTrans.Image = global::Anolis.Resourcer.Resources.ImageViewer_TransparentBg;
 			this.@__toolsColorTrans.Name = "__toolsColorTrans";
 			this.@__toolsColorTrans.Size = new System.Drawing.Size(133, 22);
 			this.@__toolsColorTrans.Text = "Transparent";
@@ -188,7 +188,7 @@
 			// 
 			this.@__toolsInfo.CheckOnClick = true;
 			this.@__toolsInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.@__toolsInfo.Image = global::Anolis.Resourcer.Properties.Resources.ImageViewer_Information;
+			this.@__toolsInfo.Image = global::Anolis.Resourcer.Resources.ImageViewer_Information;
 			this.@__toolsInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__toolsInfo.Name = "__toolsInfo";
 			this.@__toolsInfo.Size = new System.Drawing.Size(23, 22);
@@ -292,7 +292,7 @@
 			this.@__pb.AutoScroll = true;
 			this.@__pb.AutoScrollMargin = new System.Drawing.Size(556, 193);
 			this.@__pb.AutoScrollMinSize = new System.Drawing.Size(1280, 853);
-			this.@__pb.BackgroundImage = global::Anolis.Resourcer.Properties.Resources.ImageViewer_TransparentBg;
+			this.@__pb.BackgroundImage = global::Anolis.Resourcer.Resources.ImageViewer_TransparentBg;
 			this.@__pb.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.@__pb.Centered = true;
 			this.@__pb.Dock = System.Windows.Forms.DockStyle.Fill;

@@ -26,6 +26,10 @@
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.ToolStripSeparator @__cArrangeSep;
 			this.@__list = new System.Windows.Forms.ListView();
+			this.@__listCName = new System.Windows.Forms.ColumnHeader();
+			this.@__listCSize = new System.Windows.Forms.ColumnHeader();
+			this.@__listCType = new System.Windows.Forms.ColumnHeader();
+			this.@__images = new System.Windows.Forms.ImageList(this.components);
 			this.@__c = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.@__cView = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__cViewThumbnails = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,13 +44,13 @@
 			this.@__cArrangeLang = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__cArrangeGroup = new System.Windows.Forms.ToolStripMenuItem();
 			this.@__t = new System.Windows.Forms.ToolStrip();
+			this.@__sizeDetails = new System.Windows.Forms.ToolStripButton();
 			this.@__size16 = new System.Windows.Forms.ToolStripButton();
 			this.@__size32 = new System.Windows.Forms.ToolStripButton();
 			this.@__size96 = new System.Windows.Forms.ToolStripButton();
 			this.@__progessBar = new System.Windows.Forms.ToolStripProgressBar();
 			this.@__bg = new System.ComponentModel.BackgroundWorker();
 			this.@__bgq = new System.ComponentModel.BackgroundWorker();
-			this.@__images = new System.Windows.Forms.ImageList(this.components);
 			@__cArrangeSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__c.SuspendLayout();
 			this.@__t.SuspendLayout();
@@ -55,13 +59,17 @@
 			// __cArrangeSep
 			// 
 			@__cArrangeSep.Name = "__cArrangeSep";
-			@__cArrangeSep.Size = new System.Drawing.Size(145, 6);
+			@__cArrangeSep.Size = new System.Drawing.Size(156, 6);
 			// 
 			// __list
 			// 
 			this.@__list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__list.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.@__listCName,
+            this.@__listCSize,
+            this.@__listCType});
 			this.@__list.LargeImageList = this.@__images;
 			this.@__list.Location = new System.Drawing.Point(0, 28);
 			this.@__list.Name = "__list";
@@ -69,13 +77,31 @@
 			this.@__list.TabIndex = 0;
 			this.@__list.UseCompatibleStateImageBehavior = false;
 			// 
+			// __listCName
+			// 
+			this.@__listCName.Text = "Name";
+			// 
+			// __listCSize
+			// 
+			this.@__listCSize.Text = "Size";
+			// 
+			// __listCType
+			// 
+			this.@__listCType.Text = "Type";
+			// 
+			// __images
+			// 
+			this.@__images.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+			this.@__images.ImageSize = new System.Drawing.Size(32, 32);
+			this.@__images.TransparentColor = System.Drawing.Color.Transparent;
+			// 
 			// __c
 			// 
 			this.@__c.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.@__cView,
             this.@__cArrange});
 			this.@__c.Name = "__c";
-			this.@__c.Size = new System.Drawing.Size(158, 48);
+			this.@__c.Size = new System.Drawing.Size(169, 48);
 			// 
 			// __cView
 			// 
@@ -86,37 +112,37 @@
             this.@__cViewList,
             this.@__cViewDetails});
 			this.@__cView.Name = "__cView";
-			this.@__cView.Size = new System.Drawing.Size(157, 22);
+			this.@__cView.Size = new System.Drawing.Size(168, 22);
 			this.@__cView.Text = "View";
 			// 
 			// __cViewThumbnails
 			// 
 			this.@__cViewThumbnails.Name = "__cViewThumbnails";
-			this.@__cViewThumbnails.Size = new System.Drawing.Size(127, 22);
+			this.@__cViewThumbnails.Size = new System.Drawing.Size(138, 22);
 			this.@__cViewThumbnails.Text = "Thumbnails";
 			// 
 			// __cViewTiles
 			// 
 			this.@__cViewTiles.Name = "__cViewTiles";
-			this.@__cViewTiles.Size = new System.Drawing.Size(127, 22);
+			this.@__cViewTiles.Size = new System.Drawing.Size(138, 22);
 			this.@__cViewTiles.Text = "Tiles";
 			// 
 			// __cViewIcons
 			// 
 			this.@__cViewIcons.Name = "__cViewIcons";
-			this.@__cViewIcons.Size = new System.Drawing.Size(127, 22);
+			this.@__cViewIcons.Size = new System.Drawing.Size(138, 22);
 			this.@__cViewIcons.Text = "Icons";
 			// 
 			// __cViewList
 			// 
 			this.@__cViewList.Name = "__cViewList";
-			this.@__cViewList.Size = new System.Drawing.Size(127, 22);
+			this.@__cViewList.Size = new System.Drawing.Size(138, 22);
 			this.@__cViewList.Text = "List";
 			// 
 			// __cViewDetails
 			// 
 			this.@__cViewDetails.Name = "__cViewDetails";
-			this.@__cViewDetails.Size = new System.Drawing.Size(127, 22);
+			this.@__cViewDetails.Size = new System.Drawing.Size(138, 22);
 			this.@__cViewDetails.Text = "Details";
 			// 
 			// __cArrange
@@ -129,43 +155,44 @@
             @__cArrangeSep,
             this.@__cArrangeGroup});
 			this.@__cArrange.Name = "__cArrange";
-			this.@__cArrange.Size = new System.Drawing.Size(157, 22);
+			this.@__cArrange.Size = new System.Drawing.Size(168, 22);
 			this.@__cArrange.Text = "Arrange Icons By";
 			// 
 			// __cArrangeName
 			// 
 			this.@__cArrangeName.Name = "__cArrangeName";
-			this.@__cArrangeName.Size = new System.Drawing.Size(148, 22);
+			this.@__cArrangeName.Size = new System.Drawing.Size(159, 22);
 			this.@__cArrangeName.Text = "Name";
 			// 
 			// __cArrangeSize
 			// 
 			this.@__cArrangeSize.Name = "__cArrangeSize";
-			this.@__cArrangeSize.Size = new System.Drawing.Size(148, 22);
+			this.@__cArrangeSize.Size = new System.Drawing.Size(159, 22);
 			this.@__cArrangeSize.Text = "Size";
 			// 
 			// __cArrangeType
 			// 
 			this.@__cArrangeType.Name = "__cArrangeType";
-			this.@__cArrangeType.Size = new System.Drawing.Size(148, 22);
+			this.@__cArrangeType.Size = new System.Drawing.Size(159, 22);
 			this.@__cArrangeType.Text = "Type";
 			// 
 			// __cArrangeLang
 			// 
 			this.@__cArrangeLang.Name = "__cArrangeLang";
-			this.@__cArrangeLang.Size = new System.Drawing.Size(148, 22);
+			this.@__cArrangeLang.Size = new System.Drawing.Size(159, 22);
 			this.@__cArrangeLang.Text = "Language";
 			// 
 			// __cArrangeGroup
 			// 
 			this.@__cArrangeGroup.Name = "__cArrangeGroup";
-			this.@__cArrangeGroup.Size = new System.Drawing.Size(148, 22);
+			this.@__cArrangeGroup.Size = new System.Drawing.Size(159, 22);
 			this.@__cArrangeGroup.Text = "Show in Groups";
 			// 
 			// __t
 			// 
 			this.@__t.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.@__t.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.@__sizeDetails,
             this.@__size16,
             this.@__size32,
             this.@__size96,
@@ -177,10 +204,20 @@
 			this.@__t.TabIndex = 1;
 			this.@__t.Text = "toolStrip1";
 			// 
+			// __sizeDetails
+			// 
+			this.@__sizeDetails.CheckOnClick = true;
+			this.@__sizeDetails.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.@__sizeDetails.Image = global::Anolis.Resourcer.Resources.Details;
+			this.@__sizeDetails.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__sizeDetails.Name = "__sizeDetails";
+			this.@__sizeDetails.Size = new System.Drawing.Size(23, 22);
+			this.@__sizeDetails.Text = "toolStripButton1";
+			// 
 			// __size16
 			// 
 			this.@__size16.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.@__size16.Image = global::Anolis.Resourcer.Properties.Resources.Icon16;
+			this.@__size16.Image = global::Anolis.Resourcer.Resources.Icon16;
 			this.@__size16.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__size16.Name = "__size16";
 			this.@__size16.Size = new System.Drawing.Size(23, 22);
@@ -189,7 +226,7 @@
 			// __size32
 			// 
 			this.@__size32.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.@__size32.Image = global::Anolis.Resourcer.Properties.Resources.Icon32;
+			this.@__size32.Image = global::Anolis.Resourcer.Resources.Icon32;
 			this.@__size32.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__size32.Name = "__size32";
 			this.@__size32.Size = new System.Drawing.Size(23, 22);
@@ -198,7 +235,7 @@
 			// __size96
 			// 
 			this.@__size96.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.@__size96.Image = global::Anolis.Resourcer.Properties.Resources.Icon96;
+			this.@__size96.Image = global::Anolis.Resourcer.Resources.Icon96;
 			this.@__size96.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__size96.Name = "__size96";
 			this.@__size96.Size = new System.Drawing.Size(23, 22);
@@ -213,12 +250,7 @@
 			// __bg
 			// 
 			this.@__bg.WorkerReportsProgress = true;
-			// 
-			// __images
-			// 
-			this.@__images.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-			this.@__images.ImageSize = new System.Drawing.Size(32, 32);
-			this.@__images.TransparentColor = System.Drawing.Color.Transparent;
+			this.@__bg.WorkerSupportsCancellation = true;
 			// 
 			// ResourceListView
 			// 
@@ -260,5 +292,9 @@
 		private System.Windows.Forms.ToolStripButton __size96;
 		private System.ComponentModel.BackgroundWorker __bgq;
 		private System.Windows.Forms.ImageList __images;
+		private System.Windows.Forms.ToolStripButton __sizeDetails;
+		private System.Windows.Forms.ColumnHeader __listCName;
+		private System.Windows.Forms.ColumnHeader __listCSize;
+		private System.Windows.Forms.ColumnHeader __listCType;
 	}
 }

@@ -54,9 +54,9 @@ namespace Anolis.Resourcer {
 			this.__tree.AfterSelect         += new TreeViewEventHandler(__tree_AfterSelect);
 			this.__treeMenu.Opening         += new System.ComponentModel.CancelEventHandler(__treeMenu_Opening);
 			
-			//this.__treeStateImages.Images.Add( "Add", Properties.Resources.Tree_Add );
-			//this.__treeStateImages.Images.Add( "Upd", Properties.Resources.Tree_Edit );
-			//this.__treeStateImages.Images.Add( "Del", Properties.Resources.Tree_Delete );
+			//this.__treeStateImages.Images.Add( "Add", Resources.Tree_Add );
+			//this.__treeStateImages.Images.Add( "Upd", Resources.Tree_Edit );
+			//this.__treeStateImages.Images.Add( "Del", Resources.Tree_Delete );
 			
 			_history = new System.Collections.Generic.Stack<NavigateItem>();
 			__navBack.Click += new EventHandler(__navBack_Click);
@@ -411,17 +411,17 @@ namespace Anolis.Resourcer {
 				
 				__tGenOpt.DisplayStyle      = is24 ? ToolStripItemDisplayStyle.Image   : ToolStripItemDisplayStyle.ImageAndText;
 				
-				__tSrcOpen.Image            = is24 ? Properties.Resources.Toolbar_SrcOpen24 : Properties.Resources.Toolbar_SrcOpen;
-				__tSrcSave.Image            = is24 ? Properties.Resources.Toolbar_SrcSave24 : Properties.Resources.Toolbar_SrcSave;
-				__tSrcReve.Image            = is24 ? Properties.Resources.Toolbar_SrcRev24  : Properties.Resources.Toolbar_SrcRev;
+				__tSrcOpen.Image            = is24 ? Resources.Toolbar_SrcOpen24 : Resources.Toolbar_SrcOpen;
+				__tSrcSave.Image            = is24 ? Resources.Toolbar_SrcSave24 : Resources.Toolbar_SrcSave;
+				__tSrcReve.Image            = is24 ? Resources.Toolbar_SrcRev24  : Resources.Toolbar_SrcRev;
 				
-				__tResAdd.Image             = is24 ? Properties.Resources.Toolbar_ResAdd24 : Properties.Resources.Toolbar_ResAdd;
-				__tResExt.Image             = is24 ? Properties.Resources.Toolbar_ResExt24 : Properties.Resources.Toolbar_ResExt;
-				__tResRep.Image             = is24 ? Properties.Resources.Toolbar_ResRep24 : Properties.Resources.Toolbar_ResRep;
-				__tResDel.Image             = is24 ? Properties.Resources.Toolbar_ResDel24 : Properties.Resources.Toolbar_ResDel;
-				__tResCan.Image             = is24 ? Properties.Resources.Toolbar_ResCan24 : Properties.Resources.Toolbar_ResCan;
+				__tResAdd.Image             = is24 ? Resources.Toolbar_ResAdd24 : Resources.Toolbar_ResAdd;
+				__tResExt.Image             = is24 ? Resources.Toolbar_ResExt24 : Resources.Toolbar_ResExt;
+				__tResRep.Image             = is24 ? Resources.Toolbar_ResRep24 : Resources.Toolbar_ResRep;
+				__tResDel.Image             = is24 ? Resources.Toolbar_ResDel24 : Resources.Toolbar_ResDel;
+				__tResCan.Image             = is24 ? Resources.Toolbar_ResCan24 : Resources.Toolbar_ResCan;
 				
-				__tGenOpt.Image             = is24 ? Properties.Resources.Toolbar_GenOpt24 : Properties.Resources.Toolbar_GenOpt;
+				__tGenOpt.Image             = is24 ? Resources.Toolbar_GenOpt24 : Resources.Toolbar_GenOpt;
 				
 				this.ResumeLayout(true);
 			
@@ -435,7 +435,7 @@ namespace Anolis.Resourcer {
 				
 				this.__sType.Text = CurrentData.GetType().Name;
 				this.__sSize.Text = CurrentData.RawData.Length.ToString(Cult.CurrentCulture) + " Bytes";
-				this.__sPath.Text = CurrentPath + ',' + GetResourcePath(CurrentData.Lang);
+				this.__sPath.Text = CurrentPath + ',' + CurrentData.Lang.ResourcePath;
 				
 			} else if(CurrentSource != null) {
 				

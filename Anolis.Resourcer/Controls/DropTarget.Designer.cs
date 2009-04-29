@@ -35,7 +35,7 @@
 			this.@__sourceOpen.AllowDrop = true;
 			this.@__sourceOpen.Appearance = System.Windows.Forms.Appearance.Button;
 			this.@__sourceOpen.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.@__sourceOpen.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_SrcOpen;
+			this.@__sourceOpen.Image = global::Anolis.Resourcer.Resources.Toolbar_SrcOpen;
 			this.@__sourceOpen.Location = new System.Drawing.Point(3, 3);
 			this.@__sourceOpen.Name = "__sourceOpen";
 			this.@__sourceOpen.Size = new System.Drawing.Size(123, 83);
@@ -50,7 +50,7 @@
 			this.@__dataAdd.AllowDrop = true;
 			this.@__dataAdd.Appearance = System.Windows.Forms.Appearance.Button;
 			this.@__dataAdd.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.@__dataAdd.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_ResAdd;
+			this.@__dataAdd.Image = global::Anolis.Resourcer.Resources.Toolbar_ResAdd;
 			this.@__dataAdd.Location = new System.Drawing.Point(132, 3);
 			this.@__dataAdd.Name = "__dataAdd";
 			this.@__dataAdd.Size = new System.Drawing.Size(123, 83);
@@ -65,7 +65,7 @@
 			this.@__dataReplace.AllowDrop = true;
 			this.@__dataReplace.Appearance = System.Windows.Forms.Appearance.Button;
 			this.@__dataReplace.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.@__dataReplace.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_ResRep;
+			this.@__dataReplace.Image = global::Anolis.Resourcer.Resources.Toolbar_ResRep;
 			this.@__dataReplace.Location = new System.Drawing.Point(261, 3);
 			this.@__dataReplace.Name = "__dataReplace";
 			this.@__dataReplace.Size = new System.Drawing.Size(123, 83);

@@ -163,7 +163,7 @@ namespace Anolis.Resourcer {
 			// __navBack
 			// 
 			this.@__navBack.Enabled = false;
-			this.@__navBack.Image = global::Anolis.Resourcer.Properties.Resources.NavBackUp;
+			this.@__navBack.Image = global::Anolis.Resourcer.Resources.NavBackUp;
 			this.@__navBack.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__navBack.Margin = new System.Windows.Forms.Padding(1, 1, 0, 2);
 			this.@__navBack.Name = "__navBack";
@@ -173,7 +173,7 @@ namespace Anolis.Resourcer {
 			// __navUp
 			// 
 			this.@__navUp.Enabled = false;
-			this.@__navUp.Image = global::Anolis.Resourcer.Properties.Resources.NavUpUp;
+			this.@__navUp.Image = global::Anolis.Resourcer.Resources.NavUpUp;
 			this.@__navUp.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__navUp.Name = "__navUp";
 			this.@__navUp.Size = new System.Drawing.Size(40, 22);
@@ -240,7 +240,7 @@ namespace Anolis.Resourcer {
             this.@__tSrcMruInfo,
             @__tSrcMruSep,
             this.@__tSrcMruClear});
-			this.@__tSrcOpen.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_SrcOpen;
+			this.@__tSrcOpen.Image = global::Anolis.Resourcer.Resources.Toolbar_SrcOpen;
 			this.@__tSrcOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tSrcOpen.Margin = new System.Windows.Forms.Padding(0);
 			this.@__tSrcOpen.Name = "__tSrcOpen";
@@ -269,7 +269,7 @@ namespace Anolis.Resourcer {
             this.@__tSrcSaveBackup,
             @__tSrcSaveSep,
             this.@__tSrcSavePending});
-			this.@__tSrcSave.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_SrcSave;
+			this.@__tSrcSave.Image = global::Anolis.Resourcer.Resources.Toolbar_SrcSave;
 			this.@__tSrcSave.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tSrcSave.Margin = new System.Windows.Forms.Padding(0);
 			this.@__tSrcSave.Name = "__tSrcSave";
@@ -292,7 +292,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tSrcReve
 			// 
-			this.@__tSrcReve.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_SrcRev;
+			this.@__tSrcReve.Image = global::Anolis.Resourcer.Resources.Toolbar_SrcRev;
 			this.@__tSrcReve.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tSrcReve.Margin = new System.Windows.Forms.Padding(0);
 			this.@__tSrcReve.Name = "__tSrcReve";
@@ -304,7 +304,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tResAdd
 			// 
-			this.@__tResAdd.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_ResAdd;
+			this.@__tResAdd.Image = global::Anolis.Resourcer.Resources.Toolbar_ResAdd;
 			this.@__tResAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResAdd.Margin = new System.Windows.Forms.Padding(0);
 			this.@__tResAdd.Name = "__tResAdd";
@@ -316,7 +316,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tResExt
 			// 
-			this.@__tResExt.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_ResExt;
+			this.@__tResExt.Image = global::Anolis.Resourcer.Resources.Toolbar_ResExt;
 			this.@__tResExt.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResExt.Margin = new System.Windows.Forms.Padding(0);
 			this.@__tResExt.Name = "__tResExt";
@@ -328,7 +328,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tResRep
 			// 
-			this.@__tResRep.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_ResRep;
+			this.@__tResRep.Image = global::Anolis.Resourcer.Resources.Toolbar_ResRep;
 			this.@__tResRep.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResRep.Margin = new System.Windows.Forms.Padding(0);
 			this.@__tResRep.Name = "__tResRep";
@@ -340,7 +340,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tResDel
 			// 
-			this.@__tResDel.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_ResDel;
+			this.@__tResDel.Image = global::Anolis.Resourcer.Resources.Toolbar_ResDel;
 			this.@__tResDel.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResDel.Margin = new System.Windows.Forms.Padding(0);
 			this.@__tResDel.Name = "__tResDel";
@@ -352,7 +352,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tResCan
 			// 
-			this.@__tResCan.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_ResCan;
+			this.@__tResCan.Image = global::Anolis.Resourcer.Resources.Toolbar_ResCan;
 			this.@__tResCan.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tResCan.Margin = new System.Windows.Forms.Padding(0);
 			this.@__tResCan.Name = "__tResCan";
@@ -364,7 +364,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __tGenOpt
 			// 
-			this.@__tGenOpt.Image = global::Anolis.Resourcer.Properties.Resources.Toolbar_GenOpt;
+			this.@__tGenOpt.Image = global::Anolis.Resourcer.Resources.Toolbar_GenOpt;
 			this.@__tGenOpt.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tGenOpt.Margin = new System.Windows.Forms.Padding(0);
 			this.@__tGenOpt.Name = "__tGenOpt";

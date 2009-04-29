@@ -80,6 +80,32 @@ namespace Anolis.Core {
 			_data = _dataOld;
 		}
 		
+		private String _resourcePath;
+		
+		public String ResourcePath {
+			get {
+				if( _resourcePath == null ) {
+					
+					_resourcePath = String.Empty;
+					
+					if(this.Name.Type.Identifier.KnownType == Win32ResourceType.Custom) {
+						
+						_resourcePath += this.Name.Type.Identifier.StringId;
+						
+					} else {
+						
+						_resourcePath += this.Name.Type.Identifier.IntegerId.Value.ToString(Cult.InvariantCulture);
+					}
+					
+					_resourcePath += '\\' + this.Name.Identifier.FriendlyName;
+					
+					_resourcePath += '\\' + this.LanguageId.ToString(Cult.InvariantCulture);
+					
+				}
+				return _resourcePath;
+			}
+		}
+		
 #endregion
 		
 	}

@@ -126,7 +126,7 @@ namespace Anolis.Resourcer.TypeViewers {
 						
 						e.Graphics.DrawImage( bmp, GetImageRect(48, 48) );
 						
-						e.Graphics.DrawImage( Properties.Resources.Dir_Zoomable, magRect );
+						e.Graphics.DrawImage( Resources.Dir_Zoomable, magRect );
 					} else {
 						e.Graphics.DrawImage( bmp, imageRect );
 						

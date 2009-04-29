@@ -160,7 +160,7 @@
     <EmbeddedResource Include="Forms\ReplaceResourceForm.resx">
       <DependentUpon>ReplaceResourceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -201,7 +201,7 @@
     <EmbeddedResource Include="TypeViewers\VersionViewer.resx">
       <DependentUpon>VersionViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -327,6 +327,7 @@
     <None Include="Resources\ListView\NavBackOver.png" />
     <None Include="Resources\ListView\NavBackUp.png" />
     <None Include="Resources\ListView\NavUpOver.png" />
+    <None Include="Resources\ListView\Details.png" />
     <Content Include="Resources\MainIcon.ico" />
     <Content Include="Resources\ResourceTypes\Accelerator16.png" />
     <Content Include="Resources\ResourceTypes\Accelerator32.png" />
@@ -342,14 +343,18 @@
     <Content Include="Resources\ResourceTypes\Dialog32.png" />
     <Content Include="Resources\ResourceTypes\File16.png" />
     <Content Include="Resources\ResourceTypes\File32.png" />
-    <Content Include="Resources\ResourceTypes\Html.png" />
+    <Content Include="Resources\ResourceTypes\Html16.png" />
     <Content Include="Resources\ResourceTypes\Html32.png" />
     <Content Include="Resources\ResourceTypes\Icon16.png" />
     <Content Include="Resources\ResourceTypes\Icon32.png" />
     <Content Include="Resources\ResourceTypes\Menu16.png" />
     <Content Include="Resources\ResourceTypes\Menu32.png" />
+    <Content Include="Resources\ResourceTypes\StringTable16.png" />
+    <Content Include="Resources\ResourceTypes\StringTable32.png" />
     <Content Include="Resources\ResourceTypes\Toolbar16.png" />
     <Content Include="Resources\ResourceTypes\Toolbar32.png" />
+    <Content Include="Resources\ResourceTypes\Version16.png" />
+    <Content Include="Resources\ResourceTypes\Version32.png" />
     <Content Include="Resources\ResourceTypes\Xml16.png" />
     <Content Include="Resources\ResourceTypes\Xml32.png" />
     <Content Include="Resources\ResTree\Add.png" />

@@ -79,7 +79,7 @@
 			// __tOpen
 			// 
 			this.@__tOpen.CheckOnClick = true;
-			this.@__tOpen.Image = global::Anolis.Resourcer.Properties.Resources.Dialogs_Run;
+			this.@__tOpen.Image = global::Anolis.Resourcer.Resources.Dialogs_Run;
 			this.@__tOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__tOpen.Name = "__tOpen";
 			this.@__tOpen.Size = new System.Drawing.Size(85, 22);
