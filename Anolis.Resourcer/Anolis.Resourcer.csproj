@@ -65,14 +65,19 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLine\CommandLineParser.cs" />
     <Compile Include="CommandLine\Processor.cs" />
+    <Compile Include="Controls\AnimationControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\BaseUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -82,6 +87,7 @@
     <Compile Include="Controls\DropTarget.Designer.cs">
       <DependentUpon>DropTarget.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NativeMethods.cs" />
     <Compile Include="Cultures.cs" />
     <Compile Include="Forms\AddResourceForm.cs">
       <SubType>Form</SubType>
@@ -165,6 +171,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="TypeViewers\AnimationViewer.resx">
+      <DependentUpon>AnimationViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TypeViewers\MenuDialogHelperForm.resx">
       <DependentUpon>MenuDialogHelperForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -213,6 +222,12 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="TypeViewers\AnimationViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TypeViewers\AnimationViewer.Designer.cs">
+      <DependentUpon>AnimationViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="TypeViewers\MenuDialogHelperForm.cs">
       <SubType>Form</SubType>

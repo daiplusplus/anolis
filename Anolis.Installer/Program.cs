@@ -23,6 +23,8 @@ namespace Anolis.Installer {
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
 				
+				MessageBox.Show("holding...");
+				
 				ProgramMode = ProgramMode.None;
 				
 				// Set up the wizard
