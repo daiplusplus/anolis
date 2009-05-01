@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml;
 
-namespace Anolis.Core.Packages {
+namespace Anolis.Core.Packages.Operations {
 	
 	public class FileOperation : Operation {
 		

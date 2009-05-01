@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Xml;
 using System.Xml.Schema;
@@ -6,10 +7,12 @@ using System.Text;
 using System.IO;
 using System.Net;
 
+using Anolis.Core.Packages.Operations;
+
 using N = System.Globalization.NumberStyles;
+using Cult = System.Globalization.CultureInfo;
 
 using ProgressEventArgs = Anolis.Core.Packages.PackageProgressEventArgs;
-using System.Collections.Generic;
 
 namespace Anolis.Core.Packages {
 	
@@ -20,7 +23,7 @@ namespace Anolis.Core.Packages {
 			
 			RootDirectory = root;
 			
-			Version     = Single.Parse( packageElement.Attributes["version"].Value, N.AllowDecimalPoint | N.AllowLeadingWhite | System.Globalization.NumberStyles.AllowTrailingWhite, System.Globalization.CultureInfo.InvariantCulture );
+			Version     = Single.Parse( packageElement.Attributes["version"].Value, N.AllowDecimalPoint | N.AllowLeadingWhite | N.AllowTrailingWhite, Cult.InvariantCulture );
 			Attribution = packageElement.Attributes["attribution"].Value;
 			Website     = packageElement.GetAttribute("website")  .Length > 0 ? new Uri( packageElement.Attributes["website"]  .Value ) : null;
 			UpdateUri   = packageElement.GetAttribute("updateUri").Length > 0 ? new Uri( packageElement.Attributes["updateUri"].Value ) : null;
@@ -29,7 +32,7 @@ namespace Anolis.Core.Packages {
 			Log           = new Collection<LogItem>();
 			
 			// Load it up
-			RootSet       = new Group(this, packageElement);
+			RootGroup     = new Group(this, packageElement);
 		}
 		
 		public Single Version     { get; private set; }
@@ -112,7 +115,7 @@ namespace Anolis.Core.Packages {
 		
 		//////////////////////////////
 		
-		public Group                 RootSet { get; private set; }
+		public Group                 RootGroup { get; private set; }
 		
 		public Collection<LogItem> Log     { get; private set; }
 		
@@ -136,7 +139,7 @@ namespace Anolis.Core.Packages {
 			
 			List<Operation> operations = new List<Operation>();
 			
-			RootSet.Flatten(operations);
+			RootGroup.Flatten(operations);
 			
 			List<Operation> obsoleteOperations = new List<Operation>();
 			

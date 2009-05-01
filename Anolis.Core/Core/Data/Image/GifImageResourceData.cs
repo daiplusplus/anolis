@@ -19,7 +19,7 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesExtension(String filenameExtension) {
 			
-			return (filenameExtension == "GIF") ? Compatibility.Yes : Compatibility.No;
+			return ( IsExtension( filenameExtension, "gif" ) ) ? Compatibility.Yes : Compatibility.No;
 			
 		}
 		

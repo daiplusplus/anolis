@@ -2,8 +2,11 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+
 using Anolis.Core;
 using Anolis.Core.Data;
+
+using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Resourcer.Controls {
 	
@@ -407,9 +410,15 @@ namespace Anolis.Resourcer.Controls {
 		
 		private static String[] GetSubItemsForName(ResourceName name) {
 			
+			Int32 dataSize = 0;
+			
+			foreach(ResourceLang lang in name.Langs) {
+				dataSize += lang.Data.RawData.Length;
+			}
+			
 			return new String[] {
 //				name.Identifier.FriendlyName,
-				name.Langs.Count + " langs",
+				String.Format(Cult.CurrentCulture, "{0} bytes in {1} langs", dataSize, name.Langs.Count),
 				name.Type.Identifier.FriendlyName
 			};
 			

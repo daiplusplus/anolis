@@ -20,12 +20,7 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesExtension(String filenameExtension) {
 			
-			switch(filenameExtension) {
-				case "JPEG":
-				case "JPG":
-				case "JFIF":
-					return Compatibility.Yes;
-			}
+			if( IsExtension( filenameExtension, "jpg", "jpeg", "jfif" ) ) return Compatibility.Yes;
 			
 			return Compatibility.No;
 			

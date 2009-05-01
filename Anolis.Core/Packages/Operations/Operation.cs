@@ -5,7 +5,7 @@ using System.Xml;
 using P = System.IO.Path;
 using System.Text;
 
-namespace Anolis.Core.Packages {
+namespace Anolis.Core.Packages.Operations {
 	
 	public class OperationCollection : Collection<Operation> {
 	}

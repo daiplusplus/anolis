@@ -157,6 +157,13 @@ namespace Anolis.Core.Packages {
 		/// <param name="root">If the resolved path is not rooted, this parameter will be intelligently prepended</param>
 		public static String ResolvePath(String path, String root) {
 			
+			String resolved = Environment.ExpandEnvironmentVariables( path );
+			if( Path.IsPathRooted( resolved ) ) return resolved;
+			
+			return Path.Combine( root, resolved );
+			
+/*			
+			
 			if( path.IndexOf('%') == -1 ) return path;
 			
 			StringBuilder retval = new StringBuilder();
@@ -197,7 +204,7 @@ namespace Anolis.Core.Packages {
 				ret = Path.Combine( root, ret );
 			}
 			
-			return ret;
+			return ret; */
 		}
 		
 		public static void ClearIconCache() {

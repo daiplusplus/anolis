@@ -4,7 +4,10 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using Anolis.Core.Packages;
+using Anolis.Core.Packages.Operations;
 using W3b.Wizards.WindowsForms;
+
+
 
 namespace Anolis.Installer.Pages {
 	
@@ -50,7 +53,7 @@ namespace Anolis.Installer.Pages {
 			
 			__packageView.Nodes.Clear();
 			
-			TreeNode root = PopulateTreeview( __packageView.Nodes, PackageInfo.Package.RootSet);
+			TreeNode root = PopulateTreeview( __packageView.Nodes, PackageInfo.Package.RootGroup);
 			root.Expand();
 			
 		}
@@ -99,7 +102,7 @@ namespace Anolis.Installer.Pages {
 					__infoLbl.Text = (item as Operation).Path;
 				} else {
 					
-					__infoLbl.Text = InstallerResources.GetString("C_C_noInfo");
+					__infoLbl.Text = InstallerResources.GetString("C_D_noInfo");
 				}
 				
 			} else {

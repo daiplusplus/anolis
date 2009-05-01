@@ -51,6 +51,18 @@ namespace Anolis.Core.Data {
 			return data;
 		}
 		
+		protected static Boolean IsExtension(String extension, params String[] extensions) {
+			
+			if( extension.StartsWith(".") ) extension = extension.Substring(1);
+			
+			foreach(String ext in extensions) {
+				if( String.Equals( extension, ext, StringComparison.OrdinalIgnoreCase ) ) return true;
+			}
+			
+			return false;
+			
+		}
+		
 #region Factory Selection and Loading
 		
 		private static Pair<ResourceDataFactory, String>[] _openFileFilters;

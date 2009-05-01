@@ -38,13 +38,15 @@ namespace Anolis.Core.Data {
 		/// <summary>Saves the underlying Image to the specified Stream using the specified Image format at 100% quality (where possible).</summary>
 		protected void ConvertAndSaveImageAs(Stream saveTo, String extension) {
 			
+			extension = extension.ToUpperInvariant();
+			
 			ImageResourceDataSaveFormat format;
 			switch(extension) {
-				case "jpg": format = ImageResourceDataSaveFormat.Jpeg; break;
-				case "exf": format = ImageResourceDataSaveFormat.Exif; break;
-				case "gif": format = ImageResourceDataSaveFormat.Gif; break;
-				case "png": format = ImageResourceDataSaveFormat.Png; break;
-				case "bmp": format = ImageResourceDataSaveFormat.Bmp; break;
+				case "JPG": format = ImageResourceDataSaveFormat.Jpeg; break;
+				case "EXF": format = ImageResourceDataSaveFormat.Exif; break;
+				case "GIF": format = ImageResourceDataSaveFormat.Gif; break;
+				case "PNG": format = ImageResourceDataSaveFormat.Png; break;
+				case "BMP": format = ImageResourceDataSaveFormat.Bmp; break;
 				default:
 					throw new NotSupportedException("Unrecognised image file format extension \"" + extension + '"');
 			}

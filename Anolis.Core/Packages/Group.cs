@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Xml;
 using System.Xml.Schema;
 using System.Text;
 using System.IO;
 
+using Anolis.Core.Packages.Operations;
+
 using ProgressEventArgs = Anolis.Core.Packages.PackageProgressEventArgs;
-using System.Collections.Generic;
+
 
 namespace Anolis.Core.Packages {
 	
@@ -17,10 +20,14 @@ namespace Anolis.Core.Packages {
 			
 			/////////////////////////////////////////////////////
 			
-			Children   = new SetCollection();
+			Children   = new GroupCollection();
 			Operations = new OperationCollection();
 			
-			foreach(XmlElement e in element.ChildNodes) {
+			foreach(XmlNode node in element.ChildNodes) {
+				
+				if( node.NodeType != XmlNodeType.Element ) continue;
+				
+				XmlElement e = node as XmlElement;
 				
 				switch(e.Name) {
 					case "group":
@@ -42,13 +49,14 @@ namespace Anolis.Core.Packages {
 						Operations.Add( file );
 						break;
 						
-					case "filetype":
 					case "extra":
+						
+						ExtraOperation extra = ExtraOperation.Create(package, e);
+						Operations.Add( extra );
+						break;
+						
 					default:
-						
-						
-						
-						
+						package.Log.Add( new LogItem(LogSeverity.Warning, "Unrecognised operation: " + e.Name ) );
 						break;
 				}
 				
@@ -56,7 +64,7 @@ namespace Anolis.Core.Packages {
 			
 			/////////////////////////////////////////////////////
 			
-			Mutex    = new SetCollection();
+			Mutex    = new GroupCollection();
 			// set Mutex members after all the siblings have been read in
 			
 			String mutex = element.Attributes["mutex"] != null ? element.Attributes["mutex"].Value : String.Empty;
@@ -70,9 +78,9 @@ namespace Anolis.Core.Packages {
 		
 		internal String[] MutexIds    { get; private set; }
 		
-		public SetCollection Mutex    { get; private set; }
+		public GroupCollection Mutex    { get; private set; }
 		
-		public SetCollection       Children   { get; private set; }
+		public GroupCollection       Children   { get; private set; }
 		public OperationCollection Operations { get; private set; }
 		
 		internal void Flatten(List<Operation> operations) {
@@ -85,6 +93,6 @@ namespace Anolis.Core.Packages {
 		
 	}
 	
-	public class SetCollection : Collection<Group> {
+	public class GroupCollection : Collection<Group> {
 	}
 }

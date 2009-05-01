@@ -491,7 +491,7 @@ namespace Anolis.Core.Native {
 		
 #region MoveFileEx
 		
-		[DllImport("kernel32.dll", SetLastError=true, CharSet=CharSet.Unicode)]
+		[DllImport("kernel32.dll", SetLastError=true, CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean MoveFileEx(String lpExistingFileName, String lpNewFileName, MoveFileFlags dwFlags);
 		
@@ -522,6 +522,53 @@ namespace Anolis.Core.Native {
 		[DllImport("SrClient.dll", SetLastError=true, CharSet=CharSet.Unicode)]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean SRSetRestorePoint(RestorePointInfo restorePointSpec, out StateManagerStatus managerStatus); */
+		
+#endregion
+		
+#region Package Operations
+		
+		[Flags]
+		public enum RedrawFlags : uint {
+			Invalidate      = 0x01,
+			InternalPaint   = 0x02,
+			Erase           = 0x04,
+			
+			Validate        = 0x08,
+			NoInternalPaint = 0x10,
+			NoErase         = 0x20,
+			
+			NoChildren      = 0x40,
+			AllChildren     = 0x80,
+			
+			UpdateNow       = 0x100,
+			EraseNow        = 0x200,
+			
+			Frame           = 0x400,
+			NoFrame         = 0x800
+		}
+		
+		[DllImport("user32.dll")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean RedrawWindow(IntPtr hWnd, IntPtr lprcUpdate, IntPtr hrgnUpdate, RedrawFlags flags); 
+		
+	#region System Parameters
+		
+		public enum SpiAction : int {
+			SetDesktopWallpaper = 0x14
+		}
+		
+		[Flags]
+		public enum SpiUpdate : int {
+			UpdateIniFile    = 0x01,
+			SendWinIniChange = 0x02,
+		}
+		
+		[DllImport("user32.dll", CharSet=CharSet.Auto, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean SystemParametersInfo(SpiAction uAction, Int32 uParam, String lpvParam, SpiUpdate fuWinIni);
+		
+		
+	#endregion
 		
 #endregion
 		
