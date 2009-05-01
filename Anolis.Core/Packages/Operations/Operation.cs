@@ -44,9 +44,15 @@ namespace Anolis.Core.Packages.Operations {
 					return new FileOperation(package, operationElement);
 				case "extra":
 					return ExtraOperation.Create(package, operationElement);
+				case "cursorScheme":
+					return new CursorSchemeOperation(package, operationElement);
+				
 				default:
 					// TODO: Allow additional libraries or code-generation to specify their own stuff
 					// Define types in the Package XML? http://www.codeproject.com/KB/dotnet/evaluator.aspx
+					
+					package.Log.Add(LogSeverity.Warning, "Unrecognised element: " + operationElement.Name);
+					
 					return null;
 			}
 			

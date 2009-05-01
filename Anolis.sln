@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.UxPatcher", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.IconEditor", "Anolis.IconEditor\Anolis.IconEditor.csproj", "{8F678A8E-566F-4CB2-B202-20C5156B0BC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.FileTypes", "Anolis.FileTypes\Anolis.FileTypes.csproj", "{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 8
@@ -106,6 +108,12 @@ Global
 		{8F678A8E-566F-4CB2-B202-20C5156B0BC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F678A8E-566F-4CB2-B202-20C5156B0BC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F678A8E-566F-4CB2-B202-20C5156B0BC4}.Release|x86.ActiveCfg = Release|Any CPU
+		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -42,8 +42,6 @@ namespace Anolis.Core.Packages.Operations {
 					return new WallpaperExtraOperation(package, operationElement);
 				case ExtraType.BootScreen:
 					return new BootScreenExtraOperation(package, operationElement);
-				case ExtraType.CursorScheme:
-					return new CursorSetExtraOperation(package, operationElement);
 				case ExtraType.VisualStyle:
 					return new VisualStyleExtraOperation(package, operationElement);
 				case ExtraType.Screensaver:
@@ -57,7 +55,11 @@ namespace Anolis.Core.Packages.Operations {
 			}
 		}
 		
+		protected virtual Boolean CanMerge { get { return true; } }
+		
 		public override Boolean Merge(Operation operation) {
+			
+			if( !CanMerge ) return false;
 			
 			ExtraOperation other = operation as ExtraOperation;
 			if(other == null) return false;
@@ -79,7 +81,6 @@ namespace Anolis.Core.Packages.Operations {
 		None,
 		Wallpaper,
 		BootScreen,
-		CursorScheme,
 		VisualStyle,
 		Screensaver,
 		Program,

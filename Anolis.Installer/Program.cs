@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 using W3b.Wizards;
 
+using Anolis.Core;
 using Anolis.Installer.Pages;
 using Anolis.Core.Packages;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Anolis.Installer {
 	public static class Program {
 		
 		[STAThread]
-		public static void Main() {
+		public static void Main(String[] args) {
 			
 			IWizardForm wiz = null;
 			
@@ -23,7 +24,28 @@ namespace Anolis.Installer {
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
 				
-//				MessageBox.Show("holding...");
+				if( args.Length > 0 ) {
+					
+					if( args.IndexOf("/pause") >= 0 ) {
+						
+						MessageBox.Show("Paused", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+					}
+					
+					String filename = args[0];
+					if( File.Exists( filename ) ) {
+						
+						String ext = Path.GetExtension( filename ).ToUpperInvariant();
+						if(ext == ".ANOP") { // package archive
+						
+						} else if( ext == ".XML") { // package definition
+							
+						} else if( ext == ".ANUP" ) { // undo/uninstallation
+							
+						}
+						
+					}
+					
+				}
 				
 				ProgramMode = ProgramMode.None;
 				

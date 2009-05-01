@@ -20,7 +20,7 @@ namespace Anolis.Resourcer {
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
 
-//				Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+				Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
 				
 				///////////////////////////////
 				// Load Extensibility
@@ -115,8 +115,8 @@ Anolis.Resourcer.exe -op:del -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME [-l
 			
 		}
 		
-//		private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e) {			
-//		}
+		private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e) {			
+		}
 		
 		public static String IfYouAreReadingThisThenYouHaveNoLife() {
 			return "no, really you are wasting your time because the complete source code is on http://www.codeplex.com/anolis";

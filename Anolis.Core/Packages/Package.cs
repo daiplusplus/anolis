@@ -29,7 +29,7 @@ namespace Anolis.Core.Packages {
 			UpdateUri   = packageElement.GetAttribute("updateUri").Length > 0 ? new Uri( packageElement.Attributes["updateUri"].Value ) : null;
 			
 			PackageImages = new Dictionary<String,System.Drawing.Image>();
-			Log           = new Collection<LogItem>();
+			Log           = new PackageLog();
 			
 			// Load it up
 			RootGroup     = new Group(this, packageElement);
@@ -115,9 +115,9 @@ namespace Anolis.Core.Packages {
 		
 		//////////////////////////////
 		
-		public Group                 RootGroup { get; private set; }
+		public Group      RootGroup { get; private set; }
 		
-		public Collection<LogItem> Log     { get; private set; }
+		public PackageLog Log       { get; private set; }
 		
 		//////////////////////////////
 		
@@ -247,12 +247,24 @@ namespace Anolis.Core.Packages {
 		
 		public LogItem(LogSeverity severity, String message) {
 			
+			TimeStamp = DateTime.Now;
+			
 			Severity = severity;
 			Message  = message;
 		}
 		
-		public LogSeverity Severity { get; private set; }
-		public String      Message  { get; private set; }
+		public DateTime    TimeStamp { get; private set; }
+		public LogSeverity Severity  { get; private set; }
+		public String      Message   { get; private set; }
+	}
+	
+	public class PackageLog : Collection<LogItem> {
+		
+		public void Add(LogSeverity severity, String message) {
+			
+			this.Add( new LogItem(severity, message) );
+		}
+		
 	}
 	
 	public enum LogSeverity {
