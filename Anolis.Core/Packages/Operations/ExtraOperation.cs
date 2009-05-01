@@ -84,6 +84,7 @@ namespace Anolis.Core.Packages.Operations {
 		VisualStyle,
 		Screensaver,
 		Program,
+		Registry,
 		Custom
 	}
 	
