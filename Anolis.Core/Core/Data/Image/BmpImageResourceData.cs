@@ -30,18 +30,9 @@ namespace Anolis.Core.Data {
 			
 			// I was thinking of adding a Compatibility.ConvertTo, but that's what Maybe is for...
 			
-			switch(filenameExtension) {
-				case "BMP":
-				case "DIB":
-				case "RLE":
-					return Compatibility.Yes;
-/*				case "jpg":
-				case "jpeg":
-				case "png":
-				case "gif":
-				case "exif":
-					return Compatibility.Maybe; */
-			}
+			if( IsExtension( filenameExtension, "bmp", "dib", "rle" ) ) return Compatibility.Yes;
+			
+			// TODO: Eventually add support to import other files like jpeg et al as Bitmap resources. See FromFile
 			
 			return Compatibility.No;
 			
@@ -61,7 +52,7 @@ namespace Anolis.Core.Data {
 		
 		private ResourceData FromFile(Stream stream, String extension) {
 			
-			if(extension == "bmp") {
+			if( IsExtension(extension, "bmp", "dib", "rle") ) {
 				
 				Byte[] fileData = GetAllBytesFromStream(stream);
 				

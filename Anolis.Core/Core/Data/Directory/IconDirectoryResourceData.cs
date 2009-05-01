@@ -22,7 +22,7 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesExtension(String filenameExtension) {
 			
-			if(filenameExtension == "ICO") return Compatibility.Yes;
+			if( IsExtension( filenameExtension, "ico" ) ) return Compatibility.Yes;
 			
 			return Compatibility.No;
 			
@@ -45,7 +45,7 @@ namespace Anolis.Core.Data {
 		
 		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 lang, ResourceSource currentSource) {
 			
-			if(extension != "ico") throw new ArgumentException("ico is the only supported extension");
+			if( !IsExtension( extension, "ico" ) ) throw new ArgumentException("ico is the only supported extension");
 			
 			ResIconDir dir = ResIconDirHelper.FromFile(stream, lang, currentSource);
 			
@@ -54,7 +54,7 @@ namespace Anolis.Core.Data {
 		
 		public override ResourceData FromFileToUpdate(Stream stream, String extension, ResourceLang currentLang) {
 			
-			if(extension != "ico") throw new ArgumentException("ico is the only supported extension");
+			if( !IsExtension( extension, "ico" ) ) throw new ArgumentException("ico is the only supported extension");
 			
 			IconDirectoryResourceData originalData = currentLang.Data as IconDirectoryResourceData;
 			if(originalData == null) throw new ResourceDataException("Unexpected original data subclass");

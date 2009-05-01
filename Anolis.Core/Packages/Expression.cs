@@ -342,7 +342,34 @@ namespace Anolis.Core.Packages {
 					
 					break;
 					
+				case Operator.And:
+				case Operator.Or:
+				case Operator.Xor:
 					
+					EnsureVal(2);
+					Double binA = _valueStack.Pop();
+					Double binB = _valueStack.Pop();
+					
+					Boolean and = binA == 1 && binB == 1;
+					Boolean or  = binA == 1 || binB == 1;
+					Boolean xor = (binA == 1 && binB != 1) || (binA != 1 && binB == 1);
+					
+					if( op == Operator.And ) _valueStack.Push( and ? 1 : 0 );
+					if( op == Operator.Or  ) _valueStack.Push( or  ? 1 : 0 );
+					if( op == Operator.Xor ) _valueStack.Push( xor ? 1 : 0 );
+					
+					break;
+					
+				case Operator.Not:
+					
+					EnsureVal(1);
+					Double notA = _valueStack.Pop();
+					if(notA == 1) notA = 0;
+					else          notA = 1;
+					
+					_valueStack.Push( notA );
+					
+					break;
 				
 //				case Operator.Val:
 //				case Operator.Eof:

@@ -196,7 +196,7 @@ namespace Anolis.Installer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The package to install can either be installed on this computer or embedded in this installer.
+        ///   Looks up a localized string similar to The package to install can either be in this computer&apos;s filesystem or embedded in this installer.
         /// </summary>
         internal static string C_A_Subtitle {
             get {
@@ -232,11 +232,56 @@ namespace Anolis.Installer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please wait whilst the installer prepares the package for installation.
+        /// </summary>
+        internal static string C_B_Subtitle {
+            get {
+                return ResourceManager.GetString("C_B_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} may have been updated since you acquired it. Would you like to check for updates?.
+        /// </summary>
+        internal static string C_C_Subtitle {
+            get {
+                return ResourceManager.GetString("C_C_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking for Package Updates.
+        /// </summary>
+        internal static string C_C_Title {
+            get {
+                return ResourceManager.GetString("C_C_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The selected item &apos;{0}&apos; does not have any information associated with it.
         /// </summary>
         internal static string C_D_noInfo {
             get {
                 return ResourceManager.GetString("C_D_noInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can choose whether or not to install components of this package.
+        /// </summary>
+        internal static string C_D_Subtitle {
+            get {
+                return ResourceManager.GetString("C_D_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify Package.
+        /// </summary>
+        internal static string C_D_Title {
+            get {
+                return ResourceManager.GetString("C_D_Title", resourceCulture);
             }
         }
         
@@ -286,6 +331,15 @@ namespace Anolis.Installer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select a backup directory and other options.
+        /// </summary>
+        internal static string C_E_Subtitle {
+            get {
+                return ResourceManager.GetString("C_E_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create System Restore Point (Recommended).
         /// </summary>
         internal static string C_E_sysRes {
@@ -304,11 +358,38 @@ namespace Anolis.Installer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Installation Options.
+        /// </summary>
+        internal static string C_E_Title {
+            get {
+                return ResourceManager.GetString("C_E_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}% complete - {1}.
         /// </summary>
         internal static string C_F_status {
             get {
                 return ResourceManager.GetString("C_F_status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your selected package is being installed.
+        /// </summary>
+        internal static string C_F_Subtitle {
+            get {
+                return ResourceManager.GetString("C_F_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installing Package.
+        /// </summary>
+        internal static string C_F_Title {
+            get {
+                return ResourceManager.GetString("C_F_Title", resourceCulture);
             }
         }
         

@@ -36,11 +36,13 @@
 			this.@__ttAddGroup = new System.Windows.Forms.ToolStripButton();
 			this.@__ttAddPatch = new System.Windows.Forms.ToolStripButton();
 			this.@__ttAddFile = new System.Windows.Forms.ToolStripButton();
-			this.@__ttRemove = new System.Windows.Forms.ToolStripButton();
-			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__ttAddFileAssoc = new System.Windows.Forms.ToolStripButton();
 			this.@__ttAddExtra = new System.Windows.Forms.ToolStripButton();
+			this.@__ttRemove = new System.Windows.Forms.ToolStripButton();
+			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__properties = new System.Windows.Forms.PropertyGrid();
+			this.@__tIconEditor = new System.Windows.Forms.ToolStripButton();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			this.@__tools.SuspendLayout();
 			this.@__treeTools.SuspendLayout();
@@ -63,7 +65,9 @@
             this.@__tSave,
             @__tSep1,
             this.@__tValidate,
-            this.@__tResourcer});
+            this.toolStripSeparator1,
+            this.@__tResourcer,
+            this.@__tIconEditor});
 			this.@__tools.Location = new System.Drawing.Point(0, 0);
 			this.@__tools.Name = "__tools";
 			this.@__tools.Size = new System.Drawing.Size(596, 25);
@@ -168,6 +172,24 @@
 			this.@__ttAddFile.Size = new System.Drawing.Size(23, 22);
 			this.@__ttAddFile.Text = "Add File";
 			// 
+			// __ttAddFileAssoc
+			// 
+			this.@__ttAddFileAssoc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.@__ttAddFileAssoc.Image = ((System.Drawing.Image)(resources.GetObject("__ttAddFileAssoc.Image")));
+			this.@__ttAddFileAssoc.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__ttAddFileAssoc.Name = "__ttAddFileAssoc";
+			this.@__ttAddFileAssoc.Size = new System.Drawing.Size(23, 22);
+			this.@__ttAddFileAssoc.Text = "Add File Association";
+			// 
+			// __ttAddExtra
+			// 
+			this.@__ttAddExtra.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.@__ttAddExtra.Image = ((System.Drawing.Image)(resources.GetObject("__ttAddExtra.Image")));
+			this.@__ttAddExtra.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__ttAddExtra.Name = "__ttAddExtra";
+			this.@__ttAddExtra.Size = new System.Drawing.Size(23, 22);
+			this.@__ttAddExtra.Text = "Add Extra";
+			// 
 			// __ttRemove
 			// 
 			this.@__ttRemove.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -196,24 +218,6 @@
 			this.@__split.SplitterDistance = 223;
 			this.@__split.TabIndex = 6;
 			// 
-			// __ttAddFileAssoc
-			// 
-			this.@__ttAddFileAssoc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.@__ttAddFileAssoc.Image = ((System.Drawing.Image)(resources.GetObject("__ttAddFileAssoc.Image")));
-			this.@__ttAddFileAssoc.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__ttAddFileAssoc.Name = "__ttAddFileAssoc";
-			this.@__ttAddFileAssoc.Size = new System.Drawing.Size(23, 22);
-			this.@__ttAddFileAssoc.Text = "Add File Association";
-			// 
-			// __ttAddExtra
-			// 
-			this.@__ttAddExtra.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.@__ttAddExtra.Image = ((System.Drawing.Image)(resources.GetObject("__ttAddExtra.Image")));
-			this.@__ttAddExtra.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__ttAddExtra.Name = "__ttAddExtra";
-			this.@__ttAddExtra.Size = new System.Drawing.Size(23, 22);
-			this.@__ttAddExtra.Text = "Add Extra";
-			// 
 			// __properties
 			// 
 			this.@__properties.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -221,6 +225,20 @@
 			this.@__properties.Name = "__properties";
 			this.@__properties.Size = new System.Drawing.Size(369, 284);
 			this.@__properties.TabIndex = 0;
+			// 
+			// __tIconEditor
+			// 
+			this.@__tIconEditor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.@__tIconEditor.Image = ((System.Drawing.Image)(resources.GetObject("__tIconEditor.Image")));
+			this.@__tIconEditor.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__tIconEditor.Name = "__tIconEditor";
+			this.@__tIconEditor.Size = new System.Drawing.Size(23, 22);
+			this.@__tIconEditor.Text = "Launch Icon Editor";
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
 			// DefinitionForm
 			// 
@@ -261,5 +279,7 @@
 		private System.Windows.Forms.ToolStripButton __ttAddFileAssoc;
 		private System.Windows.Forms.ToolStripButton __ttAddExtra;
 		private System.Windows.Forms.PropertyGrid __properties;
+		private System.Windows.Forms.ToolStripButton __tIconEditor;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 	}
 }

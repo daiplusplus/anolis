@@ -23,7 +23,7 @@ namespace Anolis.Installer {
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
 				
-				MessageBox.Show("holding...");
+//				MessageBox.Show("holding...");
 				
 				ProgramMode = ProgramMode.None;
 				
@@ -47,7 +47,11 @@ namespace Anolis.Installer {
 				
 				PageFFinished       = new FinishedPage();
 				
-				wiz                 = new W3b.Wizards.WindowsForms.Aero.AeroWizardForm(); // WizardFactory.Create();
+				wiz                 = 
+//				                      new W3b.Wizards.WindowsForms.Aero.AeroWizardForm();
+//				                      new W3b.Wizards.WindowsForms.Wizard97.Wizard97WizardForm();
+				                      WizardFactory.Create();
+				
 				wiz.CancelClicked  += new EventHandler(wiz_CancelClicked);
 				wiz.HasHelp         = false;
 				wiz.Title           = "Anolis Package Installer";

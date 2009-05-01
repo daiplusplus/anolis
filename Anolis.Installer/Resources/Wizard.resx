@@ -171,7 +171,7 @@ To continue, press Next</value>
     <value>A package definition file (package.xml) on my computer</value>
   </data>
   <data name="C_A_Subtitle" xml:space="preserve">
-    <value>The package to install can either be installed on this computer or embedded in this installer</value>
+    <value>The package to install can either be in this computer's filesystem or embedded in this installer</value>
   </data>
   <data name="C_A_Title" xml:space="preserve">
     <value>Select a package to install</value>
@@ -242,5 +242,32 @@ Close all open applications before continuing. Do not attempt to open any new ap
   </data>
   <data name="C_E_sysResDesc" xml:space="preserve">
     <value>An added layer of protection. Note this does not always protect against modifications made to non-Windows files under Program Files</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>{0} may have been updated since you acquired it. Would you like to check for updates?</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>Checking for Package Updates</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>Please wait whilst the installer prepares the package for installation</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>You can choose whether or not to install components of this package</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>Modify Package</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>Select a backup directory and other options</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>Installation Options</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>Your selected package is being installed</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>Installing Package</value>
   </data>
 </root>

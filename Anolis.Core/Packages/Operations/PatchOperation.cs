@@ -9,7 +9,7 @@ using P = System.IO.Path;
 
 using System.Collections.Generic;
 
-namespace Anolis.Core.Packages {
+namespace Anolis.Core.Packages.Operations {
 	
 	public class PatchOperation : Operation {
 		
@@ -19,7 +19,11 @@ namespace Anolis.Core.Packages {
 			
 			base.Path = operationElement.GetAttribute("path");
 			
-			foreach(XmlElement child in operationElement.ChildNodes) {
+			foreach(XmlNode node in operationElement.ChildNodes) {
+				
+				if(node.NodeType != XmlNodeType.Element) continue;
+				
+				XmlElement child = node as XmlElement;
 				
 				if( child.Name != "res" ) continue;
 				
@@ -27,7 +31,8 @@ namespace Anolis.Core.Packages {
 					Type = child.GetAttribute("type"),
 					Name = child.GetAttribute("name"),
 					Lang = child.GetAttribute("lang"),
-					File = child.GetAttribute("src")
+					File = child.GetAttribute("src"),
+					Add  = child.GetAttribute("add") == "true"
 				};
 				
 				res.File = P.Combine( package.RootDirectory.FullName, res.File );
@@ -79,7 +84,10 @@ namespace Anolis.Core.Packages {
 							}
 							foreach(ResourceLang lang in name.Langs) {
 								
-								ResourceData data = ResourceData.FromFileToUpdate( res.File, lang );
+								ResourceData data;
+								if(res.Add) data = ResourceData.FromFileToAdd( res.File, lang.LanguageId, source );
+								else        data = ResourceData.FromFileToUpdate( res.File, lang );
+								
 								lang.SwapData( data );
 								
 							}
@@ -143,6 +151,9 @@ namespace Anolis.Core.Packages {
 		public String Lang { get; set; }
 		
 		public String File { get; set; }
+		
+		/// <summary>True if the resource is to be added as opposed to updated</summary>
+		public Boolean Add { get; set; }
 	}
 	
 }

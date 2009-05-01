@@ -8,7 +8,7 @@ namespace Anolis.Core.Data {
 		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
 			
 			if(typeId.KnownType == Win32ResourceType.Unknown) return Compatibility.Maybe;
-			if(typeId.KnownType != Win32ResourceType.Custom) return Compatibility.No;
+			if(typeId.KnownType != Win32ResourceType.Custom)  return Compatibility.No;
 			
 			if( String.Equals( typeId.StringId, "PNG"    , StringComparison.OrdinalIgnoreCase)) return Compatibility.Yes;
 			if( String.Equals( typeId.StringId, "PNGF"   , StringComparison.OrdinalIgnoreCase)) return Compatibility.Yes;
@@ -18,7 +18,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override Compatibility HandlesExtension(string filenameExtension) {
-			if(filenameExtension == "PNG") return Compatibility.Yes;
+			if( IsExtension( filenameExtension, "png" ) ) return Compatibility.Yes;
 			return Compatibility.No;
 		}
 		

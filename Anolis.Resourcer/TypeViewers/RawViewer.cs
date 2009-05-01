@@ -15,6 +15,11 @@ namespace Anolis.Resourcer.TypeViewers {
 			this.__bw.DoWork += new DoWorkEventHandler(__bw_DoWork);
 			this.Resize += new EventHandler(RawViewer_Resize);
 			this.Load += new EventHandler(RawViewer_Load);
+			
+			// workaround the HexBox same-color-for-shadow-back-and-front bug by using alpha
+			Color shad = SystemColors.Highlight;
+			shad = Color.FromArgb( 100, shad.R, shad.G, shad.B );
+			this.__hex.ShadowSelectionColor = shad;
 		}
 		
 		private void RawViewer_Load(object sender, EventArgs e) {

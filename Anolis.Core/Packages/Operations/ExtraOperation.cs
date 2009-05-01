@@ -4,21 +4,33 @@ using System.Collections.Generic;
 using System.IO;
 using System.Collections.ObjectModel;
 
-namespace Anolis.Core.Packages {
+using P = System.IO.Path;
+
+namespace Anolis.Core.Packages.Operations {
 	
 	public abstract class ExtraOperation : Operation {
 		
 		protected ExtraOperation(ExtraType type, Package package, XmlElement operationElement) : base(package, operationElement) {
 			
+			Files = new Collection<String>();
+			
 			ExtraType = type;
+			
+			String src = operationElement.GetAttribute("src");
+			
+			PackageUtility.ResolvePath( src, package.RootDirectory.FullName );
+			
+			Files.Add( src );
+			
 		}
 		
 		protected override String OperationName {
-			get { return "Extra"; }
+			get { return "X " + ExtraType; }
 		}
 		
 		public String             Attribution { get; private set; }
-		public ExtraType ExtraType   { get; private set; }
+		public ExtraType          ExtraType   { get; private set; }
+		public Collection<String> Files       { get; private set; }
 		
 		public static ExtraOperation Create(Package package, XmlElement operationElement) {
 			
@@ -27,69 +39,53 @@ namespace Anolis.Core.Packages {
 			
 			switch(type) {
 				case ExtraType.Wallpaper:
-				case ExtraType.Cursor:
+					return new WallpaperExtraOperation(package, operationElement);
+				case ExtraType.BootScreen:
+					return new BootScreenExtraOperation(package, operationElement);
 				case ExtraType.CursorScheme:
-					break;
+					return new CursorSetExtraOperation(package, operationElement);
+				case ExtraType.VisualStyle:
+					return new VisualStyleExtraOperation(package, operationElement);
+				case ExtraType.Screensaver:
+					return new ScreensaverExtraOperation(package, operationElement);
+				case ExtraType.Program:
+					return new ProgramExtraOperation(package, operationElement);
+				case ExtraType.Custom:
+					return new CustomExtraOperation(package, operationElement);
+				default:
+					return null;
+			}
+		}
+		
+		public override Boolean Merge(Operation operation) {
+			
+			ExtraOperation other = operation as ExtraOperation;
+			if(other == null) return false;
+			if(other.ExtraType != this.ExtraType) return false;
+			
+			foreach(String file in other.Files) {
+				
+				if( !this.Files.Contains( file ) ) this.Files.Add( file );
+				
 			}
 			
-			return null;
+			return true;
+			
 		}
+		
 	}
 	
 	public enum ExtraType {
 		None,
 		Wallpaper,
-		Cursor,
+		BootScreen,
 		CursorScheme,
 		VisualStyle,
 		Screensaver,
-		ProgramRun,
-		ProgramZip,
+		Program,
 		Custom
 	}
 	
-	public class WallpaperExtraOperation : ExtraOperation {
-		
-		public WallpaperExtraOperation(Package package, XmlElement element) : base(ExtraType.Wallpaper, package, element) {
-			Wallpapers = new Collection<String>();
-		}
-		
-		public Collection<String> Wallpapers {
-			get; private set;
-		}
-		
-		public override void Execute() {
-			
-			// copy the files to C:\Windows\web\Wallpaper
-			// if they already exist append a digit methinks
-			
-			foreach(String source in Wallpapers) {
-				
-				String dest = System.IO.Path.GetFileName( source );
-				dest = PackageUtility.ResolvePath( dest, null );
-				
-				File.Copy( source, dest );
-			}
-			
-			// set the bottommost as the current wallpaper
-			// call SystemParametersInfo to set the current wallpaper apparently
-			// and then call RedrawWindow to repaint the desktop
-			
-			
-		}
-		
-		public override Boolean Merge(Operation operation) {
-			
-			WallpaperExtraOperation other = operation as WallpaperExtraOperation;
-			if(other == null) return false;
-			
-			foreach(String s in other.Wallpapers) {
-				
-				if( !Wallpapers.Contains( s ) ) Wallpapers.Add( s );
-			}
-			
-			return true;
-		}
-	}
+	
 	
 }

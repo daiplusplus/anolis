@@ -60,7 +60,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Xml" />
@@ -119,6 +118,8 @@
     <Compile Include="Packages\Exceptions.cs" />
     <Compile Include="Packages\Expression.cs" />
     <Compile Include="Packages\Operations\ExtraOperation.cs" />
+    <Compile Include="Packages\Operations\Extras\MoreExtraOperation.cs" />
+    <Compile Include="Packages\Operations\Extras\WallpaperExtraOperation.cs" />
     <Compile Include="Packages\Operations\FileOperation.cs" />
     <Compile Include="Packages\Operations\NotImplementedOperation.cs" />
     <Compile Include="Packages\Operations\Operation.cs" />

@@ -49,7 +49,7 @@ namespace Anolis.Installer.Pages {
 			
 			_oldNextText = WizardForm.NextText;
 			
-			WizardForm.NextText = InstallerResources.GetString("C_D_installButton");
+			WizardForm.NextText = InstallerResources.GetString("C_E_installButton");
 		}
 		
 		private void InstallationOptionsPage_PageUnload(object sender, PageChangeEventArgs e) {

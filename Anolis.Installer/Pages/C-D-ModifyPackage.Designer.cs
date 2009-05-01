@@ -27,18 +27,15 @@
 			this.@__packageView = new System.Windows.Forms.TreeView();
 			this.@__infoPicture = new System.Windows.Forms.PictureBox();
 			this.@__infoLbl = new System.Windows.Forms.Label();
-
 			this.@__content.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.@__infoPicture)).BeginInit();
 			this.SuspendLayout();
-
-
 			// 
 			// __content
 			// 
+			this.@__content.Controls.Add(this.@__packageView);
 			this.@__content.Controls.Add(this.@__infoLbl);
 			this.@__content.Controls.Add(this.@__infoPicture);
-			this.@__content.Controls.Add(this.@__packageView);
 			// 
 			// __ofd
 			// 
@@ -51,7 +48,7 @@
 			this.@__packageView.Location = new System.Drawing.Point(0, 0);
 			this.@__packageView.Name = "__packageView";
 			this.@__packageView.ShowRootLines = false;
-			this.@__packageView.Size = new System.Drawing.Size(241, 228);
+			this.@__packageView.Size = new System.Drawing.Size(241, 219);
 			this.@__packageView.TabIndex = 0;
 			// 
 			// __infoPicture
@@ -75,9 +72,8 @@
 			// ModifyPackagePage
 			// 
 			this.Name = "ModifyPackagePage";
-			this.PageTitle = "Modify Package";
 			this.PageSubtitle = "You can choose whether or not to install components of this package";
-
+			this.PageTitle = "Modify Package";
 			this.@__content.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.@__infoPicture)).EndInit();
 			this.ResumeLayout(false);

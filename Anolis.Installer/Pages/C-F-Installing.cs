@@ -110,7 +110,7 @@ namespace Anolis.Installer.Pages {
 			Invoke( new MethodInvoker( delegate() {
 				
 				__progress.Value = e.Percentage;
-				__statusLabel.Text = String.Format( InstallerResources.GetString("C_E_status") , e.Percentage, e.Message );
+				__statusLabel.Text = String.Format( InstallerResources.GetString("C_F_status") , e.Percentage, e.Message );
 				
 			}));
 			
@@ -137,7 +137,7 @@ namespace Anolis.Installer.Pages {
 					
 				}));
 				
-				String pointName = "Installed Anolis Package '" + PackageInfo.Package.RootSet.Name + '\'';
+				String pointName = "Installed Anolis Package '" + PackageInfo.Package.RootGroup.Name + '\'';
 				
 				PackageUtility.CreateSystemRestorePoint( pointName, PackageUtility.SystemRestoreType.ApplicationInstall, PackageUtility.SystemRestoreEventType.BeginSystemChange );
 				
@@ -162,7 +162,7 @@ namespace Anolis.Installer.Pages {
 					
 				}));
 				
-				String pointName = "Installed Anolis Package '" + PackageInfo.Package.RootSet.Name + '\'';
+				String pointName = "Installed Anolis Package '" + PackageInfo.Package.RootGroup.Name + '\'';
 				
 				PackageUtility.CreateSystemRestorePoint( pointName, PackageUtility.SystemRestoreType.ApplicationInstall, PackageUtility.SystemRestoreEventType.EndSystemChange );
 				
