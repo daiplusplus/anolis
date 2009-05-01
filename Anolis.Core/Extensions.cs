@@ -24,18 +24,22 @@ namespace Anolis.Core {
 	
 	public static class Extensions {
 		
-		public static Byte[] SubArray(this Byte[] array, Int32 startIndex, Int32 length) {
+		public static void CopyTo(this DirectoryInfo source, String destination) {
 			
-			if(startIndex >= array.Length         ) throw new ArgumentOutOfRangeException("startIndex");
-			if(startIndex + length >= array.Length) throw new ArgumentOutOfRangeException("length");
-			
-			Byte[] retval = new Byte[ length ];
-			
-			for(int i=0;i<length;i++) retval[i] = array[startIndex + i];
-			
-			return retval;
+			foreach(DirectoryInfo child in source.GetDirectories()) {
+				
+				child.CopyTo( Path.Combine( destination, child.Name ) );
+				
+				foreach(FileInfo file in source.GetFiles()) {
+					
+					file.CopyTo( Path.Combine( destination, file.Name ) );
+				}
+				
+			}
 			
 		}
+		
+#region Strings
 		
 		public static String Left(this String str, Int32 length) {
 			
@@ -108,6 +112,23 @@ namespace Anolis.Core {
 			
 		}
 		
+#endregion
+		
+#region Arrays
+		
+		public static Byte[] SubArray(this Byte[] array, Int32 startIndex, Int32 length) {
+			
+			if(startIndex >= array.Length         ) throw new ArgumentOutOfRangeException("startIndex");
+			if(startIndex + length >= array.Length) throw new ArgumentOutOfRangeException("length");
+			
+			Byte[] retval = new Byte[ length ];
+			
+			for(int i=0;i<length;i++) retval[i] = array[startIndex + i];
+			
+			return retval;
+			
+		}
+		
 		public static Int32 IndexOf(this Array array, Object item) {
 			
 			return Array.IndexOf( array, item );
@@ -122,6 +143,8 @@ namespace Anolis.Core {
 				list.Add( item );
 			}
 		}
+		
+#endregion
 		
 #region Binary Reader
 		

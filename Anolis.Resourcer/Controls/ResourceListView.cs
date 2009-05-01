@@ -7,6 +7,8 @@ using Anolis.Core;
 using Anolis.Core.Data;
 
 using Cult = System.Globalization.CultureInfo;
+using System.Threading;
+using System.Diagnostics;
 
 namespace Anolis.Resourcer.Controls {
 	
@@ -25,15 +27,11 @@ namespace Anolis.Resourcer.Controls {
 			__size96.Click += new EventHandler(__size_Click); __size96.Tag = new Size(96, 96);
 			__sizeDetails.CheckedChanged += new EventHandler(__sizeDetails_CheckedChanged);
 			
-//			// bgq = feed-in queue for background worker which is used to wait for __bg to finish without blocking the main thread (see the calls to Invoke() )
 			__bg.ProgressChanged += new ProgressChangedEventHandler(__bg_ProgressChanged);
 			__bg.DoWork          += new DoWorkEventHandler(PopulateCurrentObject);
-			__bgq.DoWork         += new DoWorkEventHandler(__bgq_DoWork);
 		}
 		
 		public Object CurrentObject { get; private set; }
-		
-		public Boolean ShowIcons { get; set; }
 		
 #region UI Events
 		
@@ -93,8 +91,6 @@ namespace Anolis.Resourcer.Controls {
 		
 #region Threading
 		
-		private Boolean IsBusy { get; set; }
-		
 		private void __bg_ProgressChanged(Object sender, ProgressChangedEventArgs e) {
 			
 			int p = e.ProgressPercentage;
@@ -102,18 +98,10 @@ namespace Anolis.Resourcer.Controls {
 			else if( p < 0 ) p = 0;
 			
 			this.BeginInvoke( new MethodInvoker( delegate() {
+				if( !__progessBar.Visible && p < 100 ) __progessBar.Visible = true;
+				if( p == 100 ) __progessBar.Visible = false;
 				__progessBar.Value = p;
 			}));
-			
-		}
-		
-		private void __bgq_DoWork(object sender, DoWorkEventArgs e) {
-			
-			while(IsBusy) {
-				System.Threading.Thread.Sleep(5);
-			}
-			
-			__bg.RunWorkerAsync();
 			
 		}
 		
@@ -121,19 +109,24 @@ namespace Anolis.Resourcer.Controls {
 		
 		public void ShowObject(Object o) {
 			
-			__bg.CancelAsync();
-			
 			CurrentObject = o;
 			
-			__bgq.RunWorkerAsync();
+			__bg.CancelAsync();
+			
+			while( __bg.IsBusy ) {
+				
+				System.Threading.Thread.Sleep(5);
+			}
+			
+			__bg.RunWorkerAsync();
 			
 		}
 		
 		private void PopulateCurrentObject(Object sender, DoWorkEventArgs e) {
 			
-			IsBusy = true;
+			Thread.CurrentThread.Name = "ListView Populator";
 			
-			Invoke( new MethodInvoker( delegate() {
+			BeginInvoke( new MethodInvoker( delegate() {
 				
 				__list.BeginUpdate();
 				__list.Items.Clear();
@@ -154,13 +147,12 @@ namespace Anolis.Resourcer.Controls {
 				
 			} finally {
 				
-				Invoke( new MethodInvoker( delegate() {
+				BeginInvoke( new MethodInvoker( delegate() {
 					
 					__list.EndUpdate();
 					
 				} ) );
 				
-				IsBusy = false;
 			}
 			
 			
@@ -181,10 +173,12 @@ namespace Anolis.Resourcer.Controls {
 					return;
 				}
 				
-				AddResourceTypeItem( type );
+				AddResourceTypeItem( type, showIcons );
 				
 				__bg.ReportProgress( Convert.ToInt32( 100 * i++ / cnt ) );
 			}
+			
+			__bg.ReportProgress( 100 );
 			
 		}
 		
@@ -203,10 +197,12 @@ namespace Anolis.Resourcer.Controls {
 					return;
 				}
 				
-				AddResourceNameItem( name );
+				AddResourceNameItem( name, showIcons );
 				
 				__bg.ReportProgress( Convert.ToInt32( 100 * i++ / cnt ) );
 			}
+			
+			__bg.ReportProgress( 100 );
 			
 		}
 		
@@ -225,10 +221,12 @@ namespace Anolis.Resourcer.Controls {
 					return;
 				}
 				
-				AddResourceLangItem( lang );
+				AddResourceLangItem( lang, showIcons );
 				
 				__bg.ReportProgress( Convert.ToInt32( 100 * i++ / cnt ) );
 			}
+			
+			__bg.ReportProgress( 100 );
 			
 		}
 		
@@ -253,15 +251,15 @@ namespace Anolis.Resourcer.Controls {
 		
 		////////////////////////////////////
 		
-		private void AddResourceTypeItem(ResourceType type) {
+		private void AddResourceTypeItem(ResourceType type, Boolean showIcon) {
 			
 			ListViewItem item = new ListViewItem();
 			item.Text     = type.Identifier.FriendlyName;
 			item.Tag      = type;
-			item.ImageKey = MainForm.GetTreeNodeImageListTypeKey( type.Identifier );
+			if(showIcon) item.ImageKey = MainForm.GetTreeNodeImageListTypeKey( type.Identifier );
 			item.SubItems.AddRange( GetSubItemsForType( type ) );
 			
-			if( !__images.Images.ContainsKey( item.ImageKey ) ) {
+			if( showIcon && !__images.Images.ContainsKey( item.ImageKey ) ) {
 				
 				Image img = GetIconForResourceType( type );
 				AddImageAsync( item.ImageKey, img );
@@ -270,74 +268,88 @@ namespace Anolis.Resourcer.Controls {
 			BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
 		}
 		
-		private void AddResourceNameItem(ResourceName name) {
+		private void AddResourceNameItem(ResourceName name, Boolean showIcon) {
 			
 			ListViewItem item = new ListViewItem();
 			item.Text     = name.Identifier.FriendlyName;
 			item.Tag      = name;
 			item.SubItems.AddRange( GetSubItemsForName( name ) );
 			
-			Image itemImage = GetIconForResourceName( name );
-			if(itemImage != null ) {
-				
-				AddImageAsync( name.Identifier.FriendlyName, itemImage );
-				item.ImageKey = name.Identifier.FriendlyName;
-				
-			} else {
-				
-				// use the type's icon
-				String key = MainForm.GetTreeNodeImageListTypeKey( name.Type.Identifier );
-				item.ImageKey = key;
-				
-				if( !__images.Images.ContainsKey( key ) ) {
+			if(showIcon) {
+				Image itemImage = GetIconForResourceName( name );
+				if(itemImage != null ) {
 					
-					Image typeImage = GetIconForResourceType( name.Type );
-					AddImageAsync( key, typeImage );
+					AddImageAsync( name.Identifier.FriendlyName, itemImage );
+					item.ImageKey = name.Identifier.FriendlyName;
+					
+				} else {
+					
+					// use the type's icon
+					String key = MainForm.GetTreeNodeImageListTypeKey( name.Type.Identifier );
+					item.ImageKey = key;
+					
+					if( !__images.Images.ContainsKey( key ) ) {
+						
+						Image typeImage = GetIconForResourceType( name.Type );
+						AddImageAsync( key, typeImage );
+					}
+					
 				}
-				
 			}
 			
 			BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
 		}
 		
-		private void AddResourceLangItem(ResourceLang lang) {
+		private void AddResourceLangItem(ResourceLang lang, Boolean showIcon) {
 			
 			ListViewItem item = new ListViewItem();
 			item.Text = lang.LanguageId.ToString();
 			item.Tag  = lang;
 			item.SubItems.AddRange( GetSubItemsForLang( lang ) );
 			
-			Image itemImage = GetIconForResourceLang( lang );
-			
-			if(itemImage != null) { // the itemImage is unique for this lang. If it's null then use a non-unique image (i.e. the icon for its type)
+			if(showIcon) {
+				Image itemImage = GetIconForResourceLang( lang );
 				
-				AddImageAsync( lang.ResourcePath, itemImage );
-				item.ImageKey = lang.ResourcePath;
-				
-			} else {
-				
-				// get the image for the type, check to see if it's already been added, in which case use that key
-				
-				// otherwise, add the type icon to the list and set the key
-				
-				String key = MainForm.GetTreeNodeImageListTypeKey( lang.Name.Type.Identifier );
-				item.ImageKey = key;
-				
-				if( !__images.Images.ContainsKey( key ) ) {
+				if(itemImage != null) { // the itemImage is unique for this lang. If it's null then use a non-unique image (i.e. the icon for its type)
 					
-					Image typeImage = GetIconForResourceType( lang.Name.Type );
-					AddImageAsync( key, typeImage );
+					AddImageAsync( lang.ResourcePath, itemImage );
+					item.ImageKey = lang.ResourcePath;
+					
+				} else {
+					
+					// get the image for the type, check to see if it's already been added, in which case use that key
+					
+					// otherwise, add the type icon to the list and set the key
+					
+					String key = MainForm.GetTreeNodeImageListTypeKey( lang.Name.Type.Identifier );
+					item.ImageKey = key;
+					
+					if( !__images.Images.ContainsKey( key ) ) {
+						
+						Image typeImage = GetIconForResourceType( lang.Name.Type );
+						AddImageAsync( key, typeImage );
+					}
+					
 				}
-				
 			}
 			
 			
 			BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
 		}
 		
+		private System.Collections.Generic.List<Int64> ticks = new System.Collections.Generic.List<long>();
+		
 		private void AddImageAsync(String key, Image image) {
 			
-			BeginInvoke( new MethodInvoker(delegate() { __images.Images.Add( key, image ); } ) );
+			Stopwatch sw = new Stopwatch();
+			sw.Start();
+			
+			Invoke( new MethodInvoker(delegate() { __images.Images.Add( key, image ); } ) );
+			
+			sw.Stop();
+			
+			ticks.Add( sw.ElapsedTicks );
+			
 		}
 		
 		///////////////////////////////////////

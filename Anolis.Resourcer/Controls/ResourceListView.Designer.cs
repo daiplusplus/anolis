@@ -50,7 +50,6 @@
 			this.@__size96 = new System.Windows.Forms.ToolStripButton();
 			this.@__progessBar = new System.Windows.Forms.ToolStripProgressBar();
 			this.@__bg = new System.ComponentModel.BackgroundWorker();
-			this.@__bgq = new System.ComponentModel.BackgroundWorker();
 			@__cArrangeSep = new System.Windows.Forms.ToolStripSeparator();
 			this.@__c.SuspendLayout();
 			this.@__t.SuspendLayout();
@@ -290,7 +289,6 @@
 		private System.Windows.Forms.ToolStripButton __size16;
 		private System.Windows.Forms.ToolStripButton __size32;
 		private System.Windows.Forms.ToolStripButton __size96;
-		private System.ComponentModel.BackgroundWorker __bgq;
 		private System.Windows.Forms.ImageList __images;
 		private System.Windows.Forms.ToolStripButton __sizeDetails;
 		private System.Windows.Forms.ColumnHeader __listCName;

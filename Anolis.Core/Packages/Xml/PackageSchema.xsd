@@ -86,12 +86,26 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 					</xs:complexType>
 				</xs:element>
 				
-				<xs:element name="custom" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="cursorScheme" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						
-						<!-- <custom /> attributes -->
+						<xs:sequence minOccurs="1" maxOccurs="unbounded">
+							
+							<xs:element name="cursor">
+								<xs:complexType>
+									
+									<!-- <cursor /> attributes -->
+									<xs:attribute name="type" type="cursorType" use="required" />
+									<xs:attribute name="src"  type="xs:anyURI"  use="required" />
+									
+								</xs:complexType>
+							</xs:element>
+							
+						</xs:sequence>
+						
+						<!-- <cursorScheme /> attributes -->
 						<xs:attributeGroup ref="common" />
-						<xs:attribute name="fqn" type="xs:string" use="required" />
+						<xs:attribute name="schemeName" type="xs:string" use="required" />
 						
 					</xs:complexType>
 				</xs:element>
@@ -169,6 +183,26 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 			<xs:enumeration value="copy" />
 			<xs:enumeration value="replace" />
 			<xs:enumeration value="delete" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="cursorType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AppStarting" />
+			<xs:enumeration value="Arrow" />
+			<xs:enumeration value="Help" />
+			<xs:enumeration value="Crosshair" />
+			<xs:enumeration value="Hand" />
+			<xs:enumeration value="IBeam" />
+			<xs:enumeration value="No" />
+			<xs:enumeration value="NWPen" />
+			<xs:enumeration value="SizeAll" />
+			<xs:enumeration value="SizeNESW" />
+			<xs:enumeration value="SizeNS" />
+			<xs:enumeration value="SizeNWSE" />
+			<xs:enumeration value="SizeWE" />
+			<xs:enumeration value="UpArrow" />
+			<xs:enumeration value="Wait" />
 		</xs:restriction>
 	</xs:simpleType>
 	
