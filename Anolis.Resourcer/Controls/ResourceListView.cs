@@ -111,7 +111,10 @@ namespace Anolis.Resourcer.Controls {
 			
 			CurrentObject = o;
 			
-			__bg.CancelAsync();
+			if( __bg.IsBusy ) {
+				
+				__bg.CancelAsync();
+			}
 			
 			while( __bg.IsBusy ) {
 				
