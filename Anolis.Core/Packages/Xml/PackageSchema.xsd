@@ -116,13 +116,21 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 						<!-- <filetype /> attributes -->
 						<xs:attributeGroup ref="common" />
 						
-						<xs:attribute name="ifNotDefined" type="definedAction"  use="optional" />
+						<xs:attribute name="type" type="xs:string"  use="optional" />
+						<xs:attribute name="icon" type="xs:anyURI"  use="optional" />
 						
-						<xs:attribute name="type"         type="xs:string"  use="optional" />
-						<xs:attribute name="ext"          type="xs:string"  use="optional" />
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="systemParameter" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+
+						<!-- <filetype /> attributes -->
+						<xs:attributeGroup ref="common" />
 						
-						<xs:attribute name="iconFile"     type="xs:anyURI"  use="optional" />
-						<xs:attribute name="iconPath"     type="xs:anyURI"  use="optional" />
+						<xs:attribute name="spiAction" type="xs:string" use="required" />
+						<xs:attribute name="uiParam"   type="xs:string" use="required" />
+						<xs:attribute name="pvParam"   type="xs:string" use="required" />
 						
 					</xs:complexType>
 				</xs:element>
@@ -152,21 +160,6 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 	</xs:attributeGroup>
 	
 	<!-- Additional Types -->
-	
-	<xs:simpleType name="versionAction">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="warn" />
-			<xs:enumeration value="deny" />
-			<xs:enumeration value="okay" />
-		</xs:restriction>
-	</xs:simpleType>
-	
-	<xs:simpleType name="definedAction">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="apply" />
-			<xs:enumeration value="ignore" />
-		</xs:restriction>
-	</xs:simpleType>
 	
 	<xs:simpleType name="extraType">
 		<xs:restriction base="xs:string">

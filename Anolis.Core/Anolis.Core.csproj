@@ -60,6 +60,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Xml" />
@@ -107,6 +108,7 @@
     <Compile Include="Core\Utility\Dialog.cs" />
     <Compile Include="Core\Utility\Dib.cs" />
     <Compile Include="Core\Utility\Environment.cs" />
+    <Compile Include="Core\Utility\FileType.cs" />
     <Compile Include="Core\Utility\Miscellaneous.cs" />
     <Compile Include="Core\Utility\ResIconDir.cs" />
     <Compile Include="Core\Utility\Pair.cs" />
@@ -117,13 +119,14 @@
     <Compile Include="Core\Source\Win32ResourceSource.cs" />
     <Compile Include="Packages\Exceptions.cs" />
     <Compile Include="Packages\Expression.cs" />
+    <Compile Include="Packages\Operations\SystemParameterOperation.cs" />
     <Compile Include="Packages\Operations\ExtraOperation.cs" />
     <Compile Include="Packages\Operations\Extras\BootScreenExtraOperation.cs" />
     <Compile Include="Packages\Operations\Extras\RegistryExtraOperation.cs" />
     <Compile Include="Packages\Operations\Extras\ProgramExtraOperation.cs" />
     <Compile Include="Packages\Operations\Extras\CustomExtraOperation.cs" />
     <Compile Include="Packages\Operations\Extras\ScreensaverExtraOperation.cs" />
-    <Compile Include="Packages\Operations\CursorSetOperation.cs" />
+    <Compile Include="Packages\Operations\CursorSchemeOperation.cs" />
     <Compile Include="Packages\Operations\Extras\VisualStyleExtraOperation.cs" />
     <Compile Include="Packages\Operations\Extras\WallpaperExtraOperation.cs" />
     <Compile Include="Packages\Operations\FileOperation.cs" />

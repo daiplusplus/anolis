@@ -31,6 +31,7 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public abstract void Execute();
 		
+		/// <summary>Provides an opportunity to reduce the number of operations by merging them together to be Executed in a single go. Return true if the provided operation was successfully merged into this operation (thus making it obsolete, it will then be removed from the flattened operation list). Return false to keep the old operation in the list.</summary>
 		public abstract Boolean Merge(Operation operation);
 		
 		public virtual String Key { get { return OperationName + Path; } }
@@ -46,7 +47,10 @@ namespace Anolis.Core.Packages.Operations {
 					return ExtraOperation.Create(package, operationElement);
 				case "cursorScheme":
 					return new CursorSchemeOperation(package, operationElement);
-				
+				case "systemParameter":
+					return new SystemParameterOperation(package, operationElement);
+				case "filetype":
+					return new FileTypeOperation(package, operationElement);
 				default:
 					// TODO: Allow additional libraries or code-generation to specify their own stuff
 					// Define types in the Package XML? http://www.codeproject.com/KB/dotnet/evaluator.aspx

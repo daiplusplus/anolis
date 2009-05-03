@@ -27,8 +27,9 @@ namespace Anolis.Resourcer.Controls {
 			__size96.Click += new EventHandler(__size_Click); __size96.Tag = new Size(96, 96);
 			__sizeDetails.CheckedChanged += new EventHandler(__sizeDetails_CheckedChanged);
 			
-			__bg.ProgressChanged += new ProgressChangedEventHandler(__bg_ProgressChanged);
-			__bg.DoWork          += new DoWorkEventHandler(PopulateCurrentObject);
+			__bg.ProgressChanged    += new ProgressChangedEventHandler(__bg_ProgressChanged);
+			__bg.DoWork             += new DoWorkEventHandler(PopulateCurrentObject);
+			__bg.RunWorkerCompleted += new RunWorkerCompletedEventHandler(__bg_RunWorkerCompleted);
 		}
 		
 		public Object CurrentObject { get; private set; }
@@ -98,11 +99,14 @@ namespace Anolis.Resourcer.Controls {
 			else if( p < 0 ) p = 0;
 			
 			this.BeginInvoke( new MethodInvoker( delegate() {
-				if( !__progessBar.Visible && p < 100 ) __progessBar.Visible = true;
-				if( p == 100 ) __progessBar.Visible = false;
 				__progessBar.Value = p;
 			}));
 			
+		}
+		
+		private void __bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
+			
+			__progessBar.Visible = false;
 		}
 		
 #endregion
@@ -118,7 +122,7 @@ namespace Anolis.Resourcer.Controls {
 			
 			while( __bg.IsBusy ) {
 				
-				System.Threading.Thread.Sleep(5);
+				Application.DoEvents();
 			}
 			
 			__bg.RunWorkerAsync();
@@ -130,7 +134,7 @@ namespace Anolis.Resourcer.Controls {
 			Thread.CurrentThread.Name = "ListView Populator";
 			
 			BeginInvoke( new MethodInvoker( delegate() {
-				
+				__progessBar.Visible = true;
 				__list.BeginUpdate();
 				__list.Items.Clear();
 				
@@ -147,7 +151,6 @@ namespace Anolis.Resourcer.Controls {
 				ResourceName coName = CurrentObject as ResourceName;
 				if( coName != null ) PopulateResourceName( coName, e );
 				
-				
 			} finally {
 				
 				BeginInvoke( new MethodInvoker( delegate() {
@@ -155,6 +158,7 @@ namespace Anolis.Resourcer.Controls {
 					__list.EndUpdate();
 					
 				} ) );
+				
 				
 			}
 			
