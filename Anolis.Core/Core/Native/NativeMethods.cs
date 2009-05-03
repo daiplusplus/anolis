@@ -553,8 +553,47 @@ namespace Anolis.Core.Native {
 		
 	#region System Parameters
 		
-		public enum SpiAction : int {
-			SetDesktopWallpaper = 0x14
+		public enum SpiAction : uint {
+			// Accessibility
+			SetFocusBorderWidth  = 0x200F, // pvParam = value
+			SetFocusBorderHeight = 0x2011, // pvParam = value
+			SetMouseSonar        = 0x101D, // pvParam = TRUE | FALSE
+			
+			// Desktop
+			SetCursors           = 0x0057, // 
+			SetDesktopWallpaper  = 0x0014, // pvParam = pSz wallpaper BMP image (JPEG in Vista and later)
+			SetDropShadow        = 0x1025, // pvParam = TRUE | FALSE
+			SetFlatMenu          = 0x1023, // pvParam = TRUE | FALSE
+			SetFontSmoothing     = 0x004B, // uiParam = TRUE | FALSE
+			SetFontSmoothingType = 0x200B,
+			
+			// Icons
+			IconHorizontalSpacing = 0x000D, // uiParam = value
+			IconVerticalSpacing   = 0x0018, // uiParam = value
+			SetIcons              = 0x0058, //
+			SetIconTitleWrap      = 0x001A, // uiParam = TRUE | FALSE
+			
+			// Mouse
+			SetMouseTrails        = 0x005D, // uiParam = 0 or 1 to disable, or n > 1 for n cursors
+			
+			// Menus
+			SetMenuDropAlignment  = 0x001C, // uiParam = TRUE for right, FALSE for left
+			SetMenuFade           = 0x1013, // pvParam = TRUE | FALSE
+			SetMenuShowDelay      = 0x006B, // uiParam = time in miliseconds
+			
+			// UI Effects
+			SetUIEffects          = 0x103F, // pvParam = TRUE | FALSE to enable/disable all UI effects at once
+			// I'd define all of them here, but there's little point
+			
+			// Windows
+			SetActiveWindowTracking  = 0x1001, // pvParam = TRUE | FALSE
+			SetActiveWndTrkZOrder    = 0x100D, // pvParam = TRUE | FALSE
+			SetActiveWndTrkTimeout   = 0x2003, // pvParam = time in miliseconds
+			SetBorder                = 0x0006, // uiParam = multiplier width of sizing border
+			SetCaretWidth            = 0x2007, // pvParam = width in pixels
+			SetDragFullWindows       = 0x0025, // uiParam = TRUE | FALSE
+			SetForegroundFlashCount  = 0x2005, // pvParam = # times to flash
+			SetForegroundLockTimeout = 0x2001 // pvParam = timeout in miliseconds
 		}
 		
 		[Flags]
@@ -565,8 +604,11 @@ namespace Anolis.Core.Native {
 		
 		[DllImport("user32.dll", CharSet=CharSet.Auto, ThrowOnUnmappableChar=true, SetLastError=true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern Boolean SystemParametersInfo(SpiAction uAction, Int32 uParam, String lpvParam, SpiUpdate fuWinIni);
+		public static extern Boolean SystemParametersInfo(SpiAction uAction, UInt32 uParam, String lpvParam, SpiUpdate fuWinIni);
 		
+		[DllImport("user32.dll", CharSet=CharSet.Auto, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean SystemParametersInfo(SpiAction uAction, UInt32 uParam, IntPtr lpvParam, SpiUpdate fuWinIni);
 		
 	#endregion
 		
