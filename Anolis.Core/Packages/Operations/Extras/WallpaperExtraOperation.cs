@@ -28,7 +28,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			// don't move because you might be installing from a HDD-based package. The files will be deleted when the package completes anyway
 			
-			String wallpaperdir = PackageUtility.ResolvePath("%windir%\\Web\\Wallpaper", "");
+			String wallpaperdir = PackageUtility.ResolvePath(@"%windir%\Web\Wallpaper");
 			
 			String lastWallpaper = null;
 			
