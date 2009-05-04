@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 
 using Microsoft.Win32;
+using System.IO;
 
 namespace Anolis.Core.Utility {
 	
@@ -65,7 +66,7 @@ namespace Anolis.Core.Utility {
 				
 				RegistryKey key = Registry.ClassesRoot.OpenSubKey( keyName );
 				
-				FileExtension ext = FileExtension.FromRegKey( key );
+				FileExtension ext = FileExtension.FromRegKey( keyName, key );
 				
 				allExtensions.Add( ext );
 				
@@ -84,14 +85,14 @@ namespace Anolis.Core.Utility {
 			
 			List<FileType> allTypes = new List<FileType>();
 			
-			foreach(String progIdName in progIds.Keys) {
+			foreach(String keyName in progIds.Keys) {
 				
-				RegistryKey key = Registry.ClassesRoot.OpenSubKey( progIdName );
+				RegistryKey key = Registry.ClassesRoot.OpenSubKey( keyName );
 				if(key == null) continue; // then the extension uses its progid as its display name and that's it
 				
-				FileType type = FileType.FromRegKey( key );
+				FileType type = FileType.FromRegKey(keyName, key );
 				
-				type.Extensions.AddRange2( progIds[progIdName] );
+				type.Extensions.AddRange2( progIds[keyName] );
 				foreach(FileExtension ext in type.Extensions) ext.FileType = type;
 				
 				allTypes.Add( type );
@@ -117,11 +118,11 @@ namespace Anolis.Core.Utility {
 			ShellVerbs = new Collection<FileVerb>();
 		}
 		
-		public static FileType FromRegKey(RegistryKey key) {
+		public static FileType FromRegKey(String name, RegistryKey key) {
 			
 			FileType ret = new FileType();
 			
-			ret.ProgId       = key.Name;
+			ret.ProgId       = name;
 			ret.FriendlyName = (String)key.GetValue(null);
 			
 			return ret;
@@ -145,11 +146,11 @@ namespace Anolis.Core.Utility {
 			OpenWithProgIds = new Collection<FileType>();
 		}
 		
-		public static FileExtension FromRegKey(RegistryKey key) {
+		public static FileExtension FromRegKey(String name, RegistryKey key) {
 			
 			FileExtension ret = new FileExtension();
 			
-			ret.Extension     = key.Name;
+			ret.Extension     = name;
 			ret.ProgId        = (String)key.GetValue(null);
 			
 			ret.ContentType   = (String)key.GetValue("Content Type");

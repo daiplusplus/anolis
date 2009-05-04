@@ -104,17 +104,15 @@ namespace Anolis.Resourcer {
 			
 			__lang.Items.AddRange( sortByDisplayName ? Cultures.CulturesByName : Cultures.CulturesByLcid );
 			
-			//__lang.SelectedItem = Cultures.CurrentCulture; // TODO: this doesn't work for some reason
-			
-			Int32 currentLcid = CultureInfo.CurrentCulture.LCID;
+			Int32 systemLcid = Anolis.Core.Packages.PackageUtility.GetSystemInstallLanguage();
 			foreach(ListBoxItem<CultureInfo> c in __lang.Items) {
 				
-				if(c.Item.LCID == currentLcid) {
+				if(c.Item.LCID == systemLcid) {
 					__lang.SelectedItem = c;
 					break;
 				}
 			}
-			// maybe I should just set 1033 as the default...
+			
 		}
 		
 		//////////////////////////////
@@ -188,7 +186,9 @@ namespace Anolis.Resourcer {
 		
 		private void CreateResourceData() {
 			
-			_data = ResourceData.FromFileToAdd( __file.Text, 1033, MainForm.LatestInstance.CurrentSource );
+			MainForm parent = Owner as MainForm;
+			
+			_data = ResourceData.FromFileToAdd( __file.Text, 1033, parent.CurrentSource );
 			
 			SetDetailsEnabled( true );
 			

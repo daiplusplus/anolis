@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Management;
 using System.Reflection;
@@ -10,6 +11,7 @@ using Microsoft.Win32;
 
 using Path          = System.IO.Path;
 using Stream        = System.IO.Stream;
+using Cult          = System.Globalization.CultureInfo;
 using MoveFileFlags = Anolis.Core.Native.NativeMethods.MoveFileFlags;
 
 namespace Anolis.Core.Packages {
@@ -38,7 +40,7 @@ namespace Anolis.Core.Packages {
 		
 #region Embedded Packages
 		
-				public static EmbeddedPackage[] GetEmbeddedPackages() {
+		public static EmbeddedPackage[] GetEmbeddedPackages() {
 			
 			return GetEmbeddedPackages( Assembly.GetEntryAssembly() );
 			
@@ -225,7 +227,41 @@ namespace Anolis.Core.Packages {
 			AddPfroEntry( iconCacheFile, null );
 		}
 		
-		// TODO: Move the embedded package management methods to this class
+		public static UInt16 GetSystemInstallLanguage() {
+			
+			UInt16 lang = NativeMethods.GetSystemDefaultUILanguage();
+			
+			// based on the PRIMARYLANGID macro
+			lang = (ushort)( (ushort)lang & (ushort)0x3FF );
+			
+			return lang;
+			
+		}
+		
+		/// <summary>If the specified file exists it will be renamed to the next available name by adding an incrementing number to the end of it. Returns null if the file does not exist.</summary>
+		public static String ReplaceFile(String path) {
+			
+			if( !File.Exists( path ) ) return null;
+			
+			String dir = Path.GetDirectoryName( path );
+			String nom = Path.GetFileNameWithoutExtension( path );
+			String ext = Path.GetExtension( path );
+			
+			String old = path;
+			
+			Int32 i = 1;
+			while( File.Exists( path ) ) {
+				
+				path = Path.Combine( dir, nom );
+				path += " (" + i++ + ")";
+				path += ext;
+			}
+			
+			File.Move( old, path );
+			
+			return path;
+			
+		}
 		
 	}
 }

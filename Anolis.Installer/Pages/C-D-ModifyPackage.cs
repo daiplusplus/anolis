@@ -7,7 +7,7 @@ using Anolis.Core.Packages;
 using Anolis.Core.Packages.Operations;
 using W3b.Wizards.WindowsForms;
 
-
+using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Installer.Pages {
 	
@@ -19,11 +19,19 @@ namespace Anolis.Installer.Pages {
 			
 			this.PageLoad += new EventHandler(ModifyPackagePage_Load);
 			this.__packageView.AfterSelect += new TreeViewEventHandler(__packageView_AfterSelect);
+			this.__packageView.BeforeCollapse += new TreeViewCancelEventHandler(__packageView_BeforeCollapse);
 			
 			Localize();
 		}
 		
 		protected override String LocalizePrefix { get { return "C_D"; } }
+		
+#region UI Events
+		
+		private void __packageView_BeforeCollapse(object sender, TreeViewCancelEventArgs e) {
+			// prevent collapsing of the root node
+			if( e.Node.Parent == null ) e.Cancel = true;
+		}
 		
 		private void __packageView_AfterSelect(object sender, TreeViewEventArgs e) {
 			
@@ -32,6 +40,8 @@ namespace Anolis.Installer.Pages {
 			PopulatePackageItemInfo( item );
 			
 		}
+		
+#endregion
 		
 		private void ModifyPackagePage_Load(object sender, EventArgs e) {
 			
@@ -55,6 +65,8 @@ namespace Anolis.Installer.Pages {
 			
 			TreeNode root = PopulateTreeview( __packageView.Nodes, PackageInfo.Package.RootGroup);
 			root.Expand();
+			
+			PopulatePackageItemInfo( root.Tag as PackageItem );
 			
 		}
 		
@@ -102,7 +114,7 @@ namespace Anolis.Installer.Pages {
 					__infoLbl.Text = (item as Operation).Path;
 				} else {
 					
-					__infoLbl.Text = InstallerResources.GetString("C_D_noInfo");
+					__infoLbl.Text = String.Format(Cult.CurrentCulture, InstallerResources.GetString("C_D_noInfo"), item.Name);
 				}
 				
 			} else {

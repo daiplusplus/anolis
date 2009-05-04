@@ -82,6 +82,20 @@ namespace Anolis.Core {
 			if(ambiguousString == null) throw new ArgumentNullException("ambiguousString");
 			if(ambiguousString.Length == 0) throw new ArgumentOutOfRangeException("ambiguousString", "Length must be greater than 0");
 			
+			// if the string starts with " then it always refers to a string version
+			// if it starts with "" then ignore the first
+			
+			if( ambiguousString.StartsWith("\"\"") ) {
+				
+				// if ambiguousString == '""0"' then result is '"0"'
+				return new ResourceIdentifier( ambiguousString.Substring(1) );
+				
+			} else if( ambiguousString.StartsWith("\"") ) {
+				
+				// if ambiguousString == '"0"' then result is '0' (e.g. in msonsext.dll )
+				return new ResourceIdentifier( ambiguousString.Substring(1) );
+			}
+			
 			String ambiguousStringUpper = ambiguousString.ToUpperInvariant();
 			
 			// is the string a number?

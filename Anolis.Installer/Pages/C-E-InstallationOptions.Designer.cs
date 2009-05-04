@@ -55,6 +55,7 @@
 			// 
 			// __backupPath
 			// 
+			this.@__backupPath.Enabled = false;
 			this.@__backupPath.Location = new System.Drawing.Point(91, 85);
 			this.@__backupPath.Name = "__backupPath";
 			this.@__backupPath.Size = new System.Drawing.Size(257, 20);
@@ -62,6 +63,7 @@
 			// 
 			// __backupBrowse
 			// 
+			this.@__backupBrowse.Enabled = false;
 			this.@__backupBrowse.Location = new System.Drawing.Point(354, 83);
 			this.@__backupBrowse.Name = "__backupBrowse";
 			this.@__backupBrowse.Size = new System.Drawing.Size(75, 23);
@@ -72,8 +74,7 @@
 			// __backup
 			// 
 			this.@__backup.AutoSize = true;
-			this.@__backup.Checked = true;
-			this.@__backup.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.@__backup.Enabled = false;
 			this.@__backup.Location = new System.Drawing.Point(47, 28);
 			this.@__backup.Name = "__backup";
 			this.@__backup.Size = new System.Drawing.Size(284, 17);
@@ -83,6 +84,7 @@
 			// 
 			// __backupDesc
 			// 
+			this.@__backupDesc.ForeColor = System.Drawing.SystemColors.GrayText;
 			this.@__backupDesc.Location = new System.Drawing.Point(91, 48);
 			this.@__backupDesc.Name = "__backupDesc";
 			this.@__backupDesc.Size = new System.Drawing.Size(356, 31);
@@ -126,6 +128,7 @@
 			// __i386
 			// 
 			this.@__i386.AutoSize = true;
+			this.@__i386.Enabled = false;
 			this.@__i386.Location = new System.Drawing.Point(14, 164);
 			this.@__i386.Name = "__i386";
 			this.@__i386.Size = new System.Drawing.Size(88, 17);
@@ -135,6 +138,7 @@
 			// 
 			// __i386Lbl
 			// 
+			this.@__i386Lbl.ForeColor = System.Drawing.SystemColors.GrayText;
 			this.@__i386Lbl.Location = new System.Drawing.Point(40, 193);
 			this.@__i386Lbl.Name = "__i386Lbl";
 			this.@__i386Lbl.Size = new System.Drawing.Size(45, 23);
@@ -144,6 +148,7 @@
 			// 
 			// __i386Browse
 			// 
+			this.@__i386Browse.Enabled = false;
 			this.@__i386Browse.Location = new System.Drawing.Point(354, 188);
 			this.@__i386Browse.Name = "__i386Browse";
 			this.@__i386Browse.Size = new System.Drawing.Size(75, 23);
@@ -153,6 +158,7 @@
 			// 
 			// __i386Path
 			// 
+			this.@__i386Path.Enabled = false;
 			this.@__i386Path.Location = new System.Drawing.Point(91, 190);
 			this.@__i386Path.Name = "__i386Path";
 			this.@__i386Path.Size = new System.Drawing.Size(257, 20);

@@ -21,7 +21,7 @@ namespace Anolis.Core.Packages {
 			/////////////////////////////////////////////////////
 			
 			Children   = new GroupCollection();
-			Operations = new OperationCollection();
+			Operations = new OperationCollection(this);
 			
 			foreach(XmlNode node in element.ChildNodes) {
 				
@@ -36,28 +36,14 @@ namespace Anolis.Core.Packages {
 						Children.Add( group );
 						
 						break;
-						
-					case "patch":
-						
-						PatchOperation patch = new PatchOperation(package, e);
-						Operations.Add( patch );
-						break;
-						
-					case "file":
-						
-						FileOperation file = new FileOperation(package, e);
-						Operations.Add( file );
-						break;
-						
-					case "extra":
-						
-						ExtraOperation extra = ExtraOperation.Create(package, e);
-						Operations.Add( extra );
-						break;
-						
+					
 					default:
-						package.Log.Add( new LogItem(LogSeverity.Warning, "Unrecognised operation: " + e.Name ) );
+						
+						Operation op = Operation.FromElement(package, e);
+						
+						if( op != null ) Operations.Add( op );
 						break;
+						
 				}
 				
 			}
@@ -80,7 +66,7 @@ namespace Anolis.Core.Packages {
 		
 		public GroupCollection Mutex    { get; private set; }
 		
-		public GroupCollection       Children   { get; private set; }
+		public GroupCollection     Children   { get; private set; }
 		public OperationCollection Operations { get; private set; }
 		
 		internal void Flatten(List<Operation> operations) {
@@ -89,6 +75,21 @@ namespace Anolis.Core.Packages {
 			
 			operations.AddRange( Operations );
 			
+		}
+		
+		public override Boolean Enabled {
+			get {
+				return base.Enabled;
+			}
+			set {
+				base.Enabled = value;
+				
+				if(Children == null) return; // .Enabled is being set by the constructor
+				
+				foreach(Group g in Children)          g.Enabled = value;
+				foreach(Operation op  in Operations) op.Enabled = value;
+				
+			}
 		}
 		
 	}

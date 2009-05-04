@@ -17,29 +17,33 @@ namespace Anolis.Core.Packages.Operations {
 		public VisualStyleExtraOperation(Package package, XmlElement element) :  base(ExtraType.VisualStyle, package, element) {
 		}
 		
+		private static readonly String _themesDir = PackageUtility.ResolvePath(@"%windir%\Resources\Themes");
+		
 		public override void Execute() {
 			
 			if( Files.Count == 0 ) return;
 			
+			String lastMsstyles = null;
+			
 			foreach(String styleDir in Files) {
 				
-				InstallStyle( styleDir );
+				lastMsstyles = InstallStyle( styleDir );
 				
 			}
 			
-			MakeActive( Files[ Files.Count - 1 ] );
+			MakeActive( lastMsstyles );
 			
 		}
 		
-		private void InstallStyle(String directoryPath) {
+		private String InstallStyle(String packageMsstylesPath) {
 			
 			// copy the entire directory to the Themes directory basically
+			DirectoryInfo source = new DirectoryInfo( P.GetDirectoryName( packageMsstylesPath ) );
+			String dest = P.Combine( _themesDir, source.Name );
 			
-			String dest = PackageUtility.ResolvePath(@"%windir%\Resources\Themes");
+			source.CopyTo( dest );
 			
-			DirectoryInfo source = new DirectoryInfo( directoryPath );
-			source.CopyTo( P.Combine( dest, source.Name ) );
-			
+			return P.Combine( dest, P.GetFileName( packageMsstylesPath ) );
 		}
 		
 		private void MakeActive(String msstylesPath) {

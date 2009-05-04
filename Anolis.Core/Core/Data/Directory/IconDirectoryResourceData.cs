@@ -47,7 +47,7 @@ namespace Anolis.Core.Data {
 			
 			if( !IsExtension( extension, "ico" ) ) throw new ArgumentException("ico is the only supported extension");
 			
-			ResIconDir dir = ResIconDirHelper.FromFile(stream, lang, currentSource);
+			ResIconDir dir = ResIconDirHelper.FromFile( true, stream, lang, currentSource);
 			
 			return new IconDirectoryResourceData(dir, null);
 		}

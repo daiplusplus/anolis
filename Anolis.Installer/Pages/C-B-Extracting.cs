@@ -82,8 +82,8 @@ namespace Anolis.Installer.Pages {
 			
 			try {
 				
-				PackageInfo.Package = path.EndsWith("/") || path.EndsWith("\\") ?
-					Package.FromDirectory( path ) : Package.FromFile( path );
+				if( File.Exists( path ) ) PackageInfo.Package = Package.FromFile( path );
+				else                      PackageInfo.Package = Package.FromDirectory( path );
 				
 			} catch( PackageValidationException pve ) {
 				

@@ -27,11 +27,13 @@
 			this.@__bw = new System.ComponentModel.BackgroundWorker();
 			this.@__statusLbl = new System.Windows.Forms.Label();
 			this.@__progress = new System.Windows.Forms.ProgressBar();
+			this.@__blargh = new System.Windows.Forms.Label();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __content
 			// 
+			this.@__content.Controls.Add(this.@__blargh);
 			this.@__content.Controls.Add(this.@__statusLbl);
 			this.@__content.Controls.Add(this.@__progress);
 			// 
@@ -46,10 +48,20 @@
 			// 
 			// __progress
 			// 
+			this.@__progress.Enabled = false;
 			this.@__progress.Location = new System.Drawing.Point(22, 54);
 			this.@__progress.Name = "__progress";
 			this.@__progress.Size = new System.Drawing.Size(413, 23);
 			this.@__progress.TabIndex = 2;
+			// 
+			// __blargh
+			// 
+			this.@__blargh.AutoSize = true;
+			this.@__blargh.Location = new System.Drawing.Point(84, 162);
+			this.@__blargh.Name = "__blargh";
+			this.@__blargh.Size = new System.Drawing.Size(287, 13);
+			this.@__blargh.TabIndex = 4;
+			this.@__blargh.Text = "Update checking not yet implemented. Move along, citizen.";
 			// 
 			// UpdatePackagePage
 			// 
@@ -69,6 +81,7 @@
 		private System.ComponentModel.BackgroundWorker __bw;
 		private System.Windows.Forms.Label __statusLbl;
 		private System.Windows.Forms.ProgressBar __progress;
+		private System.Windows.Forms.Label __blargh;
 
 	}
 }

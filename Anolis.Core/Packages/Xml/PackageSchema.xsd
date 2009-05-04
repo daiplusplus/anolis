@@ -56,6 +56,7 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 						<!-- <patch /> attributes -->
 						<xs:attributeGroup ref="common" />
 						<xs:attribute name="path"      type="xs:anyURI" use="required" />
+						<xs:attribute name="saveTo"    type="xs:anyURI" use="optional" />
 						<xs:attribute name="condition" type="xs:string" use="optional" />
 						
 					</xs:complexType>
@@ -81,7 +82,7 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 						<xs:attributeGroup ref="common" />
 						<xs:attribute name="attribution" type="xs:string"  use="optional" />
 						<xs:attribute name="type"        type="extraType"  use="required" />
-						<xs:attribute name="src"         type="xs:anyURI"  use="required" />
+						<xs:attribute name="path"        type="xs:anyURI"  use="required" />
 						
 					</xs:complexType>
 				</xs:element>
@@ -110,14 +111,28 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 					</xs:complexType>
 				</xs:element>
 				
+				<xs:element name="registry" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+
+						<!-- <registry /> attributes -->
+						<xs:attributeGroup ref="common" />
+						
+						<xs:attribute name="key"   type="xs:string"    use="required" />
+						<xs:attribute name="vname" type="xs:string"    use="required" />
+						<xs:attribute name="value" type="xs:string"    use="required" />
+						<xs:attribute name="type"  type="registryType" use="required" />
+						
+					</xs:complexType>
+				</xs:element>
+				
 				<xs:element name="filetype" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						
 						<!-- <filetype /> attributes -->
 						<xs:attributeGroup ref="common" />
 						
-						<xs:attribute name="type" type="xs:string"  use="optional" />
-						<xs:attribute name="icon" type="xs:anyURI"  use="optional" />
+						<xs:attribute name="type" type="xs:string"  use="required" />
+						<xs:attribute name="path" type="xs:anyURI"  use="required" />
 						
 					</xs:complexType>
 				</xs:element>
@@ -164,10 +179,15 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 	<xs:simpleType name="extraType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="wallpaper" />
-			<xs:enumeration value="visualStyle" />
-			<xs:enumeration value="program" />
-			<xs:enumeration value="screensaver" />
 			<xs:enumeration value="bootscreen" />
+			<xs:enumeration value="visualStyle" />
+			<xs:enumeration value="screensaver" />
+			<xs:enumeration value="program" />
+			<xs:enumeration value="registry" />
+			<xs:enumeration value="uxtheme" />
+			<xs:enumeration value="custom" />
+			<!-- 'Exception' is used for testing purposes only -->
+			<xs:enumeration value="exception" />
 		</xs:restriction>
 	</xs:simpleType>
 	
@@ -176,6 +196,18 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 			<xs:enumeration value="copy" />
 			<xs:enumeration value="replace" />
 			<xs:enumeration value="delete" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="registryType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="REG_SZ" />
+			<xs:enumeration value="REG_EXPAND_SZ" />
+			<xs:enumeration value="REG_BINARY" />
+			<xs:enumeration value="REG_DWORD" />
+			<xs:enumeration value="REG_MULTI_SZ" />
+			<xs:enumeration value="REG_BINARY" />
+			<xs:enumeration value="REG_QWORD" />
 		</xs:restriction>
 	</xs:simpleType>
 	

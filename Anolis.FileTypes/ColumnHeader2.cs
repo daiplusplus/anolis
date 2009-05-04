@@ -13,13 +13,10 @@ namespace Anolis.FileTypes {
 			set {
 				_sortOrderIndicator = value;
 				
-				IntPtr lvHwnd = ListView.Handle;
-				
-				NativeMethods.ListView_SetHeaderSortIndicator( lvHwnd, this.Index, value );
+				NativeMethods.ListView_SetHeaderSortIndicator( ListView.Handle, this.Index, value );
 				
 				// set the reference field in the other columns
 				foreach(ColumnHeader header in ListView.Columns) {
-					
 					if(header == this) return;
 					
 					ColumnHeader2 header2 = header as ColumnHeader2;
@@ -28,9 +25,26 @@ namespace Anolis.FileTypes {
 			}
 		}
 		
-		public void SetSelected(Boolean thisIsSelected, Boolean clearOtherColumns) {
+		private Boolean _isSelected;
+		
+		public Boolean IsSelected {
+			get {
+				return _isSelected;
+			}
+			set {
+				
+				if( value ) NativeMethods.ListView_SetSelectedColumn( ListView.Handle, Index );
+				
+				// set the reference field in the other columns
+				foreach(ColumnHeader header in ListView.Columns) {
+					if(header == this) return;
+					
+					ColumnHeader2 header2 = header as ColumnHeader2;
+					if(header2 != null) header2._isSelected = false;
+				}
+				
+			}
 			
-			// TODO: Set LVM_SETSELECTEDCOLUMN for the background color
 			
 		}
 		
@@ -46,19 +60,26 @@ namespace Anolis.FileTypes {
 		// http://www.winapizone.net/tutorials/winapi/listview/columnsortimage.php
 		
 		[DllImport("user32.dll", CharSet=CharSet.Unicode, SetLastError=true, ThrowOnUnmappableChar=true)]
-		private static extern IntPtr SendMessage(IntPtr hWnd, UInt32 message, UIntPtr wParam, IntPtr lParam);
+		public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 message, UIntPtr wParam, IntPtr lParam);
 		
 		private const UInt32 HDF_SORTUP       = 0x0400;
 		private const UInt32 HDF_SORTDOWN     = 0x0200;
 		
 		private const UInt32 LVM_FIRST        = 0x1000;
 		private const UInt32 LVM_GETHEADER    = LVM_FIRST + 31;
+		private const UInt32 LVM_SETSELECTEDCOLUMN = LVM_FIRST + 140;
 		private const UInt32 HDI_FORMAT       = 0x0004;
 		
 		private const UInt32 HDM_FIRST        = 0x1200;
 		private const UInt32 HDM_GETITEMCOUNT = HDM_FIRST + 0;
 		private const UInt32 HDM_GETITEM      = HDM_FIRST + 11;
 		private const UInt32 HDM_SETITEM      = HDM_FIRST + 12;
+		
+		public static void ListView_SetSelectedColumn(IntPtr listViewHWnd, Int32 columnIdx) {
+			
+			IntPtr result = SendMessage( listViewHWnd, LVM_SETSELECTEDCOLUMN, new UIntPtr( (uint)columnIdx ), IntPtr.Zero );
+			
+		}
 		
 		public static void ListView_SetHeaderSortIndicator(IntPtr hWnd, Int32 columnIdx, SortOrder order) {
 			

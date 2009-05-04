@@ -13,8 +13,8 @@ namespace Anolis.Packager {
 			
 			MainForm form = new MainForm();
 			
-			//Application.Run( form );
-			Application.Run( new ConditionEditor() );
+			Application.Run( form );
+			
 		}
 	}
 }

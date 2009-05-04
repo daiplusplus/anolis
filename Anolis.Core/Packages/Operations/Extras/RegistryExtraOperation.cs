@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Text;
-using System.Xml;
 using System.Diagnostics;
+using System.Xml;
 
 using Microsoft.Win32;
 
@@ -19,8 +15,13 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override void Execute() {
 			
-			
-			
+			foreach(String regfile in Files) {
+				
+				ProcessStartInfo startInfo = new ProcessStartInfo("regedit", regfile);
+				Process p = Process.Start( startInfo );
+				p.WaitForExit(250);
+				
+			}
 			
 		}
 	}

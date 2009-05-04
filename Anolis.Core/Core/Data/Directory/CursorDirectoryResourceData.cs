@@ -1,59 +1,106 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using System.Drawing;
+using System.Runtime.InteropServices;
+
+using Anolis.Core.Native;
+using Anolis.Core.Utility;
+
+using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Core.Data {
 	
-/*	public class CursorDirectoryResourceDataFactory : ResourceDataFactory {
+	public class CursorDirectoryResourceDataFactory : ResourceDataFactory {
 		
 		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
 			
-			if( typeId.KnownType == Win32ResourceType.CursorDirectory ) return Compatibility.Yes;
+			if(typeId.KnownType == Win32ResourceType.CursorDirectory) return Compatibility.Yes;
 			
 			return Compatibility.No;
+			
 		}
 		
 		public override Compatibility HandlesExtension(String filenameExtension) {
 			
-			if( filenameExtension == "cur" ) return Compatibility.Yes;
+			if( IsExtension( filenameExtension, "cur" ) ) return Compatibility.Yes;
 			
 			return Compatibility.No;
+			
+		}
+		
+		protected override String GetOpenFileFilter() {
+			return CreateFileFilter("CursorDirectory", "cur");
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
 			
-			CursorDirectoryResourceData rd;
+			ResIconDir dir = ResIconDirHelper.FromResource(lang, data);
 			
-			if( CursorDirectoryResourceData.TryCreate(lang, data, out rd ) ) return rd;
-			
-			return null;
-			
+			return new CursorDirectoryResourceData(dir, lang);
 		}
 		
-		public override ResourceData FromFile(System.IO.Stream stream, String extension) {
-			LastErrorMessage = "Not Implemented";
-			return null;
-		}
-		
-		public override String Name {
+		public override string Name {
 			get { return "Cursor Directory"; }
+		}
+		
+		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 lang, ResourceSource currentSource) {
+			
+			if( !IsExtension( extension, "cur" ) ) throw new ArgumentException("cur is the only supported extension");
+			
+			ResIconDir dir = ResIconDirHelper.FromFile( false, stream, lang, currentSource);
+			
+			return new CursorDirectoryResourceData(dir, null);
+		}
+		
+		public override ResourceData FromFileToUpdate(Stream stream, String extension, ResourceLang currentLang) {
+			
+			if( !IsExtension( extension, "ico" ) ) throw new ArgumentException("cur is the only supported extension");
+			
+			CursorDirectoryResourceData originalData = currentLang.Data as CursorDirectoryResourceData;
+			if(originalData == null) throw new ResourceDataException("Unexpected original data subclass");
+			
+			ResIconDir original = originalData.IconDirectory;
+			
+			// Loads the icons in the stream into 'original'
+			ResIconDirHelper.FromFile(stream, currentLang.LanguageId, currentLang.Name.Type.Source, original);
+			
+			return new CursorDirectoryResourceData(original, null);
 		}
 	}
 	
 	public sealed class CursorDirectoryResourceData : DirectoryResourceData {
 		
-		private CursorDirectoryResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
-		}
-		
-		public static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out CursorDirectoryResourceData data) {
+		internal CursorDirectoryResourceData(ResIconDir directory, ResourceLang lang) : base(lang, directory.GetRawData() ) {
 			
-			throw new NotImplementedException();
+			if(directory == null) throw new ArgumentNullException("directory");
 			
+			IconDirectory = directory;
+			
+			_members = new DirectoryMemberCollection( directory.Members );
 		}
 		
-		public override String[] SaveFileFilter {
-			get { return new String[] { "Cursor File (*.cur)|.cur" }; }
+		public ResIconDir IconDirectory { get; private set; }
+		
+		protected override String[] SupportedFilters {
+			get { return new String[] { "Cursor File (*.cur)|*.cur" }; }
 		}
 		
-	}*/
+		protected override ResourceTypeIdentifier GetRecommendedTypeId() {
+			return new ResourceTypeIdentifier( Win32ResourceType.CursorDirectory );
+		}
+		
+		protected override void SaveAs(Stream stream, String extension) {
+			
+			if(extension != "cur") throw new ArgumentException("cur is the only supported extension");
+			
+			IconDirectory.Save(stream);
+		}
+		
+		private DirectoryMemberCollection _members;
+		
+		public override DirectoryMemberCollection Members {
+			get { return _members; }
+		}
+		
+	}
 }

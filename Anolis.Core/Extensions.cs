@@ -26,16 +26,20 @@ namespace Anolis.Core {
 		
 		public static void CopyTo(this DirectoryInfo source, String destination) {
 			
+			if( !Directory.Exists( destination ) ) Directory.CreateDirectory( destination );
+			
+			foreach(FileInfo file in source.GetFiles()) {
+				
+				file.CopyTo( Path.Combine( destination, file.Name ) );
+			}
+			
 			foreach(DirectoryInfo child in source.GetDirectories()) {
 				
-				child.CopyTo( Path.Combine( destination, child.Name ) );
-				
-				foreach(FileInfo file in source.GetFiles()) {
-					
-					file.CopyTo( Path.Combine( destination, file.Name ) );
-				}
+				child.CopyTo(  Path.Combine( destination, child.Name ) );
 				
 			}
+			
+			
 			
 		}
 		

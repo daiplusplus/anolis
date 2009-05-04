@@ -8,6 +8,19 @@ using System.Text;
 namespace Anolis.Core.Packages.Operations {
 	
 	public class OperationCollection : Collection<Operation> {
+		
+		private Group _parent;
+		
+		public OperationCollection(Group parent) {
+			_parent = parent;
+		}
+		
+		protected override void InsertItem(int index, Operation item) {
+			base.InsertItem(index, item);
+			
+			if( !_parent.Enabled ) item.Enabled = false;
+		}
+		
 	}
 	
 	public abstract class Operation : PackageItem {
@@ -51,6 +64,8 @@ namespace Anolis.Core.Packages.Operations {
 					return new SystemParameterOperation(package, operationElement);
 				case "filetype":
 					return new FileTypeOperation(package, operationElement);
+				case "registry":
+					return new RegistryOperation(package, operationElement);
 				default:
 					// TODO: Allow additional libraries or code-generation to specify their own stuff
 					// Define types in the Package XML? http://www.codeproject.com/KB/dotnet/evaluator.aspx

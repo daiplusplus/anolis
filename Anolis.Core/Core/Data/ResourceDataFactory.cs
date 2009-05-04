@@ -197,7 +197,7 @@ namespace Anolis.Core.Data {
 			
 			// Directories
 			factories.Add( new IconDirectoryResourceDataFactory() );
-//			factories.Add( new CursorDirectoryResourceDataFactory() );
+			factories.Add( new CursorDirectoryResourceDataFactory() );
 			
 			// Windows
 			factories.Add( new VersionResourceDataFactory() );
