@@ -28,12 +28,15 @@ namespace Anolis.Core.Packages.Operations {
 			String bootcfgExe = PackageUtility.ResolvePath(@"%windir%\system32\bootcfg.exe");
 			if( !File.Exists( bootcfgExe ) ) {
 				
-				Package.Log.Add( new LogItem(LogSeverity.Error, "Could not find bootcfg.exe; BootScreenExtraOperation aborted") );
+				Package.Log.Add(LogSeverity.Error, "Could not find bootcfg.exe; BootScreenExtraOperation aborted");
 				return;
 			}
 			
 			String file = Files[ Files.Count - 1 ];
 			String dest = PackageUtility.ResolvePath(@"%windir%\Boot.bmp");
+			
+			String moved = PackageUtility.ReplaceFile( dest );
+			if(moved != null) Package.Log.Add( LogSeverity.Warning, "File renamed: " + dest + " -> " + moved );
 			
 			File.Copy( file, dest );
 			
@@ -42,9 +45,6 @@ namespace Anolis.Core.Packages.Operations {
 			processInfo.CreateNoWindow = true;
 			
 			Process.Start( processInfo );
-			
-			
-			
 		}
 	}
 }

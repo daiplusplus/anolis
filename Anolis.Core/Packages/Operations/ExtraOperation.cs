@@ -16,9 +16,9 @@ namespace Anolis.Core.Packages.Operations {
 			
 			ExtraType = type;
 			
-			String src = operationElement.GetAttribute("src");
+			String src = operationElement.GetAttribute("path");
 			
-			PackageUtility.ResolvePath( src, package.RootDirectory.FullName );
+			src = PackageUtility.ResolvePath( src, package.RootDirectory.FullName );
 			
 			Files.Add( src );
 			
@@ -48,11 +48,19 @@ namespace Anolis.Core.Packages.Operations {
 					return new ScreensaverExtraOperation(package, operationElement);
 				case ExtraType.Program:
 					return new ProgramExtraOperation(package, operationElement);
+				case ExtraType.UxTheme:
+					return new UxThemeExtraOperation(package, operationElement);
 				case ExtraType.Custom:
 					return new CustomExtraOperation(package, operationElement);
+				case ExtraType.Exception:
+					return new ExceptionExtraOperation(package, operationElement);
 				default:
 					return null;
 			}
+		}
+		
+		public override String Key {
+			get { return ExtraType.ToString(); }
 		}
 		
 		protected virtual Boolean CanMerge { get { return true; } }
@@ -85,7 +93,9 @@ namespace Anolis.Core.Packages.Operations {
 		Screensaver,
 		Program,
 		Registry,
-		Custom
+		UxTheme,
+		Custom,
+		Exception
 	}
 	
 	

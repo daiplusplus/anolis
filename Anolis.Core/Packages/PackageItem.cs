@@ -55,7 +55,7 @@ namespace Anolis.Core.Packages {
 		public String  Name             { get; protected set; }
 		public String  Description      { get; protected set; }
 		public Image   DescriptionImage { get; protected set; }
-		public Boolean Enabled          { get; set; }
+		public virtual Boolean Enabled  { get; set; }
 		
 		public Package Package          { get; internal set; }
 		

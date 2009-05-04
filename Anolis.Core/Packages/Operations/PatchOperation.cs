@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Xml;
 
@@ -13,11 +14,18 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class PatchOperation : Operation {
 		
+		private String _saveTo;
+		
 		public PatchOperation(Package package, XmlElement operationElement) : base(package, operationElement) {
 			
 			Resources = new List<PatchResource>();
 			
 			base.Path = operationElement.GetAttribute("path");
+			
+			_saveTo   = operationElement.GetAttribute("saveTo");
+			if(_saveTo.Length > 0)
+				_saveTo = PackageUtility.ResolvePath( _saveTo );
+			else _saveTo = null;
 			
 			foreach(XmlNode node in operationElement.ChildNodes) {
 				
@@ -52,8 +60,18 @@ namespace Anolis.Core.Packages.Operations {
 			
 			// copy the file first
 			
-			String workOnThis = Path + ".anofp"; // "Anolis File Pending"
-			if(File.Exists( workOnThis )) Package.Log.Add( new LogItem(LogSeverity.Warning, "Overwritten *.anofp: " + workOnThis ) );
+			String workOnThis;
+			
+			if( _saveTo != null ) {
+				
+				workOnThis = _saveTo;
+				
+			} else {
+				
+				workOnThis = Path + ".anofp"; // "Anolis File Pending"
+			}
+			
+			if(File.Exists( workOnThis )) Package.Log.Add( LogSeverity.Warning, "Overwritten *.anofp: " + workOnThis);
 			File.Copy( Path, workOnThis, true );
 			
 			// TODO: Oh, I need to copy it to the uninstallation directory too
@@ -67,7 +85,7 @@ namespace Anolis.Core.Packages.Operations {
 					foreach(PatchResource res in Resources) {
 						
 						if( !File.Exists( res.File ) ) {
-							Package.Log.Add( new LogItem(LogSeverity.Error, "Data File not found: " + res.File) );
+							Package.Log.Add( LogSeverity.Error, "Data File not found: " + res.File );
 							continue;
 						}
 						
@@ -75,24 +93,37 @@ namespace Anolis.Core.Packages.Operations {
 						ResourceIdentifier     nameId = ResourceIdentifier.CreateFromString( res.Name );
 						UInt16                 langId = String.IsNullOrEmpty( res.Lang ) ? UInt16.MaxValue : UInt16.Parse( res.Lang, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture );
 						
-						if(	langId == UInt16.MaxValue ) {
+						if(	langId == UInt16.MaxValue ) { // if the lang="" attribute was not specified
 							
 							ResourceName name = source.GetName(typeId, nameId);
-							if(name == null) {
-								Package.Log.Add( new LogItem(LogSeverity.Warning, "Name not found: " + nameId.FriendlyName) );
-								continue;
-							}
-							foreach(ResourceLang lang in name.Langs) {
+							
+							if(name == null) { // if the specified name does not exist
 								
-								ResourceData data;
-								if(res.Add) data = ResourceData.FromFileToAdd( res.File, lang.LanguageId, source );
-								else        data = ResourceData.FromFileToUpdate( res.File, lang );
+								if( res.Add ) {
+									
+									UInt16 sysLang = GetSystemLangId();
+									
+									ResourceData data = ResourceData.FromFileToAdd( res.File, sysLang, source );
+									source.Add( typeId, nameId, sysLang, data );
+									
+								} else {
+									
+									Package.Log.Add( LogSeverity.Warning, "Name not found: " + source.Name + '\\' + typeId.ToString() + '\\' + nameId.FriendlyName );
+								}
 								
-								lang.SwapData( data );
+								
+							} else {
+								
+								foreach(ResourceLang lang in name.Langs) {
+									
+									ResourceData data = ResourceData.FromFileToAdd( res.File, lang.LanguageId, source );
+									lang.SwapData( data );
+									
+								}
 								
 							}
 							
-						} else {
+						} else { // if the lang="" attribute was specified
 							
 							ResourceLang lang = source.GetLang( typeId, nameId, langId );
 							if(lang == null) {
@@ -115,16 +146,22 @@ namespace Anolis.Core.Packages.Operations {
 				
 				PackageUtility.AddPfroEntry( workOnThis, Path );
 				
-				Package.Log.Add( new LogItem(LogSeverity.Info, "Done: " + P.GetFileName( workOnThis ) ) );
-				
 			} catch(Exception aex) {
 				
-				Package.Log.Add( new LogItem(LogSeverity.Error, "Exception: " + aex.Message) );
+				Package.Log.Add( LogSeverity.Error, "Patch Exception: " + aex.Message );
 				
 				if( File.Exists( workOnThis ) ) File.Delete( workOnThis );
 				
 				throw;
 			}
+			
+		}
+		
+		private static UInt16 GetSystemLangId() {
+			
+			CultureInfo cult = CultureInfo.GetCultureInfo( PackageUtility.GetSystemInstallLanguage() );
+			
+			return (UInt16)cult.LCID;
 			
 		}
 		
@@ -152,7 +189,7 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public String File { get; set; }
 		
-		/// <summary>True if the resource is to be added as opposed to updated</summary>
+		/// <summary>True if the resource is to be added as opposed to updated.</summary>
 		public Boolean Add { get; set; }
 	}
 	

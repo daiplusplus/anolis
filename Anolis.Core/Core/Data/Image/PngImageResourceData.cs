@@ -8,6 +8,7 @@ namespace Anolis.Core.Data {
 		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
 			
 			if(typeId.KnownType == Win32ResourceType.Unknown) return Compatibility.Maybe;
+			if(typeId.KnownType == Win32ResourceType.Html)    return Compatibility.Maybe;
 			if(typeId.KnownType != Win32ResourceType.Custom)  return Compatibility.No;
 			
 			if( String.Equals( typeId.StringId, "PNG"    , StringComparison.OrdinalIgnoreCase)) return Compatibility.Yes;

@@ -13,16 +13,17 @@ namespace Anolis.Core.Utility {
 	// The IconDirectoryResoruceData class was getting into a mess, so I moved the IconDir-handling code to this class
 	// ... in much the same way I did with BmpResourceData and the Dib class
 	
-	/// <summary>Represents an Icon Directory as a Resource, used for reconstructing an IconDirectoryResourceData's RawData</summary>
+	/// <summary>Represents an Icon / Cursor Directory as a Resource, used for reconstructing an IconDirectoryResourceData's (or CursorDirectoryResourceData's) RawData</summary>
 	public class ResIconDir {
 		
 		private Byte[]  _rawData;
 		private Boolean _updated = true;
 		
-		public ResIconDir(UInt16 lang, ResourceSource source) {
+		public ResIconDir(Boolean isIcon, UInt16 lang, ResourceSource source) {
 			
 			_members = new List<IDirectoryMember>();
 			
+			IsIcon = isIcon;
 			Source = source;
 			Lang   = lang;
 		}
@@ -31,6 +32,7 @@ namespace Anolis.Core.Utility {
 		
 		internal List<IDirectoryMember> Members { get { return _members; } } // this is used as a hack to expose members for DirectoryResourceData.Members, there's probably a better way around it
 		
+		public Boolean        IsIcon { get; private set; }
 		public ResourceSource Source { get; private set; }
 		public UInt16         Lang   { get; private set; }
 		
@@ -62,7 +64,12 @@ namespace Anolis.Core.Utility {
 				
 				// it's new, so add it
 				
-				Source.Add( _iconImageTypeId, Source.GetUnusedName(_iconImageTypeId), Lang, newMember.ResourceData );
+				if( IsIcon ) {
+					Source.Add( _iconImageTypeId  , Source.GetUnusedName(_iconImageTypeId), Lang, newMember.ResourceData );
+				} else {
+					Source.Add( _cursorImageTypeId, Source.GetUnusedName(_iconImageTypeId), Lang, newMember.ResourceData );
+				}
+				
 				_members.Add( newMember );
 				
 			}
@@ -89,7 +96,8 @@ namespace Anolis.Core.Utility {
 			return null;
 		}
 		
-		private static ResourceTypeIdentifier _iconImageTypeId = new ResourceTypeIdentifier( Win32ResourceType.IconImage );
+		private static ResourceTypeIdentifier _iconImageTypeId   = new ResourceTypeIdentifier( Win32ResourceType.IconImage );
+		private static ResourceTypeIdentifier _cursorImageTypeId = new ResourceTypeIdentifier( Win32ResourceType.CursorImage );
 		
 		/// <summary>Recreates the byte array that is used for the IconDirectoryRD's RawData</summary>
 		public Byte[] GetRawData() {
@@ -103,7 +111,7 @@ namespace Anolis.Core.Utility {
 			
 			IconDirectory dir = new IconDirectory();
 			dir.wReserved = 0;
-			dir.wType = 1; // 1 for icons, 0 for cursors
+			dir.wType = (ushort)(IsIcon ? 1 : 2); // 1 for icons, 2 for cursors
 			dir.wCount = (ushort)_members.Count;
 			
 			Int32 sizeOfData =
@@ -212,7 +220,7 @@ namespace Anolis.Core.Utility {
 			// Write IconHeader ( IconDirectory )
 			
 			wtr.Write( (UInt16)0 ); // wReserved
-			wtr.Write( (UInt16)1 ); // wType
+			wtr.Write( (UInt16)(IsIcon ? 1 : 2) ); // wType
 			wtr.Write( (UInt16)this._members.Count ); // wCount
 			
 			// Write out the array of directory entries, calculating the offsets first

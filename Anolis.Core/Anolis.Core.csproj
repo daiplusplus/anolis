@@ -119,6 +119,10 @@
     <Compile Include="Core\Source\Win32ResourceSource.cs" />
     <Compile Include="Packages\Exceptions.cs" />
     <Compile Include="Packages\Expression.cs" />
+    <Compile Include="Packages\Operations\Extras\UxThemeExtraOperation.cs" />
+    <Compile Include="Packages\Operations\Extras\ExceptionExtraOperation.cs" />
+    <Compile Include="Packages\Operations\FileTypeOperation.cs" />
+    <Compile Include="Packages\Operations\RegistryOperation.cs" />
     <Compile Include="Packages\Operations\SystemParameterOperation.cs" />
     <Compile Include="Packages\Operations\ExtraOperation.cs" />
     <Compile Include="Packages\Operations\Extras\BootScreenExtraOperation.cs" />
@@ -149,7 +153,6 @@
   <ItemGroup>
     <None Include="legal.txt" />
     <None Include="legalGpl.txt" />
-    <Content Include="Packages\Xml\ExamplePackage.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AnolisSnk.pfx" />

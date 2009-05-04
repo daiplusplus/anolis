@@ -72,6 +72,7 @@
 			this.@__uninstallRad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__uninstallRad.BackColor = System.Drawing.Color.Transparent;
+			this.@__uninstallRad.Enabled = false;
 			this.@__uninstallRad.Location = new System.Drawing.Point(22, 84);
 			this.@__uninstallRad.Name = "__uninstallRad";
 			this.@__uninstallRad.Size = new System.Drawing.Size(434, 25);
@@ -84,6 +85,7 @@
 			this.@__uninstallBlurb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__uninstallBlurb.BackColor = System.Drawing.Color.Transparent;
+			this.@__uninstallBlurb.ForeColor = System.Drawing.SystemColors.GrayText;
 			this.@__uninstallBlurb.Location = new System.Drawing.Point(40, 113);
 			this.@__uninstallBlurb.Name = "__uninstallBlurb";
 			this.@__uninstallBlurb.Size = new System.Drawing.Size(416, 40);
@@ -96,6 +98,7 @@
 			this.@__toolsRad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__toolsRad.BackColor = System.Drawing.Color.Transparent;
+			this.@__toolsRad.Enabled = false;
 			this.@__toolsRad.Location = new System.Drawing.Point(22, 152);
 			this.@__toolsRad.Name = "__toolsRad";
 			this.@__toolsRad.Size = new System.Drawing.Size(434, 25);
@@ -108,6 +111,7 @@
 			this.@__toolsBlurb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__toolsBlurb.BackColor = System.Drawing.Color.Transparent;
+			this.@__toolsBlurb.ForeColor = System.Drawing.SystemColors.GrayText;
 			this.@__toolsBlurb.Location = new System.Drawing.Point(39, 180);
 			this.@__toolsBlurb.Name = "__toolsBlurb";
 			this.@__toolsBlurb.Size = new System.Drawing.Size(417, 34);

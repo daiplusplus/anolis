@@ -135,6 +135,8 @@ namespace Anolis.Core.Packages {
 			///////////////////////////////////
 			// Flatten
 			
+			Log.Add( LogSeverity.Info, "Beginning package execution: " + this.RootGroup.Name );
+			
 			OnProgressEvent( new PackageProgressEventArgs( 0, "Flattening Package Tree" ) );
 			
 			List<Operation> operations = new List<Operation>();
@@ -145,6 +147,11 @@ namespace Anolis.Core.Packages {
 			
 			Dictionary<String,Operation> uniques = new Dictionary<String,Operation>();
 			foreach(Operation op in operations) {
+				
+				if( !op.Enabled ) {
+					obsoleteOperations.Add( op );
+					continue;
+				}
 				
 				Operation originalOperation;
 				if( uniques.TryGetValue( op.Key, out originalOperation ) ) {
@@ -169,19 +176,40 @@ namespace Anolis.Core.Packages {
 			///////////////////////////////////
 			// Install
 			
-			float i = 0, cnt = operations.Count;
-			
-			foreach(Operation op in operations) {
+			try {
 				
-				OnProgressEvent( new PackageProgressEventArgs( (int)( 100 * i++ / cnt ), op.ToString() ) );
+				float i = 0, cnt = operations.Count;
 				
-				op.Execute();
+				foreach(Operation op in operations) {
+					
+					OnProgressEvent( new PackageProgressEventArgs( (int)( 100 * i++ / cnt ), op.ToString() ) );
+					
+					try {
+						
+						op.Execute();
+						
+					} catch(Exception ex) {
+						
+						Log.Add( new LogItem( ex, op ) );
+						continue;
+					}
+					
+					Log.Add( LogSeverity.Info, "Done " + op.Name + ": " + op.Path );
+					
+				}//foreach
+				
+				PackageUtility.ClearIconCache();
+				
+				OnProgressEvent( new PackageProgressEventArgs( 100, "Complete" ) );
+				
+			} finally {
+				
+				///////////////////////////////////
+				// Dump the log to disk
+				
+				Log.Save( Path.Combine( this.RootDirectory.FullName, "Anolis.Installer.log" ) );
 				
 			}
-			
-			PackageUtility.ClearIconCache();
-			
-			OnProgressEvent( new PackageProgressEventArgs( 100, "Complete" ) );
 			
 		}
 		
@@ -231,6 +259,7 @@ namespace Anolis.Core.Packages {
 		
 		internal PackageUpdateInfo(String name, Single version, Uri packageLocation, Uri infoLocation) {
 			
+			Name                = name;
 			Version             = version;
 			PackageLocation     = packageLocation;
 			InformationLocation = infoLocation;
@@ -253,16 +282,76 @@ namespace Anolis.Core.Packages {
 			Message  = message;
 		}
 		
+		public LogItem(Exception ex, Operation op) {
+			
+			TimeStamp = DateTime.Now;
+			
+			Message  = "Exception: " + op.Name + " - " + op.Path;
+			Severity = LogSeverity.Error;
+			
+			Exception = ex;
+		}
+		
 		public DateTime    TimeStamp { get; private set; }
 		public LogSeverity Severity  { get; private set; }
 		public String      Message   { get; private set; }
+		
+		public Exception   Exception { get; private set; }
+		
+		public void Write(TextWriter wtr) {
+			
+			wtr.Write( TimeStamp.ToString("s") );
+			wtr.Write(" - ");
+			wtr.Write( Severity.ToString() );
+			wtr.Write(" - ");
+			wtr.WriteLine( Message );
+			
+			Exception ex = Exception;
+			Int32 indent = 1;
+			while(ex != null) {
+				
+				String indentString = "".PadRight( indent, '\t' );
+				
+				wtr.WriteLine( indentString + ex.Message );
+				
+				String[] stackTrace = ex.StackTrace.Replace("\r\n", "\n").Split('\n');
+				
+				foreach(String call in stackTrace) {
+					
+					// indent the stack trace at (indent + 1)
+					wtr.Write( indentString + '\t' );
+					wtr.WriteLine( call );
+				}
+				
+				ex = ex.InnerException;
+				
+				indent++;
+			}
+			
+		}
 	}
 	
 	public class PackageLog : Collection<LogItem> {
 		
 		public void Add(LogSeverity severity, String message) {
 			
-			this.Add( new LogItem(severity, message) );
+			LogItem item = new LogItem(severity, message);
+			
+			this.Add( item );
+		}
+		
+		public void Save(String path) {
+			
+			using(FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write))
+			using(StreamWriter wtr = new StreamWriter(fs)) {
+				
+				foreach(LogItem item in this) {
+					
+					item.Write( wtr );
+				}
+				
+			}
+			
 		}
 		
 	}

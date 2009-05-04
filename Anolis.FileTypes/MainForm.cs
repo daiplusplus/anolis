@@ -58,6 +58,8 @@ namespace Anolis.FileTypes {
 				col.SortOrderIndicator = sortAsc ? SortOrder.Ascending : SortOrder.Descending;
 			}
 			
+			col.IsSelected = true;
+			
 			list.ListViewItemSorter = new ColumnIndexComparator( sortAsc, e.Column );
 		}
 		
@@ -170,12 +172,20 @@ namespace Anolis.FileTypes {
 			item.UseItemStyleForSubItems = false;
 			item.Tag = type;
 			
-			String[] subitems = new String[] {
-				type.FriendlyName == null ? "" : type.FriendlyName,
-				Concatenate( type.Extensions )
-			};
+			///////////////////////////////////////
+			// [1] = Friendly Name
 			
-			item.SubItems.AddRange( subitems );
+			item.SubItems.Add( type.FriendlyName );
+			
+			if( type.FriendlyName == null ) {
+				item.SubItems[1].Text = "(null)";
+				item.SubItems[1].ForeColor = Color.Red;
+			}
+			
+			///////////////////////////////////////
+			// [2] = Extensions
+			
+			item.SubItems.Add( Concatenate( type.Extensions ) );
 			
 			return item;
 		}
@@ -187,9 +197,9 @@ namespace Anolis.FileTypes {
 			item.Tag = ext;
 			
 			///////////////////////////////////////
-			// [0] = ProgId
+			// [1] = ProgId
 			
-			item.SubItems.Add( new SI( item, ext.ProgId ) );
+			item.SubItems.Add( ext.ProgId );
 			
 			if( ext.ProgId == null || ext.FileType == null ) {
 				// so the progId specifies a type that doesn't exist, e.g. "Safari Download"
@@ -202,7 +212,7 @@ namespace Anolis.FileTypes {
 			}
 			
 			///////////////////////////////////////
-			// [1] = Type Friendly Name
+			// [2] = Type Friendly Name
 			
 			if( ext.FileType == null ) {
 				

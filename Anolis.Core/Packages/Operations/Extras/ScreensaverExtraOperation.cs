@@ -31,6 +31,9 @@ namespace Anolis.Core.Packages.Operations {
 				
 				String dest = P.Combine( destDir, P.GetFileName( source ) );
 				
+				String moved = PackageUtility.ReplaceFile( dest );
+				if(moved != null) Package.Log.Add( LogSeverity.Warning, "File renamed: " + dest + " -> " + moved );
+				
 				File.Copy( source, dest );
 				
 				lastSaver = dest;
@@ -42,11 +45,18 @@ namespace Anolis.Core.Packages.Operations {
 		
 		private void SetScreensaver(String screensaverFilename) {
 			
+			// if the saver is located under system32 you don't need the full path
+			String name = P.GetFileName( screensaverFilename );
+			
 			RegistryKey desktopKey = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
-			
-			desktopKey.SetValue("SCRNSAVE.EXE", screensaverFilename, RegistryValueKind.String);
-			
+			desktopKey.SetValue("ScreenSaveActive", "1" , RegistryValueKind.String);
+			desktopKey.SetValue("SCRNSAVE.EXE"    , name, RegistryValueKind.String);
 			desktopKey.Close();
+			
+			RegistryKey logonKey = Registry.Users.OpenSubKey(".DEFAULT").OpenSubKey(@"Control Panel\Desktop", true);
+			logonKey.SetValue("ScreenSaveActive", "1" , RegistryValueKind.String);
+			logonKey.SetValue("SCRNSAVE.EXE"    , name, RegistryValueKind.String);
+			logonKey.Close();
 			
 		}
 		

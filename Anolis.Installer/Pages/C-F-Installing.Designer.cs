@@ -29,11 +29,8 @@
 			this.@__packageMessages = new System.Windows.Forms.TextBox();
 			this.@__bw = new System.ComponentModel.BackgroundWorker();
 			this.@__showLog = new System.Windows.Forms.Button();
-
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
-
-
 			// 
 			// __content
 			// 
@@ -57,7 +54,7 @@
 			// __statusLabel
 			// 
 			this.@__statusLabel.AutoSize = true;
-			this.@__statusLabel.Location = new System.Drawing.Point(19, 80);
+			this.@__statusLabel.Location = new System.Drawing.Point(19, 85);
 			this.@__statusLabel.Name = "__statusLabel";
 			this.@__statusLabel.Size = new System.Drawing.Size(98, 13);
 			this.@__statusLabel.TabIndex = 1;
@@ -91,9 +88,8 @@
 			// InstallingPage
 			// 
 			this.Name = "InstallingPage";
-			this.PageTitle = "Installing Package";
 			this.PageSubtitle = "Your selected package is being installed";
-
+			this.PageTitle = "Installing Package";
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();
 			this.ResumeLayout(false);

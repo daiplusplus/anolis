@@ -5,6 +5,7 @@ using System.Xml;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Text;
+using Microsoft.Win32;
 
 using Anolis.Core.Native;
 
@@ -19,6 +20,8 @@ namespace Anolis.Core.Packages.Operations {
 		public WallpaperExtraOperation(Package package, XmlElement element) : base(ExtraType.Wallpaper, package, element) {
 		}
 		
+		private static readonly String _wallpaperDir = PackageUtility.ResolvePath(@"%windir%\Web\Wallpaper");
+		
 		public override void Execute() {
 			
 			if( Files.Count == 0 ) return;
@@ -28,13 +31,14 @@ namespace Anolis.Core.Packages.Operations {
 			
 			// don't move because you might be installing from a HDD-based package. The files will be deleted when the package completes anyway
 			
-			String wallpaperdir = PackageUtility.ResolvePath(@"%windir%\Web\Wallpaper");
-			
 			String lastWallpaper = null;
 			
 			foreach(String source in Files) {
 				
-				String dest = P.Combine( wallpaperdir, P.GetFileName( source ) );
+				String dest = P.Combine( _wallpaperDir, P.GetFileName( source ) );
+				
+				String moved = PackageUtility.ReplaceFile( dest );
+				if(moved != null) Package.Log.Add( LogSeverity.Warning, "File renamed: " + dest + " -> " + moved );
 				
 				File.Copy( source, dest );
 				
@@ -70,7 +74,7 @@ namespace Anolis.Core.Packages.Operations {
 					name += "_";
 				}
 				
-				wallpaperFilename = name + ".bmp";
+				wallpaperFilename = P.Combine( _wallpaperDir, name + ".bmp" );
 				
 				bitmap.Save( wallpaperFilename, ImageFormat.Bmp );
 				
@@ -80,6 +84,12 @@ namespace Anolis.Core.Packages.Operations {
 			
 			// set the wallpaper
 			NativeMethods.SystemParametersInfo(NativeMethods.SpiAction.SetDesktopWallpaper, 0, wallpaperFilename, NativeMethods.SpiUpdate.SendWinIniChange | NativeMethods.SpiUpdate.UpdateIniFile);
+			
+			// set the .DEFAULT wallpaper for good measure
+			RegistryKey logonKey = Registry.Users.OpenSubKey(".DEFAULT").OpenSubKey(@"Control Panel\Desktop", true);
+			logonKey.SetValue("Wallpaper"     , wallpaperFilename, RegistryValueKind.String);
+			logonKey.SetValue("WallpaperStyle",               "2", RegistryValueKind.String); // 2 = stretch
+			logonKey.Close();
 			
 			// refresh the desktop
 			Rdf flags = Rdf.Invalidate | Rdf.Erase | Rdf.AllChildren | Rdf.UpdateNow;

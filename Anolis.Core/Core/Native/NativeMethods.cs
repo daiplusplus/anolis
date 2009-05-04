@@ -614,6 +614,9 @@ namespace Anolis.Core.Native {
 		
 #endregion
 		
+		[DllImport("kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		public static extern UInt16 GetSystemDefaultUILanguage();
+		
 	}
 	
 }

@@ -68,21 +68,6 @@ namespace Anolis.Installer.Pages {
 				
 			}
 			
-			// dump log to HDD
-			
-			using(StreamWriter wtr = new StreamWriter( System.IO.Path.Combine( Environment.CurrentDirectory,"AnolisInstaller.log"), true)) {
-				
-				wtr.WriteLine("Anolis.Resourcer - Package.Execute() Completed at " + DateTime.Now.ToString("s"));
-				
-				foreach(LogItem item in PackageInfo.Package.Log) {
-					
-					wtr.Write( item.Severity );
-					wtr.Write(" - ");
-					wtr.WriteLine( item.Message );
-				}
-				
-			}
-			
 		}
 		
 		private void __bw_DoWork(object sender, DoWorkEventArgs e) {
@@ -107,7 +92,9 @@ namespace Anolis.Installer.Pages {
 		
 		private void Package_ProgressEvent(object sender, PackageProgressEventArgs e) {
 			
-			Invoke( new MethodInvoker( delegate() {
+			if( !IsHandleCreated ) return;
+			
+			BeginInvoke( new MethodInvoker( delegate() {
 				
 				__progress.Value = e.Percentage;
 				__statusLabel.Text = String.Format( InstallerResources.GetString("C_F_status") , e.Percentage, e.Message );

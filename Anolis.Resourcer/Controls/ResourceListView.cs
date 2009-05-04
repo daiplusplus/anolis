@@ -9,6 +9,7 @@ using Anolis.Core.Data;
 using Cult = System.Globalization.CultureInfo;
 using System.Threading;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Anolis.Resourcer.Controls {
 	
@@ -129,6 +130,8 @@ namespace Anolis.Resourcer.Controls {
 			
 		}
 		
+		private List<ListViewItem> _itemsToAdd = new List<ListViewItem>();
+		
 		private void PopulateCurrentObject(Object sender, DoWorkEventArgs e) {
 			
 			Thread.CurrentThread.Name = "ListView Populator";
@@ -137,8 +140,10 @@ namespace Anolis.Resourcer.Controls {
 				__progessBar.Visible = true;
 				__list.BeginUpdate();
 				__list.Items.Clear();
-				
+				__images.Images.Clear();
 			} ) );
+			
+			_itemsToAdd.Clear();
 			
 			try {
 				
@@ -154,6 +159,8 @@ namespace Anolis.Resourcer.Controls {
 			} finally {
 				
 				BeginInvoke( new MethodInvoker( delegate() {
+					
+					__list.Items.AddRange( _itemsToAdd.ToArray() );
 					
 					__list.EndUpdate();
 					
@@ -239,7 +246,7 @@ namespace Anolis.Resourcer.Controls {
 		
 		private Boolean PopulatePromptIcons(Single cnt) {
 			
-			if(cnt > 256) {
+			if(cnt > 800) {
 				
 				String message = String.Format("There are {0} resource icons to display. This might take a long time, do you want to show the icons?", cnt);
 				
@@ -272,7 +279,8 @@ namespace Anolis.Resourcer.Controls {
 				AddImageAsync( item.ImageKey, img );
 			}
 			
-			BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
+			//BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
+			_itemsToAdd.Add( item );
 		}
 		
 		private void AddResourceNameItem(ResourceName name, Boolean showIcon) {
@@ -304,7 +312,8 @@ namespace Anolis.Resourcer.Controls {
 				}
 			}
 			
-			BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
+			//BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
+			_itemsToAdd.Add( item );
 		}
 		
 		private void AddResourceLangItem(ResourceLang lang, Boolean showIcon) {
@@ -341,7 +350,8 @@ namespace Anolis.Resourcer.Controls {
 			}
 			
 			
-			BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
+			//BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
+			_itemsToAdd.Add( item );
 		}
 		
 		private System.Collections.Generic.List<Int64> ticks = new System.Collections.Generic.List<long>();
@@ -351,7 +361,7 @@ namespace Anolis.Resourcer.Controls {
 			Stopwatch sw = new Stopwatch();
 			sw.Start();
 			
-			Invoke( new MethodInvoker(delegate() { __images.Images.Add( key, image ); } ) );
+			BeginInvoke( new MethodInvoker(delegate() { __images.Images.Add( key, image ); } ) );
 			
 			sw.Stop();
 			
@@ -369,6 +379,16 @@ namespace Anolis.Resourcer.Controls {
 				
 				IconDirectoryResourceData icoDir = data as IconDirectoryResourceData;
 				IconDirectoryMember bestMember = icoDir.IconDirectory.GetIconForSize( __images.ImageSize );
+				
+				if(bestMember == null) return null;
+				
+				IconCursorImageResourceData rd = (bestMember.ResourceData as IconCursorImageResourceData);
+				return rd.Image;
+			
+			} else if(data is CursorDirectoryResourceData) {
+				
+				CursorDirectoryResourceData curDir = data as CursorDirectoryResourceData;
+				IconDirectoryMember bestMember = curDir.IconDirectory.GetIconForSize( __images.ImageSize );
 				
 				if(bestMember == null) return null;
 				

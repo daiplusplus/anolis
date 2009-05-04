@@ -33,20 +33,6 @@ namespace Anolis.Core {
 			}
 		}
 		
-		//////////////////////////////////
-		
-		protected ResourceType UnderlyingFind(Predicate<ResourceType> match) {
-			
-			return _types.Find(match);
-		}
-		
-		protected static ResourceName UnderlyingFind(ResourceType type, Predicate<ResourceName> match) {
-			
-			return type.UnderlyingNames.Find( match );
-		}
-		
-		//////////////////////////////////
-		
 #region Resource Tree Mutators
 		
 		protected void UnderlyingClear() {
@@ -67,6 +53,16 @@ namespace Anolis.Core {
 			}
 			
 			_types.Clear();
+		}
+		
+		protected ResourceType UnderlyingFind(Predicate<ResourceType> match) {
+			
+			return _types.Find(match);
+		}
+		
+		protected static ResourceName UnderlyingFind(ResourceType type, Predicate<ResourceName> match) {
+			
+			return type.UnderlyingNames.Find( match );
 		}
 		
 	#region Add

@@ -162,60 +162,23 @@ namespace Anolis.Core.Packages.Operations {
 		}
 		
 		public enum CursorType {
-			Arrow       = 1,
-			Help        = 2,
-			AppStarting = 3,
-			Wait        = 4,
-			Crosshair   = 5,
-			IBeam       = 6,
-			NWPen       = 7,
-			No          = 8,
-			SizeNS      = 9,
-			SizeWE      = 10,
-			SizeNWSE    = 11,
-			SizeNESW    = 12,
-			SizeAll     = 13,
-			UpArrow     = 14,
-			Hand        = 15
+			Arrow       = 0,
+			Help        = 1,
+			AppStarting = 2,
+			Wait        = 3,
+			Crosshair   = 4,
+			IBeam       = 5,
+			NWPen       = 6,
+			No          = 7,
+			SizeNS      = 8,
+			SizeWE      = 9,
+			SizeNWSE    = 10,
+			SizeNESW    = 11,
+			SizeAll     = 12,
+			UpArrow     = 13,
+			Hand        = 14
 		}
 		
-	}
-	
-	
-	public class FileTypeOperation : Operation {
-		
-		public FileTypeOperation(Package package, XmlElement element) :  base(package, element) {
-		}
-		
-		protected override string OperationName {
-			get { throw new NotImplementedException(); }
-		}
-
-		public override void Execute() {
-			throw new NotImplementedException();
-		}
-
-		public override bool Merge(Operation operation) {
-			throw new NotImplementedException();
-		}
-	}
-	
-	public class RegistryOperation : Operation {
-		
-		public RegistryOperation(Package package, XmlElement element) :  base(package, element) {
-		}
-		
-		protected override string OperationName {
-			get { throw new NotImplementedException(); }
-		}
-
-		public override void Execute() {
-			throw new NotImplementedException();
-		}
-
-		public override bool Merge(Operation operation) {
-			throw new NotImplementedException();
-		}
 	}
 	
 }

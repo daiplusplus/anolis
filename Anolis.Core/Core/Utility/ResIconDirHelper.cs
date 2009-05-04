@@ -30,7 +30,7 @@ namespace Anolis.Core.Utility {
 			
 			Marshal.FreeHGlobal( p );
 			
-			if(dir.wType != 1) throw new InvalidOperationException("Provided rawData was not that of an icon's");
+			if(dir.wType != 1 && dir.wType != 2) throw new InvalidOperationException("Provided rawData is not an icon or cursor");
 			
 			ResIconDirectoryEntry[] subImages = new ResIconDirectoryEntry[dir.wCount];
 			
@@ -46,25 +46,26 @@ namespace Anolis.Core.Utility {
 				subImages[i] = img;
 			}
 			
-			ResIconDir retval = new ResIconDir(lang.LanguageId, lang.Name.Type.Source);
+			ResIconDir retval = new ResIconDir( dir.wType == 1, lang.LanguageId, lang.Name.Type.Source);
 			
 			// then we might be able to get the resourcedata for the subimages to include in the directory
 			
 			// find the Icon Image resource type
-			ResourceType iconType = null;
+			ResourceType imageType = null;
+			Win32ResourceType desired = dir.wType == 1 ? Win32ResourceType.IconImage : Win32ResourceType.CursorImage;
 			
 			foreach(ResourceType type in lang.Name.Type.Source.AllTypes) {
-				if(type.Identifier.KnownType == Win32ResourceType.IconImage) {
-					iconType = type;
+				if(type.Identifier.KnownType == desired) {
+					imageType = type;
 					break;
 				}
 			}
 			
-			if(iconType != null) {
+			if(imageType != null) {
 				
 				foreach(ResIconDirectoryEntry img in subImages) {
 					
-					IconCursorImageResourceData rd = GetDataFromWid(iconType, lang, img.wId);
+					IconCursorImageResourceData rd = GetDataFromWid(imageType, lang, img.wId);
 					
 					Size dimensions = new Size( img.bWidth == 0 ? 256 : img.bWidth, img.bHeight == 0 ? 256 : img.bHeight );
 					
@@ -158,9 +159,9 @@ namespace Anolis.Core.Utility {
 			
 		}
 		
-		public static ResIconDir FromFile(Stream stream, UInt16 lang, ResourceSource source) {
+		public static ResIconDir FromFile(Boolean isIcon, Stream stream, UInt16 lang, ResourceSource source) {
 			
-			ResIconDir retval = new ResIconDir(lang, source);
+			ResIconDir retval = new ResIconDir(isIcon, lang, source);
 			
 			FromFile(stream, lang, source, retval);
 			
@@ -178,7 +179,7 @@ namespace Anolis.Core.Utility {
 			dir.wCount    = rdr.ReadUInt16();
 			
 			if( dir.wReserved != 0 ) return null;
-			if( dir.wType     != 1 ) return null;
+			if( dir.wType     != 1 && dir.wType != 2 ) return null;
 			
 			return dir;
 			
