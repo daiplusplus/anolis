@@ -48,7 +48,15 @@ namespace Anolis.Installer.Pages {
 		
 		private void Archive_PackageProgressEvent(object sender, PackageProgressEventArgs e) {
 			
-			this.Invoke( new MethodInvoker( delegate() {
+			// only fire it if the percentage has moved more than 1%
+			float oldPerc = __progress.Value;
+			float newPerc = e.Percentage;
+			
+			if( oldPerc == newPerc ) return; // if percs are the same
+			// if newperc is less than 1% different than oldperc, but only if newperc is less than 95%
+			if( newPerc < 95 && ( newPerc < oldPerc + 1 ) ) return;
+			
+			BeginInvoke( new MethodInvoker( delegate() {
 				
 				__statusLbl.Text = e.Message;
 				__progress.Value = e.Percentage;

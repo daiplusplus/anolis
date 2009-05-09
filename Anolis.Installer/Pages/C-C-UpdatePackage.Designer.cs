@@ -27,13 +27,19 @@
 			this.@__bw = new System.ComponentModel.BackgroundWorker();
 			this.@__statusLbl = new System.Windows.Forms.Label();
 			this.@__progress = new System.Windows.Forms.ProgressBar();
-			this.@__blargh = new System.Windows.Forms.Label();
+			this.@__updateAvailable = new System.Windows.Forms.Label();
+			this.@__downloadYes = new System.Windows.Forms.Button();
+			this.@__downloadNo = new System.Windows.Forms.Button();
+			this.@__downloadInfo = new System.Windows.Forms.Button();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __content
 			// 
-			this.@__content.Controls.Add(this.@__blargh);
+			this.@__content.Controls.Add(this.@__downloadInfo);
+			this.@__content.Controls.Add(this.@__downloadNo);
+			this.@__content.Controls.Add(this.@__downloadYes);
+			this.@__content.Controls.Add(this.@__updateAvailable);
 			this.@__content.Controls.Add(this.@__statusLbl);
 			this.@__content.Controls.Add(this.@__progress);
 			// 
@@ -54,14 +60,44 @@
 			this.@__progress.Size = new System.Drawing.Size(413, 23);
 			this.@__progress.TabIndex = 2;
 			// 
-			// __blargh
+			// __updateAvailable
 			// 
-			this.@__blargh.AutoSize = true;
-			this.@__blargh.Location = new System.Drawing.Point(84, 162);
-			this.@__blargh.Name = "__blargh";
-			this.@__blargh.Size = new System.Drawing.Size(287, 13);
-			this.@__blargh.TabIndex = 4;
-			this.@__blargh.Text = "Update checking not yet implemented. Move along, citizen.";
+			this.@__updateAvailable.Location = new System.Drawing.Point(19, 121);
+			this.@__updateAvailable.Name = "__updateAvailable";
+			this.@__updateAvailable.Size = new System.Drawing.Size(416, 37);
+			this.@__updateAvailable.TabIndex = 4;
+			// 
+			// __downloadYes
+			// 
+			this.@__downloadYes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.@__downloadYes.Location = new System.Drawing.Point(279, 161);
+			this.@__downloadYes.Name = "__downloadYes";
+			this.@__downloadYes.Size = new System.Drawing.Size(75, 23);
+			this.@__downloadYes.TabIndex = 5;
+			this.@__downloadYes.Text = "Yes";
+			this.@__downloadYes.UseVisualStyleBackColor = true;
+			this.@__downloadYes.Visible = false;
+			// 
+			// __downloadNo
+			// 
+			this.@__downloadNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.@__downloadNo.Location = new System.Drawing.Point(360, 161);
+			this.@__downloadNo.Name = "__downloadNo";
+			this.@__downloadNo.Size = new System.Drawing.Size(75, 23);
+			this.@__downloadNo.TabIndex = 6;
+			this.@__downloadNo.Text = "No";
+			this.@__downloadNo.UseVisualStyleBackColor = true;
+			this.@__downloadNo.Visible = false;
+			// 
+			// __downloadInfo
+			// 
+			this.@__downloadInfo.Location = new System.Drawing.Point(22, 161);
+			this.@__downloadInfo.Name = "__downloadInfo";
+			this.@__downloadInfo.Size = new System.Drawing.Size(167, 23);
+			this.@__downloadInfo.TabIndex = 7;
+			this.@__downloadInfo.Text = "Visit Package Webpage";
+			this.@__downloadInfo.UseVisualStyleBackColor = true;
+			this.@__downloadInfo.Visible = false;
 			// 
 			// UpdatePackagePage
 			// 
@@ -81,7 +117,10 @@
 		private System.ComponentModel.BackgroundWorker __bw;
 		private System.Windows.Forms.Label __statusLbl;
 		private System.Windows.Forms.ProgressBar __progress;
-		private System.Windows.Forms.Label __blargh;
+		private System.Windows.Forms.Label __updateAvailable;
+		private System.Windows.Forms.Button __downloadNo;
+		private System.Windows.Forms.Button __downloadYes;
+		private System.Windows.Forms.Button __downloadInfo;
 
 	}
 }
