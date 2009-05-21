@@ -8,7 +8,7 @@ namespace Anolis.Resourcer {
 	
 	public class BaseForm : Form {
 		
-		private Th.Timer _t;
+		private Timer   _t;
 		private Boolean _fadeIn = true;
 		
 		public BaseForm() {
@@ -18,56 +18,86 @@ namespace Anolis.Resourcer {
 				FadeInit();
 				
 				this.Load += new EventHandler(BaseForm_Load);
+				this.FormClosing += new FormClosingEventHandler(BaseForm_FormClosing);
 				
 			}
 		}
 		
+#region Drop Shadow
+		
+		private const Int32 CS_DROPSHADOW = 0x00020000;
+		
+		protected override CreateParams CreateParams {
+			get {
+				CreateParams paras = base.CreateParams;
+				
+				if( Settings.Settings.Default.Gimmicks )
+					paras.ClassStyle |= CS_DROPSHADOW;
+				
+				return paras;
+			}
+		}
+		
+#endregion
+		
 #region Fade
+		
+		private Boolean _isClosing;
 		
 		private void BaseForm_Load(object sender, EventArgs e) {
 			
 			if(!DesignMode) UpdateFonts();
 			
-			FadeInBegin();
+			FadeIn();
+		}
+		
+		private void BaseForm_FormClosing(object sender, FormClosingEventArgs e) {
+			
+			_isClosing = !e.Cancel;
+			
+			if( !_t.Enabled ) {
+				
+				FadeOut();
+				e.Cancel = true;
+			}
+			
 		}
 		
 		private void FadeInit() {
 			
-			Th.TimerCallback timerCallback = new Th.TimerCallback(
-				delegate(Object o) {
-					this.Invoke(new MethodInvoker( FadeIncr ) );
+			_t = new Timer();
+			_t.Interval = 10;
+			_t.Tick += new EventHandler( delegate(Object sender, EventArgs e) {
+				
+				this.Opacity = _fadeIn ? this.Opacity + 0.033 : this.Opacity - 0.033;
+					
+				if( ( _fadeIn && this.Opacity >= 1.0 ) || ( !_fadeIn && this.Opacity <= 0 ) ) {
+					
+					if( _isClosing ) {
+						this.Close();
+					}
+					
+					_t.Stop();
+					
 				}
-			);
+				
+			} );
 			
-			_t = new Th.Timer( timerCallback, null, Th.Timeout.Infinite, 10);
-			this.Opacity = 0;
+			if( _fadeIn ) this.Opacity = 0;
 		}
 		
-		private void FadeIncr() {
-			
-			this.Opacity = _fadeIn ? this.Opacity + 0.033 : this.Opacity - 0.033;
-			
-			if( ( _fadeIn && this.Opacity >= 1.0 ) || ( !_fadeIn && this.Opacity <= 0 ) )
-				FadeStop();
-			
-		}
-		
-		private void FadeInBegin() {
+		private void FadeIn() {
 			
 			_fadeIn = true;
 			
-			_t.Change(0, 10);
+			_t.Start();
 		}
 		
-		private void FadeOutBegin() {
+		private void FadeOut() {
 			
 			_fadeIn = false;
 			
-			_t.Change(0, 10);
-		}
-		
-		private void FadeStop() {
-			_t.Change(Th.Timeout.Infinite, Th.Timeout.Infinite);
+			_t.Start();
 		}
 		
 #endregion

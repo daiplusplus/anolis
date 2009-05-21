@@ -26,6 +26,8 @@ namespace Anolis.Resourcer {
 			this.__sAssoc.Click += new EventHandler(__sAssoc_Click);
 			this.__sAssoc.Tag = false;
 
+			this.__sGimmick.Click += new EventHandler(__sGimmick_Click);
+			
 			this.__sLibAdd.Click += new EventHandler(__sLibAdd_Click);
 			this.__sLibDel.Click += new EventHandler(__sLibDel_Click);
 			this.__sLib.SelectedIndexChanged += new EventHandler(__sLib_SelectedIndexChanged);
@@ -33,7 +35,7 @@ namespace Anolis.Resourcer {
 			//////////////////////////////
 			// About
 			
-			this.__aboutLinkAnolis .Click += new EventHandler(__aboutLink_Click);
+			this.__aboutLinkCodeplex .Click += new EventHandler(__aboutLink_Click);
 			
 			//////////////////////////////
 			// Legal
@@ -53,12 +55,17 @@ namespace Anolis.Resourcer {
 			
 			__legalText.Text = Anolis.Core.Resources.LegalOverview;
 			
-			__version.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+			LoadVersion();
 			
 			LoadSettings();
 		}
 		
-		
+		private void LoadVersion() {
+			
+			String assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+			
+			__aboutVersion.Text = assemblyVersion;
+		}
 		
 #region Settings
 		
@@ -67,6 +74,10 @@ namespace Anolis.Resourcer {
 			//////////////////////////////
 			// Toolbar Size
 			__sUIButtonsLarge.Checked = !S.Toolbar24;
+			
+			//////////////////////////////
+			// Gimmicks
+			__sGimmick.Checked = S.Gimmicks;
 			
 			//////////////////////////////
 			// File Associations
@@ -106,6 +117,10 @@ namespace Anolis.Resourcer {
 			}
 			
 			//////////////////////////////
+			// Gimmicks
+			S.Gimmicks = __sGimmick.Checked;
+			
+			//////////////////////////////
 			// Load Assemblies
 			if( S.LoadAssemblies == null ) S.LoadAssemblies = new System.Collections.Specialized.StringCollection();
 			S.LoadAssemblies.Clear();
@@ -119,6 +134,10 @@ namespace Anolis.Resourcer {
 		
 		private void __sAssoc_Click(object sender, EventArgs e) {
 			__sAssoc.Tag = true; // the tag just means the checkbox has had its value updated
+		}
+		
+		private void __sGimmick_Click(object sender, EventArgs e) {
+			
 		}
 		
 		////////////////////////////////////////////////

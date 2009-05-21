@@ -5,7 +5,7 @@ using Anolis.Core;
 
 namespace Anolis.Resourcer {
 	
-	public partial class PendingOperationsForm : Form {
+	public partial class PendingOperationsForm : BaseForm {
 		
 		public PendingOperationsForm() {
 			InitializeComponent();

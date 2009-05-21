@@ -274,25 +274,23 @@ typdef struct {
 		
 		protected override void SaveAs(Stream stream, String extension) {
 			
-			if( extension != "bmp" ) {
+			if( extension == "png" ) {
 				
-				base.ConvertAndSaveImageAs(stream, extension);
+				// hmm, that was simple
+				//Icon.Save( stream );
+				Image.Save( stream, System.Drawing.Imaging.ImageFormat.Png );
 				
 			} else {
 				
-				// hmm, that was simple
-				Icon.Save( stream );
+				base.ConvertAndSaveImageAs(stream, extension);
+				
 			}
 			
 		}
 		
 		protected override String[] SupportedFilters {
 			get { return new String[] {
-				"BMP Image (*.bmp)|*.bmp",
-				"Convert to EXIF (*.exf)|*.exf",
-				"Convert to GIF (*.gif)|*.gif",
-				"Convert to JPEG (*.jpg)|*.jpg",
-				"Convert to PNG (*.png)|*.png",
+				"PNG Image (*.png)|*.png"
 			}; }
 		}
 		

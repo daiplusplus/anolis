@@ -26,34 +26,7 @@ namespace Anolis.Core.Data {
 		
 		public ResourceLang Lang { get; internal set; }
 		
-		public String[] SaveFileFilters {
-			
-			get {
-				
-				String[] supported = SupportedFilters;
-				Array.Resize<String>(ref supported, supported.Length + 1);
-				supported[supported.Length - 1] = "Raw Resource Data (*.bin)|*.bin";
-				
-				return supported;
-			}
-		}
-		
-		/// <summary>Returns an array of supported File Filters. Return an empty array (never null) if it does not support custom saving.</summary>
-		protected abstract String[] SupportedFilters { get; }
-		
-		/// <summary>Returns the TypeIdentifier of the best-match/recommended ResourceType for this ResourceData.</summary>
-		protected abstract ResourceTypeIdentifier GetRecommendedTypeId();
-		
-		private ResourceTypeIdentifier _recommendedTypeId;
-		
-		public ResourceTypeIdentifier RecommendedTypeId {
-			get {
-				
-				if( _recommendedTypeId == null ) _recommendedTypeId = GetRecommendedTypeId();
-				
-				return _recommendedTypeId;
-			}
-		}
+		protected internal delegate void Remove(ResourceLang lang);
 		
 		/// <summary>Called when this ResourceData is being removed from the ResourceSource. ResourceDatas that have dependencies on this ResourceData must be appropriately dealt with (e.g. removed) when this is called.</summary>
 		/// <param name="underlyingDelete">If true then the ResourceData is just being removed the collection of resources. If false it is being deleted from the ResourceSource</param>
@@ -61,7 +34,7 @@ namespace Anolis.Core.Data {
 		protected internal virtual void OnRemove(Boolean underlyingDelete, Remove deleteFunction) {
 		}
 		
-#region Constructor
+#region Constructor / Destructor
 		
 		protected ResourceData(ResourceLang lang, Byte[] rawData) {
 			
@@ -85,7 +58,61 @@ namespace Anolis.Core.Data {
 		}
 		
 #endregion
-	
+		
+#region Operation Assistance
+		
+		//////////////////////////////////////////////////////
+		// Save File Filters
+		
+		/// <summary>Returns an array of supported File Filters. Return an empty array (never null) if it does not support custom saving. The preferred extension must be at position 1</summary>
+		protected abstract String[] SupportedFilters { get; }
+		
+		public String[] SaveFileFilters {
+			
+			get {
+				
+				String[] supported = SupportedFilters;
+				Array.Resize<String>(ref supported, supported.Length + 1);
+				supported[supported.Length - 1] = "Raw Resource Data (*.bin)|*.bin";
+				
+				return supported;
+			}
+		}
+		
+		
+		//////////////////////////////////////////////////////
+		// Recommended Type ID
+		
+		/// <summary>Returns the TypeIdentifier of the best-match/recommended ResourceType for this ResourceData.</summary>
+		protected abstract ResourceTypeIdentifier GetRecommendedTypeId();
+		
+		private ResourceTypeIdentifier _recommendedTypeId;
+		
+		public ResourceTypeIdentifier RecommendedTypeId {
+			get {
+				
+				if( _recommendedTypeId == null ) _recommendedTypeId = GetRecommendedTypeId();
+				
+				return _recommendedTypeId;
+			}
+		}
+		
+		//////////////////////////////////////////////////////
+		// Save Extensions
+		
+		public String RecommendedExtension {
+			get {
+				
+				String filter = SaveFileFilters[0]; // there will always be at least 1, no need to NRE or bounds check
+				
+				String extension = filter.Substring( filter.LastIndexOf('.') );
+				
+				return extension;
+			}
+		}
+		
+#endregion
+		
 #region Save
 		
 		/// <summary>
@@ -121,9 +148,6 @@ namespace Anolis.Core.Data {
 		protected abstract void SaveAs(Stream stream, String extension);
 		
 #endregion
-		
-		protected internal delegate void Remove(ResourceLang lang);
-		
 		
 #region Static
 		

@@ -92,5 +92,53 @@ namespace Anolis.Resourcer.Settings {
                 this["LoadAssemblies"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BatchSource {
+            get {
+                return ((string)(this["BatchSource"]));
+            }
+            set {
+                this["BatchSource"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BatchExport {
+            get {
+                return ((string)(this["BatchExport"]));
+            }
+            set {
+                this["BatchExport"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("*.exe;*.dll;*.scr;*.msstyles;*.ocx;*.cpl")]
+        public string BatchFilter {
+            get {
+                return ((string)(this["BatchFilter"]));
+            }
+            set {
+                this["BatchFilter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BatchReport {
+            get {
+                return ((string)(this["BatchReport"]));
+            }
+            set {
+                this["BatchReport"] = value;
+            }
+        }
     }
 }

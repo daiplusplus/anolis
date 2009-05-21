@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 
-using G = System.Collections.Generic;
 using S = Anolis.Resourcer.Settings.Settings;
 using Anolis.Resourcer.CommandLine;
 
@@ -19,8 +18,10 @@ namespace Anolis.Resourcer {
 				
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
-
-				Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+				
+				///////////////////////////////
+				// Upgrade Settings
+				S.Default.Upgrade();
 				
 				///////////////////////////////
 				// Load Extensibility
@@ -80,10 +81,10 @@ Anolis.Resourcer.exe -op:del -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME [-l
 				
 				Application.Run( main );
 				
-				Settings.Settings.Default.Save();
+				S.Default.Save();
 				
 				return 0;
-#if !DEBUG				
+#if !DEBUG
 			} catch (Exception ex) {
 				
 			
@@ -115,10 +116,7 @@ Anolis.Resourcer.exe -op:del -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME [-l
 			
 		}
 		
-		private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e) {			
-		}
-		
-		public static String IfYouAreReadingThisThenYouHaveNoLife() {
+		public static String IfYouAreReadingThisInReflectorThenYouHaveNoLife() {
 			return "no, really you are wasting your time because the complete source code is on http://www.codeplex.com/anolis";
 		}
 		

@@ -270,16 +270,20 @@ namespace Anolis.Resourcer.Controls {
 			ListViewItem item = new ListViewItem();
 			item.Text     = type.Identifier.FriendlyName;
 			item.Tag      = type;
-			if(showIcon) item.ImageKey = MainForm.GetTreeNodeImageListTypeKey( type.Identifier );
 			item.SubItems.AddRange( GetSubItemsForType( type ) );
 			
-			if( showIcon && !__images.Images.ContainsKey( item.ImageKey ) ) {
+			if( showIcon ) {
 				
-				Image img = GetIconForResourceType( type );
-				AddImageAsync( item.ImageKey, img );
+				item.ImageKey = MainForm.GetTreeNodeImageListTypeKey( type.Identifier );
+				
+				if( !__images.Images.ContainsKey( item.ImageKey ) ) {
+					
+					Image img = GetIconForResourceType( type );
+					AddImageAsync( item.ImageKey, img );
+					
+				}
 			}
 			
-			//BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
 			_itemsToAdd.Add( item );
 		}
 		
@@ -312,7 +316,6 @@ namespace Anolis.Resourcer.Controls {
 				}
 			}
 			
-			//BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
 			_itemsToAdd.Add( item );
 		}
 		
@@ -349,8 +352,6 @@ namespace Anolis.Resourcer.Controls {
 				}
 			}
 			
-			
-			//BeginInvoke( new MethodInvoker(delegate() { __list.Items.Add( item ); }) );
 			_itemsToAdd.Add( item );
 		}
 		
