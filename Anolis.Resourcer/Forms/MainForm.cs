@@ -26,7 +26,7 @@ namespace Anolis.Resourcer {
 			this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 			this.DragEnter += new DragEventHandler(MainForm_DragEnter);
 			this.DragLeave += new EventHandler(MainForm_DragLeave);
-
+			
 			this.__dropTarget.DragEnter       += new DragEventHandler(__dropTarget_DragEnter);
 			this.__dropTarget.DragLeave2      += new EventHandler(__dropTarget_DragLeave);
 			this.__dropTarget.DropDataAdd     += new EventHandler(__dropTarget_DropDataAdd);
@@ -37,6 +37,7 @@ namespace Anolis.Resourcer {
 			
 			this.__tSrcOpen.ButtonClick     += new EventHandler(__tSrcOpen_ButtonClick);
 			this.__tSrcOpen.DropDownOpening += new EventHandler(__tSrcOpen_DropDownOpening);
+			this.__tSrcBatch.Click          += new EventHandler(__tSrcBatch_Click);
 			this.__tSrcMruClear.Click       += new EventHandler(__tSrcMruClear_Click);
 			this.__tSrcSave.ButtonClick     += new EventHandler(__tSrcSave_Click);
 			this.__tSrcSaveBackup.Click     += new EventHandler(__tSrcSaveBackup_Click);
@@ -48,7 +49,7 @@ namespace Anolis.Resourcer {
 			this.__tResDel.Click            += new EventHandler(__tResDel_Click);
 			this.__tResCan.Click            += new EventHandler(__tResCan_Click);
 			this.__tGenOpt.Click            += new EventHandler(__tGenOptions_Click);
-
+			
 			this.__tree.NodeMouseClick += new TreeNodeMouseClickEventHandler(__tree_NodeMouseClick);
 			this.__tree.BeforeCollapse += new TreeViewCancelEventHandler(__tree_BeforeCollapse);
 			this.__tree.AfterSelect         += new TreeViewEventHandler(__tree_AfterSelect);
@@ -286,6 +287,13 @@ namespace Anolis.Resourcer {
 		private void __tSrcMruClear_Click(Object sender, EventArgs e) {
 			
 			MruClear();
+		}
+		
+		private void __tSrcBatch_Click(Object sender, EventArgs e) {
+			
+			BatchProcessForm batch = new BatchProcessForm();
+			batch.ShowDialog(this);
+			
 		}
 		
 		private void __tSrcReve_Click(Object sender, EventArgs e) {

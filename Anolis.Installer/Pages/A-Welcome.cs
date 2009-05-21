@@ -17,7 +17,14 @@ namespace Anolis.Installer.Pages {
 			
 			this.Load += new EventHandler(WelcomePage_Load);
 			
+			this.__culture.DrawMode = DrawMode.OwnerDrawFixed;
+			this.__culture.DrawItem += new DrawItemEventHandler(__culture_DrawItem);
+			
 			Localize();
+		}
+		
+		private void __culture_DrawItem(object sender, DrawItemEventArgs e) {
+			
 		}
 		
 		private void Localize() {
@@ -33,6 +40,8 @@ namespace Anolis.Installer.Pages {
 		private void WelcomePage_Load(object sender, EventArgs e) {
 			
 			WizardForm.EnableNext = true;
+			
+			// TODO: Figure out a way to support localisation
 			
 		}
 		

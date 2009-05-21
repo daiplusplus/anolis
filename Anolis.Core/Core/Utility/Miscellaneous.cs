@@ -63,6 +63,60 @@ namespace Anolis.Core.Utility {
 			return truncated;
 		}
 		
+		public static String RemoveIllegalFilenameChars(String s, Char? replaceWith) {
+			
+			Char[] illegals = System.IO.Path.GetInvalidFileNameChars();
+			Char[] str      = s.ToCharArray();
+			
+			if(replaceWith == null) {
+				
+				System.Text.StringBuilder sb = new System.Text.StringBuilder();
+				
+				for(int i=0;i<s.Length;i++) {
+					
+					Boolean isIllegal = false;
+					for(int j=0;j<illegals.Length;j++) {
+						if(str[i] == illegals[j]) {
+							isIllegal = true;
+							break;
+						}
+					}
+					
+					if(!isIllegal) sb.Append( str[i] );
+					
+				}
+				
+				return sb.ToString();
+				
+			} else {
+				
+				for(int i=0;i<s.Length;i++) {
+					
+					Boolean isIllegal = false;
+					for(int j=0;j<illegals.Length;j++) {
+						if(str[i] == illegals[j]) {
+							isIllegal = true;
+							break;
+						}
+					}
+					
+					if(isIllegal) str[i] = replaceWith.Value;
+					
+				}
+				
+				return new String( str );
+				
+			}
+			
+		}
+		
+		public static String FSSafeResPath(String path) {
+			
+			path = path.Replace('\\', '-');
+			
+			return RemoveIllegalFilenameChars( path, '_' );
+		}
+		
 #region Extensibility
 		
 		/// <summary>Tells the factories where they can find additional assemblies. This only takes effect if the factories haven't already enumerated types</summary>

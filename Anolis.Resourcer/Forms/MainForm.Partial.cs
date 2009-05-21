@@ -478,17 +478,15 @@ namespace Anolis.Resourcer {
 			foreach(String f in CurrentData.SaveFileFilters) filter += f + '|';
 			if(filter.EndsWith("|")) filter = filter.Substring(0, filter.Length - 1);
 			
-			String extensionOfFirstFilter = CurrentData.SaveFileFilters[0].Substring( CurrentData.SaveFileFilters[0].LastIndexOf('.') );
+			String extensionOfFirstFilter = CurrentData.RecommendedExtension;
 			
 			__sfd.Filter = filter;
 			
 			String initialFilename =
-				CurrentData.Lang.Name.Type.Identifier.FriendlyName + "-" +
-				CurrentData.Lang.Name.Identifier.FriendlyName + "-" +
-				CurrentData.Lang.LanguageId.ToString(Cult.InvariantCulture) +
+				CurrentData.Lang.ResourcePath +
 				extensionOfFirstFilter;
 			
-			__sfd.FileName = RemoveIllegalChars( initialFilename, null );
+			__sfd.FileName = Anolis.Core.Utility.Miscellaneous.FSSafeResPath( initialFilename );
 			
 			if(__sfd.ShowDialog(this) != DialogResult.OK) return;
 			
@@ -917,53 +915,6 @@ namespace Anolis.Resourcer {
 			_settings.MruCount = _mru.Capacity;
 			
 			_settings.Save();
-			
-		}
-		
-		private static String RemoveIllegalChars(String s, Char? replaceWith) {
-			
-			Char[] illegals = System.IO.Path.GetInvalidFileNameChars();
-			Char[] str      = s.ToCharArray();
-			
-			if(replaceWith == null) {
-				
-				System.Text.StringBuilder sb = new System.Text.StringBuilder();
-				
-				for(int i=0;i<s.Length;i++) {
-					
-					Boolean isIllegal = false;
-					for(int j=0;j<illegals.Length;j++) {
-						if(str[i] == illegals[j]) {
-							isIllegal = true;
-							break;
-						}
-					}
-					
-					if(!isIllegal) sb.Append( str[i] );
-					
-				}
-				
-				return sb.ToString();
-				
-			} else {
-				
-				for(int i=0;i<s.Length;i++) {
-					
-					Boolean isIllegal = false;
-					for(int j=0;j<illegals.Length;j++) {
-						if(str[i] == illegals[j]) {
-							isIllegal = true;
-							break;
-						}
-					}
-					
-					if(isIllegal) str[i] = replaceWith.Value;
-					
-				}
-				
-				return new String( str );
-				
-			}
 			
 		}
 		

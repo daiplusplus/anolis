@@ -4,48 +4,34 @@
     <Position X="28.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAoAAAAgAAAAAEAAAAAAAAAAAAAAAAAAAAQAAgAAA=</HashCode>
-      <FileName>Core\Resource.cs</FileName>
+      <FileName>Core\Resource\ResourceType.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.ResourceName" Collapsed="true">
     <Position X="28.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAQAAAAAAAEAAAAAAAAAAAAAAAAAQAAwAAAAAA=</HashCode>
-      <FileName>Core\Resource.cs</FileName>
+      <FileName>Core\Resource\ResourceName.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.ResourceLang" Collapsed="true">
     <Position X="28.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAEAAgAAAQAAgAAABAAAAAAAAAAAAA=</HashCode>
-      <FileName>Core\Resource.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Anolis.Core.ResourceData" Collapsed="true">
-    <Position X="0.75" Y="0.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAIAAIAIBAAAAQAAAAAAAAgAAYCAAAAEBRAAABAAAQQ=</HashCode>
-      <FileName>Core\Data\ResourceData.cs</FileName>
+      <HashCode>IAAACABABAAAAEAGAAgAAAQAAgAACBAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Core\Resource\ResourceLang.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.DirectoryResourceData" Collapsed="true">
     <Position X="2" Y="3.75" Width="2" />
-    <InheritanceLine Type="Anolis.Core.ResourceData" FixedToPoint="true">
-      <Path>
-        <Point X="1.5" Y="1.259" />
-        <Point X="1.5" Y="4" />
-        <Point X="2" Y="4" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Core\Data\Directory\DirectoryResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.IconDirectoryResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="4.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAABAAAQAAQAAAAAAAAEAAAAAhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAAAAAAEhAAAAA=</HashCode>
       <FileName>Core\Data\Directory\IconDirectoryResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -59,21 +45,14 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAQAAABAACBAAAEEAAAAAgAAMAAAAAAABAAAAAAACA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAABAAAAACAgAAIAAAAAAABAEAAAAAAA=</HashCode>
       <FileName>Core\Data\Directory\IconDirectoryResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.BmpImageResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="7.75" Width="2.5" />
-    <InheritanceLine Type="Anolis.Core.Data.ResourceDataFactory" FixedToPoint="true">
-      <Path>
-        <Point X="10.5" Y="1.259" />
-        <Point X="10.5" Y="8.125" />
-        <Point X="10" Y="8.125" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAABAAAQAAQAAAAAAAAEAAAAAhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAEAAAAEhAAAAA=</HashCode>
       <FileName>Core\Data\Image\BmpImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -87,21 +66,14 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAIAgAAIAAAQAAABAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAAAAAAIAgAAIAAQRAAABAAAAAAAAA=</HashCode>
       <FileName>Core\Data\Image\BmpImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.GifImageResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="9.75" Width="2.5" />
-    <InheritanceLine Type="Anolis.Core.Data.ResourceDataFactory" FixedToPoint="true">
-      <Path>
-        <Point X="10.5" Y="1.259" />
-        <Point X="10.5" Y="10.063" />
-        <Point X="10" Y="10.063" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAABAAAQAAQAAAAAAAAEAAAAAhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAEAAAAEhAAAAA=</HashCode>
       <FileName>Core\Data\Image\GifImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -115,35 +87,21 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAAAAAAAAAAAAgAAIAAAQAAABAAAAAAAAA=</HashCode>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAgAAIAAQRAAABAAAAAAAAA=</HashCode>
       <FileName>Core\Data\Image\GifImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.IconImageResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="6.75" Width="1.5" />
-    <InheritanceLine Type="Anolis.Core.Data.ResourceDataFactory" FixedToPoint="true">
-      <Path>
-        <Point X="10.5" Y="1.259" />
-        <Point X="10.5" Y="7.063" />
-        <Point X="9" Y="7.063" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAABAAAQAAQAAAAAAAAEAAAAAhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAQAAQABAAAAAAAAAAAEhAAAAA=</HashCode>
       <FileName>Core\Data\Image\IconImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.CursorImageResourceDataFactory" Collapsed="true">
     <Position X="8.5" Y="6.75" Width="1.5" />
-    <InheritanceLine Type="Anolis.Core.Data.ResourceDataFactory" FixedToPoint="true">
-      <Path>
-        <Point X="10.5" Y="1.259" />
-        <Point X="10.5" Y="7.063" />
-        <Point X="10" Y="7.063" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAABAAAQAAQAAAAAAAAEAAAAAhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAQAAQABAAAAAAAAAAAEhAAAAA=</HashCode>
       <FileName>Core\Data\Image\IconImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -157,35 +115,21 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAAAAgAAIAAARAAABAAAAEAQAA=</HashCode>
+      <HashCode>CQAAAAAAACAAAAAAAAAAAAgQAIAAQRCAABAAIAEAAAA=</HashCode>
       <FileName>Core\Data\Image\IconImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.ImageResourceData" Collapsed="true">
     <Position X="2" Y="5.75" Width="2" />
-    <InheritanceLine Type="Anolis.Core.ResourceData" FixedToPoint="true">
-      <Path>
-        <Point X="1.5" Y="1.259" />
-        <Point X="1.5" Y="6" />
-        <Point X="2" Y="6" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAABAAQAAAAAAEAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAEAAAAAAAAAAAAAAAABAAQAAAAAAEAAA=</HashCode>
       <FileName>Core\Data\Image\ImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.JpegImageResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="8.75" Width="2.5" />
-    <InheritanceLine Type="Anolis.Core.Data.ResourceDataFactory" FixedToPoint="true">
-      <Path>
-        <Point X="10.5" Y="1.259" />
-        <Point X="10.5" Y="9.125" />
-        <Point X="10" Y="9.125" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAABAAAQAAQAAAAAAAAEAAAAAhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAEAAAAEhAAAAA=</HashCode>
       <FileName>Core\Data\Image\JpegImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -199,21 +143,14 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAABAAAAAgAAIAAAQAAABAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAgAAIAAQRAAABAAAAAAAAA=</HashCode>
       <FileName>Core\Data\Image\JpegImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.PngImageResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="10.75" Width="2.5" />
-    <InheritanceLine Type="Anolis.Core.Data.ResourceDataFactory" FixedToPoint="true">
-      <Path>
-        <Point X="10.5" Y="1.259" />
-        <Point X="10.5" Y="11.125" />
-        <Point X="10" Y="11.125" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAABAAAQAAQAAAAAAAAEAAAAAhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAEAAAAEhAAAAA=</HashCode>
       <FileName>Core\Data\Image\PngImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -227,68 +164,26 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAIAAAQAAABAAACAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAIAAQRAAABAAACAAAAA=</HashCode>
       <FileName>Core\Data\Image\PngImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.ResourceDataFactory" Collapsed="true">
     <Position X="9.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAIAAAEAQBAAAQQMYEAAAQACEEAAAAEpAABAA=</HashCode>
+      <HashCode>AEAAAABAAAAAEAQBAAARAMYABAAAACEEAAAAEpAABAA=</HashCode>
       <FileName>Core\Data\ResourceDataFactory.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Anolis.Core.Data.DummyResourceDataFactory" Collapsed="true">
-    <Position X="7.5" Y="2.75" Width="2.5" />
-    <InheritanceLine Type="Anolis.Core.Data.ResourceDataFactory" FixedToPoint="true">
-      <Path>
-        <Point X="10.5" Y="1.259" />
-        <Point X="10.5" Y="3.062" />
-        <Point X="10" Y="3.062" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAABAAAQAAQAAAAAAAAEAAAAAhAAAAA=</HashCode>
-      <FileName>Core\Data\Unknown\DummyResourceData.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Anolis.Core.Data.DummyResourceData" Collapsed="true">
-    <Position X="2" Y="2.75" Width="2" />
-    <InheritanceLine Type="Anolis.Core.ResourceData" FixedToPoint="true">
-      <Path>
-        <Point X="1.5" Y="1.259" />
-        <Point X="1.5" Y="3.062" />
-        <Point X="2" Y="3.062" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAIAAAAAAABAAAAAAAAA=</HashCode>
-      <FileName>Core\Data\Unknown\DummyResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.UnknownResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="1.75" Width="2.5" />
-    <InheritanceLine Type="Anolis.Core.Data.ResourceDataFactory" FixedToPoint="true">
-      <Path>
-        <Point X="10.5" Y="1.259" />
-        <Point X="10.5" Y="2.062" />
-        <Point X="10" Y="2.062" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAABAAAQAAQAAAAAAAAEAAAAAhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAEAAAAEhAAAAA=</HashCode>
       <FileName>Core\Data\Unknown\UnknownResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.UnknownResourceData" Collapsed="true">
     <Position X="2" Y="1.75" Width="2" />
-    <InheritanceLine Type="Anolis.Core.ResourceData" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="1.5" Y="1.259" />
-        <Point X="1.5" Y="2" />
-        <Point X="2" Y="2" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAIAAAAAAAJAAAAAAAAA=</HashCode>
       <FileName>Core\Data\Unknown\UnknownResourceData.cs</FileName>
@@ -304,20 +199,13 @@
   <Class Name="Anolis.Core.Data.IconDirectoryMember" BaseTypeListCollapsed="true">
     <Position X="13.5" Y="2.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAhAAAgggAQEgAAAAAIAAAAAIAAAAAIAAAAABAA=</HashCode>
       <FileName>Core\Data\Directory\IconDirectoryResourceData.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Anolis.Core.Data.MediaResourceData" Collapsed="true">
     <Position X="2" Y="11.75" Width="2" />
-    <InheritanceLine Type="Anolis.Core.ResourceData" FixedToPoint="true">
-      <Path>
-        <Point X="1.5" Y="1.259" />
-        <Point X="1.5" Y="12.062" />
-        <Point X="2" Y="12.062" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>Core\Data\Multimedia\MediaResourceData.cs</FileName>
@@ -339,31 +227,25 @@
   </Class>
   <Class Name="Anolis.Core.Data.RiffMediaResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="12.75" Width="2.5" />
-    <InheritanceLine Type="Anolis.Core.Data.ResourceDataFactory" FixedToPoint="true">
-      <Path>
-        <Point X="10.5" Y="1.259" />
-        <Point X="10.5" Y="13.125" />
-        <Point X="10" Y="13.125" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAABAAAQAAQAAAAAAAAEAAAAAhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAEAAAAEhAAAAA=</HashCode>
       <FileName>Core\Data\Multimedia\MediaResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.VersionResourceData" Collapsed="true">
     <Position X="2" Y="13.75" Width="2" />
-    <InheritanceLine Type="Anolis.Core.ResourceData" FixedToPoint="true">
-      <Path>
-        <Point X="1.5" Y="1.259" />
-        <Point X="1.5" Y="14.125" />
-        <Point X="2" Y="14.125" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAIAAAQAEABAAAAAAAAA=</HashCode>
+      <HashCode>CEAAAAAAAACAAIAAAAAAAAwAAYAAAQAAABAAAAAAAAA=</HashCode>
       <FileName>Core\Data\Windows\VersionResourceData.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Data.ResourceData" Collapsed="true">
+    <Position X="0.5" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAIBCAAEAAAAAEAAAgABYCAAAAABBAAABAAAAA=</HashCode>
+      <FileName>Core\Data\ResourceData.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Interface Name="Anolis.Core.Data.IDirectoryMember">
     <Position X="13.5" Y="1.25" Width="2.5" />

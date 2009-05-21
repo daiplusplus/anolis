@@ -20,5 +20,17 @@
     <Setting Name="LoadAssemblies" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="BatchSource" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BatchExport" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BatchFilter" Type="System.String" Scope="User">
+      <Value Profile="(Default)">*.exe;*.dll;*.scr;*.msstyles;*.ocx;*.cpl</Value>
+    </Setting>
+    <Setting Name="BatchReport" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

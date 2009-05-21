@@ -9,14 +9,16 @@ Code Copyright 2008-2009 David Rees
 Anolis.Core makes use of LZMA Compression, which is placed in the Public Domain
 The source for the LZMA Compression is available from http://www.7-zip.org
 
-Anolis.Gui makes use of contributions from Sven Groot under the BSD license.
+Anolis.Installer makes use of contributions from Sven Groot under the BSD license.
 The source for his Vista dialogs toolkit is available from http://www.ookii.org/software/dialogs/
 
-Anolis.Resourcer makes use of the Be.HexBox control, which is distributed with the Be Shared Source license
+Anolis.Resourcer makes use of the Be.HexBox control, which is distributed with the Be Shared Source license. From http://hexbox.sourceforge.net/
 
 =======================================
- Anolis.Core, Anolis.Resourcer, Anolis.Console, and Anolis.Installer
+ Anolis Components
 =======================================
+
+(Anolis.Core, Anolis.Resourcer, Anolis.Installer, Anolis.Packager, Anolis.IconEditor, Anolis.FileTypes, and other projects)
 
 Copyright (C) 2008-2009 David Rees
 
@@ -36,8 +38,8 @@ Boston, MA
           LZMA Compression
 =======================================
 
-LZMA "7-zip" compression is placed under Public Domain and as such is not copyrighted.
-LZMA compression technology developed by Igor Pavlov (http://www.7-zip.org)
+The 7zip LzmaAlone compression implementation is placed under Public Domain and as such is not copyrighted.
+LZMA compression technology developed by Igor Pavlov - http://www.7-zip.org
 
 =======================================
          Ookii Vista Dialogs
