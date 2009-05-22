@@ -35,7 +35,8 @@ namespace Anolis.Resourcer {
 			//////////////////////////////
 			// About
 			
-			this.__aboutLinkCodeplex .Click += new EventHandler(__aboutLink_Click);
+			this.__aboutLinkCodeplex.Click += new EventHandler(__aboutLink_Click);
+			this.__aboutLinkAnolis  .Click += new EventHandler(__aboutLink_Click);
 			
 			//////////////////////////////
 			// Legal

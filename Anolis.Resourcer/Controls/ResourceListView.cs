@@ -276,15 +276,32 @@ namespace Anolis.Resourcer.Controls {
 				
 				item.ImageKey = MainForm.GetTreeNodeImageListTypeKey( type.Identifier );
 				
-				if( !__images.Images.ContainsKey( item.ImageKey ) ) {
+				if( !ImageListContainsKey( item.ImageKey ) ) {
 					
 					Image img = GetIconForResourceType( type );
-					AddImageAsync( item.ImageKey, img );
+					AddImageToList( item.ImageKey, img );
 					
 				}
 			}
 			
 			_itemsToAdd.Add( item );
+		}
+		
+		private Boolean ImageListContainsKey(String key) {
+			
+			// under certain circumstances ImageList.ContainsKey throws ArgumentOutOfRangeException
+			// this was caused by using BeginInvoke to add to the list. By moving it to a synchronous operation solves it
+			// but I'm keeping the try/catch just in case anyway
+			
+			try {
+				
+				return __images.Images.ContainsKey( key );
+				
+			} catch(ArgumentOutOfRangeException) {
+				
+				return false;
+			}
+			
 		}
 		
 		private void AddResourceNameItem(ResourceName name, Boolean showIcon) {
@@ -298,7 +315,7 @@ namespace Anolis.Resourcer.Controls {
 				Image itemImage = GetIconForResourceName( name );
 				if(itemImage != null ) {
 					
-					AddImageAsync( name.Identifier.FriendlyName, itemImage );
+					AddImageToList( name.Identifier.FriendlyName, itemImage );
 					item.ImageKey = name.Identifier.FriendlyName;
 					
 				} else {
@@ -307,10 +324,10 @@ namespace Anolis.Resourcer.Controls {
 					String key = MainForm.GetTreeNodeImageListTypeKey( name.Type.Identifier );
 					item.ImageKey = key;
 					
-					if( !__images.Images.ContainsKey( key ) ) {
+					if( !ImageListContainsKey( key ) ) {
 						
 						Image typeImage = GetIconForResourceType( name.Type );
-						AddImageAsync( key, typeImage );
+						AddImageToList( key, typeImage );
 					}
 					
 				}
@@ -331,7 +348,7 @@ namespace Anolis.Resourcer.Controls {
 				
 				if(itemImage != null) { // the itemImage is unique for this lang. If it's null then use a non-unique image (i.e. the icon for its type)
 					
-					AddImageAsync( lang.ResourcePath, itemImage );
+					AddImageToList( lang.ResourcePath, itemImage );
 					item.ImageKey = lang.ResourcePath;
 					
 				} else {
@@ -343,10 +360,10 @@ namespace Anolis.Resourcer.Controls {
 					String key = MainForm.GetTreeNodeImageListTypeKey( lang.Name.Type.Identifier );
 					item.ImageKey = key;
 					
-					if( !__images.Images.ContainsKey( key ) ) {
+					if( !ImageListContainsKey( key ) ) {
 						
 						Image typeImage = GetIconForResourceType( lang.Name.Type );
-						AddImageAsync( key, typeImage );
+						AddImageToList( key, typeImage );
 					}
 					
 				}
@@ -357,17 +374,11 @@ namespace Anolis.Resourcer.Controls {
 		
 		private System.Collections.Generic.List<Int64> ticks = new System.Collections.Generic.List<long>();
 		
-		private void AddImageAsync(String key, Image image) {
+		private void AddImageToList(String key, Image image) {
 			
-			Stopwatch sw = new Stopwatch();
-			sw.Start();
-			
-			BeginInvoke( new MethodInvoker(delegate() { __images.Images.Add( key, image ); } ) );
-			
-			sw.Stop();
-			
-			ticks.Add( sw.ElapsedTicks );
-			
+			Invoke(
+//			BeginInvoke( // using Invoke instead of BeginInvoke stops the ImageList.Add IndexOutOfRangeException; see ImageListContainsKey
+				new MethodInvoker(delegate() { __images.Images.Add( key, image ); } ) );
 		}
 		
 		///////////////////////////////////////

@@ -188,6 +188,12 @@ namespace Anolis.Resourcer {
 			}
 		}
 		
+		private void TreeNodeEnsureVisible(Object tag) {
+			
+			TreeNode node = TreeFindNode( tag );
+			if(node != null) node.EnsureVisible();
+		}
+		
 		private TreeNode TreeFindNode(Object tag) {
 			
 			foreach(TreeNode root in __tree.Nodes) {

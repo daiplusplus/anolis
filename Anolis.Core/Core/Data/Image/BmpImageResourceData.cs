@@ -92,7 +92,17 @@ namespace Anolis.Core.Data {
 		
 		internal static Boolean TryCreate(ResourceLang lang, Byte[] rawData, out BmpImageResourceData typed) {
 			
-			Dib dib = new Dib( rawData );
+			Dib dib;
+			
+			try {
+				
+				dib = new Dib( rawData );
+				
+			} catch(ResourceDataException) {
+				
+				typed = null;
+				return false;
+			}
 			
 			typed = new BmpImageResourceData(dib, lang, rawData);
 			

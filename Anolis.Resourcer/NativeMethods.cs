@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace Anolis.Resourcer.Controls {
+namespace Anolis.Resourcer {
 	
 	internal static class NativeMethods {
 		
@@ -44,6 +44,19 @@ namespace Anolis.Resourcer.Controls {
 			
 			return ((lo & 0xffff) | (((short) hi) << 0x10));
 		}
+		
+		/////////////////////////////////////////////
+		// Dialogs
+		
+		[DllImport("user32.dll", CharSet=CharSet.Auto, SetLastError=true, ThrowOnUnmappableChar=true)]
+		public static extern IntPtr CreateDialogIndirectParam(IntPtr instance, IntPtr template, IntPtr parentWindow, DialogProc callback, IntPtr lParam);
+		
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public delegate Boolean DialogProc(IntPtr hWndDialog, UInt32 msg, UIntPtr wParam, IntPtr lParam);
+		
+		[DllImport("user32.dll", CharSet=CharSet.Auto, SetLastError=true, ThrowOnUnmappableChar=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean EndDialog(IntPtr hDlg, IntPtr result);
 		
 	}
 }

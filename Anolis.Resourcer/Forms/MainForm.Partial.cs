@@ -469,6 +469,8 @@ namespace Anolis.Resourcer {
 			
 			_viewData.ShowResource( CurrentData );
 			
+			TreeNodeEnsureVisible( lang );
+			
 			NavigateAdd();
 		}
 		
@@ -611,8 +613,13 @@ namespace Anolis.Resourcer {
 		
 		private void DataCast(ResourceLang lang, ResourceDataFactory factory) {
 			
-			throw new NotImplementedException();
-			
+			try {
+				lang.CastData( factory );
+				
+			} catch(AnolisException aex) {
+				
+				MessageBox.Show(this, aex.Message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+			}
 		}
 		
 #endregion
@@ -639,6 +646,8 @@ namespace Anolis.Resourcer {
 			
 			_viewList.ShowObject(type);
 			
+			TreeNodeEnsureVisible( type );
+			
 			NavigateAdd();
 		}
 		
@@ -649,6 +658,8 @@ namespace Anolis.Resourcer {
 			_currentViewMode = ViewMode.ViewName;
 			
 			_viewList.ShowObject(name);
+			
+			TreeNodeEnsureVisible( name );
 			
 			NavigateAdd();
 		}
@@ -753,8 +764,6 @@ namespace Anolis.Resourcer {
 				castMi.Tag    = new Object[] { lang, factory };
 				
 				__resCMCast.DropDownItems.Add( castMi );
-				
-				castMi.Enabled = false;
 			}
 			
 			///////////////////////////////

@@ -70,6 +70,8 @@ namespace Anolis.Core {
 			
 			ResourceData d = factory.FromResource(this, Data.RawData);
 			
+			if( d == null ) throw new ResourceDataException("Could not cast ResourceData to " + factory.Name);
+			
 			_data = d;
 		}
 		
