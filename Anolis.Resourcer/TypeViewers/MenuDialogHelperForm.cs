@@ -15,6 +15,8 @@ namespace Anolis.Resourcer.TypeViewers {
 		
 		public void LoadMenu(DialogMenu menu) {
 			
+			__menu.MenuItems.Clear();
+			
 			LoadMenu( __menu.MenuItems, menu.Root );
 			
 		}
@@ -36,6 +38,8 @@ namespace Anolis.Resourcer.TypeViewers {
 		}
 		
 		public void LoadDialog(Dialog dialog) {
+			
+			this.Controls.Clear();
 			
 			// TODO: In future, consider calling the actual dialog functions to show the dialog
 			// and just use this form for editing dialogs

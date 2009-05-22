@@ -87,7 +87,7 @@
     <Compile Include="Controls\DropTarget.Designer.cs">
       <DependentUpon>DropTarget.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NativeMethods.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="Cultures.cs" />
     <Compile Include="Forms\AddResourceForm.cs">
       <SubType>Form</SubType>

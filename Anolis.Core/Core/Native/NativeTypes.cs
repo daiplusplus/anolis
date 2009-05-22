@@ -755,19 +755,19 @@ namespace Anolis.Core.Native {
 			
 			mtOption = (MenuTemplateItemOptions)rdr.ReadUInt16();
 			
-			if((mtOption & MenuTemplateItemOptions.Popup) == MenuTemplateItemOptions.Popup) {
-				// Popup items don't have an ID attribute
-				mtId = 0;
+			if( (mtOption & MenuTemplateItemOptions.Popup) == MenuTemplateItemOptions.Popup ) { // if it's a popup
+				
+				mtId     = 0;
+				mtString = rdr.ReadSZString();
+				
 			} else {
-				mtId = rdr.ReadUInt16();
+				
+				mtId     = rdr.ReadUInt16();
+				mtString = rdr.ReadSZString();
+				if(mtString.Length == 0) mtString = "-";
+				
 			}
 			
-			StringBuilder sb = new StringBuilder();
-			Char c;
-			while( (c = rdr.ReadChar()) != 0 ) {
-				sb.Append( c );
-			}
-			mtString = sb.ToString();
 		}
 	}
 	
@@ -796,28 +796,37 @@ namespace Anolis.Core.Native {
 	
 	internal struct MenuExTemplateItem {
 		
-		public UInt32 dwHelpId;
-//		public MenuExTemplateItemType dwType;
+		public MenuExTemplateItemType dwType;
 		public MenuExTemplateItemState dwState;
 		public UInt32 menuId;
 		public MenuExTemplateItemInfo bResInfo;
 		public String szText;
+		public UInt32 dwHelpId;
 		
 		public MenuExTemplateItem(BinaryReader rdr) {
 			
-			dwHelpId = rdr.ReadUInt32();
-			// dwType is commented out because it doesn't seem to be used and makes the text line up right.
-//			dwType   = (MenuExTemplateItemType)rdr.ReadUInt32();
+			dwType   = (MenuExTemplateItemType) rdr.ReadUInt32();
 			dwState  = (MenuExTemplateItemState)rdr.ReadUInt32();
-			menuId   = rdr.ReadUInt32();
-			bResInfo = (MenuExTemplateItemInfo)rdr.ReadUInt16();
+			menuId   =                          rdr.ReadUInt32();
+			bResInfo = (MenuExTemplateItemInfo) rdr.ReadUInt16(); // not really a byte
 			
-			// szText is always aligned on a WORD boundary
-			rdr.Align2();
-			szText   = rdr.ReadSZString();
+			if( (dwType & MenuExTemplateItemType.Separator) == 0 ) { // if this is not a separator
+				
+				szText = rdr.ReadSZString();
+			} else {
+				szText = "-";
+			}
 			
-			// the next MenuExTemplateItem will be aligned on a DWORD boundary
 			rdr.Align4();
+			
+			if( ( bResInfo & MenuExTemplateItemInfo.HasChildren ) == MenuExTemplateItemInfo.HasChildren ) { // if it HAS children
+				
+				dwHelpId = rdr.ReadUInt32();
+			} else {
+				
+				dwHelpId = 0;
+			}
+			
 		}
 		
 	}

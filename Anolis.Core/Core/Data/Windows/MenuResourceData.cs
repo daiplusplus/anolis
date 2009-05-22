@@ -56,7 +56,7 @@ namespace Anolis.Core.Data {
 		
 		internal static MenuResourceData TryCreate(ResourceLang lang, Byte[] rawData) {
 			
-			if(rawData.Length < 12) throw new ResourceDataException("");
+			if(rawData.Length < 12) throw new ResourceDataException("Menus are at least 12 bytes long");
 			
 			// rawData is an array of MenuTemplate instances, aligned to DWORD boundaries (fun)
 			
