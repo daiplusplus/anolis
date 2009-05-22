@@ -26,8 +26,7 @@ namespace Anolis.Resourcer.TypeViewers {
 			
 			TreeNode node = e.Node;
 			
-			__properties.SelectedObject = node.Tag as DialogMenuItem;
-			
+			__properties.SelectedObject = node.Tag;
 		}
 		
 		private void MenuDialogViewer_VisibleChanged(object sender, EventArgs e) {
