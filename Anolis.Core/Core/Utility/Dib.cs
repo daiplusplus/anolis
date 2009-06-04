@@ -40,17 +40,26 @@ namespace Anolis.Core.Utility {
 			
 			stream.Seek(initPos, SeekOrigin.Begin);
 			
-			if( stream.Read( _dibData, 0, length ) != length ) throw new Exception("Unexpected stream length.");
+			if( stream.Read( _dibData, 0, length ) != length ) throw new DibException("Unexpected stream length.");
 			
 		}
 		
 		/// <summary>Reads header information from a stream.</summary>
 		private void Initialise(Stream stream) {
 			
-			BinaryReader rdr = new BinaryReader(stream);
+			BinaryReader rdr;
+			Int32 first;
+			
+			try {
+				
+				rdr = new BinaryReader(stream);
+				first = rdr.PeekChar();
+				
+			} catch(ArgumentException aex) {
+				throw new DibException( "Unable to initialise DIB", aex );
+			}
 			
 			// see if it has a BitmapFileHeader at the beginning
-			Int32 first = rdr.PeekChar();
 			if(first == 'B') {
 				
 				_fileHeader = new BitmapFileHeader(rdr);
@@ -74,7 +83,7 @@ namespace Anolis.Core.Utility {
 					Class       = DibClass.V5;
 					break;
 				default:
-					throw new NotSupportedException("Unrecognised BitmapInfoHeader dwSize");
+					throw new DibException("Unrecognised BitmapInfoHeader dwSize");
 			}
 			
 			_infoHeader = FillBitmapHeader(rdr, Class);
@@ -155,7 +164,7 @@ namespace Anolis.Core.Utility {
 					// Compressed bitmap, so you cannot calculate the size of the pixeldata
 					// So trust the biSizeImage
 					
-					if( _infoHeader.bV5SizeImage <= 0 ) throw new NotSupportedException("The bitmap's size is not defined.");
+					if( _infoHeader.bV5SizeImage <= 0 ) throw new DibException("The bitmap's size is not defined.");
 					
 					dibSize += _infoHeader.bV5SizeImage; // this is a V3 header field, but since Core doesn't use compression set it doesn't apply
 					
@@ -186,7 +195,7 @@ namespace Anolis.Core.Utility {
 				
 				default:
 					
-					throw new NotSupportedException("The bitmap uses an unknown biCompression value.");
+					throw new DibException("The bitmap uses an unknown biCompression value");
 			}
 			
 			// Now actually create the FileHeader and calculate the file size
@@ -329,6 +338,22 @@ namespace Anolis.Core.Utility {
 		V4,
 		/// <summary>Uses a Windows 98 / 2000 BitmapV4Header</summary>
 		V5
+	}
+	
+	[Serializable]
+	public class DibException : Exception {
+		
+		public DibException() {
+		}
+		
+		public DibException(String message) : base(message) {
+		}
+		
+		public DibException(String message, Exception inner) : base(message, inner) {
+		}
+		
+		protected DibException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) {
+		}
 	}
 	
 }

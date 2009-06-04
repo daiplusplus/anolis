@@ -103,14 +103,14 @@
     <EmbeddedResource Include="C-Compress\TarLzmaForm.resx">
       <DependentUpon>TarLzmaForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.resx">
+    <EmbeddedResource Include="AppResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Resources.Designer.cs">
+    <Compile Include="AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
+      <DependentUpon>AppResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
@@ -128,11 +128,22 @@
     <EmbeddedResource Include="Resources\Package.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Compress.png" />
-    <None Include="Resources\Create.png" />
-    <None Include="Resources\Distro.png" />
-    <None Include="Resources\Import.png" />
-    <None Include="Resources\IconEdit.png" />
+    <None Include="Resources\Main\Compress.png" />
+    <None Include="Resources\Main\Create.png" />
+    <None Include="Resources\Main\Distro.png" />
+    <None Include="Resources\Main\IconEdit.png" />
+    <None Include="Resources\Main\Import.png" />
+    <None Include="Resources\Define\TSave.png" />
+    <None Include="Resources\Define\TNew.png" />
+    <None Include="Resources\Define\TOpen.png" />
+    <None Include="Resources\Define\TResourcer.png" />
+    <Content Include="Resources\Define\AddExtra.png" />
+    <Content Include="Resources\Define\AddFile.png" />
+    <Content Include="Resources\Define\AddFileAssoc.png" />
+    <Content Include="Resources\Define\AddGroup.png" />
+    <Content Include="Resources\Define\AddPatch.png" />
+    <Content Include="Resources\Define\AddRemove.png" />
+    <Content Include="Resources\Define\TValidate.png" />
     <Content Include="Resources\Package.png" />
   </ItemGroup>
   <ItemGroup>

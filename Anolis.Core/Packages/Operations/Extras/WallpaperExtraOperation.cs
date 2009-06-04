@@ -6,6 +6,7 @@ using System.IO;
 using System.Collections.ObjectModel;
 using System.Text;
 using Microsoft.Win32;
+using Anolis.Core.Utility;
 
 using Anolis.Core.Native;
 
@@ -64,7 +65,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			Boolean isBmp = bitmap.RawFormat.Guid == ImageFormat.Bmp.Guid;
 			Boolean isJpg = bitmap.RawFormat.Guid == ImageFormat.Jpeg.Guid;
-			Boolean isVis = Environment.OSVersion.Version.Major >= 6;
+			Boolean isVis = System.Environment.OSVersion.Version.Major >= 6;
 			
 			if( (!isBmp && !isVis) || (!isBmp && !isJpg && isVis) ) {
 				// so it needs to be a bitmap

@@ -5,6 +5,7 @@ using System.Xml;
 
 using Anolis.Core;
 using Anolis.Core.Data;
+using Anolis.Core.Utility;
 
 using P = System.IO.Path;
 

@@ -10,6 +10,7 @@ using W3b.Wizards;
 using W3b.Wizards.WindowsForms;
 
 using Anolis.Core.Packages;
+using Anolis.Core.Utility;
 
 using Cult = System.Globalization.CultureInfo;
 

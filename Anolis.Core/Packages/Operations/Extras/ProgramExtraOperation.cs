@@ -7,6 +7,7 @@ using System.Xml;
 using System.Diagnostics;
 
 using Microsoft.Win32;
+using Anolis.Core.Utility;
 
 using P = System.IO.Path;
 

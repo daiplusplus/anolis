@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.CodeDom;
 
 using Microsoft.Win32;
-
+using Anolis.Core.Utility;
 using P = System.IO.Path;
 
 namespace Anolis.Core.Packages.Operations {

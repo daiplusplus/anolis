@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Xml;
 
+using Anolis.Core.Utility;
 using P = System.IO.Path;
 using System.Text;
 

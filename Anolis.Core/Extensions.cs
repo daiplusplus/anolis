@@ -157,8 +157,13 @@ namespace Anolis.Core {
 			
 			StringBuilder sb = new StringBuilder();
 			Char c;
-			while( (c = rdr.ReadChar()) != 0 ) {
-				sb.Append( c );
+			try {
+				
+				while( (c = rdr.ReadChar()) != 0 ) {
+					sb.Append( c );
+				}
+				
+			} catch(EndOfStreamException) {
 			}
 			
 			return sb.ToString();

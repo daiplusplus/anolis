@@ -7,6 +7,7 @@ using System.Xml;
 using System.Diagnostics;
 
 using Microsoft.Win32;
+using Anolis.Core.Utility;
 
 using P = System.IO.Path;
 
@@ -23,7 +24,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			// copy all the screensaver files to the system directory; I can't see any other directories the Display panel searches
 			
-			String destDir = Environment.GetFolderPath(Environment.SpecialFolder.System);
+			String destDir = System.Environment.GetFolderPath(System.Environment.SpecialFolder.System);
 			
 			String lastSaver = null;
 			

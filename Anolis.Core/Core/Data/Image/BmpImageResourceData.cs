@@ -98,7 +98,7 @@ namespace Anolis.Core.Data {
 				
 				dib = new Dib( rawData );
 				
-			} catch(ResourceDataException) {
+			} catch(DibException) {
 				
 				typed = null;
 				return false;

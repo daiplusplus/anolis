@@ -7,9 +7,17 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace Anolis.Packager {
+	
 	public partial class DefinitionForm : Form {
+		
 		public DefinitionForm() {
+			
 			InitializeComponent();
+			
 		}
+		
+		
+		
+		
 	}
 }

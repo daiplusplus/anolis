@@ -16,10 +16,10 @@ namespace Anolis.Resourcer.CommandLine {
 		public static Int32 PerformOneOff(CommandLineParser args) {
 			
 			// one-off command:
-			// Anolis.Resourcer.exe -op:add -src:"C:\dest.exe" -type:ICONGROUP -name:NAME  -lang:1033  -file:"C:\foo\icon.ico"
-			// Anolis.Resourcer.exe -op:upd -src:"C:\dest.exe" -type:ICONGROUP -name:NAME [-lang:1033] -file:"C:\foo\icon.ico"
-			// Anolis.Resourcer.exe -op:ext -src:"C:\dest.exe" -type:ICONGROUP -name:NAME  -lang:1033  -file:"C:\foo\icon.ico"
-			// Anolis.Resourcer.exe -op:del -src:"C:\dest.exe" -type:ICONGROUP -name:NAME [-lang:1033]
+			// Anolis.Resourcer.exe -op:add -src:"C:\dest.exe" -type:ICONDIR -name:NAME  -lang:1033  -file:"C:\foo\icon.ico"
+			// Anolis.Resourcer.exe -op:upd -src:"C:\dest.exe" -type:ICONDIR -name:NAME [-lang:1033] -file:"C:\foo\icon.ico"
+			// Anolis.Resourcer.exe -op:ext -src:"C:\dest.exe" -type:ICONDIR -name:NAME  -lang:1033  -file:"C:\foo\icon.ico"
+			// Anolis.Resourcer.exe -op:del -src:"C:\dest.exe" -type:ICONDIR -name:NAME [-lang:1033]
 			
 			CommandLineFlag
 				operation = args.GetFlag("op"),

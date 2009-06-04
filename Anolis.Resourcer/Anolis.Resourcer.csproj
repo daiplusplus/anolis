@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLine\BatchProcessor.cs" />
+    <Compile Include="CommandLine\BatchReport.cs" />
     <Compile Include="CommandLine\CommandLineParser.cs" />
     <Compile Include="CommandLine\Processor.cs" />
     <Compile Include="Controls\AnimationControl.cs">

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using Anolis.Core.Packages;
-using System.IO;
-using W3b.Wizards.WindowsForms;
 
+using Anolis.Core.Packages;
+using Anolis.Core.Utility;
+
+using W3b.Wizards.WindowsForms;
 
 namespace Anolis.Installer.Pages {
 	

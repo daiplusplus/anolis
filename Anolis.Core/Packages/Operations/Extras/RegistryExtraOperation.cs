@@ -17,7 +17,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			foreach(String regfile in Files) {
 				
-				ProcessStartInfo startInfo = new ProcessStartInfo("regedit", regfile);
+				ProcessStartInfo startInfo = new ProcessStartInfo("reg IMPORT", regfile);
 				Process p = Process.Start( startInfo );
 				p.WaitForExit(250);
 				

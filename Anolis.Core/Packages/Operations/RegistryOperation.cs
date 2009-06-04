@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using Anolis.Core.Utility;
 using Microsoft.Win32;
 
 namespace Anolis.Core.Packages.Operations {

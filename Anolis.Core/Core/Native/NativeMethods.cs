@@ -118,9 +118,9 @@ namespace Anolis.Core.Native {
 		public static IntPtr CreateIconFromResource(IntPtr iconData, UInt32 sizeOfIconData, Boolean iconOrCursor) {
 			
 			IntPtr retval = CreateIconFromResourceEx(iconData, sizeOfIconData, iconOrCursor, (uint)0x00030000, 0, 0, IconFlags.DefaultColor);
-			
-			if(retval == IntPtr.Zero )
-				throw new Exception("CreateIconFromResourceEx failed: " + GetLastErrorString() );
+// consumers of this method check for zero values
+//			if(retval == IntPtr.Zero )
+//				throw new Exception("CreateIconFromResourceEx failed: " + GetLastErrorString() );
 			
 			return retval;
 			

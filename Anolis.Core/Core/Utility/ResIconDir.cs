@@ -99,7 +99,7 @@ namespace Anolis.Core.Utility {
 		private static ResourceTypeIdentifier _iconImageTypeId   = new ResourceTypeIdentifier( Win32ResourceType.IconImage );
 		private static ResourceTypeIdentifier _cursorImageTypeId = new ResourceTypeIdentifier( Win32ResourceType.CursorImage );
 		
-		/// <summary>Recreates the byte array that is used for the IconDirectoryRD's RawData</summary>
+		/// <summary>Recreates the byte array that is used for the IconDirectoryResourceData's RawData</summary>
 		public Byte[] GetRawData() {
 			
 			if( !_updated ) return _rawData;

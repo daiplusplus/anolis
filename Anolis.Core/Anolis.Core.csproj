@@ -109,6 +109,7 @@
     <Compile Include="Core\Utility\Dib.cs" />
     <Compile Include="Core\Utility\Environment.cs" />
     <Compile Include="Core\Utility\FileType.cs" />
+    <Compile Include="Core\Utility\Log.cs" />
     <Compile Include="Core\Utility\Miscellaneous.cs" />
     <Compile Include="Core\Utility\ResIconDir.cs" />
     <Compile Include="Core\Utility\Pair.cs" />

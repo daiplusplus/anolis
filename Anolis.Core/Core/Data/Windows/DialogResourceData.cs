@@ -57,22 +57,30 @@ namespace Anolis.Core.Data {
 				return null;
 			}
 			
-			MemoryStream stream = new MemoryStream(rawData);
-			BinaryReader rdr = new BinaryReader(stream, Encoding.Unicode);
+			try {
+				
+				MemoryStream stream = new MemoryStream(rawData);
+				BinaryReader rdr = new BinaryReader(stream, Encoding.Unicode);
+				
+				Boolean isTemplateEx = true;;
+				Byte[] templateExSignature = new Byte[] { 0x01, 0x00, 0xFF, 0xFF };
+				for(int i=0;i<templateExSignature.Length;i++) if( rawData[i] != templateExSignature[i] ) {
+					isTemplateEx = false;
+					break;
+				}
+				
+				Dialog d = isTemplateEx ? BuildEx(rdr) : Build(rdr);
+				
+				DialogResourceData ret = new DialogResourceData(lang, rawData);
+				ret.Dialog = d;
+				
+				return ret;
 			
-			Boolean isTemplateEx = true;;
-			Byte[] templateExSignature = new Byte[] { 0x01, 0x00, 0xFF, 0xFF };
-			for(int i=0;i<templateExSignature.Length;i++) if( rawData[i] != templateExSignature[i] ) {
-				isTemplateEx = false;
-				break;
+			} catch(Exception) {
+				
+				return null;
 			}
 			
-			Dialog d = isTemplateEx ? BuildEx(rdr) : Build(rdr);
-			
-			DialogResourceData ret = new DialogResourceData(lang, rawData);
-			ret.Dialog = d;
-			
-			return ret;
 		}
 		
 		private static Dialog Build(BinaryReader rdr) {
