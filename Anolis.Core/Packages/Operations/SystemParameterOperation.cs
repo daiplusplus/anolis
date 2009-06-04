@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using Anolis.Core.Utility;
 
 using Anolis.Core.Native;
 

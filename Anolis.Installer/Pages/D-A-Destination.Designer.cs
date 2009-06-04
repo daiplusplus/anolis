@@ -23,36 +23,28 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.@__destPath = new System.Windows.Forms.TextBox();
 			this.@__destBrowse = new System.Windows.Forms.Button();
 			this.@__progGroup = new System.Windows.Forms.CheckBox();
 			this.@__progGroupAll = new System.Windows.Forms.RadioButton();
 			this.@__progGroupMe = new System.Windows.Forms.RadioButton();
 			this.@__destLbl = new System.Windows.Forms.Label();
 			this.@__fbd = new System.Windows.Forms.FolderBrowserDialog();
+			this.@__destPath = new System.Windows.Forms.ComboBox();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __content
 			// 
+			this.@__content.Controls.Add(this.@__destPath);
 			this.@__content.Controls.Add(this.@__destLbl);
 			this.@__content.Controls.Add(this.@__progGroupMe);
 			this.@__content.Controls.Add(this.@__progGroupAll);
 			this.@__content.Controls.Add(this.@__progGroup);
 			this.@__content.Controls.Add(this.@__destBrowse);
-			this.@__content.Controls.Add(this.@__destPath);
-			// 
-			// __destPath
-			// 
-			this.@__destPath.Location = new System.Drawing.Point(128, 43);
-			this.@__destPath.Name = "__destPath";
-			this.@__destPath.Size = new System.Drawing.Size(237, 20);
-			this.@__destPath.TabIndex = 0;
-			this.@__destPath.Text = "%programfiles%\\Anolis";
 			// 
 			// __destBrowse
 			// 
-			this.@__destBrowse.Location = new System.Drawing.Point(369, 41);
+			this.@__destBrowse.Location = new System.Drawing.Point(367, 41);
 			this.@__destBrowse.Name = "__destBrowse";
 			this.@__destBrowse.Size = new System.Drawing.Size(75, 23);
 			this.@__destBrowse.TabIndex = 1;
@@ -102,6 +94,19 @@
 			this.@__destLbl.Text = "Destination directory";
 			this.@__destLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
+			// __destPath
+			// 
+			this.@__destPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__destPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+			this.@__destPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+			this.@__destPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+			this.@__destPath.FormattingEnabled = true;
+			this.@__destPath.Location = new System.Drawing.Point(128, 42);
+			this.@__destPath.Name = "__destPath";
+			this.@__destPath.Size = new System.Drawing.Size(235, 21);
+			this.@__destPath.TabIndex = 6;
+			// 
 			// DestinationPage
 			// 
 			this.Name = "DestinationPage";
@@ -120,7 +125,7 @@
 		private System.Windows.Forms.RadioButton __progGroupAll;
 		private System.Windows.Forms.CheckBox __progGroup;
 		private System.Windows.Forms.Button __destBrowse;
-		private System.Windows.Forms.TextBox __destPath;
 		private System.Windows.Forms.FolderBrowserDialog __fbd;
+		private System.Windows.Forms.ComboBox __destPath;
 	}
 }

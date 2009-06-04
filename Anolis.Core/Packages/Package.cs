@@ -8,6 +8,7 @@ using System.IO;
 using System.Net;
 
 using Anolis.Core.Packages.Operations;
+using Anolis.Core.Utility;
 
 using N = System.Globalization.NumberStyles;
 using Cult = System.Globalization.CultureInfo;
@@ -29,7 +30,7 @@ namespace Anolis.Core.Packages {
 			UpdateUri   = packageElement.GetAttribute("updateUri").Length > 0 ? new Uri( packageElement.Attributes["updateUri"].Value ) : null;
 			
 			PackageImages = new Dictionary<String,System.Drawing.Image>();
-			Log           = new PackageLog();
+			Log           = new Log();
 			
 			// Load it up
 			RootGroup     = new Group(this, packageElement);
@@ -117,7 +118,7 @@ namespace Anolis.Core.Packages {
 		
 		public Group      RootGroup { get; private set; }
 		
-		public PackageLog Log       { get; private set; }
+		public Log Log       { get; private set; }
 		
 		//////////////////////////////
 		
@@ -257,7 +258,7 @@ namespace Anolis.Core.Packages {
 	
 	public class PackageUpdateInfo {
 		
-		internal PackageUpdateInfo(String name, Single version, Uri packageLocation, Uri infoLocation) {
+		public PackageUpdateInfo(String name, Single version, Uri packageLocation, Uri infoLocation) {
 			
 			Name                = name;
 			Version             = version;
@@ -265,102 +266,11 @@ namespace Anolis.Core.Packages {
 			InformationLocation = infoLocation;
 		}
 		
-		public String  Name { get; private set; }
-		public Single  Version { get; private set; }
-		public Uri     PackageLocation { get; private set; }
+		public String  Name                { get; private set; }
+		public Single  Version             { get; private set; }
+		public Uri     PackageLocation     { get; private set; }
 		public Uri     InformationLocation { get; private set; }
 		
-	}
-	
-	public class LogItem {
-		
-		public LogItem(LogSeverity severity, String message) {
-			
-			TimeStamp = DateTime.Now;
-			
-			Severity = severity;
-			Message  = message;
-		}
-		
-		public LogItem(Exception ex, Operation op) {
-			
-			TimeStamp = DateTime.Now;
-			
-			Message  = "Exception: " + op.Name + " - " + op.Path;
-			Severity = LogSeverity.Error;
-			
-			Exception = ex;
-		}
-		
-		public DateTime    TimeStamp { get; private set; }
-		public LogSeverity Severity  { get; private set; }
-		public String      Message   { get; private set; }
-		
-		public Exception   Exception { get; private set; }
-		
-		public void Write(TextWriter wtr) {
-			
-			wtr.Write( TimeStamp.ToString("s") );
-			wtr.Write(" - ");
-			wtr.Write( Severity.ToString() );
-			wtr.Write(" - ");
-			wtr.WriteLine( Message );
-			
-			Exception ex = Exception;
-			Int32 indent = 1;
-			while(ex != null) {
-				
-				String indentString = "".PadRight( indent, '\t' );
-				
-				wtr.WriteLine( indentString + ex.Message );
-				
-				String[] stackTrace = ex.StackTrace.Replace("\r\n", "\n").Split('\n');
-				
-				foreach(String call in stackTrace) {
-					
-					// indent the stack trace at (indent + 1)
-					wtr.Write( indentString + '\t' );
-					wtr.WriteLine( call );
-				}
-				
-				ex = ex.InnerException;
-				
-				indent++;
-			}
-			
-		}
-	}
-	
-	public class PackageLog : Collection<LogItem> {
-		
-		public void Add(LogSeverity severity, String message) {
-			
-			LogItem item = new LogItem(severity, message);
-			
-			this.Add( item );
-		}
-		
-		public void Save(String path) {
-			
-			using(FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write))
-			using(StreamWriter wtr = new StreamWriter(fs)) {
-				
-				foreach(LogItem item in this) {
-					
-					item.Write( wtr );
-				}
-				
-			}
-			
-		}
-		
-	}
-	
-	public enum LogSeverity {
-		Fatal,
-		Error,
-		Warning,
-		Info
 	}
 	
 }

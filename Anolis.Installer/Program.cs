@@ -149,6 +149,8 @@ namespace Anolis.Installer {
 		
 		public static String  DestinationDirectory { get; set; }
 		
+		public static readonly Uri ToolsInfoUri = new Uri("http://anol.is/installer/tools.txt");
+		
 	}
 	
 	internal static class PackageInfo {

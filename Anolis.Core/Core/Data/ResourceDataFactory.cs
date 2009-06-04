@@ -17,7 +17,7 @@ namespace Anolis.Core.Data {
 		/// <summary>Indicates the compatibility between the specified filename extension and this factory's ResourceData. It is assumed the extension is truthful.</summary>
 		public abstract Compatibility HandlesExtension(String filenameExtension);
 		
-		/// <summary>Returns null if unsuccessful.</summary>
+		/// <summary>Returns null if unsuccessful. Wrap all exceptions in ResourceDataException.</summary>
 		public abstract ResourceData FromResource(ResourceLang lang, Byte[] data);
 		
 		public abstract ResourceData FromFileToAdd   (Stream stream, String extension, UInt16 lang, ResourceSource currentSource);

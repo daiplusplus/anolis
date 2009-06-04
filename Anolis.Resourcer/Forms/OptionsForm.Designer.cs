@@ -397,7 +397,6 @@
 			// 
 			// __ofd
 			// 
-			this.@__ofd.FileName = "openFileDialog1";
 			this.@__ofd.Filter = "Managed Assemblies (*.exe;*.dll)|*.exe;*.dll";
 			// 
 			// OptionsForm

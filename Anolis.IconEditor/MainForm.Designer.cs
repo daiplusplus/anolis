@@ -23,24 +23,31 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			System.Windows.Forms.ToolStripSeparator @__tSep1;
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+			System.Windows.Forms.ToolStripSeparator @__tSep2;
 			this.@__t = new System.Windows.Forms.ToolStrip();
 			this.@__tNew = new System.Windows.Forms.ToolStripButton();
 			this.@__tOpen = new System.Windows.Forms.ToolStripButton();
 			this.@__tSave = new System.Windows.Forms.ToolStripButton();
-			this.@__tAdd = new System.Windows.Forms.ToolStripButton();
-			this.@__tExport = new System.Windows.Forms.ToolStripButton();
-			this.@__tReplace = new System.Windows.Forms.ToolStripButton();
-			this.@__tDelete = new System.Windows.Forms.ToolStripButton();
+			this.@__tSAdd = new System.Windows.Forms.ToolStripButton();
+			this.@__tSExport = new System.Windows.Forms.ToolStripButton();
+			this.@__tSReplace = new System.Windows.Forms.ToolStripButton();
+			this.@__tSDelete = new System.Windows.Forms.ToolStripButton();
+			this.@__tOptions = new System.Windows.Forms.ToolStripButton();
 			this.@__split = new System.Windows.Forms.SplitContainer();
 			this.@__status = new System.Windows.Forms.StatusStrip();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.@__tOptions = new System.Windows.Forms.ToolStripButton();
+			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
+			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			this.@__t.SuspendLayout();
 			this.@__split.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// __tSep1
+			// 
+			@__tSep1.Name = "__tSep1";
+			@__tSep1.Size = new System.Drawing.Size(6, 36);
 			// 
 			// __t
 			// 
@@ -50,11 +57,11 @@
             this.@__tOpen,
             this.@__tSave,
             @__tSep1,
-            this.@__tAdd,
-            this.@__tExport,
-            this.@__tReplace,
-            this.@__tDelete,
-            this.toolStripSeparator1,
+            this.@__tSAdd,
+            this.@__tSExport,
+            this.@__tSReplace,
+            this.@__tSDelete,
+            @__tSep2,
             this.@__tOptions});
 			this.@__t.Location = new System.Drawing.Point(0, 0);
 			this.@__t.Name = "__t";
@@ -88,46 +95,55 @@
 			this.@__tSave.Text = "Save";
 			this.@__tSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
-			// __tSep1
+			// __tSAdd
 			// 
-			@__tSep1.Name = "__tSep1";
-			@__tSep1.Size = new System.Drawing.Size(6, 36);
+			this.@__tSAdd.Image = ((System.Drawing.Image)(resources.GetObject("__tSAdd.Image")));
+			this.@__tSAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__tSAdd.Name = "__tSAdd";
+			this.@__tSAdd.Size = new System.Drawing.Size(79, 33);
+			this.@__tSAdd.Text = "Add Subimage";
+			this.@__tSAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
-			// __tAdd
+			// __tSExport
 			// 
-			this.@__tAdd.Image = ((System.Drawing.Image)(resources.GetObject("__tAdd.Image")));
-			this.@__tAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__tAdd.Name = "__tAdd";
-			this.@__tAdd.Size = new System.Drawing.Size(79, 33);
-			this.@__tAdd.Text = "Add Subimage";
-			this.@__tAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			this.@__tSExport.Image = ((System.Drawing.Image)(resources.GetObject("__tSExport.Image")));
+			this.@__tSExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__tSExport.Name = "__tSExport";
+			this.@__tSExport.Size = new System.Drawing.Size(92, 33);
+			this.@__tSExport.Text = "Export Subimage";
+			this.@__tSExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
-			// __tExport
+			// __tSReplace
 			// 
-			this.@__tExport.Image = ((System.Drawing.Image)(resources.GetObject("__tExport.Image")));
-			this.@__tExport.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__tExport.Name = "__tExport";
-			this.@__tExport.Size = new System.Drawing.Size(92, 33);
-			this.@__tExport.Text = "Export Subimage";
-			this.@__tExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			this.@__tSReplace.Image = ((System.Drawing.Image)(resources.GetObject("__tSReplace.Image")));
+			this.@__tSReplace.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__tSReplace.Name = "__tSReplace";
+			this.@__tSReplace.Size = new System.Drawing.Size(98, 33);
+			this.@__tSReplace.Text = "Replace Subimage";
+			this.@__tSReplace.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
-			// __tReplace
+			// __tSDelete
 			// 
-			this.@__tReplace.Image = ((System.Drawing.Image)(resources.GetObject("__tReplace.Image")));
-			this.@__tReplace.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__tReplace.Name = "__tReplace";
-			this.@__tReplace.Size = new System.Drawing.Size(98, 33);
-			this.@__tReplace.Text = "Replace Subimage";
-			this.@__tReplace.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			this.@__tSDelete.Image = ((System.Drawing.Image)(resources.GetObject("__tSDelete.Image")));
+			this.@__tSDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__tSDelete.Name = "__tSDelete";
+			this.@__tSDelete.Size = new System.Drawing.Size(91, 33);
+			this.@__tSDelete.Text = "Delete Subimage";
+			this.@__tSDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
-			// __tDelete
+			// __tSep2
 			// 
-			this.@__tDelete.Image = ((System.Drawing.Image)(resources.GetObject("__tDelete.Image")));
-			this.@__tDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__tDelete.Name = "__tDelete";
-			this.@__tDelete.Size = new System.Drawing.Size(91, 33);
-			this.@__tDelete.Text = "Delete Subimage";
-			this.@__tDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			@__tSep2.Name = "__tSep2";
+			@__tSep2.Size = new System.Drawing.Size(6, 36);
+			// 
+			// __tOptions
+			// 
+			this.@__tOptions.Image = ((System.Drawing.Image)(resources.GetObject("__tOptions.Image")));
+			this.@__tOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__tOptions.Name = "__tOptions";
+			this.@__tOptions.Size = new System.Drawing.Size(48, 33);
+			this.@__tOptions.Text = "Options";
+			this.@__tOptions.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			// 
 			// __split
 			// 
@@ -147,20 +163,6 @@
 			this.@__status.TabIndex = 0;
 			this.@__status.Text = "statusStrip1";
 			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 36);
-			// 
-			// __tOptions
-			// 
-			this.@__tOptions.Image = ((System.Drawing.Image)(resources.GetObject("__tOptions.Image")));
-			this.@__tOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.@__tOptions.Name = "__tOptions";
-			this.@__tOptions.Size = new System.Drawing.Size(48, 33);
-			this.@__tOptions.Text = "Options";
-			this.@__tOptions.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -170,7 +172,7 @@
 			this.Controls.Add(this.@__status);
 			this.Controls.Add(this.@__t);
 			this.Name = "MainForm";
-			this.Text = "Anolis Icon Editor";
+			this.Text = "Anolis Icon and Cursor Editor";
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.@__t.ResumeLayout(false);
 			this.@__t.PerformLayout();
@@ -186,14 +188,14 @@
 		private System.Windows.Forms.ToolStripButton __tNew;
 		private System.Windows.Forms.ToolStripButton __tOpen;
 		private System.Windows.Forms.ToolStripButton __tSave;
-		private System.Windows.Forms.ToolStripButton __tAdd;
-		private System.Windows.Forms.ToolStripButton __tExport;
-		private System.Windows.Forms.ToolStripButton __tReplace;
-		private System.Windows.Forms.ToolStripButton __tDelete;
+		private System.Windows.Forms.ToolStripButton __tSAdd;
+		private System.Windows.Forms.ToolStripButton __tSExport;
+		private System.Windows.Forms.ToolStripButton __tSReplace;
+		private System.Windows.Forms.ToolStripButton __tSDelete;
 		private System.Windows.Forms.SplitContainer __split;
 		private System.Windows.Forms.StatusStrip __status;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripButton __tOptions;
+		private System.Windows.Forms.OpenFileDialog __ofd;
 	}
 }
 

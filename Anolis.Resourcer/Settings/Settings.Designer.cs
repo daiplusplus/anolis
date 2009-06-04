@@ -140,5 +140,77 @@ namespace Anolis.Resourcer.Settings {
                 this["BatchReport"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BatchRecurse {
+            get {
+                return ((bool)(this["BatchRecurse"]));
+            }
+            set {
+                this["BatchRecurse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BatchExportNonVis {
+            get {
+                return ((bool)(this["BatchExportNonVis"]));
+            }
+            set {
+                this["BatchExportNonVis"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BatchExportNonVisCommon {
+            get {
+                return ((bool)(this["BatchExportNonVisCommon"]));
+            }
+            set {
+                this["BatchExportNonVisCommon"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BatchExportNonVisSize {
+            get {
+                return ((bool)(this["BatchExportNonVisSize"]));
+            }
+            set {
+                this["BatchExportNonVisSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint BatchExportNonVisSizeKB {
+            get {
+                return ((uint)(this["BatchExportNonVisSizeKB"]));
+            }
+            set {
+                this["BatchExportNonVisSizeKB"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BatchExportSubimage {
+            get {
+                return ((bool)(this["BatchExportSubimage"]));
+            }
+            set {
+                this["BatchExportSubimage"] = value;
+            }
+        }
     }
 }

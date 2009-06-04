@@ -222,7 +222,7 @@ namespace Anolis.Resourcer {
 					item.Argument = _viewList.CurrentObject as ResourceName;
 					break;
 				case ViewMode.ViewLangData:
-					item.Argument = _viewData.CurrentData;
+					item.Argument = _viewData.CurrentData.Lang;
 					break;
 			}
 			

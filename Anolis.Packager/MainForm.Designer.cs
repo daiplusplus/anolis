@@ -52,7 +52,7 @@
 			// 
 			// __icoed
 			// 
-			this.@__icoed.Image = global::Anolis.Packager.Resources.IconEdit;
+			this.@__icoed.Image = global::Anolis.Packager.AppResources.Main_IconEdit;
 			this.@__icoed.Location = new System.Drawing.Point(89, 19);
 			this.@__icoed.Name = "__icoed";
 			this.@__icoed.Size = new System.Drawing.Size(77, 92);
@@ -63,7 +63,7 @@
 			// 
 			// __import
 			// 
-			this.@__import.Image = global::Anolis.Packager.Resources.Import;
+			this.@__import.Image = global::Anolis.Packager.AppResources.Main_Import;
 			this.@__import.Location = new System.Drawing.Point(6, 19);
 			this.@__import.Name = "__import";
 			this.@__import.Size = new System.Drawing.Size(77, 92);
@@ -74,7 +74,7 @@
 			// 
 			// __distro
 			// 
-			this.@__distro.Image = global::Anolis.Packager.Resources.Distro;
+			this.@__distro.Image = global::Anolis.Packager.AppResources.Main_Distro;
 			this.@__distro.Location = new System.Drawing.Point(338, 19);
 			this.@__distro.Name = "__distro";
 			this.@__distro.Size = new System.Drawing.Size(77, 92);
@@ -85,7 +85,7 @@
 			// 
 			// __compre
 			// 
-			this.@__compre.Image = global::Anolis.Packager.Resources.Compress;
+			this.@__compre.Image = global::Anolis.Packager.AppResources.Main_Compress;
 			this.@__compre.Location = new System.Drawing.Point(255, 19);
 			this.@__compre.Name = "__compre";
 			this.@__compre.Size = new System.Drawing.Size(77, 92);
@@ -96,7 +96,7 @@
 			// 
 			// __define
 			// 
-			this.@__define.Image = global::Anolis.Packager.Resources.Create;
+			this.@__define.Image = global::Anolis.Packager.AppResources.Main_Create;
 			this.@__define.Location = new System.Drawing.Point(172, 19);
 			this.@__define.Name = "__define";
 			this.@__define.Size = new System.Drawing.Size(77, 92);

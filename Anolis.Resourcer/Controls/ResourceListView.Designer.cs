@@ -83,6 +83,7 @@
 			// __listCSize
 			// 
 			this.@__listCSize.Text = "Size";
+			this.@__listCSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// __listCType
 			// 

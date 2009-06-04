@@ -165,10 +165,12 @@ namespace Anolis.Core.Data {
 			ResourceData data = null;
 			while(data == null) {
 				
-				if(i >= factories.Length) throw new Exception("Unable to locate factory for resource data.");
+				if(i >= factories.Length) throw new AnolisException("Unable to locate factory for resource data.");
 				
-				data = factories[i++].FromResource(lang, rawData);
-				
+				try {
+					data = factories[i++].FromResource(lang, rawData);
+				} catch(ResourceDataException) {
+				}
 			}
 			
 			return data;

@@ -136,8 +136,10 @@ namespace Anolis.Core.Data {
 			
 			_hIcon = NativeMethods.CreateIconFromResource( _p, (uint)RawData.Length, IsIcon);
 			if(_hIcon == IntPtr.Zero) {
-				String message = NativeMethods.GetLastErrorString();
-				throw new ResourceDataException("CreateIconFromResourceEx Failed " + message);
+//				String message = NativeMethods.GetLastErrorString();
+//				throw new ResourceDataException("CreateIconFromResourceEx Failed " + message);
+				_icon = null;
+				return;
 			}
 			
 			// because the Icon is born out of unmanaged data I cannot free the handle here; do it in the Disposer
@@ -173,6 +175,10 @@ namespace Anolis.Core.Data {
 		public override Image Image {
 			get {
 				if( _image == null ) {
+					
+					Icon ico = Icon;
+					if( ico == null ) return null;
+					
 					_image = Icon.ToBitmap();
 				}
 				return _image;

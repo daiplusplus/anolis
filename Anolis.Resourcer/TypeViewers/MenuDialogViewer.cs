@@ -126,7 +126,7 @@ namespace Anolis.Resourcer.TypeViewers {
 			
 		}
 		
-		public override string ViewerName {
+		public override String ViewerName {
 			get { return "Dialog and Menu Viewer"; }
 		}
 		

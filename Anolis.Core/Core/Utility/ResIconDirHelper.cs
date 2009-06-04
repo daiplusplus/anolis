@@ -68,6 +68,7 @@ namespace Anolis.Core.Utility {
 					IconCursorImageResourceData rd = GetDataFromWid(imageType, lang, img.wId);
 					
 					Size dimensions = new Size( img.bWidth == 0 ? 256 : img.bWidth, img.bHeight == 0 ? 256 : img.bHeight );
+					// cursors might have Height == 0, so it should copy the width rather than being set to 256
 					
 					retval.Members.Add( new IconDirectoryMember(rd, dimensions, img.bColorCount, img.bReserved, img.wPlanes, img.wBitCount, img.dwBytesInRes ) ); 
 					
