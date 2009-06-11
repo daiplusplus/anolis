@@ -80,6 +80,8 @@ namespace Anolis.Resourcer.CommandLine {
 			/////////////////////////////////
 			// Reset State
 			
+			Log.Clear();
+			
 			Cancel  = false;
 			_report = null;
 			Options = options;
@@ -87,6 +89,13 @@ namespace Anolis.Resourcer.CommandLine {
 		}
 		
 		private FileInfo[] GetFiles() {
+			
+			if( Options.SourceMode == BatchSourceMode.SingleFile ) {
+				
+				Options.SourceDirectory = Options.SourceFile.Directory; 
+				
+				return new FileInfo[] { Options.SourceFile };
+			}
 			
 			List<FileInfo> files = new List<FileInfo>();
 			
@@ -107,7 +116,7 @@ namespace Anolis.Resourcer.CommandLine {
 			return files.ToArray();
 		}
 		
-		private static void AddFiles(DirectoryInfo directory, String[] filterPatterns, List<FileInfo> files) {
+		private void AddFiles(DirectoryInfo directory, String[] filterPatterns, List<FileInfo> files) {
 			
 			foreach(String filter in filterPatterns) {
 				
@@ -120,9 +129,17 @@ namespace Anolis.Resourcer.CommandLine {
 					
 					AddFiles( child, filterPatterns, files );
 					
-				} catch(IOException) { // TODO: Get some kind of centralised logging system up so I can report this
-				} catch(UnauthorizedAccessException) {
-				} catch(System.Security.SecurityException) {
+				} catch(IOException ioex) {
+					
+					Log.Add( LogSeverity.Warning, "AddFiles - IOException \"" + directory.FullName + "\" - " + ioex.Message );
+					
+				} catch(UnauthorizedAccessException uax) {
+					
+					Log.Add( LogSeverity.Warning, "AddFiles - UnauthorizedAccessException \"" + directory.FullName + "\" - " + uax.Message );
+					
+				} catch(System.Security.SecurityException sex) {
+					
+					Log.Add( LogSeverity.Warning, "AddFiles - SecurityException \"" + directory.FullName + "\" - " + sex.Message );
 				}
 				
 			}
@@ -149,11 +166,18 @@ namespace Anolis.Resourcer.CommandLine {
 					
 					FileInfo file = files[i];
 					
+					OnMajorProgressChanged(i, files.Length, file.Name );
+					
 					ProcessFile( file );
 					
 					FilesDone = i;
-					OnMajorProgressChanged(i + 1, files.Length, file.Name );
+					
+					
 				}
+				
+				String logFilename = Path.Combine( options.ExportDirectory.FullName, "Export Log.txt" );
+				
+				Log.Save( logFilename  );
 				
 			} finally {
 				
@@ -225,6 +249,8 @@ namespace Anolis.Resourcer.CommandLine {
 				}//name
 				
 			}//type
+			
+			Log.Add( LogSeverity.Info, "Processed " + file.FullName + " OK" );
 		}
 		
 		private Boolean ShouldExportData(ResourceData data) {
@@ -267,6 +293,11 @@ namespace Anolis.Resourcer.CommandLine {
 	
 	public class BatchOptions {
 		
+		public BatchSourceMode SourceMode    { get; set; }
+		
+		public FileInfo      SourceFile      { get; set; }
+		public ResourceSourceFactory SourceFileFactory { get; set; }
+		
 		public DirectoryInfo SourceDirectory { get; set; }
 		public String        SourceFilter    { get; set; }
 		public Boolean       SourceRecurse   { get; set; }
@@ -280,6 +311,11 @@ namespace Anolis.Resourcer.CommandLine {
 		public Boolean       ExportIcons     { get; set; }
 		public Int32         ExportNonVisualSize { get; set; } // size in bytes
 		
+	}
+	
+	public enum BatchSourceMode {
+		SingleFile,
+		Directory
 	}
 	
 	

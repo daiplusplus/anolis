@@ -236,6 +236,29 @@ namespace Anolis.Resourcer {
 		
 #region ResourceSource
 		
+		/// <summary>Prompts the user to save the current source (if open) then opens a Save File dialog for the new empty ResourceSource then loads it.</summary>
+		private void SourceNew() {
+			
+			if( !SourceUnload() ) return;
+			
+			IList<ResourceSourceFactory> factories = ResourceSourceFactory.ListFactories();
+			
+			String filter = String.Empty;
+			foreach(ResourceSourceFactory factory in factories) filter += factory.NewFileFilter + '|';
+			if(filter.EndsWith("|")) filter = filter.Substring(0, filter.Length - 1);
+			
+			__sfd.Filter = filter;
+			
+			if( __sfd.ShowDialog( this ) != DialogResult.OK ) return;
+			
+			ResourceSourceFactory selectedFactory = factories[ __sfd.FilterIndex - 1 ];
+			
+			ResourceSource source = selectedFactory.CreateNew( __sfd.FileName, false, ResourceSourceLoadMode.LazyLoadData );
+			
+			SourceLoad( source, __sfd.FileName );
+			
+		}
+		
 		/// <summary>Presents a File Open Dialog to the user and either loads the selected source or does nothing if nothing was selected or the FOD was cancelled.</summary>
 		private void SourceLoadDialog() {
 			
@@ -289,6 +312,20 @@ namespace Anolis.Resourcer {
 					source = ResourceSource.Open(path, false, ResourceSourceLoadMode.LazyLoadData );
 				}
 				
+				SourceLoad( source, path );
+				
+			} catch (AnolisException aex) {
+				
+				SourceLoadCatch( aex, path, removeFromMruOnError );
+				
+			}
+			
+		}
+		
+		private void SourceLoad(ResourceSource source, String path) {
+			
+			try {
+			
 				if(source == null) {
 					
 					MessageBox.Show(this, "Unable to load the file " + Path.GetFileName(path), "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
@@ -307,22 +344,26 @@ namespace Anolis.Resourcer {
 				TreePopulate();
 				
 				ListLoad();
+			
+			} catch(AnolisException aex) {
 				
-			} catch (AnolisException aex) {
-				
-				String errorMessage = "Resourcer could not open \"{0}\" because {1}";
-				if(removeFromMruOnError) errorMessage += "\r\n\r\n Would you like to remove it from the Most Recently Used menu?";
-				
-				errorMessage = String.Format(Cult.InvariantCulture, errorMessage, Path.GetFileName(path), aex.Message);
-				
-				DialogResult result = MessageBox.Show(this, errorMessage, "Anolis Resourcer", removeFromMruOnError ? MessageBoxButtons.YesNo : MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-				
-				if(result == DialogResult.Yes)
-					MruRemove(path);
-				
-				return;
+				SourceLoadCatch( aex, path, false );
 				
 			}
+			
+		}
+		
+		private void SourceLoadCatch(AnolisException ex, String path, Boolean removeFromMruOnError) {
+			
+			String errorMessage = "Resourcer could not open \"{0}\" because {1}";
+			if(removeFromMruOnError) errorMessage += "\r\n\r\n Would you like to remove it from the Most Recently Used menu?";
+			
+			errorMessage = String.Format(Cult.InvariantCulture, errorMessage, Path.GetFileName(path), ex.Message);
+			
+			DialogResult result = MessageBox.Show(this, errorMessage, "Anolis Resourcer", removeFromMruOnError ? MessageBoxButtons.YesNo : MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+			
+			if(result == DialogResult.Yes)
+				MruRemove(path);
 			
 		}
 		

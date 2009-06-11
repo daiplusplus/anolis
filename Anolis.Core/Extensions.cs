@@ -223,7 +223,7 @@ namespace Anolis.Core {
 			Char[] chars = s.ToCharArray();
 			
 			wtr.Write( chars );
-			wtr.Write( 0x00 );
+			wtr.Write( '\0' ); // by using char the writer's encoding will do it right (rather than using (ushort)0x00 or 0x00 on its own (which is a literal 4-byte int32)
 			
 		}
 		
@@ -251,6 +251,15 @@ namespace Anolis.Core {
 			
 			wtr.Write( writeThis );
 			
+		}
+		
+#endregion
+		
+#region Stream
+		
+		public static void Write(this Stream stream, Byte[] buffer) {
+			
+			stream.Write(buffer, 0, buffer.Length);
 		}
 		
 #endregion

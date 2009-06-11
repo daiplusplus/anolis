@@ -12,7 +12,7 @@ namespace Anolis.IconEditor {
 	
 	public partial class MainForm : Form {
 		
-		private ResIconDir _icon;
+		private IconGroup _icon;
 		
 		public MainForm() {
 			InitializeComponent();

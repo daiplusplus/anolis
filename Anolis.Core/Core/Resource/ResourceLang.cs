@@ -56,6 +56,8 @@ namespace Anolis.Core {
 		
 		public void SwapData(ResourceData data) {
 			
+			if(data == null) throw new ArgumentNullException("data");
+			
 			Action = ResourceDataAction.Update;
 			
 			data.Lang = this;
@@ -67,6 +69,8 @@ namespace Anolis.Core {
 		}
 		
 		public void CastData(ResourceDataFactory factory) {
+			
+			if(factory == null) throw new ArgumentNullException("factory");
 			
 			ResourceData d = factory.FromResource(this, Data.RawData);
 			

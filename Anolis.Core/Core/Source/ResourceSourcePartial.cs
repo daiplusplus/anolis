@@ -235,7 +235,7 @@ namespace Anolis.Core {
 				
 				case ResourceDataAction.Add:
 					
-					lang.Data.OnRemove( true, new ResourceData.Remove( Remove ) );
+					lang.Data.OnRemove( true, new ResourceData.RemoveFunction( Remove ) );
 					
 					Cancel( lang );
 					break;
@@ -246,7 +246,7 @@ namespace Anolis.Core {
 					
 					lang.Action = ResourceDataAction.Delete;
 					
-					lang.Data.OnRemove( false, new ResourceData.Remove( Remove ) );
+					lang.Data.OnRemove( false, new ResourceData.RemoveFunction( Remove ) );
 					
 					break;
 			}

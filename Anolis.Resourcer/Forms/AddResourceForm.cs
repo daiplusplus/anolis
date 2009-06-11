@@ -100,6 +100,8 @@ namespace Anolis.Resourcer {
 		
 		private void PopulateLanguages(Boolean sortByDisplayName) {
 			
+			__lang.BeginUpdate();
+			
 			__lang.Items.Clear();
 			
 			__lang.Items.AddRange( sortByDisplayName ? Cultures.CulturesByName : Cultures.CulturesByLcid );
@@ -112,6 +114,8 @@ namespace Anolis.Resourcer {
 					break;
 				}
 			}
+			
+			__lang.EndUpdate();
 			
 		}
 		

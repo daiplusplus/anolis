@@ -70,7 +70,7 @@ namespace Anolis.Core.Utility {
 			
 			if(replaceWith == null) {
 				
-				System.Text.StringBuilder sb = new System.Text.StringBuilder();
+				StringBuilder sb = new StringBuilder();
 				
 				for(int i=0;i<s.Length;i++) {
 					

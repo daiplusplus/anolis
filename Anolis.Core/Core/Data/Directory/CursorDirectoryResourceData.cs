@@ -34,22 +34,23 @@ namespace Anolis.Core.Data {
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
 			
-			ResIconDir dir = ResIconDirHelper.FromResource(lang, data);
+			IconGroup group = new IconGroup(lang, data);
 			
-			return new CursorDirectoryResourceData(dir, lang);
+			return new CursorDirectoryResourceData(group, lang);
 		}
 		
 		public override string Name {
 			get { return "Cursor Directory"; }
 		}
 		
-		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 lang, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 langId, ResourceSource currentSource) {
 			
 			if( !IsExtension( extension, "cur" ) ) throw new ArgumentException("cur is the only supported extension");
 			
-			ResIconDir dir = ResIconDirHelper.FromFile( false, stream, lang, currentSource);
+			IconGroup group = new IconGroup(stream);
+			group.BindToSource( currentSource, langId );
 			
-			return new CursorDirectoryResourceData(dir, null);
+			return new CursorDirectoryResourceData(group, null);
 		}
 		
 		public override ResourceData FromFileToUpdate(Stream stream, String extension, ResourceLang currentLang) {
@@ -59,27 +60,27 @@ namespace Anolis.Core.Data {
 			CursorDirectoryResourceData originalData = currentLang.Data as CursorDirectoryResourceData;
 			if(originalData == null) throw new ResourceDataException("Unexpected original data subclass");
 			
-			ResIconDir original = originalData.IconDirectory;
+			IconGroup newGroup = new IconGroup(stream);
 			
-			// Loads the icons in the stream into 'original'
-			ResIconDirHelper.FromFile(stream, currentLang.LanguageId, currentLang.Name.Type.Source, original);
+			IconGroup canonicalGroup = originalData.IconGroup;
 			
-			return new CursorDirectoryResourceData(original, null);
+			canonicalGroup.Merge( newGroup );
+			
+			return new CursorDirectoryResourceData(canonicalGroup, null);
 		}
 	}
 	
 	public sealed class CursorDirectoryResourceData : DirectoryResourceData {
 		
-		internal CursorDirectoryResourceData(ResIconDir directory, ResourceLang lang) : base(lang, directory.GetRawData() ) {
+		internal CursorDirectoryResourceData(IconGroup group, ResourceLang lang) : base(lang, group.GetResDirectoryData() ) {
 			
-			if(directory == null) throw new ArgumentNullException("directory");
+			if(group == null) throw new ArgumentNullException("group");
 			
-			IconDirectory = directory;
+			IconGroup = group;
 			
-			_members = new DirectoryMemberCollection( directory.Members );
 		}
 		
-		public ResIconDir IconDirectory { get; private set; }
+		public IconGroup IconGroup { get; private set; }
 		
 		protected override String[] SupportedFilters {
 			get { return new String[] { "Cursor File (*.cur)|*.cur" }; }
@@ -93,13 +94,11 @@ namespace Anolis.Core.Data {
 			
 			if(extension != "cur") throw new ArgumentException("cur is the only supported extension");
 			
-			IconDirectory.Save(stream);
+			IconGroup.Save(stream);
 		}
 		
-		private DirectoryMemberCollection _members;
-		
 		public override DirectoryMemberCollection Members {
-			get { return _members; }
+			get { return IconGroup.Members; }
 		}
 		
 	}

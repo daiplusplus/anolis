@@ -14,11 +14,12 @@ namespace Anolis.Core.Data {
 		protected DirectoryResourceData(ResourceLang lang, Byte[] rawData) : base(lang, rawData) {
 		}
 		
-		protected internal override void OnRemove(Boolean underlyingDelete, Remove deleteFunction) {
+		/// <summary>When this directory is removed from the ResourceSource it will ensure all child (member) directory members are removed with it</summary>
+		protected internal override void OnRemove(Boolean underlyingDelete, RemoveFunction removeFunction) {
 			
 			foreach(IDirectoryMember member in Members) {
 				
-				deleteFunction( member.ResourceData.Lang );
+				removeFunction( member.ResourceData.Lang );
 			}
 			
 		}

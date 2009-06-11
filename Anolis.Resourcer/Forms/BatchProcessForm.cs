@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Anolis.Resourcer.CommandLine;
 
 using S = Anolis.Resourcer.Settings.Settings;
+using Anolis.Core.Source;
 
 namespace Anolis.Resourcer {
 	
@@ -19,16 +20,20 @@ namespace Anolis.Resourcer {
 			
 			InitializeComponent();
 			
-			this.__sourceBrowse.Click += new EventHandler(__sourceBrowse_Click);
-			this.__reportBrowse.Click += new EventHandler(__reportBrowse_Click);
-			this.__exportBrowse.Click += new EventHandler(__exportBrowse_Click);
-
+			this.__sourceFileRad.CheckedChanged += new EventHandler(__sourceFileRad_CheckedChanged);
+			
+			this.__sourceFileBrowse.Click += new EventHandler(__sourceFileBrowse_Click);
+			this.__sourceDirBrowse .Click += new EventHandler(__sourceDirBrowse_Click);
+			this.__reportBrowse    .Click += new EventHandler(__reportBrowse_Click);
+			this.__exportBrowse    .Click += new EventHandler(__exportBrowse_Click);
+			
 			this.__reportEnable.CheckedChanged += new EventHandler(__reportEnable_CheckedChanged);
 			
-			this.__sourceDirectory.Validating += new CancelEventHandler(__sourceDirectory_Validating);
+			this.__sourceFile     .Validating += new CancelEventHandler(__sourceFile_Validating);
+			this.__sourceDir      .Validating += new CancelEventHandler(__sourceDir_Validating);
 			this.__reportFilename .Validating += new CancelEventHandler(__reportFilename_Validating);
 			this.__exportDirectory.Validating += new CancelEventHandler(__exportDirectory_Validating);
-
+			
 			this.__exportNonvisual    .CheckedChanged += new EventHandler(__exportNonvisual_CheckedChanged);
 			this.__exportNonvisualSize.CheckedChanged += new EventHandler(__exportNonvisualSize_EnabledCheckedChanged);
 			this.__exportNonvisualSize.EnabledChanged += new EventHandler(__exportNonvisualSize_EnabledCheckedChanged);
@@ -36,11 +41,13 @@ namespace Anolis.Resourcer {
 			this.__process.Click += new EventHandler(__process_Click);
 			this.__close  .Click += new EventHandler(__close_Click);
 			
-			this.__bw.DoWork += new DoWorkEventHandler(__bw_DoWork);
+			this.__bw.DoWork             += new DoWorkEventHandler(__bw_DoWork);
 			this.__bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(__bw_RunWorkerCompleted);
 			
 			this.Load += new EventHandler(BatchProcessForm_Load);
 			this.FormClosing += new FormClosingEventHandler(BatchProcessForm_FormClosing);
+			
+			__sourceFileRad.Checked = true;
 			
 			SetEnabled(false);
 		}
@@ -55,7 +62,7 @@ namespace Anolis.Resourcer {
 		
 		private void LoadOptionsFromSettings() {
 			
-			__sourceDirectory.Text = S.Default.BatchSource;
+			__sourceDir.Text = S.Default.BatchSource;
 			__sourceFilter.Text    = S.Default.BatchFilter;
 			__reportFilename.Text  = S.Default.BatchReport;
 			__exportDirectory.Text = S.Default.BatchExport;
@@ -69,7 +76,7 @@ namespace Anolis.Resourcer {
 		
 		private void SaveOptionsToSettings() {
 			
-			S.Default.BatchSource = __sourceDirectory.Text;
+			S.Default.BatchSource = __sourceDir.Text;
 			S.Default.BatchFilter = __sourceFilter.Text;
 			S.Default.BatchReport = __reportFilename.Text;
 			S.Default.BatchExport = __exportDirectory.Text;
@@ -82,6 +89,23 @@ namespace Anolis.Resourcer {
 		}
 		
 #region UI Events
+		
+		private void __sourceFileRad_CheckedChanged(object sender, EventArgs e) {
+			
+			Boolean fileSel = __sourceFileRad.Checked;
+			
+			__sourceFileLbl   .Enabled = fileSel;
+			__sourceFile      .Enabled = fileSel;
+			__sourceFileBrowse.Enabled = fileSel;
+			
+			__sourceDirLbl    .Enabled = !fileSel;
+			__sourceDir       .Enabled = !fileSel;
+			__sourceDirBrowse .Enabled = !fileSel;
+			
+			__sourceFilter    .Enabled = !fileSel;
+			__sourceFilterLbl .Enabled = !fileSel;
+			__sourceRecurse   .Enabled = !fileSel;
+		}
 		
 		private void __exportNonvisual_CheckedChanged(object sender, EventArgs e) {
 			
@@ -97,13 +121,30 @@ namespace Anolis.Resourcer {
 			__exportNonvisualSizeLbl.Enabled = s.Enabled && s.Checked;
 		}
 		
-		private void __sourceBrowse_Click(object sender, EventArgs e) {
+		private void __sourceFileBrowse_Click(object sender, EventArgs e) {
 			
-			if( Directory.Exists( __reportFilename.Text ) ) __fbd.SelectedPath = __sourceDirectory.Text;
+			IList<ResourceSourceFactory> factories = ResourceSourceFactory.ListFactories();
+			
+			String filter = String.Empty;
+			foreach(ResourceSourceFactory factory in factories) filter += factory.OpenFileFilter + '|';
+			
+			filter += "All Files (*.*)|*.*";
+			__ofd.Filter = filter;
+			
+			if(__ofd.ShowDialog(this) == DialogResult.OK) {
+				
+				__sourceFile.Text = __ofd.FileName;
+			}
+			
+		}
+		
+		private void __sourceDirBrowse_Click(object sender, EventArgs e) {
+			
+			if( Directory.Exists( __reportFilename.Text ) ) __fbd.SelectedPath = __sourceDir.Text;
 			
 			if( __fbd.ShowDialog(this) == DialogResult.OK ) {
 				
-				__sourceDirectory.Text = __fbd.SelectedPath;
+				__sourceDir.Text = __fbd.SelectedPath;
 			}
 			
 		}
@@ -149,18 +190,52 @@ namespace Anolis.Resourcer {
 		
 	#region Validation
 		
-		private void __sourceDirectory_Validating(object sender, CancelEventArgs e) {
+		private void __sourceFile_Validating(object sender, CancelEventArgs e) {
 			
-			String dirPath = __sourceDirectory.Text;
+			if( !__sourceFileRad.Checked ) return;
 			
-			if( !Directory.Exists( dirPath ) ) {
+			String filePath = __sourceFile.Text;
+			
+			if( filePath.Length == 0 ) {
 				
-				__error.SetError( __sourceDirectory, "Specified directory does not exist" );
+				__error.SetError( __sourceFile, "Specify a file to open" );
+				e.Cancel = true;
+				
+			}
+			
+			if( !File.Exists( filePath ) ) {
+				
+				__error.SetError( __sourceFile, "Specified file does not exist" );
 				e.Cancel = true;
 				
 			} else {
 				
-				__error.SetError( __sourceDirectory, "" );
+				__error.SetError( __sourceFile, "" );
+			}
+			
+		}
+		
+		private void __sourceDir_Validating(object sender, CancelEventArgs e) {
+			
+			if( !__sourceDirRad.Checked ) return;
+			
+			String dirPath = __sourceDir.Text;
+			
+			if( dirPath.Length == 0 ) {
+				
+				__error.SetError( __sourceDir, "Specify a directory to search" );
+				e.Cancel = true;
+				
+			}
+			
+			if( !Directory.Exists( dirPath ) ) {
+				
+				__error.SetError( __sourceDir, "Specified directory does not exist" );
+				e.Cancel = true;
+				
+			} else {
+				
+				__error.SetError( __sourceDir, "" );
 			}
 			
 		}
@@ -236,9 +311,9 @@ namespace Anolis.Resourcer {
 			if( _process != null ) {
 				
 				if( _process.Cancel ) {
-					MessageBox.Show(this, "Export cancelled with " + _process.Log.Count + " errors", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+					MessageBox.Show(this, "Export cancelled with " + _process.Log.CountNonNominal + " errors", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 				} else {
-					MessageBox.Show(this, "Export completed with " + _process.Log.Count + " errors", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+					MessageBox.Show(this, "Export completed with " + _process.Log.CountNonNominal + " errors", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 				}
 				
 			}
@@ -270,6 +345,7 @@ namespace Anolis.Resourcer {
 				
 			}));
 		}
+		
 		private void process_MinorProgressChanged(object sender, EventArgs e) {
 			
 			if( !IsHandleCreated ) return;
@@ -297,9 +373,22 @@ namespace Anolis.Resourcer {
 			}
 			
 			BatchOptions options        = new BatchOptions();
-			options.SourceDirectory     = new DirectoryInfo( __sourceDirectory.Text );
-			options.SourceFilter        = __sourceFilter.Text;
-			options.SourceRecurse       = __sourceRecurse.Checked;
+			
+			if( __sourceFileRad.Checked ) {
+				
+				options.SourceMode      = BatchSourceMode.SingleFile;
+				
+				options.SourceFile      = new FileInfo( __sourceFile.Text );
+				
+			} else {
+				
+				options.SourceMode      = BatchSourceMode.Directory;
+				
+				options.SourceDirectory = new DirectoryInfo( __sourceDir.Text );
+				options.SourceFilter    = __sourceFilter.Text;
+				options.SourceRecurse   = __sourceRecurse.Checked;
+				
+			}
 			
 			options.ReportCreate        = __reportEnable.Checked;
 			if( options.ReportCreate )

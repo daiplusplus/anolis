@@ -10,6 +10,7 @@ using Cult = System.Globalization.CultureInfo;
 using System.Threading;
 using System.Diagnostics;
 using System.Collections.Generic;
+using Anolis.Core.Utility;
 
 namespace Anolis.Resourcer.Controls {
 	
@@ -390,7 +391,7 @@ namespace Anolis.Resourcer.Controls {
 			if(data is IconDirectoryResourceData) {
 				
 				IconDirectoryResourceData icoDir = data as IconDirectoryResourceData;
-				IconDirectoryMember bestMember = icoDir.IconDirectory.GetIconForSize( __images.ImageSize );
+				IconImage bestMember = icoDir.IconGroup.GetIconForSize( __images.ImageSize );
 				
 				if(bestMember == null) return null;
 				
@@ -400,7 +401,7 @@ namespace Anolis.Resourcer.Controls {
 			} else if(data is CursorDirectoryResourceData) {
 				
 				CursorDirectoryResourceData curDir = data as CursorDirectoryResourceData;
-				IconDirectoryMember bestMember = curDir.IconDirectory.GetIconForSize( __images.ImageSize );
+				IconImage bestMember = curDir.IconGroup.GetIconForSize( __images.ImageSize );
 				
 				if(bestMember == null) return null;
 				

@@ -26,12 +26,12 @@ namespace Anolis.Core.Data {
 		
 		public ResourceLang Lang { get; internal set; }
 		
-		protected internal delegate void Remove(ResourceLang lang);
+		protected internal delegate void RemoveFunction(ResourceLang lang);
 		
 		/// <summary>Called when this ResourceData is being removed from the ResourceSource. ResourceDatas that have dependencies on this ResourceData must be appropriately dealt with (e.g. removed) when this is called.</summary>
 		/// <param name="underlyingDelete">If true then the ResourceData is just being removed the collection of resources. If false it is being deleted from the ResourceSource</param>
-		/// <param name="deleteFunction">A delegate to call in order to remove any dependent ResourceData instances</param>
-		protected internal virtual void OnRemove(Boolean underlyingDelete, Remove deleteFunction) {
+		/// <param name="removeFunction">A delegate to call in order to remove any dependent ResourceData instances</param>
+		protected internal virtual void OnRemove(Boolean underlyingDelete, RemoveFunction deleteFunction) {
 		}
 		
 #region Constructor / Destructor
@@ -178,14 +178,14 @@ namespace Anolis.Core.Data {
 		}
 		
 		/// <summary>Creates a ResourceData instance from a file containing data convertible into a resource ready to add to the specified ResourceSource (but doesn't actually add it). For instance a *.bmp can be converted into a BITMAP resource.</summary>
-		public static ResourceData FromFileToAdd(String filename, UInt16 langId, ResourceSource source) {
+		public static ResourceData FromFileToAdd(String fileName, UInt16 langId, ResourceSource source) {
 			
-			if(filename == null) throw new ArgumentNullException("filename");
-			if( !File.Exists(filename) ) throw new FileNotFoundException("The file to load the resource data from was not found", filename);
+			if(fileName == null) throw new ArgumentNullException("fileName");
+			if( !File.Exists(fileName) ) throw new FileNotFoundException("The file to load the resource data from was not found", fileName);
 			
-			using(Stream stream = File.OpenRead(filename)) {
+			using(FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read)) {
 				
-				return FromFileToAdd( stream, Path.GetExtension(filename), langId, source );
+				return FromFileToAdd( stream, Path.GetExtension(fileName), langId, source );
 			}
 			
 		}

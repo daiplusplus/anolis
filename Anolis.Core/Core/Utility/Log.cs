@@ -28,6 +28,19 @@ namespace Anolis.Core.Utility {
 			
 		}
 		
+		public Int32 CountNonNominal {
+			get {
+				
+				Int32 ret = 0;
+				foreach(LogItem item in this) {
+					
+					if( item.Severity != LogSeverity.Info ) ret++;
+				}
+				
+				return ret;
+			}
+		}
+		
 	}
 	
 	public class LogItem {
