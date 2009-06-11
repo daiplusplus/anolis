@@ -64,9 +64,16 @@ namespace Anolis.Core.Data {
 			using(MemoryStream s = new MemoryStream(data))
 			using(BinaryReader rdr = new BinaryReader(s, Encoding.Unicode)) { // good thing VS_VERSION_INFO uses UTF16 throughout
 				
-				VersionItem root = RecurseItem(Mode.Root, rdr);
-				
-				return new VersionResourceData(root, data, lang );
+				try {
+					
+					VersionItem root = RecurseItem(Mode.Root, rdr);
+					
+					return new VersionResourceData(root, data, lang );
+					
+				} catch(AnolisException) {
+					// TODO: how should this be logged?
+					return null;
+				}
 				
 			}//using
 			
@@ -217,7 +224,7 @@ namespace Anolis.Core.Data {
 					return Mode.None;
 					
 				default:
-					throw new InvalidOperationException("GetNextMode, invalid mode");
+					throw new ResourceDataException("GetNextMode, invalid mode");
 			}
 		}
 		
@@ -231,6 +238,7 @@ namespace Anolis.Core.Data {
 			if(mode == Mode.StringFileInfoOrVarFileInfo) {
 				if     (retval == "StringFileInfo") newMode = Mode.StringFileInfo;
 				else if(retval == "VarFileInfo"   ) newMode = Mode.VarFileInfo;
+				else throw new ResourceDataException("Invalid Key Name");
 			}
 			
 			return retval;

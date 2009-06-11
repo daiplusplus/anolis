@@ -36,8 +36,6 @@ namespace Anolis.Core {
 				return _factoriesRo;
 			}
 			
-			
-			
 			public static ResourceSourceFactory GetFactoryForExtension(String extension) {
 				
 				// return the last match, since that will be the most specific
@@ -79,15 +77,21 @@ namespace Anolis.Core {
 			
 			public abstract ResourceSource Create(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode);
 			
-			protected abstract String GetOpenFileFilter();
+			public virtual ResourceSource CreateNew(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode) {
+				
+				CreateNew( filename );
+				
+				return Create( filename, isReadOnly, mode );
+			}
 			
-			private String _off;
+			protected abstract void CreateNew(String filename);
 			
-			public virtual String OpenFileFilter {
-				get {
-					if( _off == null ) _off = GetOpenFileFilter();
-					return _off;
-				}
+			public abstract String OpenFileFilter {
+				get;
+			}
+			
+			public abstract String NewFileFilter {
+				get;
 			}
 			
 #endregion

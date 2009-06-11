@@ -34,22 +34,23 @@ namespace Anolis.Core.Data {
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
 			
-			ResIconDir dir = ResIconDirHelper.FromResource(lang, data);
+			IconGroup group = new IconGroup(lang, data);
 			
-			return new IconDirectoryResourceData(dir, lang);
+			return new IconDirectoryResourceData(group, lang);
 		}
 		
 		public override string Name {
 			get { return "Icon Directory"; }
 		}
 		
-		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 lang, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 langId, ResourceSource currentSource) {
 			
 			if( !IsExtension( extension, "ico" ) ) throw new ArgumentException("ico is the only supported extension");
 			
-			ResIconDir dir = ResIconDirHelper.FromFile( true, stream, lang, currentSource);
+			IconGroup group = new IconGroup( stream );
+			group.BindToSource( currentSource, langId );
 			
-			return new IconDirectoryResourceData(dir, null);
+			return new IconDirectoryResourceData(group, null);
 		}
 		
 		public override ResourceData FromFileToUpdate(Stream stream, String extension, ResourceLang currentLang) {
@@ -59,125 +60,24 @@ namespace Anolis.Core.Data {
 			IconDirectoryResourceData originalData = currentLang.Data as IconDirectoryResourceData;
 			if(originalData == null) throw new ResourceDataException("Unexpected original data subclass");
 			
-			ResIconDir original = originalData.IconDirectory;
+			IconGroup newGroup = new IconGroup(stream);
 			
-			// Loads the icons in the stream into 'original'
-			ResIconDirHelper.FromFile(stream, currentLang.LanguageId, currentLang.Name.Type.Source, original);
+			IconGroup canonicalGroup = originalData.IconGroup;
 			
-			return new IconDirectoryResourceData(original, null);
+			canonicalGroup.Merge( newGroup );
+			
+			return new IconDirectoryResourceData( canonicalGroup, null );
 		}
-	}
-	
-	public sealed class IconDirectoryMember : IDirectoryMember, IComparable<IconDirectoryMember>, IEquatable<IconDirectoryMember> {
-		
-		internal IconDirectoryMember(IconCursorImageResourceData data, Size dimensions, Byte colorCount, Byte reserved, UInt16 planes, UInt16 bitCount, UInt32 size) {
-			
-			ResourceData = data;
-			
-			Dimensions   = dimensions;
-			ColorCount   = colorCount;
-			Reserved     = reserved;
-			Planes       = planes;
-			BitCount     = bitCount;
-			Size         = size;
-			
-			if( BitCount == 0) { // this regularly happens, so let's fix it
-				BitCount = (UInt16)Math.Log( ColorCount, 2);
-			}
-			
-			Description = String.Format(
-				Cult.InvariantCulture,
-				"{0}x{1} {2}-bit",
-				dimensions.Width,
-				dimensions.Height,
-				BitCount
-			);
-			
-		}
-		
-		public String       Description  { get; private set; }
-		public ResourceData ResourceData { get; private set; }
-		
-		public Size         Dimensions   { get; private set; }
-		public Byte         ColorCount   { get; private set; }
-		public Byte         Reserved     { get; private set; }
-		public UInt16       Planes       { get; private set; }
-		public UInt16       BitCount     { get; private set; }
-		public UInt32       Size         { get; private set; }
-		
-		public override String ToString() {
-			return Description;
-		}
-		
-#region Comparable
-		
-		public Int32 CompareTo(IconDirectoryMember other) {
-			
-			// sort by color depth first, then size
-			
-			Int32 color = BitCount.CompareTo( other.BitCount );
-			
-			if(color != 0) return color;
-			
-			return -Dimensions.Width.CompareTo( other.Dimensions.Width );
-			
-		}
-		
-		Int32 IComparable<IconDirectoryMember>.CompareTo(IconDirectoryMember other) {
-			
-			return CompareTo( other );
-		}
-		
-		public Int32 CompareTo(IDirectoryMember other) {
-			
-			IconDirectoryMember other2 = other as IconDirectoryMember;
-			if(other2 == null) return -1;
-			
-			return CompareTo(other2);
-		}
-		
-#endregion
-		
-		
-#region Equatable
-		
-//		public override Boolean Equals(Object obj) {
-//			IconDirectoryMember other = obj as IconDirectoryMember;
-//			if(other == null) return false;
-//			
-//			return Equals( other );
-//		}
-		
-		public Boolean Equals(IDirectoryMember other) {
-			return Equals(other as IconDirectoryMember);
-		}
-		
-		public Boolean Equals(IconDirectoryMember other) {
-			
-			if(other == null) return false;
-			
-			return Dimensions.Equals( other.Dimensions ) &&
-			       BitCount.Equals( other.BitCount ) &&
-			       ColorCount.Equals( other.ColorCount );
-			
-		}
-		
-#endregion
-		
 	}
 	
 	public sealed class IconDirectoryResourceData : DirectoryResourceData {
 		
-		internal IconDirectoryResourceData(ResIconDir directory, ResourceLang lang) : base(lang, directory.GetRawData() ) {
+		internal IconDirectoryResourceData(IconGroup icon, ResourceLang lang) : base(lang, icon.GetResDirectoryData() ) {
 			
-			if(directory == null) throw new ArgumentNullException("directory");
-			
-			IconDirectory = directory;
-			
-			_members = new DirectoryMemberCollection( directory.Members );
+			IconGroup = icon;
 		}
 		
-		public ResIconDir IconDirectory { get; private set; }
+		public IconGroup IconGroup { get; private set; }
 		
 		protected override String[] SupportedFilters {
 			get { return new String[] { "Icon File (*.ico)|*.ico" }; }
@@ -191,13 +91,11 @@ namespace Anolis.Core.Data {
 			
 			if(extension != "ico") throw new ArgumentException("ico is the only supported extension");
 			
-			IconDirectory.Save(stream);
+			IconGroup.Save(stream);
 		}
 		
-		private DirectoryMemberCollection _members;
-		
 		public override DirectoryMemberCollection Members {
-			get { return _members; }
+			get { return IconGroup.Members; }
 		}
 		
 	}

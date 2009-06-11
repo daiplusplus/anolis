@@ -28,6 +28,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>
+    </NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -78,17 +80,17 @@
     <Compile Include="Core\Data\Windows\VersionResourceData.cs" />
     <Compile Include="Core\FactoryBase.cs" />
     <Compile Include="Core\Source\FileResourceSource.cs" />
-    <Compile Include="Core\Source\ManagedResourceSource.cs" />
-    <Compile Include="Core\Source\NESource.cs" />
-    <Compile Include="Core\Source\CilResourceSource.cs" />
-    <Compile Include="Core\Source\ResResourceSource.cs" />
+    <Compile Include="Core\Source\Managed\ManagedResourceSource.cs" />
+    <Compile Include="Core\Source\Native\NESource.cs" />
+    <Compile Include="Core\Source\Managed\CilResourceSource.cs" />
+    <Compile Include="Core\Source\Native\ResResourceSource.cs" />
     <Compile Include="Core\Resource.cs" />
     <Compile Include="Core\Data\Directory\CursorDirectoryResourceData.cs" />
     <Compile Include="Core\Data\Directory\DirectoryResourceData.cs" />
     <Compile Include="Core\Data\Directory\IconDirectoryResourceData.cs" />
     <Compile Include="Core\Data\Image\BmpImageResourceData.cs" />
     <Compile Include="Core\Data\Image\GifImageResourceData.cs" />
-    <Compile Include="Core\Data\Image\IconImageResourceData.cs" />
+    <Compile Include="Core\Data\Image\IconCursorImageResourceData.cs" />
     <Compile Include="Core\Data\Image\ImageResourceData.cs" />
     <Compile Include="Core\Data\Image\JpegImageResourceData.cs" />
     <Compile Include="Core\Data\Image\PngImageResourceData.cs" />
@@ -109,15 +111,16 @@
     <Compile Include="Core\Utility\Dib.cs" />
     <Compile Include="Core\Utility\Environment.cs" />
     <Compile Include="Core\Utility\FileType.cs" />
+    <Compile Include="Core\Utility\Icon.cs" />
     <Compile Include="Core\Utility\Log.cs" />
     <Compile Include="Core\Utility\Miscellaneous.cs" />
-    <Compile Include="Core\Utility\ResIconDir.cs" />
+    <None Include="Core\Utility\ResIconDir.cs" />
     <Compile Include="Core\Utility\Pair.cs" />
-    <Compile Include="Core\Utility\ResIconDirHelper.cs" />
+    <None Include="Core\Utility\ResIconDirHelper.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Core\Native\NativeTypes.cs" />
     <Compile Include="Core\Native\NativeMethods.cs" />
-    <Compile Include="Core\Source\Win32ResourceSource.cs" />
+    <Compile Include="Core\Source\Native\Win32ResourceSource.cs" />
     <Compile Include="Packages\Exceptions.cs" />
     <Compile Include="Packages\Expression.cs" />
     <Compile Include="Packages\Operations\Extras\UxThemeExtraOperation.cs" />
@@ -166,6 +169,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Core\Source\Native\Win32EmptyPE.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

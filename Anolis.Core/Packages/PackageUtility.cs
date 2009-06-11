@@ -229,13 +229,17 @@ namespace Anolis.Core.Packages {
 		
 		public static UInt16 GetSystemInstallLanguage() {
 			
+			return NativeMethods.GetSystemDefaultUILanguage();
+		}
+		
+		public static UInt16 GetSystemInstallPriLanguage() {
+			
 			UInt16 lang = NativeMethods.GetSystemDefaultUILanguage();
 			
 			// based on the PRIMARYLANGID macro
 			lang = (ushort)( (ushort)lang & (ushort)0x3FF );
 			
 			return lang;
-			
 		}
 		
 		/// <summary>If the specified file exists it will be renamed to the next available name by adding an incrementing number to the end of it. Returns null if the file does not exist.</summary>

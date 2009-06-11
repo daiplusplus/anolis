@@ -92,8 +92,8 @@ namespace Anolis.Core {
         ///Anolis.Core makes use of LZMA Compression, which is placed in the Public Domain
         ///The source for the LZMA Compression is available from http://www.7-zip.org
         ///
-        ///Anolis.Gui makes use of contributions from Sven Groot under the BSD license.
-        ///The source for his Vista dialogs toolkit is avai [rest of string was truncated]&quot;;.
+        ///Anolis.Installer makes use of contributions from Sven Groot under the BSD license.
+        ///The source for his Vista dialogs toolkit i [rest of string was truncated]&quot;;.
         /// </summary>
         public static string LegalOverview {
             get {
@@ -104,6 +104,13 @@ namespace Anolis.Core {
         public static byte[] PackageSchema {
             get {
                 object obj = ResourceManager.GetObject("PackageSchema", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        public static byte[] Win32EmptyPE {
+            get {
+                object obj = ResourceManager.GetObject("Win32EmptyPE", resourceCulture);
                 return ((byte[])(obj));
             }
         }

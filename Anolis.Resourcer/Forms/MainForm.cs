@@ -35,6 +35,7 @@ namespace Anolis.Resourcer {
 			
 			ToolStripManager.Renderer = new Anolis.Resourcer.Controls.ToolStripImprovedSystemRenderer();
 			
+			this.__tSrcNew.Click            += new EventHandler(__tSrcNew_Click);
 			this.__tSrcOpen.ButtonClick     += new EventHandler(__tSrcOpen_ButtonClick);
 			this.__tSrcOpen.DropDownOpening += new EventHandler(__tSrcOpen_DropDownOpening);
 			this.__tSrcBatch.Click          += new EventHandler(__tSrcBatch_Click);
@@ -281,6 +282,12 @@ namespace Anolis.Resourcer {
 		private void __tSrcOpen_DropDownOpening(Object sender, EventArgs e) {
 			
 			this.MruPopulate();
+		}
+		
+		private void __tSrcNew_Click(object sender, EventArgs e) {
+			
+			
+			
 		}
 		
 		private void __tSrcMruItem_Click(Object sender, EventArgs e) {

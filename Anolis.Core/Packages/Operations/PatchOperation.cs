@@ -160,10 +160,7 @@ namespace Anolis.Core.Packages.Operations {
 		
 		private static UInt16 GetSystemLangId() {
 			
-			CultureInfo cult = CultureInfo.GetCultureInfo( PackageUtility.GetSystemInstallLanguage() );
-			
-			return (UInt16)cult.LCID;
-			
+			return PackageUtility.GetSystemInstallLanguage();
 		}
 		
 		protected override String OperationName {

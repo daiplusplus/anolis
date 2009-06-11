@@ -190,9 +190,7 @@ namespace Anolis.Core.Data {
 			factories.Add( new JpegImageResourceDataFactory() );
 			factories.Add( new PngImageResourceDataFactory() );
 			
-			factories.Add( new IconImageResourceDataFactory() );
-			factories.Add( new CursorImageResourceDataFactory() );
-			
+			factories.Add( new IconCursorImageResourceDataFactory() );
 			factories.Add( new RiffMediaResourceDataFactory() );
 			
 			// Directories

@@ -183,7 +183,7 @@ namespace Anolis.Core.Packages.Operations {
 		
 		private static Language GetLanguage() {
 			
-			UInt16 priLang = PackageUtility.GetSystemInstallLanguage();
+			UInt16 priLang = PackageUtility.GetSystemInstallPriLanguage();
 			
 			if( ((ushort)priLang & (ushort)Language.English) == (ushort)Language.English ) return Language.English;
 			if( ((ushort)priLang & (ushort)Language.Spanish) == (ushort)Language.Spanish ) return Language.Spanish;

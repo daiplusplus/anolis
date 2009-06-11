@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 using Anolis.Core.Data;
 
@@ -23,7 +24,13 @@ namespace Anolis.Resourcer.TypeViewers {
 				row[0] = info.Id.ToString();
 				row[1] = info.String;
 				
-				__dgv.Rows.Add( row );
+				Int32 i = __dgv.Rows.Add( row );
+				
+				DataGridViewRow dgvRow = __dgv.Rows[i];
+				
+				Int32 prefHeight = dgvRow.GetPreferredHeight(i, DataGridViewAutoSizeRowMode.AllCellsExceptHeader, true);
+				
+				dgvRow.Height = prefHeight;
 			}
 			
 		}

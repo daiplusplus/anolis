@@ -134,6 +134,9 @@ namespace Anolis.Resourcer.TypeViewers {
 		
 	#if NativeDialogs
 		
+		/// <summary>A field is used, rather than a local to stop the GC from collecting the delegate.</summary>
+		private List<NativeMethods.DialogProc> _dialogProcs = new List<NativeMethods.DialogProc>();
+		
 		private void RenderDialogNative(Object o) {
 			
 			DialogResourceData d = o as DialogResourceData;
@@ -141,11 +144,12 @@ namespace Anolis.Resourcer.TypeViewers {
 			IntPtr p = Marshal.AllocHGlobal( d.RawData.Length );
 			Marshal.Copy( d.RawData, 0, p, d.RawData.Length );
 			
-			NativeMethods.DialogProc dialogProc = new NativeMethods.DialogProc( DialogProc );
+			NativeMethods.DialogProc proc = new NativeMethods.DialogProc( DialogProc );
+			_dialogProcs.Add( proc );
 			
 			IntPtr hInstance = Marshal.GetHINSTANCE( typeof(MenuDialogHelperForm).Module );
 			
-			IntPtr hWndDialog = NativeMethods.CreateDialogIndirectParam( hInstance, p, this.Handle, dialogProc, IntPtr.Zero );
+			IntPtr hWndDialog = NativeMethods.CreateDialogIndirectParam( hInstance, p, this.Handle, proc, IntPtr.Zero );
 			
 			Marshal.FreeHGlobal( p );
 			

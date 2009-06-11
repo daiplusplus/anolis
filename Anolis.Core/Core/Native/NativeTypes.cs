@@ -4,6 +4,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Text;
+using Anolis.Core.Data;
 
 namespace Anolis.Core.Native {
 	
@@ -260,46 +261,122 @@ namespace Anolis.Core.Native {
 	/// <summary>Defines the memory layout of a RT_GROUP_ICON Win32 resource or *.ico file.</summary>
 	[StructLayout(LayoutKind.Sequential, Pack=2)]
 	internal struct IconDirectory {
+		
 		public ushort wReserved;
 		public ushort wType;
 		public ushort wCount;
-//		/// <summary>This is an inline array</summary>
-//		[MarshalAs(UnmanagedType.LPArray, SizeParamIndex=2)]
-//		public ResourceIconDirectoryMember arEntries;
+		
+		public const Int32 Size = 6;
+		
+		public IconDirectory(BinaryReader rdr) {
+			
+			wReserved = rdr.ReadUInt16();
+			wType     = rdr.ReadUInt16();
+			wCount    = rdr.ReadUInt16();
+		}
+		
+		public void Write(BinaryWriter wtr) {
+			
+			wtr.Write( wReserved );
+			wtr.Write( wType );
+			wtr.Write( wCount );
+		}
 	}
 	
 	/// <summary>Helps to defines the memory layout of a RT_GROUP_ICON resource. In particular its wId member indicates the RT_ICON resource for the directory entry.</summary>
-	[StructLayout(LayoutKind.Sequential, Pack=2)]
+	[StructLayout(LayoutKind.Sequential, Pack=1)]
 	internal struct ResIconDirectoryEntry {
-		public byte bWidth;
-		public byte bHeight;
-		public byte bColorCount;
-		public byte bReserved;
+		public byte  bWidth;
+		public byte  bHeight;
+		public byte  bColorCount;
+		public byte  bReserved;
+		
 		public ushort wPlanes;
 		public ushort wBitCount;
-		public uint dwBytesInRes;
+		
+		public uint   dwBytesInRes;
 		public ushort wId;
+		
+		public const Int32 Size = 14;
+		
+		public ResIconDirectoryEntry(BinaryReader rdr) {
+			
+			bWidth      = rdr.ReadByte();
+			bHeight     = rdr.ReadByte();
+			bColorCount = rdr.ReadByte();
+			bReserved   = rdr.ReadByte();
+			
+			wPlanes     = rdr.ReadUInt16(); // also XHotspot
+			wBitCount   = rdr.ReadUInt16(); // also YHotspot
+			
+			dwBytesInRes = rdr.ReadUInt32();
+			wId          = rdr.ReadUInt16();
+		}
+		
+		public void Write(BinaryWriter wtr) {
+			
+			wtr.Write( bWidth );
+			wtr.Write( bHeight );
+			wtr.Write( bColorCount );
+			wtr.Write( bReserved );
+			
+			wtr.Write( wPlanes );
+			wtr.Write( wBitCount );
+			
+			wtr.Write( dwBytesInRes );
+			wtr.Write( wId );
+		}
+		
 	}
 	
-//	[StructLayout(LayoutKind.Sequential, Pack=2)]
-//	internal struct IconImage {
-//		BitmapInfoHeader icHeader;      // DIB header
-//		RgbQuad[]        icColors;   // Color table
-//		Byte[]           icXOR;      // DIB bits for XOR mask
-//		Byte[]           icAND;      // DIB bits for AND mask
-//	}
-	
 	/// <summary>Defines the peristent format of an icon directory entry in a .ICO file.</summary>
-	[StructLayout(LayoutKind.Sequential, Pack=2)]
+	[StructLayout(LayoutKind.Explicit)]
 	internal struct FileIconDirectoryEntry {
-		public byte bWidth;
-		public byte bHeight;
-		public byte bColorCount; // Number of colors in image (0 if >=8bpp)
-		public byte bReserved;
-		public ushort wPlanes;
-		public ushort wBitCount; // Bits per pixel
-		public uint dwBytesInRes;
-		public uint dwImageOffset;
+		[FieldOffset( 0)] public byte   bWidth;
+		[FieldOffset( 1)] public byte   bHeight;
+		[FieldOffset( 2)] public byte   bColorCount; // Number of colors in image (0 if >=8bpp)
+		[FieldOffset( 3)] public byte   bReserved;
+		
+		[FieldOffset( 4)] public ushort wPlanes; // Icon-specific
+		[FieldOffset( 6)] public ushort wBitCount;
+		[FieldOffset( 4)] public ushort wXHotspot; // Cursor-specific
+		[FieldOffset( 6)] public ushort wYHotspot;
+		
+		[FieldOffset( 8)] public uint   dwBytesInRes;
+		[FieldOffset(12)] public uint   dwImageOffset;
+		
+		public const Int32 Size = 16;
+		
+		public FileIconDirectoryEntry(BinaryReader rdr) {
+			
+			wXHotspot = 0;
+			wYHotspot = 0;
+			
+			bWidth        = rdr.ReadByte();
+			bHeight       = rdr.ReadByte();
+			bColorCount   = rdr.ReadByte();
+			bReserved     = rdr.ReadByte();
+			
+			wPlanes       = rdr.ReadUInt16(); // also XHotspot
+			wBitCount     = rdr.ReadUInt16(); // also YHotspot
+			
+			dwBytesInRes  = rdr.ReadUInt32();
+			dwImageOffset = rdr.ReadUInt32();
+		}
+		
+		public void Write(BinaryWriter wtr) {
+			
+			wtr.Write( bWidth );
+			wtr.Write( bHeight );
+			wtr.Write( bColorCount );
+			wtr.Write( bReserved );
+			
+			wtr.Write( wPlanes );   // also XHotspot
+			wtr.Write( wBitCount ); // also YHotspot
+			
+			wtr.Write( dwBytesInRes );
+			wtr.Write( dwImageOffset );
+		}
 	}
 
 #endregion
@@ -868,7 +945,7 @@ namespace Anolis.Core.Native {
 	
 #region *.res Files
 	
-	internal struct ResourceHeader {
+	internal struct ResResourceHeader {
 		/// <summary>Size of the ResourceData following this header</summary>
 		public UInt32 DataSize;
 		public UInt32 HeaderSize;
@@ -880,7 +957,7 @@ namespace Anolis.Core.Native {
 		public UInt32 Version;
 		public UInt32 Characteristics;
 		
-		public ResourceHeader(BinaryReader rdr) {
+		public ResResourceHeader(BinaryReader rdr) {
 			
 			Int64 pos = rdr.BaseStream.Position;
 			
@@ -888,6 +965,7 @@ namespace Anolis.Core.Native {
 			HeaderSize      = rdr.ReadUInt32();
 			Type            = rdr.ReadIdentifier();
 			Name            = rdr.ReadIdentifier();
+			
 			rdr.Align4();
 			
 			DataVersion     = rdr.ReadUInt32();
@@ -904,20 +982,107 @@ namespace Anolis.Core.Native {
 			}
 		}
 		
-
+		public ResResourceHeader(ResourceLang lang) {
+			
+			DataSize        = (uint)lang.Data.RawData.Length;
+			HeaderSize      = 32;
+			Type            = GetIdentifier( lang.Name.Type.Identifier );
+			Name            = GetIdentifier( lang.Name.Identifier );
+			
+			DataVersion     = 0;
+			MemoryFlags     = MemoryFlags.None; // MemoryFlags are a vestige from Win3x
+			LanguageId      = lang.LanguageId;
+			Version         = 0;
+			Characteristics = 0;
+			
+			// HeaderSize is not always 32, if the identifiers are strings, for example, it's larger
+			// there is no padding between Type and Name, but there may be padding between Name and DataVersion
+			
+			int headerSize = 
+				4 + // DataSize
+				4 + // HeaderSize
+				(Type is String ? 2 * ((Type as String).Length + 1) : 4 ) +
+				(Name is String ? 2 * ((Name as String).Length + 1) : 4 ) +
+				
+				4 + // DataVersion
+				2 + // MemoryFlags
+				2 + // LanguageId
+				4 + // Version
+				4 + // Characteristics
+			0;
+			
+			int paddingLength = headerSize % 4;
+			
+			HeaderSize = (uint)( headerSize + paddingLength );
+		}
+		
+		public void Write(BinaryWriter wtr) {
+			
+			wtr.Write( DataSize );
+			wtr.Write( HeaderSize );
+			
+			WriteIdentifier( Type, wtr );
+			WriteIdentifier( Name, wtr );
+			
+			wtr.Align4();
+			
+			wtr.Write( DataVersion );
+			wtr.Write( (ushort)MemoryFlags );
+			wtr.Write( LanguageId );
+			wtr.Write( Version );
+			wtr.Write( Characteristics );
+			
+		}
+		
+		private static void WriteIdentifier(Object ident, BinaryWriter wtr) {
+			
+			if( ident is String ) {
+				wtr.WriteSZString( ident as String );
+			} else {
+				
+				Int32 id = (Int32)ident; // must unbox first, before doing numeric type conversion
+				
+				wtr.Write( (ushort)0xFFFF );
+				wtr.Write( (ushort)id     );
+			}
+			
+		}
+		
+		private static Object GetIdentifier(ResourceIdentifier id) {
+			
+			if( id.IntegerId == null ) return id.StringId;
+			return id.IntegerId;
+			
+		}
+		
+		public static void WriteResource(ResourceLang lang, BinaryWriter wtr) {
+			
+			ResResourceHeader header = new ResResourceHeader( lang );
+			header.Write( wtr );
+			
+			wtr.Write( lang.Data.RawData );
+			
+			wtr.Align4();
+		}
+		
 		
 	};
 	
 	[Flags]
 	internal enum MemoryFlags : ushort {
 		
+		None        = 0,
+		Discardable = 0x1000,
+		
 		Movable     = 0x0010,
 		Fixed       = unchecked( (ushort)~Movable ),
+		
 		Pure        = 0x0020,
 		Impure      = unchecked( (ushort)~Pure ),
+		
 		Preload     = 0x0040,
-		LoadOnCall  = unchecked( (ushort)~Preload ),
-		Discardable = 0x1000
+		LoadOnCall  = unchecked( (ushort)~Preload )
+		
 	}
 	
 #endregion

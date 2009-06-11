@@ -8,12 +8,13 @@ using Anolis.Core.Utility;
 
 namespace Anolis.Core.Data {
 	
-	public class IconImageResourceDataFactory : ResourceDataFactory {
+	public class IconCursorImageResourceDataFactory : ResourceDataFactory {
 		
 		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
 			
-			if( typeId.KnownType == Win32ResourceType.IconImage ) return Compatibility.Yes;
-			if( typeId.KnownType == Win32ResourceType.Bitmap    ) return Compatibility.Maybe;
+			if( typeId.KnownType == Win32ResourceType.IconImage   ) return Compatibility.Yes;
+			if( typeId.KnownType == Win32ResourceType.CursorImage ) return Compatibility.Yes;
+			if( typeId.KnownType == Win32ResourceType.Bitmap      ) return Compatibility.Maybe;
 			
 			return Compatibility.No;
 		}
@@ -35,17 +36,32 @@ namespace Anolis.Core.Data {
 			get { return null; }
 		}
 		
-		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
+		public IconCursorImageResourceData FromFileData(ResourceLang lang, Byte[] data, Boolean isIcon) {
 			
 			IconCursorImageResourceData rd;
 			
-			if( IconCursorImageResourceData.TryCreate(true, lang, data, out rd) ) return rd;
+			if( IconCursorImageResourceData.TryCreate(isIcon, lang, data, out rd) ) return rd;
 			
 			return null;
+			
+		}
+		
+		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
+			
+			if( lang == null ) throw new ArgumentNullException("lang");
+			
+			IconCursorImageResourceData rd;
+			
+			Boolean isIcon = lang.Name.Type.Identifier.KnownType == Win32ResourceType.IconImage;
+			
+			if( IconCursorImageResourceData.TryCreate(isIcon, lang, data, out rd) ) return rd;
+			
+			return null;
+			
 		}
 		
 		public override String Name {
-			get { return "Icon Directory Member Image"; }
+			get { return "Icon / Cursor Directory Member Image"; }
 		}
 		
 		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {
@@ -55,55 +71,6 @@ namespace Anolis.Core.Data {
 		
 		public override ResourceData FromFileToUpdate(Stream stream, string extension, ResourceLang currentLang) {
 			LastErrorMessage = "Not supported";
-			return null;
-		}
-	}
-	
-	public class CursorImageResourceDataFactory : ResourceDataFactory {
-		
-		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
-			
-			if( typeId.KnownType == Win32ResourceType.CursorImage ) return Compatibility.Yes;
-			if( typeId.KnownType == Win32ResourceType.Bitmap      ) return Compatibility.Maybe;
-			
-			return Compatibility.No;
-		}
-		
-		public override Compatibility HandlesExtension(String filenameExtension) {
-			
-			//if( filenameExtension == "BMP" ) return Compatibility.Maybe;
-			
-			return Compatibility.No;
-		}
-		
-		protected override String GetOpenFileFilter() {
-			return null;
-		}
-		public override String OpenFileFilter {
-			get { return null; }
-		}
-		
-		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
-			
-			IconCursorImageResourceData rd;
-			
-			if( IconCursorImageResourceData.TryCreate(false, lang, data, out rd) ) return rd;
-			
-			return null;
-			
-		}
-		
-		public override string Name {
-			get { return "Cursor"; }
-		}
-		
-		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {
-			LastErrorMessage = "Not implemented";
-			return null;
-		}
-		
-		public override ResourceData FromFileToUpdate(Stream stream, string extension, ResourceLang currentLang) {
-			LastErrorMessage = "Not implemented";
 			return null;
 		}
 	}
@@ -176,7 +143,7 @@ namespace Anolis.Core.Data {
 			get {
 				if( _image == null ) {
 					
-					Icon ico = Icon;
+					System.Drawing.Icon ico = Icon;
 					if( ico == null ) return null;
 					
 					_image = Icon.ToBitmap();

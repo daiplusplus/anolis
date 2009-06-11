@@ -190,6 +190,9 @@ namespace Anolis.Core.Utility {
 			
 			FileIconDirectoryEntry file;
 			
+			file.wXHotspot = 0;
+			file.wYHotspot = 0;
+			
 			file.bWidth        = rdr.ReadByte();
 			file.bHeight       = rdr.ReadByte();
 			file.bColorCount   = rdr.ReadByte();
