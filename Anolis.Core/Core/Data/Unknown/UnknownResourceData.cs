@@ -11,7 +11,7 @@ namespace Anolis.Core.Data {
 			return Compatibility.All;
 		}
 		
-		public override Compatibility HandlesExtension(String filenameExtension) {
+		public override Compatibility HandlesExtension(String fileNameExtension) {
 			return Compatibility.All;
 		}
 		
@@ -34,8 +34,8 @@ namespace Anolis.Core.Data {
 			return FromFile(stream, extension);
 		}
 		
-		protected override String GetOpenFileFilter() {
-			return CreateFileFilter("All Files", "*");
+		public override String OpenFileFilter {
+			get { return CreateFileFilter("All Files", "*"); }
 		}
 		
 		public override string Name {

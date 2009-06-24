@@ -123,8 +123,8 @@
     <Compile Include="Core\Source\Native\Win32ResourceSource.cs" />
     <Compile Include="Packages\Exceptions.cs" />
     <Compile Include="Packages\Expression.cs" />
+    <Compile Include="Packages\Operations\UninstallationOperation.cs" />
     <Compile Include="Packages\Operations\Extras\UxThemeExtraOperation.cs" />
-    <Compile Include="Packages\Operations\Extras\ExceptionExtraOperation.cs" />
     <Compile Include="Packages\Operations\FileTypeOperation.cs" />
     <Compile Include="Packages\Operations\RegistryOperation.cs" />
     <Compile Include="Packages\Operations\SystemParameterOperation.cs" />
@@ -138,7 +138,6 @@
     <Compile Include="Packages\Operations\Extras\VisualStyleExtraOperation.cs" />
     <Compile Include="Packages\Operations\Extras\WallpaperExtraOperation.cs" />
     <Compile Include="Packages\Operations\FileOperation.cs" />
-    <Compile Include="Packages\Operations\NotImplementedOperation.cs" />
     <Compile Include="Packages\Operations\Operation.cs" />
     <Compile Include="Packages\Operations\PatchOperation.cs" />
     <Compile Include="Packages\Archives\TarLzmaPackageArchive.cs" />

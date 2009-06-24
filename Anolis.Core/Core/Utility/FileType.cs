@@ -40,9 +40,7 @@ namespace Anolis.Core.Utility {
 	
 	public class FileAssociations {
 		
-		private FileAssociations(FileType[] allTypes, FileExtension[] allExts) {
-			AllTypes      = allTypes;
-			AllExtensions = allExts;
+		private FileAssociations() {
 		}
 		
 		public FileType[]      AllTypes      { get; private set; }
@@ -50,7 +48,13 @@ namespace Anolis.Core.Utility {
 		
 		public void CommitChanges() {
 			
+			foreach(FileType type in AllTypes) {
+				type.Save();
+			}
 			
+			foreach(FileExtension ext in AllExtensions) {
+				ext.Save();
+			}
 			
 		}
 		
@@ -62,7 +66,7 @@ namespace Anolis.Core.Utility {
 			Dictionary<String, List<FileExtension>> progIds = new Dictionary<String,List<FileExtension>>();
 			
 			foreach(String keyName in subkeyNames) {
-				if( !keyName.StartsWith(".") ) continue;
+				if( !keyName.StartsWith(".", StringComparison.Ordinal) ) continue;
 				
 				RegistryKey key = Registry.ClassesRoot.OpenSubKey( keyName );
 				
@@ -83,6 +87,8 @@ namespace Anolis.Core.Utility {
 			
 			///////////////////////////////////////
 			
+			FileAssociations assocs = new FileAssociations();
+			
 			List<FileType> allTypes = new List<FileType>();
 			
 			foreach(String keyName in progIds.Keys) {
@@ -90,7 +96,7 @@ namespace Anolis.Core.Utility {
 				RegistryKey key = Registry.ClassesRoot.OpenSubKey( keyName );
 				if(key == null) continue; // then the extension uses its progid as its display name and that's it
 				
-				FileType type = FileType.FromRegKey(keyName, key );
+				FileType type = assocs.CreateTypeFromRegKey(keyName, key );
 				
 				type.Extensions.AddRange2( progIds[keyName] );
 				foreach(FileExtension ext in type.Extensions) ext.FileType = type;
@@ -98,35 +104,46 @@ namespace Anolis.Core.Utility {
 				allTypes.Add( type );
 			}
 			
-			return new FileAssociations( allTypes.ToArray(), allExtensions.ToArray() );
-		}
-		
-	}
-	
-	public class FileBase {
-		
-		public Boolean IsDirty { get; set; }
-		
-		public Boolean DeleteOnCommit { get; set; }
-		
-	}
-	
-	public class FileType : FileBase {
-		
-		public FileType() {
-			Extensions = new Collection<FileExtension>();
-			ShellVerbs = new Collection<FileVerb>();
-		}
-		
-		public static FileType FromRegKey(String name, RegistryKey key) {
+			assocs.AllExtensions = allExtensions.ToArray();
+			assocs.AllTypes      = allTypes.ToArray();
 			
-			FileType ret = new FileType();
+			return assocs;
+		}
+		
+		public FileType CreateTypeFromRegKey(String name, RegistryKey key) {
+			
+			FileType ret = new FileType(this);
 			
 			ret.ProgId       = name;
 			ret.FriendlyName = (String)key.GetValue(null);
 			
 			return ret;
+			
 		}
+		
+	}
+	
+	public abstract class FileBase {
+		
+		public Boolean IsDirty { get; set; }
+		
+		public Boolean DeleteOnCommit { get; set; }
+		
+		public abstract void Save();
+		
+	}
+	
+	public class FileType : FileBase {
+		
+		internal FileType(FileAssociations assocs) {
+			
+			ParentAssocs = assocs;
+			
+			Extensions = new Collection<FileExtension>();
+			ShellVerbs = new Collection<String>();
+		}
+		
+		public FileAssociations          ParentAssocs { get; private set; }
 		
 		public String                    ProgId       { get; set; }
 		public Collection<FileExtension> Extensions   { get; private set; }
@@ -134,8 +151,11 @@ namespace Anolis.Core.Utility {
 		public String                    FriendlyName { get; set; }
 		public String                    DefaultIcon  { get; set; }
 		public FileTypeEditFlags         EditFlags    { get; set; }
-		public Collection<FileVerb>      ShellVerbs { get; private set; }
+		public Collection<String>        ShellVerbs   { get; private set; }
 		
+		public override void Save() {
+			// TODO
+		}
 		
 	}
 	
@@ -178,6 +198,11 @@ namespace Anolis.Core.Utility {
 		public String   ContentType       { get; set; }
 		public String   PerceivedType     { get; set; }
 		public String   PersistentHandler { get; set; }
+		
+		public override void Save() {
+			// TODO
+		}
+		
 	}
 	
 	public static class FilePersistentHandlers {
@@ -190,7 +215,7 @@ namespace Anolis.Core.Utility {
 		
 	}
 	
-	public class FileVerb {
+	public static class FileVerb {
 		
 		public const String Open          = "open";
 		public const String OpenNewWindow = "opennew";
@@ -204,7 +229,9 @@ namespace Anolis.Core.Utility {
 		
 	}
 	
+	[Flags]
 	public enum FileTypeEditFlags : uint {
+		None          = 0x00000000,
 		Exclude       = 0x00000001,
 		Show          = 0x00000002,
 		HasExtension  = 0x00000004,
@@ -218,8 +245,8 @@ namespace Anolis.Core.Utility {
 		NoEditDflt    = 0x00000400,
 		NoEditVerbCmd = 0x00000800,
 		NoEditVerbExe = 0x00001000,
-		NoDDE         = 0x00002000,
-		NoEditMIME    = 0x00008000,
+		NoDde         = 0x00002000,
+		NoEditMime    = 0x00008000,
 		OpenIsSafe    = 0x00010000,
 		AlwaysUnsafe  = 0x00020000,
 		AlwaysShowExt = 0x00040000,

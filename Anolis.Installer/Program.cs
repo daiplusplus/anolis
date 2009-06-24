@@ -17,8 +17,6 @@ namespace Anolis.Installer {
 		[STAThread]
 		public static void Main(String[] args) {
 			
-			IWizardForm wiz = null;
-			
 			try {
 				
 				Application.EnableVisualStyles();
@@ -39,13 +37,18 @@ namespace Anolis.Installer {
 						
 						} else if( ext == ".XML") { // package definition
 							
-						} else if( ext == ".ANUP" ) { // undo/uninstallation
-							
 						}
 						
 					}
 					
 				}
+				
+				// preload resources
+				System.Drawing.Image
+					image = InstallerResources.GetImage("Background");
+					image = InstallerResources.GetImage("Banner");
+
+					InstallerResources.CurrentLanguageChanged += new EventHandler(InstallerResources_CurrentLanguageChanged);
 				
 				ProgramMode = ProgramMode.None;
 				
@@ -69,21 +72,12 @@ namespace Anolis.Installer {
 				
 				PageFFinished       = new FinishedPage();
 				
-				wiz                 = 
-//				                      new W3b.Wizards.WindowsForms.Aero.AeroWizardForm();
-//				                      new W3b.Wizards.WindowsForms.Wizard97.Wizard97WizardForm();
-				                      WizardFactory.Create();
+				WizardForm          = InstallationInfo.CreateWizard();
 				
-				wiz.CancelClicked  += new EventHandler(wiz_CancelClicked);
-				wiz.HasHelp         = false;
-				wiz.Title           = "Anolis Package Installer";
-				(wiz as Form).Icon  = InstallerResources.GetIcon("Package");
-				wiz.LoadPage( PageAWelcome );
-				
-				// preload resources
-				System.Drawing.Image
-					image = InstallerResources.GetImage("Background");
-					image = InstallerResources.GetImage("Banner");
+				WizardForm.CancelClicked += new EventHandler(wiz_CancelClicked);
+				WizardForm.HasHelp        = false;
+				WizardForm.Title          = "Anolis Package Installer";
+				WizardForm.Icon           = InstallerResources.GetIcon("Package");
 				
 			} catch(Exception ex) {
 				
@@ -105,8 +99,12 @@ namespace Anolis.Installer {
 				return;
 			}
 			
+			WizardForm.LoadPage( PageAWelcome );
+			WizardForm.Run();
 			
-			wiz.Run();
+		}
+		
+		private static void InstallerResources_CurrentLanguageChanged(object sender, EventArgs e) {
 			
 		}
 		
@@ -120,6 +118,8 @@ namespace Anolis.Installer {
 			}
 			
 		}
+		
+		internal static IWizardForm             WizardForm          { get; private set; }
 		
 		internal static WelcomePage             PageAWelcome        { get; private set; }
 		internal static MainActionPage          PageBMainAction     { get; private set; }
@@ -142,6 +142,35 @@ namespace Anolis.Installer {
 		internal static ProgramMode             ProgramMode         { get; set; }
 	}
 	
+	/// <summary>Meta-information about the installation</summary>
+	internal static class InstallationInfo {
+		
+		public static WizardStyle WizStyle = WizardStyle.PlatformDefault;
+		
+		public enum WizardStyle {
+			PlatformDefault,
+			Wizard97,
+			Aero
+		}
+		
+		public static String JumpToPackagePath;
+		
+		public static IWizardForm CreateWizard() {
+			
+			switch(WizStyle) {
+				case WizardStyle.Aero:
+					return new W3b.Wizards.WindowsForms.Aero.AeroWizardForm();
+				case WizardStyle.Wizard97:
+					return new W3b.Wizards.WindowsForms.Wizard97.Wizard97WizardForm();
+				case WizardStyle.PlatformDefault:
+				default:
+					return WizardFactory.Create();
+			}
+			
+		}
+		
+	}
+	
 	internal static class ToolsInfo {
 		
 		public static Boolean ProgramGroup         { get; set; }
@@ -149,7 +178,7 @@ namespace Anolis.Installer {
 		
 		public static String  DestinationDirectory { get; set; }
 		
-		public static readonly Uri ToolsInfoUri = new Uri("http://anol.is/installer/tools.txt");
+		public static readonly Uri ToolsInfoUri = new Uri("http://anol.is/installer/toolsInfo.txt");
 		
 	}
 	
@@ -163,6 +192,12 @@ namespace Anolis.Installer {
 		public static Package        Package    { get; set; }
 		
 		public static Boolean        SystemRestore { get; set; }
+		public static String         BackupPath    { get; set; }
+		
+		public static Boolean        I386Install   { get; set; }
+		public static DirectoryInfo  I386Directory { get; set; }
+		
+		public static Boolean        RequiresRestart { get; set; }
 		
 	}
 	

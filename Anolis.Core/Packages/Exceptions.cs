@@ -24,13 +24,15 @@ namespace Anolis.Core.Packages {
 	}
 	
 	[Serializable]
-	public sealed class PackageValidationException : PackageException {
+	public class PackageValidationException : PackageException {
 		
-		// should I suppress FxCop on the first two constructors?
 		public PackageValidationException() {
 		}
 		
 		public PackageValidationException(String message) : base(message) {
+		}
+		
+		public PackageValidationException(string message, Exception inner) : base(message, inner) {
 		}
 		
 		public PackageValidationException(String message, Collection<ValidationEventArgs> errors) : base(message) {
@@ -38,8 +40,8 @@ namespace Anolis.Core.Packages {
 			ValidationErrors = errors;
 		}
 		
-		/*protected PackageValidationException(SerializationInfo info, StreamingContext context) : base(info, context) {
-		}*/
+		protected PackageValidationException(SerializationInfo info, StreamingContext context) : base(info, context) {
+		}
 		
 		public Collection<ValidationEventArgs> ValidationErrors {
 			get; private set;

@@ -18,7 +18,7 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class WallpaperExtraOperation : ExtraOperation {
 		
-		public WallpaperExtraOperation(Package package, XmlElement element) : base(ExtraType.Wallpaper, package, element) {
+		public WallpaperExtraOperation(Package package, Group parent, XmlElement element) : base(ExtraType.Wallpaper, package, parent, element) {
 		}
 		
 		private static readonly String _wallpaperDir = PackageUtility.ResolvePath(@"%windir%\Web\Wallpaper");
@@ -52,6 +52,10 @@ namespace Anolis.Core.Packages.Operations {
 			
 			if( lastWallpaper != null )
 				SetWallpaper(ref lastWallpaper);
+			
+		}
+		
+		public override void Backup(Group backupGroup) {
 			
 		}
 		

@@ -21,25 +21,32 @@ namespace Anolis.Core.Packages {
 /*
 		S = Shift. The input takes precedence over what's at the top of the stack
 		R = Reduce. The stack should be evaluated before the input is processed.
-		      |                               input                            |
-		      | +   -   *   /   ^   M   ,   (   )   ==  !=  <   <=  >   >=  $  |
-		   ---| --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  -- |
-		   +  | R   R   S   S   S   S   R   S   R   R   R   R   R   R   R   R  |
-		   -  | R   R   S   S   S   S   R   S   R   R   R   R   R   R   R   R  |
-		   *  | R   R   R   R   S   S   R   S   R   R   R   R   R   R   R   R  |
-		   /  | R   R   R   R   S   S   R   S   R   R   R   R   R   R   R   R  |
-		   ^  | R   R   R   R   S   S   R   S   R   R   R   R   R   R   R   R  |
-		   M  | R   R   R   R   R   S   R   S   R   R   R   R   R   R   R   R  |
-		   ,  | R   R   R   R   R   R   E4  R   R   R   R   R   R   R   R   E4 |
-		s  (  | S   S   S   S   S   S   S   S   S   S   S   S   S   S   S   E1 |
-		t  )  | R   R   R   R   R   R   E4  E2  R   R   R   R   R   R   R   R  |
-		k  == | R   R   R   R   R   R   R   S   R   R   R   R   R   R   R   R  |
-		   != | R   R   R   R   R   R   R   S   R   R   R   R   R   R   R   R  |
-		   <  | R   R   R   R   R   R   R   S   R   R   R   R   R   R   R   R  |
-		   <= | R   R   R   R   R   R   R   S   R   R   R   R   R   R   R   R  |
-		   >  | R   R   R   R   R   R   R   S   R   R   R   R   R   R   R   R  |
-		   >= | R   R   R   R   R   R   R   S   R   R   R   R   R   R   R   R  |
-		   $  | S   S   S   S   S   S   E4  S   E3  S   S   S   S   S   S   A  | */
+		      |                               input                                                  |
+		      | +   -   *   /   ^   M   ,   (   )     ==  !=  <   <=  >   >=    &&  ||  !   ^^    $  |
+		   ---| --  --  --  --  --  --  --  --  --    --  --  --  --  --  --    --  --  --  --    -- |
+		   +  | R   R   S   S   S   S   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   -  | R   R   S   S   S   S   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   *  | R   R   R   R   S   S   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   /  | R   R   R   R   S   S   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   ^  | R   R   R   R   S   S   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   M  | R   R   R   R   R   S   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   ,  | R   R   R   R   R   R   E4  R   R     R   R   R   R   R   R     R   R   R   R     E4 |
+		   (  | S   S   S   S   S   S   S   S   S     S   S   S   S   S   S     S   S   S   S     E1 |
+		s  )  | R   R   R   R   R   R   E4  E2  R     R   R   R   R   R   R     R   R   S   R     R  |
+		t  
+		a  == | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     S   S   S   S     R  |
+		c  != | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     S   S   S   S     R  |
+		k  <  | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     S   S   S   S     R  |
+		   <= | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     S   S   S   S     R  |
+		   >  | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     S   S   S   S     R  |
+		   >= | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     S   S   S   S     R  |
+		   
+		   && | S   S   S   S   S   S   S   S   S     S   S   S   S   S   S     R   R   S   R     R  |
+		   || | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   !  | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   ^^ | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		      |                                                                                      |
+		   $  | S   S   S   S   S   S   E4  S   E3    S   S   S   S   S   S     S   S   S   S     A  | */
 		   
 		   // comparison operators sit near the bottom of the precdence table, only bitwise operations are lower
 		   // but we're not doing bitwise
@@ -47,23 +54,30 @@ namespace Anolis.Core.Packages {
 		
 		// C# really needs C-style #defines at times...
 		private static readonly P[,] _precedence = {
-			//  +         -         *         /         ^         M         ,         (         )         ==        !=        <         <=        >         >=       $
-	/*	+	*/{ P.Reduce, P.Reduce, P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	-	*/{ P.Reduce, P.Reduce, P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	*	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Shift,  P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	/	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Shift,  P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	^	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Shift,  P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	M	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	,	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Error4, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Error4 },
-	/*	(	*/{ P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Error1 },
-	/*	)	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Error4, P.Error2, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	==	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift , P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	!=	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	<	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	<=	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	>	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	>=	*/{ P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Shift,  P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce, P.Reduce },
-	/*	$	*/{ P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Error4, P.Shift,  P.Error3, P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Shift,  P.Accept }
+			//  +          -          *          /          ^         M           ,          (          )          ==         !=         <          <=         >          >=         &&         ||         !          ^^        $
+	/*	+	*/{ P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce, P.Reduce  },
+	/*	-	*/{ P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce, P.Reduce  },
+	/*	*	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce, P.Reduce  },
+	/*	/	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce, P.Reduce  },
+	/*	^	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce, P.Reduce  },
+	/*	M	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce, P.Reduce  },
+	/*	,	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Error4,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce, P.Error4  },
+	/*	(	*/{ P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Error1  },
+	/*	)	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Error4,  P.Error2,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce, P.Reduce  },
+	
+	/*	==	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
+	/*	!=	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
+	/*	<	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
+	/*	<=	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
+	/*	>	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
+	/*	>=	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
+	
+	/*	&&	*/{ P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Shift  },
+	/*	||	*/{ P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
+	/*	!	*/{ P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
+	/*	^^	*/{ P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
+	
+	/*	$	*/{ P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Error4,  P.Shift,   P.Error3,  P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Accept  }
 		};
 		
 		private Object _lock = new Object();
@@ -109,6 +123,8 @@ namespace Anolis.Core.Packages {
 			
 			while(true) {
 				
+				if( StackChanged != null ) StackChanged(this, EventArgs.Empty);
+				
 				if( _token == Operator.Val ) {
 					// if the current token is a value
 					// shift it to value stack
@@ -143,10 +159,35 @@ namespace Anolis.Core.Packages {
 					
 				}
 				
-			}
+				
+			}//while
 		
+			}//lock
+		}
+		
+#region Step Inside...
+		
+		public event EventHandler StackChanged;
+		
+		public Double[] CurrentValueStack {
+			get {
+				return _valueStack.ToArray();
 			}
 		}
+		
+		public Operator[] CurrentOperatorStack {
+			get {
+				return _operatorStack.ToArray();
+			}
+		}
+		
+		public Double CurrentValue {
+			get {
+				return _value;
+			}
+		}
+		
+#endregion
 		
 		private void Advance() {
 			
@@ -232,7 +273,22 @@ namespace Anolis.Core.Packages {
 			
 			if( _toki >= _expression.Length ) return null;
 			
-			return _expression.Tok(ref _toki);
+			String ret = _expression.Tok(ref _toki);
+			
+			// special case for != (which is not a contiguous category) OtherPunctuation+MathSymbol
+			
+			if( ret == "!" ) {
+				
+				Int32 origIdx = _toki;
+				String next = _expression.Tok(ref _toki);
+				if( next == "=" )
+					ret = "!=";
+				else
+					_toki = origIdx;
+			
+			}
+			
+			return ret;
 			
 		}
 		
@@ -371,12 +427,7 @@ namespace Anolis.Core.Packages {
 					
 					break;
 				
-//				case Operator.Val:
-//				case Operator.Eof:
-//					throw new InvalidOperationException();
-//				
-//				default:
-//					throw new NotImplementedException();
+//				Else, ignore it. Do not throw an exception
 				
 			}
 			
@@ -389,9 +440,42 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
+		public static readonly Dictionary<Operator,String> OperatorSymbols = new Dictionary<Operator,String>() {
+			{ Operator.Add, "+" },
+			{ Operator.Sub, "-" },
+			{ Operator.Mul, "*" },
+			{ Operator.Div, "/" },
+			{ Operator.Neg, "--" },
+			
+			{ Operator.Cmm, "," },
+			{ Operator.PaL, "(" },
+			{ Operator.PaR, ")" },
+			
+			{ Operator.CoE, "==" },
+			{ Operator.CoN, "!=" },
+			{ Operator.CoL, "<" },
+			{ Operator.CLE, "<=" },
+			{ Operator.CoG, ">" },
+			{ Operator.CGE, ">=" },
+			
+			{ Operator.And, "&&" },
+			{ Operator.Or,  "||" },
+			{ Operator.Not, "!" },
+			{ Operator.Xor, "^^" },
+			
+			{ Operator.Eof, "$" },
+			{ Operator.Max, "Max" },
+			{ Operator.Val, "Val" },
+		};
+		
+		public override String ToString() {
+			
+			return _expression;
+		}
+		
 	}
 	
-	internal enum Operator { // numbering is importance because it's used as a lookup in the precedence table
+	public enum Operator { // numbering is importance because it's used as a lookup in the precedence table
 // Arithmetic	
 		Add = 0,
 		Sub = 1,

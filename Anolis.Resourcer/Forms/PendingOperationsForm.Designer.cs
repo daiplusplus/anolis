@@ -31,9 +31,9 @@
 			this.@__tabs = new System.Windows.Forms.TabControl();
 			this.@__tabList = new System.Windows.Forms.TabPage();
 			this.@__tabPackage = new System.Windows.Forms.TabPage();
-			this.@__tabRc = new System.Windows.Forms.TabPage();
 			this.@__xmlText = new System.Windows.Forms.TextBox();
-			this.label1 = new System.Windows.Forms.Label();
+			this.@__tabRc = new System.Windows.Forms.TabPage();
+			this.@__rcText = new System.Windows.Forms.TextBox();
 			this.@__tabs.SuspendLayout();
 			this.@__tabList.SuspendLayout();
 			this.@__tabPackage.SuspendLayout();
@@ -124,16 +124,6 @@
 			this.@__tabPackage.Text = "Package XML";
 			this.@__tabPackage.UseVisualStyleBackColor = true;
 			// 
-			// __tabRc
-			// 
-			this.@__tabRc.Controls.Add(this.label1);
-			this.@__tabRc.Location = new System.Drawing.Point(4, 22);
-			this.@__tabRc.Name = "__tabRc";
-			this.@__tabRc.Size = new System.Drawing.Size(355, 344);
-			this.@__tabRc.TabIndex = 2;
-			this.@__tabRc.Text = "RC Script";
-			this.@__tabRc.UseVisualStyleBackColor = true;
-			// 
 			// __xmlText
 			// 
 			this.@__xmlText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -148,17 +138,29 @@
 			this.@__xmlText.Size = new System.Drawing.Size(343, 332);
 			this.@__xmlText.TabIndex = 0;
 			// 
-			// label1
+			// __tabRc
 			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			this.@__tabRc.Controls.Add(this.@__rcText);
+			this.@__tabRc.Location = new System.Drawing.Point(4, 22);
+			this.@__tabRc.Name = "__tabRc";
+			this.@__tabRc.Size = new System.Drawing.Size(355, 344);
+			this.@__tabRc.TabIndex = 2;
+			this.@__tabRc.Text = "RC Script";
+			this.@__tabRc.UseVisualStyleBackColor = true;
+			// 
+			// __rcText
+			// 
+			this.@__rcText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(125, 157);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(103, 13);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Not yet implemented";
+			this.@__rcText.BackColor = System.Drawing.SystemColors.Window;
+			this.@__rcText.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.@__rcText.Location = new System.Drawing.Point(6, 6);
+			this.@__rcText.Multiline = true;
+			this.@__rcText.Name = "__rcText";
+			this.@__rcText.ReadOnly = true;
+			this.@__rcText.Size = new System.Drawing.Size(343, 332);
+			this.@__rcText.TabIndex = 1;
 			// 
 			// PendingOperationsForm
 			// 
@@ -198,6 +200,6 @@
 		private System.Windows.Forms.TabPage __tabPackage;
 		private System.Windows.Forms.TabPage __tabRc;
 		private System.Windows.Forms.TextBox __xmlText;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TextBox __rcText;
 	}
 }

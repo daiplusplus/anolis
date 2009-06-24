@@ -19,14 +19,14 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override Compatibility HandlesExtension(String filenameExtension) {
+		public override Compatibility HandlesExtension(String fileNameExtension) {
 			
-			return ( IsExtension( filenameExtension, "gif" ) ) ? Compatibility.Yes : Compatibility.No;
+			return ( IsExtension( fileNameExtension, "gif" ) ) ? Compatibility.Yes : Compatibility.No;
 			
 		}
 		
-		protected override String GetOpenFileFilter() {
-			return CreateFileFilter("GifImage", "gif");
+		public override String OpenFileFilter {
+			get { return CreateFileFilter("GifImage", "gif"); }
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {

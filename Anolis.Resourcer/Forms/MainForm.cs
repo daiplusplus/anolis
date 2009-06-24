@@ -286,7 +286,7 @@ namespace Anolis.Resourcer {
 		
 		private void __tSrcNew_Click(object sender, EventArgs e) {
 			
-			
+			this.SourceNew();
 			
 		}
 		
@@ -299,14 +299,12 @@ namespace Anolis.Resourcer {
 		
 		private void __tSrcMruClear_Click(Object sender, EventArgs e) {
 			
-			MruClear();
+			this.MruClear();
 		}
 		
 		private void __tSrcBatch_Click(Object sender, EventArgs e) {
 			
-			BatchProcessForm batch = new BatchProcessForm();
-			batch.ShowDialog(this);
-			
+			this.SourceBatchProcessShow();
 		}
 		
 		private void __tSrcReve_Click(Object sender, EventArgs e) {
@@ -326,7 +324,7 @@ namespace Anolis.Resourcer {
 		
 		private void __tSrcSavePending_Click(Object sender, EventArgs e) {
 			
-			SavePendingOperationsShow();
+			this.SavePendingOperationsShow();
 		}
 		
 		///////////////////////////////////////

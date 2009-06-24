@@ -28,12 +28,24 @@ namespace Anolis.Core.Packages.Operations {
 		
 		private String _path;
 		
-		protected Operation(Package package, XmlElement operationElement) : base(package, operationElement) {
+		protected Operation(Package package, Group parent, XmlElement operationElement) : base(package, parent, operationElement) {
 			
 			Path = operationElement.GetAttribute("path");
 		}
 		
-		protected abstract String OperationName { get; }
+		protected Operation(Package package, Group parent, String operationPath) : base(package, parent) {
+			
+			Path = operationPath;
+		}
+		
+		public abstract String OperationName { get; }
+		
+		/// <summary>Whether the item will be executed or not.</summary>
+		public Boolean IsEnabled {
+			get {
+				return ParentGroup.Enabled ? Enabled : false;
+			}
+		}
 		
 		public String Path {
 			get { return _path; }
@@ -45,28 +57,30 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public abstract void Execute();
 		
+		public abstract void Backup(Group backupGroup);
+		
 		/// <summary>Provides an opportunity to reduce the number of operations by merging them together to be Executed in a single go. Return true if the provided operation was successfully merged into this operation (thus making it obsolete, it will then be removed from the flattened operation list). Return false to keep the old operation in the list.</summary>
 		public abstract Boolean Merge(Operation operation);
 		
 		public virtual String Key { get { return OperationName + Path; } }
 		
-		public static Operation FromElement(Package package, XmlElement operationElement) {
+		public static Operation FromElement(Package package, Group parent, XmlElement operationElement) {
 			
 			switch(operationElement.Name) {
 				case "patch":
-					return new PatchOperation(package, operationElement);
+					return new PatchOperation(package, parent, operationElement);
 				case "file":
-					return new FileOperation(package, operationElement);
+					return new FileOperation(package, parent, operationElement);
 				case "extra":
-					return ExtraOperation.Create(package, operationElement);
+					return ExtraOperation.Create(package, parent, operationElement);
 				case "cursorScheme":
-					return new CursorSchemeOperation(package, operationElement);
+					return new CursorSchemeOperation(package, parent, operationElement);
 				case "systemParameter":
-					return new SystemParameterOperation(package, operationElement);
-				case "filetype":
-					return new FileTypeOperation(package, operationElement);
+					return new SystemParameterOperation(package, parent, operationElement);
+				case "fileType":
+					return new FileTypeOperation(package, parent, operationElement);
 				case "registry":
-					return new RegistryOperation(package, operationElement);
+					return new RegistryOperation(package, parent, operationElement);
 				default:
 					// TODO: Allow additional libraries or code-generation to specify their own stuff
 					// Define types in the Package XML? http://www.codeproject.com/KB/dotnet/evaluator.aspx
@@ -78,9 +92,20 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
+		public virtual Boolean SupportsI386 {
+			get { return false; }
+		}
+		
 		public override String ToString() {
 			return OperationName + ": " + System.IO.Path.GetFileName( Path );
 		}
 		
 	}
+	
+	public enum I386Type {
+		None,
+		Compressed,
+		Uncompressed
+	}
+	
 }

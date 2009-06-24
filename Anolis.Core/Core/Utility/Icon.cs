@@ -23,6 +23,15 @@ namespace Anolis.Core.Utility {
 		
 		public ResourceLang DirectoryLang { get; private set; } 
 		
+		public IconGroup(String fileName) {
+			
+			using(FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read)) {
+				
+				Load( fs );
+			}
+			
+		}
+		
 		public IconGroup(Stream icoStream) {
 			
 			Load( icoStream );

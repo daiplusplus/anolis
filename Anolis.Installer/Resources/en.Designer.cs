@@ -22,14 +22,14 @@ namespace Anolis.Installer.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "2.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Wizard {
+    internal class en {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Wizard() {
+        internal en() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Anolis.Installer.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Anolis.Installer.Resources.Wizard", typeof(Wizard).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Anolis.Installer.Resources.en", typeof(en).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,8 +62,6 @@ namespace Anolis.Installer.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to This wizard will guide you through the steps involved in installing an Anolis package
-        ///
-        ///Distributions of Anolis can customise the text placed here and throughout the wizard
         ///
         ///To continue, press Next.
         /// </summary>
@@ -119,7 +117,7 @@ namespace Anolis.Installer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Downloads tools so you can easily make your own package or distribution..
+        ///   Looks up a localized string similar to Downloads tools so you can easily make your own package or distribution.
         /// </summary>
         internal static string B_toolsBlurb {
             get {
@@ -137,7 +135,7 @@ namespace Anolis.Installer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recovers files to their before-patched status. You will need the backup directory that was created during installation..
+        ///   Looks up a localized string similar to Recovers files to their before-patched status. You will need the backup directory that was created during installation.
         /// </summary>
         internal static string B_uninstallBlurb {
             get {
@@ -241,7 +239,61 @@ namespace Anolis.Installer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} may have been updated since you acquired it. Would you like to check for updates?.
+        ///   Looks up a localized string similar to {0}% - {1}KB of {2}KB downloaded at {3}KBps.
+        /// </summary>
+        internal static string C_C_downloadProgress {
+            get {
+                return ResourceManager.GetString("C_C_downloadProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking for package update.
+        /// </summary>
+        internal static string C_C_infoChecking {
+            get {
+                return ResourceManager.GetString("C_C_infoChecking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for updates failed: could not download update info.
+        /// </summary>
+        internal static string C_C_infoFailed {
+            get {
+                return ResourceManager.GetString("C_C_infoFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An updated version ({0}) of this package is available. Would you like to download it now?.
+        /// </summary>
+        internal static string C_C_infoUpdateAvailableAutomatic {
+            get {
+                return ResourceManager.GetString("C_C_infoUpdateAvailableAutomatic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An updated version ({0}) of this package is available, but you need to download it manually. Click Visit Package Webpage for more information..
+        /// </summary>
+        internal static string C_C_infoUpdateAvailableManual {
+            get {
+                return ResourceManager.GetString("C_C_infoUpdateAvailableManual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have the latest version ({0}) of this package..
+        /// </summary>
+        internal static string C_C_infoUpdateLatest {
+            get {
+                return ResourceManager.GetString("C_C_infoUpdateLatest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The package may have been updated since you acquired it. Now checking for updates..
         /// </summary>
         internal static string C_C_Subtitle {
             get {
@@ -439,13 +491,22 @@ namespace Anolis.Installer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Installation has been completed succesfully. Your computer will now restart.
-        ///
-        ///Close all open applications before continuing. Do not attempt to open any new applications..
+        ///   Looks up a localized string similar to Installation has been completed succesfully..
         /// </summary>
         internal static string F_installationComplete {
             get {
                 return ResourceManager.GetString("F_installationComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installation has been completed succesfully. Your computer will now restart.
+        ///
+        ///Close all open applications before continuing. Do not attempt to open any new applications..
+        /// </summary>
+        internal static string F_installationCompleteRestart {
+            get {
+                return ResourceManager.GetString("F_installationCompleteRestart", resourceCulture);
             }
         }
         
@@ -487,10 +548,80 @@ namespace Anolis.Installer.Resources {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Lang_Attribution {
+            get {
+                return ResourceManager.GetString("Lang_Attribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Lang_AttributionUri {
+            get {
+                return ResourceManager.GetString("Lang_AttributionUri", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Lang_Flag {
+            get {
+                object obj = ResourceManager.GetObject("Lang_Flag", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to en.
+        /// </summary>
+        internal static string Lang_Lcid {
+            get {
+                return ResourceManager.GetString("Lang_Lcid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string Lang_Name {
+            get {
+                return ResourceManager.GetString("Lang_Name", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Icon Package {
             get {
                 object obj = ResourceManager.GetObject("Package", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Wiz_Cancel {
+            get {
+                return ResourceManager.GetString("Wiz_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        internal static string Wiz_Next {
+            get {
+                return ResourceManager.GetString("Wiz_Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string Wiz_Prev {
+            get {
+                return ResourceManager.GetString("Wiz_Prev", resourceCulture);
             }
         }
     }

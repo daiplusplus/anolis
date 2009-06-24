@@ -15,7 +15,7 @@ namespace Anolis.Core.Data {
 		public abstract Compatibility HandlesType(ResourceTypeIdentifier typeId);
 		
 		/// <summary>Indicates the compatibility between the specified filename extension and this factory's ResourceData. It is assumed the extension is truthful.</summary>
-		public abstract Compatibility HandlesExtension(String filenameExtension);
+		public abstract Compatibility HandlesExtension(String fileNameExtension);
 		
 		/// <summary>Returns null if unsuccessful. Wrap all exceptions in ResourceDataException.</summary>
 		public abstract ResourceData FromResource(ResourceLang lang, Byte[] data);
@@ -29,17 +29,8 @@ namespace Anolis.Core.Data {
 		/// <summary>Gets the (human-readable) name of the data handled by this IResourceDataFactory.</summary>
 		public abstract String Name { get; }
 		
-		protected abstract String GetOpenFileFilter();
-		
-		private String _off;
-		
 		/// <summary>Gets the filter to use in open-file dialogs. Return null if opening from files is not supported.</summary>
-		public virtual String OpenFileFilter {
-			get {
-				if( _off == null ) _off = GetOpenFileFilter();
-				return _off;
-			}
-		}
+		public abstract String OpenFileFilter { get; }
 		
 		protected static Byte[] GetAllBytesFromStream(Stream stream) {
 			
@@ -53,7 +44,7 @@ namespace Anolis.Core.Data {
 		
 		protected static Boolean IsExtension(String extension, params String[] extensions) {
 			
-			if( extension.StartsWith(".") ) extension = extension.Substring(1);
+			if( extension.StartsWith(".", StringComparison.Ordinal) ) extension = extension.Substring(1);
 			
 			foreach(String ext in extensions) {
 				if( String.Equals( extension, ext, StringComparison.OrdinalIgnoreCase ) ) return true;
@@ -126,9 +117,9 @@ namespace Anolis.Core.Data {
 		}
 		
 		/// <summary>Gets all the factories that support a file type in order of compatibility.</summary>
-		public static ResourceDataFactory[] GetFactoriesForExtension(String filenameExtension) {
+		public static ResourceDataFactory[] GetFactoriesForExtension(String fileNameExtension) {
 			
-			if( !_forExt.ContainsKey( filenameExtension ) ) {
+			if( !_forExt.ContainsKey( fileNameExtension ) ) {
 				
 				List<ResourceDataFactory> yes = new List<ResourceDataFactory>();
 				List<ResourceDataFactory> may = new List<ResourceDataFactory>();
@@ -136,7 +127,7 @@ namespace Anolis.Core.Data {
 				
 				foreach(ResourceDataFactory factory in GetFactories()) {
 					
-					switch(factory.HandlesExtension(filenameExtension)) {
+					switch(factory.HandlesExtension(fileNameExtension)) {
 						case Compatibility.Yes:
 							yes.Add( factory ); break;
 						case Compatibility.Maybe:
@@ -150,11 +141,11 @@ namespace Anolis.Core.Data {
 				yes.AddRange( may );
 				yes.AddRange( all );
 				
-				_forExt.Add(filenameExtension, yes.ToArray());
+				_forExt.Add(fileNameExtension, yes.ToArray());
 			
 			}
 			
-			return _forExt[filenameExtension];
+			return _forExt[fileNameExtension];
 			
 		}
 		

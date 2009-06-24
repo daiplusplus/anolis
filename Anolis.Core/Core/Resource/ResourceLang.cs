@@ -21,11 +21,12 @@ namespace Anolis.Core {
 		
 		/// <summary>Constructs a ResourceLang with the ResourceData already loaded. Used when adding resources to a ResourceSource rather than loading them from a ResourceSource to begin with</summary>
 		internal ResourceLang(UInt16 languageId, ResourceName name, ResourceData data) {
+			
 			LanguageId = languageId;
 			Name       = name;
 			_data      = data;
-			if(data != null)
-				data.Lang  = this;
+			
+			if(data != null) data.Lang = this;
 		}
 		
 		internal ResourceLang(UInt16 languageId, ResourceName name) : this(languageId, name, null) {

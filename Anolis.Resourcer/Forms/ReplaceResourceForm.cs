@@ -46,6 +46,8 @@ namespace Anolis.Resourcer {
 				
 				_replacement = ResourceData.FromFileToUpdate( filename, _initial.Lang );
 				
+				_replacement.Tag["sourceFile"] = filename;
+				
 			} catch( AnolisException ex) {
 				
 				__repSubclass.Text = "Unable to load file into a resource: " + ex.Message;

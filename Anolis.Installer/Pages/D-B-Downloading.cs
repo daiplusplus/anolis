@@ -3,6 +3,8 @@ using System.IO;
 using System.Net;
 
 using W3b.Wizards.WindowsForms;
+using System.Windows.Forms;
+using Anolis.Core.Packages;
 
 namespace Anolis.Installer.Pages {
 	
@@ -41,15 +43,42 @@ namespace Anolis.Installer.Pages {
 		
 		private void BeginDownload() {
 			
-			_client.DownloadFileAsync( ToolsInfo.ToolsInfoUri, Path.Combine( ToolsInfo.DestinationDirectory, "Tools.zip" ) );
+			// get the info about the tools first
+			
+			String info = _client.DownloadString( ToolsInfo.ToolsInfoUri );
+			String[] infoLines = info.Replace("\r\n", "\n").Split('\n');
+			
+			String ver = infoLines[0].Replace('.', '-');
+			Uri    src = new Uri( infoLines[1] );
+			String dst = Path.Combine( ToolsInfo.DestinationDirectory, "Tools-" + ver  + ".anop" );
+			
+			_client.DownloadFileAsync( src, dst, dst );
 			
 		}
 		
 		private void _client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
 			
+			this.BeginInvoke( new MethodInvoker( delegate() {
+				
+				__progress.Value = e.ProgressPercentage;
+				
+			} ) );
+			
 		}
 		
 		private void _client_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e) {
+			
+			String filename = e.UserState as String;
+			
+			// decompress
+			using(FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read)) {
+				
+				
+				
+			}
+			
+			
+			
 			
 		}
 		

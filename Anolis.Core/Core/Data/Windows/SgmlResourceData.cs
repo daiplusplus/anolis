@@ -24,11 +24,11 @@ namespace Anolis.Core.Data {
 			return Compatibility.Maybe;
 		}
 		
-		public override Compatibility HandlesExtension(String filenameExtension) {
+		public override Compatibility HandlesExtension(String fileNameExtension) {
 			
-			if( filenameExtension == "XML" ) return Compatibility.Yes;
-			if( filenameExtension == "HTM" ) return Compatibility.Yes;
-			if( filenameExtension == "HTML") return Compatibility.Yes;
+			if( fileNameExtension == "XML" ) return Compatibility.Yes;
+			if( fileNameExtension == "HTM" ) return Compatibility.Yes;
+			if( fileNameExtension == "HTML") return Compatibility.Yes;
 			
 			return Compatibility.No;
 		}
@@ -42,8 +42,8 @@ namespace Anolis.Core.Data {
 			get { return "SGML"; }
 		}
 		
-		protected override String GetOpenFileFilter() {
-			return CreateFileFilter("Sgml", "htm", "html", "xml", "sgml");
+		public override String OpenFileFilter {
+			get { return CreateFileFilter("Sgml", "htm", "html", "xml", "sgml"); }
 		}
 		
 		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 lang, ResourceSource currentSource) {

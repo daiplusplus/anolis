@@ -20,16 +20,16 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override Compatibility HandlesExtension(String filenameExtension) {
+		public override Compatibility HandlesExtension(String fileNameExtension) {
 			
-			if( IsExtension( filenameExtension, "jpg", "jpeg", "jfif" ) ) return Compatibility.Yes;
+			if( IsExtension( fileNameExtension, "jpg", "jpeg", "jfif" ) ) return Compatibility.Yes;
 			
 			return Compatibility.No;
 			
 		}
 		
-		protected override String GetOpenFileFilter() {
-			return CreateFileFilter("JpegImage", "jpg", "jpeg", "jfif");
+		public override String OpenFileFilter {
+			get { return CreateFileFilter("JpegImage", "jpg", "jpeg", "jfif"); }
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {

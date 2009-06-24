@@ -55,6 +55,8 @@
 			// 
 			// __backupPath
 			// 
+			this.@__backupPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+			this.@__backupPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
 			this.@__backupPath.Enabled = false;
 			this.@__backupPath.Location = new System.Drawing.Point(91, 85);
 			this.@__backupPath.Name = "__backupPath";
@@ -74,7 +76,6 @@
 			// __backup
 			// 
 			this.@__backup.AutoSize = true;
-			this.@__backup.Enabled = false;
 			this.@__backup.Location = new System.Drawing.Point(47, 28);
 			this.@__backup.Name = "__backup";
 			this.@__backup.Size = new System.Drawing.Size(284, 17);
@@ -84,10 +85,10 @@
 			// 
 			// __backupDesc
 			// 
-			this.@__backupDesc.ForeColor = System.Drawing.SystemColors.GrayText;
+			this.@__backupDesc.Enabled = false;
 			this.@__backupDesc.Location = new System.Drawing.Point(91, 48);
 			this.@__backupDesc.Name = "__backupDesc";
-			this.@__backupDesc.Size = new System.Drawing.Size(356, 31);
+			this.@__backupDesc.Size = new System.Drawing.Size(338, 31);
 			this.@__backupDesc.TabIndex = 4;
 			this.@__backupDesc.Text = "You must create a backup directory if you ever wish to uninstall this package in " +
 				"future";
@@ -128,7 +129,6 @@
 			// __i386
 			// 
 			this.@__i386.AutoSize = true;
-			this.@__i386.Enabled = false;
 			this.@__i386.Location = new System.Drawing.Point(14, 164);
 			this.@__i386.Name = "__i386";
 			this.@__i386.Size = new System.Drawing.Size(88, 17);
@@ -138,7 +138,7 @@
 			// 
 			// __i386Lbl
 			// 
-			this.@__i386Lbl.ForeColor = System.Drawing.SystemColors.GrayText;
+			this.@__i386Lbl.Enabled = false;
 			this.@__i386Lbl.Location = new System.Drawing.Point(40, 193);
 			this.@__i386Lbl.Name = "__i386Lbl";
 			this.@__i386Lbl.Size = new System.Drawing.Size(45, 23);
@@ -158,6 +158,8 @@
 			// 
 			// __i386Path
 			// 
+			this.@__i386Path.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+			this.@__i386Path.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
 			this.@__i386Path.Enabled = false;
 			this.@__i386Path.Location = new System.Drawing.Point(91, 190);
 			this.@__i386Path.Name = "__i386Path";

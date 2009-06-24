@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Anolis.Core.Data {
@@ -26,6 +27,7 @@ namespace Anolis.Core.Data {
 		
 		public ResourceLang Lang { get; internal set; }
 		
+		
 		protected internal delegate void RemoveFunction(ResourceLang lang);
 		
 		/// <summary>Called when this ResourceData is being removed from the ResourceSource. ResourceDatas that have dependencies on this ResourceData must be appropriately dealt with (e.g. removed) when this is called.</summary>
@@ -40,6 +42,8 @@ namespace Anolis.Core.Data {
 			
 			Lang    = lang;
 			_data   = rawData;
+			
+			Tag = new ResourceDataTagDictionary();
 		}
 		
 		~ResourceData() {
@@ -111,6 +115,14 @@ namespace Anolis.Core.Data {
 			}
 		}
 		
+		//////////////////////////////////////////////////////
+		// Tags
+		
+		/// <summary>Depository for ResourceData/Lang metadata. Known keys include 'sourceFile' - the path to the file where the resource data originated from</summary>
+		public ResourceDataTagDictionary Tag {
+			get; private set;
+		}
+		
 #endregion
 		
 #region Save
@@ -120,13 +132,13 @@ namespace Anolis.Core.Data {
 		///		<para>If the file exists it will be overwritten.</para>
 		///		<para>Use the .bin extension to save the raw resource data regardless of ResourceData subclass.</para>
 		///	</summary>
-		public void Save(String filename) {
+		public void Save(String fileName) {
 			
-			if(filename == null) throw new ArgumentNullException("filename");
+			if(fileName == null) throw new ArgumentNullException("filename");
 			
-			using(Stream stream = File.Open( filename, FileMode.Create, FileAccess.Write, FileShare.None )) {
+			using(Stream stream = File.Open( fileName, FileMode.Create, FileAccess.Write, FileShare.None )) {
 				
-				Save(stream, Path.GetExtension(filename) );
+				Save(stream, Path.GetExtension(fileName) );
 			}
 			
 		}
@@ -206,7 +218,7 @@ namespace Anolis.Core.Data {
 			ResourceData data = null;
 			while(data == null) {
 				
-				if(i >= factories.Length) throw new Exception("Unable to locate factory for resource data.");
+				if(i >= factories.Length) throw new ResourceDataException("Unable to locate factory for resource data.");
 				
 				data = factories[i++].FromFileToAdd( stream, extension, langId, source );
 				
@@ -217,14 +229,14 @@ namespace Anolis.Core.Data {
 		}
 		
 		/// <summary>Creates a ResourceData instance from a file containing data convertible into a resource ready to replace the specified ResourceLang (but doesn't actually replace it). For instance a *.bmp can be converted into a BITMAP resource.</summary>
-		public static ResourceData FromFileToUpdate(String filename, ResourceLang lang) {
+		public static ResourceData FromFileToUpdate(String fileName, ResourceLang lang) {
 			
-			if(filename == null) throw new ArgumentNullException("filename");
-			if( !File.Exists(filename) ) throw new FileNotFoundException("The file to load the resource data from was not found", filename);
+			if(fileName == null) throw new ArgumentNullException("filename");
+			if( !File.Exists(fileName) ) throw new FileNotFoundException("The file to load the resource data from was not found", fileName);
 			
-			using(Stream stream = File.OpenRead(filename)) {
+			using(Stream stream = File.OpenRead(fileName)) {
 				
-				return FromFileToUpdate( stream, Path.GetExtension(filename), lang );
+				return FromFileToUpdate( stream, Path.GetExtension(fileName), lang );
 			}
 			
 		}
@@ -245,7 +257,7 @@ namespace Anolis.Core.Data {
 			ResourceData data = null;
 			while(data == null) {
 				
-				if(i >= factories.Length) throw new Exception("Unable to locate factory for resource data.");
+				if(i >= factories.Length) throw new ResourceDataException("Unable to locate factory for resource data.");
 				
 				data = factories[i++].FromFileToUpdate(stream, extension, lang);
 				
@@ -265,6 +277,11 @@ namespace Anolis.Core.Data {
 		Add,
 		Delete,
 		Update
+	}
+	
+	public class ResourceDataTagDictionary : Dictionary<String,Object> {
+		internal ResourceDataTagDictionary() {
+		}
 	}
 
 }

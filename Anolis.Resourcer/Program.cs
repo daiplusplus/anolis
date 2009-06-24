@@ -33,7 +33,7 @@ namespace Anolis.Resourcer {
 					}
 					
 					if( assemblyFilenames.Length > 0 )
-						Anolis.Core.Utility.Miscellaneous.SetAssemblyFilenames( assemblyFilenames );
+						Anolis.Core.Utility.Miscellaneous.SetAssemblyFileNames( assemblyFilenames );
 					
 				}
 				

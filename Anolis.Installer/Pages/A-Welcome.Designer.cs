@@ -26,6 +26,7 @@
 			this.@__inst1 = new System.Windows.Forms.Label();
 			this.@__culture = new System.Windows.Forms.ComboBox();
 			this.@__cultureLbl = new System.Windows.Forms.Label();
+			this.@__cultureAttrib = new System.Windows.Forms.Label();
 			this.@__openingText.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -37,27 +38,31 @@
 			// __openingText
 			// 
 			this.@__openingText.BackColor = System.Drawing.Color.Transparent;
+			this.@__openingText.Controls.Add(this.@__cultureAttrib);
 			this.@__openingText.Controls.Add(this.@__inst1);
-			this.@__openingText.Location = new System.Drawing.Point(174, 177);
-			this.@__openingText.Size = new System.Drawing.Size(322, 123);
+			this.@__openingText.Controls.Add(this.@__culture);
+			this.@__openingText.Controls.Add(this.@__cultureLbl);
+			this.@__openingText.Location = new System.Drawing.Point(174, 165);
+			this.@__openingText.Size = new System.Drawing.Size(322, 135);
 			// 
 			// __inst1
 			// 
 			this.@__inst1.BackColor = System.Drawing.Color.Transparent;
-			this.@__inst1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.@__inst1.Location = new System.Drawing.Point(0, 0);
+			this.@__inst1.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.@__inst1.Location = new System.Drawing.Point(0, 43);
 			this.@__inst1.Margin = new System.Windows.Forms.Padding(3, 100, 3, 0);
 			this.@__inst1.Name = "__inst1";
-			this.@__inst1.Size = new System.Drawing.Size(322, 123);
+			this.@__inst1.Size = new System.Drawing.Size(322, 92);
 			this.@__inst1.TabIndex = 0;
 			this.@__inst1.Text = "This wizard will guide you through the steps involve in installing an Anolis pack" +
-				"age\r\n\r\nDistributions of Anolis can customise the text placed here and throughout" +
-				" the wizard\r\n\r\nTo continue, press Next";
+				"age\r\n\r\nTo continue, press Next";
 			// 
 			// __culture
 			// 
+			this.@__culture.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+			this.@__culture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.@__culture.FormattingEnabled = true;
-			this.@__culture.Location = new System.Drawing.Point(177, 99);
+			this.@__culture.Location = new System.Drawing.Point(3, 16);
 			this.@__culture.Name = "__culture";
 			this.@__culture.Size = new System.Drawing.Size(189, 21);
 			this.@__culture.TabIndex = 2;
@@ -65,24 +70,27 @@
 			// __cultureLbl
 			// 
 			this.@__cultureLbl.AutoSize = true;
-			this.@__cultureLbl.Location = new System.Drawing.Point(174, 83);
+			this.@__cultureLbl.BackColor = System.Drawing.Color.Transparent;
+			this.@__cultureLbl.Location = new System.Drawing.Point(3, 0);
 			this.@__cultureLbl.Name = "__cultureLbl";
 			this.@__cultureLbl.Size = new System.Drawing.Size(108, 13);
 			this.@__cultureLbl.TabIndex = 3;
 			this.@__cultureLbl.Text = "Installation Language";
 			// 
+			// __cultureAttrib
+			// 
+			this.@__cultureAttrib.Location = new System.Drawing.Point(198, 12);
+			this.@__cultureAttrib.Name = "__cultureAttrib";
+			this.@__cultureAttrib.Size = new System.Drawing.Size(117, 26);
+			this.@__cultureAttrib.TabIndex = 4;
+			this.@__cultureAttrib.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// WelcomePage
 			// 
-			this.Controls.Add(this.@__cultureLbl);
-			this.Controls.Add(this.@__culture);
 			this.Name = "WelcomePage";
-			this.Controls.SetChildIndex(this.@__culture, 0);
-			this.Controls.SetChildIndex(this.@__cultureLbl, 0);
-			this.Controls.SetChildIndex(this.@__title, 0);
-			this.Controls.SetChildIndex(this.@__openingText, 0);
 			this.@__openingText.ResumeLayout(false);
+			this.@__openingText.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -91,6 +99,7 @@
 		private System.Windows.Forms.Label __inst1;
 		private System.Windows.Forms.ComboBox __culture;
 		private System.Windows.Forms.Label __cultureLbl;
+		private System.Windows.Forms.Label __cultureAttrib;
 
 	}
 }

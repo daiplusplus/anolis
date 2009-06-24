@@ -24,10 +24,10 @@ namespace Anolis.Resourcer.Controls {
 			__list.SelectedIndexChanged += new EventHandler(__list_SelectedIndexChanged);
 			__list.ItemActivate         += new EventHandler(__list_ItemActivate);
 			
-			__size16.Click += new EventHandler(__size_Click); __size16.Tag = new Size(16, 16);
-			__size32.Click += new EventHandler(__size_Click); __size32.Tag = new Size(32, 32);
-			__size96.Click += new EventHandler(__size_Click); __size96.Tag = new Size(96, 96);
-			__sizeDetails.CheckedChanged += new EventHandler(__sizeDetails_CheckedChanged);
+			__size16     .Click += new EventHandler(__size_Click); __size16.Tag = new Size(16, 16);
+			__size32     .Click += new EventHandler(__size_Click); __size32.Tag = new Size(32, 32);
+			__size96     .Click += new EventHandler(__size_Click); __size96.Tag = new Size(96, 96);
+			__sizeDetails.Click += new EventHandler(__sizeDetails_Click);
 			
 			__bg.ProgressChanged    += new ProgressChangedEventHandler(__bg_ProgressChanged);
 			__bg.DoWork             += new DoWorkEventHandler(PopulateCurrentObject);
@@ -38,20 +38,41 @@ namespace Anolis.Resourcer.Controls {
 		
 #region UI Events
 		
-		private void __sizeDetails_CheckedChanged(object sender, EventArgs e) {
+	#region Icon Size
+		
+		private void __sizeDetails_Click(object sender, EventArgs e) {
 			
 			__list.View = __sizeDetails.Checked ? View.Details : View.LargeIcon;
+			
+			__size16.Checked = false;
+			__size32.Checked = false;
+			__size96.Checked = false;
+			
 		}
 		
 		private void __size_Click(object sender, EventArgs e) {
 			
-			SetIconSize( (Size)(sender as ToolStripButton).Tag );
+			Size size = (Size)((ToolStripButton)sender).Tag;
 			
-			__size16.Checked = sender == __size16;
-			__size32.Checked = sender == __size32;
-			__size96.Checked = sender == __size96;
+			if( __images.ImageSize != size || __list.View == View.Details ) {
+				
+				// reload
+				ShowObject( CurrentObject );
+				
+				__list.View = View.LargeIcon;
+				
+				__images.ImageSize = size;
+				
+				__sizeDetails.Checked = false;
+				__size16.Checked = sender == __size16;
+				__size32.Checked = sender == __size32;
+				__size96.Checked = sender == __size96;
+				
+			}
 			
 		}
+		
+	#endregion
 		
 		private void __list_ItemActivate(object sender, EventArgs e) {
 			
@@ -488,10 +509,7 @@ namespace Anolis.Resourcer.Controls {
 		
 		private void SetIconSize(Size size) {
 			
-			__images.ImageSize = size;
 			
-			// reload
-			ShowObject( CurrentObject );
 			
 		}
 		

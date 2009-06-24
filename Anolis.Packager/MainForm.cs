@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -21,11 +22,12 @@ namespace Anolis.Packager {
 			this.__distro.Click += new EventHandler(__button_Click);
 
 			this.__icoed.Click += new EventHandler(__icoed_Click);
+			this.__icoed.Enabled = File.Exists("Anolis.IconEditor.exe");
 		}
 		
 		private void __icoed_Click(object sender, EventArgs e) {
 			
-			Process.Start("Anolis.IconEditor.exe");
+			if( File.Exists("Anolis.IconEditor.exe") ) Process.Start("Anolis.IconEditor.exe");
 		}
 		
 		private void __button_Click(object sender, EventArgs e) {

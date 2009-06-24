@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
 using Anolis.Core;
 using Anolis.Core.Packages;
+using System.Threading;
 
 namespace Anolis.Packager {
 	
@@ -23,6 +23,10 @@ namespace Anolis.Packager {
 			
 			__ok    .Click += new EventHandler(__ok_Click);
 			__cancel.Click += new EventHandler(__cancel_Click);
+			
+			__dbgBack.Click += new EventHandler(__dbgBack_Click);
+			__dbgNext.Click += new EventHandler(__dbgNext_Click);
+			
 		}
 		
 		private void __cancel_Click(object sender, EventArgs e) {
@@ -79,24 +83,91 @@ namespace Anolis.Packager {
 		
 		private void __eval_Click(object sender, EventArgs e) {
 			
+			_stateOverTime.Clear();
+			_stateIdx = 0;
+			
 			Expression expr = new Expression( __expression.Text );
+			
+			expr.StackChanged += new EventHandler(expr_StackChanged);
+			
+			String exMessage;
 			
 			try {
 				
 				Double result = expr.Evaluate( GetSymbols() );
 				
-				__result.Text = result.ToString();
+				exMessage = result.ToString();
 			
 			} catch(ExpressionException ex) {
 				
-				__result.Text = ex.Message;
+				exMessage = ex.Message;
 				
 			} catch(Exception ex) {
 				
-				__result.Text = "Unhandled: " + ex.Message;
+				exMessage = "Unhandled: " + ex.Message;
 				
 			}
 			
+			__result.Text = exMessage;
+			
 		}
+		
+		private class ExpressionState {
+			
+			public Operator[] OperatorStack;
+			public Double[]   ValueStack;
+			public Double     Value;
+			
+		}
+		
+		private List<ExpressionState> _stateOverTime = new List<ExpressionState>();
+		private Int32 _stateIdx = 0;
+		
+		private void expr_StackChanged(object sender, EventArgs e) {
+			
+			Expression expr = sender as Expression;
+			
+			ExpressionState state = new ExpressionState() {
+				OperatorStack = expr.CurrentOperatorStack,
+				ValueStack    = expr.CurrentValueStack,
+				Value         = expr.CurrentValue
+			};
+			
+			_stateOverTime.Add( state );
+			
+		}
+		
+		private void ShowState(ExpressionState state) {
+			
+			__dbgOpStack .Items.Clear();
+			__dbgValStack.Items.Clear();
+			
+			foreach(Operator op in state.OperatorStack) __dbgOpStack .Items.Add( Anolis.Core.Packages.Expression.OperatorSymbols[ op ] );
+			foreach(Double   db in state.ValueStack   ) __dbgValStack.Items.Add( db );
+			
+			__dbgVal.Text = state.Value.ToString();
+			
+		}
+		
+		private void __dbgNext_Click(object sender, EventArgs e) {
+			
+			__dbgBack.Enabled = true;
+			
+			ShowState( _stateOverTime[ _stateIdx++ ] );
+			
+			if( _stateIdx >= _stateOverTime.Count ) __dbgNext.Enabled = false;
+			
+		}
+		
+		private void __dbgBack_Click(object sender, EventArgs e) {
+			
+			__dbgNext.Enabled = true;
+			
+			ShowState( _stateOverTime[ --_stateIdx ] );
+			
+			if( _stateIdx == -1 ) __dbgBack.Enabled = false;
+			
+		}
+		
 	}
 }

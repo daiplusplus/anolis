@@ -74,15 +74,18 @@ namespace Anolis.Installer.Pages {
 		
 		private void __bw_DoWork(object sender, DoWorkEventArgs e) {
 			
-			CreatePointA();
-			
-			try {
-			
-				PackageInfo.Package.Execute();
+			if( PackageInfo.I386Install ) {
 				
-			} finally {
+				PackageInfo.Package.I386Info.I386Directory   = PackageInfo.I386Directory;
 				
-				CreatePointB();
+				PackageInfo.Package.Execute(PackageExecutionMode.I386);
+				
+			} else {
+				
+				PackageInfo.Package.CreateSystemRestorePoint = PackageInfo.SystemRestore;
+				
+				PackageInfo.Package.Execute(PackageExecutionMode.Regular);
+				
 			}
 			
 			Invoke( new MethodInvoker( delegate() {
@@ -98,7 +101,16 @@ namespace Anolis.Installer.Pages {
 			
 			BeginInvoke( new MethodInvoker( delegate() {
 				
-				__progress.Value = e.Percentage;
+				if( e.Percentage == -1 ) {
+					
+					__progress.Style = ProgressBarStyle.Marquee;
+					
+				} else {
+					__progress.Style = ProgressBarStyle.Blocks;
+					__progress.Value = e.Percentage;
+				}
+				
+				
 				__statusLabel.Text = String.Format( InstallerResources.GetString("C_F_status") , e.Percentage, e.Message );
 				
 			}));
@@ -113,59 +125,6 @@ namespace Anolis.Installer.Pages {
 			get { return null; }
 		}
 		
-#region System Restore
-		
-		private void CreatePointA() {
-			
-			if( PackageInfo.SystemRestore ) {
-				
-				Invoke( new MethodInvoker( delegate() {
-					
-					__progress.Style = ProgressBarStyle.Marquee;
-					__statusLabel.Text = "Creating System Restore Point";
-					
-				}));
-				
-				String pointName = "Installed Anolis Package '" + PackageInfo.Package.RootGroup.Name + '\'';
-				
-				PackageUtility.CreateSystemRestorePoint( pointName, PackageUtility.SystemRestoreType.ApplicationInstall, PackageUtility.SystemRestoreEventType.BeginSystemChange );
-				
-				Invoke( new MethodInvoker( delegate() {
-					
-					__progress.Style = ProgressBarStyle.Blocks;
-					
-				}));
-				
-			}
-			
-		}
-		
-		private void CreatePointB() {
-			
-			if( PackageInfo.SystemRestore ) {
-				
-				Invoke( new MethodInvoker( delegate() {
-					
-					__progress.Style = ProgressBarStyle.Marquee;
-					__statusLabel.Text = "Finishing System Restore Point";
-					
-				}));
-				
-				String pointName = "Installed Anolis Package '" + PackageInfo.Package.RootGroup.Name + '\'';
-				
-				PackageUtility.CreateSystemRestorePoint( pointName, PackageUtility.SystemRestoreType.ApplicationInstall, PackageUtility.SystemRestoreEventType.EndSystemChange );
-				
-				Invoke( new MethodInvoker( delegate() {
-					
-					__progress.Style = ProgressBarStyle.Blocks;
-					
-				}));
-				
-			}
-			
-		}
-		
-#endregion
 		
 	}
 }

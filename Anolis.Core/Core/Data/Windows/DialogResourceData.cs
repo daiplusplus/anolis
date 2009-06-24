@@ -15,7 +15,7 @@ namespace Anolis.Core.Data {
 			return (typeId.KnownType == Win32ResourceType.Dialog) ? Compatibility.Yes : Compatibility.No;
 		}
 		
-		public override Compatibility HandlesExtension(String filenameExtension) {
+		public override Compatibility HandlesExtension(String fileNameExtension) {
 			return Compatibility.No;
 		}
 		
@@ -26,10 +26,6 @@ namespace Anolis.Core.Data {
 		
 		public override String Name {
 			get { return "Dialog Box"; }
-		}
-		
-		protected override String GetOpenFileFilter() {
-			return null;
 		}
 		
 		public override String OpenFileFilter {
@@ -76,7 +72,10 @@ namespace Anolis.Core.Data {
 				
 				return ret;
 			
-			} catch(Exception) {
+			} catch(IOException) {
+				
+				return null;
+			} catch(AnolisException) {
 				
 				return null;
 			}
@@ -126,7 +125,7 @@ namespace Anolis.Core.Data {
 		}
 		
 		protected override void SaveAs(System.IO.Stream stream, String extension) {
-			throw new NotImplementedException();
+			throw new NotSupportedException();
 		}
 		
 		protected override String[] SupportedFilters {

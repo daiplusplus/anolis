@@ -10,9 +10,9 @@ namespace Anolis.Core.Source {
 	
 	public sealed class ResResourceSourceFactory : ResourceSourceFactory {
 		
-		public override ResourceSource Create(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode) {
+		public override ResourceSource Create(String fileName, Boolean isReadOnly, ResourceSourceLoadMode mode) {
 			
-			return new ResResourceSource(filename, isReadOnly, mode);
+			return new ResResourceSource(fileName, isReadOnly, mode);
 		}
 		
 		protected override void CreateNew(String fileName) {
@@ -115,6 +115,7 @@ namespace Anolis.Core.Source {
 				Int64 start = rdr.BaseStream.Position;
 				
 				ResResourceHeader header = new ResResourceHeader( rdr );
+				if(header.DataSize == 0 && rdr.BaseStream.Position == rdr.BaseStream.Length) break;
 				
 				Int64 stop  = rdr.BaseStream.Position;
 				Int32 headerSize = (int)(stop - start);

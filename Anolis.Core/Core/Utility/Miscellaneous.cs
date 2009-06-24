@@ -63,16 +63,16 @@ namespace Anolis.Core.Utility {
 			return truncated;
 		}
 		
-		public static String RemoveIllegalFilenameChars(String s, Char? replaceWith) {
+		public static String RemoveIllegalFileNameChars(String fileName, Char? replaceWith) {
 			
 			Char[] illegals = System.IO.Path.GetInvalidFileNameChars();
-			Char[] str      = s.ToCharArray();
+			Char[] str      = fileName.ToCharArray();
 			
 			if(replaceWith == null) {
 				
 				StringBuilder sb = new StringBuilder();
 				
-				for(int i=0;i<s.Length;i++) {
+				for(int i=0;i<fileName.Length;i++) {
 					
 					Boolean isIllegal = false;
 					for(int j=0;j<illegals.Length;j++) {
@@ -90,7 +90,7 @@ namespace Anolis.Core.Utility {
 				
 			} else {
 				
-				for(int i=0;i<s.Length;i++) {
+				for(int i=0;i<fileName.Length;i++) {
 					
 					Boolean isIllegal = false;
 					for(int j=0;j<illegals.Length;j++) {
@@ -114,22 +114,22 @@ namespace Anolis.Core.Utility {
 			
 			path = path.Replace('\\', '-');
 			
-			return RemoveIllegalFilenameChars( path, '_' );
+			return RemoveIllegalFileNameChars( path, '_' );
 		}
 		
 #region Extensibility
 		
 		/// <summary>Tells the factories where they can find additional assemblies. This only takes effect if the factories haven't already enumerated types</summary>
-		public static void SetAssemblyFilenames(String[] assemblies) {
+		public static void SetAssemblyFileNames(String[] assemblies) {
 			
-			FactoryBase.AssemblyFilenames = assemblies;
+			FactoryBase.AssemblyFileNames = assemblies;
 		}
 		
-		public static Boolean IsAssembly(String filename) {
+		public static Boolean IsAssembly(String fileName) {
 			
 			try {
 				
-				AssemblyName name = AssemblyName.GetAssemblyName( filename );
+				AssemblyName name = AssemblyName.GetAssemblyName( fileName );
 				
 				return true;
 			

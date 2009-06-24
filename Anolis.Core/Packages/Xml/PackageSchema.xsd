@@ -1,29 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="PackageSchema11" targetNamespace="http://anol.is/PackageSchema11.xsd" xmlns="http://anol.is/PackageSchema11.xsd" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="en">
-	
-<!-- Path escapes
-
-Whenever a path is specified in a src="", dest="", or path="" attribute there are Anolis-specific environment variables in addition to the Windows ones (like %programfiles%).
-Refer to http://en.wikipedia.org/wiki/Environment_variable#Examples_from_Microsoft_Windows for more details
-
-Note that %programfiles% may or may not return the path to the 32-bit or 64-bit program files on x64 depending on how Anolis itself is executed
- -->
+<xs:schema id="PackageSchema11" targetNamespace="http://anol.is/schemas/PackageSchema11.xsd" xmlns="http://anol.is/schemas/PackageSchema11.xsd" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="en">
 	
 	<xs:element name="package">
 		<xs:complexType>
 			<xs:sequence>
 				
-				<xs:element name="group" type="itemGroup" maxOccurs="unbounded" />
+				<!-- The root group -->
+				<xs:element name="group" type="itemGroup" maxOccurs="1" />
 				
 			</xs:sequence>
 			
-			<!-- <package> attributes -->
-			<xs:attributeGroup ref="common" />
-			<xs:attribute name="condition"   type="xs:string"  use="optional" />
-			<xs:attribute name="version"     type="xs:decimal" use="required" />
-			<xs:attribute name="attribution" type="xs:string"  use="required" />
-			<xs:attribute name="website"     type="xs:anyURI"  use="optional" />
-			<xs:attribute name="updateUrl"   type="xs:anyURI"  use="optional" />
+			<!-- <package> attributes. Doesn't use common attribs -->
+			
+			<xs:attribute name="id"           type="xs:ID"      use="optional" />
+			<xs:attribute name="name"         type="xs:string"  use="required" />
+			<xs:attribute name="condition"    type="xs:string"  use="optional" />
+			<xs:attribute name="conditionDesc" type="xs:string" use="optional" />
+			
+			<xs:attribute name="version"      type="xs:decimal" use="required" />
+			<xs:attribute name="attribution"  type="xs:string"  use="required" />
+			<xs:attribute name="website"      type="xs:anyURI"  use="optional" />
+			<xs:attribute name="updateUri"    type="xs:anyURI"  use="optional" />
 			
 		</xs:complexType>
 	</xs:element><!-- /package -->
@@ -57,7 +54,6 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 						<xs:attributeGroup ref="common" />
 						<xs:attribute name="path"      type="xs:anyURI" use="required" />
 						<xs:attribute name="saveTo"    type="xs:anyURI" use="optional" />
-						<xs:attribute name="condition" type="xs:string" use="optional" />
 						
 					</xs:complexType>
 				</xs:element>
@@ -70,7 +66,6 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 						<xs:attribute name="operation" type="fileOperation" use="required" />
 						<xs:attribute name="path"      type="xs:anyURI"     use="required" />
 						<xs:attribute name="src"       type="xs:anyURI"     use="optional" />
-						<xs:attribute name="condition" type="xs:string"     use="optional" />
 						
 					</xs:complexType>
 				</xs:element>
@@ -125,14 +120,14 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 					</xs:complexType>
 				</xs:element>
 				
-				<xs:element name="filetype" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="fileType" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						
-						<!-- <filetype /> attributes -->
+						<!-- <fileType /> attributes -->
 						<xs:attributeGroup ref="common" />
 						
-						<xs:attribute name="type" type="xs:string"  use="required" />
-						<xs:attribute name="path" type="xs:anyURI"  use="required" />
+						<xs:attribute name="typeExt" type="xs:string"  use="required" />
+						<xs:attribute name="icon"    type="xs:anyURI"  use="required" />
 						
 					</xs:complexType>
 				</xs:element>
@@ -146,6 +141,17 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 						<xs:attribute name="spiAction" type="xs:string" use="required" />
 						<xs:attribute name="uiParam"   type="xs:string" use="required" />
 						<xs:attribute name="pvParam"   type="xs:string" use="required" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="uninstallation" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						
+						<!-- <uninstallation /> attributes -->
+						<xs:attributeGroup ref="common" />
+						
+						<xs:attribute name="displayIcon" type="xs:anyURI" use="required" />
 						
 					</xs:complexType>
 				</xs:element>
@@ -172,9 +178,20 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 		<xs:attribute name="descImg"     type="xs:anyURI"  use="optional" />
 		
 		<xs:attribute name="enabled"     type="xs:boolean" use="optional" />
+		
+		<xs:attribute name="condition"   type="xs:string"  use="optional" />
+		
 	</xs:attributeGroup>
 	
 	<!-- Additional Types -->
+	
+	<xs:simpleType name="i386type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none" />
+			<xs:enumeration value="compressed" />
+			<xs:enumeration value="uncompressed" />
+		</xs:restriction>
+	</xs:simpleType>
 	
 	<xs:simpleType name="extraType">
 		<xs:restriction base="xs:string">
@@ -186,8 +203,6 @@ Note that %programfiles% may or may not return the path to the 32-bit or 64-bit 
 			<xs:enumeration value="registry" />
 			<xs:enumeration value="uxtheme" />
 			<xs:enumeration value="custom" />
-			<!-- 'Exception' is used for testing purposes only -->
-			<xs:enumeration value="exception" />
 		</xs:restriction>
 	</xs:simpleType>
 	

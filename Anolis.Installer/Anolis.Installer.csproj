@@ -59,10 +59,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="W3b.Wizards, Version=1.0.3393.41650, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_ref\W3b.Wizards\W3b.Wizards.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InstallerResources.cs" />
@@ -182,16 +178,35 @@
     <EmbeddedResource Include="Pages\F-Finished.resx">
       <DependentUpon>F-Finished.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Wizard.resx">
+    <EmbeddedResource Include="Resources\it.resx">
+      <LastGenOutput>it.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ru.resx">
+      <LastGenOutput>ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\es.resx">
+      <LastGenOutput>es.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\de.resx">
+      <LastGenOutput>de.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\en.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Wizard.Designer.cs</LastGenOutput>
+      <LastGenOutput>en.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="app.manifest" />
-    <Compile Include="Resources\Wizard.Designer.cs">
+    <Compile Include="Resources\en.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Wizard.resx</DependentUpon>
+      <DependentUpon>en.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +216,10 @@
     <None Include="Resources\Banner.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\W3b.Wizards\W3b.Wizards\W3b.Wizards.csproj">
+      <Project>{14E57E31-E374-4B52-9D4A-875FAA411DF2}</Project>
+      <Name>W3b.Wizards</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Anolis.Core\Anolis.Core.csproj">
       <Project>{967BF434-D4F9-41E3-8B82-433987DEB4A6}</Project>
       <Name>Anolis.Core</Name>
@@ -235,6 +254,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Package.ico" />
+    <None Include="Resources\Flags\en.png" />
+    <None Include="Resources\Flags\cn.png" />
+    <None Include="Resources\Flags\de.png" />
+    <None Include="Resources\Flags\es.png" />
+    <None Include="Resources\Flags\nl.png" />
+    <None Include="Resources\Flags\ru.png" />
+    <None Include="Resources\Flags\it.png" />
     <Content Include="Resources\Package.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

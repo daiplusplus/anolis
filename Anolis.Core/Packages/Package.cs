@@ -10,17 +10,26 @@ using System.Net;
 using Anolis.Core.Packages.Operations;
 using Anolis.Core.Utility;
 
-using N = System.Globalization.NumberStyles;
-using Cult = System.Globalization.CultureInfo;
+using N     = System.Globalization.NumberStyles;
+using Cult  = System.Globalization.CultureInfo;
+using Image = System.Drawing.Image;
 
 using ProgressEventArgs = Anolis.Core.Packages.PackageProgressEventArgs;
 
 namespace Anolis.Core.Packages {
 	
 	/// <summary>Represents a collection of resource sets</summary>
-	public class Package {
+	public class Package : PackageBase {
 		
-		internal Package(DirectoryInfo root, XmlElement packageElement) {
+		public Package() : base(null) {
+			
+			PackageImages = new Dictionary<String,Image>();
+			Log           = new Log();
+			
+			I386Info      = new I386Info( this );
+		}
+		
+		internal Package(DirectoryInfo root, XmlElement packageElement) : this() {
 			
 			RootDirectory = root;
 			
@@ -29,19 +38,30 @@ namespace Anolis.Core.Packages {
 			Website     = packageElement.GetAttribute("website")  .Length > 0 ? new Uri( packageElement.Attributes["website"]  .Value ) : null;
 			UpdateUri   = packageElement.GetAttribute("updateUri").Length > 0 ? new Uri( packageElement.Attributes["updateUri"].Value ) : null;
 			
-			PackageImages = new Dictionary<String,System.Drawing.Image>();
-			Log           = new Log();
+			if( packageElement.ChildNodes.Count == 1 ) {
+				
+				XmlElement rootGroupElement = packageElement.ChildNodes[0] as XmlElement;
+				
+				RootGroup = new Group(this, null, rootGroupElement);
+				
+			} else throw new PackageException("<package> element must have one (and only one) <group> child element");
 			
-			// Load it up
-			RootGroup     = new Group(this, packageElement);
 		}
 		
-		public Single Version     { get; private set; }
-		public String Attribution { get; private set; }
-		public Uri    Website     { get; private set; }
-		public Uri    UpdateUri   { get; private set; }
+		private void EnsureState() {
+			
+			if( RootGroup     == null ) throw new PackageException("Package's root group is not defined");
+			if( RootDirectory == null ) throw new PackageException("Package's root filesystem directory is not defined");
+			
+		}
 		
-		public DirectoryInfo RootDirectory { get; private set; }
+		public Single Version     { get; set; }
+		public String Attribution { get; set; }
+		public Uri    Website     { get; set; }
+		public Uri    UpdateUri   { get; set; }
+		
+		public Group         RootGroup     { get; set; }
+		public DirectoryInfo RootDirectory { get; set; }
 		
 		internal Dictionary<String,System.Drawing.Image> PackageImages { get; private set; }
 		
@@ -52,7 +72,7 @@ namespace Anolis.Core.Packages {
 			return FromFile( Path.Combine( packageDirectory, "Package.xml" ) );
 		}
 		
-		public static Package FromFile(String packageXmlFilename) {
+		public static Package FromFile(String packageXmlFileName) {
 			
 			Collection<ValidationEventArgs> validationMessages = new Collection<ValidationEventArgs>();
 			
@@ -68,7 +88,7 @@ namespace Anolis.Core.Packages {
 			
 			settings.ValidationType = ValidationType.Schema;
 			
-			XmlReader rdr = XmlReader.Create( packageXmlFilename, settings );
+			XmlReader rdr = XmlReader.Create( packageXmlFileName, settings );
 			XmlDocument doc = new XmlDocument();
 			
 			doc.Load( rdr );
@@ -89,7 +109,7 @@ namespace Anolis.Core.Packages {
 			
 			XmlElement packageElement = doc.DocumentElement;
 			
-			return new Package( new DirectoryInfo( Path.GetDirectoryName(packageXmlFilename) ), packageElement );
+			return new Package( new DirectoryInfo( Path.GetDirectoryName(packageXmlFileName) ), packageElement );
 			
 			
 		}
@@ -116,9 +136,15 @@ namespace Anolis.Core.Packages {
 		
 		//////////////////////////////
 		
-		public Group      RootGroup { get; private set; }
+		public Log   Log       { get; private set; }
 		
-		public Log Log       { get; private set; }
+		public PackageExecutionMode ExecutionMode { get; private set; }
+		
+		public Boolean IsBusy { get; private set; }
+		
+		public I386Info I386Info { get; private set; }
+		
+		public Boolean CreateSystemRestorePoint { get; set; }
 		
 		//////////////////////////////
 		
@@ -129,9 +155,17 @@ namespace Anolis.Core.Packages {
 		
 		public event EventHandler<ProgressEventArgs> ProgressEvent;
 		
+#region Execute
 		
-		
-		public void Execute() {
+		public void Execute(PackageExecutionMode mode) {
+			
+			EnsureState();
+			
+			if( IsBusy ) throw new InvalidOperationException("Currently executing a package.");
+			
+			ExecutionMode = mode;
+			
+			IsBusy = true;
 			
 			///////////////////////////////////
 			// Flatten
@@ -172,7 +206,24 @@ namespace Anolis.Core.Packages {
 			///////////////////////////////////
 			// Prepare
 			
-			PackageUtility.AllowProtectedRenames();
+			if( mode == PackageExecutionMode.Regular )
+				PackageUtility.AllowProtectedRenames();
+			
+			///////////////////////////////////
+			// System Restore, Part 1
+			if( mode == PackageExecutionMode.Regular && CreateSystemRestorePoint ) {
+				
+				OnProgressEvent( new PackageProgressEventArgs( -1, "Creating System Restore Point" ) );
+				
+				String pointName = "Installed Anolis Package \"" + this.RootGroup.Name + '"';
+				
+				PackageUtility.CreateSystemRestorePoint( pointName, PackageUtility.SystemRestoreType.ApplicationInstall, PackageUtility.SystemRestoreEventType.BeginSystemChange );
+			}
+			
+			///////////////////////////////////
+			// Run Backup
+			
+			// TODO
 			
 			///////////////////////////////////
 			// Install
@@ -184,6 +235,8 @@ namespace Anolis.Core.Packages {
 				foreach(Operation op in operations) {
 					
 					OnProgressEvent( new PackageProgressEventArgs( (int)( 100 * i++ / cnt ), op.ToString() ) );
+					
+					if( !op.SupportsI386 && mode == PackageExecutionMode.I386 ) continue;
 					
 					try {
 						
@@ -206,13 +259,28 @@ namespace Anolis.Core.Packages {
 			} finally {
 				
 				///////////////////////////////////
+				// System Restore, Part 2
+				if( mode == PackageExecutionMode.Regular && CreateSystemRestorePoint ) {
+					
+					OnProgressEvent( new PackageProgressEventArgs( -1, "Finishing System Restore Point" ) );
+					
+					String pointName = "Installed Anolis Package \"" + this.RootGroup.Name + '"';
+					
+					PackageUtility.CreateSystemRestorePoint( pointName, PackageUtility.SystemRestoreType.ApplicationInstall, PackageUtility.SystemRestoreEventType.EndSystemChange );
+				}
+				
+				///////////////////////////////////
 				// Dump the log to disk
 				
 				Log.Save( Path.Combine( this.RootDirectory.FullName, "Anolis.Installer.log" ) );
 				
+				IsBusy = false;
 			}
 			
 		}
+		
+#endregion
+		
 		
 		/// <summary>A blocking method that returns details of the latest version, if it exists. Returns null under all failure conditions.</summary>
 		public PackageUpdateInfo CheckForUpdates() {
@@ -254,6 +322,50 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
+		public void Write(String fileName) {
+			
+			EnsureState();
+			
+			using(FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None)) {
+				
+				Write( fs );
+			}
+			
+		}
+		
+		public void Write(Stream stream) {
+			
+			EnsureState();
+			
+			XmlDocument doc = new XmlDocument();
+			XmlElement root = doc.CreateElement("package");
+			
+			                        PackageItem.AddAttribute(root, "id"        , Id );
+			                        PackageItem.AddAttribute(root, "name"      , Name );
+			if( Condition != null ) PackageItem.AddAttribute(root, "condition" , Condition.ToString() );
+			if( Version   != null ) PackageItem.AddAttribute(root, "version"    , Version.ToString(Cult.InvariantCulture) );
+			                        PackageItem.AddAttribute(root, "attribution", Attribution );
+			if( Website   != null ) PackageItem.AddAttribute(root, "website"    , Website.ToString() );
+			if( UpdateUri != null ) PackageItem.AddAttribute(root, "updateUri"  , UpdateUri.ToString());
+			
+			doc.AppendChild(root);
+			
+			RootGroup.Write( root );
+			
+			XmlWriterSettings settings = new XmlWriterSettings();
+			settings.ConformanceLevel = ConformanceLevel.Document;
+			settings.Encoding         = Encoding.UTF8;
+			settings.Indent           = true;
+			settings.IndentChars      = "\t";
+			
+			XmlWriter wtr = XmlWriter.Create(stream, settings);
+			
+			doc.WriteTo( wtr );
+			
+			wtr.Flush();
+			
+		}
+		
 	}
 	
 	public class PackageUpdateInfo {
@@ -271,6 +383,60 @@ namespace Anolis.Core.Packages {
 		public Uri     PackageLocation     { get; private set; }
 		public Uri     InformationLocation { get; private set; }
 		
+	}
+	
+	public class I386Info {
+		
+		private static readonly FileSearchComparer _comp = new FileSearchComparer();
+		
+		private Package       _package;
+		private DirectoryInfo _i386Directory;
+		private FileInfo[]    _i386Files;
+		
+		internal I386Info(Package package) {
+			
+			_package = package;
+		}
+		
+		public DirectoryInfo  I386Directory {
+			get { return _i386Directory; }
+			set {
+				
+				if( _package.IsBusy ) throw new InvalidOperationException("Currently executing a package.");
+				_i386Directory = value;
+				
+				_i386Files = value.GetFiles();
+				Array.Sort( _i386Files, (x,y) => String.Compare( x.Name, y.Name, StringComparison.OrdinalIgnoreCase ) );
+			}
+		}
+		
+		public FileInfo FindFile(String fileName) {
+			
+			Int32 idx = Array.BinarySearch( _i386Files, fileName, _comp );
+			
+			if( idx < 0 ) return null;
+			
+			return _i386Files[idx];
+			
+		}
+		
+		private class FileSearchComparer : IComparer<Object> {
+			
+			public Int32 Compare(object x, object y) {
+				
+				FileInfo fx = x as FileInfo;
+				String   sy = y as String;
+				
+				return String.Compare( fx.Name, sy, StringComparison.OrdinalIgnoreCase );
+				
+			}
+		}
+		
+	}
+	
+	public enum PackageExecutionMode {
+		Regular,
+		I386
 	}
 	
 }

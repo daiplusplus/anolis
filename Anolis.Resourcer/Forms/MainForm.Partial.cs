@@ -236,6 +236,24 @@ namespace Anolis.Resourcer {
 		
 #region ResourceSource
 		
+		private void SourceBatchProcessShow() {
+			
+			BatchProcessForm batch = new BatchProcessForm();
+			
+			if( CurrentSource != null ) {
+				
+				FileResourceSource fs = CurrentSource as FileResourceSource;
+				if( fs != null ) {
+					
+					batch.SourceFilePath = fs.FileInfo.FullName;
+				}
+				
+			}
+			
+			batch.ShowDialog(this);
+			
+		}
+		
 		/// <summary>Prompts the user to save the current source (if open) then opens a Save File dialog for the new empty ResourceSource then loads it.</summary>
 		private void SourceNew() {
 			
@@ -845,7 +863,7 @@ namespace Anolis.Resourcer {
 					return "Xml";
 				case Win32ResourceType.StringTable:
 					return "StringTable";
-				case Win32ResourceType.Toolbar:
+				case Win32ResourceType.ToolBar:
 					return "Toolbar";
 				case Win32ResourceType.Version:
 					return "Version";

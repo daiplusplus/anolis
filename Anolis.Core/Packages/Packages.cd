@@ -1,108 +1,298 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Anolis.Core.Packages.Operation" Collapsed="true">
-    <Position X="7.25" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAEAAAAAACAAYEAAAAEAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
-      <FileName>Packages\Operations\Operation.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Anolis.Core.Packages.FileOperation" Collapsed="true">
-    <Position X="5" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAEAAAQAAAAAEAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
-      <FileName>Packages\Operations\FileOperation.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Anolis.Core.Packages.ExtraOperation" Collapsed="true">
-    <Position X="9.5" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAEAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
-      <FileName>Packages\Operations\ExtraOperation.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Anolis.Core.Packages.PackageItem" Collapsed="true">
-    <Position X="9.5" Y="1.25" Width="1.5" />
+    <Position X="16" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAgAIAEAAAQAAQAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAgAIAEAAAQAAQAAAAAAAAAAAABAAUEAAA=</HashCode>
       <FileName>Packages\PackageItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Packages.Package" Collapsed="true">
-    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Position X="2.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IIAAAABAQAAAgAQgAEAAAAAAUAAAAAEEAAAAQAAAAAA=</HashCode>
+      <HashCode>IIIAAABAQAAAgAQgAEAAAAAAQBgAAAEEAAAAQAEAAAA=</HashCode>
       <FileName>Packages\Package.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Anolis.Core.Packages.Set" Collapsed="true">
-    <Position X="11.25" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAACAAAAAAAAAAAEAAAAQAAAAAEAAAAgAAAAAAA=</HashCode>
-      <FileName>Packages\Set.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Anolis.Core.Packages.SetCollection" Collapsed="true">
-    <Position X="13" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Packages\Set.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Anolis.Core.Packages.PackageArchive" Collapsed="true">
-    <Position X="14.75" Y="0.5" Width="1.5" />
+    <Position X="2.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAQgAAAAAAAAQQAAAAAIAQAABABAAEAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAQgAAAAAAAAQQAAAAAIAQAABABAAEAAA=</HashCode>
       <FileName>Packages\Archives\PackageArchive.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Anolis.Core.Packages.PackageProgressEventArgs">
-    <Position X="15" Y="4.75" Width="2.5" />
+  <Class Name="Anolis.Core.Packages.PackageProgressEventArgs" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Packages\Archives\PackageArchive.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Anolis.Core.Packages.PackageArchiveException">
-    <Position X="15" Y="3.5" Width="2" />
+  <Class Name="Anolis.Core.Packages.PackageArchiveException" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Packages\Archives\PackageArchive.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Packages.TarLzmaPackageArchive" Collapsed="true">
-    <Position X="14.75" Y="1.5" Width="1.5" />
+    <Position X="2.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EABAAAAAAAAAQAAAAAAAQAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <HashCode>EABAAAAAACAAQAAAAAAAQAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
       <FileName>Packages\Archives\TarLzmaPackageArchive.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Anolis.Core.Packages.PatchOperation" Collapsed="true">
-    <Position X="7.25" Y="4" Width="1.5" />
+  <Class Name="Anolis.Core.Packages.Group" Collapsed="true">
+    <Position X="14" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIAAAAAQAAAAAEAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
-      <FileName>Packages\Operations\PatchOperation.cs</FileName>
+      <HashCode>AAAAAAACAAAAAIAAAAAEAAAAQAAAAAEAAAAgAAEAAAA=</HashCode>
+      <FileName>Packages\Group.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Anolis.Core.Packages.OperationCollection" Collapsed="true">
-    <Position X="5.5" Y="2.5" Width="1.5" />
+  <Class Name="Anolis.Core.Packages.PackageException" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.PackageValidationException" Collapsed="true">
+    <Position X="0.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Expression" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AJAAASAIAQAICgggAAACAgAAAAQAAAAAAAAAoAQAAAA=</HashCode>
+      <FileName>Packages\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.ExpressionException" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.GroupCollection" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Group.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.PackageUpdateInfo" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAIAAAAAQAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Packages\Package.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.EmbeddedPackage" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAQAAAQAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\PackageUtility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.PackageUtility" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAQACAAAAAACIAwAAAAIAAABCAAAAAABAAAIA=</HashCode>
+      <FileName>Packages\PackageUtility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.Operation" Collapsed="true">
+    <Position X="16" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAEAAAAAACAAYEAAAAEAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
       <FileName>Packages\Operations\Operation.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Anolis.Core.Packages.Operations.PatchOperation" Collapsed="true">
+    <Position X="10" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAQAAAAAUAAABAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\PatchOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.CursorSchemeOperation" Collapsed="true">
+    <Position X="14" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAQAAAAAEAAAgAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\CursorSchemeOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.ExtraOperation" Collapsed="true">
+    <Position X="16" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="Anolis.Core.Packages.Operations.Operation" ManuallyRouted="true">
+      <Path>
+        <Point X="16.75" Y="2.88" />
+        <Point X="16.75" Y="3.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAQAAQAAEAAAAAAAAUAAgAAAAAEAAIA=</HashCode>
+      <FileName>Packages\Operations\ExtraOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.BootScreenExtraOperation" Collapsed="true">
+    <Position X="8" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\Extras\BootScreenExtraOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.CustomExtraOperation" Collapsed="true">
+    <Position X="12" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\Extras\CustomExtraOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.ExceptionExtraOperation" Collapsed="true">
+    <Position X="14" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\Extras\ExceptionExtraOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.ProgramExtraOperation" Collapsed="true">
+    <Position X="16" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\Extras\ProgramExtraOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.RegistryExtraOperation" Collapsed="true">
+    <Position X="18" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\Extras\RegistryExtraOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.ScreensaverExtraOperation" Collapsed="true">
+    <Position X="20" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\Extras\ScreensaverExtraOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.UxThemeExtraOperation" Collapsed="true">
+    <Position X="22" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAQAAQAAAgAAAAoAAAAAAAAACAAAACA=</HashCode>
+      <FileName>Packages\Operations\Extras\UxThemeExtraOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.VisualStyleExtraOperation" Collapsed="true">
+    <Position X="24" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAEAAAAEAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\Extras\VisualStyleExtraOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.WallpaperExtraOperation" Collapsed="true">
+    <Position X="10" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAIAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Packages\Operations\Extras\WallpaperExtraOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.FileOperation" Collapsed="true">
+    <Position X="22" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAQAAAAAEgAAAAAAAQAAAAEAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\FileOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.FileTypeOperation" Collapsed="true">
+    <Position X="8" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAEAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\FileTypeOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.NotImplementedOperation" Collapsed="true">
+    <Position X="12" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAQAAAAAEAAAAAAAAQAAAAAAAAEAAAA=</HashCode>
+      <FileName>Packages\Operations\NotImplementedOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.OperationCollection" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\Operation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.PatchResource" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAQAAAAEAAAABQAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\PatchOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.RegistryOperation" Collapsed="true">
+    <Position X="18" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAIAAAEAAAAAQAAACAEAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Operations\RegistryOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Anolis.Core.Packages.Operations.SystemParameterOperation" Collapsed="true">
+    <Position X="20" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAASAAAAAEAAAAAAAAQAAAAAAAAAAgAA=</HashCode>
+      <FileName>Packages\Operations\SystemParameterOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="Anolis.Core.Packages.PackageSubclass" Collapsed="true">
-    <Position X="16.5" Y="1.5" Width="1.5" />
+    <Position X="0.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>Packages\Archives\PackageArchive.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Anolis.Core.Packages.PackageArchiveState" Collapsed="true">
-    <Position X="16.5" Y="0.5" Width="1.5" />
+    <Position X="5.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
       <FileName>Packages\Archives\PackageArchive.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Anolis.Core.Packages.Operator" Collapsed="true">
+    <Position X="4" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAMBAAAgBBCAAiAgAAAAAAAABCGAgAAgAAAAAAAAAAQ=</HashCode>
+      <FileName>Packages\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Anolis.Core.Packages.Precedence" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAQgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packages\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Anolis.Core.Packages.Operations.ExtraType" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAQQgAAAAAAAAAAAgAAAIAAgAAAAAAABAAAkAAAA=</HashCode>
+      <FileName>Packages\Operations\ExtraOperation.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Anolis.Core.Packages.Operations.FileOperationType" Collapsed="true">
+    <Position X="2.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgEAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Packages\Operations\FileOperation.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Tahoma" Size="8.25" />

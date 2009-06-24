@@ -11,14 +11,14 @@ namespace Anolis.Core.Source {
 	
 	public sealed class Win32ResourceSourceFactory : ResourceSourceFactory {
 		
-		public override ResourceSource Create(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode) {
+		public override ResourceSource Create(String fileName, Boolean isReadOnly, ResourceSourceLoadMode mode) {
 			
-			return new Win32ResourceSource(filename, isReadOnly, mode);
+			return new Win32ResourceSource(fileName, isReadOnly, mode);
 		}
 		
-		protected override void CreateNew(String filename) {
+		protected override void CreateNew(String fileName) {
 			
-			using(FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write)) {
+			using(FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write)) {
 				
 				Byte[] emptyDll = Resources.Win32EmptyPE;
 				
@@ -61,7 +61,7 @@ namespace Anolis.Core.Source {
 		
 		private IntPtr   _moduleHandle;
 		
-		public Win32ResourceSource(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode) : base(filename, isReadOnly, mode) {
+		public Win32ResourceSource(String fileName, Boolean isReadOnly, ResourceSourceLoadMode mode) : base(fileName, isReadOnly, mode) {
 			
 			if( mode == ResourceSourceLoadMode.PreemptiveLoad ) throw new NotImplementedException("Support for preemptive data loading is not implemented yet");
 			

@@ -15,7 +15,7 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class ProgramExtraOperation : ExtraOperation {
 		
-		public ProgramExtraOperation(Package package, XmlElement element) :  base(ExtraType.Program, package, element) {
+		public ProgramExtraOperation(Package package, Group parent, XmlElement element) :  base(ExtraType.Program, package, parent, element) {
 		}
 		
 		public override void Execute() {
@@ -40,5 +40,10 @@ namespace Anolis.Core.Packages.Operations {
 			}
 			
 		}
+		
+		public override void Backup(Group backupGroup) {
+			
+		}
+		
 	}
 }

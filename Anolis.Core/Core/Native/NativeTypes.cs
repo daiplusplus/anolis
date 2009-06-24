@@ -963,6 +963,18 @@ namespace Anolis.Core.Native {
 			
 			DataSize        = rdr.ReadUInt32();
 			HeaderSize      = rdr.ReadUInt32();
+			
+			if(DataSize == 0) { // abort
+				Type            = 0;
+				Name            = 0;
+				DataVersion     = 0;
+				MemoryFlags     = 0;
+				LanguageId      = 0;
+				Version         = 0;
+				Characteristics = 0;
+				return;
+			}
+			
 			Type            = rdr.ReadIdentifier();
 			Name            = rdr.ReadIdentifier();
 			
@@ -1036,9 +1048,9 @@ namespace Anolis.Core.Native {
 		
 		private static void WriteIdentifier(Object ident, BinaryWriter wtr) {
 			
-			if( ident is String ) {
-				wtr.WriteSZString( ident as String );
-			} else {
+			String sid = ident as String;
+			if( sid != null ) wtr.WriteSZString( sid );
+			else {
 				
 				Int32 id = (Int32)ident; // must unbox first, before doing numeric type conversion
 				

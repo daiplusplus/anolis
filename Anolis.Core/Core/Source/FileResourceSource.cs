@@ -8,16 +8,16 @@ namespace Anolis.Core.Source {
 		
 		private ResourceSourceInfo _sourceInfo;
 		
-		protected FileResourceSource(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode) : base(  isReadOnly || IsPathReadonly(filename) , mode) {
+		protected FileResourceSource(String fileName, Boolean isReadOnly, ResourceSourceLoadMode mode) : base(  isReadOnly || IsPathReadonly(fileName) , mode) {
 			
-			FileInfo = new FileInfo(filename);
-			if(!FileInfo.Exists) throw new FileNotFoundException("", filename);
+			FileInfo = new FileInfo(fileName);
+			if(!FileInfo.Exists) throw new FileNotFoundException("", fileName);
 			
 		}
 		
-		private static Boolean IsPathReadonly(String filename) {
+		private static Boolean IsPathReadonly(String fileName) {
 			 
-			return ( File.GetAttributes(filename) & FileAttributes.ReadOnly ) == FileAttributes.ReadOnly;
+			return ( File.GetAttributes(fileName) & FileAttributes.ReadOnly ) == FileAttributes.ReadOnly;
 		}
 		
 		public FileInfo FileInfo { get; protected set; }

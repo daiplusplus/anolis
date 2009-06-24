@@ -12,16 +12,16 @@ namespace Anolis.Core {
 			return Utility.Miscellaneous.CreateFileFilter(description, extensions);
 		}
 		
-		protected internal static String[] AssemblyFilenames { get; set; }
+		protected internal static String[] AssemblyFileNames { get; set; }
 		
 		private static List<String> _assembliesLoaded = new List<String>();
 		private static String       _thisAssemblyFilename = Assembly.GetExecutingAssembly().Location;
 		
 		protected static void LoadFactoriesFromAssemblies<T>(IList<T> list) where T : class {
 			
-			if( AssemblyFilenames == null ) return;
+			if( AssemblyFileNames == null ) return;
 			
-			foreach(String filename in AssemblyFilenames) {
+			foreach(String filename in AssemblyFileNames) {
 				
 				if( File.Exists( filename ) ) {
 					
@@ -33,20 +33,20 @@ namespace Anolis.Core {
 			
 		}
 		
-		private static void LoadFactoriesFromAssembly<T>(IList<T> list, String assemblyFilename) where T : class {
+		private static void LoadFactoriesFromAssembly<T>(IList<T> list, String assemblyFileName) where T : class {
 			
-			if(_assembliesLoaded.Contains(assemblyFilename.ToUpperInvariant())) return;
+			if(_assembliesLoaded.Contains(assemblyFileName.ToUpperInvariant())) return;
 			
-			_assembliesLoaded.Add( assemblyFilename.ToUpperInvariant() );
+			_assembliesLoaded.Add( assemblyFileName.ToUpperInvariant() );
 			
-			if(!File.Exists(assemblyFilename)) return;
-			if( String.Equals(assemblyFilename, _thisAssemblyFilename, StringComparison.OrdinalIgnoreCase) ) return;
+			if(!File.Exists(assemblyFileName)) return;
+			if( String.Equals(assemblyFileName, _thisAssemblyFilename, StringComparison.OrdinalIgnoreCase) ) return;
 			
 			Assembly assembly;
 			
 			try {
 				
-				assembly = Assembly.LoadFile(assemblyFilename);
+				assembly = Assembly.LoadFile(assemblyFileName);
 				
 			} catch(FileLoadException) {
 				return;

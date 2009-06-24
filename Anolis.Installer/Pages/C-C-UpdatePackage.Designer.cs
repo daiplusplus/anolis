@@ -23,14 +23,13 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.@__fbd = new System.Windows.Forms.FolderBrowserDialog();
 			this.@__bw = new System.ComponentModel.BackgroundWorker();
 			this.@__statusLbl = new System.Windows.Forms.Label();
 			this.@__progress = new System.Windows.Forms.ProgressBar();
-			this.@__updateAvailable = new System.Windows.Forms.Label();
 			this.@__downloadYes = new System.Windows.Forms.Button();
 			this.@__downloadNo = new System.Windows.Forms.Button();
 			this.@__downloadInfo = new System.Windows.Forms.Button();
+			this.@__sfd = new System.Windows.Forms.SaveFileDialog();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -39,9 +38,13 @@
 			this.@__content.Controls.Add(this.@__downloadInfo);
 			this.@__content.Controls.Add(this.@__downloadNo);
 			this.@__content.Controls.Add(this.@__downloadYes);
-			this.@__content.Controls.Add(this.@__updateAvailable);
 			this.@__content.Controls.Add(this.@__statusLbl);
 			this.@__content.Controls.Add(this.@__progress);
+			// 
+			// __bw
+			// 
+			this.@__bw.WorkerReportsProgress = true;
+			this.@__bw.WorkerSupportsCancellation = true;
 			// 
 			// __statusLbl
 			// 
@@ -59,13 +62,6 @@
 			this.@__progress.Name = "__progress";
 			this.@__progress.Size = new System.Drawing.Size(413, 23);
 			this.@__progress.TabIndex = 2;
-			// 
-			// __updateAvailable
-			// 
-			this.@__updateAvailable.Location = new System.Drawing.Point(19, 121);
-			this.@__updateAvailable.Name = "__updateAvailable";
-			this.@__updateAvailable.Size = new System.Drawing.Size(416, 37);
-			this.@__updateAvailable.TabIndex = 4;
 			// 
 			// __downloadYes
 			// 
@@ -99,6 +95,10 @@
 			this.@__downloadInfo.UseVisualStyleBackColor = true;
 			this.@__downloadInfo.Visible = false;
 			// 
+			// __sfd
+			// 
+			this.@__sfd.Filter = "Anolis Package (*.anop)|*.anop";
+			// 
 			// UpdatePackagePage
 			// 
 			this.Name = "UpdatePackagePage";
@@ -113,14 +113,13 @@
 
 		#endregion
 
-		private System.Windows.Forms.FolderBrowserDialog __fbd;
 		private System.ComponentModel.BackgroundWorker __bw;
 		private System.Windows.Forms.Label __statusLbl;
 		private System.Windows.Forms.ProgressBar __progress;
-		private System.Windows.Forms.Label __updateAvailable;
 		private System.Windows.Forms.Button __downloadNo;
 		private System.Windows.Forms.Button __downloadYes;
 		private System.Windows.Forms.Button __downloadInfo;
+		private System.Windows.Forms.SaveFileDialog __sfd;
 
 	}
 }

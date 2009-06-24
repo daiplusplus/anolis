@@ -20,16 +20,16 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override Compatibility HandlesExtension(String filenameExtension) {
+		public override Compatibility HandlesExtension(String fileNameExtension) {
 			
-			if( IsExtension( filenameExtension, "cur" ) ) return Compatibility.Yes;
+			if( IsExtension( fileNameExtension, "cur" ) ) return Compatibility.Yes;
 			
 			return Compatibility.No;
 			
 		}
 		
-		protected override String GetOpenFileFilter() {
-			return CreateFileFilter("CursorDirectory", "cur");
+		public override String OpenFileFilter {
+			get { return CreateFileFilter("CursorDirectory", "cur"); }
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {

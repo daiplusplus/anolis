@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Xml;
@@ -10,6 +11,7 @@ using Anolis.Core.Utility;
 using P = System.IO.Path;
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Anolis.Core.Packages.Operations {
 	
@@ -17,16 +19,15 @@ namespace Anolis.Core.Packages.Operations {
 		
 		private String _saveTo;
 		
-		public PatchOperation(Package package, XmlElement operationElement) : base(package, operationElement) {
+		public PatchOperation(Package package, Group parent, XmlElement operationElement) : base(package, parent, operationElement) {
 			
-			Resources = new List<PatchResource>();
+			Resources = new Collection<PatchResource>();
 			
 			base.Path = operationElement.GetAttribute("path");
 			
 			_saveTo   = operationElement.GetAttribute("saveTo");
 			if(_saveTo.Length > 0)
 				_saveTo = PackageUtility.ResolvePath( _saveTo );
-			else _saveTo = null;
 			
 			foreach(XmlNode node in operationElement.ChildNodes) {
 				
@@ -41,7 +42,7 @@ namespace Anolis.Core.Packages.Operations {
 					Name = child.GetAttribute("name"),
 					Lang = child.GetAttribute("lang"),
 					File = child.GetAttribute("src"),
-					Add  = child.GetAttribute("add") == "true"
+					Add  = child.GetAttribute("add") == "true" || child.GetAttribute("add") == "1"
 				};
 				
 				res.File = P.Combine( package.RootDirectory.FullName, res.File );
@@ -51,11 +52,40 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
+		public PatchOperation(Package package, Group parent, String path) : base(package, parent, path) {
+			
+			Resources = new Collection<PatchResource>();
+			
+		}
+		
 		public override void Execute() {
 			
-			if( !File.Exists( Path ) ) {
+			if( Package.ExecutionMode == PackageExecutionMode.Regular ) {
 				
-				Package.Log.Add( new LogItem(LogSeverity.Error, "Source File not found: " + Path) );
+				ExecuteRegular( Path );
+				
+			} else if( Package.ExecutionMode == PackageExecutionMode.I386) {
+				
+				String workingPath, i386Path;
+				
+				I386Prepare( Path, out workingPath, out i386Path );
+				
+				if( workingPath == null ) return;
+				
+				PatchFile( workingPath );
+				
+				if( i386Path != null )
+					I386Aftermath( workingPath, i386Path );
+				
+			}
+			
+		}
+		
+		private void ExecuteRegular(String path) {
+			
+			if( !File.Exists( path ) ) {
+				
+				Package.Log.Add( new LogItem(LogSeverity.Error, "Source File not found: " + path) );
 				return;
 			}
 			
@@ -69,19 +99,114 @@ namespace Anolis.Core.Packages.Operations {
 				
 			} else {
 				
-				workOnThis = Path + ".anofp"; // "Anolis File Pending"
+				workOnThis = path + ".anofp"; // "Anolis File Pending"
 			}
 			
 			if(File.Exists( workOnThis )) Package.Log.Add( LogSeverity.Warning, "Overwritten *.anofp: " + workOnThis);
-			File.Copy( Path, workOnThis, true );
+			File.Copy( path, workOnThis, true );
 			
-			// TODO: Oh, I need to copy it to the uninstallation directory too
+			PatchFile( workOnThis );
 			
-			// for now, use lazy-load under all circumstances. In future analyse the Resources list to see if it's necessary or not
+			// if it throws, this won't be encountered
+			PackageUtility.AddPfroEntry( workOnThis, path );
+			
+		}
+		
+		private void I386Prepare(String path, out String workingFilePath, out String i386FilePath) {
+			
+			// get the filename, the path is not needed
+			String nom = P.GetFileNameWithoutExtension( path );
+			String ext = P.GetExtension( path );
+			
+			String compressedFilename = nom + ext.LeftFR(1) + '_';
+			
+			FileInfo compressedFile = Package.I386Info.FindFile( compressedFilename );
+			
+			String destTempDir =  P.Combine( P.GetTempPath(), "AnolisI386");
+			if( !Directory.Exists( destTempDir ) ) Directory.CreateDirectory( destTempDir );
+			
+			if( compressedFile != null ) {
+				
+				// expand it
+				
+				String destFile = PackageUtility.GetUnusedFileName( P.Combine(destTempDir, nom + ext ) );
+				
+				// don't use the -r switch if specifying an output filename
+				//String args = String.Format(CultureInfo.InvariantCulture, @"-r ""{0}"" ""{1}""", compressedFile.FullName, destFile);
+				String args = String.Format(CultureInfo.InvariantCulture, @"""{0}"" ""{1}""", compressedFile.FullName, destFile);
+				
+				ProcessStartInfo procStart = new ProcessStartInfo("expand", args);
+				procStart.WindowStyle = ProcessWindowStyle.Hidden;
+				procStart.CreateNoWindow = true;
+				
+				Process p = Process.Start( procStart );
+				
+				if( !p.Start() ) {
+					Package.Log.Add( LogSeverity.Error, "Couldn't start expand process");
+					
+					workingFilePath = null;
+					i386FilePath    = null;
+					
+					return;
+				}
+				
+				if( !p.WaitForExit( 5000 ) ) {
+					Package.Log.Add( LogSeverity.Error, "expand took longer than 5000ms");
+					
+					workingFilePath = null;
+					i386FilePath    = null;
+					
+					return;
+				}
+				
+				workingFilePath = destFile;
+				i386FilePath    = compressedFile.FullName;
+				
+				return;
+			}
+			
+			// uncompressed file
+			
+			FileInfo uncompressedFile = Package.I386Info.FindFile( P.GetFileName( path ) );
+			
+			if( uncompressedFile != null ) {
+				
+				workingFilePath = uncompressedFile.FullName;
+				i386FilePath    = null;
+				return;
+			}
+			
+			Package.Log.Add( LogSeverity.Warning, "Couldn't find file " + P.GetFileName( path ) + " in the I386 directory");
+			
+			workingFilePath = null;
+			i386FilePath    = null;
+			
+		}
+		
+		private void I386Aftermath(String expandedPath, String originalPath) {
+			
+			// compress and overwrite
+			
+			String args = String.Format(CultureInfo.InvariantCulture, @"/D CompressionType=LZX /D CompressionMemory=21 ""{0}"" ""{1}""", expandedPath, originalPath);
+			
+			ProcessStartInfo procStart = new ProcessStartInfo("makecab", args);
+			procStart.WindowStyle = ProcessWindowStyle.Hidden;
+			procStart.CreateNoWindow = true;
+			
+			Process p = Process.Start( procStart );
+			
+			p.Start();
+			// no need to wait for the result
+			
+		}
+		
+		private void PatchFile(String fileName) {
 			
 			try {
 				
-				using(ResourceSource source = ResourceSource.Open(workOnThis, false, ResourceSourceLoadMode.LazyLoadData)) {
+				// for now, use lazy-load under all circumstances. In future analyse the Resources list to see if it's necessary or not
+				// but the performance impact is minimal and it's the safest option, so keep it as it is
+				using(ResourceSource source = ResourceSource.Open(fileName, false, ResourceSourceLoadMode.LazyLoadData)) {
 					
 					foreach(PatchResource res in Resources) {
 						
@@ -145,17 +270,40 @@ namespace Anolis.Core.Packages.Operations {
 					source.CommitChanges();
 				}
 				
-				PackageUtility.AddPfroEntry( workOnThis, Path );
-				
-			} catch(Exception aex) {
+			} catch(AnolisException aex) {
 				
 				Package.Log.Add( LogSeverity.Error, "Patch Exception: " + aex.Message );
 				
-				if( File.Exists( workOnThis ) ) File.Delete( workOnThis );
+				if( File.Exists( fileName ) ) File.Delete( fileName );
 				
 				throw;
 			}
 			
+		}
+		
+		public override void Backup(Group backupGroup) {
+			// TODO
+		}
+		
+		public override void Write(XmlElement parent) {
+			
+			XmlElement element = CreateElement(parent, "patch", "path", Path);
+			
+			foreach(PatchResource res in Resources) {
+				
+				XmlElement re = CreateElement(element, "res");
+				AddAttribute(re, "type", res.Type);
+				AddAttribute(re, "name", res.Name);
+				AddAttribute(re, "lang", res.Lang);
+				AddAttribute(re, "src", res.File);
+				if( res.Add ) AddAttribute(re, "add", "true");
+				
+			}
+			
+		}
+		
+		public override Boolean SupportsI386 {
+			get { return true; }
 		}
 		
 		private static UInt16 GetSystemLangId() {
@@ -163,7 +311,7 @@ namespace Anolis.Core.Packages.Operations {
 			return PackageUtility.GetSystemInstallLanguage();
 		}
 		
-		protected override String OperationName {
+		public override String OperationName {
 			get { return "Res patch"; }
 		}
 		
@@ -173,11 +321,11 @@ namespace Anolis.Core.Packages.Operations {
 			return false;
 		}
 		
-		internal List<PatchResource> Resources { get; private set; }
+		public Collection<PatchResource> Resources { get; private set; }
 		
 	}
 	
-	internal class PatchResource {
+	public class PatchResource {
 		
 		public String Type { get; set; }
 		

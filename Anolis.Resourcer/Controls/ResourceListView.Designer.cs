@@ -212,7 +212,7 @@
 			this.@__sizeDetails.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.@__sizeDetails.Name = "__sizeDetails";
 			this.@__sizeDetails.Size = new System.Drawing.Size(23, 22);
-			this.@__sizeDetails.Text = "toolStripButton1";
+			this.@__sizeDetails.Text = "Details View";
 			// 
 			// __size16
 			// 

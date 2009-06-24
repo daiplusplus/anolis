@@ -68,7 +68,7 @@
 			this.@__import.Name = "__import";
 			this.@__import.Size = new System.Drawing.Size(77, 92);
 			this.@__import.TabIndex = 0;
-			this.@__import.Text = "Import NSI/XIS";
+			this.@__import.Text = "Import from File System";
 			this.@__import.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			this.@__import.UseVisualStyleBackColor = true;
 			// 

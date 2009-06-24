@@ -14,7 +14,7 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class VisualStyleExtraOperation : ExtraOperation {
 		
-		public VisualStyleExtraOperation(Package package, XmlElement element) :  base(ExtraType.VisualStyle, package, element) {
+		public VisualStyleExtraOperation(Package package, Group parent, XmlElement element) :  base(ExtraType.VisualStyle, package, parent, element) {
 		}
 		
 		private static readonly String _themesDir = PackageUtility.ResolvePath(@"%windir%\Resources\Themes");
@@ -32,6 +32,10 @@ namespace Anolis.Core.Packages.Operations {
 			}
 			
 			MakeActive( lastMsstyles );
+			
+		}
+		
+		public override void Backup(Group backupGroup) {
 			
 		}
 		

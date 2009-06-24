@@ -10,7 +10,7 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class RegistryExtraOperation : ExtraOperation {
 		
-		public RegistryExtraOperation(Package package, XmlElement element) :  base(ExtraType.Registry, package, element) {
+		public RegistryExtraOperation(Package package, Group parent, XmlElement element) :  base(ExtraType.Registry, package, parent, element) {
 		}
 		
 		public override void Execute() {
@@ -24,5 +24,12 @@ namespace Anolis.Core.Packages.Operations {
 			}
 			
 		}
+		
+		public override void Backup(Group backupGroup) {
+			
+			// TODO, but I don't think this can be implemented
+			
+		}
+		
 	}
 }
