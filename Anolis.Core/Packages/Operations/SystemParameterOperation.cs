@@ -15,7 +15,7 @@ namespace Anolis.Core.Packages.Operations {
 		private UInt32                  _uiParam;
 		private UInt32                  _pvParam;
 		
-		public SystemParameterOperation(Package package, XmlElement operationElement) : base(package, operationElement) {
+		public SystemParameterOperation(Package package, Group parent, XmlElement operationElement) : base(package, parent, operationElement) {
 			
 			String spiAction = operationElement.GetAttribute("spiAction");
 			String uiParam   = operationElement.GetAttribute("uiParam");
@@ -30,7 +30,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		protected override String OperationName {
+		public override String OperationName {
 			get { return "SystemParameter"; }
 		}
 		
@@ -50,6 +50,15 @@ namespace Anolis.Core.Packages.Operations {
 			}
 			
 		}
+		
+		public override void Backup(Group backupGroup) {
+			
+		}
+		
+		public override void Write(XmlElement parent) {
+			
+		}
+		
 	}
 	
 }

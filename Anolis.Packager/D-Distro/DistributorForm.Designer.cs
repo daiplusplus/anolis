@@ -50,11 +50,15 @@
 			System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Finished");
 			this.@__tabs = new System.Windows.Forms.TabControl();
 			this.@__tPackages = new System.Windows.Forms.TabPage();
+			this.@__packOrigLoad = new System.Windows.Forms.Button();
+			this.@__packOrigBrowse = new System.Windows.Forms.Button();
+			this.@__packOrigPath = new System.Windows.Forms.TextBox();
+			this.@__packOrigLbl = new System.Windows.Forms.Label();
 			this.@__packDistroSize = new System.Windows.Forms.Label();
-			this.@__packListLbl = new System.Windows.Forms.Label();
 			this.@__packAdd = new System.Windows.Forms.Button();
 			this.@__packList = new System.Windows.Forms.ListView();
 			this.@__packListColName = new System.Windows.Forms.ColumnHeader();
+			this.@__packListColStatus = new System.Windows.Forms.ColumnHeader();
 			this.@__packListColSize = new System.Windows.Forms.ColumnHeader();
 			this.@__tPages = new System.Windows.Forms.TabPage();
 			this.@__pagesOptions = new System.Windows.Forms.TabControl();
@@ -64,7 +68,9 @@
 			this.@__pagesTree = new System.Windows.Forms.TreeView();
 			this.@__create = new System.Windows.Forms.Button();
 			this.@__cancel = new System.Windows.Forms.Button();
-			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
+			this.@__ofdAnop = new System.Windows.Forms.OpenFileDialog();
+			this.@__sfd = new System.Windows.Forms.SaveFileDialog();
+			this.@__ofdInstaller = new System.Windows.Forms.OpenFileDialog();
 			this.@__tabs.SuspendLayout();
 			this.@__tPackages.SuspendLayout();
 			this.@__tPages.SuspendLayout();
@@ -86,8 +92,11 @@
 			// 
 			// __tPackages
 			// 
+			this.@__tPackages.Controls.Add(this.@__packOrigLoad);
+			this.@__tPackages.Controls.Add(this.@__packOrigBrowse);
+			this.@__tPackages.Controls.Add(this.@__packOrigPath);
+			this.@__tPackages.Controls.Add(this.@__packOrigLbl);
 			this.@__tPackages.Controls.Add(this.@__packDistroSize);
-			this.@__tPackages.Controls.Add(this.@__packListLbl);
 			this.@__tPackages.Controls.Add(this.@__packAdd);
 			this.@__tPackages.Controls.Add(this.@__packList);
 			this.@__tPackages.Location = new System.Drawing.Point(4, 22);
@@ -97,6 +106,44 @@
 			this.@__tPackages.TabIndex = 0;
 			this.@__tPackages.Text = "Embedded Packages";
 			this.@__tPackages.UseVisualStyleBackColor = true;
+			// 
+			// __packOrigLoad
+			// 
+			this.@__packOrigLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.@__packOrigLoad.Location = new System.Drawing.Point(480, 4);
+			this.@__packOrigLoad.Name = "__packOrigLoad";
+			this.@__packOrigLoad.Size = new System.Drawing.Size(60, 23);
+			this.@__packOrigLoad.TabIndex = 8;
+			this.@__packOrigLoad.Text = "Load";
+			this.@__packOrigLoad.UseVisualStyleBackColor = true;
+			// 
+			// __packOrigBrowse
+			// 
+			this.@__packOrigBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.@__packOrigBrowse.Location = new System.Drawing.Point(399, 4);
+			this.@__packOrigBrowse.Name = "__packOrigBrowse";
+			this.@__packOrigBrowse.Size = new System.Drawing.Size(75, 23);
+			this.@__packOrigBrowse.TabIndex = 7;
+			this.@__packOrigBrowse.Text = "Browse...";
+			this.@__packOrigBrowse.UseVisualStyleBackColor = true;
+			// 
+			// __packOrigPath
+			// 
+			this.@__packOrigPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+			this.@__packOrigPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+			this.@__packOrigPath.Location = new System.Drawing.Point(93, 6);
+			this.@__packOrigPath.Name = "__packOrigPath";
+			this.@__packOrigPath.Size = new System.Drawing.Size(300, 20);
+			this.@__packOrigPath.TabIndex = 6;
+			// 
+			// __packOrigLbl
+			// 
+			this.@__packOrigLbl.AutoSize = true;
+			this.@__packOrigLbl.Location = new System.Drawing.Point(6, 9);
+			this.@__packOrigLbl.Name = "__packOrigLbl";
+			this.@__packOrigLbl.Size = new System.Drawing.Size(81, 13);
+			this.@__packOrigLbl.TabIndex = 5;
+			this.@__packOrigLbl.Text = "Original Installer";
 			// 
 			// __packDistroSize
 			// 
@@ -108,16 +155,6 @@
 			this.@__packDistroSize.Text = "Estimated Distribution Size: {0}";
 			this.@__packDistroSize.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
-			// __packListLbl
-			// 
-			this.@__packListLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__packListLbl.Location = new System.Drawing.Point(6, 3);
-			this.@__packListLbl.Name = "__packListLbl";
-			this.@__packListLbl.Size = new System.Drawing.Size(534, 18);
-			this.@__packListLbl.TabIndex = 3;
-			this.@__packListLbl.Text = "Unchecked packages will be removed when the distribution is created";
-			// 
 			// __packAdd
 			// 
 			this.@__packAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -125,7 +162,7 @@
 			this.@__packAdd.Name = "__packAdd";
 			this.@__packAdd.Size = new System.Drawing.Size(123, 23);
 			this.@__packAdd.TabIndex = 2;
-			this.@__packAdd.Text = "Add Package...";
+			this.@__packAdd.Text = "Add Package(s)...";
 			this.@__packAdd.UseVisualStyleBackColor = true;
 			// 
 			// __packList
@@ -136,10 +173,11 @@
 			this.@__packList.CheckBoxes = true;
 			this.@__packList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.@__packListColName,
+            this.@__packListColStatus,
             this.@__packListColSize});
-			this.@__packList.Location = new System.Drawing.Point(6, 24);
+			this.@__packList.Location = new System.Drawing.Point(6, 33);
 			this.@__packList.Name = "__packList";
-			this.@__packList.Size = new System.Drawing.Size(534, 270);
+			this.@__packList.Size = new System.Drawing.Size(534, 261);
 			this.@__packList.TabIndex = 0;
 			this.@__packList.UseCompatibleStateImageBehavior = false;
 			this.@__packList.View = System.Windows.Forms.View.Details;
@@ -148,6 +186,11 @@
 			// 
 			this.@__packListColName.Text = "Name";
 			this.@__packListColName.Width = 167;
+			// 
+			// __packListColStatus
+			// 
+			this.@__packListColStatus.Text = "Status";
+			this.@__packListColStatus.Width = 70;
 			// 
 			// __packListColSize
 			// 
@@ -194,7 +237,7 @@
 			this.@__pagesPageStrings.Location = new System.Drawing.Point(4, 22);
 			this.@__pagesPageStrings.Name = "__pagesPageStrings";
 			this.@__pagesPageStrings.Padding = new System.Windows.Forms.Padding(3);
-			this.@__pagesPageStrings.Size = new System.Drawing.Size(369, 259);
+			this.@__pagesPageStrings.Size = new System.Drawing.Size(352, 297);
 			this.@__pagesPageStrings.TabIndex = 1;
 			this.@__pagesPageStrings.Text = "Strings";
 			this.@__pagesPageStrings.UseVisualStyleBackColor = true;
@@ -203,7 +246,7 @@
 			// 
 			this.@__pagesPageImages.Location = new System.Drawing.Point(4, 22);
 			this.@__pagesPageImages.Name = "__pagesPageImages";
-			this.@__pagesPageImages.Size = new System.Drawing.Size(369, 259);
+			this.@__pagesPageImages.Size = new System.Drawing.Size(352, 297);
 			this.@__pagesPageImages.TabIndex = 2;
 			this.@__pagesPageImages.Text = "Images";
 			this.@__pagesPageImages.UseVisualStyleBackColor = true;
@@ -277,9 +320,20 @@
 			this.@__cancel.Text = "Cancel";
 			this.@__cancel.UseVisualStyleBackColor = true;
 			// 
-			// __ofd
+			// __ofdAnop
 			// 
-			this.@__ofd.Filter = "Anolis Packages (*.anop)|*.anop|LZMA-compressed Tarballs (*.tar.lzma)|*.tar.lzma";
+			this.@__ofdAnop.Filter = "Anolis Packages (*.anop)|*.anop|LZMA Tarballs (*.tar.lzma)|*.tar.lzma";
+			this.@__ofdAnop.Multiselect = true;
+			this.@__ofdAnop.SupportMultiDottedExtensions = true;
+			// 
+			// __sfd
+			// 
+			this.@__sfd.DefaultExt = "exe";
+			this.@__sfd.Filter = "Executable (*.exe)|*.exe";
+			// 
+			// __ofdInstaller
+			// 
+			this.@__ofdInstaller.Filter = "Executables (*.exe)|*.exe";
 			// 
 			// DistributorForm
 			// 
@@ -294,6 +348,7 @@
 			this.Text = "Distributor";
 			this.@__tabs.ResumeLayout(false);
 			this.@__tPackages.ResumeLayout(false);
+			this.@__tPackages.PerformLayout();
 			this.@__tPages.ResumeLayout(false);
 			this.@__pagesOptions.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -307,17 +362,23 @@
 		private System.Windows.Forms.Button __create;
 		private System.Windows.Forms.Button __cancel;
 		private System.Windows.Forms.TabPage __tPages;
-		private System.Windows.Forms.Label __packListLbl;
 		private System.Windows.Forms.Button __packAdd;
 		private System.Windows.Forms.ListView __packList;
 		private System.Windows.Forms.ColumnHeader __packListColName;
 		private System.Windows.Forms.ColumnHeader __packListColSize;
-		private System.Windows.Forms.OpenFileDialog __ofd;
+		private System.Windows.Forms.OpenFileDialog __ofdAnop;
 		private System.Windows.Forms.TreeView __pagesTree;
 		private System.Windows.Forms.Label __packDistroSize;
 		private System.Windows.Forms.TabControl __pagesOptions;
 		private System.Windows.Forms.TabPage __pagesPageOptions;
 		private System.Windows.Forms.TabPage __pagesPageStrings;
 		private System.Windows.Forms.TabPage __pagesPageImages;
+		private System.Windows.Forms.ColumnHeader __packListColStatus;
+		private System.Windows.Forms.Label __packOrigLbl;
+		private System.Windows.Forms.Button __packOrigBrowse;
+		private System.Windows.Forms.TextBox __packOrigPath;
+		private System.Windows.Forms.Button __packOrigLoad;
+		private System.Windows.Forms.SaveFileDialog __sfd;
+		private System.Windows.Forms.OpenFileDialog __ofdInstaller;
 	}
 }

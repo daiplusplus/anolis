@@ -12,7 +12,7 @@ namespace Anolis.Core.Packages.Operations {
 		private String            _value;
 		private RegistryValueKind _type;
 		
-		public RegistryOperation(Package package, XmlElement element) :  base(package, element) {
+		public RegistryOperation(Package package, Group parent, XmlElement element) :  base(package, parent, element) {
 			
 			_key   = element.GetAttribute("key");
 			_name  = element.GetAttribute("vname");
@@ -37,7 +37,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		protected override string OperationName {
+		public override String OperationName {
 			get { return "Registry"; }
 		}
 		
@@ -55,6 +55,16 @@ namespace Anolis.Core.Packages.Operations {
 				
 				Package.Log.Add( LogSeverity.Error, "Registry.SetValue UnauthorizedAccessException: " + aex.Message );
 			}
+			
+		}
+		
+		public override void Backup(Group backupGroup) {
+			throw new NotImplementedException();
+		}
+		
+		public override void Write(XmlElement parent) {
+			
+			
 			
 		}
 		

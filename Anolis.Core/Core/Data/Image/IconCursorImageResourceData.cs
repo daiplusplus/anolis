@@ -19,17 +19,13 @@ namespace Anolis.Core.Data {
 			return Compatibility.No;
 		}
 		
-		public override Compatibility HandlesExtension(String filenameExtension) {
+		public override Compatibility HandlesExtension(String fileNameExtension) {
 			// Temporarily: disallow modification of subimages in icons
 			/*
-			if( filenameExtension == "png" ) return Compatibility.Maybe;
-			if( filenameExtension == "bmp" ) return Compatibility.Maybe;
+			if( fileNameExtension == "png" ) return Compatibility.Maybe;
+			if( fileNameExtension == "bmp" ) return Compatibility.Maybe;
 			*/
 			return Compatibility.No;
-		}
-		
-		protected override String GetOpenFileFilter() {
-			return null;
 		}
 		
 		public override String OpenFileFilter {

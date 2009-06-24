@@ -19,7 +19,7 @@ namespace Anolis.Core.Data {
 				return Compatibility.No;
 		}
 		
-		public override Compatibility HandlesExtension(String filenameExtension) {
+		public override Compatibility HandlesExtension(String fileNameExtension) {
 			return Compatibility.No;
 		}
 		
@@ -41,8 +41,8 @@ namespace Anolis.Core.Data {
 			get { return "Version Info"; }
 		}
 		
-		protected override String GetOpenFileFilter() {
-			return null;
+		public override String OpenFileFilter {
+			get { return null; }
 		}
 	}
 	

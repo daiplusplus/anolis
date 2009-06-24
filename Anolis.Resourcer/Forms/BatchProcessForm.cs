@@ -105,6 +105,9 @@ namespace Anolis.Resourcer {
 			__sourceFilter    .Enabled = !fileSel;
 			__sourceFilterLbl .Enabled = !fileSel;
 			__sourceRecurse   .Enabled = !fileSel;
+			
+			if( IsHandleCreated ) ValidateChildren();
+			
 		}
 		
 		private void __exportNonvisual_CheckedChanged(object sender, EventArgs e) {
@@ -192,7 +195,10 @@ namespace Anolis.Resourcer {
 		
 		private void __sourceFile_Validating(object sender, CancelEventArgs e) {
 			
-			if( !__sourceFileRad.Checked ) return;
+			if( !__sourceFileRad.Checked ) {
+				__error.SetError( __sourceFile, "" );
+				return;
+			}
 			
 			String filePath = __sourceFile.Text;
 			
@@ -217,7 +223,10 @@ namespace Anolis.Resourcer {
 		
 		private void __sourceDir_Validating(object sender, CancelEventArgs e) {
 			
-			if( !__sourceDirRad.Checked ) return;
+			if( !__sourceDirRad.Checked ) {
+				__error.SetError( __sourceDir, "" );
+				return;
+			}
 			
 			String dirPath = __sourceDir.Text;
 			
@@ -290,6 +299,16 @@ namespace Anolis.Resourcer {
 		}
 		
 #endregion
+		
+		public String SourceFilePath {
+			get { return __sourceFile.Text; }
+			set { __sourceFile.Text = value; }
+		}
+		
+		public String SourceDirectoryPath {
+			get { return __sourceDir.Text; }
+			set { __sourceDir.Text = value; }
+		}
 		
 		private BatchProcess _process = new BatchProcess();
 		

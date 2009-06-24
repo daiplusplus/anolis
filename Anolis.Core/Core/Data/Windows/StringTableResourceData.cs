@@ -15,7 +15,7 @@ namespace Anolis.Core.Data {
 			return (typeId.KnownType == Win32ResourceType.StringTable) ? Compatibility.Yes : Compatibility.No;
 		}
 		
-		public override Compatibility HandlesExtension(String filenameExtension) {
+		public override Compatibility HandlesExtension(String fileNameExtension) {
 			return Compatibility.No;
 		}
 		
@@ -36,8 +36,8 @@ namespace Anolis.Core.Data {
 			get { return "String Table"; }
 		}
 		
-		protected override String GetOpenFileFilter() {
-			return null;
+		public override String OpenFileFilter {
+			get { return null; }
 		}
 	}
 	

@@ -194,6 +194,8 @@ namespace Anolis.Resourcer {
 			
 			_data = ResourceData.FromFileToAdd( __file.Text, 1033, parent.CurrentSource );
 			
+			_data.Tag["sourceFile"] = __file.Text;
+			
 			SetDetailsEnabled( true );
 			
 			///////////////////////////

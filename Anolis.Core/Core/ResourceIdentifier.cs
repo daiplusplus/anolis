@@ -85,12 +85,12 @@ namespace Anolis.Core {
 			// if the string starts with " then it always refers to a string version
 			// if it starts with "" then ignore the first
 			
-			if( ambiguousString.StartsWith("\"\"") ) {
+			if( ambiguousString.StartsWith("\"\"", StringComparison.Ordinal) ) {
 				
 				// if ambiguousString == '""0"' then result is '"0"'
 				return new ResourceIdentifier( ambiguousString.Substring(1) );
 				
-			} else if( ambiguousString.StartsWith("\"") ) {
+			} else if( ambiguousString.StartsWith("\"", StringComparison.Ordinal) ) {
 				
 				// if ambiguousString == '"0"' then result is '0' (e.g. in msonsext.dll )
 				return new ResourceIdentifier( ambiguousString.Substring(1) );
@@ -339,10 +339,13 @@ namespace Anolis.Core {
 		private static Dictionary<String,Win32ResourceType> InitResourceTypeShortNames() {
 			
 			Dictionary<String,Win32ResourceType> resourceTypeShortNames = new Dictionary<String,Win32ResourceType>();
-			resourceTypeShortNames.Add("ICON"   , Win32ResourceType.IconDirectory);
-			resourceTypeShortNames.Add("ICONDIR", Win32ResourceType.IconDirectory);
-			resourceTypeShortNames.Add("CURSOR" , Win32ResourceType.CursorDirectory);
-			resourceTypeShortNames.Add("BMP"    , Win32ResourceType.Bitmap);
+			resourceTypeShortNames.Add("ICON"       , Win32ResourceType.IconDirectory);
+			resourceTypeShortNames.Add("ICONDIR"    , Win32ResourceType.IconDirectory);
+			resourceTypeShortNames.Add("ICONGROUP"  , Win32ResourceType.IconDirectory);
+			resourceTypeShortNames.Add("CURSOR"     , Win32ResourceType.CursorDirectory);
+			resourceTypeShortNames.Add("CURSORDIR"  , Win32ResourceType.CursorDirectory);
+			resourceTypeShortNames.Add("CURSORGROUP", Win32ResourceType.CursorDirectory);
+			resourceTypeShortNames.Add("BMP"        , Win32ResourceType.Bitmap);
 			
 			return resourceTypeShortNames;
 		}
@@ -419,7 +422,7 @@ namespace Anolis.Core {
 		/// <summary>24</summary>
 		Manifest                = 24,
 		/// <summary>241</summary>
-		Toolbar                 = 241,
+		ToolBar                 = 241,
 		/// <summary>-1 - ResourceType is not a known Win32 Resource Type. Refer to the StringId property for the type's name.</summary>
 		Custom                  = -1,
 		/// <summary>0 - ResourceType's type identifier refers to an unknown resource type that is not a string.</summary>

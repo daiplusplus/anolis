@@ -9,7 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Console", "Anolis.Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F1AA86BE-FDC7-4B61-827F-8F6C43DE81F1}"
 	ProjectSection(SolutionItems) = preProject
-		Anolis.vsmdi = Anolis.vsmdi
 		_ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.dll = _ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.dll
 		_ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.xml = _ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.xml
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
@@ -26,9 +25,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.IconEditor", "Anolis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.FileTypes", "Anolis.FileTypes\Anolis.FileTypes.csproj", "{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "W3b.Wizards", "..\W3b.Wizards\W3b.Wizards\W3b.Wizards.csproj", "{14E57E31-E374-4B52-9D4A-875FAA411DF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.ThumbsDbViewer", "Anolis.Tools.ThumbsDbViewer\Anolis.Tools.ThumbsDbViewer.csproj", "{269E0B0A-9568-4CAC-A34D-BB835D21BE85}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 9
+		SccNumberOfProjects = 10
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs03.codeplex.com/
 		SccLocalPath0 = .
@@ -56,9 +59,9 @@ Global
 		SccProjectUniqueName8 = Anolis.FileTypes\\Anolis.FileTypes.csproj
 		SccProjectName8 = Anolis.FileTypes
 		SccLocalPath8 = Anolis.FileTypes
-	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Anolis.vsmdi
+		SccProjectUniqueName9 = Anolis.Tools.ThumbsDbViewer\\Anolis.Tools.ThumbsDbViewer.csproj
+		SccProjectName9 = Anolis.Tools.ThumbsDbViewer
+		SccLocalPath9 = Anolis.Tools.ThumbsDbViewer
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +124,18 @@ Global
 		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|x86.ActiveCfg = Release|Any CPU
+		{14E57E31-E374-4B52-9D4A-875FAA411DF2}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{14E57E31-E374-4B52-9D4A-875FAA411DF2}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{14E57E31-E374-4B52-9D4A-875FAA411DF2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{14E57E31-E374-4B52-9D4A-875FAA411DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14E57E31-E374-4B52-9D4A-875FAA411DF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14E57E31-E374-4B52-9D4A-875FAA411DF2}.Release|x86.ActiveCfg = Release|Any CPU
+		{269E0B0A-9568-4CAC-A34D-BB835D21BE85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{269E0B0A-9568-4CAC-A34D-BB835D21BE85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{269E0B0A-9568-4CAC-A34D-BB835D21BE85}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{269E0B0A-9568-4CAC-A34D-BB835D21BE85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{269E0B0A-9568-4CAC-A34D-BB835D21BE85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{269E0B0A-9568-4CAC-A34D-BB835D21BE85}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

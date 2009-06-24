@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Xml;
-using System.Xml.Schema;
 using System.Text;
-using System.IO;
+using System.Xml;
 
 using Anolis.Core.Packages.Operations;
-
-using ProgressEventArgs = Anolis.Core.Packages.PackageProgressEventArgs;
 
 
 namespace Anolis.Core.Packages {
 	
 	/// <summary>An arbitrary grouping of elements</summary>
-	public class Group :  PackageItem {
+	public class Group : PackageItem {
 		
-		public Group(Package package, XmlElement element) : base(package, element) {
+		public Group(Package package, Group parent, XmlElement element) : base(package, parent, element) {
 			
 			/////////////////////////////////////////////////////
 			
@@ -32,14 +28,14 @@ namespace Anolis.Core.Packages {
 				switch(e.Name) {
 					case "group":
 						
-						Group group = new Group(package, e);
+						Group group = new Group(package, this, e);
 						Children.Add( group );
 						
 						break;
 					
 					default:
 						
-						Operation op = Operation.FromElement(package, e);
+						Operation op = Operation.FromElement(package, this, e);
 						
 						if( op != null ) Operations.Add( op );
 						break;
@@ -62,6 +58,95 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
+		public Group(Package package, Group parent, String[] mutexIds) : base(package, parent) {
+			
+			Children   = new GroupCollection();
+			Operations = new OperationCollection(this);
+			Mutex      = new GroupCollection();
+			
+			MutexIds = mutexIds;
+			
+		}
+		
+		public Boolean IsEnabled {
+			get {
+				
+				if( ParentGroup == null ) return true;
+				
+				return ParentGroup.IsEnabled ? Enabled : false;
+				
+			}
+		}
+		
+		public EnabledState EnabledState {
+			get {
+				
+				Boolean hasAloEnabled = false; // Alo = At Least One
+				Boolean hasAloDisabled = false; // Alo = At Least One
+				
+				foreach(Group group in Children) {
+					
+					switch( group.EnabledState ) {
+						case EnabledState.Partial:
+							return EnabledState.Partial;
+						case EnabledState.Enabled:
+							hasAloEnabled = true; break;
+						case EnabledState.Disabled:
+							hasAloDisabled = true; break;
+					}
+					
+				}
+				
+				if( hasAloEnabled && hasAloDisabled ) return EnabledState.Partial;
+				
+				/////////////////////////////////////////////////////////
+				
+				foreach(Operation op in Operations) {
+					
+					if( op.IsEnabled ) hasAloEnabled  = true;
+					else               hasAloDisabled = true;
+					
+				}
+				
+				if( hasAloEnabled && hasAloDisabled ) return EnabledState.Partial;
+				if( !hasAloDisabled ) return EnabledState.Enabled;
+				
+				return EnabledState.Disabled;
+				
+			}
+		}
+		
+		public override void Write(XmlElement parent) {
+			
+			XmlElement element = CreateElement(parent, "group");
+			
+			////////////////////////////////
+			// Build mutex="" attribute
+			
+			if( MutexIds != null ) {
+				
+				StringBuilder sb = new StringBuilder();
+				foreach(String mutexId in MutexIds) {
+					sb.Append( mutexId );
+					sb.Append(" ");
+				}
+				
+				AddAttribute(element, "mutex", sb.ToString().Trim());
+				
+			}
+			
+			foreach(Operation op in Operations) {
+				
+				op.Write( element );
+			}
+			
+			foreach(Group group in Children) {
+				
+				group.Write( element );
+			}
+			
+		}
+		
 		internal String[] MutexIds    { get; private set; }
 		
 		public GroupCollection Mutex    { get; private set; }
@@ -77,23 +162,17 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
-		public override Boolean Enabled {
-			get {
-				return base.Enabled;
-			}
-			set {
-				base.Enabled = value;
-				
-				if(Children == null) return; // .Enabled is being set by the constructor
-				
-				foreach(Group g in Children)          g.Enabled = value;
-				foreach(Operation op  in Operations) op.Enabled = value;
-				
-			}
-		}
+		
 		
 	}
 	
 	public class GroupCollection : Collection<Group> {
 	}
+	
+	public enum EnabledState {
+		Enabled,
+		Partial,
+		Disabled
+	}
+	
 }

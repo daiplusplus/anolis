@@ -16,7 +16,10 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class CustomExtraOperation : ExtraOperation {
 		
-		public CustomExtraOperation(Package package, XmlElement element) :  base(ExtraType.Custom, package, element) {
+		public CustomExtraOperation(Package package, Group parent, XmlElement element) :  base(ExtraType.Custom, package, parent, element) {
+		}
+		
+		public CustomExtraOperation(Package package, Group parent, String codeFilePath) : base(ExtraType.Custom, package, parent, codeFilePath) {
 		}
 
 		protected override Boolean CanMerge { get { return false; } }
@@ -26,5 +29,14 @@ namespace Anolis.Core.Packages.Operations {
 			Package.Log.Add( LogSeverity.Warning, "CustomExtraOperation not implemented. " + base.Files[0] + " not executed." );
 			
 		}
+		
+		public override void Backup(Group backupGroup) {
+			
+		}
+		
+		public override void Write(XmlElement parent) {
+			
+		}
+		
 	}
 }

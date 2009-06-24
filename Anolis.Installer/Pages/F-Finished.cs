@@ -40,10 +40,11 @@ namespace Anolis.Installer.Pages {
 				case ProgramMode.InstallPackage:
 				case ProgramMode.UninstallPackage:
 					
-					this.WizardForm.NextText = InstallerResources.GetString("F_restartButton");
-					this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Restart);
-					
-					if(Program.ProgramMode == ProgramMode.InstallPackage) {
+					if(Program.ProgramMode == ProgramMode.InstallPackage && PackageInfo.RequiresRestart ) {
+						
+						this.__installationComplete.Text = InstallerResources.GetString("F_installationCompleteRestart");
+						
+					} else if(Program.ProgramMode == ProgramMode.InstallPackage) {
 						
 						this.__installationComplete.Text = InstallerResources.GetString("F_installationComplete");
 						
@@ -51,6 +52,17 @@ namespace Anolis.Installer.Pages {
 						
 						this.__installationComplete.Text = InstallerResources.GetString("F_uninstallationComplete");
 						
+					}
+					
+					if( PackageInfo.RequiresRestart ) {
+						
+						this.WizardForm.NextText     = InstallerResources.GetString("F_restartButton");
+						this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Restart);
+						
+					} else {
+						
+						this.WizardForm.NextText = InstallerResources.GetString("F_finishButton");
+						this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Quit);
 					}
 					
 					

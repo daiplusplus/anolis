@@ -17,7 +17,7 @@ namespace Anolis.Core.Packages.Operations {
 		
 		private List<CursorScheme> _schemes;
 		
-		public CursorSchemeOperation(Package package, XmlElement element) :  base(package, element) {
+		public CursorSchemeOperation(Package package, Group parent, XmlElement element) :  base(package, parent, element) {
 			
 			_schemes = new List<CursorScheme>();
 			
@@ -26,7 +26,11 @@ namespace Anolis.Core.Packages.Operations {
 			_schemes.Add( scheme );
 		}
 		
-		protected override String OperationName {
+		public CursorSchemeOperation(Package package, Group parent) : base(package, parent, (String)null) {
+			
+		}
+		
+		public override String OperationName {
 			get { return "Cursor scheme"; }
 		}
 		
@@ -53,6 +57,14 @@ namespace Anolis.Core.Packages.Operations {
 					scheme.MakeActive();
 				
 			}
+			
+		}
+		
+		public override void Backup(Group backupGroup) {
+			
+		}
+		
+		public override void Write(XmlElement parent) {
 			
 		}
 		

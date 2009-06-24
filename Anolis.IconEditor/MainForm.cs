@@ -12,6 +12,8 @@ namespace Anolis.IconEditor {
 	
 	public partial class MainForm : Form {
 		
+		private FileInfo  _file;
+		private Boolean   _isUnsaved;
 		private IconGroup _icon;
 		
 		public MainForm() {
@@ -41,6 +43,8 @@ namespace Anolis.IconEditor {
 		}
 		
 		private void __tOpen_Click(object sender, EventArgs e) {
+			
+			IconLoadPrompt();
 			
 		}
 		
@@ -79,16 +83,53 @@ namespace Anolis.IconEditor {
 #region Work
 		
 		private void IconLoadPrompt() {
-		
-		}
-		
-		private void IconLoad(String filename) {
 			
-			using(FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read)) {
+			if( _isUnsaved ) {
 				
-				
+				DialogResult result = MessageBox.Show(this, "Save changes to " + _file.Name + " before unloading?", "Anolis Icon Editor", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+				switch(result) {
+					case DialogResult.Yes:
+						
+						IconSave();
+						break;
+						
+					case DialogResult.No:
+						
+						break;
+						
+					case DialogResult.Cancel:
+						return;
+				}
 				
 			}
+			
+			if( __ofd.ShowDialog(this) == DialogResult.OK ) {
+				
+				String fileName = __ofd.FileName;
+				if( !File.Exists( fileName ) ) return;
+				
+				IconLoad( fileName );
+				
+			}
+			
+			
+		}
+		
+		private void IconLoad(String fileName) {
+			
+			_icon = new IconGroup( fileName );
+			
+			// Do the GUI
+			
+			this.Text = String.Format("{0} - Anolis Icon Editor", Path.GetFileName( fileName ) );
+			
+			
+			
+		}
+		
+		private void IconSave() {
+			
+			_icon.Save( _file.FullName );
 			
 		}
 		

@@ -87,9 +87,9 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
-		public static void AddPfroEntry(String fromFilename, String toFilename) {
+		public static void AddPfroEntry(String fromFileName, String toFileName) {
 			
-			if( !NativeMethods.MoveFileEx( fromFilename, toFilename, MoveFileFlags.DelayUntilReboot | MoveFileFlags.ReplaceExisting ) ) {
+			if( !NativeMethods.MoveFileEx( fromFileName, toFileName, MoveFileFlags.DelayUntilReboot | MoveFileFlags.ReplaceExisting ) ) {
 				
 				throw new PackageException("MoveFileEx failed: " + NativeMethods.GetLastErrorString() );
 			}
@@ -264,6 +264,28 @@ namespace Anolis.Core.Packages {
 			File.Move( old, path );
 			
 			return path;
+			
+		}
+		
+		public static String GetUnusedFileName(String suspectPath) {
+			
+			if( !File.Exists( suspectPath ) ) return suspectPath;
+			
+			String dir = Path.GetDirectoryName( suspectPath ),
+			       nom = Path.GetFileName( suspectPath ),
+			       ext = Path.GetExtension( suspectPath );
+			
+			Int32 i = 1;
+			
+			while( File.Exists( suspectPath ) ) {
+				
+				suspectPath = Path.Combine( dir, nom );
+				suspectPath += " (" + i++ + ')';
+				suspectPath += ext;
+				
+			}
+			
+			return suspectPath;
 			
 		}
 		

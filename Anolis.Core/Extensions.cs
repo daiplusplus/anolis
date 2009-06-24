@@ -54,6 +54,7 @@ namespace Anolis.Core {
 			
 		}
 		
+		/// <summary>Retreives a substring starting from the left to the right, missing <paramref name="fromRight" /> characters from the right. So "abcd".LeftFR(1) returns "abc"</summary>
 		public static String LeftFR(this String str, Int32 fromRight) {
 			
 			if(fromRight < 0)          throw new ArgumentOutOfRangeException("fromRight", fromRight, "value cannot be less than zero");
@@ -93,8 +94,16 @@ namespace Anolis.Core {
 			
 			Boolean doneRadixPoint = false;
 			UnicodeCategory currentCat, initialCat;
+			Char initialChar = c;
 			initialCat = currentCat = Char.GetUnicodeCategory( c );
-			while( i < str.Length && initialCat == currentCat ) {
+			
+			// special case for ( and )
+			if( initialChar == '(' || initialChar == ')' ) {
+				start++;
+				return initialChar.ToString();
+			}
+			
+			while( i < str.Length && CategoryEquals(initialCat, currentCat) ) {
 				
 				c = str[i];
 				sb.Append( str[i++] );
@@ -108,11 +117,20 @@ namespace Anolis.Core {
 					currentCat = UnicodeCategory.DecimalDigitNumber;
 					doneRadixPoint = true;
 				}
+				
 			}
 			
 			start = i;
 			
 			return sb.ToString();
+			
+		}
+		
+		private static Boolean CategoryEquals(UnicodeCategory x, UnicodeCategory y) {
+			
+			if( (int)x <= 2 && (int)y <= 2 ) return true; // both x and y are letters of any case
+			
+			return x == y;
 			
 		}
 		
@@ -255,14 +273,31 @@ namespace Anolis.Core {
 		
 #endregion
 		
-#region Stream
+#region Stream and IO
 		
 		public static void Write(this Stream stream, Byte[] buffer) {
 			
 			stream.Write(buffer, 0, buffer.Length);
 		}
 		
+		public static FileInfo GetFile(this DirectoryInfo directory, String relativeFileName) {
+			
+			if( String.IsNullOrEmpty( relativeFileName ) ) throw new ArgumentNullException(relativeFileName);
+			if( !directory.Exists ) throw new DirectoryNotFoundException("Could not find " + directory.FullName);
+			
+			if( relativeFileName[0] == '\\' || relativeFileName[0] == '/' ) relativeFileName = relativeFileName.Substring(1);
+			
+			String fileName = Path.Combine( directory.FullName, relativeFileName );
+			
+			if( File.Exists( fileName ) ) return new FileInfo( fileName );
+			
+			return null;
+			
+		}
+		
 #endregion
+		
+		
 		
 	}
 }

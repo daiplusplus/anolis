@@ -15,7 +15,7 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class ScreensaverExtraOperation : ExtraOperation {
 		
-		public ScreensaverExtraOperation(Package package, XmlElement element) :  base(ExtraType.Screensaver, package, element) {
+		public ScreensaverExtraOperation(Package package, Group parent, XmlElement element) :  base(ExtraType.Screensaver, package, parent, element) {
 		}
 		
 		public override void Execute() {
@@ -41,6 +41,10 @@ namespace Anolis.Core.Packages.Operations {
 			}
 			
 			if( lastSaver != null ) SetScreensaver( lastSaver );
+			
+		}
+		
+		public override void Backup(Group backupGroup) {
 			
 		}
 		

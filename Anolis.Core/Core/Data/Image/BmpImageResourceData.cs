@@ -26,20 +26,16 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override Compatibility HandlesExtension(String filenameExtension) {
+		public override Compatibility HandlesExtension(String fileNameExtension) {
 			
-			// I was thinking of adding a Compatibility.ConvertTo, but that's what Maybe is for...
-			
-			if( IsExtension( filenameExtension, "bmp", "dib", "rle" ) ) return Compatibility.Yes;
-			
-			// TODO: Eventually add support to import other files like jpeg et al as Bitmap resources. See FromFile
+			if( IsExtension( fileNameExtension, "bmp", "dib", "rle" ) ) return Compatibility.Yes;
 			
 			return Compatibility.No;
 			
 		}
 		
-		protected override String GetOpenFileFilter() {
-			return CreateFileFilter("BmpImage", "bmp", "dib", "rle");
+		public override String OpenFileFilter {
+			get { return CreateFileFilter("BmpImage", "bmp", "dib", "rle"); }
 		}
 		
 		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {
@@ -60,7 +56,7 @@ namespace Anolis.Core.Data {
 				
 			} else {
 				
-				throw new NotImplementedException();
+				return null;
 				
 			}
 			

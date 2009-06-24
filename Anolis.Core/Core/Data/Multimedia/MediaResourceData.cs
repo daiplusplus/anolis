@@ -42,9 +42,9 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override Compatibility HandlesExtension(string filenameExtension) {
+		public override Compatibility HandlesExtension(string fileNameExtension) {
 			
-			switch(filenameExtension.ToUpperInvariant()) {
+			switch(fileNameExtension.ToUpperInvariant()) {
 				case "WAV":
 				case "AVI":
 					return Compatibility.Yes;
@@ -68,8 +68,8 @@ namespace Anolis.Core.Data {
 			get { return "RIFF Resource"; }
 		}
 		
-		protected override String GetOpenFileFilter() {
-			return CreateFileFilter("RiffMedia", "avi", "wav");
+		public override String OpenFileFilter {
+			get { return CreateFileFilter("RiffMedia", "avi", "wav"); }
 		}
 		
 		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {

@@ -602,11 +602,11 @@ namespace Anolis.Core.Native {
 			SendWinIniChange = 0x02,
 		}
 		
-		[DllImport("user32.dll", CharSet=CharSet.Auto, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[DllImport("user32.dll", CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true, SetLastError=true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean SystemParametersInfo(SpiAction uAction, UInt32 uParam, String lpvParam, SpiUpdate fuWinIni);
 		
-		[DllImport("user32.dll", CharSet=CharSet.Auto, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[DllImport("user32.dll", CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true, SetLastError=true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean SystemParametersInfo(SpiAction uAction, UInt32 uParam, IntPtr lpvParam, SpiUpdate fuWinIni);
 		
@@ -614,6 +614,7 @@ namespace Anolis.Core.Native {
 		
 #endregion
 		
+		// TODO: Replace with CultureInfo.InstalledUICulture
 		[DllImport("kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
 		public static extern UInt16 GetSystemDefaultUILanguage();
 		

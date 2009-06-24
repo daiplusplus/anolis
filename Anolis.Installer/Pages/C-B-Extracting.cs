@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using Anolis.Core.Packages;
 using System.IO;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+
+using Anolis.Core.Packages;
 using W3b.Wizards.WindowsForms;
+
 namespace Anolis.Installer.Pages {
 	
 	public partial class ExtractingPage : BaseInteriorPage {
@@ -14,7 +17,6 @@ namespace Anolis.Installer.Pages {
 		public ExtractingPage() {
 			InitializeComponent();
 			
-			this.Load += new EventHandler(Extracting_Load);
 			this.PageLoad += new EventHandler(ExtractingPage_PageLoad);
 			
 			Localize();
@@ -24,26 +26,27 @@ namespace Anolis.Installer.Pages {
 		
 		private void ExtractingPage_PageLoad(object sender, EventArgs e) {
 			
-			
-		}
-		
-		private void Extracting_Load(object sender, EventArgs e) {
-			
 			WizardForm.EnablePrev = false;
 			WizardForm.EnableNext = false;
 			
 			// Begin extraction
-			if( PackageInfo.Source == PackageSource.File ) {
+			switch(PackageInfo.Source) {
 				
-				InstantiatePackage( PackageInfo.SourcePath );
-				
-			} else {
-				
-				PackageInfo.Archive.PackageProgressEvent += new EventHandler<PackageProgressEventArgs>(Archive_PackageProgressEvent);
-				PackageInfo.Archive.BeginPackageExtract( new Action<String>( Archive_Completed ) );
-				
+				case PackageSource.File:
+					
+					// don't call InstantiatePackage from Load (use PageLoad) because it loads the next wizard page before this one finishes loading
+					InstantiatePackage( PackageInfo.SourcePath );
+					
+					break;
+					
+				case PackageSource.Archive:
+				case PackageSource.Embedded:
+					
+					PackageInfo.Archive.PackageProgressEvent += new EventHandler<PackageProgressEventArgs>(Archive_PackageProgressEvent);
+					PackageInfo.Archive.BeginPackageExtract( new Action<String>( Archive_Completed ) );
+					
+					break;
 			}
-			
 		}
 		
 		private void Archive_PackageProgressEvent(object sender, PackageProgressEventArgs e) {
@@ -129,20 +132,7 @@ namespace Anolis.Installer.Pages {
 				
 				return;
 				
-			} 
-//#if DEBUG
-//			catch(Exception ex) {
-//				
-//				String x = ex.Message;
-//				
-//				return;
-//				
-//			}
-//#endif
-			
-			// verify all the referenced files are there
-			
-			//PackageInfo.Package.
+			}
 			
 			WizardForm.LoadPage( Program.PageCCUpdatePackage );
 			

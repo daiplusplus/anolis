@@ -10,7 +10,7 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public abstract class ExtraOperation : Operation {
 		
-		protected ExtraOperation(ExtraType type, Package package, XmlElement operationElement) : base(package, operationElement) {
+		protected ExtraOperation(ExtraType type, Package package, Group parent, XmlElement operationElement) : base(package, parent, operationElement) {
 			
 			Files = new Collection<String>();
 			
@@ -24,7 +24,15 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		protected override String OperationName {
+		protected ExtraOperation(ExtraType type, Package package, Group parent, String path) : base(package, parent, path) {
+			
+			ExtraType = type;
+			
+			Files.Add( PackageUtility.ResolvePath( path, package.RootDirectory.FullName ) );
+			
+		}
+		
+		public override String OperationName {
 			get { return "X " + ExtraType; }
 		}
 		
@@ -32,28 +40,26 @@ namespace Anolis.Core.Packages.Operations {
 		public ExtraType          ExtraType   { get; private set; }
 		public Collection<String> Files       { get; private set; }
 		
-		public static ExtraOperation Create(Package package, XmlElement operationElement) {
+		public static ExtraOperation Create(Package package, Group parent, XmlElement operationElement) {
 			
 			String typeStr = operationElement.GetAttribute("type");
 			ExtraType type = (ExtraType)Enum.Parse( typeof(ExtraType), typeStr, true );
 			
 			switch(type) {
 				case ExtraType.Wallpaper:
-					return new WallpaperExtraOperation(package, operationElement);
+					return new WallpaperExtraOperation(package, parent, operationElement);
 				case ExtraType.BootScreen:
-					return new BootScreenExtraOperation(package, operationElement);
+					return new BootScreenExtraOperation(package, parent, operationElement);
 				case ExtraType.VisualStyle:
-					return new VisualStyleExtraOperation(package, operationElement);
+					return new VisualStyleExtraOperation(package, parent, operationElement);
 				case ExtraType.Screensaver:
-					return new ScreensaverExtraOperation(package, operationElement);
+					return new ScreensaverExtraOperation(package, parent, operationElement);
 				case ExtraType.Program:
-					return new ProgramExtraOperation(package, operationElement);
-				case ExtraType.UxTheme:
-					return new UxThemeExtraOperation(package, operationElement);
+					return new ProgramExtraOperation(package, parent, operationElement);
+				case ExtraType.UXTheme:
+					return new UXThemeExtraOperation(package, parent, operationElement);
 				case ExtraType.Custom:
-					return new CustomExtraOperation(package, operationElement);
-				case ExtraType.Exception:
-					return new ExceptionExtraOperation(package, operationElement);
+					return new CustomExtraOperation(package, parent, operationElement);
 				default:
 					return null;
 			}
@@ -83,6 +89,11 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
+		public override void Write(XmlElement parent) {
+			
+			CreateElement(parent, "extra", "type", ExtraType.ToString(), "path", Path );
+		}
+		
 	}
 	
 	public enum ExtraType {
@@ -93,9 +104,8 @@ namespace Anolis.Core.Packages.Operations {
 		Screensaver,
 		Program,
 		Registry,
-		UxTheme,
-		Custom,
-		Exception
+		UXTheme,
+		Custom
 	}
 	
 	

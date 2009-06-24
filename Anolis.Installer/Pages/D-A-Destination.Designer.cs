@@ -30,11 +30,13 @@
 			this.@__destLbl = new System.Windows.Forms.Label();
 			this.@__fbd = new System.Windows.Forms.FolderBrowserDialog();
 			this.@__destPath = new System.Windows.Forms.ComboBox();
+			this.@__toolsLbl = new System.Windows.Forms.Label();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __content
 			// 
+			this.@__content.Controls.Add(this.@__toolsLbl);
 			this.@__content.Controls.Add(this.@__destPath);
 			this.@__content.Controls.Add(this.@__destLbl);
 			this.@__content.Controls.Add(this.@__progGroupMe);
@@ -44,7 +46,7 @@
 			// 
 			// __destBrowse
 			// 
-			this.@__destBrowse.Location = new System.Drawing.Point(367, 41);
+			this.@__destBrowse.Location = new System.Drawing.Point(365, 103);
 			this.@__destBrowse.Name = "__destBrowse";
 			this.@__destBrowse.Size = new System.Drawing.Size(75, 23);
 			this.@__destBrowse.TabIndex = 1;
@@ -56,7 +58,7 @@
 			this.@__progGroup.AutoSize = true;
 			this.@__progGroup.Checked = true;
 			this.@__progGroup.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.@__progGroup.Location = new System.Drawing.Point(22, 105);
+			this.@__progGroup.Location = new System.Drawing.Point(22, 150);
 			this.@__progGroup.Name = "__progGroup";
 			this.@__progGroup.Size = new System.Drawing.Size(240, 17);
 			this.@__progGroup.TabIndex = 2;
@@ -67,7 +69,7 @@
 			// 
 			this.@__progGroupAll.AutoSize = true;
 			this.@__progGroupAll.Checked = true;
-			this.@__progGroupAll.Location = new System.Drawing.Point(42, 128);
+			this.@__progGroupAll.Location = new System.Drawing.Point(42, 173);
 			this.@__progGroupAll.Name = "__progGroupAll";
 			this.@__progGroupAll.Size = new System.Drawing.Size(81, 17);
 			this.@__progGroupAll.TabIndex = 3;
@@ -78,7 +80,7 @@
 			// __progGroupMe
 			// 
 			this.@__progGroupMe.AutoSize = true;
-			this.@__progGroupMe.Location = new System.Drawing.Point(42, 151);
+			this.@__progGroupMe.Location = new System.Drawing.Point(42, 196);
 			this.@__progGroupMe.Name = "__progGroupMe";
 			this.@__progGroupMe.Size = new System.Drawing.Size(76, 17);
 			this.@__progGroupMe.TabIndex = 4;
@@ -87,9 +89,9 @@
 			// 
 			// __destLbl
 			// 
-			this.@__destLbl.Location = new System.Drawing.Point(0, 46);
+			this.@__destLbl.Location = new System.Drawing.Point(1, 108);
 			this.@__destLbl.Name = "__destLbl";
-			this.@__destLbl.Size = new System.Drawing.Size(122, 27);
+			this.@__destLbl.Size = new System.Drawing.Size(119, 27);
 			this.@__destLbl.TabIndex = 5;
 			this.@__destLbl.Text = "Destination directory";
 			this.@__destLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -102,10 +104,19 @@
 			this.@__destPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
 			this.@__destPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
 			this.@__destPath.FormattingEnabled = true;
-			this.@__destPath.Location = new System.Drawing.Point(128, 42);
+			this.@__destPath.Location = new System.Drawing.Point(126, 104);
 			this.@__destPath.Name = "__destPath";
 			this.@__destPath.Size = new System.Drawing.Size(235, 21);
 			this.@__destPath.TabIndex = 6;
+			// 
+			// __toolsLbl
+			// 
+			this.@__toolsLbl.Location = new System.Drawing.Point(3, 9);
+			this.@__toolsLbl.Name = "__toolsLbl";
+			this.@__toolsLbl.Size = new System.Drawing.Size(437, 64);
+			this.@__toolsLbl.TabIndex = 7;
+			this.@__toolsLbl.Text = "The downloadable tools include a resource editor, a package builder, and an icon/" +
+				"cursor editor.";
 			// 
 			// DestinationPage
 			// 
@@ -127,5 +138,6 @@
 		private System.Windows.Forms.Button __destBrowse;
 		private System.Windows.Forms.FolderBrowserDialog __fbd;
 		private System.Windows.Forms.ComboBox __destPath;
+		private System.Windows.Forms.Label __toolsLbl;
 	}
 }

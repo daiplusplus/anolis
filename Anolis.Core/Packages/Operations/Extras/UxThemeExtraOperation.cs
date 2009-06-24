@@ -10,9 +10,9 @@ using W3b.TarLzma;
 
 namespace Anolis.Core.Packages.Operations {
 	
-	public class UxThemeExtraOperation : ExtraOperation {
+	public class UXThemeExtraOperation : ExtraOperation {
 		
-		public UxThemeExtraOperation(Package package, XmlElement element) :  base(ExtraType.UxTheme, package, element) {
+		public UXThemeExtraOperation(Package package, Group parent, XmlElement element) :  base(ExtraType.UXTheme, package, parent, element) {
 		}
 		
 		protected override Boolean CanMerge {
@@ -31,7 +31,11 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-#region 100% Totally The Wrong Way
+		public override void Backup(Group backupGroup) {
+			
+		}
+		
+#region 100% Totally The Wrong Way To Do It
 		
 		private void Replace() {
 			

@@ -44,10 +44,10 @@
 			this.@__sourceGrp = new System.Windows.Forms.GroupBox();
 			this.@__sourceFileRad = new System.Windows.Forms.RadioButton();
 			this.@__sourceFileLbl = new System.Windows.Forms.Label();
-			this.@__sourceFile = new System.Windows.Forms.ComboBox();
+			this.@__sourceFile = new System.Windows.Forms.TextBox();
 			this.@__sourceFileBrowse = new System.Windows.Forms.Button();
 			this.@__sourceDirRad = new System.Windows.Forms.RadioButton();
-			this.@__sourceDir = new System.Windows.Forms.ComboBox();
+			this.@__sourceDir = new System.Windows.Forms.TextBox();
 			this.@__sourceFilterLbl = new System.Windows.Forms.Label();
 			this.@__sourceFilter = new System.Windows.Forms.TextBox();
 			this.@__process = new System.Windows.Forms.Button();
@@ -315,8 +315,6 @@
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__sourceFile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.@__sourceFile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-			this.@__sourceFile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-			this.@__sourceFile.FormattingEnabled = true;
 			this.@__sourceFile.Location = new System.Drawing.Point(116, 39);
 			this.@__sourceFile.Name = "__sourceFile";
 			this.@__sourceFile.Size = new System.Drawing.Size(372, 21);
@@ -348,9 +346,7 @@
 			this.@__sourceDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__sourceDir.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-			this.@__sourceDir.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-			this.@__sourceDir.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-			this.@__sourceDir.FormattingEnabled = true;
+			this.@__sourceDir.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
 			this.@__sourceDir.Location = new System.Drawing.Point(116, 91);
 			this.@__sourceDir.Name = "__sourceDir";
 			this.@__sourceDir.Size = new System.Drawing.Size(372, 21);
@@ -472,6 +468,7 @@
 			this.MinimizeBox = false;
 			this.Name = "BatchProcessForm";
 			this.ShowIcon = false;
+			this.ShowInTaskbar = false;
 			this.Text = "Batch Export";
 			this.@__optionsGrp.ResumeLayout(false);
 			this.@__optionsGrp.PerformLayout();
@@ -518,11 +515,11 @@
 		private System.Windows.Forms.CheckBox __exportNonvisualSize;
 		private System.Windows.Forms.Label __exportNonvisualSizeLbl;
 		private System.Windows.Forms.NumericUpDown __exportNonvisualSizeNum;
-		private System.Windows.Forms.ComboBox __sourceDir;
+		private System.Windows.Forms.TextBox __sourceDir;
 		private System.Windows.Forms.RadioButton __sourceDirRad;
 		private System.Windows.Forms.RadioButton __sourceFileRad;
 		private System.Windows.Forms.Label __sourceFileLbl;
-		private System.Windows.Forms.ComboBox __sourceFile;
+		private System.Windows.Forms.TextBox __sourceFile;
 		private System.Windows.Forms.Button __sourceFileBrowse;
 		private System.Windows.Forms.OpenFileDialog __ofd;
 	}

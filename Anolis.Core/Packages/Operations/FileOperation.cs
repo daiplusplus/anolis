@@ -1,11 +1,14 @@
 ﻿using System;
+using System.IO;
 using System.Xml;
+
+using P = System.IO.Path;
 
 namespace Anolis.Core.Packages.Operations {
 	
 	public class FileOperation : Operation {
 		
-		public FileOperation(Package package, XmlElement operationElement) : base(package, operationElement) {
+		public FileOperation(Package package, Group group, XmlElement operationElement) : base(package, group, operationElement) {
 			
 			String opType = operationElement.GetAttribute("operation").ToUpperInvariant();
 			switch(opType) {
@@ -22,6 +25,13 @@ namespace Anolis.Core.Packages.Operations {
 			// the .Path setter resolves environment variables and sets the root to the package directory if non-rooted
 			Path       = SpecifiedPath;
 			SourceFile = PackageUtility.ResolvePath( operationElement.GetAttribute("src"), Package.RootDirectory.FullName );
+		}
+		
+		public FileOperation(Package package, Group parent, String sourcePath, String destPath, FileOperationType operation) : base(package, parent, destPath) {
+			
+			SourceFile = sourcePath;
+			
+			Operation = operation;
 		}
 		
 		public String SourceFile    { get; private set; }
@@ -48,7 +58,46 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		protected override String OperationName {
+		public override void Backup(Group backupGroup) {
+			
+			// if there exists a file at the destination RIGHT NOW, then back it up
+				// and the restore operation will be to copy it from its backed-up location to the current location
+			
+			// otherwise, during restoration it should delete any file that is currently there (because that file would be the file installed by this operation originally)
+			
+			if( File.Exists( Path ) ) {
+				
+				// backup the file
+				String backupDir = P.Combine( backupGroup.Package.RootDirectory.FullName, "Files" );
+				
+				String backupFn  = P.Combine( backupDir, P.GetFileName( Path ) );
+				
+				backupFn = PackageUtility.GetUnusedFileName( backupFn );
+				
+				File.Copy( Path, backupFn, true );
+				
+				// make an operation for it
+				
+				FileOperation op = new FileOperation(backupGroup.Package, backupGroup, backupFn, SpecifiedPath, FileOperationType.Copy);
+				
+				backupGroup.Operations.Add( op );
+				
+			} else {
+				
+				FileOperation del = new FileOperation(backupGroup.Package, backupGroup, "", SpecifiedPath, FileOperationType.Delete);
+				
+				backupGroup.Operations.Add( del );
+				
+			}
+			
+		}
+		
+		public override void Write(XmlElement parent) {
+			
+			CreateElement(parent, "file", "operation", Operation.ToString(), "src", SourceFile);
+		}
+		
+		public override String OperationName {
 			get { return "File"; }
 		}
 		

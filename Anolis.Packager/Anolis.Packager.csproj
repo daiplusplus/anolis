@@ -53,7 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="A-Import\Importer.cs" />
     <Compile Include="A-Import\ImportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,7 +77,7 @@
     <Compile Include="D-Distro\DistributorForm.Designer.cs">
       <DependentUpon>DistributorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="D-Distro\Merger.cs" />
+    <Compile Include="D-Distro\DistributionCreator.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +112,7 @@
       <DependentUpon>AppResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Resources\Empty Assembly\Anolis.EmptyAssembly.cs" />
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +143,7 @@
     <Content Include="Resources\Define\AddGroup.png" />
     <Content Include="Resources\Define\AddPatch.png" />
     <Content Include="Resources\Define\AddRemove.png" />
+    <None Include="Resources\Define\TCondition.png" />
     <Content Include="Resources\Define\TValidate.png" />
     <Content Include="Resources\Package.png" />
   </ItemGroup>
@@ -151,6 +152,9 @@
       <Project>{967BF434-D4F9-41E3-8B82-433987DEB4A6}</Project>
       <Name>Anolis.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Empty Assembly\out\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

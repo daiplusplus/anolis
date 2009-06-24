@@ -21,6 +21,12 @@ namespace Anolis.Installer.Pages {
 			
 			BannerImage = _bannerImage;
 			
+			InstallerResources.CurrentLanguageChanged += new EventHandler(InstallerResources_CurrentLanguageChanged);
+		}
+		
+		private void InstallerResources_CurrentLanguageChanged(object sender, EventArgs e) {
+			
+			Localize();
 		}
 		
 		protected virtual void Localize() {
@@ -33,27 +39,27 @@ namespace Anolis.Installer.Pages {
 			
 			foreach(Control c in this.Controls) {
 				
-				RecurseControl( c );
+				RecurseLocalizeControl( c );
 			}
 			
 		}
 		
-		private void RecurseControl(Control c) {
+		private void RecurseLocalizeControl(Control c) {
 			
-			String key = LocalizePrefix + '_' + c.Name;
-			key = key.Replace("_", "");
+			String key = LocalizePrefix + '_' + c.Name.Replace("__", "");
 			
 			String text = InstallerResources.GetString( key );
 			if(text != null) c.Text = text;
 			
-			foreach(Control child in c.Controls) RecurseControl( child );
+			foreach(Control child in c.Controls)
+				RecurseLocalizeControl( child );
 			
 		}
 		
 		protected virtual String LocalizePrefix {
 			get { return String.Empty; }
 		}
-
+		
 		private void InitializeComponent() {
 			this.SuspendLayout();
 			// 
@@ -61,7 +67,7 @@ namespace Anolis.Installer.Pages {
 			// 
 			this.Name = "BaseInteriorPage";
 			this.ResumeLayout(false);
-
+		
 		}
 	}
 }

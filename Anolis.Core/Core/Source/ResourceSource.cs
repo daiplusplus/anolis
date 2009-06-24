@@ -75,16 +75,16 @@ namespace Anolis.Core {
 			
 			public abstract Compatibility HandlesExtension(String extension);
 			
-			public abstract ResourceSource Create(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode);
+			public abstract ResourceSource Create(String fileName, Boolean isReadOnly, ResourceSourceLoadMode mode);
 			
-			public virtual ResourceSource CreateNew(String filename, Boolean isReadOnly, ResourceSourceLoadMode mode) {
+			public virtual ResourceSource CreateNew(String fileName, Boolean isReadOnly, ResourceSourceLoadMode mode) {
 				
-				CreateNew( filename );
+				CreateNew( fileName );
 				
-				return Create( filename, isReadOnly, mode );
+				return Create( fileName, isReadOnly, mode );
 			}
 			
-			protected abstract void CreateNew(String filename);
+			protected abstract void CreateNew(String fileName);
 			
 			public abstract String OpenFileFilter {
 				get;
@@ -145,14 +145,14 @@ namespace Anolis.Core {
 		
 		//////////////////////
 		
-		public static ResourceSource Open(String filename, Boolean readOnly, ResourceSourceLoadMode mode) {
+		public static ResourceSource Open(String fileName, Boolean readOnly, ResourceSourceLoadMode mode) {
 			
-			String ext = Path.GetExtension(filename).ToUpperInvariant();
+			String ext = Path.GetExtension(fileName).ToUpperInvariant();
 			if(ext.StartsWith(".", StringComparison.Ordinal)) ext = ext.Substring(1);
 			
 			ResourceSourceFactory factory = ResourceSourceFactory.GetFactoryForExtension( ext );
 			
-			return factory.Create( filename, readOnly, mode );
+			return factory.Create( fileName, readOnly, mode );
 		}
 		
 		//////////////////////

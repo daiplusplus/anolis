@@ -18,13 +18,13 @@ namespace Anolis.Core.Data {
 			return Compatibility.Maybe;
 		}
 		
-		public override Compatibility HandlesExtension(string filenameExtension) {
-			if( IsExtension( filenameExtension, "png" ) ) return Compatibility.Yes;
+		public override Compatibility HandlesExtension(string fileNameExtension) {
+			if( IsExtension( fileNameExtension, "png" ) ) return Compatibility.Yes;
 			return Compatibility.No;
 		}
 		
-		protected override String GetOpenFileFilter() {
-			return CreateFileFilter("PngImage", "png");
+		public override String OpenFileFilter {
+			get { return CreateFileFilter("PngImage", "png"); }
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, byte[] data) {

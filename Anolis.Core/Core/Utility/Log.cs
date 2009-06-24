@@ -3,6 +3,8 @@ using System.IO;
 using System.Collections.ObjectModel;
 using System.Text;
 
+using Cult = System.Globalization.CultureInfo;
+
 namespace Anolis.Core.Utility {
 	
 	public class Log : Collection<LogItem> {
@@ -47,7 +49,7 @@ namespace Anolis.Core.Utility {
 		
 		public LogItem(LogSeverity severity, String message) {
 			
-			TimeStamp = DateTime.Now;
+			Timestamp = DateTime.Now;
 			
 			Severity = severity;
 			Message  = message;
@@ -55,7 +57,7 @@ namespace Anolis.Core.Utility {
 		
 		public LogItem(Exception ex, Anolis.Core.Packages.Operations.Operation op) {
 			
-			TimeStamp = DateTime.Now;
+			Timestamp = DateTime.Now;
 			
 			Message  = "Exception: " + op.Name + " - " + op.Path;
 			Severity = LogSeverity.Error;
@@ -63,7 +65,7 @@ namespace Anolis.Core.Utility {
 			Exception = ex;
 		}
 		
-		public DateTime    TimeStamp { get; private set; }
+		public DateTime    Timestamp { get; private set; }
 		public LogSeverity Severity  { get; private set; }
 		public String      Message   { get; private set; }
 		
@@ -71,7 +73,7 @@ namespace Anolis.Core.Utility {
 		
 		public void Write(TextWriter wtr) {
 			
-			wtr.Write( TimeStamp.ToString("s") );
+			wtr.Write( Timestamp.ToString("s", Cult.InvariantCulture) );
 			wtr.Write(" - ");
 			wtr.Write( Severity.ToString() );
 			wtr.Write(" - ");

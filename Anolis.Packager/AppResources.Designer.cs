@@ -102,6 +102,13 @@ namespace Anolis.Packager {
             }
         }
         
+        internal static System.Drawing.Bitmap Define_TCondition {
+            get {
+                object obj = ResourceManager.GetObject("Define_TCondition", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Define_TNew {
             get {
                 object obj = ResourceManager.GetObject("Define_TNew", resourceCulture);
