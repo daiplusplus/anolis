@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 
-namespace Anolis.Packager {
+namespace Anolis.Packager.Importer {
 	
 	public partial class ImportForm : Form {
 		

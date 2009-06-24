@@ -1,4 +1,4 @@
-﻿namespace Anolis.Packager {
+﻿namespace Anolis.Packager.Importer {
 	partial class ImportForm {
 		/// <summary>
 		/// Required designer variable.

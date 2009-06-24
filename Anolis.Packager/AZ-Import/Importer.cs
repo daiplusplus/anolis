@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
-namespace Anolis.Packager {
+namespace Anolis.Packager.Importer {
 	
 	public static class XisImporter {
 		
