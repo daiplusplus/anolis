@@ -49,7 +49,7 @@ namespace Anolis.Installer.Pages {
 		
 		private void InstallingPage_PageLoad(object sender, EventArgs e) {
 			
-			WizardForm.EnablePrev = false;
+			WizardForm.EnableBack = false;
 			WizardForm.EnableNext = false;
 			
 			PackageInfo.Package.ProgressEvent += new EventHandler<PackageProgressEventArgs>(Package_ProgressEvent);
@@ -117,7 +117,7 @@ namespace Anolis.Installer.Pages {
 				}
 				
 				
-				__statusLabel.Text = String.Format( InstallerResources.GetString("C_F_status") , e.Percentage, e.Message );
+				__statusLabel.Text = String.Format( InstallerResources.GetString("C_G_status") , e.Percentage, e.Message );
 				
 			}));
 			

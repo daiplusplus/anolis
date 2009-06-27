@@ -81,7 +81,7 @@ namespace Anolis.Installer {
 				WizardForm.Icon           = InstallerResources.GetIcon("Package");
 				
 				WizardForm.NextText   = InstallerResources.GetString("Wiz_Next");
-				WizardForm.PrevText   = InstallerResources.GetString("Wiz_Prev");
+				WizardForm.BackText   = InstallerResources.GetString("Wiz_Prev");
 				WizardForm.CancelText = InstallerResources.GetString("Wiz_Cancel");
 				
 			} catch(Exception ex) {

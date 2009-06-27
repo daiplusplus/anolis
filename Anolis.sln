@@ -9,10 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Console", "Anolis.Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F1AA86BE-FDC7-4B61-827F-8F6C43DE81F1}"
 	ProjectSection(SolutionItems) = preProject
+		Anolis.vsmdi = Anolis.vsmdi
 		_ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.dll = _ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.dll
 		_ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.xml = _ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.xml
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
-		_ref\W3b.Wizards\W3b.Wizards.pdb = _ref\W3b.Wizards\W3b.Wizards.pdb
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Packager", "Anolis.Packager\Anolis.Packager.csproj", "{0B0A2D95-2D4B-402F-9B3C-127B47C22ACF}"
@@ -29,9 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.ThumbsDbViewer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.UxTheme", "Anolis.Tools.UxTheme\Anolis.Tools.UxTheme.csproj", "{88847903-17A8-4BDE-934E-CCA237495054}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tests", "Anolis.Tests\Anolis.Tests.csproj", "{143593CE-F1E8-4B8C-8823-7FD246059344}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 11
+		SccNumberOfProjects = 12
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs03.codeplex.com/
 		SccLocalPath0 = .
@@ -65,6 +67,12 @@ Global
 		SccProjectUniqueName10 = Anolis.Tools.UxTheme\\Anolis.Tools.UxTheme.csproj
 		SccProjectName10 = Anolis.Tools.UxTheme
 		SccLocalPath10 = Anolis.Tools.UxTheme
+		SccProjectUniqueName11 = Anolis.Tests\\Anolis.Tests.csproj
+		SccProjectName11 = Anolis.Tests
+		SccLocalPath11 = Anolis.Tests
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Anolis.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +147,12 @@ Global
 		{88847903-17A8-4BDE-934E-CCA237495054}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88847903-17A8-4BDE-934E-CCA237495054}.Release|Any CPU.Build.0 = Release|Any CPU
 		{88847903-17A8-4BDE-934E-CCA237495054}.Release|x86.ActiveCfg = Release|Any CPU
+		{143593CE-F1E8-4B8C-8823-7FD246059344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{143593CE-F1E8-4B8C-8823-7FD246059344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{143593CE-F1E8-4B8C-8823-7FD246059344}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{143593CE-F1E8-4B8C-8823-7FD246059344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{143593CE-F1E8-4B8C-8823-7FD246059344}.Release|Any CPU.Build.0 = Release|Any CPU
+		{143593CE-F1E8-4B8C-8823-7FD246059344}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

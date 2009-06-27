@@ -69,15 +69,21 @@ namespace Anolis.Packager {
 			String expr = __expression.Text;
 			__result.Text = "";
 			
+			List<String> tokens = new List<String>();
+			
 			Int32 i=0;
 			while( i < expr.Length ) {
 				
 				String tok = expr.Tok(ref i);
-				__result.Text += tok + ", ";
 				
+				if( i < expr.Length ) tokens.Add( tok );
 			}
 			
-			if( __result.Text.EndsWith(", ") ) __result.Text = __result.Text.LeftFR( 2 );
+			for(i=0;i<tokens.Count;i++) {
+				
+				__result.Text += tokens[i];
+				if( i != tokens.Count - 1 ) __result.Text += ", ";
+			}
 			
 		}
 		

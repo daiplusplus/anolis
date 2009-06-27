@@ -139,6 +139,10 @@ namespace Anolis.Core {
 				if( !Char.IsWhiteSpace( c ) ) break;
 				i++;
 			}
+			if( Char.IsWhiteSpace( c ) ) {
+				start = str.Length;
+				return null; // then it's got some trailing whitespace left, and it's at the end
+			}
 			
 			Boolean doneRadixPoint = false;
 			UnicodeCategory currentCat, initialCat;
@@ -147,7 +151,7 @@ namespace Anolis.Core {
 			
 			// special case for ( and )
 			if( initialChar == '(' || initialChar == ')' ) {
-				start++;
+				start = i + 1;
 				return initialChar.ToString();
 			}
 			

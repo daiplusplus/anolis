@@ -26,7 +26,7 @@ namespace Anolis.Installer.Pages {
 		
 		private void ExtractingPage_PageLoad(object sender, EventArgs e) {
 			
-			WizardForm.EnablePrev = false;
+			WizardForm.EnableBack = false;
 			WizardForm.EnableNext = false;
 			
 			// Begin extraction

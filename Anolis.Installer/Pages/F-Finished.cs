@@ -31,9 +31,8 @@ namespace Anolis.Installer.Pages {
 		
 		private void FinishedPage_PageLoad(object sender, EventArgs e) {
 			
-			this.WizardForm.EnablePrev = false;
-			this.WizardForm.EnableNext = true;
-			
+			this.WizardForm.EnableBack   = false;
+			this.WizardForm.EnableNext   = true;
 			this.WizardForm.EnableCancel = false;
 			
 			switch(Program.ProgramMode) {

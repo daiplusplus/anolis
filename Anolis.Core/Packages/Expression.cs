@@ -21,32 +21,33 @@ namespace Anolis.Core.Packages {
 /*
 		S = Shift. The input takes precedence over what's at the top of the stack
 		R = Reduce. The stack should be evaluated before the input is processed.
-		      |                               input                                                  |
-		      | +   -   *   /   ^   M   ,   (   )     ==  !=  <   <=  >   >=    &&  ||  !   ^^    $  |
-		   ---| --  --  --  --  --  --  --  --  --    --  --  --  --  --  --    --  --  --  --    -- |
-		   +  | R   R   S   S   S   S   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
-		   -  | R   R   S   S   S   S   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
-		   *  | R   R   R   R   S   S   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
-		   /  | R   R   R   R   S   S   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
-		   ^  | R   R   R   R   S   S   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
-		   M  | R   R   R   R   R   S   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
-		   ,  | R   R   R   R   R   R   E4  R   R     R   R   R   R   R   R     R   R   R   R     E4 |
-		   (  | S   S   S   S   S   S   S   S   S     S   S   S   S   S   S     S   S   S   S     E1 |
-		s  )  | R   R   R   R   R   R   E4  E2  R     R   R   R   R   R   R     R   R   S   R     R  |
-		t  
-		a  == | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     S   S   S   S     R  |
-		c  != | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     S   S   S   S     R  |
-		k  <  | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     S   S   S   S     R  |
-		   <= | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     S   S   S   S     R  |
-		   >  | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     S   S   S   S     R  |
-		   >= | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     S   S   S   S     R  |
-		   
-		   && | S   S   S   S   S   S   S   S   S     S   S   S   S   S   S     R   R   S   R     R  |
-		   || | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
-		   !  | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
-		   ^^ | R   R   R   R   R   R   R   S   R     R   R   R   R   R   R     R   R   S   R     R  |
-		      |                                                                                      |
-		   $  | S   S   S   S   S   S   E4  S   E3    S   S   S   S   S   S     S   S   S   S     A  | */
+		      |                                   input                                                |
+		      | +   -   *   /   ^   M   ,     (   )     ==  !=  <   <=  >   >=    &&  ||  !   ^^    $  |
+		   ---| --  --  --  --  --  --  --    --  --    --  --  --  --  --  --    --  --  --  --    -- |
+		   +  | R   R   S   S   S   S   R     S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   -  | R   R   S   S   S   S   R     S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   *  | R   R   R   R   S   S   R     S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   /  | R   R   R   R   S   S   R     S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   ^  | R   R   R   R   S   S   R     S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   M  | R   R   R   R   R   S   R     S   R     R   R   R   R   R   R     R   R   S   R     R  |
+		   ,  | R   R   R   R   R   R   E4    R   R     R   R   R   R   R   R     R   R   R   R     E4 |
+		      |                                                                                        |
+		   (  | S   S   S   S   S   S   S     S   S     S   S   S   S   S   S     S   S   S   S     E1 |
+		s  )  | R   R   R   R   R   R   E4    E2  R     R   R   R   R   R   R     R   R   S   R     R  |
+		t                                                                                              |
+		a  == | R   R   R   R   R   R   R     S   R     R   R   R   R   R   R     R   R   R   R     R  |
+		c  != | R   R   R   R   R   R   R     S   R     R   R   R   R   R   R     R   R   R   R     R  |
+		k  <  | R   R   R   R   R   R   R     S   R     R   R   R   R   R   R     R   R   R   R     R  |
+		   <= | R   R   R   R   R   R   R     S   R     R   R   R   R   R   R     R   R   R   R     R  |
+		   >  | R   R   R   R   R   R   R     S   R     R   R   R   R   R   R     R   R   R   R     R  |
+		   >= | R   R   R   R   R   R   R     S   R     R   R   R   R   R   R     R   R   R   R     R  |
+		                                                                                               |
+		   && | R   R   R   R   R   R   R     S   R     S   S   S   S   S   S     R   R   S   R     R  |
+		   || | R   R   R   R   R   R   R     S   R     S   S   S   S   S   S     R   R   S   R     R  |
+		   !  | R   R   R   R   R   R   R     S   R     S   S   S   S   S   S     R   R   S   R     R  |
+		   ^^ | R   R   R   R   R   R   R     S   R     S   S   S   S   S   S     R   R   S   R     R  |
+		      |                                                                                        |
+		   $  | S   S   S   S   S   S   E4    S   E3    S   S   S   S   S   S     S   S   S   S     A  | */
 		   
 		   // comparison operators sit near the bottom of the precdence table, only bitwise operations are lower
 		   // but we're not doing bitwise
@@ -65,17 +66,17 @@ namespace Anolis.Core.Packages {
 	/*	(	*/{ P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Error1  },
 	/*	)	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Error4,  P.Error2,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce, P.Reduce  },
 	
-	/*	==	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
-	/*	!=	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
-	/*	<	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
-	/*	<=	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
-	/*	>	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
-	/*	>=	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
+	/*	==	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,  P.Reduce  },
+	/*	!=	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,  P.Reduce  },
+	/*	<	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,  P.Reduce  },
+	/*	<=	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,  P.Reduce  },
+	/*	>	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,  P.Reduce  },
+	/*	>=	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,  P.Reduce  },
 	
-	/*	&&	*/{ P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Shift  },
-	/*	||	*/{ P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
-	/*	!	*/{ P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
-	/*	^^	*/{ P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Reduce  },
+	/*	&&	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce, P.Reduce   },
+	/*	||	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce, P.Reduce  },
+	/*	!	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce, P.Reduce  },
+	/*	^^	*/{ P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce,  P.Shift,   P.Reduce,  P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Reduce,  P.Reduce,  P.Reduce,  P.Reduce, P.Reduce  },
 	
 	/*	$	*/{ P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Error4,  P.Shift,   P.Error3,  P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,   P.Shift,  P.Accept  }
 		};
@@ -117,6 +118,8 @@ namespace Anolis.Core.Packages {
 			_isFirstToken = true;
 			_toki         = 0;
 			
+			if( symbols == null ) symbols = new Dictionary<String,Double>();
+			
 			_symbols = symbols;			
 			
 			Advance();
@@ -151,7 +154,7 @@ namespace Anolis.Core.Packages {
 							
 							EnsureVal(1);
 							
-							return _valueStack.Pop();
+							return _value = _valueStack.Pop();
 							
 						default:
 							throw new ExpressionException( p.ToString() + " at position " + _toki );
