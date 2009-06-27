@@ -41,7 +41,9 @@ namespace Anolis.Installer.Pages {
 		protected override void Localize() {
 			base.Localize();
 			
-			this.__packageTab  .Text = String.Format(Cult.InvariantCulture, InstallerResources.GetString("C_D_packageNotes"), PackageInfo.Package.Name );
+			String packageName = PackageInfo.Package == null ? "" : PackageInfo.Package.Name;
+			
+			this.__packageTab  .Text = String.Format(Cult.InvariantCulture, InstallerResources.GetString("C_D_packageNotes"), packageName);
 			this.__installerTab.Text = InstallerResources.GetString("C_D_installerNotes");
 			
 		}
@@ -51,7 +53,7 @@ namespace Anolis.Installer.Pages {
 		}
 		
 		public override BaseWizardPage NextPage {
-			get { return Program.PageCFInstallOpts; }
+			get { return Program.PageCEModifyPackage; }
 		}
 		
 	}

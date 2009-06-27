@@ -148,8 +148,9 @@ namespace Anolis.Installer.Pages {
 				
 				__downloadYes.Enabled = false;
 				__downloadNo .Enabled = false;
+				WizardForm.EnableBack = false;
 				WizardForm.EnableNext = false;
-				WizardForm.EnablePrev = false;
+				
 				
 				DownloadPackage( __sfd.FileName );
 			}
@@ -195,8 +196,8 @@ namespace Anolis.Installer.Pages {
 			
 			_nextPage = Program.PageCBExtracting;
 			
+			WizardForm.EnableBack = false;
 			WizardForm.EnableNext = true;
-			WizardForm.EnablePrev = false;
 			
 		}
 		

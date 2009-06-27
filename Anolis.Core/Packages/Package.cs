@@ -41,19 +41,35 @@ namespace Anolis.Core.Packages {
 			UpdateUri     = packageElement.GetAttribute("updateUri").Length > 0 ? new Uri( packageElement.Attributes["updateUri"].Value ) : null;
 			ConditionDesc = packageElement.GetAttribute("conditionDesc");
 			
+			//////////////////////////////////////
+			// Release Notes
+			
 			String releaseNotesPath = packageElement.GetAttribute("releaseNotes");
-			if( !String.IsNullOrEmpty( releaseNotesPath ) && File.Exists( Path.Combine( RootDirectory.FullName, releaseNotesPath ) ) ) {
+			
+			if( !String.IsNullOrEmpty( releaseNotesPath ) ) {
 				
-				ReleaseNotes = File.ReadAllText( releaseNotesPath );
+				String actualNotesLocation = Path.Combine( RootDirectory.FullName, releaseNotesPath );
+				
+				if( File.Exists( actualNotesLocation ) )
+					ReleaseNotes = File.ReadAllText( actualNotesLocation );
+				
 			}
 			
-			if( packageElement.ChildNodes.Count == 1 ) {
+			//////////////////////////////////////
+			// Children
+			
+			// there can only be one root group element as a child, but as Whitespace is being preserved there may be other nodes in the document
+			
+			foreach(XmlNode node in packageElement.ChildNodes) {
 				
-				XmlElement rootGroupElement = packageElement.ChildNodes[0] as XmlElement;
+				XmlElement rootGroupElement = node as XmlElement;
+				if( rootGroupElement == null ) continue;
+				
+				if( RootGroup != null ) throw new PackageException("<package> element must have one (and only one) <group> child element");
 				
 				RootGroup = new Group(this, null, rootGroupElement);
 				
-			} else throw new PackageException("<package> element must have one (and only one) <group> child element");
+			}
 			
 		}
 		
@@ -107,6 +123,7 @@ namespace Anolis.Core.Packages {
 			
 			XmlReader rdr = XmlReader.Create( packageXmlFileName, settings );
 			XmlDocument doc = new XmlDocument();
+			doc.PreserveWhitespace = true;
 			
 			doc.Load( rdr );
 			
