@@ -62,7 +62,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Xml" />
@@ -107,6 +106,7 @@
     <Compile Include="Core\Resource\ResourceLang.cs" />
     <Compile Include="Core\Resource\ResourceName.cs" />
     <Compile Include="Core\Resource\ResourceType.cs" />
+    <Compile Include="Core\Utility\BinaryPatcher.cs" />
     <Compile Include="Core\Utility\Dialog.cs" />
     <Compile Include="Core\Utility\Dib.cs" />
     <Compile Include="Core\Utility\Environment.cs" />
@@ -123,8 +123,9 @@
     <Compile Include="Core\Source\Native\Win32ResourceSource.cs" />
     <Compile Include="Packages\Exceptions.cs" />
     <Compile Include="Packages\Expression.cs" />
+    <Compile Include="Packages\Operations\UxThemeOperation.cs" />
     <Compile Include="Packages\Operations\UninstallationOperation.cs" />
-    <Compile Include="Packages\Operations\Extras\UxThemeExtraOperation.cs" />
+    <None Include="Packages\Operations\Extras\UxThemeExtraOperation.old.cs" />
     <Compile Include="Packages\Operations\FileTypeOperation.cs" />
     <Compile Include="Packages\Operations\RegistryOperation.cs" />
     <Compile Include="Packages\Operations\SystemParameterOperation.cs" />
@@ -154,7 +155,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="legal.txt" />
     <None Include="legalGpl.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Core\Source\Native\Win32EmptyPE.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="legal.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -111,13 +170,13 @@ Auf 'Weiter' klicken, um fortzufahren.</value>
   <data name="C_B_instantiating" xml:space="preserve">
     <value>Paket laden</value>
   </data>
-  <data name="C_D_noInfo" xml:space="preserve">
+  <data name="C_E_noInfo" xml:space="preserve">
     <value>Das ausgewählte Element '{0}' besitzt keine Informationen</value>
   </data>
-  <data name="C_E_installButton" xml:space="preserve">
+  <data name="C_F_installButton" xml:space="preserve">
     <value>Installiere</value>
   </data>
-  <data name="C_F_status" xml:space="preserve">
+  <data name="C_G_status" xml:space="preserve">
     <value>{0}% abgeschossen - {1}</value>
   </data>
   <data name="D_A_destLbl" xml:space="preserve">
@@ -154,26 +213,26 @@ Schließen Sie alle geöffneten Anwendungen bevor Sie fortfahen. Versuchen Sie n
 
 Schließen Sie alle geöffneten Anwendungen bevor Sie fortfahen. Versuchen Sie nicht eine weitere Anwendung zu öffnen.</value>
   </data>
-  <data name="C_E_backup" xml:space="preserve">
+  <data name="C_F_backup" xml:space="preserve">
     <value>Erstelle Sicherungs-Verzeichnis für Deinstallation (empfohlen)</value>
   </data>
-  <data name="C_E_backupDesc" xml:space="preserve">
+  <data name="C_F_backupDesc" xml:space="preserve">
     <value>Es muss ein Sicherungs-Verzeichnis angelegt werden, wenn die Möglichkeit bestehen soll, dass dieses Paket jemals wieder deinstalliert werden kann.</value>
   </data>
-  <data name="C_E_comp" xml:space="preserve">
+  <data name="C_F_comp" xml:space="preserve">
     <value>Installiere auf diesem Rechner</value>
   </data>
-  <data name="C_E_i386" xml:space="preserve">
+  <data name="C_F_i386" xml:space="preserve">
     <value>Installiere nach i386</value>
   </data>
-  <data name="C_E_sysRes" xml:space="preserve">
+  <data name="C_F_sysRes" xml:space="preserve">
     <value>Erstelle einen System-Wiederherstellungs-Punkt (empfohlen)</value>
   </data>
-  <data name="C_E_sysResDesc" xml:space="preserve">
+  <data name="C_F_sysResDesc" xml:space="preserve">
     <value>Eine zusätzliche Sicherungsschicht. Beachte: dies schützt nicht immer gegen Modifikationen von Nicht-Windows-Dateien im Ordner 'Programme'</value>
   </data>
   <data name="C_C_Subtitle" xml:space="preserve">
-    <value>{0} wurde seit dessen Installation eventuell aktualisiert. Soll geprüft werden, ob neuere Versionen vorliegen?</value>
+    <value>Das Paket kann aktualisiert worden sein, seit dem Sie es erworben haben. Überprüfe Verfügbarkeit eines Paket-Updates.</value>
   </data>
   <data name="C_C_Title" xml:space="preserve">
     <value>Prüfen, ob Aktualisierungen für dieses Paket verfügbar sind</value>
@@ -181,41 +240,41 @@ Schließen Sie alle geöffneten Anwendungen bevor Sie fortfahen. Versuchen Sie n
   <data name="C_B_Subtitle" xml:space="preserve">
     <value>Bitte warten - die Installationsroutine bereitet das Paket für die Installation vor</value>
   </data>
-  <data name="C_D_Subtitle" xml:space="preserve">
+  <data name="C_E_Subtitle" xml:space="preserve">
     <value>Sie können wählen, welche Komponenten dieses Pakets installiert werden sollen</value>
   </data>
-  <data name="C_D_Title" xml:space="preserve">
+  <data name="C_E_Title" xml:space="preserve">
     <value>Ändere Paket</value>
   </data>
-  <data name="C_E_Subtitle" xml:space="preserve">
+  <data name="C_F_Subtitle" xml:space="preserve">
     <value>Wähle ein Sicherungs-Verzeichnis und andere Optionen</value>
   </data>
-  <data name="C_E_Title" xml:space="preserve">
+  <data name="C_F_Title" xml:space="preserve">
     <value>Installations-Einstellungen</value>
   </data>
-  <data name="C_F_Subtitle" xml:space="preserve">
+  <data name="C_G_Subtitle" xml:space="preserve">
     <value>Das ausgewählte Paket wurde installiert</value>
   </data>
-  <data name="C_F_Title" xml:space="preserve">
+  <data name="C_G_Title" xml:space="preserve">
     <value>Installiere Pakete</value>
   </data>
   <data name="C_C_downloadProgress" xml:space="preserve">
-    <value />
+    <value>{0}% - {1}KB von {2}KB heruntergeladen mit {3}KBps</value>
   </data>
   <data name="C_C_infoChecking" xml:space="preserve">
-    <value />
+    <value>Überprüfe Verfügbarkeit eines Paket-Updates</value>
   </data>
   <data name="C_C_infoFailed" xml:space="preserve">
-    <value />
+    <value>Überprüfung fehlgeschlagen: Konnte Update-Informationen nicht herunterladen</value>
   </data>
   <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
-    <value />
+    <value>Eine aktuellere Version ({0}) dieses Pakets ist verfügbar. Möchten Sie sie jetzt herunterladen?</value>
   </data>
   <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
-    <value />
+    <value>Eine aktuellere Version ({0}) dieses Pakets ist verfügbar, jedoch kann das Update nur manuell heruntergeladen werden. Klicken sie auf "Visit Pacakge Webpage" für mehr Informationen.</value>
   </data>
   <data name="C_C_infoUpdateLatest" xml:space="preserve">
-    <value />
+    <value>Sie haben die aktuellste Version ({0)} dieses Pakets.</value>
   </data>
   <data name="Lang_Attribution" xml:space="preserve">
     <value>PjotC</value>
@@ -241,5 +300,17 @@ Schließen Sie alle geöffneten Anwendungen bevor Sie fortfahen. Versuchen Sie n
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Flags\de.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>Anolis Installations Lies-Mich</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>{0} Paket Release Informationen</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>Überprüfen Sie alle Release Notes des Paket-Autors</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>Paket Release Informationen</value>
   </data>
 </root>

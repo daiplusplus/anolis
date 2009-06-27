@@ -180,13 +180,13 @@ To continue, press Next</value>
   <data name="C_B_instantiating" xml:space="preserve">
     <value>Instantiating Package</value>
   </data>
-  <data name="C_D_noInfo" xml:space="preserve">
+  <data name="C_E_noInfo" xml:space="preserve">
     <value>The selected item '{0}' does not have any information associated with it</value>
   </data>
-  <data name="C_E_installButton" xml:space="preserve">
+  <data name="C_F_installButton" xml:space="preserve">
     <value>Install</value>
   </data>
-  <data name="C_F_status" xml:space="preserve">
+  <data name="C_G_status" xml:space="preserve">
     <value>{0}% complete - {1}</value>
   </data>
   <data name="D_A_destLbl" xml:space="preserve">
@@ -223,22 +223,22 @@ Close all open applications before continuing. Do not attempt to open any new ap
 
 Close all open applications before continuing. Do not attempt to open any new applications.</value>
   </data>
-  <data name="C_E_backup" xml:space="preserve">
+  <data name="C_F_backup" xml:space="preserve">
     <value>Create uninstallation backup directory (Recommended)</value>
   </data>
-  <data name="C_E_backupDesc" xml:space="preserve">
+  <data name="C_F_backupDesc" xml:space="preserve">
     <value>You must create a backup directory if you ever wish to uninstall this package in future</value>
   </data>
-  <data name="C_E_comp" xml:space="preserve">
+  <data name="C_F_comp" xml:space="preserve">
     <value>Install to this Computer</value>
   </data>
-  <data name="C_E_i386" xml:space="preserve">
+  <data name="C_F_i386" xml:space="preserve">
     <value>Install to I386</value>
   </data>
-  <data name="C_E_sysRes" xml:space="preserve">
+  <data name="C_F_sysRes" xml:space="preserve">
     <value>Create System Restore Point (Recommended)</value>
   </data>
-  <data name="C_E_sysResDesc" xml:space="preserve">
+  <data name="C_F_sysResDesc" xml:space="preserve">
     <value>An added layer of protection. Note this does not always protect against modifications made to non-Windows files under Program Files</value>
   </data>
   <data name="C_C_Subtitle" xml:space="preserve">
@@ -250,22 +250,22 @@ Close all open applications before continuing. Do not attempt to open any new ap
   <data name="C_B_Subtitle" xml:space="preserve">
     <value>Please wait whilst the installer prepares the package for installation</value>
   </data>
-  <data name="C_D_Subtitle" xml:space="preserve">
+  <data name="C_E_Subtitle" xml:space="preserve">
     <value>You can choose whether or not to install components of this package</value>
   </data>
-  <data name="C_D_Title" xml:space="preserve">
+  <data name="C_E_Title" xml:space="preserve">
     <value>Modify Package</value>
   </data>
-  <data name="C_E_Subtitle" xml:space="preserve">
+  <data name="C_F_Subtitle" xml:space="preserve">
     <value>Select a backup directory and other options</value>
   </data>
-  <data name="C_E_Title" xml:space="preserve">
+  <data name="C_F_Title" xml:space="preserve">
     <value>Installation Options</value>
   </data>
-  <data name="C_F_Subtitle" xml:space="preserve">
+  <data name="C_G_Subtitle" xml:space="preserve">
     <value>Your selected package is being installed</value>
   </data>
-  <data name="C_F_Title" xml:space="preserve">
+  <data name="C_G_Title" xml:space="preserve">
     <value>Installing Package</value>
   </data>
   <data name="Lang_Attribution" xml:space="preserve">
@@ -312,5 +312,20 @@ Close all open applications before continuing. Do not attempt to open any new ap
   </data>
   <data name="Wiz_Prev" xml:space="preserve">
     <value>Back</value>
+  </data>
+  <data name="EULA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EULA.rtf;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>Review any release notes made by the package's author</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>Package Release Notes</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>Anolis Installer Readme</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>{0} Package Release Notes</value>
   </data>
 </root>

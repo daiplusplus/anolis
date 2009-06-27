@@ -58,13 +58,19 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
+		public String ConditionHash { get; private set; }
+		public String SaveTo { get; set; }
+		public Collection<PatchResource> Resources { get; private set; }
+		
+#region Execute
+		
 		public override void Execute() {
 			
-			if( Package.ExecutionMode == PackageExecutionMode.Regular ) {
+			if( Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular ) {
 				
 				ExecuteRegular( Path );
 				
-			} else if( Package.ExecutionMode == PackageExecutionMode.I386) {
+			} else if( Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.I386) {
 				
 				String workingPath, i386Path;
 				
@@ -85,7 +91,13 @@ namespace Anolis.Core.Packages.Operations {
 			
 			if( !File.Exists( path ) ) {
 				
-				Package.Log.Add( new LogItem(LogSeverity.Error, "Source File not found: " + path) );
+				Package.Log.Add( new LogItem(LogSeverity.Error, "Source file not found: " + path) );
+				return;
+			}
+			
+			if( !EvaluateCondition() ) {
+				
+				Package.Log.Add( new LogItem(LogSeverity.Info, "Condition failed") );
 				return;
 			}
 			
@@ -120,9 +132,9 @@ namespace Anolis.Core.Packages.Operations {
 			
 			String compressedFilename = nom + ext.LeftFR(1) + '_';
 			
-			FileInfo compressedFile = Package.I386Info.FindFile( compressedFilename );
+			FileInfo compressedFile = Package.ExecutionInfo.I386FindFile( compressedFilename );
 			
-			String destTempDir =  P.Combine( P.GetTempPath(), "AnolisI386");
+			String destTempDir =  P.Combine( P.GetTempPath(), @"Anolis\I386");
 			if( !Directory.Exists( destTempDir ) ) Directory.CreateDirectory( destTempDir );
 			
 			if( compressedFile != null ) {
@@ -167,7 +179,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			// uncompressed file
 			
-			FileInfo uncompressedFile = Package.I386Info.FindFile( P.GetFileName( path ) );
+			FileInfo uncompressedFile = Package.ExecutionInfo.I386FindFile( P.GetFileName( path ) );
 			
 			if( uncompressedFile != null ) {
 				
@@ -227,7 +239,7 @@ namespace Anolis.Core.Packages.Operations {
 								
 								if( res.Add ) {
 									
-									UInt16 sysLang = GetSystemLangId();
+									UInt16 sysLang = (UInt16)CultureInfo.InvariantCulture.LCID;
 									
 									ResourceData data = ResourceData.FromFileToAdd( res.File, sysLang, source );
 									source.Add( typeId, nameId, sysLang, data );
@@ -267,7 +279,17 @@ namespace Anolis.Core.Packages.Operations {
 						
 					}
 					
+					// note that Win32ResourceSource now recomptues the PE checksum by itself
 					source.CommitChanges();
+					
+				}//using source
+				
+				if( Package.ExecutionInfo.BackupGroup != null ) {
+					
+					String hash = PackageUtility.GetMD5Hash( fileName );
+					
+					Backup( Package.ExecutionInfo.BackupGroup, Path, hash );
+					
 				}
 				
 			} catch(AnolisException aex) {
@@ -281,8 +303,21 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public override void Backup(Group backupGroup) {
-			// TODO
+#endregion
+		
+		private void Backup(Group backupGroup, String originalFileName, String patchedHash) {
+			
+			DirectoryInfo backupDir = backupGroup.Package.RootDirectory;
+			
+			String backupToThis = P.Combine( backupDir.FullName, P.GetFileName( originalFileName ) );
+			backupToThis = PackageUtility.GetUnusedFileName( backupToThis );
+			
+			File.Copy( originalFileName, backupToThis );
+			
+			FileOperation op = new FileOperation(backupGroup.Package, backupGroup, backupToThis, originalFileName, FileOperationType.Copy);
+			op.ConditionHash = patchedHash;
+			backupGroup.Operations.Add( op );
+			
 		}
 		
 		public override void Write(XmlElement parent) {
@@ -302,13 +337,32 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public override Boolean SupportsI386 {
-			get { return true; }
+		private Boolean EvaluateCondition() {
+			
+			if( !String.IsNullOrEmpty( ConditionHash ) ) {
+				
+				String currentHash = PackageUtility.GetMD5Hash( Path );
+				if( !String.Equals( ConditionHash, currentHash, StringComparison.OrdinalIgnoreCase ) ) {
+					
+					return false;
+				}
+				
+			}
+			
+			if( Condition != null ) {
+				
+				Dictionary<String,Double> symbols = BuildSymbols( Path );
+				
+				EvaluationResult result = Evaluate( symbols );
+				return result == EvaluationResult.True;
+				
+			}
+			
+			return true;
 		}
 		
-		private static UInt16 GetSystemLangId() {
-			
-			return PackageUtility.GetSystemInstallLanguage();
+		public override Boolean SupportsI386 {
+			get { return true; }
 		}
 		
 		public override String OperationName {
@@ -317,11 +371,26 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override Boolean Merge(Operation operation) {
 			
-			// TODO check condition first
-			return false;
+			// merge only if the condition is true
+			
+			PatchOperation op = operation as PatchOperation;
+			if( op == null ) return false;
+			
+			if( String.Equals( Path, op.Path, StringComparison.OrdinalIgnoreCase ) ) {
+				
+				if( op.EvaluateCondition() ) {
+					
+					// merge the resources
+					Resources.AddRange2( op.Resources );	
+				}
+				
+				return true;
+				
+			} else {
+				
+				return false;
+			}
 		}
-		
-		public Collection<PatchResource> Resources { get; private set; }
 		
 	}
 	

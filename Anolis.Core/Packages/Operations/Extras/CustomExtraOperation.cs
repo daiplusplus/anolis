@@ -30,13 +30,5 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public override void Backup(Group backupGroup) {
-			
-		}
-		
-		public override void Write(XmlElement parent) {
-			
-		}
-		
 	}
 }

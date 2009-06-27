@@ -57,8 +57,6 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public abstract void Execute();
 		
-		public abstract void Backup(Group backupGroup);
-		
 		/// <summary>Provides an opportunity to reduce the number of operations by merging them together to be Executed in a single go. Return true if the provided operation was successfully merged into this operation (thus making it obsolete, it will then be removed from the flattened operation list). Return false to keep the old operation in the list.</summary>
 		public abstract Boolean Merge(Operation operation);
 		
@@ -81,6 +79,8 @@ namespace Anolis.Core.Packages.Operations {
 					return new FileTypeOperation(package, parent, operationElement);
 				case "registry":
 					return new RegistryOperation(package, parent, operationElement);
+				case "uxtheme":
+					return new UXThemeOperation(package, parent, operationElement);
 				default:
 					// TODO: Allow additional libraries or code-generation to specify their own stuff
 					// Define types in the Package XML? http://www.codeproject.com/KB/dotnet/evaluator.aspx

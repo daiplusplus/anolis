@@ -29,12 +29,17 @@ namespace Anolis.Resourcer {
 		private void MainFormInit() {
 			
 			_settings = Anolis.Resourcer.Settings.Settings.Default;
-//			_settings.Upgrade();
 			
 			if( _settings.MruList == null ) _settings.MruList = new StringCollection();
 			
 			_viewers = new TypeViewerList();
 			_mru     = new Mru( _settings.MruCount, _settings.MruList, StringComparison.InvariantCultureIgnoreCase );
+			
+			/////////////////
+			
+			__stateImages.Images.Add("Add", Resources.Tree_Add);
+			__stateImages.Images.Add("Upd", Resources.Tree_Rep);
+			__stateImages.Images.Add("Del", Resources.Tree_Del);
 			
 			MainForm.LatestInstance = this;
 		}
@@ -48,6 +53,8 @@ namespace Anolis.Resourcer {
 		private void MainFormRefresh() {
 			
 			TreePopulate();
+			
+			ListLoad();
 			
 			// TODO: Refresh the current ListView, it should have overlay icons methinks
 			
@@ -694,6 +701,8 @@ namespace Anolis.Resourcer {
 			
 			_viewList.ShowObject( CurrentSource );
 			
+			ToolbarUpdate(true, true, false);
+			
 			NavigateAdd();
 		}
 		
@@ -707,6 +716,8 @@ namespace Anolis.Resourcer {
 			
 			TreeNodeEnsureVisible( type );
 			
+			ToolbarUpdate(true, true, false);
+			
 			NavigateAdd();
 		}
 		
@@ -719,6 +730,8 @@ namespace Anolis.Resourcer {
 			_viewList.ShowObject(name);
 			
 			TreeNodeEnsureVisible( name );
+			
+			ToolbarUpdate(true, true, false);
 			
 			NavigateAdd();
 		}
@@ -772,7 +785,7 @@ namespace Anolis.Resourcer {
 			__tree.EndUpdate();
 		}
 		
-		private String TreeStateImageKey(ResourceLang lang) {
+		internal static String TreeStateImageKey(ResourceLang lang) {
 			
 			switch(lang.Action) {
 				case ResourceDataAction.Add:
@@ -840,7 +853,7 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		public static String GetTreeNodeImageListTypeKey(ResourceTypeIdentifier typeId) {
+		internal static String GetTreeNodeImageListTypeKey(ResourceTypeIdentifier typeId) {
 			
 			switch(typeId.KnownType) {
 				case Win32ResourceType.Accelerator:

@@ -274,9 +274,13 @@ namespace Anolis.Resourcer {
 					
 				}
 				
-			} else {
+			} else if( updBuild == thisBuild ) {
 				
 				MessageBox.Show(this, "You already have the most recent build of Resourcer", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+				
+			} else {
+				
+				MessageBox.Show(this, "You have a more recent build of Resourcer than is publically available", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 			}
 			
 		}

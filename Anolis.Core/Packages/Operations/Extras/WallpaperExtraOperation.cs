@@ -27,6 +27,8 @@ namespace Anolis.Core.Packages.Operations {
 			
 			if( Files.Count == 0 ) return;
 			
+			Backup( Package.ExecutionInfo.BackupGroup );
+			
 			// copy (don't move) the files to C:\Windows\web\Wallpaper
 			// if they already exist append a digit methinks
 			
@@ -55,7 +57,14 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public override void Backup(Group backupGroup) {
+		private void Backup(Group backupGroup) {
+			
+			if( backupGroup == null ) return;
+			
+			String keyPath = @"HKEY_CURRENT_USER\Control Panel\Desktop";
+			
+			MakeRegOp(backupGroup, keyPath, "Wallpaper");
+			MakeRegOp(backupGroup, keyPath, "WallpaperStyle");
 			
 		}
 		
@@ -88,7 +97,7 @@ namespace Anolis.Core.Packages.Operations {
 			bitmap.Dispose();
 			
 			// set the wallpaper
-			NativeMethods.SystemParametersInfo(NativeMethods.SpiAction.SetDesktopWallpaper, 0, wallpaperFilename, NativeMethods.SpiUpdate.SendWinIniChange | NativeMethods.SpiUpdate.UpdateIniFile);
+			NativeMethods.SystemParametersInfo( (uint)SpiAction.SetDesktopWallpaper, 0, wallpaperFilename, NativeMethods.SpiUpdate.SendWinIniChange | NativeMethods.SpiUpdate.UpdateIniFile);
 			
 			// set the .DEFAULT wallpaper for good measure
 			RegistryKey logonKey = Registry.Users.OpenSubKey(".DEFAULT").OpenSubKey(@"Control Panel\Desktop", true);

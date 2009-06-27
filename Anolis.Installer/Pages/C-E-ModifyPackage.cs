@@ -24,7 +24,7 @@ namespace Anolis.Installer.Pages {
 			Localize();
 		}
 		
-		protected override String LocalizePrefix { get { return "C_D"; } }
+		protected override String LocalizePrefix { get { return "C_E"; } }
 		
 #region UI Events
 		
@@ -52,11 +52,11 @@ namespace Anolis.Installer.Pages {
 		}
 		
 		public override BaseWizardPage PrevPage {
-			get { return Program.PageCCUpdatePackage; }
+			get { return Program.PageCDReleaseNotes; }
 		}
 		
 		public override BaseWizardPage NextPage {
-			get { return Program.PageCEInstallOpts; }
+			get { return Program.PageCFInstallOpts; }
 		}
 		
 		private void PopulateTreeview() {

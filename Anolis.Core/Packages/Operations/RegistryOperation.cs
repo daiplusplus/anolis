@@ -7,18 +7,16 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class RegistryOperation : Operation {
 		
-		private String            _key;
-		private String            _name;
-		private String            _value;
-		private RegistryValueKind _type;
-		
 		public RegistryOperation(Package package, Group parent, XmlElement element) :  base(package, parent, element) {
 			
-			_key   = element.GetAttribute("key");
-			_name  = element.GetAttribute("vname");
-			_value = element.GetAttribute("value");
-			_type  = ParseType( element.GetAttribute("type") );
+			RegKey   = element.GetAttribute("key");
+			RegName  = element.GetAttribute("vname");
+			RegValue = element.GetAttribute("value");
+			RegKind  = ParseType( element.GetAttribute("type") );
 			
+		}
+		
+		public RegistryOperation(Package package, Group parent) :  base(package, parent, (String)null) {
 		}
 		
 		private static RegistryValueKind ParseType(String type) {
@@ -37,15 +35,44 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
+		private static String KindToString(RegistryValueKind type) {
+			
+			switch(type) {
+				case RegistryValueKind.String:
+					return "REG_SZ";
+				case RegistryValueKind.ExpandString:
+					return "REG_EXPAND_SZ";
+				case RegistryValueKind.Binary:
+					return "REG_BINARY";
+				case RegistryValueKind.DWord:
+					return "REG_DWORD";
+				case RegistryValueKind.MultiString:
+					return "REG_MULTI_SZ";
+				case RegistryValueKind.QWord:
+					return "REG_QWORD";
+				case RegistryValueKind.Unknown:
+				default:
+					return "Unknown";
+			}
+			
+		}
+		
 		public override String OperationName {
 			get { return "Registry"; }
 		}
 		
+		public String            RegKey   { get; set; }
+		public String            RegName  { get; set; }
+		public String            RegValue { get; set; }
+		public RegistryValueKind RegKind  { get; set; }
+		
 		public override void Execute() {
+			
+			Backup( Package.ExecutionInfo.BackupGroup );
 			
 			try {
 				
-				Registry.SetValue( _key, _name, _value, _type );
+				Registry.SetValue( RegKey, RegName, RegValue, RegKind );
 				
 			} catch(ArgumentException ex) {
 				
@@ -58,13 +85,32 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public override void Backup(Group backupGroup) {
-			throw new NotImplementedException();
+		private void Backup(Group backupGroup) {
+			
+			if( backupGroup == null ) return;
+			
+			// get the current value and write it
+			
+			Object v = Registry.GetValue( RegKey, RegName, null );
+			
+			RegistryOperation op = new RegistryOperation(backupGroup.Package, backupGroup);
+			op.RegKey   = RegKey;
+			op.RegName  = RegName;
+			op.RegKind  = RegKind;
+			
+			op.RegValue = v.ToString();
+			
+			backupGroup.Operations.Add( op );
 		}
 		
 		public override void Write(XmlElement parent) {
 			
-			
+			XmlElement element = CreateElement(parent, "registry",
+				"key"  , RegKey,
+				"vname", RegName,
+				"value", RegValue,
+				"type" , KindToString( RegKind )
+			);
 			
 		}
 		

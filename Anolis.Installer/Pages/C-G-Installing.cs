@@ -27,7 +27,7 @@ namespace Anolis.Installer.Pages {
 			Localize();
 		}
 		
-		protected override String LocalizePrefix { get { return "C_F"; } }
+		protected override String LocalizePrefix { get { return "C_G"; } }
 		
 		private void __showLog_Click(object sender, EventArgs e) {
 			
@@ -76,15 +76,21 @@ namespace Anolis.Installer.Pages {
 			
 			if( PackageInfo.I386Install ) {
 				
-				PackageInfo.Package.I386Info.I386Directory   = PackageInfo.I386Directory;
+				PackageExecutionSettings settings = new PackageExecutionSettings();
+				settings.ExecutionMode = PackageExecutionMode.I386;
+				settings.I386Directory = PackageInfo.I386Directory;
 				
-				PackageInfo.Package.Execute(PackageExecutionMode.I386);
+				PackageInfo.Package.Execute(settings);
 				
 			} else {
 				
-				PackageInfo.Package.CreateSystemRestorePoint = PackageInfo.SystemRestore;
+				PackageExecutionSettings settings = new PackageExecutionSettings();
+				settings.ExecutionMode            = PackageExecutionMode.Regular;
+				settings.CreateSystemRestorePoint = PackageInfo.SystemRestore;
+				settings.BackupDirectory          = PackageInfo.BackupPath != null ? new DirectoryInfo( PackageInfo.BackupPath ) : null;
 				
-				PackageInfo.Package.Execute(PackageExecutionMode.Regular);
+				
+				PackageInfo.Package.Execute(settings);
 				
 			}
 			

@@ -71,9 +71,15 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public override void Backup(Group backupGroup) {
+		private void Backup(Group backupGroup) {
 			
-			// TODO: I need to implement the rest of this class first
+			if( backupGroup == null ) return;
+			
+			foreach(FileTypeSetting setting in _types) {
+				
+				
+				
+			}
 			
 		}
 		

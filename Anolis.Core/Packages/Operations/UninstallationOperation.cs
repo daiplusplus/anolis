@@ -11,7 +11,7 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public UninstallationOperation(Package package, Group group, XmlElement operationElement) : base(package, group, operationElement) {
 			
-			
+			DisplayIcon = operationElement.GetAttribute("displayIcon");
 		}
 		
 		public UninstallationOperation(Package package, Group parent) : base(package, parent, (String)null) {
@@ -19,19 +19,17 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
+		public String DisplayIcon { get; set; }
+		
 		public override void Execute() {
 			
 			// add the registry key and copy this Anolis.Installer program to the Backup directory. The uninstallation command will supply the path to the uninstall.xml file
 			
 		}
 		
-		public override void Backup(Group backupGroup) {
-			
-		}
-		
 		public override void Write(XmlElement parent) {
 			
-			CreateElement(parent, "uninstallation");
+			CreateElement(parent, "uninstallation", "displayIcon", DisplayIcon);
 		}
 		
 		public override String OperationName {

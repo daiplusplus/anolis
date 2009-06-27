@@ -46,6 +46,8 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override void Execute() {
 			
+			Backup( Package.ExecutionInfo.BackupGroup );
+			
 			for(int i=0;i<_schemes.Count;i++) {
 				
 				CursorScheme scheme = _schemes[i];
@@ -60,11 +62,31 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public override void Backup(Group backupGroup) {
+		private void Backup(Group backupGroup) {
+			
+			if( backupGroup == null ) return;
+			
+			// TODO
 			
 		}
 		
 		public override void Write(XmlElement parent) {
+			
+			foreach(CursorScheme scheme in _schemes) {
+				
+				XmlElement element = CreateElement(parent, "cursorScheme", 
+					"schemeName", scheme.SchemeName
+				);
+				
+				foreach(CursorEntry entry in scheme.Cursors) {
+					
+					XmlElement entryElement = CreateElement(element, "cursor");
+					AddAttribute(entryElement, "type", entry.CursorType.ToString());
+					AddAttribute(entryElement, "src" , entry.CursorFilename);
+					
+				}
+				
+			}
 			
 		}
 		

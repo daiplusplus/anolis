@@ -59,10 +59,7 @@ namespace Anolis.Packager {
 			
 			_ignoredFiles.Clear();
 			
-			Package package = new Package();
-			package.RootDirectory = root;
-			
-			package.RootGroup = new Group(package, (Group)null, (String[])null);
+			Package package = new Package(root);
 			
 			ProcessDirectory( package.RootGroup, root );
 			

@@ -134,6 +134,23 @@ namespace Anolis.Installer.Pages {
 				
 			}
 			
+			//////////////////////////////////////////////////
+			
+			EvaluationInfo info = PackageInfo.Package.EvaluateCondition();
+			if( info.Result == EvaluationResult.False ) {
+				
+				MessageBox.Show(this, info.Message, "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				WizardForm.LoadPage( Program.PageCASelectPackage );
+				return;
+				
+			} else if( info.Result == EvaluationResult.Error ) {
+				
+				MessageBox.Show(this, "There was an error whilst attempting to evaluate the package's suitability for your computer. Contact the package's author.", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				WizardForm.LoadPage( Program.PageCASelectPackage );
+				return;
+				
+			}
+			
 			WizardForm.LoadPage( Program.PageCCUpdatePackage );
 			
 		}

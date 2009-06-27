@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 
 using P = System.IO.Path;
+using Anolis.Core.Utility;
 
 namespace Anolis.Core.Packages.Operations {
 	
@@ -21,6 +22,7 @@ namespace Anolis.Core.Packages.Operations {
 			}
 			
 			SpecifiedPath = operationElement.GetAttribute("path");
+			ConditionHash = operationElement.GetAttribute("conditionHash");
 			
 			// the .Path setter resolves environment variables and sets the root to the package directory if non-rooted
 			Path       = SpecifiedPath;
@@ -34,14 +36,28 @@ namespace Anolis.Core.Packages.Operations {
 			Operation = operation;
 		}
 		
-		public String SourceFile    { get; private set; }
-		public String SpecifiedPath { get; private set; }
+		public String SourceFile    { get; set; }
+		public String SpecifiedPath { get; set; }
+		public String ConditionHash { get; set; }
 		
 		public FileOperationType Operation { get; private set; }
 		
 		public override void Execute() {
 			
+			Backup( Package.ExecutionInfo.BackupGroup );
+			
 			// the Package class sets AllowProtectedRenames already
+			
+			if( !String.IsNullOrEmpty( ConditionHash ) && File.Exists( Path ) ) {
+				
+				String hash = PackageUtility.GetMD5Hash( Path );
+				if( !String.Equals( hash, ConditionHash, StringComparison.OrdinalIgnoreCase ) ) {
+					
+					Package.Log.Add( LogSeverity.Info, "Hash didn't match: " + Path );
+					return;
+				}
+				
+			}
 			
 			switch( Operation ) {
 				case FileOperationType.Copy:
@@ -58,7 +74,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public override void Backup(Group backupGroup) {
+		private void Backup(Group backupGroup) {
 			
 			// if there exists a file at the destination RIGHT NOW, then back it up
 				// and the restore operation will be to copy it from its backed-up location to the current location

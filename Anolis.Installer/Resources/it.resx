@@ -179,13 +179,13 @@ Per continuare, premere Avanti</value>
   <data name="C_B_instantiating" xml:space="preserve">
     <value>Allocazione Pacchetto</value>
   </data>
-  <data name="C_D_noInfo" xml:space="preserve">
+  <data name="C_E_noInfo" xml:space="preserve">
     <value>L'oggetto selezionato '{0}' non fornisce alcuna informazione</value>
   </data>
-  <data name="C_E_installButton" xml:space="preserve">
+  <data name="C_F_installButton" xml:space="preserve">
     <value>Installa</value>
   </data>
-  <data name="C_F_status" xml:space="preserve">
+  <data name="C_G_status" xml:space="preserve">
     <value>{0}% completo - {1}</value>
   </data>
   <data name="D_A_destLbl" xml:space="preserve">
@@ -222,22 +222,22 @@ Chiudere tutte le applicazioni aperte prima di continuare. Non cercare di aprire
 
 Chiudere tutte le applicazioni aperte prima di continuare. Non cercare di aprire alcuna nuova applicazione.</value>
   </data>
-  <data name="C_E_backup" xml:space="preserve">
+  <data name="C_F_backup" xml:space="preserve">
     <value>Crea una cartella di backup per la disinstallazione (Consigliato)</value>
   </data>
-  <data name="C_E_backupDesc" xml:space="preserve">
+  <data name="C_F_backupDesc" xml:space="preserve">
     <value>E' necessario creare una cartella di backup se mai vorrai disinstallare questo apcchetto in futuro.</value>
   </data>
-  <data name="C_E_comp" xml:space="preserve">
+  <data name="C_F_comp" xml:space="preserve">
     <value>Installa su questo Computer</value>
   </data>
-  <data name="C_E_i386" xml:space="preserve">
+  <data name="C_F_i386" xml:space="preserve">
     <value>Installa in I386</value>
   </data>
-  <data name="C_E_sysRes" xml:space="preserve">
+  <data name="C_F_sysRes" xml:space="preserve">
     <value>Crea un punto di ripristino del sistema (Consigliato)</value>
   </data>
-  <data name="C_E_sysResDesc" xml:space="preserve">
+  <data name="C_F_sysResDesc" xml:space="preserve">
     <value>Un livello di sicurezza in più. Si avvisa comunque che questo non sempre protegge da modifiche fatte a dei file non di sistema nella cartella Programmi</value>
   </data>
   <data name="C_C_Subtitle" xml:space="preserve">
@@ -249,44 +249,23 @@ Chiudere tutte le applicazioni aperte prima di continuare. Non cercare di aprire
   <data name="C_B_Subtitle" xml:space="preserve">
     <value>Attendi mentre l'installatore prepara il pacchetto per l'installazione</value>
   </data>
-  <data name="C_D_Subtitle" xml:space="preserve">
+  <data name="C_E_Subtitle" xml:space="preserve">
     <value>Puoi scegliere se installare o meno i singoli componenti di questo pacchetto</value>
   </data>
-  <data name="C_D_Title" xml:space="preserve">
+  <data name="C_E_Title" xml:space="preserve">
     <value>Modifica Pacchetto</value>
   </data>
-  <data name="C_E_Subtitle" xml:space="preserve">
+  <data name="C_F_Subtitle" xml:space="preserve">
     <value>Seleziona una cartella di Backup ed altre opzioni</value>
   </data>
-  <data name="C_E_Title" xml:space="preserve">
+  <data name="C_F_Title" xml:space="preserve">
     <value>Opzioni di Installazione</value>
   </data>
-  <data name="C_F_Subtitle" xml:space="preserve">
+  <data name="C_G_Subtitle" xml:space="preserve">
     <value>Il pacchetto selezionato è in fase di installazione</value>
   </data>
-  <data name="C_F_Title" xml:space="preserve">
+  <data name="C_G_Title" xml:space="preserve">
     <value>Installazione Pacchetto</value>
-  </data>
-  <data name="C_C_downloadProgress" xml:space="preserve">
-    <value />
-  </data>
-  <data name="C_C_infoChecking" xml:space="preserve">
-    <value />
-  </data>
-  <data name="C_C_infoFailed" xml:space="preserve">
-    <value />
-  </data>
-  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
-    <value />
-  </data>
-  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
-    <value />
-  </data>
-  <data name="C_C_infoUpdateLatest" xml:space="preserve">
-    <value />
-  </data>
-  <data name="F_installationCompleteRestart" xml:space="preserve">
-    <value />
   </data>
   <data name="Lang_Attribution" xml:space="preserve">
     <value>Smiley89</value>

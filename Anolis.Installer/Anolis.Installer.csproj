@@ -59,6 +59,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="W3b.Wizards, Version=1.0.3464.28051, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_ref\W3b.Wizards\W3b.Wizards.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InstallerResources.cs" />
@@ -77,11 +81,17 @@
     <Compile Include="Pages\0-BaseInteriorPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\C-F-Installing.cs">
+    <Compile Include="Pages\C-D-ReleaseNotes.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\C-F-Installing.Designer.cs">
-      <DependentUpon>C-F-Installing.cs</DependentUpon>
+    <Compile Include="Pages\C-D-ReleaseNotes.Designer.cs">
+      <DependentUpon>C-D-ReleaseNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\C-G-Installing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\C-G-Installing.Designer.cs">
+      <DependentUpon>C-G-Installing.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\C-C-UpdatePackage.cs">
       <SubType>UserControl</SubType>
@@ -107,17 +117,17 @@
     <Compile Include="Pages\C-A-SelectPackage.Designer.cs">
       <DependentUpon>C-A-SelectPackage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\C-E-InstallationOptions.cs">
+    <Compile Include="Pages\C-F-InstallationOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\C-E-InstallationOptions.Designer.cs">
-      <DependentUpon>C-E-InstallationOptions.cs</DependentUpon>
+    <Compile Include="Pages\C-F-InstallationOptions.Designer.cs">
+      <DependentUpon>C-F-InstallationOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\C-D-ModifyPackage.cs">
+    <Compile Include="Pages\C-E-ModifyPackage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\C-D-ModifyPackage.Designer.cs">
-      <DependentUpon>C-D-ModifyPackage.cs</DependentUpon>
+    <Compile Include="Pages\C-E-ModifyPackage.Designer.cs">
+      <DependentUpon>C-E-ModifyPackage.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\C-B-Extracting.cs">
       <SubType>UserControl</SubType>
@@ -148,8 +158,11 @@
     <EmbeddedResource Include="Pages\B-MainAction.resx">
       <DependentUpon>B-MainAction.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\C-F-Installing.resx">
-      <DependentUpon>C-F-Installing.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\C-D-ReleaseNotes.resx">
+      <DependentUpon>C-D-ReleaseNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\C-G-Installing.resx">
+      <DependentUpon>C-G-Installing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\C-C-UpdatePackage.resx">
       <DependentUpon>C-C-UpdatePackage.cs</DependentUpon>
@@ -163,11 +176,11 @@
     <EmbeddedResource Include="Pages\C-A-SelectPackage.resx">
       <DependentUpon>C-A-SelectPackage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\C-E-InstallationOptions.resx">
-      <DependentUpon>C-E-InstallationOptions.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\C-F-InstallationOptions.resx">
+      <DependentUpon>C-F-InstallationOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\C-D-ModifyPackage.resx">
-      <DependentUpon>C-D-ModifyPackage.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\C-E-ModifyPackage.resx">
+      <DependentUpon>C-E-ModifyPackage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\C-B-Extracting.resx">
       <DependentUpon>C-B-Extracting.cs</DependentUpon>
@@ -187,6 +200,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ru.resx">
       <LastGenOutput>ru.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\es.resx">
       <LastGenOutput>es.Designer.cs</LastGenOutput>
@@ -197,17 +211,10 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\en.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>en.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="app.manifest" />
-    <Compile Include="Resources\en.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>en.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Background.jpg" />
@@ -216,10 +223,6 @@
     <None Include="Resources\Banner.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\W3b.Wizards\W3b.Wizards\W3b.Wizards.csproj">
-      <Project>{14E57E31-E374-4B52-9D4A-875FAA411DF2}</Project>
-      <Name>W3b.Wizards</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Anolis.Core\Anolis.Core.csproj">
       <Project>{967BF434-D4F9-41E3-8B82-433987DEB4A6}</Project>
       <Name>Anolis.Core</Name>
@@ -254,6 +257,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Package.ico" />
+    <None Include="EULA.rtf" />
     <None Include="Resources\Flags\en.png" />
     <None Include="Resources\Flags\cn.png" />
     <None Include="Resources\Flags\de.png" />

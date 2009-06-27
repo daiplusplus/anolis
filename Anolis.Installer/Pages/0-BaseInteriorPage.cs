@@ -42,6 +42,14 @@ namespace Anolis.Installer.Pages {
 				RecurseLocalizeControl( c );
 			}
 			
+			////////////////////
+			
+			if( WizardForm != null ) {
+				
+				WizardForm.NextText   = InstallerResources.GetString("Wiz_Next");
+				WizardForm.PrevText   = InstallerResources.GetString("Wiz_Prev");
+				WizardForm.CancelText = InstallerResources.GetString("Wiz_Cancel");
+			}
 		}
 		
 		private void RecurseLocalizeControl(Control c) {
