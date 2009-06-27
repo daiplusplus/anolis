@@ -61,9 +61,10 @@ namespace Anolis.Installer {
 				PageCASelectPackage = new SelectPackagePage();
 				PageCBExtracting    = new ExtractingPage();
 				PageCCUpdatePackage = new UpdatePackagePage();
-				PageCDModifyPackage = new ModifyPackagePage();
-				PageCEInstallOpts   = new InstallationOptionsPage();
-				PageCFInstalling    = new InstallingPage();
+				PageCDReleaseNotes  = new ReleaseNotesPage();
+				PageCEModifyPackage = new ModifyPackagePage();
+				PageCFInstallOpts   = new InstallationOptionsPage();
+				PageCGInstalling    = new InstallingPage();
 				
 				PageDADestination   = new DestinationPage();
 				PageDBDownloading   = new DownloadingPage();
@@ -78,6 +79,10 @@ namespace Anolis.Installer {
 				WizardForm.HasHelp        = false;
 				WizardForm.Title          = "Anolis Package Installer";
 				WizardForm.Icon           = InstallerResources.GetIcon("Package");
+				
+				WizardForm.NextText   = InstallerResources.GetString("Wiz_Next");
+				WizardForm.PrevText   = InstallerResources.GetString("Wiz_Prev");
+				WizardForm.CancelText = InstallerResources.GetString("Wiz_Cancel");
 				
 			} catch(Exception ex) {
 				
@@ -127,9 +132,10 @@ namespace Anolis.Installer {
 		internal static SelectPackagePage       PageCASelectPackage { get; private set; }
 		internal static ExtractingPage          PageCBExtracting    { get; private set; }
 		internal static UpdatePackagePage       PageCCUpdatePackage { get; private set; }
-		internal static ModifyPackagePage       PageCDModifyPackage { get; private set; }
-		internal static InstallationOptionsPage PageCEInstallOpts   { get; private set; }
-		internal static InstallingPage          PageCFInstalling    { get; private set; }
+		internal static ReleaseNotesPage        PageCDReleaseNotes  { get; private set; }
+		internal static ModifyPackagePage       PageCEModifyPackage { get; private set; }
+		internal static InstallationOptionsPage PageCFInstallOpts   { get; private set; }
+		internal static InstallingPage          PageCGInstalling    { get; private set; }
 		
 		internal static DestinationPage         PageDADestination   { get; private set; }
 		internal static DownloadingPage         PageDBDownloading   { get; private set; }

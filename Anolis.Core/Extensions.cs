@@ -5,6 +5,8 @@ using System.IO;
 using System.Text;
 using System.Globalization;
 
+using C = System.Globalization.CultureInfo;
+
 // Extension methods seem to require System.Core.dll, which is not in .NET2.0
 // so here's an ersatz Extension attribute class
 
@@ -42,6 +44,52 @@ namespace Anolis.Core {
 			
 			
 		}
+		
+#region Numbers
+		
+		public static String ToStringInvariant(this Byte n) {
+			
+			return n.ToString( C.InvariantCulture );
+		}
+		public static String ToStringInvariant(this SByte n) {
+			
+			return n.ToString( C.InvariantCulture );
+		}
+		public static String ToStringInvariant(this Int16 n) {
+			
+			return n.ToString( C.InvariantCulture );
+		}
+		public static String ToStringInvariant(this UInt16 n) {
+			
+			return n.ToString( C.InvariantCulture );
+		}
+		public static String ToStringInvariant(this Int32 n) {
+			
+			return n.ToString( C.InvariantCulture );
+		}
+		public static String ToStringInvariant(this UInt32 n) {
+			
+			return n.ToString( C.InvariantCulture );
+		}
+		public static String ToStringInvariant(this Int64 n) {
+			
+			return n.ToString( C.InvariantCulture );
+		}
+		public static String ToStringInvariant(this UInt64 n) {
+			
+			return n.ToString( C.InvariantCulture );
+		}
+		
+		public static String ToStringInvariant(this Single n) {
+			
+			return n.ToString( C.InvariantCulture );
+		}
+		public static String ToStringInvariant(this Double n) {
+			
+			return n.ToString( C.InvariantCulture );
+		}
+		
+#endregion
 		
 #region Strings
 		
@@ -137,6 +185,18 @@ namespace Anolis.Core {
 #endregion
 		
 #region Arrays
+		
+		public static String ToHexString(this Byte[] array) {
+			
+			StringBuilder sb = new StringBuilder( array.Length * 2 );
+			for(int i=0;i<array.Length;i++) {
+				
+				sb.Append( array[i].ToString("X2", CultureInfo.InvariantCulture) );
+			}
+			
+			return sb.ToString();
+			
+		}
 		
 		public static Byte[] SubArray(this Byte[] array, Int32 startIndex, Int32 length) {
 			

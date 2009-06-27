@@ -382,9 +382,9 @@
     <Content Include="Resources\ResourceTypes\Version32.png" />
     <Content Include="Resources\ResourceTypes\Xml16.png" />
     <Content Include="Resources\ResourceTypes\Xml32.png" />
-    <Content Include="Resources\ResTree\Add.png" />
     <Content Include="Resources\ResTree\Delete.png" />
-    <Content Include="Resources\ResTree\Edit.png" />
+    <None Include="Resources\ResTree\Update.png" />
+    <None Include="Resources\ResTree\Import.png" />
     <Content Include="Resources\TextViewer\BOM.png" />
     <Content Include="Resources\TextViewer\Endian.png" />
     <Content Include="Resources\TextViewer\Font.png" />

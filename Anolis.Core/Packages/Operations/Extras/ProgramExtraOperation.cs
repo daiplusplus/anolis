@@ -26,22 +26,19 @@ namespace Anolis.Core.Packages.Operations {
 				String filename = file;
 				String argument = "";
 				
-				ProcessStartInfo processInfo = new ProcessStartInfo(filename, argument);
+				ProcessStartInfo startInfo = new ProcessStartInfo(filename, argument);
+				startInfo.CreateNoWindow = true;
 				
-				Process process = Process.Start( processInfo );
+				Process process = Process.Start( startInfo );
 				process.WaitForExit(10 * 1000); // wait no more than 10 seconds
 				
 				if(!process.HasExited && !process.Responding) {
 					// note that hung command-line programs will still be running
 					process.Kill();
-					Package.Log.Add( new LogItem(LogSeverity.Error, "Killed nonresponsive process: " + processInfo.FileName) );
+					Package.Log.Add( new LogItem(LogSeverity.Error, "Killed nonresponsive process: " + startInfo.FileName) );
 				}
 				
 			}
-			
-		}
-		
-		public override void Backup(Group backupGroup) {
 			
 		}
 		

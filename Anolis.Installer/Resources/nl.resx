@@ -111,13 +111,13 @@ Klik op volgende om door te gaan.</value>
   <data name="C_B_instantiating" xml:space="preserve">
     <value>Laden van het pakket</value>
   </data>
-  <data name="C_D_noInfo" xml:space="preserve">
+  <data name="C_E_noInfo" xml:space="preserve">
     <value>Er is geen informatie geassocieerd met het geselecteerde onderdeel '{0}'.</value>
   </data>
-  <data name="C_E_installButton" xml:space="preserve">
+  <data name="C_F_installButton" xml:space="preserve">
     <value>Installeren</value>
   </data>
-  <data name="C_F_status" xml:space="preserve">
+  <data name="C_G_status" xml:space="preserve">
     <value>{0}% voltooid - {1}</value>
   </data>
   <data name="D_A_destLbl" xml:space="preserve">
@@ -154,22 +154,22 @@ Sluit alle programma's voordat u verder gaat. Probeer geen geen nieuwe programma
 
 Sluit alle programma's voordat u verder gaat. Probeer geen geen nieuwe programma's te starten.</value>
   </data>
-  <data name="C_E_backup" xml:space="preserve">
+  <data name="C_F_backup" xml:space="preserve">
     <value>Creëer een backup map voor deïnstallatie (aanbevolen)</value>
   </data>
-  <data name="C_E_backupDesc" xml:space="preserve">
+  <data name="C_F_backupDesc" xml:space="preserve">
     <value>Een backup map is vereist als u dit pakket in de toekomst wilt verwijderen.</value>
   </data>
-  <data name="C_E_comp" xml:space="preserve">
+  <data name="C_F_comp" xml:space="preserve">
     <value>Installeer op deze computer</value>
   </data>
-  <data name="C_E_i386" xml:space="preserve">
+  <data name="C_F_i386" xml:space="preserve">
     <value>Installeer naar setup map (I386)</value>
   </data>
-  <data name="C_E_sysRes" xml:space="preserve">
+  <data name="C_F_sysRes" xml:space="preserve">
     <value>Maak een herstelpunt voor systeem herstellen (aanbevolen)</value>
   </data>
-  <data name="C_E_sysResDesc" xml:space="preserve">
+  <data name="C_F_sysResDesc" xml:space="preserve">
     <value>Dit geeft u extra bescherming. Let op dat dit niet altijd bescherming biedt tegen wijzigingen in niet-Windows bestanden in Program Files.</value>
   </data>
   <data name="C_C_Subtitle" xml:space="preserve">
@@ -181,22 +181,22 @@ Sluit alle programma's voordat u verder gaat. Probeer geen geen nieuwe programma
   <data name="C_B_Subtitle" xml:space="preserve">
     <value>Een ogenblik geduld terwijl het pakket wordt voorbereid voor installatie.</value>
   </data>
-  <data name="C_D_Subtitle" xml:space="preserve">
+  <data name="C_E_Subtitle" xml:space="preserve">
     <value>U kunt kiezen welke onderdelen van dit pakket u wilt installeren.</value>
   </data>
-  <data name="C_D_Title" xml:space="preserve">
+  <data name="C_E_Title" xml:space="preserve">
     <value>Pakket wijzigen.</value>
   </data>
-  <data name="C_E_Subtitle" xml:space="preserve">
+  <data name="C_F_Subtitle" xml:space="preserve">
     <value>Kies een backup map en andere opties.</value>
   </data>
-  <data name="C_E_Title" xml:space="preserve">
+  <data name="C_F_Title" xml:space="preserve">
     <value>Installatie opties</value>
   </data>
-  <data name="C_F_Subtitle" xml:space="preserve">
+  <data name="C_G_Subtitle" xml:space="preserve">
     <value>Het geselecteerde pakket wordt geïnstalleerd.</value>
   </data>
-  <data name="C_F_Title" xml:space="preserve">
+  <data name="C_G_Title" xml:space="preserve">
     <value>Pakket installeren</value>
   </data>
   <data name="Lang_Attribution" xml:space="preserve">

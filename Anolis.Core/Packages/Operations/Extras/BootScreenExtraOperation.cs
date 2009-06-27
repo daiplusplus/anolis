@@ -22,6 +22,10 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override void Execute() {
 			
+			////////////////////////////////////
+			// Backup
+			Backup( Package.ExecutionInfo.BackupGroup );
+			
 			// the bootscreen will be the last file listed
 			
 			// http://technet.microsoft.com/en-gb/sysinternals/bb963892.aspx
@@ -57,7 +61,9 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public override void Backup(Group backupGroup) {
+		private void Backup(Group backupGroup) {
+			
+			if( backupGroup == null ) return;
 			
 			BootScreenExtraOperation op = new BootScreenExtraOperation(backupGroup.Package, backupGroup, ""); // empty path, so it will be deleted when executed
 			

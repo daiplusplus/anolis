@@ -289,5 +289,58 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
+		public static String GetMD5Hash(String fileName) {
+			
+			using(FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+			using(System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider()) {
+				
+				Byte[] hash = md5.ComputeHash( fs );
+				
+				return hash.ToHexString();
+			}
+			
+		}
+		
+/*		I can't figure it out. You need to properly parse each RTF document, which is expensive. There are LGPL RTF libraries available, but I CBA.
+		public static String ConcatenateRtf(String seperator, params String[] rtfDocuments) {
+			
+			// remove the end line of the first file
+			// for each middle file, remove the first and last lines
+			// remove the first line from the last file
+			
+			StringBuilder sb = new StringBuilder();
+			
+			if( rtfDocuments.Length == 1 ) return rtfDocuments[0];
+			
+			for(int i=0;i<rtfDocuments.Length;i++) {
+				
+				String[] lines = rtfDocuments[i].Split( new String[] { "\r\n" }, StringSplitOptions.None);
+				
+				if( i == 0 ) { // if first
+					
+					for(int j=0;j<lines.Length-1;j++)
+						sb.AppendLine( lines[j] );
+					
+				} else if( i < rtfDocuments.Length - 1 ) { // if middle
+					
+					if( lines.Length > 1 )
+						for(int j=1;j<lines.Length-1;j++)
+							sb.AppendLine( lines[j] );
+					
+				} else { // if last
+					
+					for(int j=0;j<lines.Length;j++)
+						sb.AppendLine( lines[j] );
+					
+				}
+				
+				if( !String.IsNullOrEmpty( seperator ) ) sb.Append( seperator );
+				
+			}
+			
+			return sb.ToString();
+			
+		} */
+		
 	}
 }

@@ -18,9 +18,14 @@ namespace Anolis.Core.Packages.Operations {
 		public ScreensaverExtraOperation(Package package, Group parent, XmlElement element) :  base(ExtraType.Screensaver, package, parent, element) {
 		}
 		
+		public ScreensaverExtraOperation(Package package, Group parent, String path) :  base(ExtraType.Screensaver, package, parent, path) {
+		}
+		
 		public override void Execute() {
 			
 			if( Files.Count == 0 ) return;
+			
+			Backup( Package.ExecutionInfo.BackupGroup );
 			
 			// copy all the screensaver files to the system directory; I can't see any other directories the Display panel searches
 			
@@ -44,7 +49,33 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public override void Backup(Group backupGroup) {
+		public void Backup(Group backupGroup) {
+			
+			if( backupGroup == null ) return;
+			
+			// get the current screensaver
+			
+			String value  = (String)Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\Desktop", "SCRNSAVE.EXE"    , null);
+			String active = (String)Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\Desktop", "ScreenSaveActive", "1");
+			
+			if( value != null ) {
+				
+				RegistryOperation restoreOp1 = new RegistryOperation(backupGroup.Package, backupGroup);
+				restoreOp1.RegKey   = @"HKEY_CURRENT_USER\Control Panel\Desktop";
+				restoreOp1.RegName  = "SCRNSAVE.EXE";
+				restoreOp1.RegValue = value;
+				restoreOp1.RegKind  = RegistryValueKind.String;
+				
+				backupGroup.Operations.Add( restoreOp1 );
+				
+				RegistryOperation restoreOp2 = new RegistryOperation(backupGroup.Package, backupGroup);
+				restoreOp2.RegKey   = @"HKEY_CURRENT_USER\Control Panel\Desktop";
+				restoreOp2.RegName  = "ScreenSaveActive";
+				restoreOp2.RegValue = active;
+				restoreOp2.RegKind  = RegistryValueKind.String;
+				
+				backupGroup.Operations.Add( restoreOp2 );
+			}
 			
 		}
 		

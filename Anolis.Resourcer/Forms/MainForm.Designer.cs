@@ -130,11 +130,9 @@ namespace Anolis.Resourcer {
 			// 
 			// __stateImages
 			// 
-			this.@__stateImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("__stateImages.ImageStream")));
-			this.@__stateImages.TransparentColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.@__stateImages.Images.SetKeyName(0, "Add");
-			this.@__stateImages.Images.SetKeyName(1, "Delete");
-			this.@__stateImages.Images.SetKeyName(2, "Edit");
+			this.@__stateImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+			this.@__stateImages.ImageSize = new System.Drawing.Size(16, 16);
+			this.@__stateImages.TransparentColor = System.Drawing.Color.Transparent;
 			// 
 			// __split
 			// 

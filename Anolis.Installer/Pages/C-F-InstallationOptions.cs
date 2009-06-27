@@ -81,7 +81,7 @@ namespace Anolis.Installer.Pages {
 			
 		}
 		
-		protected override String LocalizePrefix { get { return "C_E"; } }
+		protected override String LocalizePrefix { get { return "C_F"; } }
 		
 		private void __bw_DoWork(object sender, DoWorkEventArgs e) {
 			
@@ -126,11 +126,11 @@ namespace Anolis.Installer.Pages {
 		}
 		
 		public override BaseWizardPage PrevPage {
-			get { return Program.PageCDModifyPackage; }
+			get { return Program.PageCEModifyPackage; }
 		}
 		
 		public override BaseWizardPage NextPage {
-			get { return Program.PageCFInstalling; }
+			get { return Program.PageCGInstalling; }
 		}
 		
 	}

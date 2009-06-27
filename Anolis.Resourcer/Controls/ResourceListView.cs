@@ -358,6 +358,20 @@ namespace Anolis.Resourcer.Controls {
 			_itemsToAdd.Add( item );
 		}
 		
+		private static Image GetImageForState(ResourceDataAction action) {
+			switch(action) {
+				case ResourceDataAction.Add:
+					return Resources.Tree_Add;
+				case ResourceDataAction.Update:
+					return Resources.Tree_Rep;
+				case ResourceDataAction.Delete:
+					return Resources.Tree_Del;
+				case ResourceDataAction.None:
+				default:
+					return null;
+			}
+		}
+		
 		private void AddResourceLangItem(ResourceLang lang, Boolean showIcon) {
 			
 			ListViewItem item = new ListViewItem();
@@ -367,6 +381,17 @@ namespace Anolis.Resourcer.Controls {
 			
 			if(showIcon) {
 				Image itemImage = GetIconForResourceLang( lang );
+				
+// This code is meant to put overlays on the icons for ResourceLangs, but it doesn't seem to work
+// ...and would also fail if itemImage was null (like if it's a non-visual resource)
+//				if( lang.Action != ResourceDataAction.None ) {
+//					using(Graphics g = Graphics.FromImage(itemImage)) {
+//						
+//						Image image = GetImageForState(lang.Action);
+//						g.DrawImageUnscaled( image, 0, 0 );
+//						
+//					}
+//				}
 				
 				if(itemImage != null) { // the itemImage is unique for this lang. If it's null then use a non-unique image (i.e. the icon for its type)
 					

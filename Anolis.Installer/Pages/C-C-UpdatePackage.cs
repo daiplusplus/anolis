@@ -285,7 +285,7 @@ namespace Anolis.Installer.Pages {
 		
 		public override BaseWizardPage NextPage {
 			get {
-				if( _nextPage == null ) _nextPage = Program.PageCDModifyPackage;
+				if( _nextPage == null ) _nextPage = Program.PageCDReleaseNotes;
 				return _nextPage;
 			}
 		}

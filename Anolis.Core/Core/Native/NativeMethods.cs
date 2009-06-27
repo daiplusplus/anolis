@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
+using Microsoft.Win32.SafeHandles;
 
 using Cult = System.Globalization.CultureInfo;
 
@@ -553,48 +555,7 @@ namespace Anolis.Core.Native {
 		
 	#region System Parameters
 		
-		public enum SpiAction : uint {
-			// Accessibility
-			SetFocusBorderWidth  = 0x200F, // pvParam = value
-			SetFocusBorderHeight = 0x2011, // pvParam = value
-			SetMouseSonar        = 0x101D, // pvParam = TRUE | FALSE
-			
-			// Desktop
-			SetCursors           = 0x0057, // 
-			SetDesktopWallpaper  = 0x0014, // pvParam = pSz wallpaper BMP image (JPEG in Vista and later)
-			SetDropShadow        = 0x1025, // pvParam = TRUE | FALSE
-			SetFlatMenu          = 0x1023, // pvParam = TRUE | FALSE
-			SetFontSmoothing     = 0x004B, // uiParam = TRUE | FALSE
-			SetFontSmoothingType = 0x200B,
-			
-			// Icons
-			IconHorizontalSpacing = 0x000D, // uiParam = value
-			IconVerticalSpacing   = 0x0018, // uiParam = value
-			SetIcons              = 0x0058, //
-			SetIconTitleWrap      = 0x001A, // uiParam = TRUE | FALSE
-			
-			// Mouse
-			SetMouseTrails        = 0x005D, // uiParam = 0 or 1 to disable, or n > 1 for n cursors
-			
-			// Menus
-			SetMenuDropAlignment  = 0x001C, // uiParam = TRUE for right, FALSE for left
-			SetMenuFade           = 0x1013, // pvParam = TRUE | FALSE
-			SetMenuShowDelay      = 0x006B, // uiParam = time in miliseconds
-			
-			// UI Effects
-			SetUIEffects          = 0x103F, // pvParam = TRUE | FALSE to enable/disable all UI effects at once
-			// I'd define all of them here, but there's little point
-			
-			// Windows
-			SetActiveWindowTracking  = 0x1001, // pvParam = TRUE | FALSE
-			SetActiveWndTrkZOrder    = 0x100D, // pvParam = TRUE | FALSE
-			SetActiveWndTrkTimeout   = 0x2003, // pvParam = time in miliseconds
-			SetBorder                = 0x0006, // uiParam = multiplier width of sizing border
-			SetCaretWidth            = 0x2007, // pvParam = width in pixels
-			SetDragFullWindows       = 0x0025, // uiParam = TRUE | FALSE
-			SetForegroundFlashCount  = 0x2005, // pvParam = # times to flash
-			SetForegroundLockTimeout = 0x2001 // pvParam = timeout in miliseconds
-		}
+		// SpiAction enum moved to SystemParemterOperation
 		
 		[Flags]
 		public enum SpiUpdate : int {
@@ -604,11 +565,11 @@ namespace Anolis.Core.Native {
 		
 		[DllImport("user32.dll", CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true, SetLastError=true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern Boolean SystemParametersInfo(SpiAction uAction, UInt32 uParam, String lpvParam, SpiUpdate fuWinIni);
+		public static extern Boolean SystemParametersInfo(UInt32 uAction, UInt32 uParam, String lpvParam, SpiUpdate fuWinIni);
 		
 		[DllImport("user32.dll", CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true, SetLastError=true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern Boolean SystemParametersInfo(SpiAction uAction, UInt32 uParam, IntPtr lpvParam, SpiUpdate fuWinIni);
+		public static extern Boolean SystemParametersInfo(UInt32 uAction, UInt32 uParam, IntPtr lpvParam, SpiUpdate fuWinIni);
 		
 	#endregion
 		
@@ -617,6 +578,54 @@ namespace Anolis.Core.Native {
 		// TODO: Replace with CultureInfo.InstalledUICulture
 		[DllImport("kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
 		public static extern UInt16 GetSystemDefaultUILanguage();
+		
+#region Subverting WRP/WFP/SFP
+		
+		/// <summary>Calls an undocumented function in Windows XP that disables Windows File Protection for a particular file. This no-longer exists in Windows Vista or later.</summary>
+		/// <returns>A HRESULT. 0 = S_OK; 1 = Error (file is not protected by WFP. Check with SfcIsFileProtected first)</returns>
+		/// <param name="param1">Unknown. Set to 0.</param>
+		/// <param name="filename">The path to the file to exclude from WFP.</param>
+		/// <param name="param2">Unknown. Set to -1.</param>
+		[DllImport("sfc_os.dll", EntryPoint="#5", CharSet=CharSet.Unicode, SetLastError=true, ThrowOnUnmappableChar=true)]
+		public static extern WfpResult SetSfcFileException(Int32 param1, String fileName, Int32 param2);
+		
+		
+		[DllImport("sfc.dll", SetLastError=true, ThrowOnUnmappableChar=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean SfcIsFileProtected(String filename);
+		
+#endregion
+		
+#region File Mapping
+		
+		[DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true, ThrowOnUnmappableChar=true)]
+		public static extern SafeFileHandle CreateFile(String fileName, [MarshalAs(UnmanagedType.U4)] FileAccess fileAccess, [MarshalAs(UnmanagedType.U4)] FileShare fileShare, IntPtr SecurityAttributes, [MarshalAs(UnmanagedType.U4)] FileMode creationDisposition, uint flagsAndAttributes, SafeFileHandle hTemplateFile);
+		
+		[DllImport("kernel32.dll", SetLastError=true, CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true)]
+		public static extern IntPtr CreateFileMapping(SafeFileHandle hFile, IntPtr lpFileMappingAttributes, FileMapProtection flProtect, UInt32 dwMaximumSizeHigh, UInt32 dwMaximumSizeLow, [MarshalAs(UnmanagedType.LPTStr)]String lpName);
+		
+		[DllImport("kernel32.dll", SetLastError=true, CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true)]
+		public static extern IntPtr MapViewOfFile(IntPtr hFileMappingObject, FileMapAccess dwDesiredAccess, UInt32 dwFileOffsetHigh, UInt32 dwFileOffsetLow, UInt32 dwNumberOfBytesToMap);
+		
+		[DllImport("Imagehlp.dll", SetLastError=true, CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true)]
+		public static extern IntPtr CheckSumMappedFile(IntPtr baseAddress, UInt32 fileLength, ref UInt32 headerSum, ref UInt32 checkSum);
+		
+		[DllImport("kernel32.dll", SetLastError=true)]
+		public static extern uint GetFileSize(SafeFileHandle hFile, IntPtr lpFileSizeHigh);
+		
+		[DllImport("kernel32.dll", SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean UnmapViewOfFile(IntPtr lpBaseAddress);
+		
+		[DllImport("kernel32.dll", SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean CloseHandle(IntPtr hObject);
+		
+		[DllImport("kernel32.dll", SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean CloseHandle(SafeFileHandle hFile);
+		
+#endregion
 		
 	}
 	

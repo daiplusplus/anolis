@@ -170,13 +170,13 @@ Para continuar, pulse Siguiente</value>
   <data name="C_B_instantiating" xml:space="preserve">
     <value>Instanciando Paquete</value>
   </data>
-  <data name="C_D_noInfo" xml:space="preserve">
+  <data name="C_E_noInfo" xml:space="preserve">
     <value>El elemento seleccionado '{0}' no tiene ninguna información asociada con ella</value>
   </data>
-  <data name="C_E_installButton" xml:space="preserve">
+  <data name="C_F_installButton" xml:space="preserve">
     <value>Instalar</value>
   </data>
-  <data name="C_F_status" xml:space="preserve">
+  <data name="C_G_status" xml:space="preserve">
     <value>{0}% completo - {1}</value>
   </data>
   <data name="D_A_destLbl" xml:space="preserve">
@@ -213,22 +213,22 @@ Cierre todas las aplicaciones abiertas antes de continuar. No intente abrir nuev
 
 Cierre todas las aplicaciones abiertas antes de continuar. No intente abrir nuevas aplicaciones.</value>
   </data>
-  <data name="C_E_backup" xml:space="preserve">
+  <data name="C_F_backup" xml:space="preserve">
     <value>Crear directorio de copia de seguridad de desinstalación (Recomendado)</value>
   </data>
-  <data name="C_E_backupDesc" xml:space="preserve">
+  <data name="C_F_backupDesc" xml:space="preserve">
     <value>Debe crear un directorio de copia de seguridad si desea desinstalar este paquete en el futuro</value>
   </data>
-  <data name="C_E_comp" xml:space="preserve">
+  <data name="C_F_comp" xml:space="preserve">
     <value>Instalar a este Equipo</value>
   </data>
-  <data name="C_E_i386" xml:space="preserve">
+  <data name="C_F_i386" xml:space="preserve">
     <value>Instalar a I386</value>
   </data>
-  <data name="C_E_sysRes" xml:space="preserve">
+  <data name="C_F_sysRes" xml:space="preserve">
     <value>Crear punto de restauración del sistema (recomendado)</value>
   </data>
-  <data name="C_E_sysResDesc" xml:space="preserve">
+  <data name="C_F_sysResDesc" xml:space="preserve">
     <value>Otra capa de protección. Nota esto no siempre protegen contra las modificaciones hechas a los archivos no-de-Windows bajo Archivos de programa</value>
   </data>
   <data name="C_C_Subtitle" xml:space="preserve">
@@ -240,22 +240,22 @@ Cierre todas las aplicaciones abiertas antes de continuar. No intente abrir nuev
   <data name="C_B_Subtitle" xml:space="preserve">
     <value>Por favor espere mientras el instaladorprepara el paquete para su instalación</value>
   </data>
-  <data name="C_D_Subtitle" xml:space="preserve">
+  <data name="C_E_Subtitle" xml:space="preserve">
     <value>Usted puede elegir si desea o no instalar los componentes de este paquete</value>
   </data>
-  <data name="C_D_Title" xml:space="preserve">
+  <data name="C_E_Title" xml:space="preserve">
     <value>Modificar Paquete</value>
   </data>
-  <data name="C_E_Subtitle" xml:space="preserve">
+  <data name="C_F_Subtitle" xml:space="preserve">
     <value>Seleccione un directorio de copia de seguridad y otras opciones</value>
   </data>
-  <data name="C_E_Title" xml:space="preserve">
+  <data name="C_F_Title" xml:space="preserve">
     <value>Opciones de Instalación</value>
   </data>
-  <data name="C_F_Subtitle" xml:space="preserve">
+  <data name="C_G_Subtitle" xml:space="preserve">
     <value>Su paquete seleccionado se está instalando</value>
   </data>
-  <data name="C_F_Title" xml:space="preserve">
+  <data name="C_G_Title" xml:space="preserve">
     <value>Instalando Paquete</value>
   </data>
   <data name="Lang_Attribution" xml:space="preserve">
@@ -285,9 +285,6 @@ Cierre todas las aplicaciones abiertas antes de continuar. No intente abrir nuev
   </data>
   <data name="C_C_downloadProgress" xml:space="preserve">
     <value>{0}% - {1}KB de {2}KB descargado a {3}KBps</value>
-  </data>
-  <data name="C_C_infoChecking" xml:space="preserve">
-    <value />
   </data>
   <data name="C_C_infoFailed" xml:space="preserve">
     <value>Buscando actualizaciones fallado: No se puede descargar la información de la actualización</value>

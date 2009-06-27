@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Collections.ObjectModel;
 
+using Microsoft.Win32;
+
 using P = System.IO.Path;
 
 namespace Anolis.Core.Packages.Operations {
@@ -56,8 +58,6 @@ namespace Anolis.Core.Packages.Operations {
 					return new ScreensaverExtraOperation(package, parent, operationElement);
 				case ExtraType.Program:
 					return new ProgramExtraOperation(package, parent, operationElement);
-				case ExtraType.UXTheme:
-					return new UXThemeExtraOperation(package, parent, operationElement);
 				case ExtraType.Custom:
 					return new CustomExtraOperation(package, parent, operationElement);
 				default:
@@ -94,6 +94,20 @@ namespace Anolis.Core.Packages.Operations {
 			CreateElement(parent, "extra", "type", ExtraType.ToString(), "path", Path );
 		}
 		
+		protected static void MakeRegOp(Group backupGroup, String keyPath, String valueName) {
+			
+			String v = (String)Registry.GetValue( keyPath, valueName, null );
+			
+			RegistryOperation op = new RegistryOperation( backupGroup.Package, backupGroup );
+			op.RegKey   = keyPath;
+			op.RegName  = valueName;
+			op.RegValue = v;
+			op.RegKind  = RegistryValueKind.String;
+			
+			backupGroup.Operations.Add( op );
+			
+		}
+		
 	}
 	
 	public enum ExtraType {
@@ -104,7 +118,6 @@ namespace Anolis.Core.Packages.Operations {
 		Screensaver,
 		Program,
 		Registry,
-		UXTheme,
 		Custom
 	}
 	

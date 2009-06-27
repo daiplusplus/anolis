@@ -25,7 +25,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public override void Backup(Group backupGroup) {
+		public void Backup(Group backupGroup) {
 			
 			// TODO, but I don't think this can be implemented
 			

@@ -170,13 +170,13 @@
   <data name="C_B_instantiating" xml:space="preserve">
     <value>Установка пакета</value>
   </data>
-  <data name="C_D_noInfo" xml:space="preserve">
+  <data name="C_E_noInfo" xml:space="preserve">
     <value>Выбранный элемент "{0}" не содержит никакой связанной информации</value>
   </data>
-  <data name="C_E_installButton" xml:space="preserve">
+  <data name="C_F_installButton" xml:space="preserve">
     <value>Установить</value>
   </data>
-  <data name="C_F_status" xml:space="preserve">
+  <data name="C_G_status" xml:space="preserve">
     <value>{0}% завершено - {1}</value>
   </data>
   <data name="D_A_destLbl" xml:space="preserve">
@@ -213,22 +213,22 @@
 
 Пожалуйста, закройте все приложения и не запускайте новые.</value>
   </data>
-  <data name="C_E_backup" xml:space="preserve">
+  <data name="C_F_backup" xml:space="preserve">
     <value>Создать резервную папку для удаления пакета (Рекомендуется)</value>
   </data>
-  <data name="C_E_backupDesc" xml:space="preserve">
+  <data name="C_F_backupDesc" xml:space="preserve">
     <value>Чтобы иметь возможность в будущем при желании удалить пакет, необходимо создать резервную папку</value>
   </data>
-  <data name="C_E_comp" xml:space="preserve">
+  <data name="C_F_comp" xml:space="preserve">
     <value>Установить на этот компьютер</value>
   </data>
-  <data name="C_E_i386" xml:space="preserve">
+  <data name="C_F_i386" xml:space="preserve">
     <value>Интегрировать в дистрибутив Windows (i386)</value>
   </data>
-  <data name="C_E_sysRes" xml:space="preserve">
+  <data name="C_F_sysRes" xml:space="preserve">
     <value>Создать точку восстановления системы (Рекомендуется)</value>
   </data>
-  <data name="C_E_sysResDesc" xml:space="preserve">
+  <data name="C_F_sysResDesc" xml:space="preserve">
     <value>Дополнительный уровень защиты. Имейте в виду, что он не всегда защищает от изменений в файлах, не относящихся к Windows</value>
   </data>
   <data name="C_C_Subtitle" xml:space="preserve">
@@ -240,22 +240,22 @@
   <data name="C_B_Subtitle" xml:space="preserve">
     <value>Идет подготовка пакета к установке. Пожалуйста, подождите.</value>
   </data>
-  <data name="C_D_Subtitle" xml:space="preserve">
+  <data name="C_E_Subtitle" xml:space="preserve">
     <value>Выберите компоненты пакета, которые вы хотите установить.</value>
   </data>
-  <data name="C_D_Title" xml:space="preserve">
+  <data name="C_E_Title" xml:space="preserve">
     <value>Выбор компонентов пакета</value>
   </data>
-  <data name="C_E_Subtitle" xml:space="preserve">
+  <data name="C_F_Subtitle" xml:space="preserve">
     <value>Выберите резервную папку и другие настройки.</value>
   </data>
-  <data name="C_E_Title" xml:space="preserve">
+  <data name="C_F_Title" xml:space="preserve">
     <value>Настройки установки</value>
   </data>
-  <data name="C_F_Subtitle" xml:space="preserve">
+  <data name="C_G_Subtitle" xml:space="preserve">
     <value>Идет установка выбранного пакета.</value>
   </data>
-  <data name="C_F_Title" xml:space="preserve">
+  <data name="C_G_Title" xml:space="preserve">
     <value>Установка пакета</value>
   </data>
   <data name="Lang_Attribution" xml:space="preserve">

@@ -1,7 +1,12 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
+
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using STATSTG     = System.Runtime.InteropServices.ComTypes.STATSTG;
+using FILETIME    = System.Runtime.InteropServices.ComTypes.FILETIME;
+using UCOMIStream = System.Runtime.InteropServices.ComTypes.IStream;
 
 namespace ThumbDBLib
 {

@@ -21,22 +21,31 @@ namespace Anolis.Core.Packages {
 	/// <summary>Represents a collection of resource sets</summary>
 	public class Package : PackageBase {
 		
-		public Package() : base(null) {
+		public Package(DirectoryInfo root) : base(null) {
 			
-			PackageImages = new Dictionary<String,Image>();
-			Log           = new Log();
+			CreateState();
 			
-			I386Info      = new I386Info( this );
+			RootDirectory = root;
+			RootGroup     = new Group(this, null, (String[])null);
 		}
 		
-		internal Package(DirectoryInfo root, XmlElement packageElement) : this() {
+		internal Package(DirectoryInfo root, XmlElement packageElement) : base(null, packageElement) {
+			
+			CreateState();
 			
 			RootDirectory = root;
 			
-			Version     = Single.Parse( packageElement.Attributes["version"].Value, N.AllowDecimalPoint | N.AllowLeadingWhite | N.AllowTrailingWhite, Cult.InvariantCulture );
-			Attribution = packageElement.Attributes["attribution"].Value;
-			Website     = packageElement.GetAttribute("website")  .Length > 0 ? new Uri( packageElement.Attributes["website"]  .Value ) : null;
-			UpdateUri   = packageElement.GetAttribute("updateUri").Length > 0 ? new Uri( packageElement.Attributes["updateUri"].Value ) : null;
+			Version       = Single.Parse( packageElement.Attributes["version"].Value, N.AllowDecimalPoint | N.AllowLeadingWhite | N.AllowTrailingWhite, Cult.InvariantCulture );
+			Attribution   = packageElement.Attributes["attribution"].Value;
+			Website       = packageElement.GetAttribute("website")  .Length > 0 ? new Uri( packageElement.Attributes["website"]  .Value ) : null;
+			UpdateUri     = packageElement.GetAttribute("updateUri").Length > 0 ? new Uri( packageElement.Attributes["updateUri"].Value ) : null;
+			ConditionDesc = packageElement.GetAttribute("conditionDesc");
+			
+			String releaseNotesPath = packageElement.GetAttribute("releaseNotes");
+			if( !String.IsNullOrEmpty( releaseNotesPath ) && File.Exists( Path.Combine( RootDirectory.FullName, releaseNotesPath ) ) ) {
+				
+				ReleaseNotes = File.ReadAllText( releaseNotesPath );
+			}
 			
 			if( packageElement.ChildNodes.Count == 1 ) {
 				
@@ -48,6 +57,11 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
+		private void CreateState() {
+			PackageImages = new Dictionary<String,Image>();
+			Log           = new Log();
+		}
+		
 		private void EnsureState() {
 			
 			if( RootGroup     == null ) throw new PackageException("Package's root group is not defined");
@@ -55,13 +69,16 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
-		public Single Version     { get; set; }
-		public String Attribution { get; set; }
-		public Uri    Website     { get; set; }
-		public Uri    UpdateUri   { get; set; }
+		private String ConditionDesc { get; set; }
 		
-		public Group         RootGroup     { get; set; }
-		public DirectoryInfo RootDirectory { get; set; }
+		public Single Version      { get; set; }
+		public String Attribution  { get; set; }
+		public Uri    Website      { get; set; }
+		public Uri    UpdateUri    { get; set; }
+		public String ReleaseNotes { get; set; }
+		
+		public Group         RootGroup     { get; private set; }
+		public DirectoryInfo RootDirectory { get; private set; }
 		
 		internal Dictionary<String,System.Drawing.Image> PackageImages { get; private set; }
 		
@@ -136,15 +153,11 @@ namespace Anolis.Core.Packages {
 		
 		//////////////////////////////
 		
-		public Log   Log       { get; private set; }
+		public Log Log { get; private set; }
 		
-		public PackageExecutionMode ExecutionMode { get; private set; }
+		public PackageExecutionSettingsInfo ExecutionInfo { get; private set; }
 		
 		public Boolean IsBusy { get; private set; }
-		
-		public I386Info I386Info { get; private set; }
-		
-		public Boolean CreateSystemRestorePoint { get; set; }
 		
 		//////////////////////////////
 		
@@ -157,13 +170,36 @@ namespace Anolis.Core.Packages {
 		
 #region Execute
 		
-		public void Execute(PackageExecutionMode mode) {
+		public EvaluationInfo EvaluateCondition() {
+			
+			Dictionary<String,Double> symbols = BuildSymbols();
+			
+			EvaluationResult result = Evaluate( symbols );
+			
+			EvaluationInfo ret = new EvaluationInfo( result, result == EvaluationResult.False ? ConditionDesc : String.Empty );
+			
+			return ret;
+		}
+		
+		public void Execute(PackageExecutionSettings settings) {
+			
+			///////////////////////////////////
+			// Prepare
 			
 			EnsureState();
 			
 			if( IsBusy ) throw new InvalidOperationException("Currently executing a package.");
 			
-			ExecutionMode = mode;
+			Group backupGroup = null;
+			if( settings.BackupDirectory != null ) {
+				
+				Package backupPackage = new Package( settings.BackupDirectory );
+				backupPackage.Name = "Uninstallation Package";
+				
+				backupGroup = backupPackage.RootGroup;
+			}
+			
+			ExecutionInfo = new PackageExecutionSettingsInfo(this, settings.ExecutionMode, settings.CreateSystemRestorePoint, backupGroup, settings.I386Directory );
 			
 			IsBusy = true;
 			
@@ -206,12 +242,12 @@ namespace Anolis.Core.Packages {
 			///////////////////////////////////
 			// Prepare
 			
-			if( mode == PackageExecutionMode.Regular )
+			if( ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular )
 				PackageUtility.AllowProtectedRenames();
 			
 			///////////////////////////////////
 			// System Restore, Part 1
-			if( mode == PackageExecutionMode.Regular && CreateSystemRestorePoint ) {
+			if( ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular && ExecutionInfo.CreateSystemRestorePoint ) {
 				
 				OnProgressEvent( new PackageProgressEventArgs( -1, "Creating System Restore Point" ) );
 				
@@ -221,12 +257,7 @@ namespace Anolis.Core.Packages {
 			}
 			
 			///////////////////////////////////
-			// Run Backup
-			
-			// TODO
-			
-			///////////////////////////////////
-			// Install
+			// Install (Backup and Execute; backups are the responisiblity of each Operation)
 			
 			try {
 				
@@ -236,7 +267,7 @@ namespace Anolis.Core.Packages {
 					
 					OnProgressEvent( new PackageProgressEventArgs( (int)( 100 * i++ / cnt ), op.ToString() ) );
 					
-					if( !op.SupportsI386 && mode == PackageExecutionMode.I386 ) continue;
+					if( !op.SupportsI386 && ExecutionInfo.ExecutionMode == PackageExecutionMode.I386 ) continue;
 					
 					try {
 						
@@ -260,7 +291,7 @@ namespace Anolis.Core.Packages {
 				
 				///////////////////////////////////
 				// System Restore, Part 2
-				if( mode == PackageExecutionMode.Regular && CreateSystemRestorePoint ) {
+				if( ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular && ExecutionInfo.CreateSystemRestorePoint ) {
 					
 					OnProgressEvent( new PackageProgressEventArgs( -1, "Finishing System Restore Point" ) );
 					
@@ -270,12 +301,25 @@ namespace Anolis.Core.Packages {
 				}
 				
 				///////////////////////////////////
+				// Backup, Part 2
+				
+				if( ExecutionInfo.BackupGroup != null ) {
+					
+					String backupFileName = Path.Combine( ExecutionInfo.BackupDirectory.FullName, "Package.xml" );
+					
+					ExecutionInfo.BackupPackage.Write( backupFileName );
+					
+				}
+				
+				///////////////////////////////////
 				// Dump the log to disk
 				
-				Log.Save( Path.Combine( this.RootDirectory.FullName, "Anolis.Installer.log" ) );
+				if( Log.CountNonNominal > 0 )
+					Log.Save( Path.Combine( this.RootDirectory.FullName, "Anolis.Installer.log" ) );
 				
 				IsBusy = false;
-			}
+				
+			}//try/finally
 			
 		}
 		
@@ -340,10 +384,10 @@ namespace Anolis.Core.Packages {
 			XmlDocument doc = new XmlDocument();
 			XmlElement root = doc.CreateElement("package");
 			
-			                        PackageItem.AddAttribute(root, "id"        , Id );
-			                        PackageItem.AddAttribute(root, "name"      , Name );
-			if( Condition != null ) PackageItem.AddAttribute(root, "condition" , Condition.ToString() );
-			if( Version   != null ) PackageItem.AddAttribute(root, "version"    , Version.ToString(Cult.InvariantCulture) );
+			                        PackageItem.AddAttribute(root, "id"         , Id );
+			                        PackageItem.AddAttribute(root, "name"       , Name );
+			if( Condition != null ) PackageItem.AddAttribute(root, "condition"  , Condition.ToString() );
+			                        PackageItem.AddAttribute(root, "version"    , Version.ToString(Cult.InvariantCulture) );
 			                        PackageItem.AddAttribute(root, "attribution", Attribution );
 			if( Website   != null ) PackageItem.AddAttribute(root, "website"    , Website.ToString() );
 			if( UpdateUri != null ) PackageItem.AddAttribute(root, "updateUri"  , UpdateUri.ToString());
@@ -385,32 +429,65 @@ namespace Anolis.Core.Packages {
 		
 	}
 	
-	public class I386Info {
+	public class PackageExecutionSettings {
 		
-		private static readonly FileSearchComparer _comp = new FileSearchComparer();
+		public PackageExecutionMode ExecutionMode            { get; set; }
 		
-		private Package       _package;
-		private DirectoryInfo _i386Directory;
-		private FileInfo[]    _i386Files;
+		public DirectoryInfo        BackupDirectory          { get; set; }
 		
-		internal I386Info(Package package) {
+		public Boolean              CreateSystemRestorePoint { get; set; }
+		
+		public DirectoryInfo        I386Directory            { get; set; }
+		
+	}
+	
+	/// <summary>A read-only version of PackageExecutionSettings for passing to operations and consumers of Package</summary>
+	public class PackageExecutionSettingsInfo {
+		
+		internal PackageExecutionSettingsInfo(Package package, PackageExecutionMode mode, Boolean createSysRes, Group backupGroup, DirectoryInfo i386Directory) {
 			
-			_package = package;
-		}
-		
-		public DirectoryInfo  I386Directory {
-			get { return _i386Directory; }
-			set {
+			ExecutionMode            = mode;
+			CreateSystemRestorePoint = createSysRes;
+			BackupGroup              = backupGroup;
+			
+			if( i386Directory != null ) {
 				
-				if( _package.IsBusy ) throw new InvalidOperationException("Currently executing a package.");
-				_i386Directory = value;
+				I386Directory = i386Directory;
+				_i386Files    = I386Directory.GetFiles();
 				
-				_i386Files = value.GetFiles();
 				Array.Sort( _i386Files, (x,y) => String.Compare( x.Name, y.Name, StringComparison.OrdinalIgnoreCase ) );
 			}
 		}
 		
-		public FileInfo FindFile(String fileName) {
+		public Package Package { get; private set; }
+		
+		public PackageExecutionMode ExecutionMode { get; private set; }
+		
+		public Boolean CreateSystemRestorePoint   { get; private set; }
+		
+		public Group BackupGroup { get; private set; }
+		
+		public Package BackupPackage {
+			get { return BackupGroup == null ? null : BackupGroup.Package; }
+		}
+		
+		public DirectoryInfo BackupDirectory {
+			get { return BackupGroup == null ? null : BackupPackage.RootDirectory; }
+		}
+		
+		public Boolean MakeBackup {
+			get { return BackupGroup != null; }
+		}
+		
+#region I386
+		
+		private static readonly FileSearchComparer _comp = new FileSearchComparer();
+		
+		private FileInfo[] _i386Files;
+		
+		public DirectoryInfo I386Directory { get; private set; }
+		
+		public FileInfo I386FindFile(String fileName) {
 			
 			Int32 idx = Array.BinarySearch( _i386Files, fileName, _comp );
 			
@@ -432,11 +509,34 @@ namespace Anolis.Core.Packages {
 			}
 		}
 		
+#endregion
+		
 	}
 	
 	public enum PackageExecutionMode {
 		Regular,
 		I386
+	}
+	
+	public class EvaluationInfo {
+		
+		public EvaluationInfo(EvaluationResult result, String message) {
+			Result  = result;
+			Message = message;
+		}
+		
+		public EvaluationResult Result {
+			get; private set;
+		}
+		
+		public String Message {
+			get; private set;
+		}
+		
+		public Boolean Success {
+			get { return Result == EvaluationResult.True; }
+		}
+		
 	}
 	
 }

@@ -77,6 +77,13 @@ namespace Anolis.Installer.Pages {
 			
 			this.__title.Text = InstallerResources.GetString("A_Title");
 			this.__inst1.Text = InstallerResources.GetString("A_Message");
+			
+			if(WizardForm != null) {
+				
+				WizardForm.NextText   = InstallerResources.GetString("Wiz_Next");
+				WizardForm.PrevText   = InstallerResources.GetString("Wiz_Prev");
+				WizardForm.CancelText = InstallerResources.GetString("Wiz_Cancel");
+			}
 		}
 		
 		private void WelcomePage_Load(object sender, EventArgs e) {

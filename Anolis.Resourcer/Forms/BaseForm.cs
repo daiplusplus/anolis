@@ -13,6 +13,8 @@ namespace Anolis.Resourcer {
 		
 		public BaseForm() {
 			
+			this.StartPosition = FormStartPosition.CenterParent;
+			
 			if( Settings.Settings.Default.Gimmicks ) {
 				
 				FadeInit();

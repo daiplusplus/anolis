@@ -18,6 +18,9 @@ namespace Anolis.Resourcer {
 		public MainForm() {
 			InitializeComponent();
 			
+			// This is set in BaseForm, so override it so the main form opens in the right location rather than in the middle of <desktop>
+			this.StartPosition = FormStartPosition.WindowsDefaultLocation;
+			
 			MainFormInit();
 			
 			this.AllowDrop = true;
@@ -170,23 +173,11 @@ namespace Anolis.Resourcer {
 			ResourceLang nLang = node.Tag as ResourceLang;
 			if(lang ==  null || nLang != lang) return;
 			
-			if(!lang.DataIsLoaded) node.StateImageKey = "";
-			else {
-				switch(lang.Action) {
-					case Anolis.Core.Data.ResourceDataAction.Add:
-						node.StateImageKey = "Add";
-						return;
-					case Anolis.Core.Data.ResourceDataAction.Delete:
-						node.StateImageKey = "Del";
-						return;
-					case Anolis.Core.Data.ResourceDataAction.None:
-						node.StateImageKey = "";
-						return;
-					case Anolis.Core.Data.ResourceDataAction.Update:
-						node.StateImageKey = "Upd";
-						return;
-				}
-			}
+			if(!lang.DataIsLoaded)
+				node.StateImageKey = "";
+			else
+				node.StateImageKey = TreeStateImageKey( lang );
+			
 		}
 		
 		private void TreeNodeEnsureVisible(Object tag) {

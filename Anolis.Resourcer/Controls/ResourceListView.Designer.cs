@@ -62,17 +62,16 @@
 			// 
 			// __list
 			// 
-			this.@__list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__list.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.@__listCName,
             this.@__listCSize,
             this.@__listCType});
+			this.@__list.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.@__list.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.@__list.LargeImageList = this.@__images;
-			this.@__list.Location = new System.Drawing.Point(0, 28);
+			this.@__list.Location = new System.Drawing.Point(0, 25);
 			this.@__list.Name = "__list";
-			this.@__list.Size = new System.Drawing.Size(537, 316);
+			this.@__list.Size = new System.Drawing.Size(537, 319);
 			this.@__list.TabIndex = 0;
 			this.@__list.UseCompatibleStateImageBehavior = false;
 			// 
@@ -256,8 +255,8 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.@__t);
 			this.Controls.Add(this.@__list);
+			this.Controls.Add(this.@__t);
 			this.Name = "ResourceListView";
 			this.Size = new System.Drawing.Size(537, 344);
 			this.@__c.ResumeLayout(false);

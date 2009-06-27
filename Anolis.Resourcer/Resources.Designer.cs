@@ -354,16 +354,16 @@ namespace Anolis.Resourcer {
             }
         }
         
-        internal static System.Drawing.Bitmap Tree_Delete {
+        internal static System.Drawing.Bitmap Tree_Del {
             get {
-                object obj = ResourceManager.GetObject("Tree_Delete", resourceCulture);
+                object obj = ResourceManager.GetObject("Tree_Del", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap Tree_Edit {
+        internal static System.Drawing.Bitmap Tree_Rep {
             get {
-                object obj = ResourceManager.GetObject("Tree_Edit", resourceCulture);
+                object obj = ResourceManager.GetObject("Tree_Rep", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

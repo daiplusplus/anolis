@@ -4,11 +4,14 @@ using System.Xml;
 using System.Drawing;
 
 using Anolis.Core.Utility;
+using Cult = System.Globalization.CultureInfo;
+using Env  = Anolis.Core.Utility.Environment;
 
 namespace Anolis.Core.Packages {
 	
 	public abstract class PackageBase {
 		
+		/// <summary>Is null if this is the package.</summary>
 		public Package    Package   { get; internal set; }
 		
 		public String     Id        { get; set; }
@@ -49,6 +52,25 @@ namespace Anolis.Core.Packages {
 				
 				return EvaluationResult.Error;
 			}
+		}
+		
+		protected Dictionary<String,Double> BuildSymbols() {
+			
+			return new Dictionary<String,Double>() {
+				{"osversion"   , Env.OSVersion.Version.Major + ( (Double)Env.OSVersion.Version.Minor ) / 10 },
+				{"servicepack" , Env.ServicePack },
+				{"architecture", Env.IsX64 ? 64 : 32 },
+				{"installlang" , Cult.InstalledUICulture.LCID }
+			};
+			
+		}
+		
+		protected Dictionary<String,Double> BuildSymbols(String fileName) {
+			
+			Dictionary<String,Double> symbols = BuildSymbols();
+			//symbols.Add("fileversion", 
+			
+			return symbols;
 		}
 		
 	}
@@ -150,7 +172,8 @@ namespace Anolis.Core.Packages {
 				String attName = attributes[i];
 				String attValu = attributes[i+1];
 				
-				AddAttribute(element, attName, attValu);
+				if( !String.IsNullOrEmpty( attValu ) )
+					AddAttribute(element, attName, attValu);
 			}
 			
 			AddAttribute(element, "id"     , this.Id );

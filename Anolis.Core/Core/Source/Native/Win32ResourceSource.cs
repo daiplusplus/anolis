@@ -6,6 +6,7 @@ using Anolis.Core.Native;
 
 using Cult    = System.Globalization.CultureInfo;
 using Marshal = System.Runtime.InteropServices.Marshal;
+using Anolis.Core.Utility;
 
 namespace Anolis.Core.Source {
 	
@@ -111,6 +112,8 @@ namespace Anolis.Core.Source {
 			}
 			
 			NativeMethods.EndUpdateResource(updateHandle, false);
+			
+			Miscellaneous.CorrectPEChecksum( FileInfo.FullName );
 			
 			if(LoadMode > 0) Reload();
 			
