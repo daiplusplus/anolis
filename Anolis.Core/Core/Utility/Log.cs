@@ -47,22 +47,16 @@ namespace Anolis.Core.Utility {
 	
 	public class LogItem {
 		
-		public LogItem(LogSeverity severity, String message) {
-			
-			Timestamp = DateTime.Now;
-			
-			Severity = severity;
-			Message  = message;
+		public LogItem(LogSeverity severity, String message) : this(severity, null, message) {
 		}
 		
-		public LogItem(Exception ex, Anolis.Core.Packages.Operations.Operation op) {
+		public LogItem(LogSeverity severity, Exception ex, String message) {
 			
 			Timestamp = DateTime.Now;
 			
-			Message  = "Exception: " + op.Name + " - " + op.Path;
-			Severity = LogSeverity.Error;
-			
 			Exception = ex;
+			Severity  = severity;
+			Message   = message;
 		}
 		
 		public DateTime    Timestamp { get; private set; }

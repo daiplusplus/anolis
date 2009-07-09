@@ -14,28 +14,30 @@ namespace Anolis.Core.Packages.Operations {
 		
 		protected ExtraOperation(ExtraType type, Package package, Group parent, XmlElement operationElement) : base(package, parent, operationElement) {
 			
-			Files = new Collection<String>();
+			String file = operationElement.GetAttribute("path");
 			
-			ExtraType = type;
+			file = PackageUtility.ResolvePath( file, package.RootDirectory.FullName );
 			
-			String src = operationElement.GetAttribute("path");
-			
-			src = PackageUtility.ResolvePath( src, package.RootDirectory.FullName );
-			
-			Files.Add( src );
-			
+			CreateState( type, file );
 		}
 		
 		protected ExtraOperation(ExtraType type, Package package, Group parent, String path) : base(package, parent, path) {
 			
+			String file = PackageUtility.ResolvePath( path, package.RootDirectory.FullName );
+			
+			CreateState( type, file );
+		}
+		
+		private void CreateState(ExtraType type, String file) {
+			
+			Files = new Collection<String>();
 			ExtraType = type;
 			
-			Files.Add( PackageUtility.ResolvePath( path, package.RootDirectory.FullName ) );
-			
+			Files.Add( file );
 		}
 		
 		public override String OperationName {
-			get { return "X " + ExtraType; }
+			get { return ExtraType.ToString(); }
 		}
 		
 		public String             Attribution { get; private set; }

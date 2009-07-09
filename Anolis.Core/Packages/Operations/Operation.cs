@@ -8,22 +8,6 @@ using System.Text;
 
 namespace Anolis.Core.Packages.Operations {
 	
-	public class OperationCollection : Collection<Operation> {
-		
-		private Group _parent;
-		
-		public OperationCollection(Group parent) {
-			_parent = parent;
-		}
-		
-		protected override void InsertItem(int index, Operation item) {
-			base.InsertItem(index, item);
-			
-			if( !_parent.Enabled ) item.Enabled = false;
-		}
-		
-	}
-	
 	public abstract class Operation : PackageItem {
 		
 		private String _path;
@@ -41,7 +25,7 @@ namespace Anolis.Core.Packages.Operations {
 		public abstract String OperationName { get; }
 		
 		/// <summary>Whether the item will be executed or not.</summary>
-		public Boolean IsEnabled {
+		public override Boolean IsEnabled {
 			get {
 				return ParentGroup.Enabled ? Enabled : false;
 			}
@@ -51,7 +35,7 @@ namespace Anolis.Core.Packages.Operations {
 			get { return _path; }
 			set {
 				
-				_path = PackageUtility.ResolvePath( value, Package.RootDirectory.FullName );
+				_path = value == null ? null : PackageUtility.ResolvePath( value, Package.RootDirectory.FullName );
 			}
 		}
 		

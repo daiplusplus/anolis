@@ -325,6 +325,9 @@ namespace Anolis.Resourcer {
 			
 			if( !IsHandleCreated ) return;
 			
+			__progSource .Value = 100;
+			__progOverall.Value = 100;
+			
 			SetEnabled(false);
 			
 			if( _process != null ) {

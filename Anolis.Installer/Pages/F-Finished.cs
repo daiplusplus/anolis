@@ -84,6 +84,8 @@ namespace Anolis.Installer.Pages {
 			
 			// restart the computer system
 			PackageUtility.InitRestart();
+			
+			// TODO: Show a modal window telling the user to wait as restarting can take a while?
 		}
 		
 		private void WizardForm_NextClicked_Quit(Object sender, EventArgs e) {

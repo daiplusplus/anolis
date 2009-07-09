@@ -66,7 +66,7 @@ namespace Anolis.Core.Packages {
 			Action<String> completionCallback = callback as Action<String>;
 			
 			
-			String tempDir = Path.Combine( Path.GetTempPath(), "AnolisPackage" + this.Name );
+			String tempDir = Path.Combine( Path.GetTempPath(), "Anolis\\Package " + this.Name );
 			if( Directory.Exists( tempDir ) ) {
 				
 				OnPackageProgressEvent(new PackageProgressEventArgs(0, "Clearing old files"));

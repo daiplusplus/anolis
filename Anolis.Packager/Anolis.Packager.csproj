@@ -71,6 +71,12 @@
     <Compile Include="B-Define\DefinitionForm.Designer.cs">
       <DependentUpon>DefinitionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="B-Define\ImageCompositorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="B-Define\ImageCompositorForm.Designer.cs">
+      <DependentUpon>ImageCompositorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="D-Distro\DistributorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="B-Define\DefinitionForm.resx">
       <DependentUpon>DefinitionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="B-Define\ImageCompositorForm.resx">
+      <DependentUpon>ImageCompositorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Package.ico" />
   </ItemGroup>

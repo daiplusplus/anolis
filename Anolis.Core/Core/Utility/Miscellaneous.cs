@@ -10,6 +10,7 @@ using Anolis.Core.Source;
 using Anolis.Core.Native;
 
 using Sfh     = Microsoft.Win32.SafeHandles.SafeFileHandle;
+using System.ComponentModel;
 
 namespace Anolis.Core.Utility {
 	
@@ -203,6 +204,45 @@ namespace Anolis.Core.Utility {
 		/// <summary>When a PE is modified, even by Win32's resource functions, the checksum value in the PE header remains unchanged. This method corrects the checksum header value.</summary>
 		public static void CorrectPEChecksum(String fileName) {
 			
+			try {
+				
+				using(FileMapping map = new FileMapping(fileName, FileMapMode.ReadWrite)) {
+					
+					IntPtr pData = map.View;
+					
+					UInt32 oldChecksum = 0;
+					UInt32 newChecksum = 0;
+					
+					UInt32 size = NativeMethods.GetFileSize( map.FileHandle, IntPtr.Zero );
+					
+					IntPtr pNTHeader = NativeMethods.CheckSumMappedFile( pData, size, ref oldChecksum, ref newChecksum );
+					
+					// don't worry about NTHeader being different for x64 vs. x86 PE files as the CheckSum field has the same offset in both cases
+					// also, the x86 version is smaller than the x64 version, so you can use it to overwrite a x64 version without having to worry about access violations
+					
+					NTHeader ntHeader = (NTHeader)Marshal.PtrToStructure( pNTHeader, typeof(NTHeader) );
+					ntHeader.OptionalHeader.CheckSum = newChecksum;
+					
+					Marshal.StructureToPtr( ntHeader, pNTHeader, false );
+					
+				}
+				
+			} catch(Win32Exception wex) {
+				
+				throw new AnolisException("Error during Checksum Correction", wex);
+			}
+			
+		}
+		
+#if NEVER
+		
+		/// <summary>When a PE is modified, even by Win32's resource functions, the checksum value in the PE header remains unchanged. This method corrects the checksum header value.</summary>
+		public static void CorrectPEChecksum(String fileName) {
+			
+			// This method seems to cause some problems with file handles being invalid
+			// when I disabled this method errors stopped being reported
+			// but I've since changed the exception behaviour (it wasn't checking the return value of the CloseHandle functions in the }finally{} block) so I'll need to test this out
+			
 			// Get handle to a file with read/write access
 			// CreateFileMapping
 			// MapViewOfFile
@@ -216,7 +256,7 @@ namespace Anolis.Core.Utility {
 			
 			try {
 				
-				sfh = NativeMethods.CreateFile( fileName, FileAccess.ReadWrite, FileShare.None, IntPtr.Zero, FileMode.Open, 0, new Sfh(IntPtr.Zero, true) );
+				sfh = NativeMethods.CreateFile( fileName, FileAccess.ReadWrite, FileShare.None, IntPtr.Zero, FileMode.Open, 0, IntPtr.Zero );
 				
 				if( sfh.IsInvalid ) throw new AnolisException("Invalid SafeFileHandle: " + NativeMethods.GetLastErrorString() );
 				
@@ -224,7 +264,7 @@ namespace Anolis.Core.Utility {
 				
 				if( hMap == IntPtr.Zero ) throw new AnolisException("Invalid File Mapping: " + NativeMethods.GetLastErrorString() );
 				
-				pData = NativeMethods.MapViewOfFile( hMap, FileMapAccess.FileMapWrite, 0, 0, 0 );
+				pData = NativeMethods.MapViewOfFile( hMap, FileMapAccess.FileMapWrite, 0, 0, IntPtr.Zero );
 				
 				if( pData == IntPtr.Zero ) throw new AnolisException("Invalid Map View of File: " + NativeMethods.GetLastErrorString() );
 				
@@ -250,12 +290,28 @@ namespace Anolis.Core.Utility {
 				
 			} finally {
 				
-				if( pData != IntPtr.Zero            ) NativeMethods.UnmapViewOfFile( pData );
-				if( hMap  != IntPtr.Zero            ) NativeMethods.CloseHandle( hMap );
-				if( sfh   != null && !sfh.IsInvalid ) NativeMethods.CloseHandle( sfh );
+				String errors = String.Empty;
+				
+				if( pData != IntPtr.Zero )
+					if( !NativeMethods.UnmapViewOfFile( pData ) ) {
+						errors += "UnmapViewOfFile failed: " + NativeMethods.GetLastErrorString() + "\r\n";
+					}
+					
+				if( hMap  != IntPtr.Zero )
+					if( !NativeMethods.CloseHandle( hMap ) ) {
+						errors += "CloseHandle(hMap) failed: " + NativeMethods.GetLastErrorString() + "\r\n";
+					}
+					
+				if( sfh   != null && !sfh.IsInvalid )
+					if( !NativeMethods.CloseHandle( sfh ) ) {
+						errors += "CloseHandle(sfh) failed: " + NativeMethods.GetLastErrorString() + "\r\n";
+					}
+				
+				
 			}
 			
 		}
+#endif
 		
 #region Extensibility
 		

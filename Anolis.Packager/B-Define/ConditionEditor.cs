@@ -66,6 +66,8 @@ namespace Anolis.Packager {
 		
 		private void __tok_Click(object sender, EventArgs e) {
 			
+			// TODO: Use the tokenizing code in Expression instead
+			
 			String expr = __expression.Text;
 			__result.Text = "";
 			

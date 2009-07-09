@@ -36,7 +36,7 @@ namespace Anolis.Core.Packages {
 			RootDirectory = root;
 			
 			Version       = Single.Parse( packageElement.Attributes["version"].Value, N.AllowDecimalPoint | N.AllowLeadingWhite | N.AllowTrailingWhite, Cult.InvariantCulture );
-			Attribution   = packageElement.Attributes["attribution"].Value;
+			Attribution   = packageElement.GetAttribute("attribution");
 			Website       = packageElement.GetAttribute("website")  .Length > 0 ? new Uri( packageElement.Attributes["website"]  .Value ) : null;
 			UpdateUri     = packageElement.GetAttribute("updateUri").Length > 0 ? new Uri( packageElement.Attributes["updateUri"].Value ) : null;
 			ConditionDesc = packageElement.GetAttribute("conditionDesc");
@@ -99,11 +99,6 @@ namespace Anolis.Core.Packages {
 		internal Dictionary<String,System.Drawing.Image> PackageImages { get; private set; }
 		
 		//////////////////////////////
-		
-		public static Package FromDirectory(String packageDirectory) {
-			
-			return FromFile( Path.Combine( packageDirectory, "Package.xml" ) );
-		}
 		
 		public static Package FromFile(String packageXmlFileName) {
 			
@@ -210,6 +205,13 @@ namespace Anolis.Core.Packages {
 			Group backupGroup = null;
 			if( settings.BackupDirectory != null ) {
 				
+				if( settings.BackupDirectory.Exists ) {
+					
+					settings.BackupDirectory = new DirectoryInfo( PackageUtility.GetUnusedDirectoryName( settings.BackupDirectory.FullName ) );
+				}
+					
+				settings.BackupDirectory.Create();
+				
 				Package backupPackage = new Package( settings.BackupDirectory );
 				backupPackage.Name = "Uninstallation Package";
 				
@@ -236,7 +238,7 @@ namespace Anolis.Core.Packages {
 			Dictionary<String,Operation> uniques = new Dictionary<String,Operation>();
 			foreach(Operation op in operations) {
 				
-				if( !op.Enabled ) {
+				if( !op.IsEnabled ) {
 					obsoleteOperations.Add( op );
 					continue;
 				}
@@ -292,7 +294,7 @@ namespace Anolis.Core.Packages {
 						
 					} catch(Exception ex) {
 						
-						Log.Add( new LogItem( ex, op ) );
+						Log.Add( new LogItem(LogSeverity.Error, ex, op.Name + " failed: \"" + ex.Message + "\"") );
 						continue;
 					}
 					
@@ -321,6 +323,11 @@ namespace Anolis.Core.Packages {
 				// Backup, Part 2
 				
 				if( ExecutionInfo.BackupGroup != null ) {
+					
+					UninstallationOperation uninstOp = new UninstallationOperation(ExecutionInfo.BackupPackage, ExecutionInfo.BackupGroup);
+					ExecutionInfo.BackupGroup.Operations.Add( uninstOp );
+					
+					// copying of the installer binaries is the responsibility of the installer
 					
 					String backupFileName = Path.Combine( ExecutionInfo.BackupDirectory.FullName, "Package.xml" );
 					
@@ -374,9 +381,9 @@ namespace Anolis.Core.Packages {
 			String name = lines[0];
 			Single version; Uri packageLocation, infoLocation;
 			
-			if( !Single.TryParse ( lines[1], out version ) ) return null;
-			if( !Uri   .TryCreate( lines[2], UriKind.Absolute, out packageLocation ) ) return null;
-			if( !Uri   .TryCreate( lines[3], UriKind.Absolute, out infoLocation    ) ) return null;
+			if( !Single.TryParse ( lines[1], N.Any, Cult.InvariantCulture, out version         ) ) return null;
+			if( !Uri   .TryCreate( lines[2], UriKind.Absolute            , out packageLocation ) ) return null;
+			if( !Uri   .TryCreate( lines[3], UriKind.Absolute            , out infoLocation    ) ) return null;
 			
 			PackageUpdateInfo info = new PackageUpdateInfo( name, version, packageLocation, infoLocation );
 			return info;
@@ -467,6 +474,10 @@ namespace Anolis.Core.Packages {
 			CreateSystemRestorePoint = createSysRes;
 			BackupGroup              = backupGroup;
 			
+			if( Directory.Exists( PackageUtility.ResolvePath(@"%windir%\SysWow64") ) ) {
+				MirrorX64            = IntPtr.Size == 8;
+			}
+			
 			if( i386Directory != null ) {
 				
 				I386Directory = i386Directory;
@@ -494,6 +505,15 @@ namespace Anolis.Core.Packages {
 		
 		public Boolean MakeBackup {
 			get { return BackupGroup != null; }
+		}
+		
+		public Boolean RequiresRestart {
+			get; set;
+		}
+		
+		/// <summary>If changes made to \system32 should also be applied to \SysWow64. This is automatically 'true' on x64 systems unless set otherwise.</summary>
+		public Boolean MirrorX64 {
+			get; set;
 		}
 		
 #region I386

@@ -6,6 +6,7 @@ using System.Drawing;
 using Anolis.Core.Utility;
 using Cult = System.Globalization.CultureInfo;
 using Env  = Anolis.Core.Utility.Environment;
+using N    = System.Globalization.NumberStyles;
 
 namespace Anolis.Core.Packages {
 	
@@ -60,7 +61,8 @@ namespace Anolis.Core.Packages {
 				{"osversion"   , Env.OSVersion.Version.Major + ( (Double)Env.OSVersion.Version.Minor ) / 10 },
 				{"servicepack" , Env.ServicePack },
 				{"architecture", Env.IsX64 ? 64 : 32 },
-				{"installlang" , Cult.InstalledUICulture.LCID }
+				{"installlang" , Cult.InstalledUICulture.LCID },
+				{"i386"        , Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.I386 ? 1 : 0 }
 			};
 			
 		}
@@ -68,9 +70,69 @@ namespace Anolis.Core.Packages {
 		protected Dictionary<String,Double> BuildSymbols(String fileName) {
 			
 			Dictionary<String,Double> symbols = BuildSymbols();
-			//symbols.Add("fileversion", 
+			
+			// this is gonna be expensive...
+			
+			// retrieve the VS_VERSION_INFO
+			try {
+				using(ResourceSource src = ResourceSource.Open( fileName, true, ResourceSourceLoadMode.LazyLoadData )) {
+					
+					Anolis.Core.Data.VersionResourceData vd = GetVSVersion( src );
+					if( vd == null ) {
+						symbols.Add("fileVersion", -1 );
+					} else {
+						
+						Dictionary<String,String> table = vd.GetStringTable();
+						String fileVersion = table["FileVersion"];
+						
+						if( fileVersion == null ) symbols.Add("fileVersion", -2 );
+						else {
+							
+							// HACK: This code needs to be made more robust
+							
+							Int32 idxSecondPoint = fileVersion.IndexOf('.', fileVersion.IndexOf('.') + 1 );
+							
+							String numericPart = fileVersion.Substring(0, idxSecondPoint );
+							
+							Double fileVersionNum = -3;
+							if( Double.TryParse( numericPart, N.Any, Cult.InvariantCulture, out fileVersionNum ) ) {
+								
+								symbols.Add( "fileVersion", fileVersionNum );
+							}
+							
+						}
+					}
+					
+				}
+			} catch(AnolisException aex) {
+				
+				LogItem item = new LogItem( LogSeverity.Error, aex, "Could not build symbols for \"" + fileName + "\" due to an exception: " + aex.Message );
+				Package.Log.Add( item );
+			}
 			
 			return symbols;
+		}
+		
+		private static Anolis.Core.Data.VersionResourceData GetVSVersion(ResourceSource source) {
+			
+			ResourceType vsType = null;
+			foreach(ResourceType type in source.AllTypes) {
+				if( type.Identifier.KnownType == Win32ResourceType.Version ) {
+					vsType = type;
+					break;
+				}
+			}
+			
+			if( vsType == null ) return null;
+				
+			foreach(ResourceName name in vsType.Names) {
+				foreach(ResourceLang lang in name.Langs) {
+					
+					return lang.Data as Anolis.Core.Data.VersionResourceData;
+				}
+			}
+			
+			return null;
 		}
 		
 	}
@@ -93,6 +155,7 @@ namespace Anolis.Core.Packages {
 			
 			Description          = itemElement.GetAttribute("desc");
 			DescriptionImagePath = itemElement.GetAttribute("descImg");
+			Hidden               = itemElement.GetAttribute("hidden") == "true" || itemElement.GetAttribute("hidden") == "1";
 			
 			String enabled = itemElement.GetAttribute("enabled");
 			if(enabled.Length > 0) {
@@ -112,7 +175,9 @@ namespace Anolis.Core.Packages {
 		protected String  DescriptionImagePath { get; set; }
 		
 		/// <summary>Whether the item is enabled or disabled. If Disabled it will not be executed, but even if Enabled it may not be executed, see IsEnabled.</summary>
-		public    Boolean Enabled              { get; set; }
+		public virtual  Boolean Enabled        { get; set; }
+		public          Boolean Hidden         { get; set; }
+		public abstract Boolean IsEnabled      { get; }
 		
 		public    Group   ParentGroup          { get; internal set; }
 		
@@ -181,7 +246,14 @@ namespace Anolis.Core.Packages {
 			AddAttribute(element, "desc"   , this.Description );
 			AddAttribute(element, "descImg", this.DescriptionImagePath );
 			
+			if( Hidden )
+				AddAttribute(element, "hidden", "true" );
 			
+			if( !Enabled )
+				AddAttribute(element, "enabled", "false" );
+			
+			if( Condition != null )
+				AddAttribute(element, "condition", Condition.ExpressionString );
 			
 			return element;
 			

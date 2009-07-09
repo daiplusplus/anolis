@@ -78,12 +78,14 @@
 			// 
 			// __showLog
 			// 
+			this.@__showLog.Enabled = false;
 			this.@__showLog.Location = new System.Drawing.Point(360, 80);
 			this.@__showLog.Name = "__showLog";
 			this.@__showLog.Size = new System.Drawing.Size(75, 23);
 			this.@__showLog.TabIndex = 3;
 			this.@__showLog.Text = "Show Log";
 			this.@__showLog.UseVisualStyleBackColor = true;
+			this.@__showLog.Visible = false;
 			// 
 			// InstallingPage
 			// 

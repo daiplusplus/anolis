@@ -19,21 +19,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Packager", "Anolis.P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Installer", "Anolis.Installer\Anolis.Installer.csproj", "{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.UxPatcher", "Anolis.Tools.UxPatcher\Anolis.Tools.UxPatcher.csproj", "{429D1729-8296-4456-B18E-71DD952AC08A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.IconEditor", "Anolis.IconEditor\Anolis.IconEditor.csproj", "{8F678A8E-566F-4CB2-B202-20C5156B0BC4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.FileTypes", "Anolis.FileTypes\Anolis.FileTypes.csproj", "{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.ThumbsDbViewer", "Anolis.Tools.ThumbsDbViewer\Anolis.Tools.ThumbsDbViewer.csproj", "{269E0B0A-9568-4CAC-A34D-BB835D21BE85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.UxTheme", "Anolis.Tools.UxTheme\Anolis.Tools.UxTheme.csproj", "{88847903-17A8-4BDE-934E-CCA237495054}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tests", "Anolis.Tests\Anolis.Tests.csproj", "{143593CE-F1E8-4B8C-8823-7FD246059344}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.ConditionTest", "Anolis.Tools.ConditionTest\Anolis.Tools.ConditionTest.csproj", "{DF58EB9D-8B3B-4261-81C9-3F1F4E18181F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.CompositedImages", "Anolis.Tools.CompositedImages\Anolis.Tools.CompositedImages.csproj", "{463B7BF0-7DFD-4915-95BE-9BAA3401BB45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.DuplicateFiles", "Anolis.Tools.DuplicateFiles\Anolis.Tools.DuplicateFiles.csproj", "{2A3924C8-2231-43C7-AFFD-D2DF44E1699C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.FileTypes", "Anolis.Tools.FileTypes\Anolis.Tools.FileTypes.csproj", "{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 12
+		SccNumberOfProjects = 13
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs03.codeplex.com/
 		SccLocalPath0 = .
@@ -52,24 +54,27 @@ Global
 		SccProjectUniqueName5 = Anolis.Installer\\Anolis.Installer.csproj
 		SccProjectName5 = Anolis.Installer
 		SccLocalPath5 = Anolis.Installer
-		SccProjectUniqueName6 = Anolis.Tools.UxPatcher\\Anolis.Tools.UxPatcher.csproj
-		SccProjectName6 = Anolis.Tools.UxPatcher
-		SccLocalPath6 = Anolis.Tools.UxPatcher
-		SccProjectUniqueName7 = Anolis.IconEditor\\Anolis.IconEditor.csproj
-		SccProjectName7 = Anolis.IconEditor
-		SccLocalPath7 = Anolis.IconEditor
-		SccProjectUniqueName8 = Anolis.FileTypes\\Anolis.FileTypes.csproj
-		SccProjectName8 = Anolis.FileTypes
-		SccLocalPath8 = Anolis.FileTypes
-		SccProjectUniqueName9 = Anolis.Tools.ThumbsDbViewer\\Anolis.Tools.ThumbsDbViewer.csproj
-		SccProjectName9 = Anolis.Tools.ThumbsDbViewer
-		SccLocalPath9 = Anolis.Tools.ThumbsDbViewer
-		SccProjectUniqueName10 = Anolis.Tools.UxTheme\\Anolis.Tools.UxTheme.csproj
-		SccProjectName10 = Anolis.Tools.UxTheme
-		SccLocalPath10 = Anolis.Tools.UxTheme
-		SccProjectUniqueName11 = Anolis.Tests\\Anolis.Tests.csproj
-		SccProjectName11 = Anolis.Tests
-		SccLocalPath11 = Anolis.Tests
+		SccProjectUniqueName6 = Anolis.IconEditor\\Anolis.IconEditor.csproj
+		SccProjectName6 = Anolis.IconEditor
+		SccLocalPath6 = Anolis.IconEditor
+		SccProjectUniqueName7 = Anolis.Tools.ThumbsDbViewer\\Anolis.Tools.ThumbsDbViewer.csproj
+		SccProjectName7 = Anolis.Tools.ThumbsDbViewer
+		SccLocalPath7 = Anolis.Tools.ThumbsDbViewer
+		SccProjectUniqueName8 = Anolis.Tests\\Anolis.Tests.csproj
+		SccProjectName8 = Anolis.Tests
+		SccLocalPath8 = Anolis.Tests
+		SccProjectUniqueName9 = Anolis.Tools.ConditionTest\\Anolis.Tools.ConditionTest.csproj
+		SccProjectName9 = Anolis.Tools.ConditionTest
+		SccLocalPath9 = Anolis.Tools.ConditionTest
+		SccProjectUniqueName10 = Anolis.Tools.CompositedImages\\Anolis.Tools.CompositedImages.csproj
+		SccProjectName10 = Anolis.Tools.CompositedImages
+		SccLocalPath10 = Anolis.Tools.CompositedImages
+		SccProjectUniqueName11 = Anolis.Tools.DuplicateFiles\\Anolis.Tools.DuplicateFiles.csproj
+		SccProjectName11 = Anolis.Tools.DuplicateFiles
+		SccLocalPath11 = Anolis.Tools.DuplicateFiles
+		SccProjectUniqueName12 = Anolis.Tools.FileTypes\\Anolis.Tools.FileTypes.csproj
+		SccProjectName12 = Anolis.Tools.FileTypes
+		SccLocalPath12 = Anolis.Tools.FileTypes
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Anolis.vsmdi
@@ -117,42 +122,48 @@ Global
 		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ABEA3311-BF34-4961-B2C8-34AFB8EFB43F}.Release|x86.ActiveCfg = Release|Any CPU
-		{429D1729-8296-4456-B18E-71DD952AC08A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{429D1729-8296-4456-B18E-71DD952AC08A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{429D1729-8296-4456-B18E-71DD952AC08A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{429D1729-8296-4456-B18E-71DD952AC08A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{429D1729-8296-4456-B18E-71DD952AC08A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{429D1729-8296-4456-B18E-71DD952AC08A}.Release|x86.ActiveCfg = Release|Any CPU
 		{8F678A8E-566F-4CB2-B202-20C5156B0BC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8F678A8E-566F-4CB2-B202-20C5156B0BC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F678A8E-566F-4CB2-B202-20C5156B0BC4}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{8F678A8E-566F-4CB2-B202-20C5156B0BC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F678A8E-566F-4CB2-B202-20C5156B0BC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F678A8E-566F-4CB2-B202-20C5156B0BC4}.Release|x86.ActiveCfg = Release|Any CPU
-		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|x86.ActiveCfg = Release|Any CPU
 		{269E0B0A-9568-4CAC-A34D-BB835D21BE85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{269E0B0A-9568-4CAC-A34D-BB835D21BE85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{269E0B0A-9568-4CAC-A34D-BB835D21BE85}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{269E0B0A-9568-4CAC-A34D-BB835D21BE85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{269E0B0A-9568-4CAC-A34D-BB835D21BE85}.Release|Any CPU.Build.0 = Release|Any CPU
 		{269E0B0A-9568-4CAC-A34D-BB835D21BE85}.Release|x86.ActiveCfg = Release|Any CPU
-		{88847903-17A8-4BDE-934E-CCA237495054}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88847903-17A8-4BDE-934E-CCA237495054}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88847903-17A8-4BDE-934E-CCA237495054}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{88847903-17A8-4BDE-934E-CCA237495054}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88847903-17A8-4BDE-934E-CCA237495054}.Release|Any CPU.Build.0 = Release|Any CPU
-		{88847903-17A8-4BDE-934E-CCA237495054}.Release|x86.ActiveCfg = Release|Any CPU
 		{143593CE-F1E8-4B8C-8823-7FD246059344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{143593CE-F1E8-4B8C-8823-7FD246059344}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{143593CE-F1E8-4B8C-8823-7FD246059344}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{143593CE-F1E8-4B8C-8823-7FD246059344}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{143593CE-F1E8-4B8C-8823-7FD246059344}.Release|Any CPU.Build.0 = Release|Any CPU
 		{143593CE-F1E8-4B8C-8823-7FD246059344}.Release|x86.ActiveCfg = Release|Any CPU
+		{DF58EB9D-8B3B-4261-81C9-3F1F4E18181F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF58EB9D-8B3B-4261-81C9-3F1F4E18181F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF58EB9D-8B3B-4261-81C9-3F1F4E18181F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DF58EB9D-8B3B-4261-81C9-3F1F4E18181F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF58EB9D-8B3B-4261-81C9-3F1F4E18181F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF58EB9D-8B3B-4261-81C9-3F1F4E18181F}.Release|x86.ActiveCfg = Release|Any CPU
+		{463B7BF0-7DFD-4915-95BE-9BAA3401BB45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{463B7BF0-7DFD-4915-95BE-9BAA3401BB45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{463B7BF0-7DFD-4915-95BE-9BAA3401BB45}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{463B7BF0-7DFD-4915-95BE-9BAA3401BB45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{463B7BF0-7DFD-4915-95BE-9BAA3401BB45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{463B7BF0-7DFD-4915-95BE-9BAA3401BB45}.Release|x86.ActiveCfg = Release|Any CPU
+		{2A3924C8-2231-43C7-AFFD-D2DF44E1699C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A3924C8-2231-43C7-AFFD-D2DF44E1699C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A3924C8-2231-43C7-AFFD-D2DF44E1699C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2A3924C8-2231-43C7-AFFD-D2DF44E1699C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A3924C8-2231-43C7-AFFD-D2DF44E1699C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A3924C8-2231-43C7-AFFD-D2DF44E1699C}.Release|x86.ActiveCfg = Release|Any CPU
+		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -31,6 +31,8 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override Boolean SupportsI386 {
 			// TODO: Support I386 patching of uxtheme
+			// I propose making a new superclass ModifyOperation which PatchOperation and UXThemeOperation derive, it has protected methods to work with I386 files
+			// an alternative is to make CabWin32ResourceSource which works with the files directly?
 			get { return false; }
 		}
 		
@@ -52,7 +54,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			// make a copy then patch that, then add it to PFRO
 			
-			String workOnThis = fileName += ".anofp";
+			String workOnThis = fileName + ".anofp";
 			
 			if( File.Exists( workOnThis ) ) Package.Log.Add(LogSeverity.Warning, "Overwritten *.anofp: " + workOnThis); 
 			File.Copy( fileName, workOnThis, true );
@@ -70,6 +72,8 @@ namespace Anolis.Core.Packages.Operations {
 				
 				PackageUtility.AddPfroEntry( workOnThis, fileName );
 				
+				Package.ExecutionInfo.RequiresRestart = true;
+				
 				////////////////////////
 				// Make backup
 				
@@ -82,8 +86,12 @@ namespace Anolis.Core.Packages.Operations {
 				
 			} else {
 				
-				Package.Log.Add( LogSeverity.Warning, "Did not UxTheme Patch: " +  fileName + ", deleted working file" );
 				File.Delete( workOnThis );
+				
+				String reason = "";
+				foreach(PatchEntry entry in patch.Entries) reason += entry.Status + "; ";
+				
+				Package.Log.Add( LogSeverity.Warning, "Did not UxTheme Patch: " +  fileName + " because \"" + reason + "\", deleted working file" );
 				
 			}
 			

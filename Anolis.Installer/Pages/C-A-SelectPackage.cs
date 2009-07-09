@@ -33,15 +33,11 @@ namespace Anolis.Installer.Pages {
 				__embedList.Items.Add( package );
 				
 			}
-			
 		}
 		
 		private void SelectPackagePage_PageUnload(object sender, W3b.Wizards.PageChangeEventArgs e) {
-			
-			// TODO: Error messages etc
-			// UnloadEventArgs should have a .Cancel property which will be set to true if the user's info isn't valid
-			
-			if( e.PageToBeLoaded != Program.PageCBExtracting ) return;
+						
+			if( InstallerResources.IsCustomized && InstallerResources.CustomizedSettings.SimpleUI  ) return;
 			
 			if( __embedRad.Checked ) {
 				

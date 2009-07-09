@@ -17,17 +17,19 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class PatchOperation : Operation {
 		
-		private String _saveTo;
-		
 		public PatchOperation(Package package, Group parent, XmlElement operationElement) : base(package, parent, operationElement) {
 			
-			Resources = new Collection<PatchResource>();
+			ResourceSet   = new PatchResourceSet( base.Condition );
+			_resourceSets = new List<PatchResourceSet>() { ResourceSet };
 			
-			base.Path = operationElement.GetAttribute("path");
+			Path     = operationElement.GetAttribute("path");
+			I386Path = operationElement.GetAttribute("i386path");
 			
-			_saveTo   = operationElement.GetAttribute("saveTo");
-			if(_saveTo.Length > 0)
-				_saveTo = PackageUtility.ResolvePath( _saveTo );
+			SaveTo   = operationElement.GetAttribute("saveTo");
+			if(SaveTo.Length > 0)
+				SaveTo = PackageUtility.ResolvePath( SaveTo );
+			else
+				SaveTo = null;
 			
 			foreach(XmlNode node in operationElement.ChildNodes) {
 				
@@ -45,28 +47,46 @@ namespace Anolis.Core.Packages.Operations {
 					Add  = child.GetAttribute("add") == "true" || child.GetAttribute("add") == "1"
 				};
 				
-				res.File = P.Combine( package.RootDirectory.FullName, res.File );
+				if( !res.File.StartsWith("comp:", StringComparison.Ordinal) )
+					res.File = P.Combine( package.RootDirectory.FullName, res.File );
 				
-				Resources.Add( res );
+				ResourceSet.Resources.Add( res );
 			}
 			
 		}
 		
 		public PatchOperation(Package package, Group parent, String path) : base(package, parent, path) {
 			
-			Resources = new Collection<PatchResource>();
-			
+			ResourceSet   = new PatchResourceSet( base.Condition );
+			_resourceSets = new List<PatchResourceSet>() { ResourceSet };
 		}
 		
-		public String ConditionHash { get; private set; }
-		public String SaveTo { get; set; }
-		public Collection<PatchResource> Resources { get; private set; }
+		public String  ConditionHash { get; private set; }
+		public String  SaveTo        { get; set; }
+		public String  I386Path      { get; set; }
+		public PatchResourceSet ResourceSet { get; private set; }
+		
+		private List<PatchResourceSet> _resourceSets;
 		
 #region Execute
 		
 		public override void Execute() {
 			
 			if( Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular ) {
+				
+				if( Package.ExecutionInfo.MirrorX64 ) {
+					
+					// check to see if the equivalent file exists in 32-bit Program Files or SysWow64
+					String sysWow64Path = PackageUtility.GetSysWow64File( Path );
+					if( sysWow64Path != null ) {
+						
+						// NOTE: ExecuteRegular calls PatchFile which makes the backup entry
+						// however the Condition will not be evaluated for the x86 version of the file
+						// I probably should fix this...
+						ExecuteRegular( Path );
+					}
+					
+				}
 				
 				ExecuteRegular( Path );
 				
@@ -95,19 +115,13 @@ namespace Anolis.Core.Packages.Operations {
 				return;
 			}
 			
-			if( !EvaluateCondition() ) {
-				
-				Package.Log.Add( new LogItem(LogSeverity.Info, "Condition failed") );
-				return;
-			}
-			
 			// copy the file first
 			
 			String workOnThis;
 			
-			if( _saveTo != null ) {
+			if( !String.IsNullOrEmpty( SaveTo ) ) {
 				
-				workOnThis = _saveTo;
+				workOnThis = SaveTo;
 				
 			} else {
 				
@@ -122,17 +136,39 @@ namespace Anolis.Core.Packages.Operations {
 			// if it throws, this won't be encountered
 			PackageUtility.AddPfroEntry( workOnThis, path );
 			
+			Package.ExecutionInfo.RequiresRestart = true;
 		}
 		
+		/// <param name="path">The original path to the file as if it were in the local computer's system directories</param>
+		/// <param name="workingFilePath">The path to the file to perform the patch operation on (located under the Temp directory)</param>
+		/// <param name="i386FilePath">The path to the file in its I386 directory</param>
 		private void I386Prepare(String path, out String workingFilePath, out String i386FilePath) {
 			
-			// get the filename, the path is not needed
-			String nom = P.GetFileNameWithoutExtension( path );
-			String ext = P.GetExtension( path );
+			// if the I386 path is already provided, don't bother searching for it
+			// otherwise, find the compressed file
 			
-			String compressedFilename = nom + ext.LeftFR(1) + '_';
+			FileInfo compressedFile;
 			
-			FileInfo compressedFile = Package.ExecutionInfo.I386FindFile( compressedFilename );
+			String nom, ext;
+			
+			if( I386Path != null ) {
+				
+				compressedFile = Package.ExecutionInfo.I386Directory.GetFile( I386Path );
+				
+				nom = P.GetFileName( compressedFile.FullName );
+				ext = P.GetExtension( compressedFile.FullName );
+				
+			} else {
+				
+				// get the filename, the path is not needed
+				nom = P.GetFileNameWithoutExtension( path );
+				ext = P.GetExtension( path );
+				
+				String compressedFilename = nom + ext.LeftFR(1) + '_';
+				
+				compressedFile = Package.ExecutionInfo.I386FindFile( compressedFilename );
+				
+			}
 			
 			String destTempDir =  P.Combine( P.GetTempPath(), @"Anolis\I386");
 			if( !Directory.Exists( destTempDir ) ) Directory.CreateDirectory( destTempDir );
@@ -214,15 +250,56 @@ namespace Anolis.Core.Packages.Operations {
 		
 		private void PatchFile(String fileName) {
 			
+			Dictionary<String,Double> symbols = BuildSymbols( fileName );
+			
+			List<PatchResource> patchResources = new List<PatchResource>();
+			foreach(PatchResourceSet set in _resourceSets) {
+				
+				try {
+					Double result = set.Condition.Evaluate( symbols );
+					
+					if(result == 1) {
+						
+						// HACK: This just adds them together into a massive list. If the same name is mentioned it'll be overwritten several times
+						// fortunately it isnt' very expensive as only the last "final" one counts, but could do with filtering at this stage maybe?
+						
+						patchResources.AddRange( set.Resources );
+					} else {
+						Package.Log.Add( LogSeverity.Info, "Expression evaluation zero: " + set.Condition.ExpressionString + ", did not process " + set.Resources.Count + " resources" );
+					}
+					
+				} catch(ExpressionException ex) {
+					
+					Package.Log.Add( LogSeverity.Error, "Expression evaluation exception: " + ex.Message );
+				}
+			}
+			
 			try {
 				
 				// for now, use lazy-load under all circumstances. In future analyse the Resources list to see if it's necessary or not
 				// but the performance impact is minimal and it's the safest option, so keep it as it is
 				using(ResourceSource source = ResourceSource.Open(fileName, false, ResourceSourceLoadMode.LazyLoadData)) {
 					
-					foreach(PatchResource res in Resources) {
+					List<String> tempFiles = new List<String>();
+					
+					foreach(PatchResource res in patchResources) {
 						
-						if( !File.Exists( res.File ) ) {
+						if( res.File.StartsWith("comp:") ) {
+							
+							CompositedImage comp = new CompositedImage( res.File, Package.RootDirectory );
+							
+							DirectoryInfo packageTempDirectory = new DirectoryInfo( P.Combine( Package.RootDirectory.FullName, "Temp" ) );
+							if( !packageTempDirectory.Exists ) packageTempDirectory.Create();
+							
+							// I think not using the *.bmp extension messes up Bitmap import
+							String tempFileName = PackageUtility.GetUnusedFileName( P.Combine( packageTempDirectory.FullName, P.GetFileName(Path) + res.Name ) + ".bmp" );
+							
+							comp.Save( tempFileName, System.Drawing.Imaging.ImageFormat.Bmp );
+							
+							res.File = tempFileName;
+							tempFiles.Add( tempFileName );
+						
+						} else if( !File.Exists( res.File ) ) {
 							Package.Log.Add( LogSeverity.Error, "Data File not found: " + res.File );
 							continue;
 						}
@@ -277,10 +354,12 @@ namespace Anolis.Core.Packages.Operations {
 							
 						}
 						
-					}
+					}//foreach
 					
 					// note that Win32ResourceSource now recomptues the PE checksum by itself
 					source.CommitChanges();
+					
+					foreach(String tempFile in tempFiles) File.Delete( tempFile );
 					
 				}//using source
 				
@@ -322,18 +401,32 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override void Write(XmlElement parent) {
 			
-			XmlElement element = CreateElement(parent, "patch", "path", Path);
-			
-			foreach(PatchResource res in Resources) {
+			foreach(PatchResourceSet set in this._resourceSets) {
 				
-				XmlElement re = CreateElement(element, "res");
-				AddAttribute(re, "type", res.Type);
-				AddAttribute(re, "name", res.Name);
-				AddAttribute(re, "lang", res.Lang);
-				AddAttribute(re, "src", res.File);
-				if( res.Add ) AddAttribute(re, "add", "true");
+				XmlElement element = CreateElement(parent, "patch", "path", Path);
+				if( set.Condition != null ) {
+					XmlAttribute attrib = element.Attributes.GetNamedItem("condition") as XmlAttribute;
+					if( attrib != null ) {
+						attrib.Value = set.Condition.ExpressionString;
+					} else {
+						AddAttribute( element, "condition", set.Condition.ExpressionString );
+					}
+				}
+				
+				foreach(PatchResource res in set.Resources) {
+					
+					XmlElement re = CreateElement(element, "res");
+					AddAttribute(re, "type", res.Type);
+					AddAttribute(re, "name", res.Name);
+					AddAttribute(re, "lang", res.Lang);
+					AddAttribute(re, "src", res.File);
+					if( res.Add ) AddAttribute(re, "add", "true");
+					
+				}
 				
 			}
+			
+			
 			
 		}
 		
@@ -371,26 +464,30 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override Boolean Merge(Operation operation) {
 			
-			// merge only if the condition is true
-			
 			PatchOperation op = operation as PatchOperation;
 			if( op == null ) return false;
 			
-			if( String.Equals( Path, op.Path, StringComparison.OrdinalIgnoreCase ) ) {
-				
-				if( op.EvaluateCondition() ) {
-					
-					// merge the resources
-					Resources.AddRange2( op.Resources );	
-				}
-				
-				return true;
-				
-			} else {
-				
-				return false;
-			}
+			if( !String.Equals( Path, op.Path, StringComparison.OrdinalIgnoreCase ) ) return false;
+			
+			// add the incoming operation's sets to this own
+			_resourceSets.AddRange( op._resourceSets );
+			
+			return true;
 		}
+		
+	}
+	
+	public class PatchResourceSet {
+		
+		public PatchResourceSet(Expression expression) {
+			
+			Condition = expression;
+			Resources  = new Collection<PatchResource>();
+		}
+		
+		public Expression Condition { get; set; }
+		
+		public Collection<PatchResource> Resources { get; private set; }
 		
 	}
 	

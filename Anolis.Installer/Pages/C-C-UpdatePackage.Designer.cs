@@ -30,11 +30,13 @@
 			this.@__downloadNo = new System.Windows.Forms.Button();
 			this.@__downloadInfo = new System.Windows.Forms.Button();
 			this.@__sfd = new System.Windows.Forms.SaveFileDialog();
+			this.@__skipCheckLbl = new System.Windows.Forms.Label();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __content
 			// 
+			this.@__content.Controls.Add(this.@__skipCheckLbl);
 			this.@__content.Controls.Add(this.@__downloadInfo);
 			this.@__content.Controls.Add(this.@__downloadNo);
 			this.@__content.Controls.Add(this.@__downloadYes);
@@ -99,6 +101,14 @@
 			// 
 			this.@__sfd.Filter = "Anolis Package (*.anop)|*.anop";
 			// 
+			// __skipCheckLbl
+			// 
+			this.@__skipCheckLbl.Location = new System.Drawing.Point(22, 16);
+			this.@__skipCheckLbl.Name = "__skipCheckLbl";
+			this.@__skipCheckLbl.Size = new System.Drawing.Size(413, 35);
+			this.@__skipCheckLbl.TabIndex = 8;
+			this.@__skipCheckLbl.Text = "You can skip the update check by clicking the Next button at any time.";
+			// 
 			// UpdatePackagePage
 			// 
 			this.Name = "UpdatePackagePage";
@@ -120,6 +130,7 @@
 		private System.Windows.Forms.Button __downloadYes;
 		private System.Windows.Forms.Button __downloadInfo;
 		private System.Windows.Forms.SaveFileDialog __sfd;
+		private System.Windows.Forms.Label __skipCheckLbl;
 
 	}
 }

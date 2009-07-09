@@ -85,7 +85,85 @@ namespace Anolis.Installer {
 		
 	}
 	
+	public class InstallerCustomizer {
+		
+		internal InstallerCustomizer(String streamName) {
+			
+			using(Stream manifestStream = Assembly.GetExecutingAssembly().GetManifestResourceStream( streamName )) {
+				
+				ResourceReader rdr = new ResourceReader( manifestStream );
+				
+				_customizerSet = new ResourceSet( rdr );
+			}
+		}
+		
+		private ResourceSet _customizerSet;
+		
+		public ResourceSet ResourceSet {
+			get { return _customizerSet; }
+		}
+		
+		public String InstallerName {
+			get {
+				if( _customizerSet == null ) return null;
+				return _customizerSet.GetString("Installer_Name");
+			}
+		}
+		
+		public String InstallerDeveloper {
+			get {
+				if( _customizerSet == null ) return null;
+				return _customizerSet.GetString("Installer_Developer");
+			}
+		}
+		
+		public String InstallerWebsite {
+			get {
+				if( _customizerSet == null ) return null;
+				return _customizerSet.GetString("Installer_Website");
+			}
+		}
+		
+		public Boolean SimpleUI {
+			get {
+				if( _customizerSet == null ) return false;
+				return (Boolean)_customizerSet.GetObject("Option_SimpleUI");
+			}
+		}
+		
+		public Boolean HideI386 {
+			get {
+				if( _customizerSet == null ) return false;
+				return (Boolean)_customizerSet.GetObject("Option_HideI386");
+			}
+		}
+		
+		public Boolean DisablePackageCheck {
+			get {
+				if( _customizerSet == null ) return false;
+				return (Boolean)_customizerSet.GetObject("Option_DisablePackageCheck");
+			}
+		}
+		
+		public Boolean DisableUpdateCheck {
+			get {
+				if( _customizerSet == null ) return false;
+				return (Boolean)_customizerSet.GetObject("Option_DisableUpdateCheck");
+			}
+		}
+		
+	}
+	
 	internal static class InstallerResources {
+		
+		private static String              _customizerName;
+		private static InstallerCustomizer _customizer;
+		
+#region Language Management
+		
+		private static InstallerResourceLanguage _english;
+		
+		private static InstallerResourceLanguage[] _availableLanguages;
 		
 		static InstallerResources() {
 			
@@ -95,25 +173,26 @@ namespace Anolis.Installer {
 			
 			foreach(InstallerResourceLanguage lang in langs) {
 				if( lang.LcidName == "en" ) {
-					_fallback = lang;
+					_english = lang;
 				}
 				if( current.Name == lang.LcidName ) {
 					_currentLanguage = lang;
 				}
-				if( _fallback != null && _currentLanguage != null ) break;
+				if( _english != null && _currentLanguage != null ) break;
 			}
 			
-			if( _fallback == null ) throw new AnolisException("Couldn't load fallback language.");
+			if( _english == null ) throw new AnolisException("Couldn't load fallback language.");
 			
-			if( _currentLanguage == null ) _currentLanguage = _fallback;
+			if( _currentLanguage == null ) _currentLanguage = _english;
+			
+			/////////////////////////////////////////////
+			
+			if( _customizerName != null ) {
+				// _customizerName is set by GetAvailableLanguages as a side-effect
+				_customizer = new InstallerCustomizer( _customizerName );
+			}
 			
 		}
-		
-#region Language Management
-		
-		private static InstallerResourceLanguage _fallback;
-		
-		private static InstallerResourceLanguage[] _availableLanguages;
 		
 		/// <summary>Gets an array of all the Installer resource languages in this installer.</summary>
 		public static InstallerResourceLanguage[] GetAvailableLanguages() {
@@ -127,10 +206,14 @@ namespace Anolis.Installer {
 				
 				foreach(String name in names) {
 					
-					if( name.StartsWith("Anolis.Installer.Resources") ) {
+					if( name.StartsWith("Anolis.Installer.Resources", StringComparison.Ordinal) ) {
 						
 						InstallerResourceLanguage lang = new InstallerResourceLanguage( name );
 						langs.Add( lang );
+						
+					} else if ( name.StartsWith("Anolis.Installer.Customizer", StringComparison.Ordinal) ) {
+						
+						_customizerName = name;
 					}
 					
 				}
@@ -167,28 +250,49 @@ namespace Anolis.Installer {
 		
 		public static event EventHandler CurrentLanguageChanged;
 		
+		public static Boolean IsCustomized {
+			get {
+				return _customizer != null;
+			}
+		}
+		
+		public static InstallerCustomizer CustomizedSettings {
+			get { return _customizer; }
+		}
+		
 #endregion
 		
 		/////////////////////////////////////////////////////////////
 		
 		public static String GetString(String name) {
 			
-			String ret = CurrentLanguage.ResourceSet.GetString( name );
+			String ret;
 			
-			if( ret == null ) // ResourceSet uses Hashtable, which returns null if the key isn't found
-				ret = _fallback.ResourceSet.GetString( name );
+			if( _customizer != null ) {
+				ret = _customizer.ResourceSet.GetString( name );
+				if( ret != null ) return ret;
+			}
 			
-			return ret;
+			ret = CurrentLanguage.ResourceSet.GetString( name );
+			if( ret != null ) return ret;
+			
+			return _english.ResourceSet.GetString( name );
+			
 		}
 		
 		public static Object GetObject(String name) {
 			
-			Object ret = CurrentLanguage.ResourceSet.GetObject( name );
+			Object ret;
 			
-			if( ret == null )
-				ret = _fallback.ResourceSet.GetObject( name );
+			if( _customizer != null ) {
+				ret = _customizer.ResourceSet.GetObject( name );
+				if( ret != null ) return ret;
+			}
 			
-			return ret;
+			ret = CurrentLanguage.ResourceSet.GetObject( name );
+			if( ret != null ) return ret;
+			
+			return _english.ResourceSet.GetObject( name );
 		}
 		
 		public static Image GetImage(String name) {

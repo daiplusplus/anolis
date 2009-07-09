@@ -279,7 +279,16 @@ namespace Anolis.Installer.Pages {
 		}
 		
 		public override BaseWizardPage PrevPage {
-			get { return Program.PageCASelectPackage; }
+			get {
+				
+				if( InstallerResources.IsCustomized && InstallerResources.CustomizedSettings.SimpleUI ) {
+					
+					return Program.PageBMainAction;
+					
+				} else {
+					return Program.PageCASelectPackage;
+				}
+			}
 		}
 		
 		private BaseWizardPage _nextPage;

@@ -13,6 +13,7 @@ using Anolis.Core.Native;
 using P = System.IO.Path;
 
 using Rdf = Anolis.Core.Native.NativeMethods.RedrawFlags;
+using System.Collections.Generic;
 
 namespace Anolis.Core.Packages.Operations {
 	
@@ -27,14 +28,14 @@ namespace Anolis.Core.Packages.Operations {
 			
 			if( Files.Count == 0 ) return;
 			
-			Backup( Package.ExecutionInfo.BackupGroup );
-			
 			// copy (don't move) the files to C:\Windows\web\Wallpaper
 			// if they already exist append a digit methinks
 			
 			// don't move because you might be installing from a HDD-based package. The files will be deleted when the package completes anyway
 			
 			String lastWallpaper = null;
+			
+			List<String> installedWallpapers = new List<String>();
 			
 			foreach(String source in Files) {
 				
@@ -45,8 +46,12 @@ namespace Anolis.Core.Packages.Operations {
 				
 				File.Copy( source, dest );
 				
+				installedWallpapers.Add( dest );
+				
 				lastWallpaper = dest;
 			}
+			
+			Backup( Package.ExecutionInfo.BackupGroup, installedWallpapers );
 			
 			// set the bottommost as the current wallpaper
 			// call SystemParametersInfo to set the current wallpaper apparently
@@ -57,7 +62,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		private void Backup(Group backupGroup) {
+		private void Backup(Group backupGroup, List<String> installedWallpapers) {
 			
 			if( backupGroup == null ) return;
 			
@@ -66,6 +71,19 @@ namespace Anolis.Core.Packages.Operations {
 			MakeRegOp(backupGroup, keyPath, "Wallpaper");
 			MakeRegOp(backupGroup, keyPath, "WallpaperStyle");
 			
+			       keyPath = @"HKEY_USERS\.DEFAULT\Control Panel\Desktop";
+			
+			MakeRegOp(backupGroup, keyPath, "Wallpaper");
+			MakeRegOp(backupGroup, keyPath, "WallpaperStyle");
+			
+			///////////////////////////////
+			
+			foreach(String installedWallaper in installedWallpapers) {
+				
+				FileOperation op = new FileOperation( backupGroup.Package, backupGroup, null, installedWallaper, FileOperationType.Delete );
+				backupGroup.Operations.Add( op );
+			}
+			
 		}
 		
 		private void SetWallpaper(ref String wallpaperFilename) {
@@ -73,28 +91,29 @@ namespace Anolis.Core.Packages.Operations {
 			// it needs to be a bitmap image on Windows XP and earlier
 			// but on Vista it can also be a JPEG
 			
-			Bitmap bitmap = Image.FromFile( wallpaperFilename ) as Bitmap;
-			if( bitmap == null ) return;
-			
-			Boolean isBmp = bitmap.RawFormat.Guid == ImageFormat.Bmp.Guid;
-			Boolean isJpg = bitmap.RawFormat.Guid == ImageFormat.Jpeg.Guid;
-			Boolean isVis = System.Environment.OSVersion.Version.Major >= 6;
-			
-			if( (!isBmp && !isVis) || (!isBmp && !isJpg && isVis) ) {
-				// so it needs to be a bitmap
+			using(Bitmap bitmap = Image.FromFile( wallpaperFilename ) as Bitmap) {
 				
-				String name = P.GetFileName( wallpaperFilename );
-				while( File.Exists( name + ".bmp" ) ) {
-					name += "_";
+				if( bitmap == null ) return;
+				
+				Boolean isBmp = bitmap.RawFormat.Guid == ImageFormat.Bmp.Guid;
+				Boolean isJpg = bitmap.RawFormat.Guid == ImageFormat.Jpeg.Guid;
+				Boolean isVis = System.Environment.OSVersion.Version.Major >= 6;
+				
+				if( (!isBmp && !isVis) || (!isBmp && !isJpg && isVis) ) {
+					// so it needs to be a bitmap
+					
+					String name = P.GetFileName( wallpaperFilename );
+					while( File.Exists( name + ".bmp" ) ) {
+						name += "_";
+					}
+					
+					wallpaperFilename = P.Combine( _wallpaperDir, name + ".bmp" );
+					
+					bitmap.Save( wallpaperFilename, ImageFormat.Bmp );
+					
 				}
 				
-				wallpaperFilename = P.Combine( _wallpaperDir, name + ".bmp" );
-				
-				bitmap.Save( wallpaperFilename, ImageFormat.Bmp );
-				
 			}
-			
-			bitmap.Dispose();
 			
 			// set the wallpaper
 			NativeMethods.SystemParametersInfo( (uint)SpiAction.SetDesktopWallpaper, 0, wallpaperFilename, NativeMethods.SpiUpdate.SendWinIniChange | NativeMethods.SpiUpdate.UpdateIniFile);

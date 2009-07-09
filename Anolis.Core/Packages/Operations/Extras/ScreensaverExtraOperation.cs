@@ -81,18 +81,20 @@ namespace Anolis.Core.Packages.Operations {
 		
 		private void SetScreensaver(String screensaverFilename) {
 			
-			// if the saver is located under system32 you don't need the full path
-			String name = P.GetFileName( screensaverFilename );
+			// if the saver is located under system32 you don't need the full path, but I'll include it anyway
 			
-			RegistryKey desktopKey = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
-			desktopKey.SetValue("ScreenSaveActive", "1" , RegistryValueKind.String);
-			desktopKey.SetValue("SCRNSAVE.EXE"    , name, RegistryValueKind.String);
-			desktopKey.Close();
+			RegistryKey[] desktopSettings = new RegistryKey[2];
+			desktopSettings[0] = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
+			desktopSettings[1] = Registry.Users.OpenSubKey(".DEFAULT").OpenSubKey(@"Control Panel\Desktop", true);
 			
-			RegistryKey logonKey = Registry.Users.OpenSubKey(".DEFAULT").OpenSubKey(@"Control Panel\Desktop", true);
-			logonKey.SetValue("ScreenSaveActive", "1" , RegistryValueKind.String);
-			logonKey.SetValue("SCRNSAVE.EXE"    , name, RegistryValueKind.String);
-			logonKey.Close();
+			String eightThreeFileName = PackageUtility.GetShortPath( screensaverFilename );
+			
+			foreach(RegistryKey key in desktopSettings) {
+				
+				key.SetValue("ScreenSaveActive", "1"               , RegistryValueKind.String);
+				key.SetValue("SCRNSAVE.EXE"    , eightThreeFileName, RegistryValueKind.String);
+				key.Close();
+			}
 			
 		}
 		

@@ -14,16 +14,15 @@ namespace Anolis.Packager {
 	
 	public static class DistributionCreator {
 		
-		public static void CreateDistribution(String outputFileName, String originalInstallerFileName, params String[] packageFileNames) {
+		public static void CreateDistribution(String outputFileName, String originalInstallerFileName, params String[] embeddedResourceFileNames) {
 			
 			String resourceAssembly = Path.Combine( Path.GetDirectoryName( outputFileName ), "Packages.dll" );
 			
-			CreateResourceAssembly( resourceAssembly, packageFileNames );
+			CreateResourceAssembly( resourceAssembly, embeddedResourceFileNames );
 			
 			MergeAssemblies( outputFileName, originalInstallerFileName, resourceAssembly );
 			
 			File.Delete( resourceAssembly );
-			
 		}
 		
 		/// <summary>Creates a new assembly file containing the specified resource files.</summary>
@@ -47,6 +46,10 @@ namespace Anolis.Packager {
 			CSharpCodeProvider prov = new CSharpCodeProvider();
 			CompilerResults result = prov.CompileAssemblyFromSource( options, source );
 			
+			if( result.Errors.Count > 0 ) {
+			
+				throw new AnolisException("Compilation of Resource Assembly Failed");
+			}
 			
 		}
 		

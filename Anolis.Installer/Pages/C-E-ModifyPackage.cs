@@ -17,9 +17,14 @@ namespace Anolis.Installer.Pages {
 			
 			InitializeComponent();
 			
+			// the TreeView class doesn't support Indeterminate state for checkboxes (bummer, I know)
+			// you can use an unhealthy mixture of OwnerDraw and subclassing to almost implement it (see CodeProject)
+			// but for now, leave it as-is
+			
 			this.PageLoad += new EventHandler(ModifyPackagePage_Load);
-			this.__packageView.AfterSelect += new TreeViewEventHandler(__packageView_AfterSelect);
+			this.__packageView.AfterSelect    += new TreeViewEventHandler(__packageView_AfterSelect);
 			this.__packageView.BeforeCollapse += new TreeViewCancelEventHandler(__packageView_BeforeCollapse);
+			this.__packageView.AfterCheck     += new TreeViewEventHandler(__packageView_AfterCheck);
 			
 			Localize();
 		}
@@ -38,6 +43,20 @@ namespace Anolis.Installer.Pages {
 			PackageItem item = e.Node.Tag as PackageItem;
 			
 			PopulatePackageItemInfo( item );
+			
+		}
+		
+		private void __packageView_AfterCheck(object sender, TreeViewEventArgs e) {
+			
+			PackageItem item = e.Node.Tag as PackageItem;
+			if( item != null ) {
+				item.Enabled = e.Node.Checked;
+			}
+			
+			if( e.Action != TreeViewAction.Unknown ) {
+				
+				RefreshTreeView( e.Node.Nodes );
+			}
 			
 		}
 		
@@ -87,6 +106,18 @@ namespace Anolis.Installer.Pages {
 			return node;
 		}
 		
+		private void RefreshTreeView(TreeNodeCollection nodes) {
+			
+			foreach(TreeNode child in nodes) {
+				
+				PackageItem item = child.Tag as PackageItem;
+				if( item != null ) child.Checked = item.Enabled;
+				
+				RefreshTreeView( child.Nodes );
+			}
+			
+		}
+		
 		private void PopulatePackageItemInfo(PackageItem item) {
 			
 			if(item == null) {
@@ -114,7 +145,7 @@ namespace Anolis.Installer.Pages {
 					__infoLbl.Text = (item as Operation).Path;
 				} else {
 					
-					__infoLbl.Text = String.Format(Cult.CurrentCulture, InstallerResources.GetString("C_D_noInfo"), item.Name);
+					__infoLbl.Text = String.Format(Cult.CurrentCulture, InstallerResources.GetString("C_E_noInfo"), item.Name);
 				}
 				
 			} else {

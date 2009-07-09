@@ -6,7 +6,6 @@ using System.Xml;
 
 using Anolis.Core.Packages.Operations;
 
-
 namespace Anolis.Core.Packages {
 	
 	/// <summary>An arbitrary grouping of elements</summary>
@@ -16,7 +15,7 @@ namespace Anolis.Core.Packages {
 			
 			/////////////////////////////////////////////////////
 			
-			Children   = new GroupCollection();
+			Children   = new GroupCollection(this);
 			Operations = new OperationCollection(this);
 			
 			foreach(XmlNode node in element.ChildNodes) {
@@ -46,7 +45,7 @@ namespace Anolis.Core.Packages {
 			
 			/////////////////////////////////////////////////////
 			
-			Mutex    = new GroupCollection();
+			Mutex = new GroupCollection(this);
 			// set Mutex members after all the siblings have been read in
 			
 			String mutex = element.Attributes["mutex"] != null ? element.Attributes["mutex"].Value : String.Empty;
@@ -60,15 +59,27 @@ namespace Anolis.Core.Packages {
 		
 		public Group(Package package, Group parent, String[] mutexIds) : base(package, parent) {
 			
-			Children   = new GroupCollection();
+			Children   = new GroupCollection(this);
 			Operations = new OperationCollection(this);
-			Mutex      = new GroupCollection();
+			Mutex      = new GroupCollection(this);
 			
 			MutexIds = mutexIds;
 			
 		}
 		
-		public Boolean IsEnabled {
+		public override Boolean Enabled {
+			get { return base.Enabled; }
+			set {
+				base.Enabled = value;
+				
+				// Enabled.set can be called from the PackageItem constructor
+				if( Operations != null ) foreach(Operation op in Operations) op.Enabled = value;
+				
+				if( Children   != null ) foreach(Group      g in Children  )  g.Enabled = value;
+			}
+		}
+		
+		public override Boolean IsEnabled {
 			get {
 				
 				if( ParentGroup == null ) return true;
@@ -167,6 +178,35 @@ namespace Anolis.Core.Packages {
 	}
 	
 	public class GroupCollection : Collection<Group> {
+		
+		private Group _parent;
+		
+		public GroupCollection(Group parent) {
+			_parent = parent;
+		}
+		
+		protected override void InsertItem(int index, Group item) {
+			base.InsertItem(index, item);
+			
+			if( !_parent.IsEnabled ) item.Enabled = false;
+		}
+		
+	}
+	
+	public class OperationCollection : Collection<Operation> {
+		
+		private Group _parent;
+		
+		public OperationCollection(Group parent) {
+			_parent = parent;
+		}
+		
+		protected override void InsertItem(int index, Operation item) {
+			base.InsertItem(index, item);
+			
+			if( !_parent.Enabled ) item.Enabled = false;
+		}
+		
 	}
 	
 	public enum EnabledState {

@@ -5,6 +5,8 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Text;
 using Anolis.Core.Data;
+using System.Security.Permissions;
+using Microsoft.Win32.SafeHandles;
 
 namespace Anolis.Core.Native {
 	
@@ -1266,7 +1268,7 @@ namespace Anolis.Core.Native {
 #endregion
 	
 	[Flags]
-	internal enum FileMapAccess : uint {
+	public enum FileMapAccess : uint {
 		FileMapCopy = 0x0001,
 		FileMapWrite = 0x0002,
 		FileMapRead = 0x0004,
@@ -1275,9 +1277,12 @@ namespace Anolis.Core.Native {
 	}
 	
 	[Flags]
-	internal enum FileMapProtection : uint {
-		PageReadonly = 0x02,
+	public enum FileMapProtection : uint {
+		/// <summary>Sets read-only access. An attempt to write to the file view results in an access violation. The file that the hFile parameter specifies must be created with the GENERIC_READ access right.</summary>
+		PageReadOnly = 0x02,
+		/// <summary>Sets read/write access. The file that hFile specifies must be created with the GENERIC_READ and GENERIC_WRITE access rights.</summary>
 		PageReadWrite = 0x04,
+		/// <summary>Sets copy-on-write access. The files that the hFile parameter specifies must be created with the GENERIC_READ access right.</summary>
 		PageWriteCopy = 0x08,
 		PageExecuteRead = 0x20,
 		PageExecuteReadWrite = 0x40,
@@ -1285,6 +1290,21 @@ namespace Anolis.Core.Native {
 		SectionImage = 0x1000000,
 		SectionNoCache = 0x10000000,
 		SectionReserve = 0x4000000,
+	}
+	
+	[SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
+	internal sealed class SafeFileMappingHandle : SafeHandleZeroOrMinusOneIsInvalid {
+		
+		public SafeFileMappingHandle() : base(true) {
+		}
+		
+		public SafeFileMappingHandle(IntPtr handle, bool ownsHandle) : base(ownsHandle) {
+			SetHandle(handle);
+		}
+		
+		protected override Boolean ReleaseHandle() {
+			return NativeMethods.CloseHandle(handle);
+		}
 	}
 	
 }

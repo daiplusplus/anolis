@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 using W3b.Wizards;
 using W3b.Wizards.WindowsForms;
+using Anolis.Core.Packages;
 
 namespace Anolis.Installer.Pages {
 	
@@ -62,6 +63,12 @@ namespace Anolis.Installer.Pages {
 				
 				if( __installRad.Checked ) {
 					
+					if( InstallerResources.IsCustomized && InstallerResources.CustomizedSettings.SimpleUI ) {
+						SetDefaultPackage();
+						
+						return Program.PageCBExtracting;
+					}
+					
 					return Program.PageCASelectPackage;
 					
 				} else if( __uninstallRad.Checked ) {
@@ -81,6 +88,27 @@ namespace Anolis.Installer.Pages {
 		
 		public override BaseWizardPage PrevPage {
 			get { return Program.PageAWelcome; }
+		}
+		
+		private void SetDefaultPackage() {
+			
+			EmbeddedPackage[] embedded = PackageUtility.GetEmbeddedPackages();
+			
+			// skip this page and load the first embedded package
+			
+			if( embedded.Length > 0 ) {
+				
+				EmbeddedPackage package = embedded[0] as EmbeddedPackage;
+				
+				System.IO.Stream stream = PackageUtility.GetEmbeddedPackage( package );
+				
+				PackageInfo.Source     = PackageSource.Embedded;
+				PackageInfo.SourcePath = package.Name;
+				PackageInfo.Archive    = PackageArchive.FromStream( package.Name, PackageSubclass.LzmaTarball, stream );
+				
+				WizardForm.LoadNextPage();
+			}
+			
 		}
 		
 	}

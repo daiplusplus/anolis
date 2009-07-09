@@ -38,12 +38,13 @@
 			this.@__decompressFilename = new System.Windows.Forms.TextBox();
 			this.@__decompressLbl = new System.Windows.Forms.Label();
 			this.@__fbd = new System.Windows.Forms.FolderBrowserDialog();
-			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
+			this.@__ofdDecompress = new System.Windows.Forms.OpenFileDialog();
 			this.@__sfd = new System.Windows.Forms.SaveFileDialog();
 			this.@__statusStrip = new System.Windows.Forms.StatusStrip();
 			this.@__progress = new System.Windows.Forms.ToolStripProgressBar();
 			this.@__status = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__bw = new System.ComponentModel.BackgroundWorker();
+			this.@__ofdFiles = new System.Windows.Forms.OpenFileDialog();
 			this.@__compressGrp.SuspendLayout();
 			this.@__decompressGrp.SuspendLayout();
 			this.@__statusStrip.SuspendLayout();
@@ -134,7 +135,7 @@
 			this.@__compressAddFile.Name = "__compressAddFile";
 			this.@__compressAddFile.Size = new System.Drawing.Size(75, 23);
 			this.@__compressAddFile.TabIndex = 3;
-			this.@__compressAddFile.Text = "Add File";
+			this.@__compressAddFile.Text = "Add Files";
 			this.@__compressAddFile.UseVisualStyleBackColor = true;
 			// 
 			// __items
@@ -202,9 +203,9 @@
 			this.@__decompressLbl.TabIndex = 0;
 			this.@__decompressLbl.Text = "File";
 			// 
-			// __ofd
+			// __ofdDecompress
 			// 
-			this.@__ofd.Filter = "LZMA Tar (*.lzma)|*.lzma|Tarball (*.tar)|*.tar|All files (*.*)|*.*";
+			this.@__ofdDecompress.Filter = "LZMA Tar (*.lzma)|*.lzma|Tarball (*.tar)|*.tar|All files (*.*)|*.*";
 			// 
 			// __sfd
 			// 
@@ -231,6 +232,11 @@
 			this.@__status.Name = "__status";
 			this.@__status.Size = new System.Drawing.Size(38, 17);
 			this.@__status.Text = "Ready";
+			// 
+			// __ofdFiles
+			// 
+			this.@__ofdFiles.Filter = "All files (*.*)|*.*";
+			this.@__ofdFiles.Multiselect = true;
 			// 
 			// TarLzmaForm
 			// 
@@ -270,11 +276,12 @@
 		private System.Windows.Forms.TextBox __compressRoot;
 		private System.Windows.Forms.Button __compressRootBrowse;
 		private System.Windows.Forms.FolderBrowserDialog __fbd;
-		private System.Windows.Forms.OpenFileDialog __ofd;
+		private System.Windows.Forms.OpenFileDialog __ofdDecompress;
 		private System.Windows.Forms.SaveFileDialog __sfd;
 		private System.Windows.Forms.StatusStrip __statusStrip;
 		private System.Windows.Forms.ToolStripStatusLabel __status;
 		private System.Windows.Forms.ToolStripProgressBar __progress;
 		private System.ComponentModel.BackgroundWorker __bw;
+		private System.Windows.Forms.OpenFileDialog __ofdFiles;
 	}
 }

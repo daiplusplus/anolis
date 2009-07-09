@@ -96,9 +96,9 @@ namespace Anolis.Core.Packages.Operations {
 			RegistryOperation op = new RegistryOperation(backupGroup.Package, backupGroup);
 			op.RegKey   = RegKey;
 			op.RegName  = RegName;
-			op.RegKind  = RegKind;
+			op.RegKind  = RegKind; // there is an NRE here apparently
 			
-			op.RegValue = v.ToString();
+			op.RegValue = v == null ? "" : v.ToString();
 			
 			backupGroup.Operations.Add( op );
 		}

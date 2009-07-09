@@ -24,7 +24,7 @@ namespace Anolis.Installer {
 				
 				if( args.Length > 0 ) {
 					
-					if( args.IndexOf("/pause") >= 0 ) {
+					if( args.IndexOf("/pause") > -1 ) {
 						
 						MessageBox.Show("Paused", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 					}
@@ -34,11 +34,16 @@ namespace Anolis.Installer {
 						
 						String ext = Path.GetExtension( filename ).ToUpperInvariant();
 						if(ext == ".ANOP") { // package archive
-						
+							
 						} else if( ext == ".XML") { // package definition
 							
 						}
 						
+					}
+					
+					if( args.IndexOf("/ignorePackageCondition") > -1 ) {
+						
+						PackageInfo.IgnoreCondition = true;
 					}
 					
 				}
@@ -190,20 +195,30 @@ namespace Anolis.Installer {
 	
 	internal static class PackageInfo {
 		
+		//////////////////////////////////////
+		// Common
+		
 		public static PackageSource  Source     { get; set; }
 		public static String         SourcePath { get; set; }
-		
 		public static PackageArchive Archive    { get; set; }
 		
 		public static Package        Package    { get; set; }
 		
+		public static Boolean        RequiresRestart { get; set; }
+		
+		public static Boolean        IgnoreCondition { get; set; }
+		
+		//////////////////////////////////////
+		// Regular-specific
+		
 		public static Boolean        SystemRestore { get; set; }
 		public static String         BackupPath    { get; set; }
 		
+		//////////////////////////////////////
+		// I386-specific
+		
 		public static Boolean        I386Install   { get; set; }
 		public static DirectoryInfo  I386Directory { get; set; }
-		
-		public static Boolean        RequiresRestart { get; set; }
 		
 	}
 	
