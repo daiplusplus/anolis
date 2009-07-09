@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="PackageSchema11" targetNamespace="http://anol.is/schemas/PackageSchema11.xsd" xmlns="http://anol.is/schemas/PackageSchema11.xsd" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="en">
+<xs:schema id="PackageSchema12" targetNamespace="http://anol.is/schemas/PackageSchema12.xsd" xmlns="http://anol.is/schemas/PackageSchema12.xsd" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="en">
 	
 	<xs:element name="package">
 		<xs:complexType>
@@ -57,7 +57,7 @@
 						<xs:attribute name="conditionHash" type="xs:base64Binary" use="optional" />
 						<xs:attribute name="path"          type="xs:anyURI" use="required" />
 						<xs:attribute name="saveTo"        type="xs:anyURI" use="optional" />
-						<xs:attribute name="i386name"      type="xs:string" use="optional" />
+						<xs:attribute name="i386path"      type="xs:string" use="optional" />
 						
 					</xs:complexType>
 				</xs:element>
@@ -140,12 +140,12 @@
 				<xs:element name="systemParameter" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 
-						<!-- <filetype /> attributes -->
+						<!-- <systemParameter /> attributes -->
 						<xs:attributeGroup ref="common" />
 						
 						<xs:attribute name="spiAction" type="xs:string" use="required" />
-						<xs:attribute name="uiParam"   type="xs:string" use="required" />
-						<xs:attribute name="pvParam"   type="xs:string" use="required" />
+						<xs:attribute name="uiParam"   type="xs:string" use="optional" />
+						<xs:attribute name="pvParam"   type="xs:string" use="optional" />
 						
 					</xs:complexType>
 				</xs:element>
@@ -176,36 +176,29 @@
 			
 		</xs:sequence>
 		
-		<!-- <set> attributes -->
+		<!-- <group> attributes -->
 		<xs:attributeGroup ref="common" />
-		<xs:attribute name="mutex" type="xs:IDREFS" use="optional" />
+		<xs:attribute name="mutex"    type="xs:IDREFS"  use="optional" />
 		
 	</xs:complexType>
 	
 	<!-- Common Attributes -->
 	<xs:attributeGroup name="common">
 		
-		<xs:attribute name="id"          type="xs:ID"      use="optional" />
-		<xs:attribute name="name"        type="xs:string"  use="optional" />
+		<xs:attribute name="id"        type="xs:ID"      use="optional" />
+		<xs:attribute name="name"      type="xs:string"  use="optional" />
 		
-		<xs:attribute name="desc"        type="xs:string"  use="optional" />
-		<xs:attribute name="descImg"     type="xs:anyURI"  use="optional" />
+		<xs:attribute name="desc"      type="xs:string"  use="optional" />
+		<xs:attribute name="descImg"   type="xs:anyURI"  use="optional" />
 		
-		<xs:attribute name="enabled"     type="xs:boolean" use="optional" />
+		<xs:attribute name="enabled"   type="xs:boolean" use="optional" />
+		<xs:attribute name="hidden"    type="xs:boolean" use="optional" />
 		
-		<xs:attribute name="condition"   type="xs:string"  use="optional" />
+		<xs:attribute name="condition" type="xs:string"  use="optional" />
 		
 	</xs:attributeGroup>
 	
 	<!-- Additional Types -->
-	
-	<xs:simpleType name="i386type">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="none" />
-			<xs:enumeration value="compressed" />
-			<xs:enumeration value="uncompressed" />
-		</xs:restriction>
-	</xs:simpleType>
 	
 	<xs:simpleType name="extraType">
 		<xs:restriction base="xs:string">

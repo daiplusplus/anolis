@@ -5,7 +5,7 @@ using Anolis.Core.Utility;
 using Anolis.Core.Native;
 
 using Cult = System.Globalization.CultureInfo;
-using N = System.Globalization.NumberStyles;
+using N    = System.Globalization.NumberStyles;
 
 namespace Anolis.Core.Packages.Operations {
 	
@@ -17,12 +17,31 @@ namespace Anolis.Core.Packages.Operations {
 			String uiParam   = operationElement.GetAttribute("uiParam");
 			String pvParam   = operationElement.GetAttribute("pvParam");
 			
-			if( uiParam.Equals("TRUE" , StringComparison.OrdinalIgnoreCase) ) uiParam = "1";
-			if( uiParam.Equals("FALSE", StringComparison.OrdinalIgnoreCase) ) uiParam = "0";
-			
 			SpiAction = (SpiAction)Enum.Parse( typeof(SpiAction), spiAction, true );
-			UIParam   = UInt32.Parse( uiParam, N.Integer | N.HexNumber, Cult.InvariantCulture );
-			PVParam   = UInt32.Parse( uiParam, N.Integer | N.HexNumber, Cult.InvariantCulture );
+			
+			if( uiParam.Length > 0 ) {
+				
+				if     ( uiParam.Equals("TRUE" , StringComparison.OrdinalIgnoreCase) ) UIParam = 1;
+				else if( uiParam.Equals("FALSE", StringComparison.OrdinalIgnoreCase) ) UIParam = 0;
+				else {
+					
+					UInt32 uiParamN;
+					if( UInt32.TryParse( uiParam, N.Integer, Cult.InvariantCulture, out uiParamN ) ) UIParam = uiParamN;
+				}
+			}
+			
+			////////////////////////////////
+			
+			if( pvParam.Length > 0 ) {
+				
+				if     ( pvParam.Equals("TRUE" , StringComparison.OrdinalIgnoreCase) ) PVParam = 1;
+				else if( pvParam.Equals("FALSE", StringComparison.OrdinalIgnoreCase) ) PVParam = 0;
+				else {
+					
+					UInt32 pvParamN;
+					if( UInt32.TryParse( pvParam, N.Integer, Cult.InvariantCulture, out pvParamN ) ) PVParam = pvParamN;
+				}
+			}
 			
 		}
 		
@@ -70,6 +89,10 @@ namespace Anolis.Core.Packages.Operations {
 				"pvParam"  , PVParam.ToStringInvariant()
 			);
 			
+		}
+		
+		public override String ToString() {
+			return "System Parameter: " + SpiAction.ToString();
 		}
 		
 	}

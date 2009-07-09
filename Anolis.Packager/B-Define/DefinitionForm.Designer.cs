@@ -46,6 +46,7 @@
 			this.@__properties = new System.Windows.Forms.PropertyGrid();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
 			this.@__sfd = new System.Windows.Forms.SaveFileDialog();
+			this.@__tToolsCompositor = new System.Windows.Forms.ToolStripButton();
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			@__ttSep1 = new System.Windows.Forms.ToolStripSeparator();
@@ -82,7 +83,8 @@
             this.@__tPackValidate,
             @__tSep2,
             this.@__tToolsResourcer,
-            this.@__tToolsCondition});
+            this.@__tToolsCondition,
+            this.@__tToolsCompositor});
 			this.@__tools.Location = new System.Drawing.Point(0, 0);
 			this.@__tools.Name = "__tools";
 			this.@__tools.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -244,6 +246,15 @@
 			this.@__properties.Size = new System.Drawing.Size(256, 380);
 			this.@__properties.TabIndex = 0;
 			// 
+			// __tToolsCompositor
+			// 
+			this.@__tToolsCompositor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.@__tToolsCompositor.Image = ((System.Drawing.Image)(resources.GetObject("__tToolsCompositor.Image")));
+			this.@__tToolsCompositor.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__tToolsCompositor.Name = "__tToolsCompositor";
+			this.@__tToolsCompositor.Size = new System.Drawing.Size(23, 22);
+			this.@__tToolsCompositor.Text = "Image Compositor";
+			// 
 			// DefinitionForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -286,5 +297,6 @@
 		private System.Windows.Forms.OpenFileDialog __ofd;
 		private System.Windows.Forms.SaveFileDialog __sfd;
 		private System.Windows.Forms.ToolStripButton __tToolsCondition;
+		private System.Windows.Forms.ToolStripButton __tToolsCompositor;
 	}
 }

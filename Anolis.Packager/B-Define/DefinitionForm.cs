@@ -25,8 +25,9 @@ namespace Anolis.Packager {
 			this.__tPackOpen.Click += new EventHandler(__tPackOpen_Click);
 			this.__tPackSave.Click += new EventHandler(__tPackSave_Click);
 
-			this.__tToolsResourcer.Click += new EventHandler(__tToolsResourcer_Click);
-			this.__tToolsCondition.Click += new EventHandler(__tToolsCondition_Click);
+			this.__tToolsResourcer .Click += new EventHandler(__tToolsResourcer_Click);
+			this.__tToolsCondition .Click += new EventHandler(__tToolsCondition_Click);
+			this.__tToolsCompositor.Click += new EventHandler(__tToolsCompositor_Click);
 			
 			this.__tree.BeforeCollapse += new TreeViewCancelEventHandler(__tree_BeforeCollapse);
 			this.__tree.AfterSelect += new TreeViewEventHandler(__tree_AfterSelect);
@@ -34,6 +35,10 @@ namespace Anolis.Packager {
 			if( File.Exists("Anolis.Resourcer.exe") ) __tToolsResourcer.Enabled = true;
 			
 			
+		}
+
+		private void __tToolsCompositor_Click(object sender, EventArgs e) {
+			throw new NotImplementedException();
 		}
 		
 #region UI Events
@@ -243,6 +248,13 @@ namespace Anolis.Packager {
 			
 			ConditionEditor ed = new ConditionEditor();
 			ed.Show(this);
+			
+		}
+		
+		private void ToolsCompositor() {
+			
+			ImageCompositorForm comp = new ImageCompositorForm();
+			comp.Show(this);
 			
 		}
 		

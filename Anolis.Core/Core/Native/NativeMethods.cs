@@ -579,6 +579,9 @@ namespace Anolis.Core.Native {
 		[DllImport("kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
 		public static extern UInt16 GetSystemDefaultUILanguage();
 		
+		[DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError=true)]
+		public static extern uint GetShortPathName([MarshalAs(UnmanagedType.LPTStr)]String lpszLongPath, [MarshalAs(UnmanagedType.LPTStr)]System.Text.StringBuilder lpszShortPath, uint cchBuffer);
+		
 #region Subverting WRP/WFP/SFP
 		
 		/// <summary>Calls an undocumented function in Windows XP that disables Windows File Protection for a particular file. This no-longer exists in Windows Vista or later.</summary>
@@ -599,13 +602,13 @@ namespace Anolis.Core.Native {
 #region File Mapping
 		
 		[DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true, ThrowOnUnmappableChar=true)]
-		public static extern SafeFileHandle CreateFile(String fileName, [MarshalAs(UnmanagedType.U4)] FileAccess fileAccess, [MarshalAs(UnmanagedType.U4)] FileShare fileShare, IntPtr SecurityAttributes, [MarshalAs(UnmanagedType.U4)] FileMode creationDisposition, uint flagsAndAttributes, SafeFileHandle hTemplateFile);
+		public static extern SafeFileHandle CreateFile(String fileName, [MarshalAs(UnmanagedType.U4)] FileAccess fileAccess, [MarshalAs(UnmanagedType.U4)] FileShare fileShare, IntPtr SecurityAttributes, [MarshalAs(UnmanagedType.U4)] FileMode creationDisposition, FileAttributes fileAttributes, IntPtr hTemplateFile);
+		
+		[DllImport("kernel32.dll", SetLastError=true, CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true, BestFitMapping=false)]
+		public static extern SafeFileMappingHandle CreateFileMapping(SafeFileHandle hFile, IntPtr lpFileMappingAttributes, FileMapProtection flProtect, UInt32 dwMaximumSizeHigh, UInt32 dwMaximumSizeLow, [MarshalAs(UnmanagedType.LPTStr)]String lpName);
 		
 		[DllImport("kernel32.dll", SetLastError=true, CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true)]
-		public static extern IntPtr CreateFileMapping(SafeFileHandle hFile, IntPtr lpFileMappingAttributes, FileMapProtection flProtect, UInt32 dwMaximumSizeHigh, UInt32 dwMaximumSizeLow, [MarshalAs(UnmanagedType.LPTStr)]String lpName);
-		
-		[DllImport("kernel32.dll", SetLastError=true, CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true)]
-		public static extern IntPtr MapViewOfFile(IntPtr hFileMappingObject, FileMapAccess dwDesiredAccess, UInt32 dwFileOffsetHigh, UInt32 dwFileOffsetLow, UInt32 dwNumberOfBytesToMap);
+		public static extern IntPtr MapViewOfFile(SafeFileMappingHandle hFileMappingObject, FileMapAccess dwDesiredAccess, UInt32 dwFileOffsetHigh, UInt32 dwFileOffsetLow, IntPtr dwNumberOfBytesToMap);
 		
 		[DllImport("Imagehlp.dll", SetLastError=true, CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true)]
 		public static extern IntPtr CheckSumMappedFile(IntPtr baseAddress, UInt32 fileLength, ref UInt32 headerSum, ref UInt32 checkSum);
@@ -620,10 +623,6 @@ namespace Anolis.Core.Native {
 		[DllImport("kernel32.dll", SetLastError=true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean CloseHandle(IntPtr hObject);
-		
-		[DllImport("kernel32.dll", SetLastError=true)]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern Boolean CloseHandle(SafeFileHandle hFile);
 		
 #endregion
 		

@@ -76,7 +76,15 @@ namespace Anolis.Installer.Pages {
 					
 					__statusLbl.Text = InstallerResources.GetString("C_B_instantiating");
 					
-					InstantiatePackage( destDir );
+					String packageFileName = Path.Combine( destDir, "package.xml" );
+					
+					if( !File.Exists( packageFileName ) ) {
+						
+						MessageBox.Show(this, InstallerResources.GetString("C_B_errorPackageXmlNotFound"), "Anolis", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+						return;
+					}
+					
+					InstantiatePackage( packageFileName );
 					
 				} else {
 					
@@ -93,8 +101,7 @@ namespace Anolis.Installer.Pages {
 			
 			try {
 				
-				if( File.Exists( path ) ) PackageInfo.Package = Package.FromFile( path );
-				else                      PackageInfo.Package = Package.FromDirectory( path );
+				PackageInfo.Package = Package.FromFile( path );
 				
 			} catch( PackageValidationException pve ) {
 				
@@ -136,18 +143,22 @@ namespace Anolis.Installer.Pages {
 			
 			//////////////////////////////////////////////////
 			
-			EvaluationInfo info = PackageInfo.Package.EvaluateCondition();
-			if( info.Result == EvaluationResult.False ) {
+			if( !PackageInfo.IgnoreCondition ) {
 				
-				MessageBox.Show(this, info.Message, "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-				WizardForm.LoadPage( Program.PageCASelectPackage );
-				return;
-				
-			} else if( info.Result == EvaluationResult.Error ) {
-				
-				MessageBox.Show(this, "There was an error whilst attempting to evaluate the package's suitability for your computer. Contact the package's author.", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-				WizardForm.LoadPage( Program.PageCASelectPackage );
-				return;
+				EvaluationInfo info = PackageInfo.Package.EvaluateCondition();
+				if( info.Result == EvaluationResult.False ) {
+					
+					MessageBox.Show(this, info.Message, "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					WizardForm.LoadPage( Program.PageCASelectPackage );
+					return;
+					
+				} else if( info.Result == EvaluationResult.Error ) {
+					
+					MessageBox.Show(this, "There was an error whilst attempting to evaluate the package's suitability for your computer. Contact the package's author.", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					WizardForm.LoadPage( Program.PageCASelectPackage );
+					return;
+					
+				}
 				
 			}
 			

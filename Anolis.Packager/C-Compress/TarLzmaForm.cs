@@ -120,12 +120,13 @@ namespace Anolis.Packager {
 		
 		private void __compressAddFile_Click(object sender, EventArgs e) {
 			
-			if( __ofd.ShowDialog(this) != DialogResult.OK ) return;
+			if( __ofdFiles.ShowDialog(this) != DialogResult.OK ) return;
 			
-			FileInfo f = new FileInfo( __ofd.FileName );
-			if( !f.Exists ) return;
-			
-			__items.Items.Add( f );
+			foreach(String fileName in __ofdFiles.FileNames) {
+				
+				FileInfo f = new FileInfo( fileName );
+				if( f.Exists ) __items.Items.Add( f );
+			}
 			
 		}
 		
@@ -172,9 +173,9 @@ namespace Anolis.Packager {
 		
 		private void __decompresBrowse_Click(object sender, EventArgs e) {
 			
-			if( __ofd.ShowDialog(this) != DialogResult.OK ) return;
+			if( __ofdDecompress.ShowDialog(this) != DialogResult.OK ) return;
 			
-			__decompressFilename.Text = __ofd.FileName;
+			__decompressFilename.Text = __ofdDecompress.FileName;
 			
 		}
 		

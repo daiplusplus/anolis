@@ -28,15 +28,18 @@ namespace Anolis.Core.Packages.Operations {
 			
 			Backup( Package.ExecutionInfo.BackupGroup );
 			
-			String lastMsstyles = null;
+			String lastMsstyle = null;
 			
-			foreach(String styleDir in Files) {
+			foreach(String msStylesFileName in Files) {
 				
-				lastMsstyles = InstallStyle( styleDir );
+				String installedPath;
+				if( InstallStyle( msStylesFileName, out installedPath ) )
+					lastMsstyle = installedPath;
 				
 			}
 			
-			MakeActive( lastMsstyles );
+			if( lastMsstyle != null )
+				MakeActive( lastMsstyle );
 			
 		}
 		
@@ -44,7 +47,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			if( backupGroup == null ) return;
 			
-			String keyPath = @"Software\Microsoft\Windows\CurrentVersion\ThemeManager";
+			String keyPath = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ThemeManager";
 			
 			MakeRegOp(backupGroup, keyPath, "WCreatedUser");
 			MakeRegOp(backupGroup, keyPath, "LoadedBefore");
@@ -55,15 +58,25 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		private String InstallStyle(String packageMsstylesPath) {
+		private Boolean InstallStyle(String packageMsstylesPath, out String installedMsstylesPath) {
 			
 			// copy the entire directory to the Themes directory basically
+			
 			DirectoryInfo source = new DirectoryInfo( P.GetDirectoryName( packageMsstylesPath ) );
-			String dest = P.Combine( _themesDir, source.Name );
 			
-			source.CopyTo( dest );
+			if( !source.Exists ) {
+				Package.Log.Add( Anolis.Core.Utility.LogSeverity.Error, "Source directory doesn't exist: " + source.FullName );
+				installedMsstylesPath = null;
+				return false;
+			}
 			
-			return P.Combine( dest, P.GetFileName( packageMsstylesPath ) );
+			String destDirectoryName = PackageUtility.GetUnusedDirectoryName( P.Combine( _themesDir, source.Name ) );
+			
+			source.CopyTo( destDirectoryName );
+			
+			installedMsstylesPath = P.Combine( destDirectoryName, P.GetFileName( packageMsstylesPath ) );
+			
+			return true;
 		}
 		
 		private void MakeActive(String msstylesPath) {
@@ -71,17 +84,22 @@ namespace Anolis.Core.Packages.Operations {
 			// there's an API out there to actually change the visual style of the current session, but I can't find it
 			// it's also slow and shows that "Please Wait" screen to the user. I think it's better if the user restarts anyway, it makes it a nicer surprise
 			
-			// TODO: Also set the .DEFAULT visual style?
+			RegistryKey[] managers = new RegistryKey[2];
+			managers[0] = Registry.CurrentUser.OpenSubKey(         @"Software\Microsoft\Windows\CurrentVersion\ThemeManager", true);
+			managers[1] = Registry.Users      .OpenSubKey(@".DEFAULT\Software\Microsoft\Windows\CurrentVersion\ThemeManager", true);
 			
-			RegistryKey themeManager = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\ThemeManager", true);
-			themeManager.SetValue("WCreatedUser", "1", RegistryValueKind.String);
-			themeManager.SetValue("LoadedBefore", "0", RegistryValueKind.String);
-			themeManager.SetValue("ThemeActive" , "1", RegistryValueKind.String);
-			themeManager.SetValue("ColorName"   , "NormalColor", RegistryValueKind.String);
-			themeManager.SetValue("SizeName"    , "NormalSize", RegistryValueKind.String);
-			themeManager.SetValue("DllName"     , msstylesPath, RegistryValueKind.String);
-			
-			themeManager.Close();
+			foreach(RegistryKey themeManager in managers) {
+				
+				themeManager.SetValue("WCreatedUser", "1", RegistryValueKind.String);
+				themeManager.SetValue("LoadedBefore", "0", RegistryValueKind.String);
+				themeManager.SetValue("ThemeActive" , "1", RegistryValueKind.String);
+				themeManager.SetValue("ColorName"   , "NormalColor", RegistryValueKind.String);
+				themeManager.SetValue("SizeName"    , "NormalSize", RegistryValueKind.String);
+				themeManager.SetValue("DllName"     , msstylesPath, RegistryValueKind.String);
+				
+				themeManager.Close();
+				
+			}
 			
 		}
 		

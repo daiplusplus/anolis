@@ -2,6 +2,9 @@
 using Anolis.Core.Source;
 using Anolis.Core.Native;
 
+using N    = System.Globalization.NumberStyles;
+using Cult = System.Globalization.CultureInfo;
+
 namespace Anolis.Core.Utility {
 	
 	public static class Environment {
@@ -101,12 +104,17 @@ namespace Anolis.Core.Utility {
 					String numberPart = os.ServicePack.Substring(13);
 					
 					Int32 sp;
-					if(Int32.TryParse(numberPart, out sp)) return (_spLevel = sp).Value;
+					if(Int32.TryParse(numberPart, N.Any, Cult.InvariantCulture, out sp))
+						return (_spLevel = sp).Value;
 					
 					// build a number string
 					String n = String.Empty;
-					for(int i=0;i<os.ServicePack.Length;i++) if( Char.IsDigit( os.ServicePack[i] ) ) n += os.ServicePack[i];
-					if(Int32.TryParse(numberPart, out sp)) return (_spLevel = sp).Value;
+					for(int i=0;i<os.ServicePack.Length;i++)
+						if( Char.IsDigit( os.ServicePack[i] ) )
+							n += os.ServicePack[i];
+					
+					if(Int32.TryParse(numberPart, N.Any, Cult.InvariantCulture, out sp))
+						return (_spLevel = sp).Value;
 					
 					return -1; // don't throw exceptions from property accessors which should have no side-effects
 					

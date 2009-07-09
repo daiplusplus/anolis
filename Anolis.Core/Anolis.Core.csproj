@@ -38,6 +38,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,6 +63,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Xml" />
@@ -107,22 +109,31 @@
     <Compile Include="Core\Resource\ResourceName.cs" />
     <Compile Include="Core\Resource\ResourceType.cs" />
     <Compile Include="Core\Utility\BinaryPatcher.cs" />
+    <Compile Include="Core\Utility\BootIni.cs" />
     <Compile Include="Core\Utility\Dialog.cs" />
     <Compile Include="Core\Utility\Dib.cs" />
     <Compile Include="Core\Utility\Environment.cs" />
+    <Compile Include="Core\Utility\FileMapping.cs" />
     <Compile Include="Core\Utility\FileType.cs" />
     <Compile Include="Core\Utility\Icon.cs" />
+    <Compile Include="Core\Utility\CompositedImage.cs" />
     <Compile Include="Core\Utility\Log.cs" />
     <Compile Include="Core\Utility\Miscellaneous.cs" />
     <None Include="Core\Utility\ResIconDir.cs" />
     <Compile Include="Core\Utility\Pair.cs" />
     <None Include="Core\Utility\ResIconDirHelper.cs" />
+    <None Include="Core\Utility\Quantization\Color32.cs" />
+    <None Include="Core\Utility\Quantization\Octree.cs" />
+    <None Include="Core\Utility\Quantization\OctreeQuantizer.cs" />
+    <None Include="Core\Utility\Quantization\PaletteQuantizer.cs" />
+    <None Include="Core\Utility\Quantization\Quantizer.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Core\Native\NativeTypes.cs" />
     <Compile Include="Core\Native\NativeMethods.cs" />
     <Compile Include="Core\Source\Native\Win32ResourceSource.cs" />
     <Compile Include="Packages\Exceptions.cs" />
     <Compile Include="Packages\Expression.cs" />
+    <Compile Include="Packages\Operations\Extras\BootScreenExtraOperation.cs" />
     <Compile Include="Packages\Operations\UxThemeOperation.cs" />
     <Compile Include="Packages\Operations\UninstallationOperation.cs" />
     <None Include="Packages\Operations\Extras\UxThemeExtraOperation.old.cs" />
@@ -130,7 +141,7 @@
     <Compile Include="Packages\Operations\RegistryOperation.cs" />
     <Compile Include="Packages\Operations\SystemParameterOperation.cs" />
     <Compile Include="Packages\Operations\ExtraOperation.cs" />
-    <Compile Include="Packages\Operations\Extras\BootScreenExtraOperation.cs" />
+    <None Include="Packages\Operations\Extras\BootScreenExtraOperation.old.cs" />
     <Compile Include="Packages\Operations\Extras\RegistryExtraOperation.cs" />
     <Compile Include="Packages\Operations\Extras\ProgramExtraOperation.cs" />
     <Compile Include="Packages\Operations\Extras\CustomExtraOperation.cs" />

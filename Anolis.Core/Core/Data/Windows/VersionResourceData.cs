@@ -292,6 +292,48 @@ namespace Anolis.Core.Data {
 		
 		public VersionItem VSVersionInfo { get; private set; }
 		
+		public Dictionary<String,String> GetStringTable() {
+			
+			VersionItem item = GetFirstItem( VSVersionInfo, Mode.StringTable );
+			
+			if( item == null ) return null;
+			
+			Dictionary<String,String> ret = new Dictionary<String,String>();
+			
+			foreach(VersionItem str in item.Children) {
+				
+				ret.Add( str.Key, str.Value.ToString() );
+			}
+			
+			return ret;
+		}
+		
+		public Dictionary<String,String> GetFixedFileInfo() {
+			
+			VersionItem root = VSVersionInfo;
+			
+			Dictionary<String,String> ffi = root.Value as Dictionary<String,String>;
+			
+			Dictionary<String,String> ret = new Dictionary<String,String>( ffi ); // this copies contents
+			return ret;
+		}
+		
+		private VersionItem GetFirstItem(VersionItem parent, Mode mode) {
+			
+			if( parent.Mode == mode ) return parent;
+			
+			foreach(VersionItem item in parent.Children) {
+				
+				if( item.Mode == mode ) return item;
+				
+				VersionItem match = GetFirstItem( item, mode );
+				if( match != null ) return match;
+				
+			}
+			
+			return null;
+		}
+		
 #endregion
 		
 	}

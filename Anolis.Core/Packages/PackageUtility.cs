@@ -155,6 +155,52 @@ namespace Anolis.Core.Packages {
 			}
 		}
 		
+		private static String _resolvedSystem32Path;
+		private static String _resolvedSysWow64Path;
+		private static String _resolvedProgFilePath;
+		private static String _resolvedPrgFle32Path;
+		
+		/// <summary>If the <paramref name="fileName "/> value points to a file in %windir%\system32 and the equivalent file exists in SysWow64 it will return the path to that file, otherwise null.</summary>
+		public static String GetSysWow64File(String fileName) {
+			
+			if( _resolvedSystem32Path == null ) {
+				
+				_resolvedSystem32Path = ResolvePath(@"%windir%\system32");
+				_resolvedSysWow64Path = ResolvePath(@"%windir%\SysWow64");
+				
+				_resolvedProgFilePath = ResolvePath(@"%programfiles%");
+				_resolvedPrgFle32Path = ResolvePath(@"%programfiles(x86)%");
+			}
+			
+			if( !Path.IsPathRooted( fileName ) ) return null;
+			
+			///////////////////////////////////////
+			
+			if( fileName.StartsWith( _resolvedSystem32Path, StringComparison.OrdinalIgnoreCase ) ) {
+				
+				String relativePath = fileName.Substring( _resolvedSystem32Path.Length );
+				
+				fileName = Path.Combine( _resolvedSysWow64Path, relativePath );
+				
+				if( File.Exists( fileName ) ) return fileName;
+			}
+			
+			///////////////////////////////////////
+			
+			if( fileName.StartsWith( _resolvedProgFilePath, StringComparison.OrdinalIgnoreCase ) ) {
+				
+				String relativePath = fileName.Substring( _resolvedProgFilePath.Length );
+				
+				fileName = Path.Combine( _resolvedPrgFle32Path, relativePath );
+				
+				if( File.Exists( fileName ) ) return fileName;
+			}
+			
+			///////////////////////////////////////
+			
+			return null;
+		}
+		
 		public static String ResolvePath(String path) {
 			
 			return ResolvePath(path, String.Empty);
@@ -289,6 +335,21 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
+		public static String GetUnusedDirectoryName(String suspectPath) {
+			
+			if( !Directory.Exists( suspectPath ) ) return suspectPath;
+			
+			String original = suspectPath;
+			
+			Int32 i=1;
+			while( Directory.Exists( suspectPath ) ) {
+				
+				suspectPath = original + " (" + i++ + ")";
+			}
+			
+			return suspectPath;
+		}
+		
 		public static String GetMD5Hash(String fileName) {
 			
 			using(FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -341,6 +402,18 @@ namespace Anolis.Core.Packages {
 			return sb.ToString();
 			
 		} */
+		
+		public static String GetShortPath(String fileName) {
+			
+			const int MAX_PATH = 260;
+			
+			StringBuilder sb = new StringBuilder(MAX_PATH);
+			
+			uint result = NativeMethods.GetShortPathName( fileName, sb, MAX_PATH );
+			if( result == 0 ) throw new AnolisException( "GetShortPath: " + NativeMethods.GetLastErrorString() );
+			
+			return sb.ToString();
+		}
 		
 	}
 }

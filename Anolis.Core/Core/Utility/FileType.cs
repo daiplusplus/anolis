@@ -125,7 +125,7 @@ namespace Anolis.Core.Utility {
 	
 	public abstract class FileBase {
 		
-		public Boolean IsDirty { get; set; }
+		public Boolean IsDirty { get; protected set; }
 		
 		public Boolean DeleteOnCommit { get; set; }
 		
@@ -155,6 +155,11 @@ namespace Anolis.Core.Utility {
 		
 		public override void Save() {
 			// TODO
+			
+			if( !IsDirty ) return;
+			
+			
+			
 		}
 		
 	}
@@ -210,7 +215,7 @@ namespace Anolis.Core.Utility {
 		/// <summary>Indexes the whole file for textual content</summary>
 		public const String Text = "{5e941d80-bf96-11cd-b579-08002b30bfeb}";
 		
-		/// <summary>Only indexes the VS_VERSIONINFO resource if present</summary>
+		/// <summary>Only indexes the VS_VERSIONINFO resource (if present)</summary>
 		public const String Null = "{098f2470-bae0-11cd-b579-08002b30bfeb}";
 		
 	}

@@ -57,7 +57,6 @@
 			// 
 			this.@__backupPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.@__backupPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
-			this.@__backupPath.Enabled = false;
 			this.@__backupPath.Location = new System.Drawing.Point(91, 85);
 			this.@__backupPath.Name = "__backupPath";
 			this.@__backupPath.Size = new System.Drawing.Size(257, 20);
@@ -65,7 +64,6 @@
 			// 
 			// __backupBrowse
 			// 
-			this.@__backupBrowse.Enabled = false;
 			this.@__backupBrowse.Location = new System.Drawing.Point(354, 83);
 			this.@__backupBrowse.Name = "__backupBrowse";
 			this.@__backupBrowse.Size = new System.Drawing.Size(75, 23);
@@ -76,6 +74,8 @@
 			// __backup
 			// 
 			this.@__backup.AutoSize = true;
+			this.@__backup.Checked = true;
+			this.@__backup.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.@__backup.Location = new System.Drawing.Point(47, 28);
 			this.@__backup.Name = "__backup";
 			this.@__backup.Size = new System.Drawing.Size(284, 17);
@@ -85,7 +85,6 @@
 			// 
 			// __backupDesc
 			// 
-			this.@__backupDesc.Enabled = false;
 			this.@__backupDesc.Location = new System.Drawing.Point(91, 48);
 			this.@__backupDesc.Name = "__backupDesc";
 			this.@__backupDesc.Size = new System.Drawing.Size(338, 31);

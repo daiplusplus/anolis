@@ -55,7 +55,7 @@ namespace Anolis.Resourcer.TypeViewers {
 			if( File.Exists( _filename ) ) File.Delete( _filename );
 			
 			_filename = Anolis.Core.Utility.Miscellaneous.FSSafeResPath( resource.Lang.ResourcePath ) + ".bin";
-			_filename = Path.Combine( Path.GetTempPath(), _filename );
+			_filename = Path.Combine( Path.GetTempPath(), "Anolis\\" + _filename );
 			
 			resource.Save( _filename );
 			

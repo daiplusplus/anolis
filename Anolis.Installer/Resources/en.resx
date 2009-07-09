@@ -328,4 +328,19 @@ Close all open applications before continuing. Do not attempt to open any new ap
   <data name="C_D_packageNotes" xml:space="preserve">
     <value>{0} Package Release Notes</value>
   </data>
+  <data name="C_F_pathInvalidBackup" xml:space="preserve">
+    <value>The specified backup path is not valid</value>
+  </data>
+  <data name="C_F_pathInvalidI386" xml:space="preserve">
+    <value>The specified I386 path is not valid</value>
+  </data>
+  <data name="C_F_pathExistsBackup" xml:space="preserve">
+    <value>The specified backup directory already exists and contains files. Backups must be made to either an empty directory or a directory that doesn't exist yet.</value>
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
+    <value>The specified package archive did not contain a package definition file.</value>
+  </data>
+  <data name="C_C_skipCheckLbl" xml:space="preserve">
+    <value>You can skip the update check by clicking the Next button at any time.</value>
+  </data>
 </root>

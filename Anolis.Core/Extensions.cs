@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using XmlElement = System.Xml.XmlElement;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using System.Globalization;
 
+using XmlElement = System.Xml.XmlElement;
 using C = System.Globalization.CultureInfo;
 
 // Extension methods seem to require System.Core.dll, which is not in .NET2.0
@@ -28,6 +29,7 @@ namespace Anolis.Core {
 		
 		public static void CopyTo(this DirectoryInfo source, String destination) {
 			
+			if( !source.Exists ) throw new DirectoryNotFoundException("source directory doesn't exist: " + source.FullName);
 			if( !Directory.Exists( destination ) ) Directory.CreateDirectory( destination );
 			
 			foreach(FileInfo file in source.GetFiles()) {
@@ -353,15 +355,29 @@ namespace Anolis.Core {
 			
 			String fileName = Path.Combine( directory.FullName, relativeFileName );
 			
-			if( File.Exists( fileName ) ) return new FileInfo( fileName );
+			return new FileInfo( fileName );
 			
-			return null;
+		}
+		
+		public static Boolean IsEmpty(this DirectoryInfo directory) {
 			
+			if( directory.GetDirectories().Length > 0 ) return false;
+			
+			if( directory.GetFiles().Length > 0 ) return false;
+			
+			return true;
 		}
 		
 #endregion
 		
+		public static Boolean IsGraphicsSupported(this PixelFormat pixelFormat) {
+			
+			return (pixelFormat & PixelFormat.Indexed) != PixelFormat.Undefined;
+		}
 		
+		public static Boolean IsIndexed(this PixelFormat pixelFormat) {
+			return (pixelFormat & PixelFormat.Indexed) == PixelFormat.Indexed;
+		}
 		
 	}
 }

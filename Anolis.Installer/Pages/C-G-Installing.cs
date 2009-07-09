@@ -10,6 +10,7 @@ using Anolis.Core.Packages;
 using Anolis.Core.Utility;
 
 using W3b.Wizards.WindowsForms;
+using Anolis.Core;
 
 namespace Anolis.Installer.Pages {
 	
@@ -64,7 +65,7 @@ namespace Anolis.Installer.Pages {
 				
 				Invoke( new MethodInvoker( delegate() {
 					
-					throw new Exception("Error during installation", ex);
+					throw new AnolisException("Error during installation", ex);
 					
 				}));
 				
@@ -74,25 +75,23 @@ namespace Anolis.Installer.Pages {
 		
 		private void __bw_DoWork(object sender, DoWorkEventArgs e) {
 			
+			PackageExecutionSettings settings = new PackageExecutionSettings();
+			
 			if( PackageInfo.I386Install ) {
 				
-				PackageExecutionSettings settings = new PackageExecutionSettings();
 				settings.ExecutionMode = PackageExecutionMode.I386;
 				settings.I386Directory = PackageInfo.I386Directory;
-				
-				PackageInfo.Package.Execute(settings);
-				
+			
 			} else {
 				
-				PackageExecutionSettings settings = new PackageExecutionSettings();
 				settings.ExecutionMode            = PackageExecutionMode.Regular;
 				settings.CreateSystemRestorePoint = PackageInfo.SystemRestore;
 				settings.BackupDirectory          = PackageInfo.BackupPath != null ? new DirectoryInfo( PackageInfo.BackupPath ) : null;
-				
-				
-				PackageInfo.Package.Execute(settings);
-				
 			}
+			
+			PackageInfo.Package.Execute(settings);
+			
+			PackageInfo.RequiresRestart = (Program.ProgramMode == ProgramMode.InstallPackage) && PackageInfo.Package.ExecutionInfo.RequiresRestart;
 			
 			Invoke( new MethodInvoker( delegate() {
 				
@@ -111,13 +110,16 @@ namespace Anolis.Installer.Pages {
 					
 					__progress.Style = ProgressBarStyle.Marquee;
 					
+					__statusLabel.Text = e.Message;
+					
 				} else {
+					
 					__progress.Style = ProgressBarStyle.Blocks;
 					__progress.Value = e.Percentage;
+					
+					__statusLabel.Text = String.Format( InstallerResources.GetString("C_G_status") , e.Percentage, e.Message );
 				}
 				
-				
-				__statusLabel.Text = String.Format( InstallerResources.GetString("C_G_status") , e.Percentage, e.Message );
 				
 			}));
 			

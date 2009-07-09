@@ -32,6 +32,7 @@ namespace Anolis.Core.Packages.Operations {
 		public FileOperation(Package package, Group parent, String sourcePath, String destPath, FileOperationType operation) : base(package, parent, destPath) {
 			
 			SourceFile = sourcePath;
+			// Path is set by destPath
 			
 			Operation = operation;
 		}
@@ -72,9 +73,13 @@ namespace Anolis.Core.Packages.Operations {
 					break;
 			}
 			
+			Package.ExecutionInfo.RequiresRestart = true;
+			
 		}
 		
 		private void Backup(Group backupGroup) {
+			
+			if( backupGroup == null ) return;
 			
 			// if there exists a file at the destination RIGHT NOW, then back it up
 				// and the restore operation will be to copy it from its backed-up location to the current location
@@ -86,11 +91,13 @@ namespace Anolis.Core.Packages.Operations {
 				// backup the file
 				String backupDir = P.Combine( backupGroup.Package.RootDirectory.FullName, "Files" );
 				
+				if( !Directory.Exists( backupDir ) ) Directory.CreateDirectory( backupDir );
+				
 				String backupFn  = P.Combine( backupDir, P.GetFileName( Path ) );
 				
 				backupFn = PackageUtility.GetUnusedFileName( backupFn );
 				
-				File.Copy( Path, backupFn, true );
+				File.Copy( Path, backupFn );
 				
 				// make an operation for it
 				
@@ -110,7 +117,13 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override void Write(XmlElement parent) {
 			
-			CreateElement(parent, "file", "operation", Operation.ToString(), "src", SourceFile);
+			XmlElement element = CreateElement(parent, "file",
+				"operation", Operation.ToString(),
+				"src", SourceFile,
+				"path", Path,
+				"conditionHash", ConditionHash
+			);
+			
 		}
 		
 		public override String OperationName {

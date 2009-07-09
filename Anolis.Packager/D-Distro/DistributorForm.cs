@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using System.Resources;
 using System.Windows.Forms;
 
 using Anolis.Core.Source;
 using Cult = System.Globalization.CultureInfo;
 using Anolis.Core.Packages;
-using System.Reflection;
+using System.Drawing;
+
 
 namespace Anolis.Packager {
 	
@@ -24,6 +27,9 @@ namespace Anolis.Packager {
 			this.__packOrigBrowse.Click += new EventHandler(__packOrigBrowse_Click);
 			this.__packOrigLoad  .Click += new EventHandler(__packOrigLoad_Click);
 			this.__create        .Click += new EventHandler(__create_Click);
+			
+			this.__cusImagesBanner   .Click += new EventHandler(__cusImagesBanner_Click);
+			this.__cusImagesWatermark.Click += new EventHandler(__cusImagesWatermark_Click);
 		}
 		
 #region UI Events
@@ -46,6 +52,28 @@ namespace Anolis.Packager {
 		private void __packOrigBrowse_Click(object sender, EventArgs e) {
 			
 			InstallerLoadPrompt();
+		}
+		
+		//////////////////////////////////////////////
+		
+		private void __cusImagesWatermark_Click(object sender, EventArgs e) {
+			
+			if( __ofdImage.ShowDialog(this) == DialogResult.OK ) {
+				
+				__cusImagesWatermark.Tag = __ofdImage.FileName;
+				__cusImagesWatermark.Load( __ofdImage.FileName );
+			}
+			
+		}
+		
+		private void __cusImagesBanner_Click(object sender, EventArgs e) {
+			
+			if( __ofdImage.ShowDialog(this) == DialogResult.OK ) {
+				
+				__cusImagesBanner.Tag = __ofdImage.FileName;
+				__cusImagesBanner.Load( __ofdImage.FileName );
+			}
+			
 		}
 		
 #endregion
@@ -144,8 +172,64 @@ namespace Anolis.Packager {
 			
 			if( __sfd.ShowDialog(this) != DialogResult.OK ) return;
 			
-			DistributionCreator.CreateDistribution( __sfd.FileName, __packOrigPath.Text, _addPackages.ToArray() );
+			List<String> resources = new List<String>();
+			resources.AddRange( _addPackages );
 			
+			String cus = InstallerCreateCustomizationResource();
+			if( cus != null ) resources.Add( cus );
+			
+			DistributionCreator.CreateDistribution( __sfd.FileName, __packOrigPath.Text, resources.ToArray() );
+			
+		}
+		
+		private String InstallerCreateCustomizationResource() {
+			
+			if( _originalInstaller == null ) return null;
+			
+			String customizerFn = Path.Combine( Path.GetDirectoryName( _originalInstaller.Location ), "Anolis.Installer.Customizer.resources" );
+			
+			ResourceWriter wtr = new ResourceWriter(customizerFn);
+			
+			//////////////////////////////////////////
+			
+			if( __cusImagesWatermark.Image != null ) {
+				
+				String path = __cusImagesWatermark.Tag.ToString();
+				Image image = Image.FromFile( path );
+				wtr.AddResource("Background", image );
+			}
+			
+			
+			if( __cusImagesBanner.Image != null ) {
+				
+				String path = __cusImagesBanner.Tag.ToString();
+				Image image = Image.FromFile( path );
+				wtr.AddResource("Banner", image );
+			}
+			
+			//////////////////////////////////////////
+			
+			if( __cusStringName.Text.Length > 0 )
+				wtr.AddResource("InstallerName", __cusStringName.Text );
+			
+			if( __cusStringDeveloper.Text.Length > 0 )
+				wtr.AddResource("InstallerDeveloper", __cusStringDeveloper.Text );
+			
+			if( __cusStringWebsite.Text.Length > 0 )
+				wtr.AddResource("InstallerWebsite", __cusStringWebsite.Text );
+			
+			//////////////////////////////////////////
+			
+			wtr.AddResource("OptionSimpleUI"           , __cusOptSimple.Checked );
+			wtr.AddResource("OptionHideI386"           , __cusOptsHideI386.Checked );
+			wtr.AddResource("OptionDisablePackageCheck", __cusOptsCheckDisable.Checked );
+			wtr.AddResource("OptionDisableUpdateCheck" , __cusOptsCheckDisable.Checked );
+			
+			//////////////////////////////////////////
+			
+			wtr.Close(); // Close() calls Generate() via Disposing(true)
+			
+			return customizerFn;
 		}
 		
 #endregion

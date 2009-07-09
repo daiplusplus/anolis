@@ -88,7 +88,10 @@ namespace Anolis.Packager {
 				
 				PatchOperation op = new PatchOperation(group.Package, group, relativeFn);
 				
-				foreach(FileInfo file in directory.GetFiles()) {
+				FileInfo[] files = directory.GetFiles();
+				Array.Sort( files, new Comparison<FileInfo>( CompareFiles ) );
+				
+				foreach(FileInfo file in files) {
 					
 					String type;
 					
@@ -96,16 +99,24 @@ namespace Anolis.Packager {
 					switch(ext) {
 						case ".ICO":
 							type = "icon";
-							
 							break;
+							
 						case ".BMP":
 							type = "bitmap";
-							
 							break;
+							
 						case ".AVI":
-							type = "AVI";
-							
+						case ".PNG":
+						case ".GIF":
+						case ".JPG":
+						case ".JPEG":
+							type = ext.Substring(1);
 							break;
+							
+						case ".CUR":
+							type = "cursor";
+							break;
+							
 						default:
 							type = null;
 							_ignoredFiles.Add( file );
@@ -121,7 +132,7 @@ namespace Anolis.Packager {
 						patch.Name = Path.GetFileNameWithoutExtension( file.FullName );
 						patch.File = Path.Combine( relativeFn, file.Name );
 						
-						op.Resources.Add( patch );
+						op.ResourceSet.Resources.Add( patch );
 					}
 					
 				}
@@ -136,6 +147,21 @@ namespace Anolis.Packager {
 			}
 			
 			// also, build a list of ignored directories and files
+			
+		}
+		
+		private Int32 CompareFiles(FileInfo x, FileInfo y) {
+			
+			Int32 extC = x.Extension.CompareTo( y.Extension );
+			if( extC != 0 ) return extC;
+			
+			Int32 xN, yN;
+			if( Int32.TryParse( Path.GetFileNameWithoutExtension( x.Name ), out xN ) && Int32.TryParse( Path.GetFileNameWithoutExtension( y.Name ), out yN ) ) {
+				
+				return xN.CompareTo( yN );
+			}
+			
+			return x.Name.CompareTo( y.Name );
 			
 		}
 		

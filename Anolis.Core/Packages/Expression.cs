@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-using S = System.Runtime.Serialization;
+using S    = System.Runtime.Serialization;
+using N    = System.Globalization.NumberStyles;
+using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Core.Packages {
 	
@@ -190,6 +192,30 @@ namespace Anolis.Core.Packages {
 			}
 		}
 		
+		public String ExpressionString {
+			get { return _expression; }
+		}
+		
+		public String[] Tokenize() {
+			
+			lock(_lock) {
+				
+				List<String> tokens = new List<String>();
+				
+				_toki = 0;
+				
+				String t = Strtok();
+				while(t != null) {
+					
+					tokens.Add( t );
+					
+					t = Strtok();
+				}
+				
+				return tokens.ToArray();
+			}
+		}
+		
 #endregion
 		
 		private void Advance() {
@@ -236,7 +262,8 @@ namespace Anolis.Core.Packages {
 						// either a number or a name
 						// if it's a name, resolve it
 						
-						if( Double.TryParse( s, out _value ) ) {
+						// TODO: This line caused a bunch of bugs on systems where '.' does not mean a decimal place (e.g. russian ones)
+						if( Double.TryParse( s, N.Any, Cult.InvariantCulture, out _value ) ) {
 							
 							_token = Operator.Val;
 							
@@ -473,7 +500,7 @@ namespace Anolis.Core.Packages {
 		
 		public override String ToString() {
 			
-			return _expression;
+			return ExpressionString;
 		}
 		
 	}

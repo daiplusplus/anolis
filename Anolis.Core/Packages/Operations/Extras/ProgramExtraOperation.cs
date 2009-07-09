@@ -22,15 +22,15 @@ namespace Anolis.Core.Packages.Operations {
 			
 			foreach(String file in Files) {
 				
-				// TODO: Separate arguments from filename
-				String filename = file;
-				String argument = "";
+				String fileName, argument;
 				
-				ProcessStartInfo startInfo = new ProcessStartInfo(filename, argument);
+				GetFileName( file, out fileName, out argument );
+				
+				ProcessStartInfo startInfo = new ProcessStartInfo(fileName, argument);
 				startInfo.CreateNoWindow = true;
 				
 				Process process = Process.Start( startInfo );
-				process.WaitForExit(10 * 1000); // wait no more than 10 seconds
+				process.WaitForExit(15 * 1000); // wait no more than 15 seconds
 				
 				if(!process.HasExited && !process.Responding) {
 					// note that hung command-line programs will still be running
@@ -39,6 +39,27 @@ namespace Anolis.Core.Packages.Operations {
 				}
 				
 			}
+			
+		}
+		
+		private static void GetFileName(String path, out String fileName, out String args) {
+			
+			if( !path.StartsWith("\"") ) {
+				fileName = path;
+				args     = String.Empty;
+				return;
+			}
+			
+			Int32 lastQuote = path.LastIndexOf('"');
+			if( lastQuote == -1 ) {
+				
+				fileName = path.Substring(1);
+				args     = String.Empty;
+				return;
+			}
+			
+			fileName = path.Substring( 1, lastQuote );
+			args     = path.Substring( lastQuote );
 			
 		}
 		

@@ -278,6 +278,7 @@ namespace Anolis.Core.Utility.BinaryPatch {
 			if( entry.Status != PatchCurrentStatus.Unknown ) {
 				
 				entry.Offset = criteria.SearchBegin + i + criteria.MagicIndex;
+				entry.Bytes  = criteria.PatchBytes;
 			}
 			
 			return entry;
@@ -327,7 +328,7 @@ namespace Anolis.Core.Utility.BinaryPatch {
 			if( entry.Status != PatchCurrentStatus.Unknown ) {
 				
 				entry.Offset = criteria.SearchBegin + i + criteria.MagicIndex;
-				
+				entry.Bytes  = criteria.PatchBytes;
 			}
 			
 			return entry;
@@ -404,6 +405,7 @@ namespace Anolis.Core.Utility.BinaryPatch {
 			if( entry.Status != PatchCurrentStatus.Unknown ) {
 				
 				entry.Offset = criteria.SearchBegin + i + criteria.MagicIndex;
+				entry.Bytes  = criteria.PatchBytes;
 			}
 			
 			return entry;
@@ -463,6 +465,7 @@ namespace Anolis.Core.Utility.BinaryPatch {
 			if( entry.Status != PatchCurrentStatus.Unknown ) {
 				
 				entry.Offset = criteria.SearchBegin + i + criteria.MagicIndex;
+				entry.Bytes  = criteria.PatchBytes;
 			}
 			
 			return entry;

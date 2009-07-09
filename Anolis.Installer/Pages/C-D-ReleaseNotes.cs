@@ -32,6 +32,7 @@ namespace Anolis.Installer.Pages {
 			__packageRtf  .Rtf = packageNotes;
 			__installerRtf.Rtf = installerNotes;
 			
+			__packageTab.Text = String.Format(Cult.InvariantCulture, InstallerResources.GetString("C_D_packageNotes"), PackageInfo.Package.Name);
 		}
 		
 		protected override String LocalizePrefix {
@@ -41,11 +42,7 @@ namespace Anolis.Installer.Pages {
 		protected override void Localize() {
 			base.Localize();
 			
-			String packageName = PackageInfo.Package == null ? "" : PackageInfo.Package.Name;
-			
-			this.__packageTab  .Text = String.Format(Cult.InvariantCulture, InstallerResources.GetString("C_D_packageNotes"), packageName);
-			this.__installerTab.Text = InstallerResources.GetString("C_D_installerNotes");
-			
+			__installerTab.Text = InstallerResources.GetString("C_D_installerNotes");
 		}
 		
 		public override BaseWizardPage PrevPage {
