@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 
 namespace ThumbDBLib {
+	
 	public struct CatalogHeader {
 		public short num1;
 		public short num2;
@@ -28,7 +29,7 @@ namespace ThumbDBLib {
 		private ArrayList _catalogItems = new ArrayList();
 		private String _thumbDBFile;
 		
-		public ThumbDB(string thumbDBFile) {
+		public ThumbDB(String thumbDBFile) {
 			_thumbDBFile = thumbDBFile;
 			LoadCatalog();
 		}
@@ -89,15 +90,19 @@ namespace ThumbDBLib {
 		
 		private void LoadCatalog() {
 			
-			IStorageWrapper wrapper = new IStorageWrapper(_thumbDBFile, false);
-			FileObject fileObject = wrapper.OpenUCOMStream(null, "Catalog");
-			string textData = string.Empty;
+			IStorageWrapper wrapper    = new IStorageWrapper(_thumbDBFile, false);
+			FileObject      fileObject = wrapper.OpenUCOMStream(null, "Catalog");
+			String          textData   = String.Empty;
+			
 			if(fileObject != null) {
-				byte[] fileData = new byte[fileObject.Length];
+				
+				Byte[] fileData = new Byte[fileObject.Length];
 				fileObject.Read(fileData, 0, (int)fileObject.Length);
-				MemoryStream ms = new MemoryStream(fileData);
-				BinaryReader br = new BinaryReader(ms);
+				
+				MemoryStream  ms = new MemoryStream(fileData);
+				BinaryReader  br = new BinaryReader(ms);
 				CatalogHeader ch = new CatalogHeader();
+				
 				ch.num1 = br.ReadInt16();
 				ch.num2 = br.ReadInt16();
 				ch.thumbCount = br.ReadInt32();
@@ -105,15 +110,17 @@ namespace ThumbDBLib {
 				ch.thumbHeight = br.ReadInt32();
 				
 				for(int index = 0;index < ch.thumbCount;index++) {
+					
 					CatalogItem item = new CatalogItem();
-					item.num1 = br.ReadInt32();
+					item.num1   = br.ReadInt32();
 					item.itemID = br.ReadInt32();
-					item.num3 = br.ReadInt16();
-					item.num4 = br.ReadInt16();
-					item.num5 = br.ReadInt16();
-					item.num6 = br.ReadInt16();
+					item.num3   = br.ReadInt16();
+					item.num4   = br.ReadInt16();
+					item.num5   = br.ReadInt16();
+					item.num6   = br.ReadInt16();
 					ushort usChar;
 					while((usChar = br.ReadUInt16()) != 0x0000) {
+						
 						byte[] aChar = new byte[2];
 						aChar[0] = (byte)(usChar & 0x00FF);
 						aChar[1] = (byte)((usChar & 0xFF00) >> 8);

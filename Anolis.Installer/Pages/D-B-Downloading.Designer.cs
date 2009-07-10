@@ -24,16 +24,13 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.@__progress = new System.Windows.Forms.ProgressBar();
-			this.@__status = new System.Windows.Forms.Label();
-
+			this.@__statusLbl = new System.Windows.Forms.Label();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
-
-
 			// 
 			// __content
 			// 
-			this.@__content.Controls.Add(this.@__status);
+			this.@__content.Controls.Add(this.@__statusLbl);
 			this.@__content.Controls.Add(this.@__progress);
 			// 
 			// __progress
@@ -43,21 +40,20 @@
 			this.@__progress.Size = new System.Drawing.Size(419, 23);
 			this.@__progress.TabIndex = 0;
 			// 
-			// __status
+			// __statusLbl
 			// 
-			this.@__status.AutoSize = true;
-			this.@__status.Location = new System.Drawing.Point(10, 102);
-			this.@__status.Name = "__status";
-			this.@__status.Size = new System.Drawing.Size(274, 13);
-			this.@__status.TabIndex = 1;
-			this.@__status.Text = "{0}% completed - {1}KB remain, downloading @ {2}KBps";
+			this.@__statusLbl.AutoSize = true;
+			this.@__statusLbl.Location = new System.Drawing.Point(10, 102);
+			this.@__statusLbl.Name = "__statusLbl";
+			this.@__statusLbl.Size = new System.Drawing.Size(274, 13);
+			this.@__statusLbl.TabIndex = 1;
+			this.@__statusLbl.Text = "{0}% completed - {1}KB remain, downloading @ {2}KBps";
 			// 
 			// DownloadingPage
 			// 
 			this.Name = "DownloadingPage";
-			this.PageTitle = "Downloading";
 			this.PageSubtitle = "Now downloading the Anolis program files";
-
+			this.PageTitle = "Downloading";
 			this.@__content.ResumeLayout(false);
 			this.@__content.PerformLayout();
 			this.ResumeLayout(false);
@@ -66,7 +62,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.Label __status;
+		private System.Windows.Forms.Label __statusLbl;
 		private System.Windows.Forms.ProgressBar __progress;
 	}
 }

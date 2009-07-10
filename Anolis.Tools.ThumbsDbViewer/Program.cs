@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Anolis.Tools.ThumbsDbViewer {
-	static class Program {
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
+	
+	public static class Program {
+		
 		[STAThread]
-		static void Main() {
+		public static void Main(String[] args) {
+			
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
+			
+			MainForm form = new MainForm();
+			
+			if( args.Length > 0 ) {
+				
+				form.InitialThumbsDb = args[0];
+			}
+			
+			Application.Run( form );
 		}
 	}
 }

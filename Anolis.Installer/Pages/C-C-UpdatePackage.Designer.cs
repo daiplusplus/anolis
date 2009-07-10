@@ -89,9 +89,10 @@
 			// 
 			// __downloadInfo
 			// 
+			this.@__downloadInfo.AutoSize = true;
 			this.@__downloadInfo.Location = new System.Drawing.Point(22, 161);
 			this.@__downloadInfo.Name = "__downloadInfo";
-			this.@__downloadInfo.Size = new System.Drawing.Size(167, 23);
+			this.@__downloadInfo.Size = new System.Drawing.Size(163, 23);
 			this.@__downloadInfo.TabIndex = 7;
 			this.@__downloadInfo.Text = "Visit Package Webpage";
 			this.@__downloadInfo.UseVisualStyleBackColor = true;

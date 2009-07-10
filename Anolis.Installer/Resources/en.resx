@@ -148,7 +148,7 @@ To continue, press Next</value>
     <value>Recovers files to their before-patched status. You will need the backup directory that was created during installation</value>
   </data>
   <data name="B_uninstallRad" xml:space="preserve">
-    <value>Undo changes made by this distribution</value>
+    <value>Undo changes made by a package installation</value>
   </data>
   <data name="Package" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Package.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -342,5 +342,124 @@ Close all open applications before continuing. Do not attempt to open any new ap
   </data>
   <data name="C_C_skipCheckLbl" xml:space="preserve">
     <value>You can skip the update check by clicking the Next button at any time.</value>
+  </data>
+  <data name="A_Message_Cus" xml:space="preserve">
+    <value>This wizard will guide you through the steps involved in installing {0}
+
+To continue, press Next</value>
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value>Welcome to the {0}</value>
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value>Installs {0} onto this computer or to a setup files (I386) folder.</value>
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value>Install {0}</value>
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value>Downloads tools so you can easily make your own package or distribution just like {0}</value>
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value>Undo changes made by {0}</value>
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value>An error occured whilst attempting to extract {0}</value>
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value>Please wait whilst the installer prepares {0} for installation</value>
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value>Review any release notes made by {0}</value>
+  </data>
+  <data name="C_G_Subtitle_Cus" xml:space="preserve">
+    <value>{0} is being installed</value>
+  </data>
+  <data name="C_A_anopFilenameLbl" xml:space="preserve">
+    <value>Filename</value>
+  </data>
+  <data name="C_A_packFilenameLbl" xml:space="preserve">
+    <value>Filename</value>
+  </data>
+  <data name="C_B_statusLbl" xml:space="preserve">
+    <value>Preparing...</value>
+  </data>
+  <data name="C_C_statusLbl" xml:space="preserve">
+    <value>Preparing...</value>
+  </data>
+  <data name="C_F_i386Lbl" xml:space="preserve">
+    <value>CD Root</value>
+  </data>
+  <data name="D_A_toolsLbl" xml:space="preserve">
+    <value>The downloadable tools include Resourcer, a powerful resource editor; Packager, which is used to make your actual package files and customized installers; and various other tools including a light icon editor.</value>
+  </data>
+  <data name="E_A_dirLbl" xml:space="preserve">
+    <value>Directory</value>
+  </data>
+  <data name="C_A_anopBrowse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="C_A_packBrowse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="C_B_Title" xml:space="preserve">
+    <value>Preparing Package</value>
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value>Preparing {0}</value>
+  </data>
+  <data name="C_C_downloadInfo" xml:space="preserve">
+    <value>Visit Package Webpage</value>
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value>Visit {0} 's Webpage</value>
+  </data>
+  <data name="C_C_downloadNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="C_C_downloadYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="C_F_backupBrowse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="C_F_i386Browse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="C_G_statusLbl" xml:space="preserve">
+    <value>Preparing...</value>
+  </data>
+  <data name="D_A_destBrowse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="D_A_Subtitle" xml:space="preserve">
+    <value>Select a directory in which to place the downloaded tools and set other options</value>
+  </data>
+  <data name="D_A_Title" xml:space="preserve">
+    <value>Destination Directory and Installation Options</value>
+  </data>
+  <data name="D_B_status" xml:space="preserve">
+    <value>Preparing...</value>
+  </data>
+  <data name="D_B_Subtitle" xml:space="preserve">
+    <value>Now downloading the Anolis tools</value>
+  </data>
+  <data name="D_B_Title" xml:space="preserve">
+    <value>Downloading</value>
+  </data>
+  <data name="E_A_browse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="E_A_sysRes" xml:space="preserve">
+    <value>Create System Restore Point (Recommended)</value>
+  </data>
+  <data name="E_A_sysResDesc" xml:space="preserve">
+    <value>An added layer of protection. Note this does not always protect against modifications made to non-Windows files under Program Files</value>
+  </data>
+  <data name="E_A_Title" xml:space="preserve">
+    <value>Select Backup Directory</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>Select the directory to recover from</value>
   </data>
 </root>

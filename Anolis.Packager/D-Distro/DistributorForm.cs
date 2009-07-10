@@ -210,20 +210,26 @@ namespace Anolis.Packager {
 			//////////////////////////////////////////
 			
 			if( __cusStringName.Text.Length > 0 )
-				wtr.AddResource("InstallerName", __cusStringName.Text );
+				wtr.AddResource("Installer_Name", __cusStringName.Text );
 			
 			if( __cusStringDeveloper.Text.Length > 0 )
-				wtr.AddResource("InstallerDeveloper", __cusStringDeveloper.Text );
+				wtr.AddResource("Installer_Developer", __cusStringDeveloper.Text );
 			
 			if( __cusStringWebsite.Text.Length > 0 )
-				wtr.AddResource("InstallerWebsite", __cusStringWebsite.Text );
+				wtr.AddResource("Installer_Website", __cusStringWebsite.Text );
+			
+			if( __cusStringCond.Text.Length > 0 )
+				wtr.AddResource("Installer_Condition", __cusStringCond.Text );
+			
+			if( __cusStringCondMsg.Text.Length > 0 )
+				wtr.AddResource("Installer_ConditionMessage", __cusStringCondMsg.Text );
 			
 			//////////////////////////////////////////
 			
-			wtr.AddResource("OptionSimpleUI"           , __cusOptSimple.Checked );
-			wtr.AddResource("OptionHideI386"           , __cusOptsHideI386.Checked );
-			wtr.AddResource("OptionDisablePackageCheck", __cusOptsCheckDisable.Checked );
-			wtr.AddResource("OptionDisableUpdateCheck" , __cusOptsCheckDisable.Checked );
+			wtr.AddResource("Option_SimpleUI"           , __cusOptSimple.Checked );
+			wtr.AddResource("Option_HideI386"           , __cusOptsHideI386.Checked );
+			wtr.AddResource("Option_DisablePackageCheck", __cusOptsCheckDisable.Checked );
+			wtr.AddResource("Option_DisableUpdateCheck" , __cusOptsCheckDisable.Checked );
 			
 			//////////////////////////////////////////
 			

@@ -104,24 +104,23 @@ namespace Anolis.Installer {
 		}
 		
 		public String InstallerName {
-			get {
-				if( _customizerSet == null ) return null;
-				return _customizerSet.GetString("Installer_Name");
-			}
+			get { return GetString("Installer_Name"); }
 		}
 		
 		public String InstallerDeveloper {
-			get {
-				if( _customizerSet == null ) return null;
-				return _customizerSet.GetString("Installer_Developer");
-			}
+			get { return GetString("Installer_Developer"); }
 		}
 		
 		public String InstallerWebsite {
-			get {
-				if( _customizerSet == null ) return null;
-				return _customizerSet.GetString("Installer_Website");
-			}
+			get { return GetString("Installer_Website"); }
+		}
+		
+		public String InstallerCondition {
+			get { return GetString("Installer_Condition"); }
+		}
+		
+		public String InstallerConditionMessage {
+			get { return GetString("Installer_ConditionMessage"); }
 		}
 		
 		public Boolean SimpleUI {
@@ -150,6 +149,11 @@ namespace Anolis.Installer {
 				if( _customizerSet == null ) return false;
 				return (Boolean)_customizerSet.GetObject("Option_DisableUpdateCheck");
 			}
+		}
+		
+		private String GetString(String key) {
+			if( _customizerSet == null ) return null;
+			return _customizerSet.GetString(key);
 		}
 		
 	}
@@ -276,8 +280,9 @@ namespace Anolis.Installer {
 			ret = CurrentLanguage.ResourceSet.GetString( name );
 			if( ret != null ) return ret;
 			
-			return _english.ResourceSet.GetString( name );
+			ret = _english.ResourceSet.GetString( name );
 			
+			return ret;
 		}
 		
 		public static Object GetObject(String name) {

@@ -138,11 +138,11 @@
 			// __i386Lbl
 			// 
 			this.@__i386Lbl.Enabled = false;
-			this.@__i386Lbl.Location = new System.Drawing.Point(40, 193);
+			this.@__i386Lbl.Location = new System.Drawing.Point(3, 193);
 			this.@__i386Lbl.Name = "__i386Lbl";
-			this.@__i386Lbl.Size = new System.Drawing.Size(45, 23);
+			this.@__i386Lbl.Size = new System.Drawing.Size(82, 23);
 			this.@__i386Lbl.TabIndex = 9;
-			this.@__i386Lbl.Text = "I386";
+			this.@__i386Lbl.Text = "CD Root";
 			this.@__i386Lbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// __i386Browse

@@ -191,6 +191,7 @@
     <EmbeddedResource Include="Pages\F-Finished.resx">
       <DependentUpon>F-Finished.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\cy.resx" />
     <EmbeddedResource Include="Resources\it.resx">
       <LastGenOutput>it.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -265,6 +266,7 @@
     <None Include="Resources\Flags\nl.png" />
     <None Include="Resources\Flags\ru.png" />
     <None Include="Resources\Flags\it.png" />
+    <None Include="Resources\Flags\cy.png" />
     <Content Include="Resources\Package.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

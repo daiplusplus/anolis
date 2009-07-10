@@ -23,7 +23,6 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
 			this.@__packageView = new System.Windows.Forms.TreeView();
 			this.@__infoPicture = new System.Windows.Forms.PictureBox();
 			this.@__infoLbl = new System.Windows.Forms.Label();
@@ -38,11 +37,6 @@
 			// __content
 			// 
 			this.@__content.Controls.Add(this.@__split);
-			// 
-			// __ofd
-			// 
-			this.@__ofd.Filter = "Anolis Package (*.anop)|*.anop|All files (*.*)|*.*";
-			this.@__ofd.Title = "Select Anolis Package File";
 			// 
 			// __packageView
 			// 
@@ -109,7 +103,6 @@
 
 		#endregion
 
-		private System.Windows.Forms.OpenFileDialog __ofd;
 		private System.Windows.Forms.TreeView __packageView;
 		private System.Windows.Forms.PictureBox __infoPicture;
 		private System.Windows.Forms.Label __infoLbl;

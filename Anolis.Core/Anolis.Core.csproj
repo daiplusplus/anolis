@@ -133,6 +133,7 @@
     <Compile Include="Core\Source\Native\Win32ResourceSource.cs" />
     <Compile Include="Packages\Exceptions.cs" />
     <Compile Include="Packages\Expression.cs" />
+    <Compile Include="Packages\Operations\DirectoryOperation.cs" />
     <Compile Include="Packages\Operations\Extras\BootScreenExtraOperation.cs" />
     <Compile Include="Packages\Operations\UxThemeOperation.cs" />
     <Compile Include="Packages\Operations\UninstallationOperation.cs" />

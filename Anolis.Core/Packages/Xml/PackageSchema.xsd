@@ -74,15 +74,27 @@
 						
 					</xs:complexType>
 				</xs:element>
+				
+				<xs:element name="directory" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<!-- <directory /> attributes -->
+						<xs:attributeGroup ref="common" />
+						<xs:attribute name="path"          type="xs:anyURI"       use="required" />
+						<xs:attribute name="src"           type="xs:anyURI"       use="required" />
+						<xs:attribute name="overwrite"     type="xs:boolean"      use="optional" />
+						
+					</xs:complexType>
+				</xs:element>
 					
 				<xs:element name="extra" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						
 						<!-- <extra /> attributes -->
 						<xs:attributeGroup ref="common" />
-						<xs:attribute name="attribution" type="xs:string"  use="optional" />
 						<xs:attribute name="type"        type="extraType"  use="required" />
 						<xs:attribute name="path"        type="xs:anyURI"  use="required" />
+						<xs:attribute name="options"     type="xs:string"  use="optional" />
 						
 					</xs:complexType>
 				</xs:element>

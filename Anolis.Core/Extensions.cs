@@ -27,6 +27,7 @@ namespace Anolis.Core {
 	
 	public static class Extensions {
 		
+		/// <summary>Copies the contents of this DirectoryInfo to the destination directory. If it doesn't exist it will be created.</summary>
 		public static void CopyTo(this DirectoryInfo source, String destination) {
 			
 			if( !source.Exists ) throw new DirectoryNotFoundException("source directory doesn't exist: " + source.FullName);

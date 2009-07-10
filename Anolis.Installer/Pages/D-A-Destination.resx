@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="__toolsLbl.Text" xml:space="preserve">
+    <value>The downloadable tools include Resourcer, a powerful resource editor; Packager, which is used to make your actual package files and customized installers; and various other tools including a light icon editor.</value>
+  </data>
   <metadata name="__fbd.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

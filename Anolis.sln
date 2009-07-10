@@ -33,9 +33,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.DuplicateFiles
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.FileTypes", "Anolis.Tools.FileTypes\Anolis.Tools.FileTypes.csproj", "{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.AlphaBitmap", "Anolis.Tools.AlphaBitmap\Anolis.Tools.AlphaBitmap.csproj", "{8330FD1C-B035-4260-9E8B-B9BBDC8A3A16}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 13
+		SccNumberOfProjects = 14
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs03.codeplex.com/
 		SccLocalPath0 = .
@@ -75,6 +77,9 @@ Global
 		SccProjectUniqueName12 = Anolis.Tools.FileTypes\\Anolis.Tools.FileTypes.csproj
 		SccProjectName12 = Anolis.Tools.FileTypes
 		SccLocalPath12 = Anolis.Tools.FileTypes
+		SccProjectUniqueName13 = Anolis.Tools.AlphaBitmap\\Anolis.Tools.AlphaBitmap.csproj
+		SccProjectName13 = Anolis.Tools.AlphaBitmap
+		SccLocalPath13 = Anolis.Tools.AlphaBitmap
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Anolis.vsmdi
@@ -164,6 +169,12 @@ Global
 		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2F751F48-AB9C-4C5E-B3E8-2AD124F80DFA}.Release|x86.ActiveCfg = Release|Any CPU
+		{8330FD1C-B035-4260-9E8B-B9BBDC8A3A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8330FD1C-B035-4260-9E8B-B9BBDC8A3A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8330FD1C-B035-4260-9E8B-B9BBDC8A3A16}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8330FD1C-B035-4260-9E8B-B9BBDC8A3A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8330FD1C-B035-4260-9E8B-B9BBDC8A3A16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8330FD1C-B035-4260-9E8B-B9BBDC8A3A16}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
