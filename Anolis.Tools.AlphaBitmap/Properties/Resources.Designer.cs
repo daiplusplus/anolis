@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Anolis.Tools.UxTheme.Properties {
+namespace Anolis.Tools.AlphaBitmap.Properties {
 
 
 	/// <summary>
@@ -38,7 +38,7 @@ namespace Anolis.Tools.UxTheme.Properties {
 		internal static global::System.Resources.ResourceManager ResourceManager {
 			get {
 				if((resourceMan == null)) {
-					global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Anolis.Tools.UxTheme.Properties.Resources", typeof(Resources).Assembly);
+					global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Anolis.Tools.AlphaBitmap.Properties.Resources", typeof(Resources).Assembly);
 					resourceMan = temp;
 				}
 				return resourceMan;

@@ -20,7 +20,6 @@ namespace Anolis.Installer.Pages {
 			InitializeComponent();
 			
 			this.PageLoad += new EventHandler(InstallingPage_PageLoad);
-			this.__showLog.Click += new EventHandler(__showLog_Click);
 			
 			__bw.DoWork += new DoWorkEventHandler(__bw_DoWork);
 			__bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(__bw_RunWorkerCompleted);
@@ -29,24 +28,6 @@ namespace Anolis.Installer.Pages {
 		}
 		
 		protected override String LocalizePrefix { get { return "C_G"; } }
-		
-		private void __showLog_Click(object sender, EventArgs e) {
-			
-			StringBuilder sb = new StringBuilder();
-			foreach(LogItem item in PackageInfo.Package.Log) {
-				
-				sb.Append( item.Severity.ToString() );
-				sb.Append(" ");
-				sb.Append( item.Message );
-				sb.Append("\r\n");
-			}
-			
-			__packageMessages.Text = sb.ToString();
-			if( __packageMessages.Text.Length > 1 ) __packageMessages.SelectionStart = __packageMessages.Text.Length - 1;
-			__packageMessages.ScrollToCaret();
-			
-			__packageMessages.Visible = true;
-		}
 		
 		private void InstallingPage_PageLoad(object sender, EventArgs e) {
 			
@@ -110,14 +91,14 @@ namespace Anolis.Installer.Pages {
 					
 					__progress.Style = ProgressBarStyle.Marquee;
 					
-					__statusLabel.Text = e.Message;
+					__statusLbl.Text = e.Message;
 					
 				} else {
 					
 					__progress.Style = ProgressBarStyle.Blocks;
 					__progress.Value = e.Percentage;
 					
-					__statusLabel.Text = String.Format( InstallerResources.GetString("C_G_status") , e.Percentage, e.Message );
+					__statusLbl.Text = String.Format( InstallerResources.GetString("C_G_status") , e.Percentage, e.Message );
 				}
 				
 				

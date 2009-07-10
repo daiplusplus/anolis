@@ -91,6 +91,8 @@ namespace Anolis.Installer.Pages {
 		
 		private TreeNode PopulateTreeview(TreeNodeCollection parent, PackageItem item) {
 			
+			if( item.Hidden ) return null;
+			
 			TreeNode node = new TreeNode( item.ToString() ) { Checked = item.Enabled, Tag = item };
 			
 			parent.Add( node );

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Anolis.Tools.UxTheme")]
+[assembly: AssemblyTitle("Anolis.Tools.AlphaBitmap")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Anolis.Tools.UxTheme")]
+[assembly: AssemblyProduct("Anolis.Tools.AlphaBitmap")]
 [assembly: AssemblyCopyright("Copyright ©  2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("29b2c74a-da1b-4f71-9764-44b9dc936e41")]
+[assembly: Guid("b34a078c-4f16-4694-879d-7a8e563fead5")]
 
 // Version information for an assembly consists of the following four values:
 //

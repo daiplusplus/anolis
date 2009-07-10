@@ -23,6 +23,7 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DestinationPage));
 			this.@__destBrowse = new System.Windows.Forms.Button();
 			this.@__progGroup = new System.Windows.Forms.CheckBox();
 			this.@__progGroupAll = new System.Windows.Forms.RadioButton();
@@ -46,7 +47,7 @@
 			// 
 			// __destBrowse
 			// 
-			this.@__destBrowse.Location = new System.Drawing.Point(365, 103);
+			this.@__destBrowse.Location = new System.Drawing.Point(365, 84);
 			this.@__destBrowse.Name = "__destBrowse";
 			this.@__destBrowse.Size = new System.Drawing.Size(75, 23);
 			this.@__destBrowse.TabIndex = 1;
@@ -58,7 +59,7 @@
 			this.@__progGroup.AutoSize = true;
 			this.@__progGroup.Checked = true;
 			this.@__progGroup.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.@__progGroup.Location = new System.Drawing.Point(22, 150);
+			this.@__progGroup.Location = new System.Drawing.Point(22, 135);
 			this.@__progGroup.Name = "__progGroup";
 			this.@__progGroup.Size = new System.Drawing.Size(240, 17);
 			this.@__progGroup.TabIndex = 2;
@@ -69,7 +70,7 @@
 			// 
 			this.@__progGroupAll.AutoSize = true;
 			this.@__progGroupAll.Checked = true;
-			this.@__progGroupAll.Location = new System.Drawing.Point(42, 173);
+			this.@__progGroupAll.Location = new System.Drawing.Point(42, 158);
 			this.@__progGroupAll.Name = "__progGroupAll";
 			this.@__progGroupAll.Size = new System.Drawing.Size(81, 17);
 			this.@__progGroupAll.TabIndex = 3;
@@ -80,7 +81,7 @@
 			// __progGroupMe
 			// 
 			this.@__progGroupMe.AutoSize = true;
-			this.@__progGroupMe.Location = new System.Drawing.Point(42, 196);
+			this.@__progGroupMe.Location = new System.Drawing.Point(42, 181);
 			this.@__progGroupMe.Name = "__progGroupMe";
 			this.@__progGroupMe.Size = new System.Drawing.Size(76, 17);
 			this.@__progGroupMe.TabIndex = 4;
@@ -89,7 +90,7 @@
 			// 
 			// __destLbl
 			// 
-			this.@__destLbl.Location = new System.Drawing.Point(1, 108);
+			this.@__destLbl.Location = new System.Drawing.Point(1, 89);
 			this.@__destLbl.Name = "__destLbl";
 			this.@__destLbl.Size = new System.Drawing.Size(119, 27);
 			this.@__destLbl.TabIndex = 5;
@@ -104,19 +105,20 @@
 			this.@__destPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
 			this.@__destPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
 			this.@__destPath.FormattingEnabled = true;
-			this.@__destPath.Location = new System.Drawing.Point(126, 104);
+			this.@__destPath.Location = new System.Drawing.Point(126, 85);
 			this.@__destPath.Name = "__destPath";
 			this.@__destPath.Size = new System.Drawing.Size(235, 21);
 			this.@__destPath.TabIndex = 6;
 			// 
 			// __toolsLbl
 			// 
+			this.@__toolsLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__toolsLbl.Location = new System.Drawing.Point(3, 9);
 			this.@__toolsLbl.Name = "__toolsLbl";
 			this.@__toolsLbl.Size = new System.Drawing.Size(437, 64);
 			this.@__toolsLbl.TabIndex = 7;
-			this.@__toolsLbl.Text = "The downloadable tools include a resource editor, a package builder, and an icon/" +
-				"cursor editor.";
+			this.@__toolsLbl.Text = resources.GetString("__toolsLbl.Text");
 			// 
 			// DestinationPage
 			// 

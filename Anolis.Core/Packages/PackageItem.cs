@@ -62,7 +62,7 @@ namespace Anolis.Core.Packages {
 				{"servicepack" , Env.ServicePack },
 				{"architecture", Env.IsX64 ? 64 : 32 },
 				{"installlang" , Cult.InstalledUICulture.LCID },
-				{"i386"        , Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.I386 ? 1 : 0 }
+				{"i386"        , Package == null ? -1 : ( Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.I386 ? 1 : 0 ) }
 			};
 			
 		}

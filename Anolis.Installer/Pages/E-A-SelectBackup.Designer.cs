@@ -23,8 +23,8 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.@__lbl = new System.Windows.Forms.Label();
-			this.@__dirpath = new System.Windows.Forms.TextBox();
+			this.@__dirLbl = new System.Windows.Forms.Label();
+			this.@__dir = new System.Windows.Forms.TextBox();
 			this.@__browse = new System.Windows.Forms.Button();
 			this.@__fbd = new System.Windows.Forms.FolderBrowserDialog();
 			this.@__sysRes = new System.Windows.Forms.CheckBox();
@@ -37,26 +37,26 @@
 			this.@__content.Controls.Add(this.@__sysRes);
 			this.@__content.Controls.Add(this.@__sysResDesc);
 			this.@__content.Controls.Add(this.@__browse);
-			this.@__content.Controls.Add(this.@__dirpath);
-			this.@__content.Controls.Add(this.@__lbl);
+			this.@__content.Controls.Add(this.@__dir);
+			this.@__content.Controls.Add(this.@__dirLbl);
 			// 
-			// __lbl
+			// __dirLbl
 			// 
-			this.@__lbl.AutoSize = true;
-			this.@__lbl.Location = new System.Drawing.Point(19, 54);
-			this.@__lbl.Name = "__lbl";
-			this.@__lbl.Size = new System.Drawing.Size(49, 13);
-			this.@__lbl.TabIndex = 0;
-			this.@__lbl.Text = "Directory";
+			this.@__dirLbl.AutoSize = true;
+			this.@__dirLbl.Location = new System.Drawing.Point(19, 54);
+			this.@__dirLbl.Name = "__dirLbl";
+			this.@__dirLbl.Size = new System.Drawing.Size(49, 13);
+			this.@__dirLbl.TabIndex = 0;
+			this.@__dirLbl.Text = "Directory";
 			// 
-			// __dirpath
+			// __dir
 			// 
-			this.@__dirpath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+			this.@__dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__dirpath.Location = new System.Drawing.Point(76, 51);
-			this.@__dirpath.Name = "__dirpath";
-			this.@__dirpath.Size = new System.Drawing.Size(287, 20);
-			this.@__dirpath.TabIndex = 1;
+			this.@__dir.Location = new System.Drawing.Point(76, 51);
+			this.@__dir.Name = "__dir";
+			this.@__dir.Size = new System.Drawing.Size(287, 20);
+			this.@__dir.TabIndex = 1;
 			// 
 			// __browse
 			// 
@@ -108,8 +108,8 @@
 		#endregion
 
 		private System.Windows.Forms.Button __browse;
-		private System.Windows.Forms.TextBox __dirpath;
-		private System.Windows.Forms.Label __lbl;
+		private System.Windows.Forms.TextBox __dir;
+		private System.Windows.Forms.Label __dirLbl;
 		private System.Windows.Forms.FolderBrowserDialog __fbd;
 		private System.Windows.Forms.CheckBox __sysRes;
 		private System.Windows.Forms.Label __sysResDesc;

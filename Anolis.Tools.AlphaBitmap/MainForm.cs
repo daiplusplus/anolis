@@ -6,9 +6,9 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Anolis.Tools.UxTheme {
-	public partial class Form1 : Form {
-		public Form1() {
+namespace Anolis.Tools.AlphaBitmap {
+	public partial class MainForm : Form {
+		public MainForm() {
 			InitializeComponent();
 		}
 	}

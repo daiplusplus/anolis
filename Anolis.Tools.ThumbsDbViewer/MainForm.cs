@@ -14,13 +14,29 @@ namespace Anolis.Tools.ThumbsDbViewer {
 		public MainForm() {
 			
 			InitializeComponent();
+
+			this.Load += new EventHandler(MainForm_Load);
 			
 			this.__thumbPathBrowse.Click += new EventHandler(__thumbPathBrowse_Click);
-			this.__thumbPathLoad.Click += new EventHandler(__thumbPathLoad_Click);
-			this.__export.Click += new EventHandler(__export_Click);
-			
-			this.__credit.Click += new EventHandler(__credit_Click);
+			this.__thumbPathLoad  .Click += new EventHandler(__thumbPathLoad_Click);
+			this.__export         .Click += new EventHandler(__export_Click);
+			this.__credit         .Click += new EventHandler(__credit_Click);
 		}
+		
+		public String InitialThumbsDb { get; set; }
+		
+		private void MainForm_Load(object sender, EventArgs e) {
+			
+			if( File.Exists( InitialThumbsDb ) ) {
+				
+				__thumbPath.Text = InitialThumbsDb;
+				
+				LoadDb();
+			}
+			
+		}
+		
+		
 		
 		private void __credit_Click(object sender, EventArgs e) {
 			

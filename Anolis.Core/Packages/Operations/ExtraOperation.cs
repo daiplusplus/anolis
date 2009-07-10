@@ -14,6 +14,8 @@ namespace Anolis.Core.Packages.Operations {
 		
 		protected ExtraOperation(ExtraType type, Package package, Group parent, XmlElement operationElement) : base(package, parent, operationElement) {
 			
+			Options = operationElement.GetAttribute("options");
+			
 			String file = operationElement.GetAttribute("path");
 			
 			file = PackageUtility.ResolvePath( file, package.RootDirectory.FullName );
@@ -42,6 +44,7 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public String             Attribution { get; private set; }
 		public ExtraType          ExtraType   { get; private set; }
+		public String             Options     { get; private set; }
 		public Collection<String> Files       { get; private set; }
 		
 		public static ExtraOperation Create(Package package, Group parent, XmlElement operationElement) {
@@ -93,7 +96,11 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override void Write(XmlElement parent) {
 			
-			CreateElement(parent, "extra", "type", ExtraType.ToString(), "path", Path );
+			CreateElement(parent, "extra",
+				"type"   , ExtraType.ToString(),
+				"path"   , Path,
+				"options", Options
+			);
 		}
 		
 		protected static void MakeRegOp(Group backupGroup, String keyPath, String valueName) {

@@ -2,6 +2,8 @@
 using System.IO;
 using System.Xml;
 
+using Microsoft.Win32;
+
 using P = System.IO.Path;
 
 namespace Anolis.Core.Packages.Operations {
@@ -23,7 +25,46 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override void Execute() {
 			
-			// add the registry key and copy this Anolis.Installer program to the Backup directory. The uninstallation command will supply the path to the uninstall.xml file
+			if( !Package.ExecutionInfo.MakeBackup ) return;
+			
+			//////////////////////////////////
+			// Copy files to the Backup directory
+			
+			String dispIconFn = null;
+			
+			if( !String.IsNullOrEmpty( DisplayIcon ) ) {
+				
+				FileInfo iconSrc = Package.RootDirectory.GetFile( DisplayIcon );
+				if( iconSrc.Exists ) {
+					dispIconFn = PackageUtility.GetUnusedFileName( P.Combine( Package.ExecutionInfo.BackupDirectory.FullName, "DisplayIcon.ico" ) );
+					iconSrc.CopyTo( dispIconFn );
+				} else {
+					Package.Log.Add( Anolis.Core.Utility.LogSeverity.Error, "Could not find DisplayIcon: " + DisplayIcon );
+				}
+			}
+			
+			//////////////////////////////////
+			// Add the registry key
+			RegistryKey uninstallKey = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", RegistryKeyPermissionCheck.ReadWriteSubTree);
+			
+			String regKeyName = "Anolis" + Package.ExecutionInfo.BackupDirectory.Name;
+			
+			RegistryKey prodKey = uninstallKey.CreateSubKey( regKeyName );
+			                              prodKey.SetValue("DisplayName"         , Package.Name, RegistryValueKind.String);
+			if( dispIconFn != null )      prodKey.SetValue("DisplayIcon"         , dispIconFn, RegistryValueKind.String);
+			                              prodKey.SetValue("UninstallString"     , Package.ExecutionInfo.BackupDirectory + "Uninstall.exe", RegistryValueKind.String);
+			
+			if( Package.Website != null ) prodKey.SetValue("HelpLink"       , Package.Website.OriginalString   , RegistryValueKind.String);
+			                              prodKey.SetValue("Publisher"      , Package.Attribution              , RegistryValueKind.String);
+			                              prodKey.SetValue("InstallDate"    , DateTime.Now.ToString("yyyyMMdd"), RegistryValueKind.String);
+			
+			// TODO: Get the Package version and split up into Major and Minor DWORDs
+//			                              prodKey.SetValue("Version"        , "", RegistryValueKind.DWord);
+//			                              prodKey.SetValue("VersionMajor"   , "", RegistryValueKind.DWord);
+//			                              prodKey.SetValue("VersionMinor"   , "", RegistryValueKind.DWord);
+			
+			prodKey.Close();
+			uninstallKey.Close();
 			
 		}
 		

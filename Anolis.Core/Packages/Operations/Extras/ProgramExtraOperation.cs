@@ -10,6 +10,8 @@ using Microsoft.Win32;
 using Anolis.Core.Utility;
 
 using P = System.IO.Path;
+using N = System.Globalization.NumberStyles;
+using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Core.Packages.Operations {
 	
@@ -29,10 +31,16 @@ namespace Anolis.Core.Packages.Operations {
 				ProcessStartInfo startInfo = new ProcessStartInfo(fileName, argument);
 				startInfo.CreateNoWindow = true;
 				
-				Process process = Process.Start( startInfo );
-				process.WaitForExit(15 * 1000); // wait no more than 15 seconds
+				Int32 wait;
+				if( !Int32.TryParse( Options, N.Integer, Cult.InvariantCulture, out wait ) ) {
+					
+					wait = 15 * 1000;  // wait no more than 15 seconds by default
+				}
 				
-				if(!process.HasExited && !process.Responding) {
+				Process process = Process.Start( startInfo );
+				process.WaitForExit( Math.Abs( wait ) );
+				
+				if(!process.HasExited && !process.Responding && wait < 0) {
 					// note that hung command-line programs will still be running
 					process.Kill();
 					Package.Log.Add( new LogItem(LogSeverity.Error, "Killed nonresponsive process: " + startInfo.FileName) );

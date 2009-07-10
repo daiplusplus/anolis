@@ -36,10 +36,10 @@ namespace Anolis.Installer.Pages {
 		
 		private Boolean PrepareToUninstall() {
 			
-			if( __dirpath.Text.Length == 0 ) return false;
-			if( !Path.IsPathRooted( __dirpath.Text ) ) return false;
+			if( __dir.Text.Length == 0 ) return false;
+			if( !Path.IsPathRooted( __dir.Text ) ) return false;
 			
-			DirectoryInfo dir = new DirectoryInfo( __dirpath.Text );
+			DirectoryInfo dir = new DirectoryInfo( __dir.Text );
 			if( !dir.Exists ) return false;
 			
 			FileInfo packageFile = dir.GetFile("package.xml");
@@ -65,7 +65,7 @@ namespace Anolis.Installer.Pages {
 			
 			if( __fbd.ShowDialog(this) == DialogResult.OK ) {
 				
-				__dirpath.Text = __fbd.SelectedPath;
+				__dir.Text = __fbd.SelectedPath;
 			}
 			
 		}

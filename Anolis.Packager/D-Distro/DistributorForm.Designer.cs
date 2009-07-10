@@ -64,6 +64,10 @@
 			this.@__ofdInstaller = new System.Windows.Forms.OpenFileDialog();
 			this.@__ofdImage = new System.Windows.Forms.OpenFileDialog();
 			this.@__ofdIcon = new System.Windows.Forms.OpenFileDialog();
+			this.@__cusStringCondMsg = new System.Windows.Forms.TextBox();
+			this.@__cusStringCondMsgLbl = new System.Windows.Forms.Label();
+			this.@__cusStringCond = new System.Windows.Forms.TextBox();
+			this.@__cusStringCondLbl = new System.Windows.Forms.Label();
 			this.@__tabs.SuspendLayout();
 			this.@__tPackages.SuspendLayout();
 			this.@__tCus.SuspendLayout();
@@ -222,7 +226,7 @@
 			this.@__cusOptions.Controls.Add(this.@__cusOptsHideI386);
 			this.@__cusOptions.Controls.Add(this.@__cusOptSimpleLbl);
 			this.@__cusOptions.Controls.Add(this.@__cusOptSimple);
-			this.@__cusOptions.Location = new System.Drawing.Point(12, 320);
+			this.@__cusOptions.Location = new System.Drawing.Point(12, 389);
 			this.@__cusOptions.Name = "__cusOptions";
 			this.@__cusOptions.Size = new System.Drawing.Size(532, 222);
 			this.@__cusOptions.TabIndex = 10;
@@ -317,6 +321,10 @@
 			// 
 			this.@__cusStrings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__cusStrings.Controls.Add(this.@__cusStringCondMsg);
+			this.@__cusStrings.Controls.Add(this.@__cusStringCondMsgLbl);
+			this.@__cusStrings.Controls.Add(this.@__cusStringCond);
+			this.@__cusStrings.Controls.Add(this.@__cusStringCondLbl);
 			this.@__cusStrings.Controls.Add(this.@__cusStringDeveloper);
 			this.@__cusStrings.Controls.Add(this.@__cusStringDeveloperLbl);
 			this.@__cusStrings.Controls.Add(this.@__cusStringWebsite);
@@ -325,7 +333,7 @@
 			this.@__cusStrings.Controls.Add(this.@__cusStringNameLbl);
 			this.@__cusStrings.Location = new System.Drawing.Point(12, 210);
 			this.@__cusStrings.Name = "__cusStrings";
-			this.@__cusStrings.Size = new System.Drawing.Size(532, 104);
+			this.@__cusStrings.Size = new System.Drawing.Size(532, 173);
 			this.@__cusStrings.TabIndex = 9;
 			this.@__cusStrings.TabStop = false;
 			this.@__cusStrings.Text = "Strings";
@@ -476,6 +484,42 @@
 			// 
 			this.@__ofdIcon.FileName = "Icon Files (*.ico)|*.ico";
 			// 
+			// __cusStringCondMsg
+			// 
+			this.@__cusStringCondMsg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__cusStringCondMsg.Location = new System.Drawing.Point(111, 124);
+			this.@__cusStringCondMsg.Name = "__cusStringCondMsg";
+			this.@__cusStringCondMsg.Size = new System.Drawing.Size(415, 20);
+			this.@__cusStringCondMsg.TabIndex = 9;
+			// 
+			// __cusStringCondMsgLbl
+			// 
+			this.@__cusStringCondMsgLbl.Location = new System.Drawing.Point(6, 127);
+			this.@__cusStringCondMsgLbl.Name = "__cusStringCondMsgLbl";
+			this.@__cusStringCondMsgLbl.Size = new System.Drawing.Size(99, 19);
+			this.@__cusStringCondMsgLbl.TabIndex = 8;
+			this.@__cusStringCondMsgLbl.Text = "Failure Message";
+			this.@__cusStringCondMsgLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// __cusStringCond
+			// 
+			this.@__cusStringCond.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__cusStringCond.Location = new System.Drawing.Point(111, 98);
+			this.@__cusStringCond.Name = "__cusStringCond";
+			this.@__cusStringCond.Size = new System.Drawing.Size(415, 20);
+			this.@__cusStringCond.TabIndex = 7;
+			// 
+			// __cusStringCondLbl
+			// 
+			this.@__cusStringCondLbl.Location = new System.Drawing.Point(6, 101);
+			this.@__cusStringCondLbl.Name = "__cusStringCondLbl";
+			this.@__cusStringCondLbl.Size = new System.Drawing.Size(99, 19);
+			this.@__cusStringCondLbl.TabIndex = 6;
+			this.@__cusStringCondLbl.Text = "Condition";
+			this.@__cusStringCondLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
 			// DistributorForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -546,5 +590,9 @@
 		private System.Windows.Forms.Label __cusStringNameLbl;
 		private System.Windows.Forms.Label __cusOptsUpdateLbl;
 		private System.Windows.Forms.CheckBox __cusOptsUpdate;
+		private System.Windows.Forms.TextBox __cusStringCondMsg;
+		private System.Windows.Forms.Label __cusStringCondMsgLbl;
+		private System.Windows.Forms.TextBox __cusStringCond;
+		private System.Windows.Forms.Label __cusStringCondLbl;
 	}
 }
