@@ -14,17 +14,23 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class VisualStyleExtraOperation : ExtraOperation {
 		
-		public VisualStyleExtraOperation(Package package, Group parent, XmlElement element) :  base(ExtraType.VisualStyle, package, parent, element) {
+		public VisualStyleExtraOperation(Group parent, XmlElement element) :  base(ExtraType.VisualStyle, parent, element) {
 		}
 		
-		public VisualStyleExtraOperation(Package package, Group parent, String path) :  base(ExtraType.VisualStyle, package, parent, path) {
+		public VisualStyleExtraOperation(Group parent, String path) :  base(ExtraType.VisualStyle, parent, path) {
 		}
 		
 		private static readonly String _themesDir = PackageUtility.ResolvePath(@"%windir%\Resources\Themes");
 		
+		public override Boolean SupportsCDImage {
+			get { return true; }
+		}
+		
 		public override void Execute() {
 			
 			if( Files.Count == 0 ) return;
+			
+			Boolean reg = Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular;
 			
 			Backup( Package.ExecutionInfo.BackupGroup );
 			
@@ -32,13 +38,20 @@ namespace Anolis.Core.Packages.Operations {
 			
 			foreach(String msStylesFileName in Files) {
 				
-				String installedPath;
-				if( InstallStyle( msStylesFileName, out installedPath ) )
-					lastMsstyle = installedPath;
+				if( reg ) {
+					
+					String installedPath;
+					if( InstallStyleRegular( msStylesFileName, out installedPath ) )
+						lastMsstyle = installedPath;
+					
+				} else {
+					
+					InstallStyleCDImage( msStylesFileName );
+				}
 				
 			}
 			
-			if( lastMsstyle != null )
+			if( reg && lastMsstyle != null )
 				MakeActive( lastMsstyle );
 			
 		}
@@ -56,9 +69,21 @@ namespace Anolis.Core.Packages.Operations {
 			MakeRegOp(backupGroup, keyPath, "SizeName");
 			MakeRegOp(backupGroup, keyPath, "DllName");
 			
+			if( Package.ExecutionInfo.ApplyToDefault ) {
+				
+				keyPath = @"HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\ThemeManager";
+				
+				MakeRegOp(backupGroup, keyPath, "WCreatedUser");
+				MakeRegOp(backupGroup, keyPath, "LoadedBefore");
+				MakeRegOp(backupGroup, keyPath, "ThemeActive");
+				MakeRegOp(backupGroup, keyPath, "ColorName");
+				MakeRegOp(backupGroup, keyPath, "SizeName");
+				MakeRegOp(backupGroup, keyPath, "DllName");
+			}
+			
 		}
 		
-		private Boolean InstallStyle(String packageMsstylesPath, out String installedMsstylesPath) {
+		private Boolean InstallStyleRegular(String packageMsstylesPath, out String installedMsstylesPath) {
 			
 			// copy the entire directory to the Themes directory basically
 			
@@ -77,6 +102,25 @@ namespace Anolis.Core.Packages.Operations {
 			installedMsstylesPath = P.Combine( destDirectoryName, P.GetFileName( packageMsstylesPath ) );
 			
 			return true;
+		}
+		
+		private void InstallStyleCDImage(String packageMsstylesPath) {
+			
+			DirectoryInfo source = new DirectoryInfo( P.GetDirectoryName( packageMsstylesPath ) );
+			
+			if( !source.Exists ) {
+				Package.Log.Add( Anolis.Core.Utility.LogSeverity.Error, "Source directory doesn't exist: " + source.FullName );
+				return;
+			}
+			
+			DirectoryInfo winDir = Package.ExecutionInfo.CDImage.OemWindows;
+			DirectoryInfo dest = winDir.GetDirectory(@"Resources\Themes");
+			if( !dest.Exists ) dest.Create();
+			
+			String destDirectoryName = PackageUtility.GetUnusedDirectoryName( P.Combine( dest.FullName, source.Name ) );
+			
+			source.CopyTo( destDirectoryName );
+			
 		}
 		
 		private void MakeActive(String msstylesPath) {

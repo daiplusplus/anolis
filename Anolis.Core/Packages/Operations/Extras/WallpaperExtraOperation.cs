@@ -19,10 +19,14 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class WallpaperExtraOperation : ExtraOperation {
 		
-		public WallpaperExtraOperation(Package package, Group parent, XmlElement element) : base(ExtraType.Wallpaper, package, parent, element) {
+		public WallpaperExtraOperation(Group parent, XmlElement element) : base(ExtraType.Wallpaper, parent, element) {
 		}
 		
 		private static readonly String _wallpaperDir = PackageUtility.ResolvePath(@"%windir%\Web\Wallpaper");
+		
+		public override Boolean SupportsCDImage {
+			get { return true; }
+		}
 		
 		public override void Execute() {
 			
@@ -37,18 +41,21 @@ namespace Anolis.Core.Packages.Operations {
 			
 			List<String> installedWallpapers = new List<String>();
 			
+			Boolean reg = Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular;
+			
 			foreach(String source in Files) {
 				
-				String dest = P.Combine( _wallpaperDir, P.GetFileName( source ) );
-				
-				String moved = PackageUtility.ReplaceFile( dest );
-				if(moved != null) Package.Log.Add( LogSeverity.Warning, "File renamed: " + dest + " -> " + moved );
-				
-				File.Copy( source, dest );
-				
-				installedWallpapers.Add( dest );
-				
-				lastWallpaper = dest;
+				if( reg ) {
+					
+					String dest = InstallWallpaperRegular( source );
+					
+					installedWallpapers.Add( dest );
+					lastWallpaper = dest;
+					
+				} else {
+					
+					InstallWallpaperCDImage( source );
+				}
 			}
 			
 			Backup( Package.ExecutionInfo.BackupGroup, installedWallpapers );
@@ -57,7 +64,7 @@ namespace Anolis.Core.Packages.Operations {
 			// call SystemParametersInfo to set the current wallpaper apparently
 			// and then call RedrawWindow to repaint the desktop
 			
-			if( lastWallpaper != null )
+			if( reg && lastWallpaper != null )
 				SetWallpaper(ref lastWallpaper);
 			
 		}
@@ -71,18 +78,46 @@ namespace Anolis.Core.Packages.Operations {
 			MakeRegOp(backupGroup, keyPath, "Wallpaper");
 			MakeRegOp(backupGroup, keyPath, "WallpaperStyle");
 			
-			       keyPath = @"HKEY_USERS\.DEFAULT\Control Panel\Desktop";
-			
-			MakeRegOp(backupGroup, keyPath, "Wallpaper");
-			MakeRegOp(backupGroup, keyPath, "WallpaperStyle");
-			
-			///////////////////////////////
+			if( Package.ExecutionInfo.ApplyToDefault ) {
+				
+				keyPath = @"HKEY_USERS\.DEFAULT\Control Panel\Desktop";
+				
+				MakeRegOp(backupGroup, keyPath, "Wallpaper");
+				MakeRegOp(backupGroup, keyPath, "WallpaperStyle");
+				
+			}
 			
 			foreach(String installedWallaper in installedWallpapers) {
 				
-				FileOperation op = new FileOperation( backupGroup.Package, backupGroup, null, installedWallaper, FileOperationType.Delete );
+				FileOperation op = new FileOperation( backupGroup, null, installedWallaper, FileOperationType.Delete );
 				backupGroup.Operations.Add( op );
 			}
+			
+		}
+		
+		private String InstallWallpaperRegular(String wallpaperPackageFileName) {
+			
+			String dest = P.Combine( _wallpaperDir, P.GetFileName( wallpaperPackageFileName ) );
+			
+			String moved = PackageUtility.ReplaceFile( dest );
+			if(moved != null) Package.Log.Add( LogSeverity.Warning, "File renamed: " + dest + " -> " + moved );
+			
+			File.Copy( wallpaperPackageFileName, dest );
+			
+			return dest;
+		}
+		
+		private void InstallWallpaperCDImage(String wallpaperPackageFileName) {
+			
+			DirectoryInfo wallpaperDir = Package.ExecutionInfo.CDImage.OemWindows.GetDirectory(@"Web\Wallpaper");
+			if( !wallpaperDir.Exists ) wallpaperDir.Create();
+			
+			String dest = P.Combine( wallpaperDir.FullName, P.GetFileName( wallpaperPackageFileName ) ); 
+			
+			String moved = PackageUtility.ReplaceFile( dest );
+			if(moved != null) Package.Log.Add( LogSeverity.Warning, "File renamed: " + dest + " -> " + moved );
+			
+			File.Copy( wallpaperPackageFileName, dest );
 			
 		}
 		
@@ -118,11 +153,14 @@ namespace Anolis.Core.Packages.Operations {
 			// set the wallpaper
 			NativeMethods.SystemParametersInfo( (uint)SpiAction.SetDesktopWallpaper, 0, wallpaperFilename, NativeMethods.SpiUpdate.SendWinIniChange | NativeMethods.SpiUpdate.UpdateIniFile);
 			
-			// set the .DEFAULT wallpaper for good measure
-			RegistryKey logonKey = Registry.Users.OpenSubKey(".DEFAULT").OpenSubKey(@"Control Panel\Desktop", true);
-			logonKey.SetValue("Wallpaper"     , wallpaperFilename, RegistryValueKind.String);
-			logonKey.SetValue("WallpaperStyle",               "2", RegistryValueKind.String); // 2 = stretch
-			logonKey.Close();
+			if( Package.ExecutionInfo.ApplyToDefault ) {
+				
+				// set the .DEFAULT wallpaper for good measure
+				RegistryKey logonKey = Registry.Users.OpenSubKey(".DEFAULT").OpenSubKey(@"Control Panel\Desktop", true);
+				logonKey.SetValue("Wallpaper"     , wallpaperFilename, RegistryValueKind.String);
+				logonKey.SetValue("WallpaperStyle",               "2", RegistryValueKind.String); // 2 = stretch
+				logonKey.Close();
+			}
 			
 			// refresh the desktop
 			Rdf flags = Rdf.Invalidate | Rdf.Erase | Rdf.AllChildren | Rdf.UpdateNow;

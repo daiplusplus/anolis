@@ -15,14 +15,14 @@
 			<xs:attribute name="id"            type="xs:ID"      use="optional" />
 			<xs:attribute name="name"          type="xs:string"  use="required" />
 			<xs:attribute name="condition"     type="xs:string"  use="optional" />
-			<xs:attribute name="conditionDesc" type="xs:string" use="optional" />
+			<xs:attribute name="conditionDesc" type="xs:string"  use="optional" />
 			
 			<xs:attribute name="version"       type="xs:decimal" use="required" />
 			<xs:attribute name="attribution"   type="xs:string"  use="required" />
 			<xs:attribute name="website"       type="xs:anyURI"  use="optional" />
 			<xs:attribute name="updateUri"     type="xs:anyURI"  use="optional" />
 			
-			<xs:attribute name="releaseNotes"  type="xs:anyURI" use="optional" />
+			<xs:attribute name="releaseNotes"  type="xs:anyURI"  use="optional" />
 			
 		</xs:complexType>
 	</xs:element><!-- /package -->
@@ -32,6 +32,106 @@
 		<xs:sequence maxOccurs="unbounded" minOccurs="0">
 			
 			<xs:choice>
+				
+				<xs:element name="group" type="itemGroup" minOccurs="0" maxOccurs="unbounded" />
+				
+				<!-- Simple Operations -->
+				
+				<xs:element name="cursorScheme" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<xs:sequence minOccurs="1" maxOccurs="unbounded">
+							
+							<xs:element name="cursor">
+								<xs:complexType>
+									
+									<!-- <cursor /> attributes -->
+									<xs:attribute name="type" type="cursorType" use="required" />
+									<xs:attribute name="src"  type="xs:anyURI"  use="required" />
+									
+								</xs:complexType>
+							</xs:element>
+							
+						</xs:sequence>
+						
+						<!-- <cursorScheme /> attributes -->
+						<xs:attributeGroup ref="common" />
+						<xs:attribute name="schemeName" type="xs:string" use="required" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="registry" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<!-- <registry /> attributes -->
+						<xs:attributeGroup ref="common" />
+						
+						<xs:attribute name="key"   type="xs:string"    use="required" />
+						<xs:attribute name="vname" type="xs:string"    use="required" />
+						<xs:attribute name="value" type="xs:string"    use="required" />
+						<xs:attribute name="type"  type="registryType" use="required" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="fileType" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<!-- <fileType /> attributes -->
+						<xs:attributeGroup ref="common" />
+						
+						<xs:attribute name="typeExt"      type="xs:string"  use="required" />
+						<xs:attribute name="friendlyName" type="xs:string"  use="required" />
+						<xs:attribute name="icon"         type="xs:anyURI"  use="required" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="systemParameter" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<!-- <systemParameter /> attributes -->
+						<xs:attributeGroup ref="common" />
+						
+						<xs:attribute name="spiAction" type="xs:string" use="required" />
+						<xs:attribute name="uiParam"   type="xs:string" use="optional" />
+						<xs:attribute name="pvParam"   type="xs:string" use="optional" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="uxtheme" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						
+						<!-- <uxtheme /> attributes -->
+						<xs:attributeGroup ref="common" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="uninstallation" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						
+						<!-- <uninstallation /> attributes -->
+						<xs:attributeGroup ref="common" />
+						
+						<xs:attribute name="displayIcon" type="xs:anyURI" use="required" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="clearIconcache" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						
+						<!-- <uninstallation /> attributes -->
+						<xs:attributeGroup ref="common" />
+					</xs:complexType>
+				</xs:element>
+				
+				<!-- ################################# -->
+				<!-- Path Operations -->
+				<!-- ################################# -->
 				
 				<xs:element name="patch" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
@@ -55,9 +155,10 @@
 						<!-- <patch /> attributes -->
 						<xs:attributeGroup ref="common" />
 						<xs:attribute name="conditionHash" type="xs:base64Binary" use="optional" />
-						<xs:attribute name="path"          type="xs:anyURI" use="required" />
-						<xs:attribute name="saveTo"        type="xs:anyURI" use="optional" />
-						<xs:attribute name="i386path"      type="xs:string" use="optional" />
+						<xs:attribute name="path"          type="xs:anyURI"       use="required" />
+						<xs:attribute name="i386path"      type="xs:string"       use="optional" />
+						
+						<!-- <xs:attribute name="saveTo"        type="xs:anyURI" use="optional" /> -->
 						
 					</xs:complexType>
 				</xs:element>
@@ -94,95 +195,21 @@
 						<xs:attributeGroup ref="common" />
 						<xs:attribute name="type"        type="extraType"  use="required" />
 						<xs:attribute name="path"        type="xs:anyURI"  use="required" />
-						<xs:attribute name="options"     type="xs:string"  use="optional" />
 						
 					</xs:complexType>
 				</xs:element>
 				
-				<xs:element name="cursorScheme" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="program" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						
-						<xs:sequence minOccurs="1" maxOccurs="unbounded">
-							
-							<xs:element name="cursor">
-								<xs:complexType>
-									
-									<!-- <cursor /> attributes -->
-									<xs:attribute name="type" type="cursorType" use="required" />
-									<xs:attribute name="src"  type="xs:anyURI"  use="required" />
-									
-								</xs:complexType>
-							</xs:element>
-							
-						</xs:sequence>
-						
-						<!-- <cursorScheme /> attributes -->
+						<!-- <extra /> attributes -->
 						<xs:attributeGroup ref="common" />
-						<xs:attribute name="schemeName" type="xs:string" use="required" />
+						<xs:attribute name="path"        type="xs:anyURI"  use="required" />
+						<xs:attribute name="arguments"   type="xs:anyURI"  use="optional" />
+						<xs:attribute name="timeout"     type="xs:integer" use="optional" />
 						
 					</xs:complexType>
 				</xs:element>
-				
-				<xs:element name="registry" minOccurs="0" maxOccurs="unbounded">
-					<xs:complexType>
-
-						<!-- <registry /> attributes -->
-						<xs:attributeGroup ref="common" />
-						
-						<xs:attribute name="key"   type="xs:string"    use="required" />
-						<xs:attribute name="vname" type="xs:string"    use="required" />
-						<xs:attribute name="value" type="xs:string"    use="required" />
-						<xs:attribute name="type"  type="registryType" use="required" />
-						
-					</xs:complexType>
-				</xs:element>
-				
-				<xs:element name="fileType" minOccurs="0" maxOccurs="unbounded">
-					<xs:complexType>
-						
-						<!-- <fileType /> attributes -->
-						<xs:attributeGroup ref="common" />
-						
-						<xs:attribute name="typeExt" type="xs:string"  use="required" />
-						<xs:attribute name="icon"    type="xs:anyURI"  use="required" />
-						
-					</xs:complexType>
-				</xs:element>
-				
-				<xs:element name="systemParameter" minOccurs="0" maxOccurs="unbounded">
-					<xs:complexType>
-
-						<!-- <systemParameter /> attributes -->
-						<xs:attributeGroup ref="common" />
-						
-						<xs:attribute name="spiAction" type="xs:string" use="required" />
-						<xs:attribute name="uiParam"   type="xs:string" use="optional" />
-						<xs:attribute name="pvParam"   type="xs:string" use="optional" />
-						
-					</xs:complexType>
-				</xs:element>
-				
-				<xs:element name="uxtheme" minOccurs="0" maxOccurs="1">
-					<xs:complexType>
-						
-						<!-- <uxtheme /> attributes -->
-						<xs:attributeGroup ref="common" />
-						
-					</xs:complexType>
-				</xs:element>
-				
-				<xs:element name="uninstallation" minOccurs="0" maxOccurs="1">
-					<xs:complexType>
-						
-						<!-- <uninstallation /> attributes -->
-						<xs:attributeGroup ref="common" />
-						
-						<xs:attribute name="displayIcon" type="xs:anyURI" use="required" />
-						
-					</xs:complexType>
-				</xs:element>
-				
-				<xs:element name="group" type="itemGroup" minOccurs="0" maxOccurs="unbounded" />
 				
 			</xs:choice>
 			
@@ -190,7 +217,6 @@
 		
 		<!-- <group> attributes -->
 		<xs:attributeGroup ref="common" />
-		<xs:attribute name="mutex"    type="xs:IDREFS"  use="optional" />
 		
 	</xs:complexType>
 	
@@ -218,9 +244,9 @@
 			<xs:enumeration value="bootscreen" />
 			<xs:enumeration value="visualStyle" />
 			<xs:enumeration value="screensaver" />
-			<xs:enumeration value="program" />
 			<xs:enumeration value="registry" />
 			<xs:enumeration value="custom" />
+			<xs:enumeration value="runOnce" />
 		</xs:restriction>
 	</xs:simpleType>
 	

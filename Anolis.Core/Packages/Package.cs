@@ -26,7 +26,7 @@ namespace Anolis.Core.Packages {
 			CreateState();
 			
 			RootDirectory = root;
-			RootGroup     = new Group(this, null, (String[])null);
+			RootGroup     = new Group(this, null);
 		}
 		
 		internal Package(DirectoryInfo root, XmlElement packageElement) : base(null, packageElement) {
@@ -85,7 +85,7 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
-		private String ConditionDesc { get; set; }
+		public String ConditionDesc { get; set; }
 		
 		public Single Version      { get; set; }
 		public String Attribution  { get; set; }
@@ -116,11 +116,23 @@ namespace Anolis.Core.Packages {
 			
 			settings.ValidationType = ValidationType.Schema;
 			
-			XmlReader rdr = XmlReader.Create( packageXmlFileName, settings );
 			XmlDocument doc = new XmlDocument();
 			doc.PreserveWhitespace = true;
 			
-			doc.Load( rdr );
+			using(XmlReader rdr = XmlReader.Create( packageXmlFileName, settings )) {
+				
+				try {
+					
+					doc.Load( rdr );
+					
+				} catch(XmlException xex) {
+					
+					String message = String.Format(Cult.InvariantCulture, "XML Parsing Error: \"{0}\" on line {1} position {2}", xex.Message, xex.LineNumber, xex.LinePosition);
+					
+					throw new PackageValidationException(message, xex);
+				}
+				
+			}
 			
 			doc.Validate( new ValidationEventHandler( delegate(Object sender, ValidationEventArgs ve) {
 				
@@ -182,15 +194,9 @@ namespace Anolis.Core.Packages {
 		
 #region Execute
 		
-		public EvaluationInfo EvaluateCondition() {
+		public override EvaluationResult Evaluate() {
 			
-			Dictionary<String,Double> symbols = BuildSymbols();
-			
-			EvaluationResult result = Evaluate( symbols );
-			
-			EvaluationInfo ret = new EvaluationInfo( result, result == EvaluationResult.False ? ConditionDesc : String.Empty );
-			
-			return ret;
+			return EvaluateCondition( GetSymbols() );
 		}
 		
 		public void Execute(PackageExecutionSettings settings) {
@@ -214,6 +220,7 @@ namespace Anolis.Core.Packages {
 				
 				Package backupPackage = new Package( settings.BackupDirectory );
 				backupPackage.Name = "Uninstallation Package";
+				backupPackage.Attribution = "Anolis Installer";
 				
 				backupGroup = backupPackage.RootGroup;
 			}
@@ -264,6 +271,8 @@ namespace Anolis.Core.Packages {
 			if( ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular )
 				PackageUtility.AllowProtectedRenames();
 			
+			Boolean systemRestoreCreationSuccessful = false;
+			
 			///////////////////////////////////
 			// System Restore, Part 1
 			if( ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular && ExecutionInfo.CreateSystemRestorePoint ) {
@@ -272,7 +281,9 @@ namespace Anolis.Core.Packages {
 				
 				String pointName = "Installed Anolis Package \"" + this.RootGroup.Name + '"';
 				
-				PackageUtility.CreateSystemRestorePoint( pointName, PackageUtility.SystemRestoreType.ApplicationInstall, PackageUtility.SystemRestoreEventType.BeginSystemChange );
+				systemRestoreCreationSuccessful = PackageUtility.CreateSystemRestorePoint( pointName, PackageUtility.SystemRestoreType.ApplicationInstall, PackageUtility.SystemRestoreEventType.BeginSystemChange );
+				
+				if( !systemRestoreCreationSuccessful ) Log.Add( LogSeverity.Error, "Failed to create System Restore point" ); 
 			}
 			
 			///////////////////////////////////
@@ -286,11 +297,34 @@ namespace Anolis.Core.Packages {
 					
 					OnProgressEvent( new PackageProgressEventArgs( (int)( 100 * i++ / cnt ), op.ToString() ) );
 					
-					if( !op.SupportsI386 && ExecutionInfo.ExecutionMode == PackageExecutionMode.I386 ) continue;
+					if( !op.SupportsCDImage && ExecutionInfo.ExecutionMode == PackageExecutionMode.CDImage ) continue;
 					
 					try {
 						
-						op.Execute();
+						if( op.CustomEvaluation ) {
+							
+							op.Execute();
+							
+						} else {
+							
+							EvaluationResult result = op.Evaluate();
+							
+							switch(result) {
+								case EvaluationResult.False:
+									Log.Add( LogSeverity.Info, "Evaluation False - " + op.Key );
+									break;
+								case EvaluationResult.FalseParent:
+									Log.Add( LogSeverity.Info, "Evaluation ParentFalse - " + op.Key );
+									break;
+								case EvaluationResult.Error:
+									Log.Add( LogSeverity.Error, "Evaluation Error - " + op.Key );
+									break;
+								case EvaluationResult.True:
+									op.Execute();
+									break;
+							}
+							
+						}
 						
 					} catch(Exception ex) {
 						
@@ -298,11 +332,17 @@ namespace Anolis.Core.Packages {
 						continue;
 					}
 					
-					Log.Add( LogSeverity.Info, "Done " + op.Name + ": " + op.Path );
+#if !DEBUG
+					// don't add "Info - Done {op}" in debug mode because it's too verbose and clutters up the logfile
+					PathOperation pathOp = op as PathOperation;
+					if( pathOp != null ) {
+						Log.Add( LogSeverity.Info, "Done " + op.Name + ": " + pathOp.Path );
+					} else {
+						Log.Add( LogSeverity.Info, "Done " + op.Name );
+					}
+#endif
 					
 				}//foreach
-				
-				PackageUtility.ClearIconCache();
 				
 				OnProgressEvent( new PackageProgressEventArgs( 100, "Complete" ) );
 				
@@ -310,7 +350,7 @@ namespace Anolis.Core.Packages {
 				
 				///////////////////////////////////
 				// System Restore, Part 2
-				if( ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular && ExecutionInfo.CreateSystemRestorePoint ) {
+				if( systemRestoreCreationSuccessful ) {
 					
 					OnProgressEvent( new PackageProgressEventArgs( -1, "Finishing System Restore Point" ) );
 					
@@ -324,11 +364,6 @@ namespace Anolis.Core.Packages {
 				
 				if( ExecutionInfo.BackupGroup != null ) {
 					
-					UninstallationOperation uninstOp = new UninstallationOperation(ExecutionInfo.BackupPackage, ExecutionInfo.BackupGroup);
-					ExecutionInfo.BackupGroup.Operations.Add( uninstOp );
-					
-					// copying of the installer binaries is the responsibility of the installer
-					
 					String backupFileName = Path.Combine( ExecutionInfo.BackupDirectory.FullName, "Package.xml" );
 					
 					ExecutionInfo.BackupPackage.Write( backupFileName );
@@ -338,8 +373,7 @@ namespace Anolis.Core.Packages {
 				///////////////////////////////////
 				// Dump the log to disk
 				
-				if( Log.CountNonNominal > 0 )
-					Log.Save( Path.Combine( this.RootDirectory.FullName, "Anolis.Installer.log" ) );
+				Log.Save( Path.Combine( this.RootDirectory.FullName, "Anolis.Installer.log" ) );
 				
 				IsBusy = false;
 				
@@ -347,8 +381,56 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
-#endregion
+		public void DeleteFiles() {
+			
+			if( this.IsBusy ) throw new InvalidOperationException("Cannot delete files whilst the package is executing");
+			
+			FileInfo logFile = RootDirectory.GetFile("Anolis.Installer.log");
+			String logFileDest = RootDirectory.Parent.GetFile( logFile.Name ).FullName;
+			if( logFile.Exists ) {
+				
+				if( File.Exists( logFileDest ) ) File.Delete( logFileDest );
+				
+				logFile.MoveTo( logFileDest );
+			}
+			
+			if( RootDirectory.Exists ) {
+				
+				Exception ex = null;
+				
+				try {
+					
+					RootDirectory.Delete(true);
+					
+				} catch(IOException iox) {
+					ex = iox;
+				} catch(UnauthorizedAccessException uax) {
+					ex = uax;
+				} catch(System.Security.SecurityException sex) {
+					ex = sex;
+				}
+				
+				if( ex != null ) {
+					// the obvious cases have been taken care of. This exception could happen because:
+					//   * the user has a file open
+					//   * its trying to delete Uninstall.exe if this was an uninstallation package (!!!)
+					// so just append it to the log
+					
+					if( File.Exists( logFileDest ) ) {
+						using(StreamWriter wtr = new StreamWriter(logFileDest, true)) {
+							
+							LogItem item = new LogItem(LogSeverity.Error, ex, "DeleteFiles IOException");
+							item.Write( wtr );
+						}
+					}
+					
+				}//if
+				
+			}//if
+			
+		}//void
 		
+#endregion
 		
 		/// <summary>A blocking method that returns details of the latest version, if it exists. Returns null under all failure conditions.</summary>
 		public PackageUpdateInfo CheckForUpdates() {
@@ -450,129 +532,6 @@ namespace Anolis.Core.Packages {
 		public Single  Version             { get; private set; }
 		public Uri     PackageLocation     { get; private set; }
 		public Uri     InformationLocation { get; private set; }
-		
-	}
-	
-	public class PackageExecutionSettings {
-		
-		public PackageExecutionMode ExecutionMode            { get; set; }
-		
-		public DirectoryInfo        BackupDirectory          { get; set; }
-		
-		public Boolean              CreateSystemRestorePoint { get; set; }
-		
-		public DirectoryInfo        I386Directory            { get; set; }
-		
-	}
-	
-	/// <summary>A read-only version of PackageExecutionSettings for passing to operations and consumers of Package</summary>
-	public class PackageExecutionSettingsInfo {
-		
-		internal PackageExecutionSettingsInfo(Package package, PackageExecutionMode mode, Boolean createSysRes, Group backupGroup, DirectoryInfo i386Directory) {
-			
-			ExecutionMode            = mode;
-			CreateSystemRestorePoint = createSysRes;
-			BackupGroup              = backupGroup;
-			
-			if( Directory.Exists( PackageUtility.ResolvePath(@"%windir%\SysWow64") ) ) {
-				MirrorX64            = IntPtr.Size == 8;
-			}
-			
-			if( i386Directory != null ) {
-				
-				I386Directory = i386Directory;
-				_i386Files    = I386Directory.GetFiles();
-				
-				Array.Sort( _i386Files, (x,y) => String.Compare( x.Name, y.Name, StringComparison.OrdinalIgnoreCase ) );
-			}
-		}
-		
-		public Package Package { get; private set; }
-		
-		public PackageExecutionMode ExecutionMode { get; private set; }
-		
-		public Boolean CreateSystemRestorePoint   { get; private set; }
-		
-		public Group BackupGroup { get; private set; }
-		
-		public Package BackupPackage {
-			get { return BackupGroup == null ? null : BackupGroup.Package; }
-		}
-		
-		public DirectoryInfo BackupDirectory {
-			get { return BackupGroup == null ? null : BackupPackage.RootDirectory; }
-		}
-		
-		public Boolean MakeBackup {
-			get { return BackupGroup != null; }
-		}
-		
-		public Boolean RequiresRestart {
-			get; set;
-		}
-		
-		/// <summary>If changes made to \system32 should also be applied to \SysWow64. This is automatically 'true' on x64 systems unless set otherwise.</summary>
-		public Boolean MirrorX64 {
-			get; set;
-		}
-		
-#region I386
-		
-		private static readonly FileSearchComparer _comp = new FileSearchComparer();
-		
-		private FileInfo[] _i386Files;
-		
-		public DirectoryInfo I386Directory { get; private set; }
-		
-		public FileInfo I386FindFile(String fileName) {
-			
-			Int32 idx = Array.BinarySearch( _i386Files, fileName, _comp );
-			
-			if( idx < 0 ) return null;
-			
-			return _i386Files[idx];
-			
-		}
-		
-		private class FileSearchComparer : IComparer<Object> {
-			
-			public Int32 Compare(object x, object y) {
-				
-				FileInfo fx = x as FileInfo;
-				String   sy = y as String;
-				
-				return String.Compare( fx.Name, sy, StringComparison.OrdinalIgnoreCase );
-				
-			}
-		}
-		
-#endregion
-		
-	}
-	
-	public enum PackageExecutionMode {
-		Regular,
-		I386
-	}
-	
-	public class EvaluationInfo {
-		
-		public EvaluationInfo(EvaluationResult result, String message) {
-			Result  = result;
-			Message = message;
-		}
-		
-		public EvaluationResult Result {
-			get; private set;
-		}
-		
-		public String Message {
-			get; private set;
-		}
-		
-		public Boolean Success {
-			get { return Result == EvaluationResult.True; }
-		}
 		
 	}
 	

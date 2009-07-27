@@ -25,11 +25,24 @@ namespace Anolis.Installer.Pages {
 		
 		protected override String LocalizePrefix { get { return "B"; } }
 		
+		protected override void Localize() {
+			base.Localize();
+			
+			if( InstallerResources.IsCustomized ) {
+				
+				__installRad    .Text = InstallerResources.GetString("B_installRad_Cus"    , InstallerResources.CustomizedSettings.InstallerFullName);
+				__installBlurb  .Text = InstallerResources.GetString("B_installBlurb_Cus"  , InstallerResources.CustomizedSettings.InstallerName);
+				__uninstallRad  .Text = InstallerResources.GetString("B_uninstallRad_Cus"  , InstallerResources.CustomizedSettings.InstallerFullName);
+				__toolsBlurb    .Text = InstallerResources.GetString("B_toolsBlurb_Cus"    , InstallerResources.CustomizedSettings.InstallerName);
+			}
+			
+		}
+		
 		private void MainActionPage_Load(object sender, EventArgs e) {
 			
-			__toolsRad .Font = new Font( __toolsRad.Font, FontStyle.Bold );
-			__installRad.Font = new Font( __toolsRad.Font, FontStyle.Bold );
-			__uninstallRad   .Font = new Font( __toolsRad.Font, FontStyle.Bold );
+			__toolsRad    .Font = new Font( __toolsRad.Font, FontStyle.Bold );
+			__installRad  .Font = new Font( __toolsRad.Font, FontStyle.Bold );
+			__uninstallRad.Font = new Font( __toolsRad.Font, FontStyle.Bold );
 		}
 		
 		private void MainActionPage_PageUnload(object sender, PageChangeEventArgs e) {
@@ -64,6 +77,7 @@ namespace Anolis.Installer.Pages {
 				if( __installRad.Checked ) {
 					
 					if( InstallerResources.IsCustomized && InstallerResources.CustomizedSettings.SimpleUI ) {
+						
 						SetDefaultPackage();
 						
 						return Program.PageCBExtracting;
@@ -105,8 +119,6 @@ namespace Anolis.Installer.Pages {
 				PackageInfo.Source     = PackageSource.Embedded;
 				PackageInfo.SourcePath = package.Name;
 				PackageInfo.Archive    = PackageArchive.FromStream( package.Name, PackageSubclass.LzmaTarball, stream );
-				
-				WizardForm.LoadNextPage();
 			}
 			
 		}

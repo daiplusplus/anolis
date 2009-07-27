@@ -13,13 +13,27 @@ namespace Anolis.Core.Packages.Operations {
 		
 		private List<FileTypeSetting> _types;
 		
-		public FileTypeOperation(Package package, Group parent, XmlElement element) :  base(package, parent, element) {
+		public FileTypeOperation(Group parent, XmlElement element) :  base(parent, element) {
 			_types = new List<FileTypeSetting>();
 			
-			String type = element.GetAttribute("typeExt");
-			String icon = element.GetAttribute("icon");
+			TypeExtension    = element.GetAttribute("typeExt");
+			TypeFriendlyName = element.GetAttribute("friendlyName");
+			TypeIcon         = element.GetAttribute("icon");
 			
-			FileTypeSetting set = new FileTypeSetting() { TypeExt = type, Icon = icon };
+			FileTypeSetting setting = new FileTypeSetting() {
+				TypeExt      = TypeExtension,
+				FriendlyName = TypeFriendlyName,
+				Icon         = TypeIcon
+			};
+			_types.Add( setting );
+		}
+		
+		public String TypeFriendlyName { get; set; }
+		public String TypeExtension    { get; set; }
+		public String TypeIcon         { get; set; }
+		
+		public FileTypeOperation(Group parent) :  base(parent) {
+			_types = new List<FileTypeSetting>();
 			
 		}
 		
@@ -29,10 +43,12 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override void Execute() {
 			
+			FileAssociations assoc = FileAssociations.GetAssociations();
+			
+			Backup( assoc, Package.ExecutionInfo.BackupGroup );
+			
 			DirectoryInfo iconsDir = new DirectoryInfo( PackageUtility.ResolvePath( @"%windir%\Resources\Icons" ) );
 			if( !iconsDir.Exists ) iconsDir.Create();
-			
-			FileAssociations assoc = FileAssociations.GetAssoctiations();
 			
 			foreach(FileTypeSetting setting in _types) {
 				
@@ -41,44 +57,83 @@ namespace Anolis.Core.Packages.Operations {
 					continue;
 				}
 				
-				FileType type = null;
+				FileType      targetType      = null;
+				FileExtension targetExtension = null;
 				
 				// get the type for this extension
 				foreach(FileExtension ext in assoc.AllExtensions) {
 					if( String.Equals( ext.Extension, setting.TypeExt, StringComparison.OrdinalIgnoreCase ) ) {
-						type = ext.FileType;
+						targetExtension = ext;
 						break;
 					}
 				}
 				
-				if( type == null ) {
-					Package.Log.Add( LogSeverity.Warning, "Could not find Type for ext \"" + setting.TypeExt + '"');
-					continue;
+				if( targetExtension == null ) {
+					// create type and extension
+					
+					Package.Log.Add( LogSeverity.Info, "Extension undefined: \"" + setting.TypeExt + "\". Creating FileType and FileExtension");
+					
+					targetType = assoc.CreateFileType( assoc.GetUnusedProgIdForExtension( setting.TypeExt ) );
+					targetType.FriendlyName = setting.FriendlyName;
+					
+					targetExtension = assoc.CreateFileExtension( setting.TypeExt );
+					targetExtension.FileType = targetType;
+					
+				} else {
+					
+					targetType = targetExtension.FileType;
+					
+					if( targetType == null ) {
+						
+						// create the type
+						
+						Package.Log.Add( LogSeverity.Info, "Extension defined : \"" + setting.TypeExt + "\", but FileType undefined. Creating FileType");
+						
+						targetType = assoc.CreateFileType( assoc.GetUnusedProgIdForExtension( setting.TypeExt ) );
+						targetType.FriendlyName = setting.FriendlyName;
+						
+						targetExtension.FileType = targetType;
+						
+					}
 				}
 				
 				////////////////////////
-				
 				// copy the icon files to %windir%\Resources\Icons
 				
 				FileInfo iconFile = Package.RootDirectory.GetFile( setting.Icon );
 				
-				iconFile.CopyTo( P.Combine( iconsDir.FullName, iconFile.Name ), true );
+				String destinationFileName = P.Combine( iconsDir.FullName, iconFile.Name );
 				
-				type.DefaultIcon = iconFile.FullName;
+				iconFile.CopyTo( destinationFileName, true );
+				
+				targetType.DefaultIcon = destinationFileName;
+				targetType.IsDirty     = true;
 			}
 			
 			assoc.CommitChanges();
 			
 		}
 		
-		private void Backup(Group backupGroup) {
+		private void Backup(FileAssociations assoc, Group backupGroup) {
 			
 			if( backupGroup == null ) return;
 			
+			// NOTE: Delete the %windir%\resources\Icons directory?
+			
 			foreach(FileTypeSetting setting in _types) {
 				
+				FileExtension existingExtension = assoc.GetExtension( setting.TypeExt );
+				if( existingExtension == null ) continue;
 				
+				FileType existingType = existingExtension.FileType;
+				if( existingType == null ) continue;
 				
+				FileTypeOperation op = new FileTypeOperation(backupGroup);
+				op.TypeExtension    = setting.TypeExt;
+				op.TypeFriendlyName = setting.FriendlyName;
+				op.TypeIcon         = existingType.DefaultIcon;
+ 				
+ 				backupGroup.Operations.Add( op );
 			}
 			
 		}
@@ -107,6 +162,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			public String TypeExt;
 			public String Icon;
+			public String FriendlyName;
 		}
 		
 	}

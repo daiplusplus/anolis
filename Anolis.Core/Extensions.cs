@@ -224,6 +224,10 @@ namespace Anolis.Core {
 			
 		}
 		
+		public static Boolean Contains(this Array array, Object item) {
+			return array.IndexOf( item ) > -1;
+		}
+		
 		public static void AddRange2<T>(this IList<T> list, IEnumerable<T> items) {
 			
 			// not as fast as AddRange in List<T>, but it'll do
@@ -357,7 +361,21 @@ namespace Anolis.Core {
 			String fileName = Path.Combine( directory.FullName, relativeFileName );
 			
 			return new FileInfo( fileName );
+		}
+		
+		public static DirectoryInfo GetDirectory(this DirectoryInfo directory, String relativeDirName) {
 			
+			if( directory == null ) throw new ArgumentNullException("directory");
+			if( String.IsNullOrEmpty( relativeDirName ) ) throw new ArgumentNullException(relativeDirName);
+			
+			directory.Refresh(); // there was a case where the directory does exist but the .Exists returns false even though it was created, you must call Refresh
+			if( !directory.Exists ) throw new DirectoryNotFoundException("Could not find " + directory.FullName);
+			
+			if( relativeDirName[0] == '\\' || relativeDirName[0] == '/' ) relativeDirName = relativeDirName.Substring(1);
+			
+			String dirName = Path.Combine( directory.FullName, relativeDirName );
+			
+			return new DirectoryInfo( dirName );
 		}
 		
 		public static Boolean IsEmpty(this DirectoryInfo directory) {
@@ -378,6 +396,17 @@ namespace Anolis.Core {
 		
 		public static Boolean IsIndexed(this PixelFormat pixelFormat) {
 			return (pixelFormat & PixelFormat.Indexed) == PixelFormat.Indexed;
+		}
+		
+		public static Dictionary<TKey,TValue> Clone<TKey,TValue>(this Dictionary<TKey,TValue> dict) {
+			
+			Dictionary<TKey,TValue> ret = new Dictionary<TKey,TValue>( dict.Keys.Count );
+			foreach(TKey key in dict.Keys) {
+				
+				ret.Add( key, dict[key] );
+			}
+			
+			return ret;
 		}
 		
 	}

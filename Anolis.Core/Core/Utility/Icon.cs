@@ -17,7 +17,8 @@ namespace Anolis.Core.Utility {
 		private static readonly ResourceTypeIdentifier _iiTypeId = new ResourceTypeIdentifier( Win32ResourceType.IconImage );
 		private static readonly ResourceTypeIdentifier _ciTypeId = new ResourceTypeIdentifier( Win32ResourceType.CursorImage );
 		
-		private List<IDirectoryMember> _images = new List<IDirectoryMember>();
+		private List<IDirectoryMember>    _images = new List<IDirectoryMember>();
+		private DirectoryMemberCollection _members;
 		
 		public IconType     Type          { get; private set; }
 		
@@ -38,18 +39,16 @@ namespace Anolis.Core.Utility {
 			
 		}
 		
-		private DirectoryMemberCollection _members;
+		public IconGroup(ResourceLang directoryLang, Byte[] rawData) {
+			
+			Load( directoryLang, rawData );
+		}
 		
 		public DirectoryMemberCollection Members {
 			get {
 				if( _members == null ) _members = new DirectoryMemberCollection( _images );
 				return _members;
 			}
-		}
-		
-		public IconGroup(ResourceLang directoryLang, Byte[] rawData) {
-			
-			Load( directoryLang, rawData );
 		}
 		
 		private void Load(ResourceLang directoryLang, Byte[] rawData) {

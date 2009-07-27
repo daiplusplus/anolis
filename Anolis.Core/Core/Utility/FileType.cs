@@ -43,8 +43,11 @@ namespace Anolis.Core.Utility {
 		private FileAssociations() {
 		}
 		
-		public FileType[]      AllTypes      { get; private set; }
-		public FileExtension[] AllExtensions { get; private set; }
+		private List<FileType>      _allTypes;
+		private List<FileExtension> _allExts;
+		
+		public ReadOnlyCollection<FileType>      AllTypes      { get; private set; }
+		public ReadOnlyCollection<FileExtension> AllExtensions { get; private set; }
 		
 		public void CommitChanges() {
 			
@@ -58,7 +61,38 @@ namespace Anolis.Core.Utility {
 			
 		}
 		
-		public static FileAssociations GetAssoctiations() {
+		public FileExtension GetExtension(String extension) {
+			
+			if( !extension.StartsWith(".") ) return null;
+			
+//			Int32 idx = Array.BinarySearch( AllExtensions, extension, _extComp );
+//			if( idx < 0 ) return null;
+//			
+//			FileExtension result = AllExtensions[idx];
+			
+			FileExtension result = _allExts.Find( x => x.Extension.Equals( extension ) );
+			
+			return result;
+		}
+		
+		private static readonly ExtensionSearchComparer _extComp = new ExtensionSearchComparer();
+		
+		private class ExtensionSearchComparer : IComparer<Object> {
+			
+			public Int32 Compare(object x, object y) {
+				
+				FileExtension fx = x as FileExtension;
+				String        sy = y as String;
+				
+				return String.Compare( fx.Extension, sy, StringComparison.OrdinalIgnoreCase );
+			}
+		}
+		
+		public static FileAssociations GetAssociations() {
+			
+			FileAssociations assocs = new FileAssociations();
+			
+			///////////////////////////////////////
 			
 			String[] subkeyNames = Registry.ClassesRoot.GetSubKeyNames();
 			
@@ -70,7 +104,7 @@ namespace Anolis.Core.Utility {
 				
 				RegistryKey key = Registry.ClassesRoot.OpenSubKey( keyName );
 				
-				FileExtension ext = FileExtension.FromRegKey( keyName, key );
+				FileExtension ext = new FileExtension(assocs, key);
 				
 				allExtensions.Add( ext );
 				
@@ -87,8 +121,6 @@ namespace Anolis.Core.Utility {
 			
 			///////////////////////////////////////
 			
-			FileAssociations assocs = new FileAssociations();
-			
 			List<FileType> allTypes = new List<FileType>();
 			
 			foreach(String keyName in progIds.Keys) {
@@ -96,7 +128,7 @@ namespace Anolis.Core.Utility {
 				RegistryKey key = Registry.ClassesRoot.OpenSubKey( keyName );
 				if(key == null) continue; // then the extension uses its progid as its display name and that's it
 				
-				FileType type = assocs.CreateTypeFromRegKey(keyName, key );
+				FileType type = new FileType( assocs, key );
 				
 				type.Extensions.AddRange2( progIds[keyName] );
 				foreach(FileExtension ext in type.Extensions) ext.FileType = type;
@@ -104,94 +136,287 @@ namespace Anolis.Core.Utility {
 				allTypes.Add( type );
 			}
 			
-			assocs.AllExtensions = allExtensions.ToArray();
-			assocs.AllTypes      = allTypes.ToArray();
+			assocs._allExts  = allExtensions;
+			assocs._allTypes = allTypes;
+			
+			assocs.AllExtensions = new ReadOnlyCollection<FileExtension>( assocs._allExts );
+			assocs.AllTypes      = new ReadOnlyCollection<FileType>     ( assocs._allTypes );
+			
+//			Array.Sort( assocs.AllExtensions );
+//			Array.Sort( assocs.AllTypes );
 			
 			return assocs;
 		}
 		
-		public FileType CreateTypeFromRegKey(String name, RegistryKey key) {
+#region File Types
+		
+		public String GetUnusedProgIdForExtension(String extension) {
 			
-			FileType ret = new FileType(this);
+			if( extension.StartsWith(".") ) extension = extension.Substring(1);
 			
-			ret.ProgId       = name;
-			ret.FriendlyName = (String)key.GetValue(null);
+			String origProgId = extension + "file";
+			String progId = origProgId;
 			
-			return ret;
+			Int32 i=1;
+			FileType existingType = GetFileType( progId );
+			while( existingType != null ) {
+				
+				progId = origProgId + (i++).ToStringInvariant();
+				
+				existingType = GetFileType( progId );
+			}
 			
+			return progId;
 		}
+		
+		public FileType GetFileType(String progId) {
+			
+			foreach(FileType type in AllTypes) {
+				if( String.Equals( progId, type.ProgId, StringComparison.OrdinalIgnoreCase ) ) return type;
+			}
+			
+			return null;
+		}
+		
+		public FileType CreateFileType(String progId) {
+			
+			FileType type = new FileType( this, progId );
+			
+			_allTypes.Add( type );
+			
+			return type;
+		}
+#endregion
+		
+#region File Extensions
+		
+		public FileExtension GetFileExtension(String extension) {
+			
+			foreach(FileExtension ext in AllExtensions) {
+				if( String.Equals( extension, ext.Extension, StringComparison.OrdinalIgnoreCase ) ) return ext;
+			}
+			
+			return null;
+		}
+		
+		public FileExtension CreateFileExtension(String extension) {
+			
+			FileExtension ext = new FileExtension(this, extension);
+			
+			_allExts.Add( ext );
+			
+			return ext;
+		}
+		
+#endregion
 		
 	}
 	
 	public abstract class FileBase {
 		
-		public Boolean IsDirty { get; protected set; }
+		protected FileBase(FileAssociations assocs) {
+			
+			ParentAssocs = assocs;
+		}
+		
+		public FileAssociations ParentAssocs { get; private set; }
+		
+		public Boolean IsDirty { get; set; }
 		
 		public Boolean DeleteOnCommit { get; set; }
 		
-		public abstract void Save();
+		protected internal abstract void Save();
 		
 	}
 	
-	public class FileType : FileBase {
+	public class FileType : FileBase, IComparable<FileType> {
 		
-		internal FileType(FileAssociations assocs) {
+		private FileType(FileAssociations assocs) : base(assocs) {
 			
-			ParentAssocs = assocs;
-			
-			Extensions = new Collection<FileExtension>();
-			ShellVerbs = new Collection<String>();
+			Extensions   = new Collection<FileExtension>();
+			ShellVerbs   = new Dictionary<String,String>();
 		}
 		
-		public FileAssociations          ParentAssocs { get; private set; }
+		internal FileType(FileAssociations assocs, RegistryKey typeKey) : this(assocs) {
+			
+			LoadFromKey( typeKey );
+		}
 		
-		public String                    ProgId       { get; set; }
+		internal FileType(FileAssociations assocs, String progId) : this(assocs) {
+			
+			ProgId = progId;
+			
+			IsDirty = true;
+		}
+		
+		public String                    ProgId       { get; private set; }
 		public Collection<FileExtension> Extensions   { get; private set; }
 		
 		public String                    FriendlyName { get; set; }
 		public String                    DefaultIcon  { get; set; }
 		public FileTypeEditFlags         EditFlags    { get; set; }
-		public Collection<String>        ShellVerbs   { get; private set; }
+		public Dictionary<String,String> ShellVerbs   { get; private set; }
 		
-		public override void Save() {
-			// TODO
+		private void LoadFromKey(RegistryKey key) {
+			
+			ProgId = key.Name.Substring( key.Name.IndexOf('\\') + 1 );
+			
+			FriendlyName = (String)key.GetValue(null);
+			
+			////////////////////////////////
+			// Default Icon
+			RegistryKey defaultIconKey = key.OpenSubKey("DefaultIcon");
+			
+			if( defaultIconKey != null ) {
+				
+				DefaultIcon = (String)defaultIconKey.GetValue(null);
+			}
+			
+			////////////////////////////////
+			// Edit Flags
+			Object editFlagsObj = key.GetValue("EditFlags");
+			if( editFlagsObj != null ) {
+				
+				Byte[] flagsArr = editFlagsObj as Byte[];
+				if( flagsArr != null && flagsArr.Length == 4 ) {
+					
+					Int32 flagsDword = ((flagsArr[0] | (flagsArr[1] << 8)) | (flagsArr[2] << 0x10)) | (flagsArr[3] << 0x18);
+					
+					EditFlags = (FileTypeEditFlags)flagsDword;
+				}
+				
+			}
+			
+			////////////////////////////////
+			// Shell Verbs
+			
+			RegistryKey verbsKey = key.OpenSubKey("shell");
+			if( verbsKey != null ) {
+				
+				String[] verbs = verbsKey.GetSubKeyNames();
+				foreach(String verb in verbs) {
+					
+					RegistryKey verbKey = verbsKey.OpenSubKey( verb );
+					RegistryKey cmdKey  = verbKey.OpenSubKey("command");
+					
+					if( cmdKey != null ) {
+						
+						ShellVerbs.Add( verb, (String)cmdKey.GetValue(null) );
+					}
+					
+				}
+				
+			}
+			
+			IsDirty = false;
+		}
+		
+		protected internal override void Save() {
 			
 			if( !IsDirty ) return;
 			
+			if( DeleteOnCommit ) {
+				
+				Registry.ClassesRoot.DeleteSubKeyTree( ProgId );
+				return;
+				
+			} else {
+				
+				////////////////////////////////
+				// Key and Friendly Name
+				
+				RegistryKey progIdKey = Registry.ClassesRoot.CreateSubKey( ProgId, RegistryKeyPermissionCheck.ReadWriteSubTree );
+				progIdKey.SetValue(null, FriendlyName);
+				
+				////////////////////////////////
+				// DefaultIcon
+				
+				if( String.IsNullOrEmpty( DefaultIcon ) ) {
+					
+					progIdKey.DeleteSubKey("DefaultIcon", false);
+					
+				} else {
+					
+					RegistryKey diKey = progIdKey.CreateSubKey("DefaultIcon" );
+					diKey.SetValue(null, DefaultIcon);
+				}
+				
+				////////////////////////////////
+				// EditFlags
+				
+				if( EditFlags == FileTypeEditFlags.None ) {
+					
+					progIdKey.DeleteValue("EditFlags", false);
+				} else {
+					
+					progIdKey.SetValue("EditFlags", EditFlags, RegistryValueKind.DWord);
+				}
+				
+				////////////////////////////////
+				// ShellVerbs
+				
+				RegistryKey shellKey = progIdKey.CreateSubKey("shell");
+				
+				foreach(String verb in ShellVerbs.Keys) {
+					
+					String cmd = ShellVerbs[verb];
+					if( cmd == null ) { // delete the verb/command
+						
+						shellKey.DeleteSubKey( verb, false );
+						
+					} else {
+						
+						RegistryKey verbKey = progIdKey.CreateSubKey( verb );
+						RegistryKey cmdKey  = verbKey.CreateSubKey("command" );
+						cmdKey.SetValue(null, cmd );
+					}
+					
+				}
+				
+				////////////////////////////////
+				// ...and that's it for now
+				
+				progIdKey.Close();
+			}
 			
+		}
+		
+		public Int32 CompareTo(FileType other) {
 			
+			return this.ProgId.CompareTo( other.ProgId );
 		}
 		
 	}
 	
-	public class FileExtension : FileBase {
+	public class FileExtension : FileBase, IComparable<FileExtension> {
 		
-		public FileExtension() {
+		private FileType _type;
+		
+		private FileExtension(FileAssociations assocs) : base(assocs) {
+			
 			OpenWithList    = new Collection<String>();
 			OpenWithProgIds = new Collection<FileType>();
 		}
 		
-		public static FileExtension FromRegKey(String name, RegistryKey key) {
+		internal FileExtension(FileAssociations assocs, RegistryKey key) : this(assocs) {
 			
-			FileExtension ret = new FileExtension();
-			
-			ret.Extension     = name;
-			ret.ProgId        = (String)key.GetValue(null);
-			
-			ret.ContentType   = (String)key.GetValue("Content Type");
-			ret.PerceivedType = (String)key.GetValue("PerceivedType");
-			
-			RegistryKey persistentHandler = key.OpenSubKey("PersistentHandler");
-			if(persistentHandler != null) {
-				ret.PersistentHandler = (String)persistentHandler.GetValue(null);
-			}
-			
-			
-			
-			return ret;
+			LoadFromKey(key);
 		}
 		
-		public FileType FileType  { get; set; }
+		internal FileExtension(FileAssociations assocs, String extension) : this(assocs) {
+			
+			Extension = extension;
+			
+			IsDirty = true;
+		}
+		
+		public FileType FileType  {
+			get { return _type; }
+			set {
+				if( value != null ) ProgId = value.ProgId;
+				_type = value;
+			}
+		}
 		public String   ProgId    { get; set; }
 		
 		/// <summary>List of all entries under HKCR\Applications that can open this extension. OpenWithProgIds is preferable. ( http://msdn.microsoft.com/en-us/library/bb166549(VS.80).aspx )</summary>
@@ -199,13 +424,73 @@ namespace Anolis.Core.Utility {
 		/// <summary>List of all ProgIds that handle this extension.</summary>
 		public Collection<FileType> OpenWithProgIds { get; private set; }
 		
-		public String   Extension         { get; set; }
+		public String   Extension         { get; private set; }
 		public String   ContentType       { get; set; }
 		public String   PerceivedType     { get; set; }
 		public String   PersistentHandler { get; set; }
 		
-		public override void Save() {
-			// TODO
+		private void LoadFromKey(RegistryKey key) {
+			
+			Extension     = key.Name.Substring( key.Name.IndexOf('\\') + 1 );
+			ProgId        = (String)key.GetValue(null);
+			
+			ContentType   = (String)key.GetValue("Content Type");
+			PerceivedType = (String)key.GetValue("PerceivedType");
+			
+			RegistryKey persistentHandler = key.OpenSubKey("PersistentHandler");
+			if(persistentHandler != null) {
+				
+				PersistentHandler = (String)persistentHandler.GetValue(null);
+			}
+			
+		}
+		
+		protected internal override void Save() {
+			
+			if( !IsDirty ) return;
+			
+			RegistryKey extKey = Registry.ClassesRoot.CreateSubKey( Extension, RegistryKeyPermissionCheck.ReadWriteSubTree );
+			extKey.SetValue(null, ProgId);
+			
+			/////////////////////////////////
+			// ContentType
+			
+			if( ContentType == null ) {
+				extKey.DeleteValue("ContentType", false);
+			} else {
+				extKey.SetValue("ContentType", ContentType);
+			}
+			
+			/////////////////////////////////
+			// PerceivedType
+			
+			if( PerceivedType == null ) {
+				extKey.DeleteValue("PerceivedType", false);
+			} else {
+				extKey.SetValue("PerceivedType", PerceivedType);
+			}
+			
+			/////////////////////////////////
+			// PersistentHandler
+			
+			if( PersistentHandler == null ) {
+				extKey.DeleteSubKey("PersistentHandler", false);
+			} else {
+				RegistryKey persKey = extKey.CreateSubKey("PersistentHandler");
+				persKey.SetValue(null, PersistentHandler);
+			}
+			
+			/////////////////////////////////
+			// That's all for now
+			// in future, consider ShellNew and OpenWithProgIds
+			
+			extKey.Close();
+			
+		}
+		
+		public Int32 CompareTo(FileExtension other) {
+			
+			return this.Extension.CompareTo( other.Extension );
 		}
 		
 	}
@@ -218,9 +503,13 @@ namespace Anolis.Core.Utility {
 		/// <summary>Only indexes the VS_VERSIONINFO resource (if present)</summary>
 		public const String Null = "{098f2470-bae0-11cd-b579-08002b30bfeb}";
 		
+		/// <summary>Indexes the file for HTML content</summary>
+		/// <remarks>This actually is a guess. I can't see any documentation for this filter, but it's the filter for *.htm files so I assume so...</remarks>
+		public const String Html = "{eec97550-47a9-11cf-b952-00aa0051fe20}";
+		
 	}
 	
-	public static class FileVerb {
+	public static class FileVerbs {
 		
 		public const String Open          = "open";
 		public const String OpenNewWindow = "opennew";

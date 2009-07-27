@@ -7,15 +7,15 @@ using P = System.IO.Path;
 
 namespace Anolis.Core.Packages.Operations {
 	
-	public class DirectoryOperation : Operation {
+	public class DirectoryOperation : PathOperation {
 		
-		public DirectoryOperation(Package package, Group parent, XmlElement element) : base(package, parent, element) {
+		public DirectoryOperation(Group parent, XmlElement element) : base(parent, element) {
 			
 			SourceDirectory = element.GetAttribute("src");
 			Overwrite       = element.GetAttribute("overwrite") == "true" || element.GetAttribute("overwrite") == "1";
 		}
 		
-		public DirectoryOperation(Package package, Group parent, String path) : base(package, parent, path) {
+		public DirectoryOperation(Group parent, String path) : base(parent, path) {
 		}
 		
 		public String  SourceDirectory { get; set; }

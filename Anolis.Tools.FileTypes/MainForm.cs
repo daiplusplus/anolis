@@ -1,13 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 using Anolis.Core.Utility;
-using System.Collections.Generic;
-using System.Text;
-using System.Collections;
-
-using SI = System.Windows.Forms.ListViewItem.ListViewSubItem;
-using System.Drawing;
 
 namespace Anolis.FileTypes {
 	
@@ -25,7 +23,9 @@ namespace Anolis.FileTypes {
 			this.__extsList .ColumnClick += new ColumnClickEventHandler(ColumnClick);
 
 			this.__typesList.SelectedIndexChanged += new EventHandler(__typesList_SelectedIndexChanged);
-			this.__extsList.SelectedIndexChanged += new EventHandler(__extsList_SelectedIndexChanged);
+			this.__extsList .SelectedIndexChanged += new EventHandler(__extsList_SelectedIndexChanged);
+
+			this.__extGotoType.Click += new EventHandler(__extGotoType_Click);
 			
 			NativeMethods.SetWindowTheme( __typesList.Handle, "explorer", null );
 			NativeMethods.SetWindowTheme( __extsList .Handle, "explorer", null );
@@ -102,7 +102,10 @@ namespace Anolis.FileTypes {
 				
 				FileExtension ext = selectedItem.Tag as FileExtension;
 				__extGotoType.Enabled = ext.FileType != null;
-				__extEdit.Enabled     = true;
+				__extEdit    .Enabled = true;
+				
+				__extEditor.Enabled = true;
+				__extEditor.ShowExtension( ext );
 				
 			} else {
 				
@@ -118,13 +121,40 @@ namespace Anolis.FileTypes {
 			if( __typesList.SelectedItems.Count == 1 ) {
 				
 				ListViewItem selectedItem = __typesList.SelectedItems[0];
-				__typeEdit.Enabled     = true;
 				
-			} else {
+				FileType type = selectedItem.Tag as FileType;
 				
-				__typeEdit.Enabled     = false;
+				__typeEditor.Enabled = true;
+				__typeEditor.ShowFileType( type );
+			}
+			
+		}
+		
+		////////////////////////////////////////////////
+		// Buttons
+		
+		private void __extGotoType_Click(object sender, EventArgs e) {
+			
+			if( __extsList.SelectedItems.Count != 1 ) return;
+			
+			FileExtension ext = __extsList.SelectedItems[0].Tag as FileExtension;
+			
+			FileType type = ext.FileType;
+			
+			foreach(ListViewItem item in __typesList.Items) {
+				
+				FileType itemType = item.Tag as FileType;
+				if( itemType == type ) {
+					
+					item.Selected = true;
+					
+					__typesList.EnsureVisible( item.Index );
+					break;
+				}
 				
 			}
+			
+			__tabs.SelectTab( __tabTypes );
 			
 		}
 		
@@ -132,7 +162,7 @@ namespace Anolis.FileTypes {
 		
 		private void DataReload() {
 			
-			_assoc = FileAssociations.GetAssoctiations();
+			_assoc = FileAssociations.GetAssociations();
 			
 			//////////////////////////////////
 			// Types List

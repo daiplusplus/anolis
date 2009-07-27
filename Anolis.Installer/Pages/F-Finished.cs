@@ -16,6 +16,11 @@ namespace Anolis.Installer.Pages {
 			InitializeComponent();
 			
 			this.PageLoad += new EventHandler(FinishedPage_PageLoad);
+
+			this.__anolisWebsite.Click += new EventHandler(Website_Click);
+			this.__authorWebsite.Click += new EventHandler(Website_Click);
+			
+			__anolisWebsite.Tag = new Uri("http://anol.is");
 			
 			Localize();
 		}
@@ -35,47 +40,77 @@ namespace Anolis.Installer.Pages {
 			this.WizardForm.EnableNext   = true;
 			this.WizardForm.EnableCancel = false;
 			
-			switch(Program.ProgramMode) {
-				case ProgramMode.InstallPackage:
-				case ProgramMode.UninstallPackage:
+			if( InstallerResources.IsCustomized ) {
+				
+				String author = InstallerResources.CustomizedSettings.InstallerDeveloper;
+				String webStr = InstallerResources.CustomizedSettings.InstallerWebsite;
+				
+				Uri uri;
+				
+				if( !String.IsNullOrEmpty( author ) && Uri.TryCreate( InstallerResources.CustomizedSettings.InstallerWebsite, UriKind.Absolute, out uri ) ) {
 					
-					if(Program.ProgramMode == ProgramMode.InstallPackage && PackageInfo.RequiresRestart ) {
-						
-						this.__installationComplete.Text = InstallerResources.GetString("F_installationCompleteRestart");
-						
-					} else if(Program.ProgramMode == ProgramMode.InstallPackage) {
-						
-						this.__installationComplete.Text = InstallerResources.GetString("F_installationComplete");
-						
-					} else {
-						
-						this.__installationComplete.Text = InstallerResources.GetString("F_uninstallationComplete");
-						
-					}
+					__authorWebsiteLbl.Text    = author;
+					__authorWebsiteLbl.Visible = true;
+					
+					__authorWebsite.Tag        = uri;
+					__authorWebsite.Text       = uri.OriginalString;
+					__authorWebsite.Visible    = true;
+				}
+				
+			}
+			
+			if( InstallationInfo.InstallationAborted ) {
+				
+				this.__title.Text                = InstallerResources.GetString("F_aborted");
+				this.__installationComplete.Text = InstallerResources.GetString("F_abortedDesc");
+				
+				this.WizardForm.NextText = InstallerResources.GetString("F_finishButton");
+				this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Quit);
+				
+				return;
+			}
+			
+			/////////////////////////////////
+			
+			switch( Program.ProgramMode ) {
+				case ProgramMode.InstallPackage:
 					
 					if( PackageInfo.RequiresRestart ) {
-						
-						this.WizardForm.NextText     = InstallerResources.GetString("F_restartButton");
-						this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Restart);
-						
+						this.__installationComplete.Text = InstallerResources.GetString("F_installationCompleteRestart");
 					} else {
-						
-						this.WizardForm.NextText = InstallerResources.GetString("F_finishButton");
-						this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Quit);
+						this.__installationComplete.Text = InstallerResources.GetString("F_installationComplete");
 					}
-					
 					
 					break;
 					
-				case ProgramMode.None:
-				case ProgramMode.InstallTools:
+				case ProgramMode.UninstallPackage:
 					
-					this.WizardForm.NextText = InstallerResources.GetString("F_finishButton");
-					this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Quit);
+					if( PackageInfo.RequiresRestart ) {
+						this.__installationComplete.Text = InstallerResources.GetString("F_uninstallationCompleteRestart");
+					} else {
+						this.__installationComplete.Text = InstallerResources.GetString("F_uninstallationComplete");
+					}
+					
+					break;
+				
+				case ProgramMode.InstallTools:
 					
 					this.__installationComplete.Text = InstallerResources.GetString("F_installTools");
 					
 					break;
+			}
+			
+			/////////////////////////////////
+			
+			if( PackageInfo.RequiresRestart ) {
+				
+				this.WizardForm.NextText     = InstallerResources.GetString("F_restartButton");
+				this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Restart);
+				
+			} else {
+				
+				this.WizardForm.NextText = InstallerResources.GetString("F_finishButton");
+				this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Quit);
 			}
 			
 		}
@@ -85,12 +120,26 @@ namespace Anolis.Installer.Pages {
 			// restart the computer system
 			PackageUtility.InitRestart();
 			
-			// TODO: Show a modal window telling the user to wait as restarting can take a while?
+			// Show a modal window telling the user to wait as restarting can take a while?
+			
+			WizardForm.EnableNext = false;
+			WizardForm.EnableBack = false;
+			
+			WaitForm wait = new WaitForm();
+			wait.ShowDialog(this);
 		}
 		
 		private void WizardForm_NextClicked_Quit(Object sender, EventArgs e) {
 			
 			Application.Exit();
+		}
+		
+		private void Website_Click(Object sender, EventArgs e) {
+			
+			Uri uri = (sender as Control).Tag as Uri;
+			if( uri == null ) return;
+			
+			System.Diagnostics.Process.Start( uri.ToString() );
 		}
 		
 		public override BaseWizardPage PrevPage {

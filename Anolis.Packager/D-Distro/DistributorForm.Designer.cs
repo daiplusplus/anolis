@@ -46,6 +46,10 @@
 			this.@__cusOptSimpleLbl = new System.Windows.Forms.Label();
 			this.@__cusOptSimple = new System.Windows.Forms.CheckBox();
 			this.@__cusStrings = new System.Windows.Forms.GroupBox();
+			this.@__cusStringCondMsg = new System.Windows.Forms.TextBox();
+			this.@__cusStringCondMsgLbl = new System.Windows.Forms.Label();
+			this.@__cusStringCond = new System.Windows.Forms.TextBox();
+			this.@__cusStringCondLbl = new System.Windows.Forms.Label();
 			this.@__cusStringDeveloper = new System.Windows.Forms.TextBox();
 			this.@__cusStringDeveloperLbl = new System.Windows.Forms.Label();
 			this.@__cusStringWebsite = new System.Windows.Forms.TextBox();
@@ -64,10 +68,8 @@
 			this.@__ofdInstaller = new System.Windows.Forms.OpenFileDialog();
 			this.@__ofdImage = new System.Windows.Forms.OpenFileDialog();
 			this.@__ofdIcon = new System.Windows.Forms.OpenFileDialog();
-			this.@__cusStringCondMsg = new System.Windows.Forms.TextBox();
-			this.@__cusStringCondMsgLbl = new System.Windows.Forms.Label();
-			this.@__cusStringCond = new System.Windows.Forms.TextBox();
-			this.@__cusStringCondLbl = new System.Windows.Forms.Label();
+			this.@__cusStringNameFull = new System.Windows.Forms.TextBox();
+			this.@__cusStringNameFullLbl = new System.Windows.Forms.Label();
 			this.@__tabs.SuspendLayout();
 			this.@__tPackages.SuspendLayout();
 			this.@__tCus.SuspendLayout();
@@ -226,7 +228,7 @@
 			this.@__cusOptions.Controls.Add(this.@__cusOptsHideI386);
 			this.@__cusOptions.Controls.Add(this.@__cusOptSimpleLbl);
 			this.@__cusOptions.Controls.Add(this.@__cusOptSimple);
-			this.@__cusOptions.Location = new System.Drawing.Point(12, 389);
+			this.@__cusOptions.Location = new System.Drawing.Point(12, 401);
 			this.@__cusOptions.Name = "__cusOptions";
 			this.@__cusOptions.Size = new System.Drawing.Size(532, 222);
 			this.@__cusOptions.TabIndex = 10;
@@ -321,6 +323,8 @@
 			// 
 			this.@__cusStrings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__cusStrings.Controls.Add(this.@__cusStringNameFull);
+			this.@__cusStrings.Controls.Add(this.@__cusStringNameFullLbl);
 			this.@__cusStrings.Controls.Add(this.@__cusStringCondMsg);
 			this.@__cusStrings.Controls.Add(this.@__cusStringCondMsgLbl);
 			this.@__cusStrings.Controls.Add(this.@__cusStringCond);
@@ -333,21 +337,57 @@
 			this.@__cusStrings.Controls.Add(this.@__cusStringNameLbl);
 			this.@__cusStrings.Location = new System.Drawing.Point(12, 210);
 			this.@__cusStrings.Name = "__cusStrings";
-			this.@__cusStrings.Size = new System.Drawing.Size(532, 173);
+			this.@__cusStrings.Size = new System.Drawing.Size(532, 185);
 			this.@__cusStrings.TabIndex = 9;
 			this.@__cusStrings.TabStop = false;
 			this.@__cusStrings.Text = "Strings";
 			// 
+			// __cusStringCondMsg
+			// 
+			this.@__cusStringCondMsg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__cusStringCondMsg.Location = new System.Drawing.Point(111, 149);
+			this.@__cusStringCondMsg.Name = "__cusStringCondMsg";
+			this.@__cusStringCondMsg.Size = new System.Drawing.Size(415, 20);
+			this.@__cusStringCondMsg.TabIndex = 9;
+			// 
+			// __cusStringCondMsgLbl
+			// 
+			this.@__cusStringCondMsgLbl.Location = new System.Drawing.Point(6, 152);
+			this.@__cusStringCondMsgLbl.Name = "__cusStringCondMsgLbl";
+			this.@__cusStringCondMsgLbl.Size = new System.Drawing.Size(99, 19);
+			this.@__cusStringCondMsgLbl.TabIndex = 8;
+			this.@__cusStringCondMsgLbl.Text = "Failure Message";
+			this.@__cusStringCondMsgLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// __cusStringCond
+			// 
+			this.@__cusStringCond.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__cusStringCond.Location = new System.Drawing.Point(111, 123);
+			this.@__cusStringCond.Name = "__cusStringCond";
+			this.@__cusStringCond.Size = new System.Drawing.Size(415, 20);
+			this.@__cusStringCond.TabIndex = 7;
+			// 
+			// __cusStringCondLbl
+			// 
+			this.@__cusStringCondLbl.Location = new System.Drawing.Point(6, 126);
+			this.@__cusStringCondLbl.Name = "__cusStringCondLbl";
+			this.@__cusStringCondLbl.Size = new System.Drawing.Size(99, 19);
+			this.@__cusStringCondLbl.TabIndex = 6;
+			this.@__cusStringCondLbl.Text = "Condition";
+			this.@__cusStringCondLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
 			// __cusStringDeveloper
 			// 
-			this.@__cusStringDeveloper.Location = new System.Drawing.Point(111, 72);
+			this.@__cusStringDeveloper.Location = new System.Drawing.Point(111, 97);
 			this.@__cusStringDeveloper.Name = "__cusStringDeveloper";
 			this.@__cusStringDeveloper.Size = new System.Drawing.Size(168, 20);
 			this.@__cusStringDeveloper.TabIndex = 5;
 			// 
 			// __cusStringDeveloperLbl
 			// 
-			this.@__cusStringDeveloperLbl.Location = new System.Drawing.Point(6, 75);
+			this.@__cusStringDeveloperLbl.Location = new System.Drawing.Point(6, 100);
 			this.@__cusStringDeveloperLbl.Name = "__cusStringDeveloperLbl";
 			this.@__cusStringDeveloperLbl.Size = new System.Drawing.Size(99, 19);
 			this.@__cusStringDeveloperLbl.TabIndex = 4;
@@ -356,14 +396,14 @@
 			// 
 			// __cusStringWebsite
 			// 
-			this.@__cusStringWebsite.Location = new System.Drawing.Point(111, 46);
+			this.@__cusStringWebsite.Location = new System.Drawing.Point(111, 71);
 			this.@__cusStringWebsite.Name = "__cusStringWebsite";
 			this.@__cusStringWebsite.Size = new System.Drawing.Size(168, 20);
 			this.@__cusStringWebsite.TabIndex = 3;
 			// 
 			// __cusStringWebsiteLbl
 			// 
-			this.@__cusStringWebsiteLbl.Location = new System.Drawing.Point(6, 49);
+			this.@__cusStringWebsiteLbl.Location = new System.Drawing.Point(6, 74);
 			this.@__cusStringWebsiteLbl.Name = "__cusStringWebsiteLbl";
 			this.@__cusStringWebsiteLbl.Size = new System.Drawing.Size(99, 19);
 			this.@__cusStringWebsiteLbl.TabIndex = 2;
@@ -484,41 +524,21 @@
 			// 
 			this.@__ofdIcon.FileName = "Icon Files (*.ico)|*.ico";
 			// 
-			// __cusStringCondMsg
+			// __cusStringNameFull
 			// 
-			this.@__cusStringCondMsg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__cusStringCondMsg.Location = new System.Drawing.Point(111, 124);
-			this.@__cusStringCondMsg.Name = "__cusStringCondMsg";
-			this.@__cusStringCondMsg.Size = new System.Drawing.Size(415, 20);
-			this.@__cusStringCondMsg.TabIndex = 9;
+			this.@__cusStringNameFull.Location = new System.Drawing.Point(111, 45);
+			this.@__cusStringNameFull.Name = "__cusStringNameFull";
+			this.@__cusStringNameFull.Size = new System.Drawing.Size(168, 20);
+			this.@__cusStringNameFull.TabIndex = 11;
 			// 
-			// __cusStringCondMsgLbl
+			// __cusStringNameFullLbl
 			// 
-			this.@__cusStringCondMsgLbl.Location = new System.Drawing.Point(6, 127);
-			this.@__cusStringCondMsgLbl.Name = "__cusStringCondMsgLbl";
-			this.@__cusStringCondMsgLbl.Size = new System.Drawing.Size(99, 19);
-			this.@__cusStringCondMsgLbl.TabIndex = 8;
-			this.@__cusStringCondMsgLbl.Text = "Failure Message";
-			this.@__cusStringCondMsgLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
-			// 
-			// __cusStringCond
-			// 
-			this.@__cusStringCond.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__cusStringCond.Location = new System.Drawing.Point(111, 98);
-			this.@__cusStringCond.Name = "__cusStringCond";
-			this.@__cusStringCond.Size = new System.Drawing.Size(415, 20);
-			this.@__cusStringCond.TabIndex = 7;
-			// 
-			// __cusStringCondLbl
-			// 
-			this.@__cusStringCondLbl.Location = new System.Drawing.Point(6, 101);
-			this.@__cusStringCondLbl.Name = "__cusStringCondLbl";
-			this.@__cusStringCondLbl.Size = new System.Drawing.Size(99, 19);
-			this.@__cusStringCondLbl.TabIndex = 6;
-			this.@__cusStringCondLbl.Text = "Condition";
-			this.@__cusStringCondLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			this.@__cusStringNameFullLbl.Location = new System.Drawing.Point(6, 48);
+			this.@__cusStringNameFullLbl.Name = "__cusStringNameFullLbl";
+			this.@__cusStringNameFullLbl.Size = new System.Drawing.Size(99, 19);
+			this.@__cusStringNameFullLbl.TabIndex = 10;
+			this.@__cusStringNameFullLbl.Text = "Installer Full Name";
+			this.@__cusStringNameFullLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// DistributorForm
 			// 
@@ -594,5 +614,7 @@
 		private System.Windows.Forms.Label __cusStringCondMsgLbl;
 		private System.Windows.Forms.TextBox __cusStringCond;
 		private System.Windows.Forms.Label __cusStringCondLbl;
+		private System.Windows.Forms.TextBox __cusStringNameFull;
+		private System.Windows.Forms.Label __cusStringNameFullLbl;
 	}
 }

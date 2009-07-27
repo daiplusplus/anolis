@@ -141,10 +141,6 @@
   <data name="B_uninstallRad" xml:space="preserve">
     <value>Dadwneud newidiadau cafodd wneud gan llwytho paced.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Package" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Package.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="B_Subtitle" xml:space="preserve">
     <value>Dewisiwch rhywbeth i wneud</value>
   </data>
@@ -211,9 +207,7 @@ Clewch pob peth cyn orffen. Peidiwch ac agor rhywbeth arall.</value>
     <value>Mae llwythiad wedi'w cwbwlhau.</value>
   </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
-    <value>Dadlwythiad wedi'w orffen heb problemau. Fydd eich cyfrifiadur yn ail-ddechrau nawr.
-
-Clewch pob peth cyn orffen. Peidiwch ac agor rhywbeth arall.</value>
+    <value>Dadlwythiad wedi'w orffen heb problemau.</value>
   </data>
   <data name="C_F_backup" xml:space="preserve">
     <value>Creu ffeil dadlwythiad (Awgrymiadol)</value>
@@ -264,10 +258,10 @@ Clewch pob peth cyn orffen. Peidiwch ac agor rhywbeth arall.</value>
     <value>Lloyd Humphreys</value>
   </data>
   <data name="Lang_AttributionUri" xml:space="preserve">
-    <value />
+    <value>http://lloydhumphreys.com</value>
   </data>
   <data name="Lang_Lcid" xml:space="preserve">
-    <value>en</value>
+    <value>cy</value>
   </data>
   <data name="Lang_Name" xml:space="preserve">
     <value>Cymraeg</value>
@@ -301,9 +295,6 @@ Clewch pob peth cyn orffen. Peidiwch ac agor rhywbeth arall.</value>
   </data>
   <data name="Wiz_Prev" xml:space="preserve">
     <value>Yn Ol</value>
-  </data>
-  <data name="EULA" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\EULA.rtf;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="C_D_Subtitle" xml:space="preserve">
     <value>Ddarllenwch nodiadau awdur y paced</value>
@@ -451,7 +442,37 @@ To continue, press Next</value>
   <data name="E_B_Subtitle" xml:space="preserve">
     <value>Dewisiwch ffeil i ail-ddechrau o.</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Flags\cy.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="A_DisableAV" xml:space="preserve">
+    <value>Cyn i chi mynd yn ych flaen, plis trowch rhyw Anti-Virus sydd genych chi i ffwrdd, ac hefyd Windows Defender - mae nhw'n arafy'r proses.</value>
+  </data>
+  <data name="C_A_notFileExists" xml:space="preserve">
+    <value>Dydi "{0}" ddim yna.</value>
+  </data>
+  <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
+    <value>Dewisiwch paced cyn is chi mynd yn eich flaen</value>
+  </data>
+  <data name="C_B_conditionError" xml:space="preserve">
+    <value>Aeth rhywbeth yn anghywir wrth trio gweld os ydis paced yn gweithio. Gofynnwch i awdyr y paced.</value>
+  </data>
+  <data name="E_A_notValidDirectory" xml:space="preserve">
+    <value>Dydi'r ffeil yma ddim yn dal paced llwytho wir.</value>
+  </data>
+  <data name="G_Title" xml:space="preserve">
+    <value>Aroswch...</value>
+  </data>
+  <data name="G_WaitMessage" xml:space="preserve">
+    <value>Ail-ddechrau eich cyfrifiadur nawr</value>
+  </data>
+  <data name="Wiz_CancelConfirm" xml:space="preserve">
+    <value>Ydych yn sicr for chi eisiau canslo'r llywthiad?</value>
+  </data>
+  <data name="F_uninstallationCompleteRestart" xml:space="preserve">
+    <value>Fydd eich cyfrifiadur yn ail-ddechrau nawr.
+
+Clewch pob peth cyn orffen. Peidiwch ac agor rhywbeth arall.</value>
   </data>
 </root>

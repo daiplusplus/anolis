@@ -7,9 +7,9 @@ using Anolis.Core.Utility;
 
 namespace Anolis.Core.Packages.Operations {
 	
-	public class FileOperation : Operation {
+	public class FileOperation : PathOperation {
 		
-		public FileOperation(Package package, Group group, XmlElement operationElement) : base(package, group, operationElement) {
+		public FileOperation(Group group, XmlElement operationElement) : base(group, operationElement) {
 			
 			String opType = operationElement.GetAttribute("operation").ToUpperInvariant();
 			switch(opType) {
@@ -17,6 +17,8 @@ namespace Anolis.Core.Packages.Operations {
 					Operation = FileOperationType.Copy; break;
 				case "DELETE":
 					Operation = FileOperationType.Delete; break;
+				case "REPLACE":
+					Operation = FileOperationType.Replace; break;
 				default:
 					Operation = FileOperationType.None; break;
 			}
@@ -29,7 +31,7 @@ namespace Anolis.Core.Packages.Operations {
 			SourceFile = PackageUtility.ResolvePath( operationElement.GetAttribute("src"), Package.RootDirectory.FullName );
 		}
 		
-		public FileOperation(Package package, Group parent, String sourcePath, String destPath, FileOperationType operation) : base(package, parent, destPath) {
+		public FileOperation(Group parent, String sourcePath, String destPath, FileOperationType operation) : base(parent, destPath) {
 			
 			SourceFile = sourcePath;
 			// Path is set by destPath
@@ -43,11 +45,10 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public FileOperationType Operation { get; private set; }
 		
-		public override void Execute() {
+		public override EvaluationResult Evaluate() {
 			
-			Backup( Package.ExecutionInfo.BackupGroup );
-			
-			// the Package class sets AllowProtectedRenames already
+			EvaluationResult bse = base.Evaluate();
+			if( bse != EvaluationResult.True ) return bse;
 			
 			if( !String.IsNullOrEmpty( ConditionHash ) && File.Exists( Path ) ) {
 				
@@ -55,25 +56,85 @@ namespace Anolis.Core.Packages.Operations {
 				if( !String.Equals( hash, ConditionHash, StringComparison.OrdinalIgnoreCase ) ) {
 					
 					Package.Log.Add( LogSeverity.Info, "Hash didn't match: " + Path );
-					return;
+					return EvaluationResult.False;
 				}
 				
 			}
 			
-			switch( Operation ) {
+			return EvaluationResult.True;
+		}
+		
+		public override void Execute() {
+			
+			if( Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular ) {
+				
+				ExecuteRegular();
+				
+			} else {
+				
+				ExecuteCDImage();
+			}
+			
+		}
+		
+		private void ExecuteRegular() {
+			
+			Backup( Package.ExecutionInfo.BackupGroup );
+			
+			// remember, the Package.Execute method sets AllowProtectedRenames already
+			
+			if( Operation == FileOperationType.Delete ) {
+				
+				PackageUtility.AddPfroEntry( Path, null );
+				
+				Package.ExecutionInfo.RequiresRestart = true;
+				
+			} else {
+				
+				
+				if( Operation == FileOperationType.Replace ) {
+					
+					if( !File.Exists( Path ) ) return;
+				}
+				
+				String pendingFileName = Path + ".anofp";
+				pendingFileName = PackageUtility.GetUnusedFileName( pendingFileName );
+				File.Copy( SourceFile, pendingFileName, true );
+				
+				PackageUtility.AddPfroEntry( pendingFileName, Path ); // overwrite the file, this deletes the original methinks
+				
+				Package.ExecutionInfo.RequiresRestart = true;
+				
+			}
+			
+		}
+		
+		private void ExecuteCDImage() {
+			
+			FileInfo[] files;
+			
+			switch(Operation) {
+				case FileOperationType.Replace:
+					
+					files = Package.ExecutionInfo.CDImage.GetFiles( Path ); // this only returns files that exist
+					foreach(FileInfo file in files) File.Copy( SourceFile, file.FullName, true );
+					
+					break;
+				
 				case FileOperationType.Copy:
 					
-					PackageUtility.AddPfroEntry( SourceFile, Path );
+					files = Package.ExecutionInfo.CDImage.GetFiles( Path, true ); // this may include files that don't exist
+					foreach(FileInfo file in files) File.Copy( SourceFile, file.FullName, true );
 					
 					break;
 				case FileOperationType.Delete:
 					
-					PackageUtility.AddPfroEntry( Path, null );
+					files = Package.ExecutionInfo.CDImage.GetFiles( Path );
+					foreach(FileInfo file in files) file.Delete();
 					
 					break;
+				
 			}
-			
-			Package.ExecutionInfo.RequiresRestart = true;
 			
 		}
 		
@@ -101,13 +162,13 @@ namespace Anolis.Core.Packages.Operations {
 				
 				// make an operation for it
 				
-				FileOperation op = new FileOperation(backupGroup.Package, backupGroup, backupFn, SpecifiedPath, FileOperationType.Copy);
+				FileOperation op = new FileOperation(backupGroup, backupFn, SpecifiedPath, FileOperationType.Copy);
 				
 				backupGroup.Operations.Add( op );
 				
 			} else {
 				
-				FileOperation del = new FileOperation(backupGroup.Package, backupGroup, "", SpecifiedPath, FileOperationType.Delete);
+				FileOperation del = new FileOperation(backupGroup, "", SpecifiedPath, FileOperationType.Delete);
 				
 				backupGroup.Operations.Add( del );
 				
@@ -140,6 +201,7 @@ namespace Anolis.Core.Packages.Operations {
 	public enum FileOperationType {
 		None,
 		Copy,
-		Delete
+		Delete,
+		Replace
 	}
 }

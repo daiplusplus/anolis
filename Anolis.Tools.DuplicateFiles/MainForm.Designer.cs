@@ -32,6 +32,7 @@
 			this.@__excludeAdd = new System.Windows.Forms.Button();
 			this.@__excludeRemove = new System.Windows.Forms.Button();
 			this.@__results = new System.Windows.Forms.ListView();
+			this.@__colFileName = new System.Windows.Forms.ColumnHeader();
 			this.@__progress = new System.Windows.Forms.ProgressBar();
 			this.@__progressLbl = new System.Windows.Forms.Label();
 			this.@__close = new System.Windows.Forms.Button();
@@ -39,7 +40,6 @@
 			this.@__fbd = new System.Windows.Forms.FolderBrowserDialog();
 			this.@__bw = new System.ComponentModel.BackgroundWorker();
 			this.@__progressMessage = new System.Windows.Forms.Label();
-			this.@__colFileName = new System.Windows.Forms.ColumnHeader();
 			this.@__totalWastedSpace = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
@@ -141,6 +141,11 @@
 			this.@__results.UseCompatibleStateImageBehavior = false;
 			this.@__results.View = System.Windows.Forms.View.Details;
 			// 
+			// __colFileName
+			// 
+			this.@__colFileName.Text = "Path";
+			this.@__colFileName.Width = 274;
+			// 
 			// __progress
 			// 
 			this.@__progress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -194,15 +199,12 @@
 			// 
 			// __progressMessage
 			// 
+			this.@__progressMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__progressMessage.Location = new System.Drawing.Point(112, 129);
 			this.@__progressMessage.Name = "__progressMessage";
 			this.@__progressMessage.Size = new System.Drawing.Size(530, 20);
 			this.@__progressMessage.TabIndex = 13;
-			// 
-			// __colFileName
-			// 
-			this.@__colFileName.Text = "Path";
-			this.@__colFileName.Width = 274;
 			// 
 			// __totalWastedSpace
 			// 

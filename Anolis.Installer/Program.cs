@@ -1,18 +1,44 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
+
+using Anolis.Core;
+using Anolis.Core.Packages;
+using Anolis.Installer.Pages;
 
 using W3b.Wizards;
 
-using Anolis.Core;
-using Anolis.Installer.Pages;
-using Anolis.Core.Packages;
-using System.Text;
+using Env = Anolis.Core.Utility.Environment;
+using Symbols = System.Collections.Generic.Dictionary<System.String, System.Double>;
 
 namespace Anolis.Installer {
 	
 	public static class Program {
+		
+		private static String GetUninstallation(String[] args) {
+			
+			const String needle = "/uninstall:";
+			
+			String relativeFilename = null;
+			
+			foreach(String arg in args) {
+				
+				if( arg.StartsWith(needle) ) {
+					
+					relativeFilename = arg.Substring(needle.Length);
+				}
+				
+			}
+			
+			if( relativeFilename == null ) return null;
+			
+			String thisDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
+			thisDirectory = Path.GetDirectoryName( thisDirectory );
+			
+			return Path.Combine( thisDirectory, relativeFilename );
+		}
 		
 		[STAThread]
 		public static void Main(String[] args) {
@@ -22,42 +48,57 @@ namespace Anolis.Installer {
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
 				
+				ProgramMode = ProgramMode.None;
+				
+				if( InstallerResources.IsCustomized ) {
+					
+					PackageInfo.IgnoreCondition = InstallerResources.CustomizedSettings.DisablePackageCheck;
+				}
+				
 				if( args.Length > 0 ) {
 					
-					if( args.IndexOf("/pause") > -1 ) {
-						
-						MessageBox.Show("Paused", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+					//////////////////////////////////////////
+					// Pause
+					if( args.IndexOf("/pause") > -1 ) MessageBox.Show("Paused", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+					
+					//////////////////////////////////////////
+					// Package Condition
+					if( args.IndexOf("/ignoreCondition") > -1 ) PackageInfo.IgnoreCondition = true;
+					
+					//////////////////////////////////////////
+					// Uninstall Mode
+					String uninstall = GetUninstallation( args );
+					if( uninstall != null ) {
+						InstallationInfo.UninstallPackage = new FileInfo( uninstall );
+						ProgramMode = ProgramMode.UninstallPackage;
 					}
 					
-					String filename = args[0];
-					if( File.Exists( filename ) ) {
-						
-						String ext = Path.GetExtension( filename ).ToUpperInvariant();
-						if(ext == ".ANOP") { // package archive
-							
-						} else if( ext == ".XML") { // package definition
-							
-						}
-						
-					}
-					
-					if( args.IndexOf("/ignorePackageCondition") > -1 ) {
-						
-						PackageInfo.IgnoreCondition = true;
-					}
-					
+					//////////////////////////////////////////
+					// Jump-to-Package
+//
+//					String filename = args[0];
+//					if( File.Exists( filename ) ) {
+//						
+//						String ext = Path.GetExtension( filename ).ToUpperInvariant();
+//						if(ext == ".ANOP") { // package archive
+//							
+//						} else if( ext == ".XML") { // package definition
+//							
+//						}
+//						
+//					}
 				}
+				
+				
 				
 				// preload resources
 				System.Drawing.Image
 					image = InstallerResources.GetImage("Background");
 					image = InstallerResources.GetImage("Banner");
-
-					InstallerResources.CurrentLanguageChanged += new EventHandler(InstallerResources_CurrentLanguageChanged);
-				
-				ProgramMode = ProgramMode.None;
 				
 				// Set up the wizard
+				
+				String title = InstallerResources.IsCustomized ? InstallerResources.CustomizedSettings.InstallerFullName : "Anolis Package Installer";
 				
 				// create the pages
 				PageAWelcome        = new WelcomePage();
@@ -82,7 +123,7 @@ namespace Anolis.Installer {
 				
 				WizardForm.CancelClicked += new EventHandler(wiz_CancelClicked);
 				WizardForm.HasHelp        = false;
-				WizardForm.Title          = "Anolis Package Installer";
+				WizardForm.Title          = title;
 				WizardForm.Icon           = InstallerResources.GetIcon("Package");
 				
 				WizardForm.NextText   = InstallerResources.GetString("Wiz_Next");
@@ -109,18 +150,32 @@ namespace Anolis.Installer {
 				return;
 			}
 			
-			WizardForm.LoadPage( PageAWelcome );
+			switch(ProgramMode) {
+				case ProgramMode.UninstallPackage:
+					WizardForm.LoadPage( PageEASelectBackup );
+					break;
+					
+				case ProgramMode.None:
+				default:
+					WizardForm.LoadPage( PageAWelcome );
+					break;
+			}
+			
 			WizardForm.Run();
 			
-		}
-		
-		private static void InstallerResources_CurrentLanguageChanged(object sender, EventArgs e) {
+			
+			
+			// Clean-up
+			if( PackageInfo.Package != null && ( PackageInfo.Source == PackageSource.Embedded || PackageInfo.Source == PackageSource.Archive ) ) {
+				
+				PackageInfo.Package.DeleteFiles();
+			}
 			
 		}
 		
 		private static void wiz_CancelClicked(object sender, EventArgs e) {
 			
-			String message = "Are you sure you want to cancel installation?";
+			String message = InstallerResources.GetString("Wiz_CancelConfirm");
 			
 			if( MessageBox.Show(message, "Anolis Installer", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes ) {
 				
@@ -156,15 +211,15 @@ namespace Anolis.Installer {
 	/// <summary>Meta-information about the installation</summary>
 	internal static class InstallationInfo {
 		
-		public static WizardStyle WizStyle = WizardStyle.PlatformDefault;
+#region Wizard Style
+		
+		public static WizardStyle WizStyle { get; set; }
 		
 		public enum WizardStyle {
 			PlatformDefault,
 			Wizard97,
 			Aero
 		}
-		
-		public static String JumpToPackagePath;
 		
 		public static IWizardForm CreateWizard() {
 			
@@ -179,19 +234,76 @@ namespace Anolis.Installer {
 			}
 			
 		}
+#endregion
+		
+		public static FileInfo UninstallPackage { get; set; }
+		
+		//////////////////////////////////////
+		
+		public static Boolean FailedCondition { get; set; }
+		
+		public static Boolean EvaluateInstallerCondition() {
+			
+			if( !InstallerResources.IsCustomized ) return true;
+			
+			String exprStr = InstallerResources.CustomizedSettings.InstallerCondition;
+			if( String.IsNullOrEmpty( exprStr ) ) return true;
+			
+			Expression expr = new Expression( exprStr );
+			return expr.Evaluate( GetSymbols() ) == 1;
+		}
+		
+		private static Symbols GetSymbols() {
+			
+			return new Symbols() {
+				
+				{"osversion"   , Env.OSVersion.Version.Major + ( (Double)Env.OSVersion.Version.Minor ) / 10 },
+				{"servicepack" , Env.ServicePack },
+				{"architecture", Env.IsX64 ? 64 : 32 }
+			};
+		}
+		
+		//////////////////////////////////////
+		
+		public static Boolean InstallationAborted { get; set; }
+		
+		public static void WriteException(Exception ex) {
+			
+			using(FileStream fs = new FileStream("Anolis.Installer.Error.log", FileMode.Append, FileAccess.Write))
+			using(StreamWriter wtr = new StreamWriter(fs)) {
+				
+				wtr.WriteLine( DateTime.Now.ToString("s") );
+				
+				while( ex != null ) {
+					
+					wtr.WriteLine( ex.Message );
+					wtr.WriteLine( ex.StackTrace );
+					
+					ex = ex.InnerException;
+				}
+				
+			}
+			
+		}
+		
+#region Tools
+		
+		public static readonly Uri ToolsInfoUri = new Uri("http://anol.is/tools/toolsInfo.txt");
+		
+		public static DirectoryInfo ToolsDestination { get; set; }
+		
+		public static StartMenu ToolsStartMenu { get; set; }
+		
+		internal enum StartMenu {
+			None,
+			Myself,
+			AllUsers
+		}
+		
+#endregion
 		
 	}
 	
-	internal static class ToolsInfo {
-		
-		public static Boolean ProgramGroup         { get; set; }
-		public static Boolean ProgramGroupEveryone { get; set; }
-		
-		public static String  DestinationDirectory { get; set; }
-		
-		public static readonly Uri ToolsInfoUri = new Uri("http://anol.is/installer/toolsInfo.txt");
-		
-	}
 	
 	internal static class PackageInfo {
 		

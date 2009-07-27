@@ -1,16 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 using Anolis.Core;
 using Anolis.Core.Data;
+using Anolis.Core.Utility;
 
 using Cult = System.Globalization.CultureInfo;
-using System.Threading;
-using System.Diagnostics;
-using System.Collections.Generic;
-using Anolis.Core.Utility;
 
 namespace Anolis.Resourcer.Controls {
 	
@@ -309,23 +308,6 @@ namespace Anolis.Resourcer.Controls {
 			_itemsToAdd.Add( item );
 		}
 		
-		private Boolean ImageListContainsKey(String key) {
-			
-			// under certain circumstances ImageList.ContainsKey throws ArgumentOutOfRangeException
-			// this was caused by using BeginInvoke to add to the list. By moving it to a synchronous operation solves it
-			// but I'm keeping the try/catch just in case anyway
-			
-			try {
-				
-				return __images.Images.ContainsKey( key );
-				
-			} catch(ArgumentOutOfRangeException) {
-				
-				return false;
-			}
-			
-		}
-		
 		private void AddResourceNameItem(ResourceName name, Boolean showIcon) {
 			
 			ListViewItem item = new ListViewItem();
@@ -356,20 +338,6 @@ namespace Anolis.Resourcer.Controls {
 			}
 			
 			_itemsToAdd.Add( item );
-		}
-		
-		private static Image GetImageForState(ResourceDataAction action) {
-			switch(action) {
-				case ResourceDataAction.Add:
-					return Resources.Tree_Add;
-				case ResourceDataAction.Update:
-					return Resources.Tree_Rep;
-				case ResourceDataAction.Delete:
-					return Resources.Tree_Del;
-				case ResourceDataAction.None:
-				default:
-					return null;
-			}
 		}
 		
 		private void AddResourceLangItem(ResourceLang lang, Boolean showIcon) {
@@ -419,7 +387,38 @@ namespace Anolis.Resourcer.Controls {
 			_itemsToAdd.Add( item );
 		}
 		
-		private System.Collections.Generic.List<Int64> ticks = new System.Collections.Generic.List<long>();
+		////////////////////////////////////
+		
+		private Boolean ImageListContainsKey(String key) {
+			
+			// under certain circumstances ImageList.ContainsKey throws ArgumentOutOfRangeException
+			// this was caused by using BeginInvoke to add to the list. By moving it to a synchronous operation solves it
+			// but I'm keeping the try/catch just in case anyway
+			
+			try {
+				
+				return __images.Images.ContainsKey( key );
+				
+			} catch(ArgumentOutOfRangeException) {
+				
+				return false;
+			}
+			
+		}
+		
+		private static Image GetImageForState(ResourceDataAction action) {
+			switch(action) {
+				case ResourceDataAction.Add:
+					return Resources.Tree_Add;
+				case ResourceDataAction.Update:
+					return Resources.Tree_Rep;
+				case ResourceDataAction.Delete:
+					return Resources.Tree_Del;
+				case ResourceDataAction.None:
+				default:
+					return null;
+			}
+		}
 		
 		private void AddImageToList(String key, Image image) {
 			
@@ -529,12 +528,6 @@ namespace Anolis.Resourcer.Controls {
 				lang.Data.RawData.Length + " bytes",
 				lang.Data.GetType().Name
 			};
-			
-		}
-		
-		private void SetIconSize(Size size) {
-			
-			
 			
 		}
 		

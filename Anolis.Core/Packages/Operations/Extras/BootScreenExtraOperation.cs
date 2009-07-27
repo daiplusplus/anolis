@@ -8,17 +8,17 @@ using System.Diagnostics;
 
 using Microsoft.Win32;
 using Anolis.Core.Utility;
+
 using P = System.IO.Path;
-using Anolis.Core.Core.Utility;
 
 namespace Anolis.Core.Packages.Operations {
 	
 	public class BootScreenExtraOperation : ExtraOperation {
 		
-		public BootScreenExtraOperation(Package package, Group parent, XmlElement element) :  base(ExtraType.BootScreen, package, parent, element) {
+		public BootScreenExtraOperation(Group parent, XmlElement element) :  base(ExtraType.BootScreen, parent, element) {
 		}
 		
-		public BootScreenExtraOperation(Package package, Group parent, String path) : base(ExtraType.BootScreen, package, parent, path) {
+		public BootScreenExtraOperation(Group parent, String path) : base(ExtraType.BootScreen, parent, path) {
 		}
 		
 		public override void Execute() {
@@ -52,14 +52,18 @@ namespace Anolis.Core.Packages.Operations {
 			
 			BootIni boot = BootIni.FromDefaultBootIni();
 			if( boot == null ) {
-				Package.Log.Add( LogSeverity.Error, "Could not load Boot.ini" );
+				Package.Log.Add( LogSeverity.Error, "Could not load C:\\Boot.ini" );
 				return;
 			}
 			
 			boot.DefaultOS.Switches.AddSwitch( "/NOGUIBOOT" );
 			boot.DefaultOS.Switches.AddSwitch( "/BOOTLOGO" );
 			
-			boot.Save();
+			try {
+				boot.Save();
+			} catch(AnolisException ex) {
+				Package.Log.Add( new LogItem(LogSeverity.Error, ex, "Couldn't save Boot.ini") );
+			}
 		}
 		
 		private void ExecuteBackup() {
@@ -82,14 +86,18 @@ namespace Anolis.Core.Packages.Operations {
 			boot.DefaultOS.Switches.Remove("/NOGUIBOOT");
 			boot.DefaultOS.Switches.Remove( "/BOOTLOGO" );
 			
-			boot.Save();
+			try {
+				boot.Save();
+			} catch(AnolisException ex) {
+				Package.Log.Add( new LogItem(LogSeverity.Error, ex, "Couldn't save Boot.ini") );
+			}
 		}
 		
 		private void Backup(Group backupGroup) {
 			
 			if( backupGroup == null ) return;
 			
-			BootScreenExtraOperation op = new BootScreenExtraOperation(backupGroup.Package, backupGroup, ""); // empty path, so it will be deleted when executed
+			BootScreenExtraOperation op = new BootScreenExtraOperation(backupGroup, (String)null ); // null path, so it will be deleted when executed
 			
 			backupGroup.Operations.Add( op );
 			

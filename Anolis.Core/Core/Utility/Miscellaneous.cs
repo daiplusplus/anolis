@@ -163,6 +163,8 @@ namespace Anolis.Core.Utility {
 			
 			Pair<DosHeader,NTHeader> headers = GetPEHeaders(fileName);
 			
+			if( headers == null ) return MachineType.Unknown;
+			
 			DosHeader dos = headers.X;
 			NTHeader  nt  = headers.Y;
 			

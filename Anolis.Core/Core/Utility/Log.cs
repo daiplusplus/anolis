@@ -79,6 +79,7 @@ namespace Anolis.Core.Utility {
 				
 				String indentString = "".PadRight( indent, '\t' );
 				
+				wtr.WriteLine( indentString + ex.GetType().Name );
 				wtr.WriteLine( indentString + ex.Message );
 				
 				String[] stackTrace = ex.StackTrace.Replace("\r\n", "\n").Split('\n');

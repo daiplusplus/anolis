@@ -18,6 +18,9 @@ namespace Anolis.Tools.ConditionTest {
 				
 				Console.SetOut( wtr );
 				
+				Console.WriteLine("OSVersion  : " + Environment.OSVersion.ToString() );
+				Console.WriteLine("ServicePack: " + Environment.OSVersion.ServicePack );
+				
 				Dictionary<String,Double> symbols = BuildSymbols();
 				
 				TestExpression("( osversion == 5.1 && servicepack == 3 && architecture == 32 )", symbols);
@@ -48,7 +51,7 @@ namespace Anolis.Tools.ConditionTest {
 			
 			foreach(String key in symbols.Keys) {
 				
-				Console.WriteLine( '\t' + key + '\t' + symbols[key] );
+				Console.WriteLine( '\t' + key + '\t' +  symbols[key].ToString() + " (" + symbols[key].ToString(Cult.InvariantCulture) + ")" );
 			}
 			
 			Console.WriteLine();

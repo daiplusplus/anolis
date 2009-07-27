@@ -24,8 +24,20 @@ namespace Anolis.Installer.Pages {
 		
 		protected override String LocalizePrefix { get { return "C_B"; } }
 		
+		protected override void Localize() {
+			base.Localize();
+			
+			if( InstallerResources.IsCustomized ) {
+				
+				PageTitle    = InstallerResources.GetString("C_B_Title_Cus"   , InstallerResources.CustomizedSettings.InstallerName);
+				PageSubtitle = InstallerResources.GetString("C_B_Subtitle_Cus", InstallerResources.CustomizedSettings.InstallerFullName);
+			}
+			
+		}
+		
 		private void ExtractingPage_PageLoad(object sender, EventArgs e) {
 			
+			_prev                 = null;
 			WizardForm.EnableBack = false;
 			WizardForm.EnableNext = false;
 			
@@ -88,8 +100,18 @@ namespace Anolis.Installer.Pages {
 					
 				} else {
 					
+					String message;
+					
+					if( InstallerResources.IsCustomized ) {
+						
+						message = InstallerResources.GetString("C_B_error_Cus", InstallerResources.CustomizedSettings.InstallerFullName);
+					} else {
+						
+						message = InstallerResources.GetString("C_B_error");
+					}
+					
 					// the previous PackageProgressEvent method call will contain the error string, so don't set anything and display a message to the user
-					MessageBox.Show(this, InstallerResources.GetString("C_B_error"), "Anolis", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					MessageBox.Show(this, message, "Anolis", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 					
 				}
 				
@@ -127,6 +149,10 @@ namespace Anolis.Installer.Pages {
 				}
 				
 				__packageMessages.Text = sb.ToString();
+				__packageMessages.Visible = true;
+				
+				_prev = Program.PageCASelectPackage;
+				WizardForm.EnableBack = true;
 				
 				return;
 				
@@ -136,6 +162,10 @@ namespace Anolis.Installer.Pages {
 				__packageMessages.Visible = true;
 				
 				__packageMessages.Text = pe.GetType().Name + " " + pe.Message;
+				__packageMessages.Visible = true;
+				
+				_prev = Program.PageCASelectPackage;
+				WizardForm.EnableBack = true;
 				
 				return;
 				
@@ -145,16 +175,19 @@ namespace Anolis.Installer.Pages {
 			
 			if( !PackageInfo.IgnoreCondition ) {
 				
-				EvaluationInfo info = PackageInfo.Package.EvaluateCondition();
-				if( info.Result == EvaluationResult.False ) {
+				EvaluationResult result = PackageInfo.Package.Evaluate();
+				
+				if( result == EvaluationResult.False || result == EvaluationResult.FalseParent ) {
 					
-					MessageBox.Show(this, info.Message, "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-					WizardForm.LoadPage( Program.PageCASelectPackage );
-					return;
+					String message = PackageInfo.Package.ConditionDesc;
 					
-				} else if( info.Result == EvaluationResult.Error ) {
+					MessageBox.Show(this, message, "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 					
-					MessageBox.Show(this, "There was an error whilst attempting to evaluate the package's suitability for your computer. Contact the package's author.", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					InstallationInfo.FailedCondition = true;
+					
+				} else if( result == EvaluationResult.Error ) {
+					
+					MessageBox.Show(this, InstallerResources.GetString("C_B_conditionError"), "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 					WizardForm.LoadPage( Program.PageCASelectPackage );
 					return;
 					
@@ -166,8 +199,10 @@ namespace Anolis.Installer.Pages {
 			
 		}
 		
+		private BaseWizardPage _prev = null;
+		
 		public override BaseWizardPage PrevPage {
-			get { return null; }
+			get { return _prev; }
 		}
 		
 		public override BaseWizardPage NextPage {

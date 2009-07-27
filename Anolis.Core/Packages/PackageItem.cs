@@ -2,144 +2,20 @@
 using System.Collections.Generic;
 using System.Xml;
 using System.Drawing;
+using System.Drawing.Imaging;
 
 using Anolis.Core.Utility;
 using Cult = System.Globalization.CultureInfo;
 using Env  = Anolis.Core.Utility.Environment;
 using N    = System.Globalization.NumberStyles;
+using System.IO;
 
 namespace Anolis.Core.Packages {
-	
-	public abstract class PackageBase {
-		
-		/// <summary>Is null if this is the package.</summary>
-		public Package    Package   { get; internal set; }
-		
-		public String     Id        { get; set; }
-		public String     Name      { get; set; }
-		
-		public Expression Condition { get; set; }
-		
-		protected PackageBase(Package package, XmlElement element) {
-			
-			Package = package;
-			
-			Id      = element.GetAttribute("id");
-			Name    = element.GetAttribute("name");
-			
-			String conditionExpr = element.GetAttribute("condition");
-			if(conditionExpr.Length > 0)
-				Condition = new Expression( conditionExpr );
-			
-		}
-		
-		protected PackageBase(Package package) {
-			Package = package;
-		}
-		
-		protected EvaluationResult Evaluate(Dictionary<String,Double> symbols) {
-			
-			if( Condition == null ) return EvaluationResult.True;
-			
-			try {
-				Double result = Condition.Evaluate( symbols );
-				
-				if(result == 1) return EvaluationResult.True;
-				return EvaluationResult.False;
-				
-			} catch(ExpressionException ex) {
-				
-				if( Package != null ) Package.Log.Add( LogSeverity.Warning, "Expression evaluation exception: " + ex.Message );
-				
-				return EvaluationResult.Error;
-			}
-		}
-		
-		protected Dictionary<String,Double> BuildSymbols() {
-			
-			return new Dictionary<String,Double>() {
-				{"osversion"   , Env.OSVersion.Version.Major + ( (Double)Env.OSVersion.Version.Minor ) / 10 },
-				{"servicepack" , Env.ServicePack },
-				{"architecture", Env.IsX64 ? 64 : 32 },
-				{"installlang" , Cult.InstalledUICulture.LCID },
-				{"i386"        , Package == null ? -1 : ( Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.I386 ? 1 : 0 ) }
-			};
-			
-		}
-		
-		protected Dictionary<String,Double> BuildSymbols(String fileName) {
-			
-			Dictionary<String,Double> symbols = BuildSymbols();
-			
-			// this is gonna be expensive...
-			
-			// retrieve the VS_VERSION_INFO
-			try {
-				using(ResourceSource src = ResourceSource.Open( fileName, true, ResourceSourceLoadMode.LazyLoadData )) {
-					
-					Anolis.Core.Data.VersionResourceData vd = GetVSVersion( src );
-					if( vd == null ) {
-						symbols.Add("fileVersion", -1 );
-					} else {
-						
-						Dictionary<String,String> table = vd.GetStringTable();
-						String fileVersion = table["FileVersion"];
-						
-						if( fileVersion == null ) symbols.Add("fileVersion", -2 );
-						else {
-							
-							// HACK: This code needs to be made more robust
-							
-							Int32 idxSecondPoint = fileVersion.IndexOf('.', fileVersion.IndexOf('.') + 1 );
-							
-							String numericPart = fileVersion.Substring(0, idxSecondPoint );
-							
-							Double fileVersionNum = -3;
-							if( Double.TryParse( numericPart, N.Any, Cult.InvariantCulture, out fileVersionNum ) ) {
-								
-								symbols.Add( "fileVersion", fileVersionNum );
-							}
-							
-						}
-					}
-					
-				}
-			} catch(AnolisException aex) {
-				
-				LogItem item = new LogItem( LogSeverity.Error, aex, "Could not build symbols for \"" + fileName + "\" due to an exception: " + aex.Message );
-				Package.Log.Add( item );
-			}
-			
-			return symbols;
-		}
-		
-		private static Anolis.Core.Data.VersionResourceData GetVSVersion(ResourceSource source) {
-			
-			ResourceType vsType = null;
-			foreach(ResourceType type in source.AllTypes) {
-				if( type.Identifier.KnownType == Win32ResourceType.Version ) {
-					vsType = type;
-					break;
-				}
-			}
-			
-			if( vsType == null ) return null;
-				
-			foreach(ResourceName name in vsType.Names) {
-				foreach(ResourceLang lang in name.Langs) {
-					
-					return lang.Data as Anolis.Core.Data.VersionResourceData;
-				}
-			}
-			
-			return null;
-		}
-		
-	}
 	
 	public enum EvaluationResult {
 		True,
 		False,
+		FalseParent,
 		Error
 	}
 	
@@ -169,17 +45,37 @@ namespace Anolis.Core.Packages {
 		protected PackageItem(Package package, Group parent) : base(package) {
 			
 			ParentGroup = parent;
+			
+			Enabled     = true;
 		}
 		
-		public    String  Description          { get; set; }
-		protected String  DescriptionImagePath { get; set; }
+		public          String  Description          { get; set; }
+		protected       String  DescriptionImagePath { get; set; }
 		
 		/// <summary>Whether the item is enabled or disabled. If Disabled it will not be executed, but even if Enabled it may not be executed, see IsEnabled.</summary>
 		public virtual  Boolean Enabled        { get; set; }
 		public          Boolean Hidden         { get; set; }
 		public abstract Boolean IsEnabled      { get; }
 		
-		public    Group   ParentGroup          { get; internal set; }
+		public          Group   ParentGroup          { get; internal set; }
+		
+#region Evaluation
+		
+		public override EvaluationResult Evaluate() {
+			
+			if( ParentGroup != null ) {
+				
+				EvaluationResult result = ParentGroup.Evaluate();
+				if( result == EvaluationResult.False || result == EvaluationResult.FalseParent ) return EvaluationResult.FalseParent;
+				if( result != EvaluationResult.True ) return result;
+			}
+			
+			if( Condition == null ) return EvaluationResult.True;
+			
+			return EvaluateCondition( GetSymbols() );
+		}
+		
+#endregion
 		
 		public override String ToString() {
 			
@@ -202,10 +98,15 @@ namespace Anolis.Core.Packages {
 						
 					} else {
 						
-						_descImage = Image.FromFile( imgFilename  );
-						
 						try {
-							img = Image.FromFile( imgFilename );
+							
+							// using Bitmap.FromFile causes it to lock the file, the lock seems to stick even when you .Clone() it
+							// so load it from a stream
+							
+							using(FileStream fs = new FileStream( imgFilename, FileMode.Open, FileAccess.Read, FileShare.Read)) {
+								
+								_descImage = Image.FromStream( fs, false, true );
+							}
 							
 							Package.PackageImages.Add( imgFilename, img );
 						} catch(OutOfMemoryException) {
@@ -222,6 +123,8 @@ namespace Anolis.Core.Packages {
 				
 			}
 		}
+		
+#region Write
 		
 		public abstract void Write(XmlElement parent);
 		
@@ -277,6 +180,8 @@ namespace Anolis.Core.Packages {
 			element.Attributes.Append( att );
 			
 		}
+		
+#endregion
 		
 	}
 }

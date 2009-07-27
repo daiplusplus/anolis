@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="A_Message" xml:space="preserve">
-    <value>This wizard will guide you through the steps involved in installing an Anolis package
+    <value>This wizard will guide you through the steps involved in installing an Anolis package.
 
 To continue, press Next</value>
   </data>
@@ -182,12 +182,14 @@ To continue, press Next</value>
   </data>
   <data name="C_E_noInfo" xml:space="preserve">
     <value>The selected item '{0}' does not have any information associated with it</value>
+    <comment>Format string</comment>
   </data>
   <data name="C_F_installButton" xml:space="preserve">
     <value>Install</value>
   </data>
   <data name="C_G_status" xml:space="preserve">
     <value>{0}% complete - {1}</value>
+    <comment>Format string</comment>
   </data>
   <data name="D_A_destLbl" xml:space="preserve">
     <value>Destination directory</value>
@@ -219,9 +221,7 @@ Close all open applications before continuing. Do not attempt to open any new ap
     <value>Installation Complete</value>
   </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
-    <value>Uninstallation has been completed succesfully. Your computer will now restart.
-
-Close all open applications before continuing. Do not attempt to open any new applications.</value>
+    <value>Uninstallation has been completed succesfully.</value>
   </data>
   <data name="C_F_backup" xml:space="preserve">
     <value>Create uninstallation backup directory (Recommended)</value>
@@ -233,7 +233,7 @@ Close all open applications before continuing. Do not attempt to open any new ap
     <value>Install to this Computer</value>
   </data>
   <data name="C_F_i386" xml:space="preserve">
-    <value>Install to I386</value>
+    <value>Install to a Windows Setup CD (I386)</value>
   </data>
   <data name="C_F_sysRes" xml:space="preserve">
     <value>Create System Restore Point (Recommended)</value>
@@ -285,6 +285,7 @@ Close all open applications before continuing. Do not attempt to open any new ap
   </data>
   <data name="C_C_downloadProgress" xml:space="preserve">
     <value>{0}% - {1}KB of {2}KB downloaded at {3}KBps</value>
+    <comment>Format string</comment>
   </data>
   <data name="C_C_infoChecking" xml:space="preserve">
     <value>Checking for package update</value>
@@ -294,12 +295,15 @@ Close all open applications before continuing. Do not attempt to open any new ap
   </data>
   <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
     <value>An updated version ({0}) of this package is available. Would you like to download it now?</value>
+    <comment>Format string</comment>
   </data>
   <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
     <value>An updated version ({0}) of this package is available, but you need to download it manually. Click Visit Package Webpage for more information.</value>
+    <comment>Format string</comment>
   </data>
   <data name="C_C_infoUpdateLatest" xml:space="preserve">
     <value>You have the latest version ({0}) of this package.</value>
+    <comment>Format string</comment>
   </data>
   <data name="F_installationComplete" xml:space="preserve">
     <value>Installation has been completed succesfully.</value>
@@ -327,12 +331,13 @@ Close all open applications before continuing. Do not attempt to open any new ap
   </data>
   <data name="C_D_packageNotes" xml:space="preserve">
     <value>{0} Package Release Notes</value>
+    <comment>Format string</comment>
   </data>
   <data name="C_F_pathInvalidBackup" xml:space="preserve">
     <value>The specified backup path is not valid</value>
   </data>
   <data name="C_F_pathInvalidI386" xml:space="preserve">
-    <value>The specified I386 path is not valid</value>
+    <value>The specified CD root is not valid</value>
   </data>
   <data name="C_F_pathExistsBackup" xml:space="preserve">
     <value>The specified backup directory already exists and contains files. Backups must be made to either an empty directory or a directory that doesn't exist yet.</value>
@@ -347,33 +352,43 @@ Close all open applications before continuing. Do not attempt to open any new ap
     <value>This wizard will guide you through the steps involved in installing {0}
 
 To continue, press Next</value>
+    <comment>Format string / Cus</comment>
   </data>
   <data name="A_Title_Cus" xml:space="preserve">
-    <value>Welcome to the {0}</value>
+    <value>Welcome to the {0} Installer</value>
+    <comment>Format string / Cus</comment>
   </data>
   <data name="B_installBlurb_Cus" xml:space="preserve">
     <value>Installs {0} onto this computer or to a setup files (I386) folder.</value>
+    <comment>Format string / Cus</comment>
   </data>
   <data name="B_installRad_Cus" xml:space="preserve">
     <value>Install {0}</value>
+    <comment>Format string / Cus</comment>
   </data>
   <data name="B_toolsBlurb_Cus" xml:space="preserve">
     <value>Downloads tools so you can easily make your own package or distribution just like {0}</value>
+    <comment>Format string / Cus</comment>
   </data>
   <data name="B_uninstallRad_Cus" xml:space="preserve">
     <value>Undo changes made by {0}</value>
+    <comment>Format string / Cus</comment>
   </data>
   <data name="C_B_error_Cus" xml:space="preserve">
     <value>An error occured whilst attempting to extract {0}</value>
+    <comment>Format string</comment>
   </data>
   <data name="C_B_Subtitle_Cus" xml:space="preserve">
     <value>Please wait whilst the installer prepares {0} for installation</value>
+    <comment>Format string / Cus</comment>
   </data>
   <data name="C_D_Subtitle_Cus" xml:space="preserve">
     <value>Review any release notes made by {0}</value>
+    <comment>Format string / Cus</comment>
   </data>
   <data name="C_G_Subtitle_Cus" xml:space="preserve">
     <value>{0} is being installed</value>
+    <comment>Format string / Cus</comment>
   </data>
   <data name="C_A_anopFilenameLbl" xml:space="preserve">
     <value>Filename</value>
@@ -407,12 +422,14 @@ To continue, press Next</value>
   </data>
   <data name="C_B_Title_Cus" xml:space="preserve">
     <value>Preparing {0}</value>
+    <comment>Format string / Cus</comment>
   </data>
   <data name="C_C_downloadInfo" xml:space="preserve">
     <value>Visit Package Webpage</value>
   </data>
   <data name="C_C_downloadInfo_Cus" xml:space="preserve">
     <value>Visit {0} 's Webpage</value>
+    <comment>Format string / Cus</comment>
   </data>
   <data name="C_C_downloadNo" xml:space="preserve">
     <value>No</value>
@@ -459,7 +476,97 @@ To continue, press Next</value>
   <data name="E_A_Title" xml:space="preserve">
     <value>Select Backup Directory</value>
   </data>
-  <data name="E_B_Subtitle" xml:space="preserve">
+  <data name="E_A_Subtitle" xml:space="preserve">
     <value>Select the directory to recover from</value>
+  </data>
+  <data name="G_Title" xml:space="preserve">
+    <value>Please Wait...</value>
+  </data>
+  <data name="G_WaitMessage" xml:space="preserve">
+    <value>Now restarting your computer</value>
+  </data>
+  <data name="Wiz_CancelConfirm" xml:space="preserve">
+    <value>Are you sure you want to cancel installation?</value>
+  </data>
+  <data name="C_A_notFileExists" xml:space="preserve">
+    <value>The file "{0}" does not exist</value>
+    <comment>Format string</comment>
+  </data>
+  <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
+    <value>Select an embedded package before continuing</value>
+  </data>
+  <data name="C_B_conditionError" xml:space="preserve">
+    <value>There was an error whilst attempting to evaluate the package's suitability for your computer. Contact the package's author.</value>
+  </data>
+  <data name="E_A_notValidDirectory" xml:space="preserve">
+    <value>The specified directory does not contain a valid uninstallation package</value>
+  </data>
+  <data name="Lang_RTL" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="A_DisableAV" xml:space="preserve">
+    <value>Before continuing, please disable Windows Defender and any anti-virus software as they slow down the installation process.</value>
+  </data>
+  <data name="C_C_sfdTitle" xml:space="preserve">
+    <value>Save downloaded package to...</value>
+  </data>
+  <data name="D_B_downloadFailed" xml:space="preserve">
+    <value>Download failed</value>
+  </data>
+  <data name="A_DeletingTemporaryFiles" xml:space="preserve">
+    <value>Deleting temporary files</value>
+  </data>
+  <data name="F_uninstallationCompleteRestart" xml:space="preserve">
+    <value>Uninstallation has been completed succesfully. Your computer will now restart.
+
+Close all open applications before continuing. Do not attempt to open any new applications.</value>
+  </data>
+  <data name="F_aborted" xml:space="preserve">
+    <value>Installation aborted</value>
+  </data>
+  <data name="F_abortedDesc" xml:space="preserve">
+    <value>Installation was aborted due to an unhandled exception</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>Now uninstalling your package</value>
+  </data>
+  <data name="E_B_Subtitle_Cus" xml:space="preserve">
+    <value>Now uninstalling {0}</value>
+  </data>
+  <data name="E_B_Title" xml:space="preserve">
+    <value>Uninstalling package</value>
+  </data>
+  <data name="X_Bootscreen" xml:space="preserve">
+    <value>Bootscreen</value>
+  </data>
+  <data name="X_CursorScheme" xml:space="preserve">
+    <value>Mouse Cursors</value>
+  </data>
+  <data name="X_Presets" xml:space="preserve">
+    <value>Scheme Presets</value>
+  </data>
+  <data name="X_ResourceBitmaps" xml:space="preserve">
+    <value>Bitmaps</value>
+  </data>
+  <data name="X_Screensaver" xml:space="preserve">
+    <value>Screensaver</value>
+  </data>
+  <data name="X_Subtitle" xml:space="preserve">
+    <value>You can customize how your computer will appear after installation</value>
+  </data>
+  <data name="X_Title" xml:space="preserve">
+    <value>Select theming options</value>
+  </data>
+  <data name="X_VisualStyle" xml:space="preserve">
+    <value>Visual Style</value>
+  </data>
+  <data name="X_Wallpaper" xml:space="preserve">
+    <value>Wallpaper</value>
+  </data>
+  <data name="C_G_cleanup" xml:space="preserve">
+    <value>Post-Install Cleanup</value>
+  </data>
+  <data name="X_Advanced" xml:space="preserve">
+    <value>Advanced</value>
   </data>
 </root>

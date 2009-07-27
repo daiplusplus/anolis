@@ -17,17 +17,17 @@ namespace Anolis.Core.Packages.Operations {
 		
 		private List<CursorScheme> _schemes;
 		
-		public CursorSchemeOperation(Package package, Group parent, XmlElement element) :  base(package, parent, element) {
+		public CursorSchemeOperation(Group parent, XmlElement element) :  base(parent, element) {
 			
 			_schemes = new List<CursorScheme>();
 			
-			CursorScheme scheme = new CursorScheme(package, element );
+			CursorScheme scheme = new CursorScheme(parent.Package.RootDirectory, element );
 			
 			_schemes.Add( scheme );
 		}
 		
-		public CursorSchemeOperation(Package package, Group parent) : base(package, parent, (String)null) {
-			
+		public CursorSchemeOperation(Group parent) : base(parent) {
+			_schemes = new List<CursorScheme>();
 		}
 		
 		public override String OperationName {
@@ -66,8 +66,15 @@ namespace Anolis.Core.Packages.Operations {
 			
 			if( backupGroup == null ) return;
 			
-			// TODO
+			// save the current scheme config
+			RegistryKey currentCursorsKey = Registry.CurrentUser.OpenSubKey(@"Control Panel\Cursors", false);
 			
+			CursorScheme currentScheme = new CursorScheme( currentCursorsKey );
+			
+			CursorSchemeOperation op = new CursorSchemeOperation(backupGroup);
+			op._schemes.Add( currentScheme );
+			
+			backupGroup.Operations.Add( op );
 		}
 		
 		public override void Write(XmlElement parent) {
@@ -79,6 +86,8 @@ namespace Anolis.Core.Packages.Operations {
 				);
 				
 				foreach(CursorEntry entry in scheme.Cursors) {
+					
+					if(entry == null) return;
 					
 					XmlElement entryElement = CreateElement(element, "cursor");
 					AddAttribute(entryElement, "type", entry.CursorType.ToString());
@@ -95,9 +104,9 @@ namespace Anolis.Core.Packages.Operations {
 			public String        SchemeName;
 			public CursorEntry[] Cursors = new CursorEntry[15];
 			
-			public CursorScheme(Package package, XmlElement element) {
+			public CursorScheme(DirectoryInfo root, XmlElement element) {
 				
-				this.SchemeName = element.GetAttribute("schemeName");
+				SchemeName = element.GetAttribute("schemeName");
 				
 				foreach(XmlNode node in element.ChildNodes) {
 					
@@ -108,13 +117,54 @@ namespace Anolis.Core.Packages.Operations {
 					//////////////////////////////////////////////////
 					
 					CursorType type = (CursorType)Enum.Parse(typeof(CursorType), child.GetAttribute("type") );
-					String     path = PackageUtility.ResolvePath( child.GetAttribute("src"), package.RootDirectory.FullName);
+					String     path = PackageUtility.ResolvePath( child.GetAttribute("src"), root.FullName);
 					
 					int idx = (int)type;
 					
 					this.Cursors[ idx ] = new CursorEntry() { CursorType = type, CursorFilename = path };
 				}
 				
+				Array.Sort( Cursors );
+				
+			}
+			
+			public CursorScheme(RegistryKey key) {
+				
+				SchemeName = (String)key.GetValue(null);
+				
+				String[] vnames = key.GetValueNames();
+				
+				String[] typeNames = Enum.GetNames( typeof(CursorType) );
+				
+				foreach(String vname in vnames) {
+					
+					if( !typeNames.Contains( vname ) ) continue;
+					
+					String path = (String)key.GetValue(vname);
+					
+					CursorType type = (CursorType)Enum.Parse( typeof(CursorType), vname );
+					
+					int i = (int)type;
+					if( i > Cursors.Length ) continue;
+					
+					Cursors[i] = new CursorEntry() { CursorType = type, CursorFilename = path };
+				}
+				
+			}
+			
+			public CursorScheme(String name, String schemeLine) {
+				
+				SchemeName = name;
+				
+				String[] paths = schemeLine.Split(',');
+				for(int i=0;(i<paths.Length || i<Cursors.Length);i++) {
+					
+					Cursors[i] = new CursorEntry() {
+						CursorFilename = paths[i],
+						CursorType     = (CursorType)i
+					};
+					
+				}
 				
 			}
 			
@@ -155,13 +205,28 @@ namespace Anolis.Core.Packages.Operations {
 				
 				StringBuilder sb = new StringBuilder();
 				
+				// the line must be in order
+				Array.Sort( Cursors );
+				
+				Int32 lastType = -1;
 				for(int i=0;i<Cursors.Length;i++) {
 					
 					CursorEntry cursor = Cursors[i];
-					if(cursor != null) sb.Append( P.GetFileName( cursor.CursorFilename ) );
+					if( cursor != null ) {
+						
+						int type = (int)cursor.CursorType;
+						
+						if( type != lastType + 1 ) {
+							int difference = type - (lastType + 1);
+							for(int j=0;i<difference;j++) sb.Append(',');
+						}
+						
+						////////////////////////////////////////////
+						
+						sb.Append( cursor.CursorFilename );
+					}
 					
-					if( i != Cursors.Length - 1 ) sb.Append(',');
-					
+					if( i<Cursors.Length-1) sb.Append(',');
 				}
 				
 				return sb.ToString();
@@ -190,9 +255,14 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		private class CursorEntry {
+		private class CursorEntry : IComparable<CursorEntry> {
 			public CursorType CursorType;
 			public String     CursorFilename;
+			
+			public Int32 CompareTo(CursorEntry other) {
+				if( other == null ) return 1;
+				return CursorType.CompareTo( other.CursorType );
+			}
 		}
 		
 		public enum CursorType {

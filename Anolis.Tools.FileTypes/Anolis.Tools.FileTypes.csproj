@@ -46,14 +46,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ExtensionForm.Designer.cs">
-      <DependentUpon>ExtensionForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="ColumnHeader2.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="TypeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TypeEditor.Designer.cs">
+      <DependentUpon>TypeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExtensionEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExtensionEditor.Designer.cs">
+      <DependentUpon>ExtensionEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -63,8 +70,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ExtensionForm.resx">
-      <DependentUpon>ExtensionForm.cs</DependentUpon>
+    <EmbeddedResource Include="TypeEditor.resx">
+      <DependentUpon>TypeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtensionEditor.resx">
+      <DependentUpon>ExtensionEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

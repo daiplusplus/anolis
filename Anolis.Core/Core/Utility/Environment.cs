@@ -101,20 +101,18 @@ namespace Anolis.Core.Utility {
 					
 					if(os.ServicePack.Length == 0) return (_spLevel = 0).Value;
 					
-					String numberPart = os.ServicePack.Substring(13);
-					
 					Int32 sp;
-					if(Int32.TryParse(numberPart, N.Any, Cult.InvariantCulture, out sp))
-						return (_spLevel = sp).Value;
+					if( os.ServicePack.Length >= 14 ) {
+						String numberPart = os.ServicePack.Substring(13);
+						
+						if(Int32.TryParse(numberPart, N.Any, Cult.InvariantCulture, out sp)) return (_spLevel = sp).Value;
+					}
 					
 					// build a number string
 					String n = String.Empty;
-					for(int i=0;i<os.ServicePack.Length;i++)
-						if( Char.IsDigit( os.ServicePack[i] ) )
-							n += os.ServicePack[i];
+					for(int i=0;i<os.ServicePack.Length;i++) if( Char.IsDigit( os.ServicePack[i] ) ) n += os.ServicePack[i];
 					
-					if(Int32.TryParse(numberPart, N.Any, Cult.InvariantCulture, out sp))
-						return (_spLevel = sp).Value;
+					if(Int32.TryParse(n, N.Any, Cult.InvariantCulture, out sp)) return (_spLevel = sp).Value;
 					
 					return -1; // don't throw exceptions from property accessors which should have no side-effects
 					
@@ -152,4 +150,5 @@ namespace Anolis.Core.Utility {
 		public static OperatingSystem OSVersion { get { return System.Environment.OSVersion; } }
 		
 	}
+	
 }

@@ -7,7 +7,7 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class RegistryOperation : Operation {
 		
-		public RegistryOperation(Package package, Group parent, XmlElement element) :  base(package, parent, element) {
+		public RegistryOperation(Group parent, XmlElement element) :  base(parent, element) {
 			
 			RegKey   = element.GetAttribute("key");
 			RegName  = element.GetAttribute("vname");
@@ -16,7 +16,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public RegistryOperation(Package package, Group parent) :  base(package, parent, (String)null) {
+		public RegistryOperation(Group parent) :  base(parent) {
 		}
 		
 		private static RegistryValueKind ParseType(String type) {
@@ -72,7 +72,19 @@ namespace Anolis.Core.Packages.Operations {
 			
 			try {
 				
-				Registry.SetValue( RegKey, RegName, RegValue, RegKind );
+				if( RegValue == "###ANOLISREMOVE####" ) {
+					
+					RegistryKey key = GetRegistryKey( RegKey, true );
+					if( key != null ) {
+						
+						key.DeleteValue( RegName );
+					}
+					
+				} else {
+					
+					Registry.SetValue( RegKey, RegName, RegValue, RegKind );
+				}
+				
 				
 			} catch(ArgumentException ex) {
 				
@@ -85,6 +97,45 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
+		private static RegistryKey GetRegistryKey(String keyName, Boolean writable) {
+			
+			RegistryKey hive = null;
+			
+			// get the right hive
+			String hiveName = keyName.Substring(0, keyName.IndexOf('\\')).ToUpperInvariant();
+			switch(hiveName) {
+				case "HKLM":
+				case "HKEY_LOCAL_MACHINE":
+					hive = Registry.LocalMachine;
+					break;
+				case "HKCU":
+				case "HKEY_CURRENT_USER":
+					hive = Registry.CurrentUser;
+					break;
+				case "HKCR":
+				case "HKEY_CLASSES_ROOT":
+					hive = Registry.ClassesRoot;
+					break;
+				case "HKU":
+				case "HKEY_USERS":
+					hive = Registry.Users;
+					break;
+				case "HKCC":
+				case "HKEY_CURRENT_CONFIG":
+					hive = Registry.CurrentConfig;
+					break;
+			}
+			
+			if( hive == null ) return null;
+			
+			////////////////////////////////////////////////////
+			
+			String relatveKeyName = keyName.Substring( hiveName.Length + 1 ); // +1 to skip the first backslash
+			
+			return hive.OpenSubKey( relatveKeyName, writable );
+			
+		}
+		
 		private void Backup(Group backupGroup) {
 			
 			if( backupGroup == null ) return;
@@ -92,13 +143,14 @@ namespace Anolis.Core.Packages.Operations {
 			// get the current value and write it
 			
 			Object v = Registry.GetValue( RegKey, RegName, null );
+			// TODO: In future, get the value's kind before writing, don't use the currently specified RegKind attribute
 			
-			RegistryOperation op = new RegistryOperation(backupGroup.Package, backupGroup);
+			RegistryOperation op = new RegistryOperation(backupGroup);
 			op.RegKey   = RegKey;
 			op.RegName  = RegName;
 			op.RegKind  = RegKind; // there is an NRE here apparently
 			
-			op.RegValue = v == null ? "" : v.ToString();
+			op.RegValue = v == null ? "###ANOLISREMOVE####" : v.ToString();
 			
 			backupGroup.Operations.Add( op );
 		}

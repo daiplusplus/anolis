@@ -11,78 +11,6 @@ using System.ComponentModel;
 
 namespace Anolis.Core.Utility {
 	
-/*	internal static class NativeMethods {
-		[Flags]
-		public enum FileAccess : uint {
-			DeviceAttributes = 0,
-			GenericRead = 0x80000000,
-			GenericWrite = 0x40000000
-		}
-
-		public enum CreationDisposition {
-			CreateNew = 1,
-			CreateAlways = 2,
-			OpenExisting = 3,
-			OpenAlways = 4,
-			TruncateExisting = 5
-		}
-
-		[Flags]
-		public enum FileShareMode {
-			Read = 1,
-			Write = 2,
-			Delete = 4
-
-		}
-
-		[Flags]
-		public enum FileFlagsAndAttributes : uint {
-			ReadOnly = 0x1,
-			Hidden = 0x2,
-			System = 0x4,
-			Archive = 0x20,
-			Normal = 0x80,
-			FlagWriteThrough = ,
-			FlagRandomAccess = 
-		}
-
-		public enum PageProtect {
-			ReadOnly = 0x2,
-			ReadWrite = 0x4,
-		}
-
-		[Flags]
-		public enum MapAccess {
-			Write = 0x2,
-			Read = 0x4,
-			AllAccess = Write | Read
-		}
-
-		[DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-		public static extern SafeFileHandle CreateFile(
-		   string lpFileName,
-		   FileAccess dwDesiredAccess,
-		   FileShareMode dwShareMode,
-		   IntPtr lpSecurityAttributes,
-		   CreationDisposition dwCreationDisposition,
-		   FileFlagsAndAttributes dwFlagsAndAttributes,
-		   IntPtr hTemplateFile);
-
-		[DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-		public static extern SafeFileMappingHandle CreateFileMapping(SafeFileHandle hFile, IntPtr lpFileMappingAttributes, PageProtect flProtect, uint dwMaximumSizeHigh, uint dwMaximumSizeLow, string lpName);
-
-		[DllImport("kernel32.dll", SetLastError = true)]
-		public static extern IntPtr MapViewOfFile(SafeFileMappingHandle hFileMappingObject, MapAccess dwDesiredAccess, uint dwFileOffsetHigh, uint dwFileOffsetLow, IntPtr dwNumberOfBytesToMap);
-
-		[DllImport("kernel32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool UnmapViewOfFile(IntPtr lpBaseAddress);
-
-		[DllImport("kernel32.dll"), ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool CloseHandle(IntPtr hObject);
-	} */
-	
 	public enum FileMapMode {
 		Read  = 1,
 		Write = 2,
@@ -109,8 +37,7 @@ namespace Anolis.Core.Utility {
 		/// <param name="fileName">The file that should be memory-mapped</param>
 		public FileMapping(String fileName, FileMapMode mode) {
 			
-			if(fileName == null)
-				throw new ArgumentNullException("fileName");
+			if(fileName == null) throw new ArgumentNullException("fileName");
 			
 			FileMode          fileMode = FileMode.Open;
 			FileAccess        fileAccess;

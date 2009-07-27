@@ -1307,4 +1307,82 @@ namespace Anolis.Core.Native {
 		}
 	}
 	
+	public enum SpiAction : uint {
+		
+		None                 = 0,
+		
+		// Accessibility
+		SetFocusBorderWidth  = 0x200F, // pvParam = value
+		SetFocusBorderHeight = 0x2011, // pvParam = value
+		SetMouseSonar        = 0x101D, // pvParam = TRUE | FALSE
+		
+		// Desktop
+		SetCursors           = 0x0057, // 
+		SetDesktopWallpaper  = 0x0014, // pvParam = pSz wallpaper BMP image (JPEG in Vista and later)
+		SetDropShadow        = 0x1025, // pvParam = TRUE | FALSE
+		SetFlatMenu          = 0x1023, // pvParam = TRUE | FALSE
+		
+		SetFontSmoothing            = 0x004B, // uiParam = TRUE | FALSE
+		SetFontSmoothingType        = 0x200B, // pvParam = 1 for Standard Antialiasing, 2 for ClearType
+		SetFontSmoothingContrast    = 0x200D, // pvParam = 1000 to 2200, default is 1400
+		SetFontSmoothingOrientation = 0x2013, // pvParam = 0 for BGR, 1 for RGB
+		
+		// Icons
+		IconHorizontalSpacing = 0x000D, // uiParam = value, pvParam = pointer to an int that gets the value
+		IconVerticalSpacing   = 0x0018, // uiParam = value, pvParam = pointer to an int that gets the value
+		SetIcons              = 0x0058, //
+		SetIconTitleWrap      = 0x001A, // uiParam = TRUE | FALSE
+		
+		// Mouse
+		SetMouseTrails        = 0x005D, // uiParam = 0 or 1 to disable, or n > 1 for n cursors
+		
+		// Menus
+		SetMenuDropAlignment  = 0x001C, // uiParam = TRUE for right, FALSE for left
+		SetMenuFade           = 0x1013, // pvParam = TRUE | FALSE
+		SetMenuShowDelay      = 0x006B, // uiParam = time in miliseconds
+		
+		// UI Effects
+		SetUIEffects          = 0x103F, // pvParam = TRUE | FALSE to enable/disable all UI effects at once
+		// I'd define all of them here, but there's little point
+		
+		// Windows
+		SetActiveWindowTracking  = 0x1001, // pvParam = TRUE | FALSE
+		SetActiveWndTrkZOrder    = 0x100D, // pvParam = TRUE | FALSE
+		SetActiveWndTrkTimeout   = 0x2003, // pvParam = time in miliseconds
+		SetBorder                = 0x0006, // uiParam = multiplier width of sizing border
+		SetCaretWidth            = 0x2007, // pvParam = width in pixels
+		SetDragFullWindows       = 0x0025, // uiParam = TRUE | FALSE
+		SetForegroundFlashCount  = 0x2005, // pvParam = # times to flash
+		SetForegroundLockTimeout = 0x2001,  // pvParam = timeout in miliseconds
+		
+		
+		// Get
+		GetFocusBorderWidth  = 0x200E, // pvParam = Pointer to a UINT that receives the value
+		GetFocusBorderHeight = 0x2010, // pvParam = Pointer to a UINT that receives the value
+		GetMouseSonar        = 0x101C, // pvParam = Pointer to a BOOL
+		
+		GetDesktopWallpaper  = 0x0073, // pvParam = Pointer to a string buffer, uiParam = Size of the pvParam buffer
+		GetDropShadow        = 0x1024, // pvParam = Pointer to a BOOL
+		GetFlatMenu          = 0x1022, // pvParam = Pointer to a BOOL
+		
+		GetFontSmoothing            = 0x004A, // pvParam = Pointer to a BOOL
+		GetFontSmoothingType        = 0x200A, // pvParam = Pointer to a UINT
+		GetFontSmoothingContrast    = 0x200C, // pvParam = Pointer to a UINT
+		GetFontSmoothingOrientation = 0x2012, // pvParam = Pointer to a UINT
+		
+		GetMouseTrails           = 0x005E, // pvParam = Pointer to an integer that received the value. If it's <= 1 then it's disabled. >= 2 is enabled with n many trails
+		GetMenuDropAlignment     = 0x001B, // pvParam = Pointer to a BOOL (TRUE = right, FALSE = left)
+		GetMenuFade              = 0x1012, // pvParam = Pointer to a BOOL
+		GetMenuShowDelay         = 0x006A, // pvParam = Pointer to a DWORD, which is the length of the delay
+		
+		GetUIEffects             = 0x103E, // pvParam = Pointer to a BOOL
+		
+		GetActiveWindowTracking  = 0x1000, // pvParam = Pointer to a BOOL
+		GetBorder                = 0x0005, // pvParam = Pointer to an integer
+		GetCaretWidth            = 0x2006, // pvParam = Pointer to a DWORD
+		GetDragFullWindows       = 0x0026, // pvParam = Pointer to a BOOL
+		GetForegroundFlashCount  = 0x2004, // pvParam = Pointer to a DWORD
+		GetForegroundLockTimeout = 0x2000  // pvParam = Pointer to a DWORD
+	}
+	
 }

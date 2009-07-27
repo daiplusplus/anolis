@@ -55,10 +55,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="W3b.TarLzma, Version=1.0.0.0, Culture=neutral, PublicKeyToken=afbbd1ad3e927857, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_ref\W3b.TarLzma\W3b.TarLzma.dll</HintPath>
+    </Reference>
     <Reference Include="W3b.Wizards, Version=1.0.3464.28051, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_ref\W3b.Wizards\W3b.Wizards.dll</HintPath>
@@ -66,6 +69,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InstallerResources.cs" />
+    <Compile Include="Pages\0-BaseExteriorPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Pages\A-Welcome.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -147,8 +153,21 @@
     <Compile Include="Pages\F-Finished.designer.cs">
       <DependentUpon>F-Finished.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\WaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\WaitForm.Designer.cs">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\X-Selector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\X-Selector.Designer.cs">
+      <DependentUpon>X-Selector.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransferRateCalculator.cs" />
     <EmbeddedResource Include="Pages\0-BaseInteriorPage.resx">
       <DependentUpon>0-BaseInteriorPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -191,12 +210,30 @@
     <EmbeddedResource Include="Pages\F-Finished.resx">
       <DependentUpon>F-Finished.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\cy.resx" />
+    <EmbeddedResource Include="Pages\WaitForm.resx">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\X-Selector.resx">
+      <DependentUpon>X-Selector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ar.resx" />
+    <EmbeddedResource Include="Resources\cy.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\da.resx" />
+    <EmbeddedResource Include="Resources\fa.resx" />
+    <EmbeddedResource Include="Resources\fr.resx" />
+    <EmbeddedResource Include="Resources\gr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\it.resx">
       <LastGenOutput>it.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\pl.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ru.resx">
@@ -214,6 +251,14 @@
     <EmbeddedResource Include="Resources\en.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\sv.resx" />
+    <EmbeddedResource Include="Resources\th.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\zh.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\zh2.resx" />
     <None Include="app.config" />
     <None Include="app.manifest" />
   </ItemGroup>
@@ -260,13 +305,21 @@
     <Content Include="Package.ico" />
     <None Include="EULA.rtf" />
     <None Include="Resources\Flags\en.png" />
-    <None Include="Resources\Flags\cn.png" />
     <None Include="Resources\Flags\de.png" />
     <None Include="Resources\Flags\es.png" />
     <None Include="Resources\Flags\nl.png" />
-    <None Include="Resources\Flags\ru.png" />
-    <None Include="Resources\Flags\it.png" />
     <None Include="Resources\Flags\cy.png" />
+    <Content Include="Resources\Flags\ar.png" />
+    <Content Include="Resources\Flags\dk.png" />
+    <Content Include="Resources\Flags\fa.png" />
+    <None Include="Resources\Flags\fr.png" />
+    <None Include="Resources\Flags\gr.png" />
+    <Content Include="Resources\Flags\it.png" />
+    <Content Include="Resources\Flags\pl.png" />
+    <Content Include="Resources\Flags\ru.png" />
+    <None Include="Resources\Flags\th.png" />
+    <None Include="Resources\Flags\se.png" />
+    <Content Include="Resources\Flags\zh.png" />
     <Content Include="Resources\Package.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

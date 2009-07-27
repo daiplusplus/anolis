@@ -26,13 +26,14 @@
 			this.@__inst1 = new System.Windows.Forms.Label();
 			this.@__culture = new System.Windows.Forms.ComboBox();
 			this.@__cultureLbl = new System.Windows.Forms.Label();
-			this.@__cultureAttrib = new System.Windows.Forms.Label();
+			this.@__cultureAttrib = new System.Windows.Forms.LinkLabel();
 			this.@__openingText.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __title
 			// 
 			this.@__title.BackColor = System.Drawing.Color.Transparent;
+			this.@__title.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
 			this.@__title.Text = "Welcome to the Anolis Package Installer";
 			// 
 			// __openingText
@@ -42,17 +43,17 @@
 			this.@__openingText.Controls.Add(this.@__inst1);
 			this.@__openingText.Controls.Add(this.@__culture);
 			this.@__openingText.Controls.Add(this.@__cultureLbl);
-			this.@__openingText.Location = new System.Drawing.Point(174, 165);
-			this.@__openingText.Size = new System.Drawing.Size(322, 135);
+			this.@__openingText.Location = new System.Drawing.Point(174, 89);
+			this.@__openingText.Size = new System.Drawing.Size(322, 224);
 			// 
 			// __inst1
 			// 
 			this.@__inst1.BackColor = System.Drawing.Color.Transparent;
 			this.@__inst1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.@__inst1.Location = new System.Drawing.Point(0, 43);
+			this.@__inst1.Location = new System.Drawing.Point(0, 137);
 			this.@__inst1.Margin = new System.Windows.Forms.Padding(3, 100, 3, 0);
 			this.@__inst1.Name = "__inst1";
-			this.@__inst1.Size = new System.Drawing.Size(322, 92);
+			this.@__inst1.Size = new System.Drawing.Size(322, 87);
 			this.@__inst1.TabIndex = 0;
 			this.@__inst1.Text = "This wizard will guide you through the steps involve in installing an Anolis pack" +
 				"age\r\n\r\nTo continue, press Next";
@@ -61,17 +62,18 @@
 			// 
 			this.@__culture.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
 			this.@__culture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.@__culture.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.@__culture.FormattingEnabled = true;
-			this.@__culture.Location = new System.Drawing.Point(3, 16);
+			this.@__culture.Location = new System.Drawing.Point(72, 72);
 			this.@__culture.Name = "__culture";
-			this.@__culture.Size = new System.Drawing.Size(189, 21);
+			this.@__culture.Size = new System.Drawing.Size(189, 22);
 			this.@__culture.TabIndex = 2;
 			// 
 			// __cultureLbl
 			// 
 			this.@__cultureLbl.AutoSize = true;
 			this.@__cultureLbl.BackColor = System.Drawing.Color.Transparent;
-			this.@__cultureLbl.Location = new System.Drawing.Point(3, 0);
+			this.@__cultureLbl.Location = new System.Drawing.Point(69, 56);
 			this.@__cultureLbl.Name = "__cultureLbl";
 			this.@__cultureLbl.Size = new System.Drawing.Size(108, 13);
 			this.@__cultureLbl.TabIndex = 3;
@@ -79,11 +81,11 @@
 			// 
 			// __cultureAttrib
 			// 
-			this.@__cultureAttrib.Location = new System.Drawing.Point(198, 12);
+			this.@__cultureAttrib.AutoSize = true;
+			this.@__cultureAttrib.Location = new System.Drawing.Point(69, 97);
 			this.@__cultureAttrib.Name = "__cultureAttrib";
-			this.@__cultureAttrib.Size = new System.Drawing.Size(117, 26);
-			this.@__cultureAttrib.TabIndex = 4;
-			this.@__cultureAttrib.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.@__cultureAttrib.Size = new System.Drawing.Size(0, 13);
+			this.@__cultureAttrib.TabIndex = 5;
 			// 
 			// WelcomePage
 			// 
@@ -99,7 +101,7 @@
 		private System.Windows.Forms.Label __inst1;
 		private System.Windows.Forms.ComboBox __culture;
 		private System.Windows.Forms.Label __cultureLbl;
-		private System.Windows.Forms.Label __cultureAttrib;
+		private System.Windows.Forms.LinkLabel __cultureAttrib;
 
 	}
 }

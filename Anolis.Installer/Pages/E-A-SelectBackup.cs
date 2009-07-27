@@ -54,9 +54,7 @@ namespace Anolis.Installer.Pages {
 				return false;
 			}
 			
-			EvaluationInfo res = PackageInfo.Package.EvaluateCondition();
-			return res.Success;
-			
+			return PackageInfo.Package.Evaluate() == EvaluationResult.True;
 		}
 		
 #region UI Events
@@ -73,6 +71,12 @@ namespace Anolis.Installer.Pages {
 		private void Page_Load(object sender, EventArgs e) {
 			
 			WizardForm.NextText = "Uninstall";
+			
+			if( InstallationInfo.UninstallPackage != null ) {
+				
+				__dir.Text = InstallationInfo.UninstallPackage.Directory.FullName;
+			}
+			
 		}
 		
 		private void Page_Unload(object sender, W3b.Wizards.PageChangeEventArgs e) {
@@ -85,7 +89,7 @@ namespace Anolis.Installer.Pages {
 			
 			if( !PrepareToUninstall() ) {
 				
-				MessageBox.Show(this, "The specified directory does not contain a valid uninstallation package", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				MessageBox.Show(this, InstallerResources.GetString("E_A_notValidDirectory"), "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 				
 				e.Cancel = true;
 				

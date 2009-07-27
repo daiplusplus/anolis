@@ -10,33 +10,17 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public abstract class Operation : PackageItem {
 		
-		private String _path;
-		
-		protected Operation(Package package, Group parent, XmlElement operationElement) : base(package, parent, operationElement) {
-			
-			Path = operationElement.GetAttribute("path");
+		protected Operation(Group parent, XmlElement operationElement) : base( parent.Package, parent, operationElement) {
 		}
 		
-		protected Operation(Package package, Group parent, String operationPath) : base(package, parent) {
-			
-			Path = operationPath;
+		protected Operation(Group parent) : base(parent.Package, parent) {
 		}
 		
 		public abstract String OperationName { get; }
 		
 		/// <summary>Whether the item will be executed or not.</summary>
-		public override Boolean IsEnabled {
-			get {
-				return ParentGroup.Enabled ? Enabled : false;
-			}
-		}
-		
-		public String Path {
-			get { return _path; }
-			set {
-				
-				_path = value == null ? null : PackageUtility.ResolvePath( value, Package.RootDirectory.FullName );
-			}
+		public override sealed Boolean IsEnabled {
+			get { return ParentGroup.IsEnabled ? Enabled : false; }
 		}
 		
 		public abstract void Execute();
@@ -44,46 +28,97 @@ namespace Anolis.Core.Packages.Operations {
 		/// <summary>Provides an opportunity to reduce the number of operations by merging them together to be Executed in a single go. Return true if the provided operation was successfully merged into this operation (thus making it obsolete, it will then be removed from the flattened operation list). Return false to keep the old operation in the list.</summary>
 		public abstract Boolean Merge(Operation operation);
 		
-		public virtual String Key { get { return OperationName + Path; } }
+		public virtual String Key { get { return OperationName; } }
 		
-		public static Operation FromElement(Package package, Group parent, XmlElement operationElement) {
+		public virtual Boolean SupportsCDImage {
+			get { return false; }
+		}
+		
+		public virtual Boolean CustomEvaluation {
+			get { return false; }
+		}
+		
+		public override String ToString() {
+			return OperationName;
+		}
+		
+#region Static
+		
+		public static Operation FromElement(Group parent, XmlElement operationElement) {
 			
 			switch(operationElement.Name) {
 				case "patch":
-					return new PatchOperation(package, parent, operationElement);
+					return new ResPatchOperation(parent, operationElement);
 				case "file":
-					return new FileOperation(package, parent, operationElement);
+					return new FileOperation(parent, operationElement);
+				case "directory":
+					return new DirectoryOperation(parent, operationElement);
 				case "extra":
-					return ExtraOperation.Create(package, parent, operationElement);
+					return ExtraOperation.Create(parent, operationElement);
 				case "cursorScheme":
-					return new CursorSchemeOperation(package, parent, operationElement);
+					return new CursorSchemeOperation(parent, operationElement);
 				case "systemParameter":
-					return new SystemParameterOperation(package, parent, operationElement);
+					return new SystemParameterOperation(parent, operationElement);
 				case "fileType":
-					return new FileTypeOperation(package, parent, operationElement);
+					return new FileTypeOperation(parent, operationElement);
 				case "registry":
-					return new RegistryOperation(package, parent, operationElement);
+					return new RegistryOperation(parent, operationElement);
+				case "program":
+					return new ProgramOperation(parent, operationElement);
 				case "uxtheme":
-					return new UXThemeOperation(package, parent, operationElement);
+					return new UXThemeOperation(parent, operationElement);
+				case "uninstallation":
+					return new UninstallationOperation(parent, operationElement);
+				case "clearIconCache":
+					return new ClearIconCacheOperation(parent, operationElement);
 				default:
 					// TODO: Allow additional libraries or code-generation to specify their own stuff
 					// Define types in the Package XML? http://www.codeproject.com/KB/dotnet/evaluator.aspx
 					
-					package.Log.Add(LogSeverity.Warning, "Unrecognised element: " + operationElement.Name);
+					parent.Package.Log.Add(LogSeverity.Warning, "Unrecognised element: " + operationElement.Name);
 					
 					return null;
 			}
 			
 		}
 		
-		public virtual Boolean SupportsI386 {
-			get { return false; }
+#endregion
+		
+	}
+	
+	public abstract class PathOperation : Operation {
+		
+		private String _path;
+		
+		protected PathOperation(Group parent, XmlElement operationElement) : base(parent, operationElement) {
+			
+			Path = operationElement.GetAttribute("path");
 		}
+		
+		protected PathOperation(Group parent, String operationPath) : base(parent) {
+			
+			Path = operationPath;
+		}
+		
+		public String Path {
+			get { return _path; }
+			set {
+				
+				if( value == null ) {
+					_path = null;
+				} else {
+					_path = PackageUtility.ResolvePath( value, Package.RootDirectory.FullName );
+				}
+				
+				
+			}
+		}
+		
+		public override String Key { get { return OperationName + Path; } }
 		
 		public override String ToString() {
 			return OperationName + ": " + System.IO.Path.GetFileName( Path );
 		}
-		
 	}
 	
 	public enum I386Type {

@@ -302,7 +302,7 @@ namespace Anolis.Core.Data {
 			
 			foreach(VersionItem str in item.Children) {
 				
-				ret.Add( str.Key, str.Value.ToString() );
+				ret.Add( str.Key, str.Value == null ? String.Empty : str.Value.ToString() );
 			}
 			
 			return ret;

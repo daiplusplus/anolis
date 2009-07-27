@@ -10,22 +10,21 @@ using P = System.IO.Path;
 
 namespace Anolis.Core.Packages.Operations {
 	
-	public abstract class ExtraOperation : Operation {
+	public abstract class ExtraOperation : PathOperation {
 		
-		protected ExtraOperation(ExtraType type, Package package, Group parent, XmlElement operationElement) : base(package, parent, operationElement) {
-			
-			Options = operationElement.GetAttribute("options");
+		protected ExtraOperation(ExtraType type, Group parent, XmlElement operationElement) : base(parent, operationElement) {
 			
 			String file = operationElement.GetAttribute("path");
 			
-			file = PackageUtility.ResolvePath( file, package.RootDirectory.FullName );
+			if( !String.IsNullOrEmpty( file ) ) file = PackageUtility.ResolvePath( file,parent.Package.RootDirectory.FullName );
 			
 			CreateState( type, file );
 		}
 		
-		protected ExtraOperation(ExtraType type, Package package, Group parent, String path) : base(package, parent, path) {
+		protected ExtraOperation(ExtraType type, Group parent, String path) : base(parent, path) {
 			
-			String file = PackageUtility.ResolvePath( path, package.RootDirectory.FullName );
+			String file = null;
+			if( path != null ) file = PackageUtility.ResolvePath( path, parent.Package.RootDirectory.FullName );
 			
 			CreateState( type, file );
 		}
@@ -35,7 +34,10 @@ namespace Anolis.Core.Packages.Operations {
 			Files = new Collection<String>();
 			ExtraType = type;
 			
-			Files.Add( file );
+			if( file != null ) {
+				
+				Files.Add( file );
+			}
 		}
 		
 		public override String OperationName {
@@ -44,27 +46,26 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public String             Attribution { get; private set; }
 		public ExtraType          ExtraType   { get; private set; }
-		public String             Options     { get; private set; }
 		public Collection<String> Files       { get; private set; }
 		
-		public static ExtraOperation Create(Package package, Group parent, XmlElement operationElement) {
+		public static ExtraOperation Create(Group parent, XmlElement operationElement) {
 			
 			String typeStr = operationElement.GetAttribute("type");
 			ExtraType type = (ExtraType)Enum.Parse( typeof(ExtraType), typeStr, true );
 			
 			switch(type) {
 				case ExtraType.Wallpaper:
-					return new WallpaperExtraOperation(package, parent, operationElement);
+					return new WallpaperExtraOperation(parent, operationElement);
 				case ExtraType.BootScreen:
-					return new BootScreenExtraOperation(package, parent, operationElement);
+					return new BootScreenExtraOperation(parent, operationElement);
 				case ExtraType.VisualStyle:
-					return new VisualStyleExtraOperation(package, parent, operationElement);
+					return new VisualStyleExtraOperation(parent, operationElement);
 				case ExtraType.Screensaver:
-					return new ScreensaverExtraOperation(package, parent, operationElement);
-				case ExtraType.Program:
-					return new ProgramExtraOperation(package, parent, operationElement);
+					return new ScreensaverExtraOperation(parent, operationElement);
 				case ExtraType.Custom:
-					return new CustomExtraOperation(package, parent, operationElement);
+					return new CustomExtraOperation(parent, operationElement);
+				case ExtraType.RunOnce:
+					return new RunOnceExtraOperation(parent, operationElement);
 				default:
 					return null;
 			}
@@ -98,8 +99,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			CreateElement(parent, "extra",
 				"type"   , ExtraType.ToString(),
-				"path"   , Path,
-				"options", Options
+				"path"   , Path
 			);
 		}
 		
@@ -107,7 +107,9 @@ namespace Anolis.Core.Packages.Operations {
 			
 			String v = (String)Registry.GetValue( keyPath, valueName, null );
 			
-			RegistryOperation op = new RegistryOperation( backupGroup.Package, backupGroup );
+			if( v == null ) return;
+			
+			RegistryOperation op = new RegistryOperation( backupGroup );
 			op.RegKey   = keyPath;
 			op.RegName  = valueName;
 			op.RegValue = v;
@@ -125,9 +127,9 @@ namespace Anolis.Core.Packages.Operations {
 		BootScreen,
 		VisualStyle,
 		Screensaver,
-		Program,
 		Registry,
-		Custom
+		Custom,
+		RunOnce
 	}
 	
 	
