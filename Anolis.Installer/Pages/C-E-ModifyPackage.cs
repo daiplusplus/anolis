@@ -142,9 +142,11 @@ namespace Anolis.Installer.Pages {
 			
 			if( String.IsNullOrEmpty( item.Description ) ) {
 				
-				if(item is Operation) {
+				PathOperation po = item as PathOperation;
+				
+				if(po != null) {
 					
-					__infoLbl.Text = (item as Operation).Path;
+					__infoLbl.Text = po.Path;
 				} else {
 					
 					__infoLbl.Text = String.Format(Cult.CurrentCulture, InstallerResources.GetString("C_E_noInfo"), item.Name);

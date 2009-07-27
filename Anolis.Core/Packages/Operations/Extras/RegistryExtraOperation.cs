@@ -10,7 +10,7 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class RegistryExtraOperation : ExtraOperation {
 		
-		public RegistryExtraOperation(Package package, Group parent, XmlElement element) :  base(ExtraType.Registry, package, parent, element) {
+		public RegistryExtraOperation(Group parent, XmlElement element) :  base(ExtraType.Registry, parent, element) {
 		}
 		
 		public override void Execute() {

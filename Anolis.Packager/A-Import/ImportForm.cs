@@ -86,7 +86,7 @@ namespace Anolis.Packager {
 			
 			if( directory.Name.IndexOf('.') > -1 ) {
 				
-				PatchOperation op = new PatchOperation(group.Package, group, relativeFn);
+				ResPatchOperation op = new ResPatchOperation(group, relativeFn);
 				
 				FileInfo[] files = directory.GetFiles();
 				Array.Sort( files, new Comparison<FileInfo>( CompareFiles ) );
@@ -130,7 +130,7 @@ namespace Anolis.Packager {
 						PatchResource patch = new PatchResource();
 						patch.Type = type;
 						patch.Name = Path.GetFileNameWithoutExtension( file.FullName );
-						patch.File = Path.Combine( relativeFn, file.Name );
+						patch.Source = Path.Combine( relativeFn, file.Name );
 						
 						op.ResourceSet.Resources.Add( patch );
 					}

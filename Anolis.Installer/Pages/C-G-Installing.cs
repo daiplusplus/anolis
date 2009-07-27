@@ -29,6 +29,25 @@ namespace Anolis.Installer.Pages {
 		
 		protected override String LocalizePrefix { get { return "C_G"; } }
 		
+		protected override void Localize() {
+			base.Localize();
+			
+			if( Program.ProgramMode == ProgramMode.UninstallPackage ) {
+				
+				PageTitle    = InstallerResources.GetString("E_B_Title");
+				PageSubtitle = InstallerResources.GetString("E_B_Subtitle");
+				
+			} else {
+				
+				if( InstallerResources.IsCustomized ) {
+					PageSubtitle = InstallerResources.GetString("C_G_Subtitle_Cus", InstallerResources.CustomizedSettings.InstallerName);
+				}
+				
+			}
+			
+			
+		}
+		
 		private void InstallingPage_PageLoad(object sender, EventArgs e) {
 			
 			WizardForm.EnableBack = false;
@@ -44,13 +63,12 @@ namespace Anolis.Installer.Pages {
 			Exception ex = e.Error;
 			if(ex != null) {
 				
-				Invoke( new MethodInvoker( delegate() {
-					
-					throw new AnolisException("Error during installation", ex);
-					
-				}));
+				InstallationInfo.WriteException( ex );
 				
+				InstallationInfo.InstallationAborted = true;
 			}
+			
+			WizardForm.LoadPage( Program.PageFFinished );
 			
 		}
 		
@@ -60,7 +78,7 @@ namespace Anolis.Installer.Pages {
 			
 			if( PackageInfo.I386Install ) {
 				
-				settings.ExecutionMode = PackageExecutionMode.I386;
+				settings.ExecutionMode = PackageExecutionMode.CDImage;
 				settings.I386Directory = PackageInfo.I386Directory;
 			
 			} else {
@@ -74,10 +92,21 @@ namespace Anolis.Installer.Pages {
 			
 			PackageInfo.RequiresRestart = (Program.ProgramMode == ProgramMode.InstallPackage) && PackageInfo.Package.ExecutionInfo.RequiresRestart;
 			
-			Invoke( new MethodInvoker( delegate() {
+			///////////////////////////////
+			// Clean Up Extracted and Temporary Files
+			
+			if( PackageInfo.Source == PackageSource.Archive || PackageInfo.Source == PackageSource.Embedded ) {
 				
-				WizardForm.LoadPage( Program.PageFFinished );
-			}));
+				BeginInvoke( new MethodInvoker( delegate() {
+					
+					__progress.Style = ProgressBarStyle.Marquee;
+					__statusLbl.Text = InstallerResources.GetString("C_G_cleanup");
+					
+				}));
+				
+				PackageInfo.Package.DeleteFiles();
+				
+			}
 			
 		}
 		

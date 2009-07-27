@@ -134,7 +134,10 @@ namespace Anolis.Core.Data {
 		///	</summary>
 		public void Save(String fileName) {
 			
-			if(fileName == null) throw new ArgumentNullException("filename");
+			if(fileName == null) throw new ArgumentNullException("fileName");
+			
+			String directory = Path.GetDirectoryName( fileName );
+			if( !Directory.Exists( directory ) ) Directory.CreateDirectory( directory );
 			
 			using(Stream stream = File.Open( fileName, FileMode.Create, FileAccess.Write, FileShare.None )) {
 				

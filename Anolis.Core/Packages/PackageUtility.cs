@@ -120,8 +120,23 @@ namespace Anolis.Core.Packages {
 			inParams["RestorePointType"]  = (int)type;
 			inParams["EventType"]         = (int)eventType;
 			
-			ManagementBaseObject outParams = clas.InvokeMethod("CreateRestorePoint", inParams, null);
-			Object ret = outParams.Properties["ReturnValue"];
+			Object ret;
+			try {
+				
+				ManagementBaseObject outParams = clas.InvokeMethod("CreateRestorePoint", inParams, null);
+				ret = outParams.Properties["ReturnValue"];
+				
+				outParams.Dispose();
+			
+			} catch( ManagementException ) {
+				
+				return false;
+				
+			} finally {
+				
+				inParams.Dispose();
+				clas.Dispose();
+			}
 			
 			if(ret is Int32) {
 				
@@ -180,6 +195,8 @@ namespace Anolis.Core.Packages {
 				
 				String relativePath = fileName.Substring( _resolvedSystem32Path.Length );
 				
+				if( relativePath.StartsWith("\\") ) relativePath = relativePath.Substring(1);
+				
 				fileName = Path.Combine( _resolvedSysWow64Path, relativePath );
 				
 				if( File.Exists( fileName ) ) return fileName;
@@ -190,6 +207,8 @@ namespace Anolis.Core.Packages {
 			if( fileName.StartsWith( _resolvedProgFilePath, StringComparison.OrdinalIgnoreCase ) ) {
 				
 				String relativePath = fileName.Substring( _resolvedProgFilePath.Length );
+				
+				if( relativePath.StartsWith("\\") ) relativePath = relativePath.Substring(1);
 				
 				fileName = Path.Combine( _resolvedPrgFle32Path, relativePath );
 				

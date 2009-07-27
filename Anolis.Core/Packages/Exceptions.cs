@@ -27,16 +27,18 @@ namespace Anolis.Core.Packages {
 	public class PackageValidationException : PackageException {
 		
 		public PackageValidationException() {
+			ValidationErrors = new Collection<ValidationEventArgs>();
 		}
 		
 		public PackageValidationException(String message) : base(message) {
+			ValidationErrors = new Collection<ValidationEventArgs>();
 		}
 		
-		public PackageValidationException(string message, Exception inner) : base(message, inner) {
+		public PackageValidationException(String message, Exception inner) : base(message, inner) {
+			ValidationErrors = new Collection<ValidationEventArgs>();
 		}
 		
 		public PackageValidationException(String message, Collection<ValidationEventArgs> errors) : base(message) {
-			
 			ValidationErrors = errors;
 		}
 		

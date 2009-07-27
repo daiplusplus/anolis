@@ -35,9 +35,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.FileTypes", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.AlphaBitmap", "Anolis.Tools.AlphaBitmap\Anolis.Tools.AlphaBitmap.csproj", "{8330FD1C-B035-4260-9E8B-B9BBDC8A3A16}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tests.BootIni", "Anolis.Tests.BootIni\Anolis.Tests.BootIni.csproj", "{7902C0A4-D627-4EB9-B6B5-20EE7A012532}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.TweakUI", "Anolis.Tools.TweakUI\Anolis.Tools.TweakUI.csproj", "{F94BAA8F-47E1-4A4E-BF8E-073B10611D17}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 14
+		SccNumberOfProjects = 16
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs03.codeplex.com/
 		SccLocalPath0 = .
@@ -80,6 +84,12 @@ Global
 		SccProjectUniqueName13 = Anolis.Tools.AlphaBitmap\\Anolis.Tools.AlphaBitmap.csproj
 		SccProjectName13 = Anolis.Tools.AlphaBitmap
 		SccLocalPath13 = Anolis.Tools.AlphaBitmap
+		SccProjectUniqueName14 = Anolis.Tests.BootIni\\Anolis.Tests.BootIni.csproj
+		SccProjectName14 = Anolis.Tests.BootIni
+		SccLocalPath14 = Anolis.Tests.BootIni
+		SccProjectUniqueName15 = Anolis.Tools.TweakUI\\Anolis.Tools.TweakUI.csproj
+		SccProjectName15 = Anolis.Tools.TweakUI
+		SccLocalPath15 = Anolis.Tools.TweakUI
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Anolis.vsmdi
@@ -175,6 +185,18 @@ Global
 		{8330FD1C-B035-4260-9E8B-B9BBDC8A3A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8330FD1C-B035-4260-9E8B-B9BBDC8A3A16}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8330FD1C-B035-4260-9E8B-B9BBDC8A3A16}.Release|x86.ActiveCfg = Release|Any CPU
+		{7902C0A4-D627-4EB9-B6B5-20EE7A012532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7902C0A4-D627-4EB9-B6B5-20EE7A012532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7902C0A4-D627-4EB9-B6B5-20EE7A012532}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7902C0A4-D627-4EB9-B6B5-20EE7A012532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7902C0A4-D627-4EB9-B6B5-20EE7A012532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7902C0A4-D627-4EB9-B6B5-20EE7A012532}.Release|x86.ActiveCfg = Release|Any CPU
+		{F94BAA8F-47E1-4A4E-BF8E-073B10611D17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F94BAA8F-47E1-4A4E-BF8E-073B10611D17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F94BAA8F-47E1-4A4E-BF8E-073B10611D17}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F94BAA8F-47E1-4A4E-BF8E-073B10611D17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F94BAA8F-47E1-4A4E-BF8E-073B10611D17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F94BAA8F-47E1-4A4E-BF8E-073B10611D17}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using Anolis.Core.Packages;
 using W3b.Wizards.WindowsForms;
+using System.Globalization;
 
 namespace Anolis.Installer.Pages {
 	
@@ -37,13 +38,15 @@ namespace Anolis.Installer.Pages {
 		
 		private void SelectPackagePage_PageUnload(object sender, W3b.Wizards.PageChangeEventArgs e) {
 						
-			if( InstallerResources.IsCustomized && InstallerResources.CustomizedSettings.SimpleUI  ) return;
+			if( InstallerResources.IsCustomized && InstallerResources.CustomizedSettings.SimpleUI ) return;
+			
+			if( e.PageToBeLoaded == Program.PageBMainAction ) return;
 			
 			if( __embedRad.Checked ) {
 				
 				if( __embedList.SelectedItem == null ) {
 					
-					MessageBox.Show(this, "Select an embedded package before continuing", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					MessageBox.Show(this, InstallerResources.GetString("C_A_selectEmbeddedPackageFirst"), "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 					e.Cancel = true;
 					return;
 				}
@@ -59,7 +62,9 @@ namespace Anolis.Installer.Pages {
 			} else if( __packRad.Checked ) {
 				
 				if( !File.Exists( __packFilename.Text ) ) {
-					MessageBox.Show(this, "The file \"" + __packFilename.Text + "\" does not exist", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					
+					String message = String.Format(CultureInfo.InvariantCulture, InstallerResources.GetString("C_A_notFileExists"), __anopFilename.Text );
+					MessageBox.Show(this, message, "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 					e.Cancel = true;
 					return;
 				}
@@ -72,7 +77,9 @@ namespace Anolis.Installer.Pages {
 			} else if( __anopRad.Checked ) {
 				
 				if( !File.Exists( __anopFilename.Text ) ) {
-					MessageBox.Show(this, "The file \"" + __anopFilename.Text + "\" does not exist", "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					
+					String message = String.Format(CultureInfo.InvariantCulture, InstallerResources.GetString("C_A_notFileExists"), __anopFilename.Text );
+					MessageBox.Show(this, message, "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 					e.Cancel = true;
 					return;
 				}

@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Collections.ObjectModel;
 
-namespace Anolis.Core.Core.Utility {
+namespace Anolis.Core.Utility {
 	
 	public class BootIni {
 		
@@ -111,26 +111,39 @@ namespace Anolis.Core.Core.Utility {
 			
 			if( _default == null ) throw new AnolisException("A default OS must be specified");
 			
-			using(FileStream fs = new FileStream(_bootIniPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
-			using(StreamWriter wtr = new StreamWriter(fs, Encoding.ASCII)) {
+			try {
 				
-				wtr.WriteLine("[boot loader]");
+				FileInfo bootIniFile = new FileInfo( _bootIniPath );
+				if( bootIniFile.IsReadOnly ) bootIniFile.IsReadOnly = false;
 				
-				foreach(String option in _options) {
+				
+				using(FileStream fs = new FileStream(_bootIniPath, FileMode.Truncate, FileAccess.Write, FileShare.None))
+				using(StreamWriter wtr = new StreamWriter(fs, Encoding.ASCII)) {
 					
-					wtr.WriteLine( option );
+					wtr.WriteLine("[boot loader]");
+					
+					foreach(String option in _options) {
+						
+						wtr.WriteLine( option );
+					}
+					
+					wtr.WriteLine("default=" + _default.PartitionPath);
+					
+					wtr.WriteLine("[operating systems]");
+					
+					foreach(BootIniOSEntry os in _oses) {
+						
+						wtr.WriteLine( os.ToString() );
+					}
+					
 				}
 				
-				wtr.WriteLine("default=" + _default.PartitionPath);
-				
-				wtr.WriteLine("[operating systems]");
-				
-				foreach(BootIniOSEntry os in _oses) {
-					
-					wtr.WriteLine( os.ToString() );
-				}
-				
+			} catch(UnauthorizedAccessException uae) {
+				throw new AnolisException("Couldn't save Boot.ini (UAEX): " + uae.Message, uae);
+			} catch(IOException iox) {
+				throw new AnolisException("Couldn't save Boot.ini (IOEX): " + iox.Message, iox);
 			}
+			
 		}
 		
 	}//class
@@ -173,11 +186,13 @@ namespace Anolis.Core.Core.Utility {
 							
 							state = State.InName;
 							
+							sb.Length = 0; // skip the first "
+							
 						} else if( state == State.InName ) {
 							
 							state = State.InSwitches;
 							
-							_osName = sb.ToString().LeftFR(1);
+							_osName = sb.ToString().LeftFR(1); // remove the last "
 							
 							sb.Length = 0;
 							continue;
@@ -210,13 +225,18 @@ namespace Anolis.Core.Core.Utility {
 					
 					if(c == ' ' && !inString) {
 						
-						_switches.Add( ss.ToString() );
+						String addThis = ss.ToString().Trim();
+						if( !String.IsNullOrEmpty( addThis ) ) {
+							
+							_switches.Add( addThis );
+						}
+						
 						ss.Length = 0;
 					}
 					
 				}
 				
-				if( ss.Length > 0 ) _switches.Add( ss.ToString() );
+				if( ss.Length > 0 ) _switches.Add( ss.ToString().Trim() );
 				
 			}
 			

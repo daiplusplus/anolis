@@ -212,6 +212,9 @@ namespace Anolis.Packager {
 			if( __cusStringName.Text.Length > 0 )
 				wtr.AddResource("Installer_Name", __cusStringName.Text );
 			
+			if( __cusStringNameFull.Text.Length > 0 )
+				wtr.AddResource("Installer_NameFull", __cusStringNameFull.Text );
+			
 			if( __cusStringDeveloper.Text.Length > 0 )
 				wtr.AddResource("Installer_Developer", __cusStringDeveloper.Text );
 			

@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
 
 using W3b.Wizards.WindowsForms;
 using Anolis.Core.Packages;
 
-using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Installer.Pages {
 	
@@ -32,7 +25,7 @@ namespace Anolis.Installer.Pages {
 			__packageRtf  .Rtf = packageNotes;
 			__installerRtf.Rtf = installerNotes;
 			
-			__packageTab.Text = String.Format(Cult.InvariantCulture, InstallerResources.GetString("C_D_packageNotes"), PackageInfo.Package.Name);
+			__packageTab.Text = InstallerResources.GetString("C_D_packageNotes", PackageInfo.Package.Name);
 		}
 		
 		protected override String LocalizePrefix {
@@ -41,6 +34,11 @@ namespace Anolis.Installer.Pages {
 		
 		protected override void Localize() {
 			base.Localize();
+			
+			if( InstallerResources.IsCustomized ) {
+				
+				PageSubtitle = InstallerResources.GetString("C_D_Subtitle_Cus", InstallerResources.CustomizedSettings.InstallerName);
+			}
 			
 			__installerTab.Text = InstallerResources.GetString("C_D_installerNotes");
 		}

@@ -30,15 +30,15 @@
 			this.@__progGroupMe = new System.Windows.Forms.RadioButton();
 			this.@__destLbl = new System.Windows.Forms.Label();
 			this.@__fbd = new System.Windows.Forms.FolderBrowserDialog();
-			this.@__destPath = new System.Windows.Forms.ComboBox();
 			this.@__toolsLbl = new System.Windows.Forms.Label();
+			this.@__destPath = new System.Windows.Forms.TextBox();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __content
 			// 
-			this.@__content.Controls.Add(this.@__toolsLbl);
 			this.@__content.Controls.Add(this.@__destPath);
+			this.@__content.Controls.Add(this.@__toolsLbl);
 			this.@__content.Controls.Add(this.@__destLbl);
 			this.@__content.Controls.Add(this.@__progGroupMe);
 			this.@__content.Controls.Add(this.@__progGroupAll);
@@ -97,19 +97,6 @@
 			this.@__destLbl.Text = "Destination directory";
 			this.@__destLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
-			// __destPath
-			// 
-			this.@__destPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__destPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-			this.@__destPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-			this.@__destPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-			this.@__destPath.FormattingEnabled = true;
-			this.@__destPath.Location = new System.Drawing.Point(126, 85);
-			this.@__destPath.Name = "__destPath";
-			this.@__destPath.Size = new System.Drawing.Size(235, 21);
-			this.@__destPath.TabIndex = 6;
-			// 
 			// __toolsLbl
 			// 
 			this.@__toolsLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -119,6 +106,17 @@
 			this.@__toolsLbl.Size = new System.Drawing.Size(437, 64);
 			this.@__toolsLbl.TabIndex = 7;
 			this.@__toolsLbl.Text = resources.GetString("__toolsLbl.Text");
+			// 
+			// __destPath
+			// 
+			this.@__destPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__destPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+			this.@__destPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
+			this.@__destPath.Location = new System.Drawing.Point(126, 86);
+			this.@__destPath.Name = "__destPath";
+			this.@__destPath.Size = new System.Drawing.Size(233, 20);
+			this.@__destPath.TabIndex = 8;
 			// 
 			// DestinationPage
 			// 
@@ -139,7 +137,7 @@
 		private System.Windows.Forms.CheckBox __progGroup;
 		private System.Windows.Forms.Button __destBrowse;
 		private System.Windows.Forms.FolderBrowserDialog __fbd;
-		private System.Windows.Forms.ComboBox __destPath;
 		private System.Windows.Forms.Label __toolsLbl;
+		private System.Windows.Forms.TextBox __destPath;
 	}
 }

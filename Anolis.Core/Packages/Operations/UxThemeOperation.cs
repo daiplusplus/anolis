@@ -13,12 +13,16 @@ using Anolis.Core.Utility.BinaryPatch;
 
 namespace Anolis.Core.Packages.Operations {
 	
-	public class UXThemeOperation : Operation {
+	public class UXThemeOperation : PatchOperation {
 		
-		public UXThemeOperation(Package package, Group parent, XmlElement element) :  base(package, parent, element) {
+		public UXThemeOperation(Group parent, XmlElement element) : base(parent, element) {
+			
+			Path = @"%windir%\System32\uxtheme.dll";
 		}
 		
-		public UXThemeOperation(Package package, Group parent) :  base(package, parent, (String)null) {
+		public UXThemeOperation(Group parent) : base(parent, (String)null ) {
+			
+			Path = @"%windir%\System32\uxtheme.dll";
 		}
 		
 		public override Boolean Merge(Operation operation) {
@@ -29,86 +33,34 @@ namespace Anolis.Core.Packages.Operations {
 			get { return "UxTheme"; }
 		}
 		
-		public override Boolean SupportsI386 {
-			// TODO: Support I386 patching of uxtheme
-			// I propose making a new superclass ModifyOperation which PatchOperation and UXThemeOperation derive, it has protected methods to work with I386 files
-			// an alternative is to make CabWin32ResourceSource which works with the files directly?
-			get { return false; }
+		public override Boolean SupportsCDImage {
+			get { return true; }
 		}
 		
-		public override void Execute() {
+		protected override Boolean PatchFile(String fileName) {
 			
-			PatchFile( PackageUtility.ResolvePath(@"%windir%\System32\uxtheme.dll") );
-			PatchFile( PackageUtility.ResolvePath(@"%windir%\SysWow64\uxtheme.dll") );
-			
-		}
-		
-		private void PatchFile(String fileName) {
-			
-			if( !File.Exists( fileName ) ) {
-				
-				Package.Log.Add(LogSeverity.Error, "UxTheme file not found: " + fileName);
-				return;
-				
-			}
-			
-			// make a copy then patch that, then add it to PFRO
-			
-			String workOnThis = fileName + ".anofp";
-			
-			if( File.Exists( workOnThis ) ) Package.Log.Add(LogSeverity.Warning, "Overwritten *.anofp: " + workOnThis); 
-			File.Copy( fileName, workOnThis, true );
-			
-			// begin patching
-			
-			PatchFinder finderSystem32 = UXThemePatchFinderFactory.Create( workOnThis );
-			Patch patch = finderSystem32.GetPatchStatus();
+			PatchFinder finder = UXThemePatchFinderFactory.Create( fileName );
+			Patch patch = finder.GetPatchStatus();
 			
 			if( patch.CanPatch ) {
 				
 				patch.ApplyPatch();
 				
-				Miscellaneous.CorrectPEChecksum( workOnThis );
+				Miscellaneous.CorrectPEChecksum( fileName );
 				
-				PackageUtility.AddPfroEntry( workOnThis, fileName );
-				
-				Package.ExecutionInfo.RequiresRestart = true;
-				
-				////////////////////////
-				// Make backup
-				
-				if( Package.ExecutionInfo.BackupGroup != null ) {
-				
-					String hash = PackageUtility.GetMD5Hash( workOnThis );
-					Backup( Package.ExecutionInfo.BackupGroup, fileName, hash );
-					
-				}
+				return true;
 				
 			} else {
 				
-				File.Delete( workOnThis );
+				File.Delete( fileName );
 				
 				String reason = "";
 				foreach(PatchEntry entry in patch.Entries) reason += entry.Status + "; ";
 				
 				Package.Log.Add( LogSeverity.Warning, "Did not UxTheme Patch: " +  fileName + " because \"" + reason + "\", deleted working file" );
 				
+				return false;
 			}
-			
-		}
-		
-		private void Backup(Group backupGroup, String originalFileName, String patchedHash) {
-			
-			DirectoryInfo backupDir = backupGroup.Package.RootDirectory;
-			
-			String backupToThis = P.Combine( backupDir.FullName, P.GetFileName( originalFileName ) );
-			backupToThis = PackageUtility.GetUnusedFileName( backupToThis );
-			
-			File.Copy( originalFileName, backupToThis );
-			
-			FileOperation op = new FileOperation(backupGroup.Package, backupGroup, backupToThis, originalFileName, FileOperationType.Copy);
-			op.ConditionHash = patchedHash;
-			backupGroup.Operations.Add( op );
 			
 		}
 		

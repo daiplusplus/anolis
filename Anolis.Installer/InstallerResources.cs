@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Reflection;
 using System.Resources;
-using System.Text;
 
 using Anolis.Core;
 
@@ -14,10 +14,12 @@ namespace Anolis.Installer {
 	public class InstallerResourceLanguage {
 		
 		private String _manifestStreamName;
+		private Boolean _isGzipped;
 		
 		public InstallerResourceLanguage(String manifestStreamName) {
 			
 			_manifestStreamName = manifestStreamName;
+			_isGzipped          = manifestStreamName.EndsWith(".gz");
 		}
 		
 		private ResourceSet _set;
@@ -27,17 +29,30 @@ namespace Anolis.Installer {
 				
 				if( _set == null ) {
 					
-					using(Stream manifestStream = Assembly.GetExecutingAssembly().GetManifestResourceStream( _manifestStreamName )) {
+					using(Stream manifestStream = GetResourceStream() ) {
 						
 						ResourceReader rdr = new ResourceReader( manifestStream );
 						
 						_set = new ResourceSet( rdr );
-						
 					}
 				}
 				
 				return _set;
 			}
+		}
+		
+		private Stream GetResourceStream() {
+			
+			Stream rawManifestStream = Assembly.GetExecutingAssembly().GetManifestResourceStream( _manifestStreamName );
+			
+			if( _isGzipped ) {
+				
+				GZipStream gz = new GZipStream( rawManifestStream, CompressionMode.Decompress );
+				return gz;
+			}
+			
+			return rawManifestStream;
+			// GZipStream.Dispose closes the original stream
 		}
 		
 #region Nice Properties
@@ -76,6 +91,19 @@ namespace Anolis.Installer {
 			get { return ResourceSet.GetString("Lang_AttributionUri"); }
 		}
 		
+		private Boolean? _rightToLeft;
+		
+		public Boolean RightToLeft {
+			get {
+				if( _rightToLeft == null ) {
+					String rtlStr = ResourceSet.GetString("Lang_RTL");
+					if( rtlStr == "1" ) _rightToLeft = true;
+					else                _rightToLeft = false;
+				}
+				return _rightToLeft.Value;
+			}
+		}
+		
 #endregion
 		
 		public override String ToString() {
@@ -103,8 +131,14 @@ namespace Anolis.Installer {
 			get { return _customizerSet; }
 		}
 		
+		/// <summary>e.g. "xpize"</summary>
 		public String InstallerName {
 			get { return GetString("Installer_Name"); }
+		}
+		
+		/// <summary>e.g. "xpize 5 Release 4"</summary>
+		public String InstallerFullName {
+			get { return GetString("Installer_NameFull"); }
 		}
 		
 		public String InstallerDeveloper {
@@ -224,6 +258,9 @@ namespace Anolis.Installer {
 				
 				_availableLanguages = langs.ToArray();
 				
+				//Array.Sort( _availableLanguages, (x,y) => x.LcidName.CompareTo( y.LcidName ) );
+				Array.Sort( _availableLanguages, (x,y) => x.LanguageName.CompareTo( y.LanguageName ) );
+				
 			}
 			
 			return _availableLanguages;
@@ -267,6 +304,14 @@ namespace Anolis.Installer {
 #endregion
 		
 		/////////////////////////////////////////////////////////////
+		
+		public static String GetString(String name, params Object[] formatArgs) {
+			
+			String s = GetString(name);
+			if( String.IsNullOrEmpty( s ) ) return s;
+			
+			return String.Format( CultureInfo.CurrentCulture, s, formatArgs );
+		}
 		
 		public static String GetString(String name) {
 			

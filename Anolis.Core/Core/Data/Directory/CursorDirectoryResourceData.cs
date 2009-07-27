@@ -55,7 +55,7 @@ namespace Anolis.Core.Data {
 		
 		public override ResourceData FromFileToUpdate(Stream stream, String extension, ResourceLang currentLang) {
 			
-			if( !IsExtension( extension, "ico" ) ) throw new ArgumentException("cur is the only supported extension");
+			if( !IsExtension( extension, "cur" ) ) throw new ArgumentException("cur is the only supported extension");
 			
 			CursorDirectoryResourceData originalData = currentLang.Data as CursorDirectoryResourceData;
 			if(originalData == null) throw new ResourceDataException("Unexpected original data subclass");

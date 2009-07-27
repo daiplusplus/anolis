@@ -565,11 +565,27 @@ namespace Anolis.Core.Native {
 		
 		[DllImport("user32.dll", CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true, SetLastError=true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern Boolean SystemParametersInfo(UInt32 uAction, UInt32 uParam, String lpvParam, SpiUpdate fuWinIni);
+		public static extern Boolean SystemParametersInfo(UInt32 uAction, UInt32 uParam, String pvParam, SpiUpdate fuWinIni);
 		
 		[DllImport("user32.dll", CharSet=CharSet.Unicode, ThrowOnUnmappableChar=true, SetLastError=true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern Boolean SystemParametersInfo(UInt32 uAction, UInt32 uParam, IntPtr lpvParam, SpiUpdate fuWinIni);
+		public static extern Boolean SystemParametersInfo(UInt32 uAction, UInt32 uParam, IntPtr pvParam, SpiUpdate fuWinIni);
+		
+		public static Boolean SystemParametersInfo(SpiAction action, UInt32 uParam, String pvParam) {
+			
+			UInt32    uAction = (UInt32)action;
+			SpiUpdate update  = SpiUpdate.SendWinIniChange | SpiUpdate.UpdateIniFile;
+			
+			return SystemParametersInfo(uAction, uParam, pvParam, update);
+		}
+		
+		public static Boolean SystemParametersInfo(SpiAction action, UInt32 uParam, IntPtr pvParam) {
+			
+			UInt32    uAction = (UInt32)action;
+			SpiUpdate update  = SpiUpdate.SendWinIniChange | SpiUpdate.UpdateIniFile;
+			
+			return SystemParametersInfo(uAction, uParam, pvParam, update);
+		}
 		
 	#endregion
 		

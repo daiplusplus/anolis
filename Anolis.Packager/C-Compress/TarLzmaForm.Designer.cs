@@ -24,6 +24,7 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.@__compressGrp = new System.Windows.Forms.GroupBox();
+			this.@__quickload = new System.Windows.Forms.Button();
 			this.@__compressRootLbl = new System.Windows.Forms.Label();
 			this.@__compressRoot = new System.Windows.Forms.TextBox();
 			this.@__compressRootBrowse = new System.Windows.Forms.Button();
@@ -45,6 +46,7 @@
 			this.@__status = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__bw = new System.ComponentModel.BackgroundWorker();
 			this.@__ofdFiles = new System.Windows.Forms.OpenFileDialog();
+			this.@__ofdQL = new System.Windows.Forms.OpenFileDialog();
 			this.@__compressGrp.SuspendLayout();
 			this.@__decompressGrp.SuspendLayout();
 			this.@__statusStrip.SuspendLayout();
@@ -55,6 +57,7 @@
 			this.@__compressGrp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__compressGrp.Controls.Add(this.@__quickload);
 			this.@__compressGrp.Controls.Add(this.@__compressRootLbl);
 			this.@__compressGrp.Controls.Add(this.@__compressRoot);
 			this.@__compressGrp.Controls.Add(this.@__compressRootBrowse);
@@ -70,10 +73,19 @@
 			this.@__compressGrp.TabStop = false;
 			this.@__compressGrp.Text = "Compress";
 			// 
+			// __quickload
+			// 
+			this.@__quickload.Location = new System.Drawing.Point(8, 19);
+			this.@__quickload.Name = "__quickload";
+			this.@__quickload.Size = new System.Drawing.Size(73, 23);
+			this.@__quickload.TabIndex = 8;
+			this.@__quickload.Text = "Quickload";
+			this.@__quickload.UseVisualStyleBackColor = true;
+			// 
 			// __compressRootLbl
 			// 
 			this.@__compressRootLbl.AutoSize = true;
-			this.@__compressRootLbl.Location = new System.Drawing.Point(6, 24);
+			this.@__compressRootLbl.Location = new System.Drawing.Point(89, 24);
 			this.@__compressRootLbl.Name = "__compressRootLbl";
 			this.@__compressRootLbl.Size = new System.Drawing.Size(73, 13);
 			this.@__compressRootLbl.TabIndex = 7;
@@ -83,9 +95,9 @@
 			// 
 			this.@__compressRoot.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__compressRoot.Location = new System.Drawing.Point(85, 21);
+			this.@__compressRoot.Location = new System.Drawing.Point(168, 21);
 			this.@__compressRoot.Name = "__compressRoot";
-			this.@__compressRoot.Size = new System.Drawing.Size(337, 20);
+			this.@__compressRoot.Size = new System.Drawing.Size(254, 20);
 			this.@__compressRoot.TabIndex = 0;
 			// 
 			// __compressRootBrowse
@@ -203,13 +215,19 @@
 			this.@__decompressLbl.TabIndex = 0;
 			this.@__decompressLbl.Text = "File";
 			// 
+			// __fbd
+			// 
+			this.@__fbd.ShowNewFolderButton = false;
+			// 
 			// __ofdDecompress
 			// 
-			this.@__ofdDecompress.Filter = "LZMA Tar (*.lzma)|*.lzma|Tarball (*.tar)|*.tar|All files (*.*)|*.*";
+			this.@__ofdDecompress.Filter = "LZMA Tarball (*.tar.lzma)|*.tar.lzma|Tarball (*.tar)|*.tar|All files (*.*)|*.*";
+			this.@__ofdDecompress.SupportMultiDottedExtensions = true;
 			// 
 			// __sfd
 			// 
-			this.@__sfd.Filter = "LZMA Tar (*.lzma)|*.lzma|Tarball (*.tar)|*.tar|All files (*.*)|*.*";
+			this.@__sfd.Filter = "LZMA Tarball (*.tar.lzma)|*.tar.lzma|Tarball (*.tar)|*.tar|All files (*.*)|*.*";
+			this.@__sfd.SupportMultiDottedExtensions = true;
 			// 
 			// __statusStrip
 			// 
@@ -237,6 +255,10 @@
 			// 
 			this.@__ofdFiles.Filter = "All files (*.*)|*.*";
 			this.@__ofdFiles.Multiselect = true;
+			// 
+			// __ofdQL
+			// 
+			this.@__ofdQL.Filter = "Text Files (*.txt)|*.txt";
 			// 
 			// TarLzmaForm
 			// 
@@ -283,5 +305,7 @@
 		private System.Windows.Forms.ToolStripProgressBar __progress;
 		private System.ComponentModel.BackgroundWorker __bw;
 		private System.Windows.Forms.OpenFileDialog __ofdFiles;
+		private System.Windows.Forms.Button __quickload;
+		private System.Windows.Forms.OpenFileDialog __ofdQL;
 	}
 }

@@ -49,7 +49,7 @@
 			this.@__installRad.Checked = true;
 			this.@__installRad.Location = new System.Drawing.Point(22, 20);
 			this.@__installRad.Name = "__installRad";
-			this.@__installRad.Size = new System.Drawing.Size(434, 25);
+			this.@__installRad.Size = new System.Drawing.Size(422, 25);
 			this.@__installRad.TabIndex = 0;
 			this.@__installRad.TabStop = true;
 			this.@__installRad.Text = "Install a package";
@@ -74,7 +74,7 @@
 			this.@__uninstallRad.BackColor = System.Drawing.Color.Transparent;
 			this.@__uninstallRad.Location = new System.Drawing.Point(22, 84);
 			this.@__uninstallRad.Name = "__uninstallRad";
-			this.@__uninstallRad.Size = new System.Drawing.Size(434, 25);
+			this.@__uninstallRad.Size = new System.Drawing.Size(422, 25);
 			this.@__uninstallRad.TabIndex = 2;
 			this.@__uninstallRad.Text = "Undo changes made by this distribution";
 			this.@__uninstallRad.UseVisualStyleBackColor = false;
@@ -86,7 +86,7 @@
 			this.@__uninstallBlurb.BackColor = System.Drawing.Color.Transparent;
 			this.@__uninstallBlurb.Location = new System.Drawing.Point(40, 113);
 			this.@__uninstallBlurb.Name = "__uninstallBlurb";
-			this.@__uninstallBlurb.Size = new System.Drawing.Size(416, 40);
+			this.@__uninstallBlurb.Size = new System.Drawing.Size(407, 40);
 			this.@__uninstallBlurb.TabIndex = 3;
 			this.@__uninstallBlurb.Text = "Recovers files to their before-patched status. You will need the backup directory" +
 				" that was created during installation";
@@ -98,7 +98,7 @@
 			this.@__toolsRad.BackColor = System.Drawing.Color.Transparent;
 			this.@__toolsRad.Location = new System.Drawing.Point(22, 152);
 			this.@__toolsRad.Name = "__toolsRad";
-			this.@__toolsRad.Size = new System.Drawing.Size(434, 25);
+			this.@__toolsRad.Size = new System.Drawing.Size(422, 25);
 			this.@__toolsRad.TabIndex = 4;
 			this.@__toolsRad.Text = "Make my own package or distribution";
 			this.@__toolsRad.UseVisualStyleBackColor = false;
@@ -110,7 +110,7 @@
 			this.@__toolsBlurb.BackColor = System.Drawing.Color.Transparent;
 			this.@__toolsBlurb.Location = new System.Drawing.Point(39, 180);
 			this.@__toolsBlurb.Name = "__toolsBlurb";
-			this.@__toolsBlurb.Size = new System.Drawing.Size(417, 34);
+			this.@__toolsBlurb.Size = new System.Drawing.Size(408, 34);
 			this.@__toolsBlurb.TabIndex = 5;
 			this.@__toolsBlurb.Text = "Downloads tools so you can easily make your own package or distribution";
 			// 

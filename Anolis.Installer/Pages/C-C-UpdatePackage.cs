@@ -22,13 +22,13 @@ namespace Anolis.Installer.Pages {
 		
 		private PackageUpdateInfo _updateInfo;
 		
+		private TransferRateCalculator _rate = new TransferRateCalculator();
+		
 		public UpdatePackagePage() {
 			
 			InitializeComponent();
 			
-			this.Load       += new EventHandler(UpdatePackagePage_Load);
 			this.PageLoad   += new EventHandler(UpdatePackagePage_PageLoad);
-			this.PageUnload += new EventHandler<PageChangeEventArgs>(UpdatePackagePage_PageUnload);
 			
 			this.__downloadInfo.Click += new EventHandler(__downloadInfo_Click);
 			this.__downloadYes .Click += new EventHandler(__downloadYes_Click);
@@ -42,17 +42,23 @@ namespace Anolis.Installer.Pages {
 		
 		protected override String LocalizePrefix { get { return "C_C"; } }
 		
-		private void UpdatePackagePage_Load(object sender, EventArgs e) {
+		protected override void Localize() {
+			base.Localize();
 			
+			if( InstallerResources.IsCustomized ) {
+				
+				__downloadInfo.Text = InstallerResources.GetString("C_C_downloadInfo_Cus", InstallerResources.CustomizedSettings.InstallerName);
+			}
 			
 		}
 		
 		private void UpdatePackagePage_PageLoad(object sender, EventArgs e) {
 			
-			if( PackageInfo.Package.UpdateUri == null ) {
+			if( (InstallerResources.IsCustomized && InstallerResources.CustomizedSettings.DisableUpdateCheck ) || ( PackageInfo.Package.UpdateUri == null ) ) {
 				
 				WizardForm.LoadPage( NextPage );
 				return;
+				
 			}
 			
 			__bw.RunWorkerAsync();
@@ -142,7 +148,7 @@ namespace Anolis.Installer.Pages {
 		
 		private void __downloadYes_Click(object sender, EventArgs e) {
 			
-			__sfd.Title = "Save downloaded package to...";
+			__sfd.Title = InstallerResources.GetString("C_C_sfdTitle");
 			
 			if(__sfd.ShowDialog(this) == DialogResult.OK) {
 				
@@ -176,7 +182,7 @@ namespace Anolis.Installer.Pages {
 			client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
 			client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
 			
-			_transferTimes.Clear();
+			_rate.Reset();
 			
 			client.DownloadFileAsync( _updateInfo.PackageLocation, savePackageTo, savePackageTo );
 			
@@ -203,9 +209,9 @@ namespace Anolis.Installer.Pages {
 		
 		private void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
 			
-			_transferTimes.Add( new Pair<DateTime,Int32>( DateTime.Now, (int)e.BytesReceived / 1024 ) );
+			_rate.Add( e.BytesReceived );
 			
-			Int32 xferRate = GetTransferRate();
+			Int32 xferRate = _rate.GetTransferRate();
 			
 			String message = InstallerResources.GetString("C_C_downloadProgress");
 			message = String.Format(Cult.CurrentCulture, message, e.ProgressPercentage, e.BytesReceived / 1024, e.TotalBytesToReceive / 1024, xferRate);
@@ -216,41 +222,6 @@ namespace Anolis.Installer.Pages {
 				__statusLbl.Text = message;
 				
 			} ) );
-			
-			
-			
-		}
-		
-		////////////////////////////////////////
-		// Transfer rate calculations
-		
-		private List<Pair<DateTime,Int32>> _transferTimes = new List<Pair<DateTime,Int32>>();
-		
-		private Int32 GetTransferRate() {
-			
-			DateTime now = DateTime.Now;
-			
-			Pair<DateTime,Int32> last      = _transferTimes[ _transferTimes.Count - 1 ];
-			
-			Int32 kbSecondAgo = 0;
-			
-			// get the transfer that happened 1 second ago
-			for(int i=_transferTimes.Count-1;i>=0;i--) {
-				
-				Pair<DateTime,Int32> xfer = _transferTimes[i];
-				
-				TimeSpan span = now.Subtract( xfer.X );
-				if( span.TotalSeconds >= 1 ) { // this is good enough
-					
-					kbSecondAgo = xfer.Y;
-					break;
-				}
-				
-			}
-			
-			// the difference in bytes is then the 
-			
-			return last.Y - kbSecondAgo;
 			
 		}
 		
@@ -270,11 +241,6 @@ namespace Anolis.Installer.Pages {
 			}
 			
 			__statusLbl.Text = e.UserState as String;
-			
-		}
-		
-		private void UpdatePackagePage_PageUnload(object sender, PageChangeEventArgs e) {
-			
 			
 		}
 		

@@ -15,10 +15,10 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class ScreensaverExtraOperation : ExtraOperation {
 		
-		public ScreensaverExtraOperation(Package package, Group parent, XmlElement element) :  base(ExtraType.Screensaver, package, parent, element) {
+		public ScreensaverExtraOperation(Group parent, XmlElement element) :  base(ExtraType.Screensaver, parent, element) {
 		}
 		
-		public ScreensaverExtraOperation(Package package, Group parent, String path) :  base(ExtraType.Screensaver, package, parent, path) {
+		public ScreensaverExtraOperation(Group parent, String path) :  base(ExtraType.Screensaver, parent, path) {
 		}
 		
 		public override void Execute() {
@@ -53,47 +53,37 @@ namespace Anolis.Core.Packages.Operations {
 			
 			if( backupGroup == null ) return;
 			
-			// get the current screensaver
+			String keyPath = @"HKEY_CURRENT_USER\Control Panel\Desktop";
 			
-			String value  = (String)Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\Desktop", "SCRNSAVE.EXE"    , null);
-			String active = (String)Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\Desktop", "ScreenSaveActive", "1");
+			MakeRegOp(backupGroup, keyPath, "SCRNSAVE.EXE");
+			MakeRegOp(backupGroup, keyPath, "ScreenSaveActive");
 			
-			if( value != null ) {
+			if( Package.ExecutionInfo.ApplyToDefault ) {
 				
-				RegistryOperation restoreOp1 = new RegistryOperation(backupGroup.Package, backupGroup);
-				restoreOp1.RegKey   = @"HKEY_CURRENT_USER\Control Panel\Desktop";
-				restoreOp1.RegName  = "SCRNSAVE.EXE";
-				restoreOp1.RegValue = value;
-				restoreOp1.RegKind  = RegistryValueKind.String;
+				keyPath = @"HKEY_USERS\.DEFAULT\Control Panel\Desktop";
 				
-				backupGroup.Operations.Add( restoreOp1 );
-				
-				RegistryOperation restoreOp2 = new RegistryOperation(backupGroup.Package, backupGroup);
-				restoreOp2.RegKey   = @"HKEY_CURRENT_USER\Control Panel\Desktop";
-				restoreOp2.RegName  = "ScreenSaveActive";
-				restoreOp2.RegValue = active;
-				restoreOp2.RegKind  = RegistryValueKind.String;
-				
-				backupGroup.Operations.Add( restoreOp2 );
+				MakeRegOp(backupGroup, keyPath, "SCRNSAVE.EXE");
+				MakeRegOp(backupGroup, keyPath, "ScreenSaveActive");
 			}
-			
 		}
 		
 		private void SetScreensaver(String screensaverFilename) {
 			
 			// if the saver is located under system32 you don't need the full path, but I'll include it anyway
 			
-			RegistryKey[] desktopSettings = new RegistryKey[2];
-			desktopSettings[0] = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
-			desktopSettings[1] = Registry.Users.OpenSubKey(".DEFAULT").OpenSubKey(@"Control Panel\Desktop", true);
-			
 			String eightThreeFileName = PackageUtility.GetShortPath( screensaverFilename );
 			
-			foreach(RegistryKey key in desktopSettings) {
+			RegistryKey cu = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
+			cu.SetValue("ScreenSaveActive", "1"               , RegistryValueKind.String);
+			cu.SetValue("SCRNSAVE.EXE"    , eightThreeFileName, RegistryValueKind.String);
+			cu.Close();
+			
+			if( Package.ExecutionInfo.ApplyToDefault ) {
 				
-				key.SetValue("ScreenSaveActive", "1"               , RegistryValueKind.String);
-				key.SetValue("SCRNSAVE.EXE"    , eightThreeFileName, RegistryValueKind.String);
-				key.Close();
+				RegistryKey du = Registry.Users.OpenSubKey(".DEFAULT").OpenSubKey(@"Control Panel\Desktop", true);
+				du.SetValue("ScreenSaveActive", "1"               , RegistryValueKind.String);
+				du.SetValue("SCRNSAVE.EXE"    , eightThreeFileName, RegistryValueKind.String);
+				du.Close();
 			}
 			
 		}

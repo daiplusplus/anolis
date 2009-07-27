@@ -32,6 +32,7 @@ namespace Anolis.Core.Source {
 		public override Compatibility HandlesExtension(String extension) {
 			switch( extension.ToUpperInvariant() ) {
 				case "RES":
+				case "RCT":
 					return Compatibility.Yes;
 				default:
 					return Compatibility.No;
@@ -40,7 +41,7 @@ namespace Anolis.Core.Source {
 		
 		public override String OpenFileFilter {
 			get {
-				return CreateFileFilter("Compiled Resource Script", "res");
+				return CreateFileFilter("Compiled Resource Script", "res", "rct");
 			}
 		}
 		

@@ -35,7 +35,7 @@
 			// 
 			// __progress
 			// 
-			this.@__progress.Location = new System.Drawing.Point(13, 66);
+			this.@__progress.Location = new System.Drawing.Point(22, 54);
 			this.@__progress.Name = "__progress";
 			this.@__progress.Size = new System.Drawing.Size(419, 23);
 			this.@__progress.TabIndex = 0;
@@ -43,7 +43,7 @@
 			// __statusLbl
 			// 
 			this.@__statusLbl.AutoSize = true;
-			this.@__statusLbl.Location = new System.Drawing.Point(10, 102);
+			this.@__statusLbl.Location = new System.Drawing.Point(19, 80);
 			this.@__statusLbl.Name = "__statusLbl";
 			this.@__statusLbl.Size = new System.Drawing.Size(274, 13);
 			this.@__statusLbl.TabIndex = 1;

@@ -11,7 +11,7 @@ namespace Anolis.Core.Packages {
 	/// <summary>An arbitrary grouping of elements</summary>
 	public class Group : PackageItem {
 		
-		public Group(Package package, Group parent, XmlElement element) : base(package, parent, element) {
+		public Group(Package package, Group parent, XmlElement element) : base( package, parent, element) {
 			
 			/////////////////////////////////////////////////////
 			
@@ -34,7 +34,7 @@ namespace Anolis.Core.Packages {
 					
 					default:
 						
-						Operation op = Operation.FromElement(package, this, e);
+						Operation op = Operation.FromElement(this, e);
 						
 						if( op != null ) Operations.Add( op );
 						break;
@@ -43,28 +43,12 @@ namespace Anolis.Core.Packages {
 				
 			}
 			
-			/////////////////////////////////////////////////////
-			
-			Mutex = new GroupCollection(this);
-			// set Mutex members after all the siblings have been read in
-			
-			String mutex = element.Attributes["mutex"] != null ? element.Attributes["mutex"].Value : String.Empty;
-			if(mutex.Length > 0) {
-				
-				MutexIds = mutex.Split(' ');
-				
-			}
-			
 		}
 		
-		public Group(Package package, Group parent, String[] mutexIds) : base(package, parent) {
+		public Group(Package package, Group parent) : base(package, parent) {
 			
 			Children   = new GroupCollection(this);
 			Operations = new OperationCollection(this);
-			Mutex      = new GroupCollection(this);
-			
-			MutexIds = mutexIds;
-			
 		}
 		
 		public override Boolean Enabled {
@@ -85,11 +69,10 @@ namespace Anolis.Core.Packages {
 				if( ParentGroup == null ) return true;
 				
 				return ParentGroup.IsEnabled ? Enabled : false;
-				
 			}
 		}
 		
-		public EnabledState EnabledState {
+/*		public EnabledState EnabledState {
 			get {
 				
 				Boolean hasAloEnabled = false; // Alo = At Least One
@@ -125,26 +108,11 @@ namespace Anolis.Core.Packages {
 				return EnabledState.Disabled;
 				
 			}
-		}
+		} */
 		
 		public override void Write(XmlElement parent) {
 			
 			XmlElement element = CreateElement(parent, "group");
-			
-			////////////////////////////////
-			// Build mutex="" attribute
-			
-			if( MutexIds != null ) {
-				
-				StringBuilder sb = new StringBuilder();
-				foreach(String mutexId in MutexIds) {
-					sb.Append( mutexId );
-					sb.Append(" ");
-				}
-				
-				AddAttribute(element, "mutex", sb.ToString().Trim());
-				
-			}
 			
 			foreach(Operation op in Operations) {
 				
@@ -157,10 +125,6 @@ namespace Anolis.Core.Packages {
 			}
 			
 		}
-		
-		internal String[] MutexIds    { get; private set; }
-		
-		public GroupCollection Mutex    { get; private set; }
 		
 		public GroupCollection     Children   { get; private set; }
 		public OperationCollection Operations { get; private set; }

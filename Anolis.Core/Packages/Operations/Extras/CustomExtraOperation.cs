@@ -16,10 +16,10 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class CustomExtraOperation : ExtraOperation {
 		
-		public CustomExtraOperation(Package package, Group parent, XmlElement element) :  base(ExtraType.Custom, package, parent, element) {
+		public CustomExtraOperation(Group parent, XmlElement element) :  base(ExtraType.Custom, parent, element) {
 		}
 		
-		public CustomExtraOperation(Package package, Group parent, String codeFilePath) : base(ExtraType.Custom, package, parent, codeFilePath) {
+		public CustomExtraOperation(Group parent, String codeFilePath) : base(ExtraType.Custom, parent, codeFilePath) {
 		}
 
 		protected override Boolean CanMerge { get { return false; } }

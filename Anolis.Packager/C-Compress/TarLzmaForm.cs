@@ -21,18 +21,56 @@ namespace Anolis.Packager {
 			this.__compressRemove    .Click += new EventHandler(__compressRemove_Click);
 			this.__compressRootBrowse.Click += new EventHandler(__compressRootBrowse_Click);
 			
+			this.__quickload.Click += new EventHandler(__quickload_Click);
+			
 			this.__decompresBrowse   .Click += new EventHandler(__decompresBrowse_Click);
 			this.__decompress        .Click += new EventHandler(__decompress_Click);
 		}
 		
+		private void __quickload_Click(object sender, EventArgs e) {
+			
+			if( __ofdQL.ShowDialog(this) != DialogResult.OK ) return;
+			
+			using(StreamReader rdr = new StreamReader(__ofdQL.FileName)) {
+				
+				String line;
+				while( (line = rdr.ReadLine()) != null ) {
+					
+					String path = line.Substring(4).Trim();
+					
+					if( line.StartsWith("Root") ) {
+						
+						__compressRoot.Text = path;
+						
+					} else if( line.StartsWith("File") ) {
+						
+						FileInfo file = new FileInfo( path );
+						
+						__items.Items.Add( file );
+						
+					} else if( line.StartsWith("Dir") ) {
+						
+						DirectoryInfo dir = new DirectoryInfo( path );
+						
+						__items.Items.Add( dir );
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
 		private void ProgressEvent(object sender, ProgressEventArgs e) {
 			
-			this.Invoke( new MethodInvoker( delegate() {
+			this.BeginInvoke( new MethodInvoker( delegate() {
 				
 				__status.Text    = e.Message;
 				__progress.Value = e.Percentage;
 				
 			} ) );
+			
 		}
 		
 		
