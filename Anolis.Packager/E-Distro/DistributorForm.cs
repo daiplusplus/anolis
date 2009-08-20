@@ -30,6 +30,12 @@ namespace Anolis.Packager {
 			
 			this.__cusImagesBanner   .Click += new EventHandler(__cusImagesBanner_Click);
 			this.__cusImagesWatermark.Click += new EventHandler(__cusImagesWatermark_Click);
+
+			this.__cancel.Click += new EventHandler(__cancel_Click);
+		}
+		
+		private void __cancel_Click(object sender, EventArgs e) {
+			this.Close();
 		}
 		
 #region UI Events

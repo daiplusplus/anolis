@@ -9,6 +9,7 @@ namespace Anolis.Core.Packages {
 		
 		public DirectoryInfo        BackupDirectory          { get; set; }
 		
+		public Boolean              LiteMode                 { get; set; }
 		public Boolean              CreateSystemRestorePoint { get; set; }
 		
 		public DirectoryInfo        I386Directory            { get; set; }
@@ -18,9 +19,10 @@ namespace Anolis.Core.Packages {
 	/// <summary>A read-only version of PackageExecutionSettings for passing to operations and consumers of Package</summary>
 	public class PackageExecutionSettingsInfo {
 		
-		internal PackageExecutionSettingsInfo(Package package, PackageExecutionMode mode, Boolean createSysRes, Group backupGroup, DirectoryInfo cdImageDirectory) {
+		internal PackageExecutionSettingsInfo(Package package, PackageExecutionMode mode, Boolean createSysRes, Boolean liteMode, Group backupGroup, DirectoryInfo cdImageDirectory) {
 			
 			ExecutionMode            = mode;
+			LiteMode                 = liteMode;
 			CreateSystemRestorePoint = createSysRes;
 			BackupGroup              = backupGroup;
 			
@@ -35,9 +37,13 @@ namespace Anolis.Core.Packages {
 		
 		public PackageExecutionMode ExecutionMode            { get; private set; }
 		
+		public Boolean              LiteMode                 { get; private set; }
 		public Boolean              CreateSystemRestorePoint { get; private set; }
 		
-		public Boolean              RequiresRestart          { get; set; }
+		public Boolean              RequiresRestart          {
+			get;
+			set;
+		}
 		
 		public Boolean              ApplyToDefault           { get; set; }
 		

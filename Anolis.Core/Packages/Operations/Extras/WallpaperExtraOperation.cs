@@ -38,23 +38,25 @@ namespace Anolis.Core.Packages.Operations {
 			// don't move because you might be installing from a HDD-based package. The files will be deleted when the package completes anyway
 			
 			String lastWallpaper = null;
+			String lastSelectedWp = null;
 			
 			List<String> installedWallpapers = new List<String>();
 			
 			Boolean reg = Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular;
 			
-			foreach(String source in Files) {
+			foreach(ExtraFile file in Files) {
 				
 				if( reg ) {
 					
-					String dest = InstallWallpaperRegular( source );
+					String dest = InstallWallpaperRegular( file.FileName );
 					
 					installedWallpapers.Add( dest );
 					lastWallpaper = dest;
+					if( file.IsSelected ) lastSelectedWp = file.FileName;
 					
 				} else {
 					
-					InstallWallpaperCDImage( source );
+					InstallWallpaperCDImage( file.FileName );
 				}
 			}
 			
@@ -64,8 +66,19 @@ namespace Anolis.Core.Packages.Operations {
 			// call SystemParametersInfo to set the current wallpaper apparently
 			// and then call RedrawWindow to repaint the desktop
 			
-			if( reg && lastWallpaper != null )
-				SetWallpaper(ref lastWallpaper);
+			if( reg ) {
+				
+				if( lastSelectedWp != null ) {
+					
+					SetWallpaper(ref lastSelectedWp);
+					
+				} else if( lastWallpaper != null ) {
+					
+					SetWallpaper(ref lastWallpaper);
+					
+				}
+				
+			}
 			
 		}
 		

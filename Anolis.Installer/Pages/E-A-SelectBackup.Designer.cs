@@ -29,11 +29,15 @@
 			this.@__fbd = new System.Windows.Forms.FolderBrowserDialog();
 			this.@__sysRes = new System.Windows.Forms.CheckBox();
 			this.@__sysResDesc = new System.Windows.Forms.Label();
+			this.@__culture = new Anolis.Installer.Pages.LanguageComboBox();
+			this.@__uninstallationLanguage = new System.Windows.Forms.Label();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __content
 			// 
+			this.@__content.Controls.Add(this.@__uninstallationLanguage);
+			this.@__content.Controls.Add(this.@__culture);
 			this.@__content.Controls.Add(this.@__sysRes);
 			this.@__content.Controls.Add(this.@__sysResDesc);
 			this.@__content.Controls.Add(this.@__browse);
@@ -43,7 +47,7 @@
 			// __dirLbl
 			// 
 			this.@__dirLbl.AutoSize = true;
-			this.@__dirLbl.Location = new System.Drawing.Point(19, 54);
+			this.@__dirLbl.Location = new System.Drawing.Point(19, 88);
 			this.@__dirLbl.Name = "__dirLbl";
 			this.@__dirLbl.Size = new System.Drawing.Size(49, 13);
 			this.@__dirLbl.TabIndex = 0;
@@ -53,7 +57,7 @@
 			// 
 			this.@__dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__dir.Location = new System.Drawing.Point(76, 51);
+			this.@__dir.Location = new System.Drawing.Point(76, 85);
 			this.@__dir.Name = "__dir";
 			this.@__dir.Size = new System.Drawing.Size(287, 20);
 			this.@__dir.TabIndex = 1;
@@ -61,7 +65,7 @@
 			// __browse
 			// 
 			this.@__browse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__browse.Location = new System.Drawing.Point(369, 49);
+			this.@__browse.Location = new System.Drawing.Point(369, 83);
 			this.@__browse.Name = "__browse";
 			this.@__browse.Size = new System.Drawing.Size(75, 23);
 			this.@__browse.TabIndex = 2;
@@ -78,7 +82,7 @@
 			this.@__sysRes.AutoSize = true;
 			this.@__sysRes.Checked = true;
 			this.@__sysRes.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.@__sysRes.Location = new System.Drawing.Point(22, 88);
+			this.@__sysRes.Location = new System.Drawing.Point(22, 122);
 			this.@__sysRes.Name = "__sysRes";
 			this.@__sysRes.Size = new System.Drawing.Size(242, 17);
 			this.@__sysRes.TabIndex = 7;
@@ -87,12 +91,33 @@
 			// 
 			// __sysResDesc
 			// 
-			this.@__sysResDesc.Location = new System.Drawing.Point(63, 108);
+			this.@__sysResDesc.Location = new System.Drawing.Point(63, 142);
 			this.@__sysResDesc.Name = "__sysResDesc";
 			this.@__sysResDesc.Size = new System.Drawing.Size(341, 30);
 			this.@__sysResDesc.TabIndex = 8;
 			this.@__sysResDesc.Text = "An added layer of protection. Note this does not always protect against modificat" +
 				"ions made to non-Windows files under Program Files";
+			// 
+			// __culture
+			// 
+			this.@__culture.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+			this.@__culture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.@__culture.FormattingEnabled = true;
+			this.@__culture.Location = new System.Drawing.Point(76, 33);
+			this.@__culture.Name = "__culture";
+			this.@__culture.Size = new System.Drawing.Size(189, 21);
+			this.@__culture.TabIndex = 9;
+			this.@__culture.Visible = false;
+			// 
+			// __uninstallationLanguage
+			// 
+			this.@__uninstallationLanguage.AutoSize = true;
+			this.@__uninstallationLanguage.Location = new System.Drawing.Point(73, 17);
+			this.@__uninstallationLanguage.Name = "__uninstallationLanguage";
+			this.@__uninstallationLanguage.Size = new System.Drawing.Size(88, 13);
+			this.@__uninstallationLanguage.TabIndex = 10;
+			this.@__uninstallationLanguage.Text = "Uninst Language";
+			this.@__uninstallationLanguage.Visible = false;
 			// 
 			// SelectBackupPage
 			// 
@@ -113,5 +138,7 @@
 		private System.Windows.Forms.FolderBrowserDialog __fbd;
 		private System.Windows.Forms.CheckBox __sysRes;
 		private System.Windows.Forms.Label __sysResDesc;
+		private System.Windows.Forms.Label __uninstallationLanguage;
+		private LanguageComboBox __culture;
 	}
 }

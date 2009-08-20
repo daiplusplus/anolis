@@ -237,41 +237,41 @@ namespace Anolis.Core.Native {
 		}
 		
 		public static class SePrivileges {
-			public const string ASSIGNPRIMARYTOKEN = "SeAssignPrimaryTokenPrivilege";
-			public const string AUDIT = "SeAuditPrivilege";
-			public const string BACKUP = "SeBackupPrivilege";
-			public const string CHANGE_NOTIFY = "SeChangeNotifyPrivilege";
-			public const string CREATE_GLOBAL = "SeCreateGlobalPrivilege";
-			public const string CREATE_PAGEFILE = "SeCreatePagefilePrivilege";
-			public const string CREATE_PERMANENT = "SeCreatePermanentPrivilege";
-			public const string CREATE_SYMBOLIC_LINK = "SeCreateSymbolicLinkPrivilege";
-			public const string CREATE_TOKEN = "SeCreateTokenPrivilege";
-			public const string DEBUG = "SeDebugPrivilege";
-			public const string ENABLE_DELEGATION = "SeEnableDelegationPrivilege";
-			public const string IMPERSONATE = "SeImpersonatePrivilege";
-			public const string INC_BAPRIORITY = "SeIncreaseBasePriorityPrivilege";
-			public const string INCREAQUOTA = "SeIncreaseQuotaPrivilege";
-			public const string INC_WORKING_SET = "SeIncreaseWorkingSetPrivilege";
-			public const string LOAD_DRIVER = "SeLoadDriverPrivilege";
-			public const string LOCK_MEMORY = "SeLockMemoryPrivilege";
-			public const string MACHINE_ACCOUNT = "SeMachineAccountPrivilege";
-			public const string MANAGE_VOLUME = "SeManageVolumePrivilege";
-			public const string PROF_SINGLE_PROCESS = "SeProfileSingleProcessPrivilege";
-			public const string RELABEL = "SeRelabelPrivilege";
-			public const string REMOTE_SHUTDOWN = "SeRemoteShutdownPrivilege";
-			public const string RESTORE = "SeRestorePrivilege";
-			public const string SECURITY = "SeSecurityPrivilege";
-			public const string SHUTDOWN = "SeShutdownPrivilege";
-			public const string SYNC_AGENT = "SeSyncAgentPrivilege";
-			public const string SYSTEM_ENVIRONMENT = "SeSystemEnvironmentPrivilege";
-			public const string SYSTEM_PROFILE = "SeSystemProfilePrivilege";
-			public const string SYSTEMTIME = "SeSystemtimePrivilege";
-			public const string TAKE_OWNERSHIP = "SeTakeOwnershipPrivilege";
-			public const string TCB = "SeTcbPrivilege";
-			public const string TIME_ZONE = "SeTimeZonePrivilege";
-			public const string TRUSTED_CREDMAN_ACCESS = "SeTrustedCredManAccessPrivilege";
-			public const string UNDOCK = "SeUndockPrivilege";
-			public const string UNSOLICITED_INPUT = "SeUnsolicitedInputPrivilege";
+			public const string AssignPrimaryToken     = "SeAssignPrimaryTokenPrivilege";
+			public const string Audit                  = "SeAuditPrivilege";
+			public const string Backup                 = "SeBackupPrivilege";
+			public const string ChangeNotify           = "SeChangeNotifyPrivilege";
+			public const string CreateGlobal           = "SeCreateGlobalPrivilege";
+			public const string CreatePagefile         = "SeCreatePagefilePrivilege";
+			public const string CreatePermanent        = "SeCreatePermanentPrivilege";
+			public const string CreateSymbolicLink     = "SeCreateSymbolicLinkPrivilege";
+			public const string CreateToken            = "SeCreateTokenPrivilege";
+			public const string Debug                  = "SeDebugPrivilege";
+			public const string EnableDelegation       = "SeEnableDelegationPrivilege";
+			public const string Impersonate            = "SeImpersonatePrivilege";
+			public const string IncreaseBasePriority   = "SeIncreaseBasePriorityPrivilege";
+			public const string IncreaseQuotaPrivilege = "SeIncreaseQuotaPrivilege";
+			public const string IncreaseWorkingSet     = "SeIncreaseWorkingSetPrivilege";
+			public const string LoadDriver             = "SeLoadDriverPrivilege";
+			public const string LockMemory             = "SeLockMemoryPrivilege";
+			public const string MachineAccount         = "SeMachineAccountPrivilege";
+			public const string ManageVolume           = "SeManageVolumePrivilege";
+			public const string ProfileSingleProcess   = "SeProfileSingleProcessPrivilege";
+			public const string Relabel                = "SeRelabelPrivilege";
+			public const string RemoteShutdown         = "SeRemoteShutdownPrivilege";
+			public const string Restore                = "SeRestorePrivilege";
+			public const string Security               = "SeSecurityPrivilege";
+			public const string Shutdown               = "SeShutdownPrivilege";
+			public const string SyncAgent              = "SeSyncAgentPrivilege";
+			public const string SystemEnvironment      = "SeSystemEnvironmentPrivilege";
+			public const string SystemProfile          = "SeSystemProfilePrivilege";
+			public const string SystemTime             = "SeSystemtimePrivilege";
+			public const string TakeOwnership          = "SeTakeOwnershipPrivilege";
+			public const string Tcb                    = "SeTcbPrivilege";
+			public const string TimeZone               = "SeTimeZonePrivilege";
+			public const string TrustedCredManAccess   = "SeTrustedCredManAccessPrivilege";
+			public const string Undock                 = "SeUndockPrivilege";
+			public const string UnsolicitedInput       = "SeUnsolicitedInputPrivilege";
 		}
 		
 		/// <summary>The OpenProcessToken function opens the access token associated with a process.</summary>
@@ -639,6 +639,15 @@ namespace Anolis.Core.Native {
 		[DllImport("kernel32.dll", SetLastError=true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern Boolean CloseHandle(IntPtr hObject);
+		
+#endregion
+		
+#region System Restore
+		
+		// See http://www.codeproject.com/KB/cs/sysrestore.aspx
+		[DllImport("srclient.dll", EntryPoint="SRSetRestorePointW")]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean SetSystemRestorePoint(ref RestorePointInfo pRestorePtSpec, out StateManagerStatus pSMgrStatus);
 		
 #endregion
 		

@@ -10,28 +10,30 @@ using W3b.Wizards.WindowsForms;
 
 namespace Anolis.Installer.Pages {
 	
-	public partial class FinishedPage : ExteriorPage {
+	public partial class FinishedPage : BaseExteriorPage {
 		
 		public FinishedPage() {
 			InitializeComponent();
 			
 			this.PageLoad += new EventHandler(FinishedPage_PageLoad);
-
+			
 			this.__anolisWebsite.Click += new EventHandler(Website_Click);
 			this.__authorWebsite.Click += new EventHandler(Website_Click);
 			
 			__anolisWebsite.Tag = new Uri("http://anol.is");
-			
-			Localize();
 		}
 		
-		private void Localize() {
+		protected override String LocalizePrefix {
+			get { return "F"; }
+		}
+		
+		protected override void Localize() {
+			
+			base.Localize();
 			
 			base.WatermarkImage     = InstallerResources.GetImage("Background");
 			base.WatermarkAlignment = ContentAlignment.BottomLeft;
 			base.WatermarkWidth     = WatermarkImage.Width; // 273;
-			
-			__title.Text = InstallerResources.GetString("F_Title");
 		}
 		
 		private void FinishedPage_PageLoad(object sender, EventArgs e) {
@@ -84,6 +86,8 @@ namespace Anolis.Installer.Pages {
 					break;
 					
 				case ProgramMode.UninstallPackage:
+					
+					this.__title.Text = InstallerResources.GetString("F_TitleUninstall");
 					
 					if( PackageInfo.RequiresRestart ) {
 						this.__installationComplete.Text = InstallerResources.GetString("F_uninstallationCompleteRestart");

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Management;
 using System.Reflection;
+using System.Security.AccessControl;
 using System.Security.Principal;
 using System.Text;
 
@@ -11,7 +11,6 @@ using Microsoft.Win32;
 
 using Path          = System.IO.Path;
 using Stream        = System.IO.Stream;
-using Cult          = System.Globalization.CultureInfo;
 using MoveFileFlags = Anolis.Core.Native.NativeMethods.MoveFileFlags;
 
 namespace Anolis.Core.Packages {
@@ -98,13 +97,13 @@ namespace Anolis.Core.Packages {
 		
 		public static void InitRestart() {
 			
-			NativeMethods.EnableProcessToken( NativeMethods.SePrivileges.SHUTDOWN );
+			NativeMethods.EnableProcessToken( NativeMethods.SePrivileges.Shutdown );
 			
 			NativeMethods.ExitWindowsEx(NativeMethods.ExitWindows.Reboot, 0);
 			
 		}
 		
-		public static Boolean CreateSystemRestorePoint(String name, SystemRestoreType type, SystemRestoreEventType eventType) {
+/*		public static Boolean CreateSystemRestorePoint(String name, SystemRestoreType type, SystemRestoreEventType eventType) {
 			
 			// use WMI for now rather than the native API
 			
@@ -120,47 +119,31 @@ namespace Anolis.Core.Packages {
 			inParams["RestorePointType"]  = (int)type;
 			inParams["EventType"]         = (int)eventType;
 			
-			Object ret;
+			ManagementBaseObject outParams = null;
 			try {
 				
-				ManagementBaseObject outParams = clas.InvokeMethod("CreateRestorePoint", inParams, null);
-				ret = outParams.Properties["ReturnValue"];
+				outParams = clas.InvokeMethod("CreateRestorePoint", inParams, null);
 				
-				outParams.Dispose();
-			
+				PropertyData returnValue = outParams.Properties["ReturnValue"];
+				
+				UInt32 retValue = (UInt32)(returnValue.Value);
+				
+				return retValue == 0;
+				
 			} catch( ManagementException ) {
 				
 				return false;
 				
 			} finally {
 				
+				if( outParams != null )
+					outParams.Dispose();
+					
 				inParams.Dispose();
 				clas.Dispose();
 			}
 			
-			if(ret is Int32) {
-				
-				return (int)ret == 0;
-			} else {
-				
-				return false;
-			}
-		}
-		
-		public enum SystemRestoreType {
-			ApplicationInstall   = 0,
-			ApplicationUninstall = 1,
-			DeviceDriverInstall  = 10,
-			ModifySettings       = 12,
-			CanceledOperation    = 13
-		}
-		
-		public enum SystemRestoreEventType {
-			BeginSystemChange       = 100,
-			EndSystemChange         = 101,
-			BeginNestedSystemChange = 102,
-			EndNestedSystemChange   = 103
-		}
+		} */
 		
 		public static Boolean IsElevatedAdministrator {
 			get {
@@ -183,7 +166,7 @@ namespace Anolis.Core.Packages {
 				_resolvedSystem32Path = ResolvePath(@"%windir%\system32");
 				_resolvedSysWow64Path = ResolvePath(@"%windir%\SysWow64");
 				
-				_resolvedProgFilePath = ResolvePath(@"%programfiles%");
+				_resolvedProgFilePath = ResolvePath(@"%programfiles%"); // this also covers %commonprogramfiles% and %commonprogramfiles(x86)%
 				_resolvedPrgFle32Path = ResolvePath(@"%programfiles(x86)%");
 			}
 			
@@ -432,6 +415,61 @@ namespace Anolis.Core.Packages {
 			if( result == 0 ) throw new AnolisException( "GetShortPath: " + NativeMethods.GetLastErrorString() );
 			
 			return sb.ToString();
+		}
+		
+		public static void TakeOwnershipAndFullControl(String fileName) {
+			
+			NativeMethods.EnableProcessToken( NativeMethods.SePrivileges.TakeOwnership );
+			NativeMethods.EnableProcessToken( NativeMethods.SePrivileges.Restore );
+			
+			FileInfo file = new FileInfo( fileName );
+			
+			// TrustedInstaller is the default owner of system files in Vista, this adds an additional layer of system protection
+			// So you need to Take Ownership, then add permission for yourself to do whatever it is you're doing
+			
+			SecurityIdentifier builtinAdministratorsGroupSid = new SecurityIdentifier( WellKnownSidType.BuiltinAdministratorsSid, null );
+			
+			// Take Ownership (I think this must be done before Full Control can be granted)
+			FileSecurity ownerSec = file.GetAccessControl(AccessControlSections.Owner);
+			ownerSec.SetOwner( builtinAdministratorsGroupSid );
+			file.SetAccessControl( ownerSec );
+			
+			// Grant Full Control
+			FileSecurity aclSec = file.GetAccessControl(AccessControlSections.Access);
+			aclSec.SetAccessRule( new FileSystemAccessRule( builtinAdministratorsGroupSid, FileSystemRights.FullControl, AccessControlType.Allow ) );
+			file.SetAccessControl( aclSec );
+			
+		}
+		
+		public static void ResetOwnershipAndRelinquishControl(String fileName) {
+			
+//			// at least, I think this is SDDL format
+//			const String trustedInstallerSidSddl = @"S-1-5-80-956008885-3418522649-1831038044-1853292631-2271478464 ";
+			
+			NativeMethods.EnableProcessToken( NativeMethods.SePrivileges.TakeOwnership );
+			NativeMethods.EnableProcessToken( NativeMethods.SePrivileges.Restore );
+			
+			FileInfo file = new FileInfo( fileName );
+			
+			// TrustedInstaller is the default owner of system files in Vista, this adds an additional layer of system protection
+			// So you need to Take Ownership, then add permission for yourself to do whatever it is you're doing
+			
+			SecurityIdentifier builtinAdministratorsGroupSid = new SecurityIdentifier( WellKnownSidType.BuiltinAdministratorsSid, null );
+//			SecurityIdentifier trustedInstallerSid           = new SecurityIdentifier( trustedInstallerSidSddl );
+			
+			NTAccount trustedInstallerServiceAccount         = new NTAccount("NT Service\\TrustedInstaller");
+			SecurityIdentifier trustedInstallerSid           = (SecurityIdentifier)trustedInstallerServiceAccount.Translate( typeof(SecurityIdentifier) );
+			
+			// Change Ownership
+			FileSecurity ownerSec = file.GetAccessControl(AccessControlSections.Owner);
+			ownerSec.SetOwner( trustedInstallerSid );
+			file.SetAccessControl( ownerSec );
+			
+			// Reliquish Full Control
+			FileSecurity aclSec = file.GetAccessControl(AccessControlSections.Access);
+			aclSec.RemoveAccessRule( new FileSystemAccessRule( builtinAdministratorsGroupSid, FileSystemRights.FullControl, AccessControlType.Allow ) );
+			file.SetAccessControl( aclSec );
+			
 		}
 		
 	}

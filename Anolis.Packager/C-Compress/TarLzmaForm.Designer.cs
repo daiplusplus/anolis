@@ -42,14 +42,11 @@
 			this.@__ofdDecompress = new System.Windows.Forms.OpenFileDialog();
 			this.@__sfd = new System.Windows.Forms.SaveFileDialog();
 			this.@__statusStrip = new System.Windows.Forms.StatusStrip();
-			this.@__progress = new System.Windows.Forms.ToolStripProgressBar();
-			this.@__status = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__bw = new System.ComponentModel.BackgroundWorker();
 			this.@__ofdFiles = new System.Windows.Forms.OpenFileDialog();
 			this.@__ofdQL = new System.Windows.Forms.OpenFileDialog();
 			this.@__compressGrp.SuspendLayout();
 			this.@__decompressGrp.SuspendLayout();
-			this.@__statusStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __compressGrp
@@ -231,25 +228,11 @@
 			// 
 			// __statusStrip
 			// 
-			this.@__statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.@__progress,
-            this.@__status});
 			this.@__statusStrip.Location = new System.Drawing.Point(0, 401);
 			this.@__statusStrip.Name = "__statusStrip";
 			this.@__statusStrip.Size = new System.Drawing.Size(533, 22);
 			this.@__statusStrip.TabIndex = 3;
 			this.@__statusStrip.Text = "statusStrip1";
-			// 
-			// __progress
-			// 
-			this.@__progress.Name = "__progress";
-			this.@__progress.Size = new System.Drawing.Size(250, 16);
-			// 
-			// __status
-			// 
-			this.@__status.Name = "__status";
-			this.@__status.Size = new System.Drawing.Size(38, 17);
-			this.@__status.Text = "Ready";
 			// 
 			// __ofdFiles
 			// 
@@ -274,8 +257,6 @@
 			this.@__compressGrp.PerformLayout();
 			this.@__decompressGrp.ResumeLayout(false);
 			this.@__decompressGrp.PerformLayout();
-			this.@__statusStrip.ResumeLayout(false);
-			this.@__statusStrip.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -301,8 +282,6 @@
 		private System.Windows.Forms.OpenFileDialog __ofdDecompress;
 		private System.Windows.Forms.SaveFileDialog __sfd;
 		private System.Windows.Forms.StatusStrip __statusStrip;
-		private System.Windows.Forms.ToolStripStatusLabel __status;
-		private System.Windows.Forms.ToolStripProgressBar __progress;
 		private System.ComponentModel.BackgroundWorker __bw;
 		private System.Windows.Forms.OpenFileDialog __ofdFiles;
 		private System.Windows.Forms.Button __quickload;

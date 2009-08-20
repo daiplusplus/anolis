@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using Microsoft.Win32;
 
 using P = System.IO.Path;
+using Anolis.Core.Utility;
 
 namespace Anolis.Core.Packages.Operations {
 	
@@ -31,12 +32,12 @@ namespace Anolis.Core.Packages.Operations {
 		
 		private void CreateState(ExtraType type, String file) {
 			
-			Files = new Collection<String>();
+			Files = new ExtraFileCollection();
 			ExtraType = type;
 			
 			if( file != null ) {
 				
-				Files.Add( file );
+				Files.Add( file, Selected );
 			}
 		}
 		
@@ -44,9 +45,9 @@ namespace Anolis.Core.Packages.Operations {
 			get { return ExtraType.ToString(); }
 		}
 		
-		public String             Attribution { get; private set; }
-		public ExtraType          ExtraType   { get; private set; }
-		public Collection<String> Files       { get; private set; }
+		public String              Attribution { get; private set; }
+		public ExtraType           ExtraType   { get; private set; }
+		public ExtraFileCollection Files       { get; private set; }
 		
 		public static ExtraOperation Create(Group parent, XmlElement operationElement) {
 			
@@ -75,6 +76,18 @@ namespace Anolis.Core.Packages.Operations {
 			get { return ExtraType.ToString(); }
 		}
 		
+		private Boolean _selected;
+		
+		public Boolean Selected {
+			get { return _selected; }
+			set {
+				foreach(ExtraFile file in Files) {
+					file.IsSelected = value;
+				}
+				_selected = value;
+			}
+		}
+		
 		protected virtual Boolean CanMerge { get { return true; } }
 		
 		public override Boolean Merge(Operation operation) {
@@ -85,10 +98,9 @@ namespace Anolis.Core.Packages.Operations {
 			if(other == null) return false;
 			if(other.ExtraType != this.ExtraType) return false;
 			
-			foreach(String file in other.Files) {
+			foreach(ExtraFile file in other.Files) {
 				
 				if( !this.Files.Contains( file ) ) this.Files.Add( file );
-				
 			}
 			
 			return true;
@@ -119,6 +131,28 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
+	}
+	
+	public class ExtraFileCollection : Collection<ExtraFile> {
+		
+		public void Add(String fileName, Boolean isSelected) {
+			base.Add( new ExtraFile( fileName, isSelected ) );
+		}
+	}
+	
+	public class ExtraFile {
+		public ExtraFile(String fileName, Boolean isSelected) {
+			
+			FileName   = fileName;
+			IsSelected = isSelected;
+		}
+		
+		public String  FileName   { get; private set; }
+		public Boolean IsSelected { get; set; }
+		
+		public FileInfo GetFile() {
+			return new FileInfo( FileName );
+		}
 	}
 	
 	public enum ExtraType {

@@ -151,7 +151,7 @@ namespace Anolis.Core.Data {
 		
 		private static ResourceDataFactoryCollection _factories;
 		
-		private static ResourceDataFactoryCollection GetFactories() {
+		internal static ResourceDataFactoryCollection GetFactories() {
 			
 			if( _factories == null ) {
 				
@@ -163,6 +163,8 @@ namespace Anolis.Core.Data {
 				
 				_factories = new ResourceDataFactoryCollection( list );
 				
+				foreach(FactoryBase factory in _factories) factory.RegisterOptions();
+				
 			}
 			
 			return _factories;
@@ -170,8 +172,6 @@ namespace Anolis.Core.Data {
 		}
 		
 		private static readonly Type _type = typeof(ResourceDataFactory);
-		
-		
 		
 		private static void Prepopulate(List<ResourceDataFactory> factories) {
 			
@@ -200,9 +200,9 @@ namespace Anolis.Core.Data {
 			
 		}
 		
+		#endregion
+		
 	}
-	
-#endregion
 	
 	public enum Compatibility {
 		/// <summary>This is fully supported.</summary>

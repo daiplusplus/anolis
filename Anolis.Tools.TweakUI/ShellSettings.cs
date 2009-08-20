@@ -92,7 +92,7 @@ namespace Anolis.TweakUI {
 		
 		public static Boolean IconTitleWrap {
 			get {
-				return _windowMetrics.GetValue("IconTitleWrap") == "1";
+				return (String)_windowMetrics.GetValue("IconTitleWrap") == "1";
 			}
 			set {
 				_windowMetrics.SetValue("IconTitleWrap", value ? "1" : "0");

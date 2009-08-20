@@ -11,15 +11,33 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public DirectoryOperation(Group parent, XmlElement element) : base(parent, element) {
 			
-			SourceDirectory = element.GetAttribute("src");
-			Overwrite       = element.GetAttribute("overwrite") == "true" || element.GetAttribute("overwrite") == "1";
+			String opType = element.GetAttribute("operation").ToUpperInvariant();
+			switch(opType) {
+				case "COPY":
+					Operation = FileOperationType.Copy; break;
+				case "DELETE":
+					Operation = FileOperationType.Delete; break;
+				case "REPLACE":
+					Operation = FileOperationType.Replace; break;
+				default:
+					Operation = FileOperationType.None; break;
+			}
+			
+			SpecifiedPath = element.GetAttribute("path");
+			SourceDirectory = PackageUtility.ResolvePath( element.GetAttribute("src"), Package.RootDirectory.FullName );
 		}
 		
-		public DirectoryOperation(Group parent, String path) : base(parent, path) {
+		public DirectoryOperation(Group parent, String sourcePath, String destPath, FileOperationType operation) : base(parent, destPath) {
+			
+			SourceDirectory = sourcePath;
+			
+			Operation       = operation;
 		}
 		
-		public String  SourceDirectory { get; set; }
-		public Boolean Overwrite       { get; set; }
+		public String SpecifiedPath { get; set; }
+		public String SourceDirectory { get; set; }
+		
+		public FileOperationType Operation { get; private set; }
 		
 		public override string OperationName {
 			get { return "Directory"; }
@@ -27,28 +45,42 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override void Execute() {
 			
-			String sourceDir = P.Combine( Package.RootDirectory.FullName, SourceDirectory );
+			if( Package.ExecutionInfo.ExecutionMode != PackageExecutionMode.Regular ) return;
 			
-			DirectoryInfo source = new DirectoryInfo( sourceDir );
-			if( !source.Exists ) {
-				Package.Log.Add( LogSeverity.Error, "Could not find source directory: " + sourceDir );
-				return;
-			}
-			
-			if( Directory.Exists( Path ) ) {
+			switch(Operation) {
 				
-				if( Overwrite ) {
+				case FileOperationType.Delete:
 					
-					Package.Log.Add( LogSeverity.Warning, "Overwriting: " + Path );
-				} else {
+					Directory.Delete( Path, true );
 					
-					Package.Log.Add( LogSeverity.Error, "Will not overwrite: " + Path );
+					break;
+					
+				case FileOperationType.Copy:
+				case FileOperationType.Replace:
+					
+					String sourceDir = P.Combine( Package.RootDirectory.FullName, SourceDirectory );
+					
+					DirectoryInfo source = new DirectoryInfo( sourceDir );
+					if( !source.Exists ) {
+						Package.Log.Add( LogSeverity.Error, "Could not find source directory: " + sourceDir );
+						return;
+					}
+					
+					if( Directory.Exists( Path ) && Operation != FileOperationType.Replace ) {
+						
+						Package.Log.Add( LogSeverity.Error, "Will not overwrite: " + Path );
+						return;
+						
+					}
+					
+					source.CopyTo( Path );
+					
+					break;
+					
+				case FileOperationType.None:
+				default:
 					return;
-				}
-				
 			}
-			
-			source.CopyTo( Path );
 			
 		}
 		
@@ -59,8 +91,9 @@ namespace Anolis.Core.Packages.Operations {
 		public override void Write(XmlElement parent) {
 			
 			CreateElement(parent, "directory",
+				"operation", Operation.ToString(),
 				"src"      , SourceDirectory,
-				"overwrite", Overwrite ? "true" : "false"
+				"path"     , Path
 			);
 			
 		}

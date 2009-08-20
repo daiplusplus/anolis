@@ -11,43 +11,19 @@ namespace Anolis.Installer.Pages {
 	
 	public class BaseExteriorPage : ExteriorPage {
 		
-		// These 3 methods are a straight copy from BaseInteriorPage, ensure they're kept in sync
+		// Ensure this class is kept in sync with BaseInternalBase
 		
-		protected virtual void Localize() {
+		protected BaseExteriorPage() {
 			
-			String title = InstallerResources.GetString( LocalizePrefix + '_' + "Title" );
-			if(title != null) PageTitle = title;
-			
-			String subtitle = InstallerResources.GetString( LocalizePrefix + '_' + "Subtitle" );
-			if(subtitle != null) PageSubtitle = subtitle;
-			
-			RightToLeft = InstallerResources.CurrentLanguage.RightToLeft ? RightToLeft.Yes : RightToLeft.No;
-			
-			foreach(Control c in this.Controls) {
-				
-				RecurseLocalizeControl( c );
-			}
-			
-			////////////////////
-			
-			if( WizardForm != null ) {
-				
-				WizardForm.BackText   = InstallerResources.GetString("Wiz_Prev");
-				WizardForm.NextText   = InstallerResources.GetString("Wiz_Next");
-				WizardForm.CancelText = InstallerResources.GetString("Wiz_Cancel");
-			}
+			InstallerResources.CurrentLanguageChanged += new EventHandler(InstallerResources_CurrentLanguageChanged);
 		}
 		
-		private void RecurseLocalizeControl(Control c) {
-			
-			String key = LocalizePrefix + '_' + c.Name.Replace("__", "");
-			
-			String text = InstallerResources.GetString( key );
-			if(text != null) c.Text = text;
-			
-			foreach(Control child in c.Controls)
-				RecurseLocalizeControl( child );
-			
+		private void InstallerResources_CurrentLanguageChanged(object sender, EventArgs e) {
+			Localize();
+		}
+		
+		protected virtual void Localize() {
+			LocalizerHelper.Localize( LocalizePrefix, this );
 		}
 		
 		protected virtual String LocalizePrefix {

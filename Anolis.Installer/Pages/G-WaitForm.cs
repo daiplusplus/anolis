@@ -4,21 +4,19 @@ using System.Diagnostics;
 
 namespace Anolis.Installer.Pages {
 	
-	public partial class WaitForm : Form {
+	public partial class WaitForm : BaseForm {
 		
 		public WaitForm() {
 			
 			InitializeComponent();
 			
-			this.Text              = InstallerResources.GetString("G_Title");
-			this.__restarting.Text = InstallerResources.GetString("G_WaitMessage");
-
 			this.__timer.Tick += new EventHandler(__timer_Tick);
+			
+			Localize();
 		}
 		
-		public String MessageText {
-			get { return __restarting.Text; }
-			set { __restarting.Text = value; }
+		protected override string LocalizePrefix {
+			get { return "G"; }
 		}
 		
 		private void __timer_Tick(object sender, EventArgs e) {

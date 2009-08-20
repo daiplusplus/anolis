@@ -34,25 +34,38 @@ namespace Anolis.Core.Packages.Operations {
 			
 			Backup( Package.ExecutionInfo.BackupGroup );
 			
-			String lastMsstyle = null;
+			String lastMsstyle  = null;
+			String lastSelected = null;
 			
-			foreach(String msStylesFileName in Files) {
+			foreach(ExtraFile file in Files) {
 				
 				if( reg ) {
 					
 					String installedPath;
-					if( InstallStyleRegular( msStylesFileName, out installedPath ) )
+					if( InstallStyleRegular( file.FileName, out installedPath ) ) {
+						
 						lastMsstyle = installedPath;
+						if( file.IsSelected ) lastSelected = installedPath;
+					}
+						
 					
 				} else {
 					
-					InstallStyleCDImage( msStylesFileName );
+					InstallStyleCDImage( file.FileName );
 				}
 				
 			}
 			
-			if( reg && lastMsstyle != null )
-				MakeActive( lastMsstyle );
+			if( reg ) {
+				if( lastSelected != null ) {
+					
+					MakeActive( lastSelected );
+					
+				} else if( lastMsstyle != null ) {
+					
+					MakeActive( lastMsstyle );
+				}
+			}
 			
 		}
 		
@@ -81,6 +94,8 @@ namespace Anolis.Core.Packages.Operations {
 				MakeRegOp(backupGroup, keyPath, "DllName");
 			}
 			
+			// The PFRO deletions for the msstyles directory are made in InstallStyleRegular
+			
 		}
 		
 		private Boolean InstallStyleRegular(String packageMsstylesPath, out String installedMsstylesPath) {
@@ -98,6 +113,15 @@ namespace Anolis.Core.Packages.Operations {
 			String destDirectoryName = PackageUtility.GetUnusedDirectoryName( P.Combine( _themesDir, source.Name ) );
 			
 			source.CopyTo( destDirectoryName );
+			
+			// Backup Uninstall
+			if( Package.ExecutionInfo.BackupGroup != null ) {
+				
+				DirectoryOperation dop = new DirectoryOperation( Package.ExecutionInfo.BackupGroup, null, destDirectoryName, FileOperationType.Delete );
+				
+				Package.ExecutionInfo.BackupGroup.Operations.Add( dop );
+				
+			}
 			
 			installedMsstylesPath = P.Combine( destDirectoryName, P.GetFileName( packageMsstylesPath ) );
 			

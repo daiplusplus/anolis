@@ -10,7 +10,7 @@ using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Core.Data {
 	
-	public class IconDirectoryResourceDataFactory : ResourceDataFactory {
+	public class IconDirectoryResourceDataFactory : DirectoryResourceDataFactory {
 		
 		public override Compatibility HandlesType(ResourceTypeIdentifier typeId) {
 			
@@ -64,7 +64,7 @@ namespace Anolis.Core.Data {
 			
 			IconGroup canonicalGroup = originalData.IconGroup;
 			
-			canonicalGroup.Merge( newGroup );
+			canonicalGroup.Merge( newGroup, GetMergeOptions() );
 			
 			return new IconDirectoryResourceData( canonicalGroup, null );
 		}

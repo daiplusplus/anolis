@@ -13,14 +13,16 @@ namespace Anolis.Packager {
 			this.__import.Tag = new ImportForm();
 			this.__define.Tag = new DefinitionForm();
 			this.__compre.Tag = new TarLzmaForm();
+			this.__optimi.Tag = new OptimizerForm();
 			this.__distro.Tag = new DistributorForm();
 			
 			
 			this.__import.Click += new EventHandler(__button_Click);
 			this.__define.Click += new EventHandler(__button_Click);
 			this.__compre.Click += new EventHandler(__button_Click);
+			this.__optimi.Click += new EventHandler(__button_Click);
 			this.__distro.Click += new EventHandler(__button_Click);
-
+			
 			this.__icoed.Click += new EventHandler(__icoed_Click);
 			this.__icoed.Enabled = File.Exists("Anolis.IconEditor.exe");
 		}

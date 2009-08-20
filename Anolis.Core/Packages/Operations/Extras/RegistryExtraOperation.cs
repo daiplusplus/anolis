@@ -15,9 +15,9 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override void Execute() {
 			
-			foreach(String regfile in Files) {
+			foreach(ExtraFile regfile in Files) {
 				
-				ProcessStartInfo startInfo = new ProcessStartInfo("reg IMPORT", regfile);
+				ProcessStartInfo startInfo = new ProcessStartInfo("reg IMPORT", regfile.FileName );
 				Process p = Process.Start( startInfo );
 				p.WaitForExit(250);
 				

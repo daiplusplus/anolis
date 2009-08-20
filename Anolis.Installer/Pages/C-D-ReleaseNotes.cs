@@ -13,6 +13,14 @@ namespace Anolis.Installer.Pages {
 			InitializeComponent();
 			
 			this.PageLoad += new EventHandler(ReleaseNotesPage_PageLoad);
+			
+			this.__packageRtf.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(LinkClicked);
+			this.__installerRtf.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(LinkClicked);
+		}
+		
+		private void LinkClicked(object sender, System.Windows.Forms.LinkClickedEventArgs e) {
+			
+			if( e.LinkText.StartsWith("http")) System.Diagnostics.Process.Start( e.LinkText );
 		}
 		
 		private void ReleaseNotesPage_PageLoad(object sender, EventArgs e) {
@@ -41,14 +49,24 @@ namespace Anolis.Installer.Pages {
 			}
 			
 			__installerTab.Text = InstallerResources.GetString("C_D_installerNotes");
+			
+			// the release notes should never have RTL set to true as it's often in English
+			__installerRtf.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			__packageRtf.RightToLeft   = System.Windows.Forms.RightToLeft.No;
 		}
 		
 		public override BaseWizardPage PrevPage {
-			get { return Program.PageCCUpdatePackage; }
+			get {
+				// TODO problem: if the package is not updatable then the UpdatePackage page loads the ReleaseNotes page during its Page_Load event handler
+				return Program.PageCCUpdatePackage;
+			}
 		}
 		
 		public override BaseWizardPage NextPage {
-			get { return Program.PageCEModifyPackage; }
+			get {
+				if( InstallationInfo.UseSelector.Value ) return Program.PageCE1Selector;
+				return Program.PageCE2ModifyPackage;
+			}
 		}
 		
 	}

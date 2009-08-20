@@ -16,8 +16,6 @@ namespace Anolis.Installer.Pages {
 		public MainActionPage() {
 			InitializeComponent();
 			
-			Localize();
-			
 			this.PageUnload += new EventHandler<PageChangeEventArgs>(MainActionPage_PageUnload);
 			
 			this.Load += new EventHandler(MainActionPage_Load);

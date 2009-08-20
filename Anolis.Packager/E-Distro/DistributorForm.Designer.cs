@@ -46,6 +46,8 @@
 			this.@__cusOptSimpleLbl = new System.Windows.Forms.Label();
 			this.@__cusOptSimple = new System.Windows.Forms.CheckBox();
 			this.@__cusStrings = new System.Windows.Forms.GroupBox();
+			this.@__cusStringNameFull = new System.Windows.Forms.TextBox();
+			this.@__cusStringNameFullLbl = new System.Windows.Forms.Label();
 			this.@__cusStringCondMsg = new System.Windows.Forms.TextBox();
 			this.@__cusStringCondMsgLbl = new System.Windows.Forms.Label();
 			this.@__cusStringCond = new System.Windows.Forms.TextBox();
@@ -68,8 +70,6 @@
 			this.@__ofdInstaller = new System.Windows.Forms.OpenFileDialog();
 			this.@__ofdImage = new System.Windows.Forms.OpenFileDialog();
 			this.@__ofdIcon = new System.Windows.Forms.OpenFileDialog();
-			this.@__cusStringNameFull = new System.Windows.Forms.TextBox();
-			this.@__cusStringNameFullLbl = new System.Windows.Forms.Label();
 			this.@__tabs.SuspendLayout();
 			this.@__tPackages.SuspendLayout();
 			this.@__tCus.SuspendLayout();
@@ -252,7 +252,7 @@
 			this.@__cusOptsUpdate.Location = new System.Drawing.Point(9, 168);
 			this.@__cusOptsUpdate.Name = "__cusOptsUpdate";
 			this.@__cusOptsUpdate.Size = new System.Drawing.Size(133, 17);
-			this.@__cusOptsUpdate.TabIndex = 6;
+			this.@__cusOptsUpdate.TabIndex = 3;
 			this.@__cusOptsUpdate.Text = "Disable Update Check";
 			this.@__cusOptsUpdate.UseVisualStyleBackColor = true;
 			// 
@@ -273,7 +273,7 @@
 			this.@__cusOptsCheckDisable.Location = new System.Drawing.Point(9, 127);
 			this.@__cusOptsCheckDisable.Name = "__cusOptsCheckDisable";
 			this.@__cusOptsCheckDisable.Size = new System.Drawing.Size(188, 17);
-			this.@__cusOptsCheckDisable.TabIndex = 4;
+			this.@__cusOptsCheckDisable.TabIndex = 2;
 			this.@__cusOptsCheckDisable.Text = "Disable Package Condition Check";
 			this.@__cusOptsCheckDisable.UseVisualStyleBackColor = true;
 			// 
@@ -294,7 +294,7 @@
 			this.@__cusOptsHideI386.Location = new System.Drawing.Point(9, 76);
 			this.@__cusOptsHideI386.Name = "__cusOptsHideI386";
 			this.@__cusOptsHideI386.Size = new System.Drawing.Size(151, 17);
-			this.@__cusOptsHideI386.TabIndex = 2;
+			this.@__cusOptsHideI386.TabIndex = 1;
 			this.@__cusOptsHideI386.Text = "Hide I386 Patching Option";
 			this.@__cusOptsHideI386.UseVisualStyleBackColor = true;
 			// 
@@ -342,6 +342,22 @@
 			this.@__cusStrings.TabStop = false;
 			this.@__cusStrings.Text = "Strings";
 			// 
+			// __cusStringNameFull
+			// 
+			this.@__cusStringNameFull.Location = new System.Drawing.Point(111, 45);
+			this.@__cusStringNameFull.Name = "__cusStringNameFull";
+			this.@__cusStringNameFull.Size = new System.Drawing.Size(168, 20);
+			this.@__cusStringNameFull.TabIndex = 1;
+			// 
+			// __cusStringNameFullLbl
+			// 
+			this.@__cusStringNameFullLbl.Location = new System.Drawing.Point(6, 48);
+			this.@__cusStringNameFullLbl.Name = "__cusStringNameFullLbl";
+			this.@__cusStringNameFullLbl.Size = new System.Drawing.Size(99, 19);
+			this.@__cusStringNameFullLbl.TabIndex = 10;
+			this.@__cusStringNameFullLbl.Text = "Installer Full Name";
+			this.@__cusStringNameFullLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
 			// __cusStringCondMsg
 			// 
 			this.@__cusStringCondMsg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -349,7 +365,7 @@
 			this.@__cusStringCondMsg.Location = new System.Drawing.Point(111, 149);
 			this.@__cusStringCondMsg.Name = "__cusStringCondMsg";
 			this.@__cusStringCondMsg.Size = new System.Drawing.Size(415, 20);
-			this.@__cusStringCondMsg.TabIndex = 9;
+			this.@__cusStringCondMsg.TabIndex = 5;
 			// 
 			// __cusStringCondMsgLbl
 			// 
@@ -367,7 +383,7 @@
 			this.@__cusStringCond.Location = new System.Drawing.Point(111, 123);
 			this.@__cusStringCond.Name = "__cusStringCond";
 			this.@__cusStringCond.Size = new System.Drawing.Size(415, 20);
-			this.@__cusStringCond.TabIndex = 7;
+			this.@__cusStringCond.TabIndex = 4;
 			// 
 			// __cusStringCondLbl
 			// 
@@ -383,7 +399,7 @@
 			this.@__cusStringDeveloper.Location = new System.Drawing.Point(111, 97);
 			this.@__cusStringDeveloper.Name = "__cusStringDeveloper";
 			this.@__cusStringDeveloper.Size = new System.Drawing.Size(168, 20);
-			this.@__cusStringDeveloper.TabIndex = 5;
+			this.@__cusStringDeveloper.TabIndex = 3;
 			// 
 			// __cusStringDeveloperLbl
 			// 
@@ -399,7 +415,7 @@
 			this.@__cusStringWebsite.Location = new System.Drawing.Point(111, 71);
 			this.@__cusStringWebsite.Name = "__cusStringWebsite";
 			this.@__cusStringWebsite.Size = new System.Drawing.Size(168, 20);
-			this.@__cusStringWebsite.TabIndex = 3;
+			this.@__cusStringWebsite.TabIndex = 2;
 			// 
 			// __cusStringWebsiteLbl
 			// 
@@ -415,7 +431,7 @@
 			this.@__cusStringName.Location = new System.Drawing.Point(111, 19);
 			this.@__cusStringName.Name = "__cusStringName";
 			this.@__cusStringName.Size = new System.Drawing.Size(168, 20);
-			this.@__cusStringName.TabIndex = 1;
+			this.@__cusStringName.TabIndex = 0;
 			// 
 			// __cusStringNameLbl
 			// 
@@ -437,7 +453,7 @@
 			this.@__cusImages.Location = new System.Drawing.Point(12, 9);
 			this.@__cusImages.Name = "__cusImages";
 			this.@__cusImages.Size = new System.Drawing.Size(532, 195);
-			this.@__cusImages.TabIndex = 8;
+			this.@__cusImages.TabIndex = 1;
 			this.@__cusImages.TabStop = false;
 			this.@__cusImages.Text = "Images";
 			// 
@@ -494,6 +510,7 @@
 			// __cancel
 			// 
 			this.@__cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.@__cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.@__cancel.Location = new System.Drawing.Point(488, 766);
 			this.@__cancel.Name = "__cancel";
 			this.@__cancel.Size = new System.Drawing.Size(75, 23);
@@ -524,26 +541,11 @@
 			// 
 			this.@__ofdIcon.FileName = "Icon Files (*.ico)|*.ico";
 			// 
-			// __cusStringNameFull
-			// 
-			this.@__cusStringNameFull.Location = new System.Drawing.Point(111, 45);
-			this.@__cusStringNameFull.Name = "__cusStringNameFull";
-			this.@__cusStringNameFull.Size = new System.Drawing.Size(168, 20);
-			this.@__cusStringNameFull.TabIndex = 11;
-			// 
-			// __cusStringNameFullLbl
-			// 
-			this.@__cusStringNameFullLbl.Location = new System.Drawing.Point(6, 48);
-			this.@__cusStringNameFullLbl.Name = "__cusStringNameFullLbl";
-			this.@__cusStringNameFullLbl.Size = new System.Drawing.Size(99, 19);
-			this.@__cusStringNameFullLbl.TabIndex = 10;
-			this.@__cusStringNameFullLbl.Text = "Installer Full Name";
-			this.@__cusStringNameFullLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
-			// 
 			// DistributorForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.CancelButton = this.@__cancel;
 			this.ClientSize = new System.Drawing.Size(571, 797);
 			this.Controls.Add(this.@__cancel);
 			this.Controls.Add(this.@__create);

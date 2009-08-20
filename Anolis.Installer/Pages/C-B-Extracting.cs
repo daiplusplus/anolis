@@ -18,8 +18,6 @@ namespace Anolis.Installer.Pages {
 			InitializeComponent();
 			
 			this.PageLoad += new EventHandler(ExtractingPage_PageLoad);
-			
-			Localize();
 		}
 		
 		protected override String LocalizePrefix { get { return "C_B"; } }
@@ -125,6 +123,10 @@ namespace Anolis.Installer.Pages {
 				
 				PackageInfo.Package = Package.FromFile( path );
 				
+				if( InstallationInfo.UseSelector == null ) {
+					InstallationInfo.UseSelector = PackageInfo.Package.Presets.Count > 0;
+				}
+				
 			} catch( PackageValidationException pve ) {
 				
 				__packageMessages.Visible = true;
@@ -157,11 +159,20 @@ namespace Anolis.Installer.Pages {
 				return;
 				
 				
-			} catch(PackageException pe ) {
+			} catch(Exception ex) {
 				
-				__packageMessages.Visible = true;
+				StringBuilder sb = new StringBuilder();
+				while(ex != null) {
+					
+					sb.Append( ex.GetType().Name );
+					sb.Append( " - " );
+					sb.AppendLine( ex.Message );
+					sb.AppendLine( ex.StackTrace );
+					sb.AppendLine();
+					ex = ex.InnerException;
+				}
 				
-				__packageMessages.Text = pe.GetType().Name + " " + pe.Message;
+				__packageMessages.Text = sb.ToString();
 				__packageMessages.Visible = true;
 				
 				_prev = Program.PageCASelectPackage;

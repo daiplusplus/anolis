@@ -23,19 +23,35 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override void Execute() {
 			
+			if( Files.Count == 0 ) return;
+			
 			////////////////////////////////////
 			// Backup
 			Backup( Package.ExecutionInfo.BackupGroup );
 			
-			// the bootscreen will be the last file listed
+			String lastFile = null, lastSelectedFile = null;
 			
-			// http://technet.microsoft.com/en-gb/sysinternals/bb963892.aspx
+			foreach(ExtraFile file in Files) {
+				
+				lastFile = file.FileName;
+				if( file.IsSelected ) lastSelectedFile = file.FileName;
+			}
 			
-			if( Files.Count == 0 ) return;
+			if( lastSelectedFile != null ) {
+				
+				InstallBootscreen( lastSelectedFile );
+				
+			} else {
+				
+				InstallBootscreen( lastFile );
+			}
 			
-			String file = Files[ Files.Count - 1 ];
 			
-			if( String.IsNullOrEmpty( file ) ) {
+		}
+		
+		private void InstallBootscreen(String fileName) {
+			
+			if( String.IsNullOrEmpty( fileName ) ) {
 				ExecuteBackup();
 				return;
 			}
@@ -45,7 +61,7 @@ namespace Anolis.Core.Packages.Operations {
 			String moved = PackageUtility.ReplaceFile( dest );
 			if(moved != null) Package.Log.Add( LogSeverity.Warning, "File renamed: " + dest + " -> " + moved );
 			
-			File.Copy( file, dest );
+			File.Copy( fileName, dest );
 			
 			////////////////////////////////////////////
 			// Add the switches
@@ -64,6 +80,7 @@ namespace Anolis.Core.Packages.Operations {
 			} catch(AnolisException ex) {
 				Package.Log.Add( new LogItem(LogSeverity.Error, ex, "Couldn't save Boot.ini") );
 			}
+			
 		}
 		
 		private void ExecuteBackup() {

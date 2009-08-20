@@ -101,17 +101,19 @@ namespace Anolis.Resourcer.CommandLine {
 			
 			String[] filters = Options.SourceFilter.Split(';');
 			
-			// I can't use DirectoryInfo.GetFiles because it blindly accesses directories and fails on Windows 7 when it tries to access C:\windows\temp
+			// I can't use DirectoryInfo.GetFiles(SearchOption.AllDirectories) because it blindly accesses directories and fails on Windows 7 when it tries to access C:\windows\temp
 			
-//			foreach(String fltr in filters) {
-//				
-//				// .GetFiles is recursive in itself, which saves trouble
-//				FileInfo[] f = Options.SourceDirectory.GetFiles( fltr, Options.SourceRecurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly );
-//				files.AddRange( f );
-//				
-//			}
-			
-			AddFiles( Options.SourceDirectory, filters, files );
+			if( Options.SourceRecurse ) { // Options will never be null
+				
+				AddFiles( Options.SourceDirectory, filters, files );
+				
+			} else {
+				
+				foreach(String filter in filters) {
+					files.AddRange( Options.SourceDirectory.GetFiles( filter ) );
+				}
+				
+			}
 			
 			return files.ToArray();
 		}
@@ -301,9 +303,6 @@ namespace Anolis.Resourcer.CommandLine {
 		public DirectoryInfo SourceDirectory { get; set; }
 		public String        SourceFilter    { get; set; }
 		public Boolean       SourceRecurse   { get; set; }
-		
-		public Boolean       ReportCreate    { get; set; }
-		public FileInfo      ReportFile      { get; set; }
 		
 		public DirectoryInfo ExportDirectory { get; set; }
 		public Boolean       ExportNonVisual { get; set; }

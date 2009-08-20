@@ -11,7 +11,7 @@ namespace Anolis.Installer.Pages {
 	
 	public partial class DownloadingPage : BaseInteriorPage {
 		
-		private TransferRateCalculator _rate = new TransferRateCalculator();
+		private RateCalculator _rate = new RateCalculator();
 		private WebClient _client;
 		
 		public DownloadingPage() {
@@ -23,8 +23,6 @@ namespace Anolis.Installer.Pages {
 			_client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(_client_DownloadStringCompleted);
 
 			this.PageLoad += new EventHandler(DownloadingPage_PageLoad);
-			
-			Localize();
 		}
 		
 		protected override String LocalizePrefix { get { return "D_B"; } }
@@ -39,7 +37,7 @@ namespace Anolis.Installer.Pages {
 		
 		private void DownloadingPage_PageLoad(object sender, EventArgs e) {
 			
-			_rate.Reset();
+			_rate.Reset(0);
 			
 			WizardForm.EnableBack = false;
 			
@@ -75,7 +73,7 @@ namespace Anolis.Installer.Pages {
 			Uri    src  = new Uri( lines[1] );
 			String dst  = Path.Combine( Path.GetTempPath(), "Tools-" + date  + ".tar.lzma" );
 			
-			_rate.Reset();
+			_rate.Reset(0);
 			
 			_client.DownloadFileAsync( src, dst, dst );
 		}
@@ -84,7 +82,7 @@ namespace Anolis.Installer.Pages {
 			
 			_rate.Add( e.BytesReceived );
 			
-			Int32 xferRate = _rate.GetTransferRate();
+			Int64 xferRate = _rate.GetRate();
 			
 			String message = InstallerResources.GetString("C_C_downloadProgress");
 			message = String.Format(System.Globalization.CultureInfo.CurrentCulture, message, e.ProgressPercentage, e.BytesReceived / 1024, e.TotalBytesToReceive / 1024, xferRate);

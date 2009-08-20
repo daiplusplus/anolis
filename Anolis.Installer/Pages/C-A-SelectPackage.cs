@@ -17,8 +17,6 @@ namespace Anolis.Installer.Pages {
 			
 			this.__anopBrowse.Click += new EventHandler(__anopBrowse_Click);
 			this.__packBrowse.Click += new EventHandler(__packBrowse_Click);
-			
-			Localize();
 		}
 		
 		protected override String LocalizePrefix { get { return "C_A"; } }

@@ -26,12 +26,11 @@ namespace Anolis.Installer.Pages {
 			
 			this.__i386  .CheckedChanged += new EventHandler(__i386_CheckedChanged);
 			this.__backup.CheckedChanged += new EventHandler(__backup_CheckedChanged);
-			this.__sysRes.CheckedChanged += new EventHandler(__sysRes_CheckedChanged);
 			
 			this.__backupBrowse.Click += new EventHandler(__backupBrowse_Click);
 			this.__i386Browse  .Click += new EventHandler(__i386Browse_Click);
 			
-			Localize();
+			this.__advanced    .Click += new EventHandler(__advanced_Click);
 		}
 		
 		protected override String LocalizePrefix { get { return "C_F"; } }
@@ -65,12 +64,6 @@ namespace Anolis.Installer.Pages {
 			
 		}
 		
-		private void __sysRes_CheckedChanged(object sender, EventArgs e) {
-			
-			__sysResDesc.Enabled = __sysRes.Checked;
-			
-		}
-		
 		private void __i386_CheckedChanged(object sender, EventArgs e) {
 			
 			// this code can be optimised for space, but using literals makes it easier to read
@@ -95,12 +88,10 @@ namespace Anolis.Installer.Pages {
 			if( __comp.Checked ) {
 				
 				__backup.Enabled = true;
-				__sysRes.Enabled = true;
 				
 			} else {
 				
 				__backup.Enabled = false;
-				__sysRes.Enabled = false;
 			}
 			
 			////////////////////////////////////
@@ -116,17 +107,6 @@ namespace Anolis.Installer.Pages {
 				__backupBrowse.Enabled = false;
 				__backupDesc  .Enabled = false;
 				__backupPath  .Enabled = false;
-			}
-			
-			////////////////////////////////////
-			
-			if( __sysRes.Enabled && __sysRes.Checked ) {
-				
-				__sysResDesc.Enabled = true;
-				
-			} else {
-				
-				__sysResDesc.Enabled = false;
 			}
 			
 		}
@@ -162,6 +142,13 @@ namespace Anolis.Installer.Pages {
 					__comp.Enabled = false;
 				}
 			}
+			
+		}
+		
+		private void __advanced_Click(object sender, EventArgs e) {
+			
+			InstallationOptionsForm opts = new InstallationOptionsForm();
+			opts.ShowDialog(this);
 			
 		}
 		
@@ -214,7 +201,6 @@ namespace Anolis.Installer.Pages {
 					}
 				}
 				
-				PackageInfo.SystemRestore = __sysRes.Checked;
 				PackageInfo.BackupPath    = __backup.Checked ? __backupPath.Text : null;
 				
 				PackageInfo.I386Install   = __i386.Checked;
@@ -245,7 +231,10 @@ namespace Anolis.Installer.Pages {
 		}
 		
 		public override BaseWizardPage PrevPage {
-			get { return Program.PageCEModifyPackage; }
+			get {
+				if( InstallationInfo.UseSelector.Value ) return Program.PageCE1Selector;
+				return Program.PageCE2ModifyPackage;
+			}
 		}
 		
 		public override BaseWizardPage NextPage {

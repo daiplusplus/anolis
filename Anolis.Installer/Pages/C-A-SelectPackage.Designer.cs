@@ -52,11 +52,13 @@
 			// 
 			// __anopRad
 			// 
+			this.@__anopRad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__anopRad.Checked = true;
 			this.@__anopRad.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.@__anopRad.Location = new System.Drawing.Point(22, 13);
 			this.@__anopRad.Name = "__anopRad";
-			this.@__anopRad.Size = new System.Drawing.Size(425, 18);
+			this.@__anopRad.Size = new System.Drawing.Size(422, 18);
 			this.@__anopRad.TabIndex = 0;
 			this.@__anopRad.TabStop = true;
 			this.@__anopRad.Text = "A package archive (*.anop) on my computer";
@@ -64,20 +66,22 @@
 			// 
 			// __anopFilenameLbl
 			// 
-			this.@__anopFilenameLbl.Location = new System.Drawing.Point(14, 38);
+			this.@__anopFilenameLbl.Location = new System.Drawing.Point(3, 38);
 			this.@__anopFilenameLbl.Margin = new System.Windows.Forms.Padding(3);
 			this.@__anopFilenameLbl.Name = "__anopFilenameLbl";
-			this.@__anopFilenameLbl.Size = new System.Drawing.Size(100, 26);
+			this.@__anopFilenameLbl.Size = new System.Drawing.Size(111, 26);
 			this.@__anopFilenameLbl.TabIndex = 1;
 			this.@__anopFilenameLbl.Text = "Filename";
 			this.@__anopFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// __embedRad
 			// 
+			this.@__embedRad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__embedRad.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.@__embedRad.Location = new System.Drawing.Point(22, 132);
 			this.@__embedRad.Name = "__embedRad";
-			this.@__embedRad.Size = new System.Drawing.Size(425, 18);
+			this.@__embedRad.Size = new System.Drawing.Size(422, 18);
 			this.@__embedRad.TabIndex = 2;
 			this.@__embedRad.Text = "A package embedded in this installer";
 			this.@__embedRad.UseVisualStyleBackColor = true;
@@ -145,20 +149,22 @@
 			// 
 			// __packFilenameLbl
 			// 
-			this.@__packFilenameLbl.Location = new System.Drawing.Point(17, 97);
+			this.@__packFilenameLbl.Location = new System.Drawing.Point(3, 97);
 			this.@__packFilenameLbl.Margin = new System.Windows.Forms.Padding(3);
 			this.@__packFilenameLbl.Name = "__packFilenameLbl";
-			this.@__packFilenameLbl.Size = new System.Drawing.Size(97, 26);
+			this.@__packFilenameLbl.Size = new System.Drawing.Size(111, 26);
 			this.@__packFilenameLbl.TabIndex = 8;
 			this.@__packFilenameLbl.Text = "Filename";
 			this.@__packFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// __packRad
 			// 
+			this.@__packRad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__packRad.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.@__packRad.Location = new System.Drawing.Point(22, 72);
 			this.@__packRad.Name = "__packRad";
-			this.@__packRad.Size = new System.Drawing.Size(425, 18);
+			this.@__packRad.Size = new System.Drawing.Size(422, 18);
 			this.@__packRad.TabIndex = 7;
 			this.@__packRad.Text = "A package definition file (package.xml) on my computer";
 			this.@__packRad.UseVisualStyleBackColor = true;

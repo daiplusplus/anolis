@@ -31,31 +31,34 @@ namespace Anolis.Core.Packages {
 			
 			Description          = itemElement.GetAttribute("desc");
 			DescriptionImagePath = itemElement.GetAttribute("descImg");
+			PreviewImagePath     = itemElement.GetAttribute("previewImg");
 			Hidden               = itemElement.GetAttribute("hidden") == "true" || itemElement.GetAttribute("hidden") == "1";
 			
-			String enabled = itemElement.GetAttribute("enabled");
-			if(enabled.Length > 0) {
-				Enabled = enabled != "false" && enabled != "0"; // with xs:boolean both "false" and "0" are valid values
-			} else {
-				Enabled = true;
-			}
+			String enabled       = itemElement.GetAttribute("enabled"); // since Enabled is nullable, set it to a value only when explicitly defined
+			if( enabled == "true"  || enabled == "1" ) Enabled = true;
+			if( enabled == "false" || enabled == "0" ) Enabled = false;
 			
 		}
 		
 		protected PackageItem(Package package, Group parent) : base(package) {
 			
 			ParentGroup = parent;
-			
-			Enabled     = true;
 		}
 		
 		public          String  Description          { get; set; }
 		protected       String  DescriptionImagePath { get; set; }
+		protected       String  PreviewImagePath     { get; set; }
 		
 		/// <summary>Whether the item is enabled or disabled. If Disabled it will not be executed, but even if Enabled it may not be executed, see IsEnabled.</summary>
-		public virtual  Boolean Enabled        { get; set; }
+		public          Boolean? Enabled       { get; set; }
 		public          Boolean Hidden         { get; set; }
-		public abstract Boolean IsEnabled      { get; }
+		public          Boolean IsEnabled      {
+			get {
+				if( Enabled     != null ) return Enabled.Value;
+				if( ParentGroup == null ) return true;
+				return ParentGroup.IsEnabled;
+			}
+		}
 		
 		public          Group   ParentGroup          { get; internal set; }
 		
@@ -89,39 +92,50 @@ namespace Anolis.Core.Packages {
 				
 				if( _descImage == null && DescriptionImagePath.Length > 0 ) {
 					
-					String imgFilename = System.IO.Path.Combine( Package.RootDirectory.FullName, DescriptionImagePath );
-					
-					Image img;
-					if( Package.PackageImages.TryGetValue( imgFilename, out img ) ) {
-						
-						_descImage = img;
-						
-					} else {
-						
-						try {
-							
-							// using Bitmap.FromFile causes it to lock the file, the lock seems to stick even when you .Clone() it
-							// so load it from a stream
-							
-							using(FileStream fs = new FileStream( imgFilename, FileMode.Open, FileAccess.Read, FileShare.Read)) {
-								
-								_descImage = Image.FromStream( fs, false, true );
-							}
-							
-							Package.PackageImages.Add( imgFilename, img );
-						} catch(OutOfMemoryException) {
-							Package.PackageImages.Add( imgFilename, null );
-						} catch(System.IO.FileNotFoundException) {
-							Package.PackageImages.Add( imgFilename, null );
-						}
-						
-					}
-					
+					_descImage = GetImage( DescriptionImagePath );
 				}
 				
 				return _descImage;
 				
 			}
+		}
+		
+		private Image _previewImage;
+		
+		public Image PreviewImage {
+			get {
+				
+				if( _previewImage == null && PreviewImagePath.Length > 0 ) {
+					
+					_previewImage = GetImage( PreviewImagePath );
+				}
+				
+				return _previewImage;
+				
+			}
+		}
+		
+		protected Image GetImage(String relativeImagePath) {
+			
+			String imgFilename = System.IO.Path.Combine( Package.RootDirectory.FullName, relativeImagePath );
+			
+			if( !File.Exists( imgFilename ) ) return null;
+			
+			Image img;
+			if( !Package.PackageImages.TryGetValue( imgFilename, out img ) ) {
+				
+				try {
+					
+					img = Miscellaneous.ImageFromFile( imgFilename );
+					
+					Package.PackageImages.Add( imgFilename, img );
+				} catch(OutOfMemoryException) {
+					Package.PackageImages.Add( imgFilename, null );
+				}
+				
+			}
+			
+			return img;
 		}
 		
 #region Write
@@ -152,7 +166,7 @@ namespace Anolis.Core.Packages {
 			if( Hidden )
 				AddAttribute(element, "hidden", "true" );
 			
-			if( !Enabled )
+			if( Enabled != null && !Enabled.Value )
 				AddAttribute(element, "enabled", "false" );
 			
 			if( Condition != null )

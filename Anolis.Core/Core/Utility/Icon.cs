@@ -24,6 +24,8 @@ namespace Anolis.Core.Utility {
 		
 		public ResourceLang DirectoryLang { get; private set; } 
 		
+		//////////////////////////////////////////////////////
+		
 		public IconGroup(String fileName) {
 			
 			using(FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read)) {
@@ -104,9 +106,18 @@ namespace Anolis.Core.Utility {
 			
 		}
 		
-		public void Merge(IconGroup additions) {
+		public void Merge(IconGroup additions, IconOptions options) {
+			
+			if( options.ClearOriginals ) {
+				
+				// clear this instance's icons
+				List<IDirectoryMember> imagesToRemove = new List<IDirectoryMember>( _images );
+				foreach(IconImage image in imagesToRemove) Remove( image );
+			}
 			
 			foreach(IconImage image in additions._images) {
+				
+				if( options.SizeLimit > 0 && image.Size.Width >= options.SizeLimit ) continue;
 				
 				this.AddUpdate( image );
 			}
@@ -406,7 +417,7 @@ namespace Anolis.Core.Utility {
 				entry.wBitCount = image.BitCount;
 				
 				entry.dwBytesInRes = (uint)image.ImageData.Length;
-				entry.wId          = (ushort)image.ResourceData.Lang.Name.Identifier.NativeId.ToInt32(); // da...?
+				entry.wId          = (ushort)image.ResourceData.Lang.Name.Identifier.NativeId.ToInt32(); // gotta love the load of dereferencing going on here
 				
 				entry.Write( wtr );
 			}
@@ -518,8 +529,29 @@ namespace Anolis.Core.Utility {
 			else if( Size.Width  == 0                                     ) Size = new Size( 256, Size.Height );
 			else if( Size.Height == 0 && ParentIcon.Type == IconType.Icon ) Size = new Size( Size.Width, 256 );
 			
-			if( ParentIcon.Type == IconType.Icon && BitCount == 0) { // this regularly happens, so let's fix it
-				BitCount = (UInt16)Math.Log( ColorCount, 2);
+			if( ParentIcon.Type == IconType.Icon && ColorCount > 0 && BitCount == 0) { // this regularly happens, so let's fix it
+				BitCount = (UInt16)Math.Log( ColorCount, 2); // but it only works when ColorCount > 0 which doesn't apply to 16, 24, and 32-bit icons
+			}
+			
+			if( BitCount == 0 ) { // get it from the ImageData, which is painful
+				
+				// IconPro does it in AdjustIconImagePointers
+				// it casts the raw image data as BMP then reads in the DIB headers
+				// but this wouldn't work for PNG-format icons
+				
+				// so check for the PNG header first
+				
+				if( PngImageResourceData.HasPngSignature( ImageData ) ) {
+					
+					BitCount = 32; // I know you can get non-32-bit PNGs, but meh
+					
+				} else {
+					
+					Dib dib = new Dib( ImageData );
+					BitCount = (ushort)dib.BitCount;
+					
+				}
+				
 			}
 			
 			Description = String.Format(
@@ -597,6 +629,17 @@ namespace Anolis.Core.Utility {
 		
 #endregion
 		
+	}
+	
+	public class IconOptions {
+		
+		public IconOptions() {
+			SizeLimit      = 0;
+			ClearOriginals = false;
+		}
+		
+		public Int32   SizeLimit      { get; set; }
+		public Boolean ClearOriginals { get; set; }
 	}
 	
 }

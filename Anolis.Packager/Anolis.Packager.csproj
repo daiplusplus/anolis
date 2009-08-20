@@ -77,13 +77,13 @@
     <Compile Include="B-Define\ImageCompositorForm.Designer.cs">
       <DependentUpon>ImageCompositorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="D-Distro\DistributorForm.cs">
+    <Compile Include="E-Distro\DistributorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="D-Distro\DistributorForm.Designer.cs">
+    <Compile Include="E-Distro\DistributorForm.Designer.cs">
       <DependentUpon>DistributorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="D-Distro\DistributionCreator.cs" />
+    <Compile Include="E-Distro\DistributionCreator.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,9 +97,24 @@
       <DependentUpon>TarLzmaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="D-Optimizer\DuplicateFinder.cs" />
+    <Compile Include="D-Optimizer\OptimizerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="D-Optimizer\OptimizerForm.Designer.cs">
+      <DependentUpon>OptimizerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="D-Optimizer\PackageOptimizer.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgressForm.Designer.cs">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="D-Distro\DistributorForm.resx">
+    <EmbeddedResource Include="E-Distro\DistributorForm.resx">
       <DependentUpon>DistributorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -133,6 +148,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="B-Define\ImageCompositorForm.resx">
       <DependentUpon>ImageCompositorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="D-Optimizer\OptimizerForm.resx">
+      <DependentUpon>OptimizerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgressForm.resx">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Package.ico" />
   </ItemGroup>

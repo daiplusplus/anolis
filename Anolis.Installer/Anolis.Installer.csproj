@@ -55,6 +55,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -86,6 +87,9 @@
     </Compile>
     <Compile Include="Pages\0-BaseInteriorPage.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\BaseForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pages\C-D-ReleaseNotes.cs">
       <SubType>UserControl</SubType>
@@ -129,11 +133,11 @@
     <Compile Include="Pages\C-F-InstallationOptions.Designer.cs">
       <DependentUpon>C-F-InstallationOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\C-E-ModifyPackage.cs">
+    <Compile Include="Pages\C-E2-ModifyPackage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\C-E-ModifyPackage.Designer.cs">
-      <DependentUpon>C-E-ModifyPackage.cs</DependentUpon>
+    <Compile Include="Pages\C-E2-ModifyPackage.Designer.cs">
+      <DependentUpon>C-E2-ModifyPackage.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\C-B-Extracting.cs">
       <SubType>UserControl</SubType>
@@ -153,21 +157,30 @@
     <Compile Include="Pages\F-Finished.designer.cs">
       <DependentUpon>F-Finished.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\WaitForm.cs">
+    <Compile Include="Pages\C-F2-InstallationOptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pages\WaitForm.Designer.cs">
-      <DependentUpon>WaitForm.cs</DependentUpon>
+    <Compile Include="Pages\C-F2-InstallationOptionsForm.Designer.cs">
+      <DependentUpon>C-F2-InstallationOptionsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\X-Selector.cs">
+    <Compile Include="Pages\LanguageComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Pages\LocalizerHelper.cs" />
+    <Compile Include="Pages\G-WaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\G-WaitForm.Designer.cs">
+      <DependentUpon>G-WaitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\C-E1-Selector.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\X-Selector.Designer.cs">
-      <DependentUpon>X-Selector.cs</DependentUpon>
+    <Compile Include="Pages\C-E1-Selector.Designer.cs">
+      <DependentUpon>C-E1-Selector.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TransferRateCalculator.cs" />
     <EmbeddedResource Include="Pages\0-BaseInteriorPage.resx">
       <DependentUpon>0-BaseInteriorPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -198,8 +211,8 @@
     <EmbeddedResource Include="Pages\C-F-InstallationOptions.resx">
       <DependentUpon>C-F-InstallationOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\C-E-ModifyPackage.resx">
-      <DependentUpon>C-E-ModifyPackage.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\C-E2-ModifyPackage.resx">
+      <DependentUpon>C-E2-ModifyPackage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\C-B-Extracting.resx">
       <DependentUpon>C-B-Extracting.cs</DependentUpon>
@@ -210,55 +223,30 @@
     <EmbeddedResource Include="Pages\F-Finished.resx">
       <DependentUpon>F-Finished.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\WaitForm.resx">
-      <DependentUpon>WaitForm.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\G-WaitForm.resx">
+      <DependentUpon>G-WaitForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\X-Selector.resx">
-      <DependentUpon>X-Selector.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\C-E1-Selector.resx">
+      <DependentUpon>C-E1-Selector.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ar.resx" />
-    <EmbeddedResource Include="Resources\cy.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\da.resx" />
-    <EmbeddedResource Include="Resources\fa.resx" />
-    <EmbeddedResource Include="Resources\fr.resx" />
-    <EmbeddedResource Include="Resources\gr.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\it.resx">
-      <LastGenOutput>it.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\nl.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\pl.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ru.resx">
-      <LastGenOutput>ru.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\es.resx">
-      <LastGenOutput>es.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\de.resx">
-      <LastGenOutput>de.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\en.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\sv.resx" />
-    <EmbeddedResource Include="Resources\th.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\zh.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\zh2.resx" />
+    <None Include="Resources\Resx\ar.resx" />
+    <None Include="Resources\Resx\cy.resx" />
+    <None Include="Resources\Resx\da.resx" />
+    <None Include="Resources\Resx\de.resx" />
+    <EmbeddedResource Include="Resources\Resx\en.resx" />
+    <None Include="Resources\Resx\es.resx" />
+    <None Include="Resources\Resx\fa.resx" />
+    <None Include="Resources\Resx\fr.resx" />
+    <None Include="Resources\Resx\gr.resx" />
+    <None Include="Resources\Resx\it.resx" />
+    <None Include="Resources\Resx\nl.resx" />
+    <None Include="Resources\Resx\pl.resx" />
+    <None Include="Resources\Resx\pt.resx" />
+    <None Include="Resources\Resx\ru.resx" />
+    <None Include="Resources\Resx\sv.resx" />
+    <None Include="Resources\Resx\th.resx" />
+    <None Include="Resources\Resx\zh.resx" />
+    <None Include="Resources\Resx\zh2.resx" />
     <None Include="app.config" />
     <None Include="app.manifest" />
   </ItemGroup>
@@ -304,12 +292,33 @@
   <ItemGroup>
     <Content Include="Package.ico" />
     <None Include="EULA.rtf" />
+    <EmbeddedResource Include="Pages\C-F2-InstallationOptionsForm.resx">
+      <DependentUpon>C-F2-InstallationOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Resources\Compressed\ar.resources.gz" />
+    <None Include="Resources\Compressed\cy.resources.gz" />
+    <None Include="Resources\Compressed\da.resources.gz" />
+    <None Include="Resources\Compressed\de.resources.gz" />
+    <None Include="Resources\Compressed\es.resources.gz" />
+    <None Include="Resources\Compressed\fa.resources.gz" />
+    <None Include="Resources\Compressed\fr.resources.gz" />
+    <None Include="Resources\Compressed\gr.resources.gz" />
+    <None Include="Resources\Compressed\it.resources.gz" />
+    <None Include="Resources\Compressed\nl.resources.gz" />
+    <None Include="Resources\Compressed\pl.resources.gz" />
+    <None Include="Resources\Compressed\pt.resources.gz" />
+    <None Include="Resources\Compressed\ru.resources.gz" />
+    <None Include="Resources\Compressed\sv.resources.gz" />
+    <None Include="Resources\Compressed\th.resources.gz" />
+    <None Include="Resources\Compressed\zh.resources.gz" />
+    <None Include="Resources\Compressed\zh2.resources.gz" />
     <None Include="Resources\Flags\en.png" />
     <None Include="Resources\Flags\de.png" />
     <None Include="Resources\Flags\es.png" />
     <None Include="Resources\Flags\nl.png" />
     <None Include="Resources\Flags\cy.png" />
     <Content Include="Resources\Flags\ar.png" />
+    <None Include="Resources\Flags\br.png" />
     <Content Include="Resources\Flags\dk.png" />
     <Content Include="Resources\Flags\fa.png" />
     <None Include="Resources\Flags\fr.png" />
@@ -319,6 +328,23 @@
     <Content Include="Resources\Flags\ru.png" />
     <None Include="Resources\Flags\th.png" />
     <None Include="Resources\Flags\se.png" />
+    <EmbeddedResource Include="Resources\Resx\GZip\ar.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\cy.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\da.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\de.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\es.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\fa.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\fr.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\gr.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\it.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\nl.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\pl.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\pt.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\ru.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\sv.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\th.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\zh.resources.gz" />
+    <EmbeddedResource Include="Resources\Resx\GZip\zh2.resources.gz" />
     <Content Include="Resources\Flags\zh.png" />
     <Content Include="Resources\Package.ico" />
   </ItemGroup>

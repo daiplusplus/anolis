@@ -258,7 +258,7 @@ namespace Anolis.Core.Utility {
 			
 			FileInfo file = root.GetFile( components[0] );
 			if( !file.Exists ) throw new FileNotFoundException("Layer Image file must exist", file.FullName );
-			Image = Image.FromFile( file.FullName );
+			ImageFileName = file.FullName;
 			
 			///////////////////////////
 			// Location
@@ -301,7 +301,37 @@ namespace Anolis.Core.Utility {
 			
 		}
 		
-		public Image Image    { get; set; }
+		private Image  _image;
+		
+		public Image Image {
+			get {
+				if( _image == null ) _image = GetImage( ImageFileName );
+				return _image;
+			}
+			set {
+				_image = value;
+			}
+		}
+		
+		/// <summary>Force-loads the image as 32bppARGB</summary>
+		private Image GetImage(String fileName) {
+			
+			Image file = Miscellaneous.ImageFromFile( ImageFileName );
+			if( file.PixelFormat == PixelFormat.Format32bppArgb ) return file; // it's already 32bppARGB
+			Bitmap src = file as Bitmap;
+			if( src == null ) return file;
+			
+			BitmapData srcData = src.LockBits( new Rectangle(0, 0, src.Width, src.Height), ImageLockMode.ReadOnly, src.PixelFormat );
+			
+			Bitmap ret = new Bitmap( src.Width, src.Height, srcData.Stride, PixelFormat.Format32bppArgb, srcData.Scan0 );
+			
+			src.UnlockBits( srcData );
+			src.Dispose();
+			
+			return ret;
+		}
+		
+		public String ImageFileName { get; set; }
 		
 		public Point Location { get; set; }
 		
@@ -333,6 +363,7 @@ namespace Anolis.Core.Utility {
 			return sb.ToString();
 			
 		}
+
 		
 	}
 	

@@ -18,11 +18,6 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public abstract String OperationName { get; }
 		
-		/// <summary>Whether the item will be executed or not.</summary>
-		public override sealed Boolean IsEnabled {
-			get { return ParentGroup.IsEnabled ? Enabled : false; }
-		}
-		
 		public abstract void Execute();
 		
 		/// <summary>Provides an opportunity to reduce the number of operations by merging them together to be Executed in a single go. Return true if the provided operation was successfully merged into this operation (thus making it obsolete, it will then be removed from the flattened operation list). Return false to keep the old operation in the list.</summary>

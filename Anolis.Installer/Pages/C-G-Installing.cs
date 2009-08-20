@@ -23,8 +23,6 @@ namespace Anolis.Installer.Pages {
 			
 			__bw.DoWork += new DoWorkEventHandler(__bw_DoWork);
 			__bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(__bw_RunWorkerCompleted);
-			
-			Localize();
 		}
 		
 		protected override String LocalizePrefix { get { return "C_G"; } }
@@ -50,8 +48,9 @@ namespace Anolis.Installer.Pages {
 		
 		private void InstallingPage_PageLoad(object sender, EventArgs e) {
 			
-			WizardForm.EnableBack = false;
-			WizardForm.EnableNext = false;
+			WizardForm.EnableBack   = false;
+			WizardForm.EnableNext   = false;
+			WizardForm.EnableCancel = false; // no point re-enabling it since you can't go back and the next page is the Finish page
 			
 			PackageInfo.Package.ProgressEvent += new EventHandler<PackageProgressEventArgs>(Package_ProgressEvent);
 			
@@ -75,6 +74,7 @@ namespace Anolis.Installer.Pages {
 		private void __bw_DoWork(object sender, DoWorkEventArgs e) {
 			
 			PackageExecutionSettings settings = new PackageExecutionSettings();
+			settings.LiteMode = PackageInfo.LiteMode;
 			
 			if( PackageInfo.I386Install ) {
 				
@@ -90,7 +90,7 @@ namespace Anolis.Installer.Pages {
 			
 			PackageInfo.Package.Execute(settings);
 			
-			PackageInfo.RequiresRestart = (Program.ProgramMode == ProgramMode.InstallPackage) && PackageInfo.Package.ExecutionInfo.RequiresRestart;
+			PackageInfo.RequiresRestart = PackageInfo.Package.ExecutionInfo.RequiresRestart;
 			
 			///////////////////////////////
 			// Clean Up Extracted and Temporary Files

@@ -116,9 +116,18 @@ namespace Anolis.Core.Packages {
 			Message    = message;
 		}
 		
-		public Int32 Percentage { get; private set; }
+		public PackageProgressEventArgs(Int32 percentage, String message, Int64 complete, Int64 total) : this(percentage, message) {
+			
+			ProcessComplete = complete;
+			ProcessTotal    = total;
+		}
 		
-		public String Message { get; private set; }
+		public Int64 ProcessComplete { get; private set; }
+		public Int64 ProcessTotal    { get; private set; }
+		
+		public Int32 Percentage      { get; private set; }
+		
+		public String Message        { get; private set; }
 		
 	}
 	

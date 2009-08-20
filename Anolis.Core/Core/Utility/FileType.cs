@@ -497,6 +497,9 @@ namespace Anolis.Core.Utility {
 	
 	public static class FilePersistentHandlers {
 		
+		// Windows Desktop Search lists PersistentHandlers for each extension now
+		// so that takes away the guesswork
+		
 		/// <summary>Indexes the whole file for textual content</summary>
 		public const String Text = "{5e941d80-bf96-11cd-b579-08002b30bfeb}";
 		
@@ -504,8 +507,14 @@ namespace Anolis.Core.Utility {
 		public const String Null = "{098f2470-bae0-11cd-b579-08002b30bfeb}";
 		
 		/// <summary>Indexes the file for HTML content</summary>
-		/// <remarks>This actually is a guess. I can't see any documentation for this filter, but it's the filter for *.htm files so I assume so...</remarks>
 		public const String Html = "{eec97550-47a9-11cf-b952-00aa0051fe20}";
+		
+		/// <summary>Indexes multipart MIME documents (e.g. .eml and .mht / .html files where the HTML filter wouldn't work because it's multipart)</summary>
+		/// <remarks>This is a custom filter since WDS doesn't recognise it as a built-in one. Googling suggests this GUID is regularly used for this filter.</remarks>
+		public const String Mime = "{5645C8C1-E277-11CF-8FDA-00AA00A14F93}";
+		
+		/// <summary>Indexes the file for XML content</summary>
+		public const String Xml  = "{7E9D8D44-6926-426F-AA2B-217A819A5CCE}";
 		
 	}
 	

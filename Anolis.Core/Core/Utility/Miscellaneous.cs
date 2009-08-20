@@ -11,6 +11,7 @@ using Anolis.Core.Native;
 
 using Sfh     = Microsoft.Win32.SafeHandles.SafeFileHandle;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace Anolis.Core.Utility {
 	
@@ -234,6 +235,22 @@ namespace Anolis.Core.Utility {
 				throw new AnolisException("Error during Checksum Correction", wex);
 			}
 			
+		}
+		
+		/// <summary>Loads an image from a file without locking the file.</summary>
+		public static Image ImageFromFile(String fileName) {
+			
+			// using Bitmap.FromFile causes it to lock the file, the lock seems to stick even when you .Clone() it
+			// so load it from a stream
+			
+			Image image;
+			
+			using(FileStream fs = new FileStream( fileName, FileMode.Open, FileAccess.Read, FileShare.Read)) {
+				
+				image = Image.FromStream( fs, false, true );
+			}
+			
+			return image;
 		}
 		
 #if NEVER

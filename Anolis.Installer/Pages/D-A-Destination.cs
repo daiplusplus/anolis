@@ -20,8 +20,6 @@ namespace Anolis.Installer.Pages {
 			this.__progGroup.CheckedChanged += new EventHandler(__progGroup_CheckedChanged);
 			
 			this.__destBrowse.Click += new EventHandler(__destBrowse_Click);
-			
-			Localize();
 		}
 		
 		private void __destBrowse_Click(object sender, EventArgs e) {
