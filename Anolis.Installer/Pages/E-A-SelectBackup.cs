@@ -20,11 +20,15 @@ namespace Anolis.Installer.Pages {
 			this.__browse.Click += new EventHandler(__browse_Click);
 			this.PageUnload += new EventHandler<W3b.Wizards.PageChangeEventArgs>(Page_Unload);
 			this.PageLoad   += new EventHandler(Page_Load);
-			
-			Localize();
 		}
 		
 		protected override String LocalizePrefix { get { return "E_A"; } }
+		
+		protected override void Localize() {
+			base.Localize();
+			
+			
+		}
 		
 		public override BaseWizardPage NextPage {
 			get { return Program.PageCGInstalling; }
@@ -70,9 +74,17 @@ namespace Anolis.Installer.Pages {
 		
 		private void Page_Load(object sender, EventArgs e) {
 			
-			WizardForm.NextText = "Uninstall";
+			Program.ProgramMode = ProgramMode.UninstallPackage;
+			
+			WizardForm.NextText = InstallerResources.GetString("E_A_uninstallButton");
 			
 			if( InstallationInfo.UninstallPackage != null ) {
+				
+				WizardForm.EnableBack = false;
+				
+				// as the control is not visible, CreateControl will not be called, so it won't double-load the stuff
+				__culture.Visible                = true;
+				__uninstallationLanguage.Visible = true;
 				
 				__dir.Text = InstallationInfo.UninstallPackage.Directory.FullName;
 			}

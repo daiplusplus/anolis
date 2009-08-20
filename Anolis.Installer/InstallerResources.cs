@@ -47,8 +47,21 @@ namespace Anolis.Installer {
 			
 			if( _isGzipped ) {
 				
-				GZipStream gz = new GZipStream( rawManifestStream, CompressionMode.Decompress );
-				return gz;
+				MemoryStream ms = new MemoryStream();
+				
+				using(GZipStream gz = new GZipStream( rawManifestStream, CompressionMode.Decompress, false )) {
+					
+					Byte[] buffer = new Byte[ 10240 ]; // 10KB
+					Int32 read = 0;
+					while( ( read = gz.Read( buffer, 0, 10240 ) ) > 0 ) {
+						
+						ms.Write( buffer, 0, read );
+					}
+					
+				}
+				ms.Seek(0, SeekOrigin.Begin);
+				
+				return ms;
 			}
 			
 			return rawManifestStream;
@@ -291,6 +304,10 @@ namespace Anolis.Installer {
 		
 		public static event EventHandler CurrentLanguageChanged;
 		
+		public static void ForceLocalize() {
+			CurrentLanguageChanged(null, EventArgs.Empty);
+		}
+		
 		public static Boolean IsCustomized {
 			get {
 				return _customizer != null;
@@ -313,6 +330,8 @@ namespace Anolis.Installer {
 			return String.Format( CultureInfo.CurrentCulture, s, formatArgs );
 		}
 		
+//		private static List<String> nulls = new List<String>();
+		
 		public static String GetString(String name) {
 			
 			String ret;
@@ -326,6 +345,8 @@ namespace Anolis.Installer {
 			if( ret != null ) return ret;
 			
 			ret = _english.ResourceSet.GetString( name );
+//			if( ret == null || ret.Length == 0 )
+//				nulls.Add( name );
 			
 			return ret;
 		}

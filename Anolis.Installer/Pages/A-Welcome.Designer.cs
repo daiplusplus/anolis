@@ -23,10 +23,10 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.@__inst1 = new System.Windows.Forms.Label();
-			this.@__culture = new System.Windows.Forms.ComboBox();
+			this.@__notes = new System.Windows.Forms.Label();
 			this.@__cultureLbl = new System.Windows.Forms.Label();
 			this.@__cultureAttrib = new System.Windows.Forms.LinkLabel();
+			this.@__culture = new Anolis.Installer.Pages.LanguageComboBox();
 			this.@__openingText.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -39,35 +39,24 @@
 			// __openingText
 			// 
 			this.@__openingText.BackColor = System.Drawing.Color.Transparent;
-			this.@__openingText.Controls.Add(this.@__cultureAttrib);
-			this.@__openingText.Controls.Add(this.@__inst1);
 			this.@__openingText.Controls.Add(this.@__culture);
+			this.@__openingText.Controls.Add(this.@__cultureAttrib);
+			this.@__openingText.Controls.Add(this.@__notes);
 			this.@__openingText.Controls.Add(this.@__cultureLbl);
 			this.@__openingText.Location = new System.Drawing.Point(174, 89);
 			this.@__openingText.Size = new System.Drawing.Size(322, 224);
 			// 
-			// __inst1
+			// __notes
 			// 
-			this.@__inst1.BackColor = System.Drawing.Color.Transparent;
-			this.@__inst1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.@__inst1.Location = new System.Drawing.Point(0, 137);
-			this.@__inst1.Margin = new System.Windows.Forms.Padding(3, 100, 3, 0);
-			this.@__inst1.Name = "__inst1";
-			this.@__inst1.Size = new System.Drawing.Size(322, 87);
-			this.@__inst1.TabIndex = 0;
-			this.@__inst1.Text = "This wizard will guide you through the steps involve in installing an Anolis pack" +
+			this.@__notes.BackColor = System.Drawing.Color.Transparent;
+			this.@__notes.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.@__notes.Location = new System.Drawing.Point(0, 137);
+			this.@__notes.Margin = new System.Windows.Forms.Padding(3, 100, 3, 0);
+			this.@__notes.Name = "__notes";
+			this.@__notes.Size = new System.Drawing.Size(322, 87);
+			this.@__notes.TabIndex = 0;
+			this.@__notes.Text = "This wizard will guide you through the steps involve in installing an Anolis pack" +
 				"age\r\n\r\nTo continue, press Next";
-			// 
-			// __culture
-			// 
-			this.@__culture.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-			this.@__culture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.@__culture.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.@__culture.FormattingEnabled = true;
-			this.@__culture.Location = new System.Drawing.Point(72, 72);
-			this.@__culture.Name = "__culture";
-			this.@__culture.Size = new System.Drawing.Size(189, 22);
-			this.@__culture.TabIndex = 2;
 			// 
 			// __cultureLbl
 			// 
@@ -87,6 +76,14 @@
 			this.@__cultureAttrib.Size = new System.Drawing.Size(0, 13);
 			this.@__cultureAttrib.TabIndex = 5;
 			// 
+			// __culture
+			// 
+			this.@__culture.FormattingEnabled = true;
+			this.@__culture.Location = new System.Drawing.Point(72, 72);
+			this.@__culture.Name = "__culture";
+			this.@__culture.Size = new System.Drawing.Size(189, 21);
+			this.@__culture.TabIndex = 6;
+			// 
 			// WelcomePage
 			// 
 			this.Name = "WelcomePage";
@@ -98,10 +95,10 @@
 
 		#endregion
 
-		private System.Windows.Forms.Label __inst1;
-		private System.Windows.Forms.ComboBox __culture;
+		private System.Windows.Forms.Label __notes;
 		private System.Windows.Forms.Label __cultureLbl;
 		private System.Windows.Forms.LinkLabel __cultureAttrib;
+		private LanguageComboBox __culture;
 
 	}
 }

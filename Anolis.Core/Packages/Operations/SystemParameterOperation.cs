@@ -71,7 +71,10 @@ namespace Anolis.Core.Packages.Operations {
 			
 			if(!result) {
 				String error = NativeMethods.GetLastErrorString();
-				Package.Log.Add( LogSeverity.Error, "SystemParametersInfo failed: " + error );
+				
+				String args = SpiAction.ToString() + "," + UIParam.ToStringInvariant() + "," + PVParam.ToStringInvariant();
+				
+				Package.Log.Add( LogSeverity.Error, "SystemParametersInfo(" + args + ") failed: " + error );
 			}
 			
 		}

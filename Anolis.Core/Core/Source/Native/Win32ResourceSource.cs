@@ -74,8 +74,28 @@ namespace Anolis.Core.Source {
 			
 			if( IsReadOnly ) throw new InvalidOperationException("Changes cannot be commited because the current ResourceSource is read-only");
 			
+			Boolean finalizeNT6 = false;
+			if( System.Environment.OSVersion.Version.Major >= 6 ) {
+				
+				finalizeNT6 = PrepareNT6Update();
+			}
+			
 			// Unload self
-			if(LoadMode > 0) Unload();
+			if(LoadMode > 0) Unload(); // don't unload before PrepareNT6Update() because it needs the valid handle to load the MUI bytes first
+			
+			CommitChangesImpl();
+			
+			if( finalizeNT6 ) {
+				
+				FinishNT6Update();
+			}
+			
+			Miscellaneous.CorrectPEChecksum( FileInfo.FullName );
+			
+			if(LoadMode > 0) Reload();
+		}
+		
+		private void CommitChangesImpl() {
 			
 			IntPtr updateHandle = NativeMethods.BeginUpdateResource( FileInfo.FullName, false );
 			
@@ -104,19 +124,16 @@ namespace Anolis.Core.Source {
 				IntPtr nameId = lang.Name.Identifier.NativeId;
 				ushort langId = lang.LanguageId;
 				
-				NativeMethods.UpdateResource( updateHandle, typeId, nameId, langId, pData, length );
+				Boolean uSuccess = NativeMethods.UpdateResource( updateHandle, typeId, nameId, langId, pData, length );
+				if( !uSuccess ) throw new AnolisException("UpdatedResource failed: " + NativeMethods.GetLastErrorString() );
 				
 				Marshal.FreeHGlobal( pData );
 				
 				lang.Action = ResourceDataAction.None;
 			}
 			
-			NativeMethods.EndUpdateResource(updateHandle, false);
-			
-			Miscellaneous.CorrectPEChecksum( FileInfo.FullName );
-			
-			if(LoadMode > 0) Reload();
-			
+			Boolean success = NativeMethods.EndUpdateResource(updateHandle, false);
+			if( !success ) throw new AnolisException("EndUpdateResource failed: " + NativeMethods.GetLastErrorString() );
 		}
 		
 		public override void Reload() {
@@ -203,6 +220,87 @@ namespace Anolis.Core.Source {
 //		public void Dispose(Boolean disposeManaged) {
 //			Unload();
 //		}
+		
+#region Vista LC / MUI Workaround
+		
+		// Windows Vista (NT6) and later introduces some new rules when it comes to the Win32 ResourceUpdate function
+		// if a file contains an "RC Config" then it means you cannot perform certain resource update operations since officially you're meant to use MUI files instead
+		// so the workaround is to remove this RC Config, save changes, then perform the resource operation, then restore the RC Config
+		// the RC config is stored as "MUI"\1\langId (where langId == 1033 on EN Windows)
+		
+		// Refs:
+		// http://msdn.microsoft.com/en-us/library/ms776221%28VS.85%29.aspx
+		// http://msdn.microsoft.com/en-us/library/dd318661%28VS.85%29.aspx
+		// http://msdn.microsoft.com/en-us/library/dd319100%28VS.85%29.aspx
+		
+		private UInt16 _rcConfigLangId;
+		private Byte[] _rcConfig;
+		
+		/// <summary>Returns true if it's necessary to call EndNT6Update afterwards</summary>
+		private Boolean PrepareNT6Update() {
+			
+			if( _rcConfig != null ) throw new AnolisException("RC Configuration not saved. Program is in an unexpected state. Did the last CommitChanges not complete successfully?");
+			
+			///////////////////
+			// See if there's a MUI entry
+			
+			ResourceLang rcConfigLang = FindRCConfigLang( this );
+			if( rcConfigLang == null ) return false;
+			
+			_rcConfigLangId = rcConfigLang.LanguageId;
+			_rcConfig       = rcConfigLang.Data.RawData;
+			
+			//////////////////////////
+			// Now, remove it
+			
+			// you don't need to re-open the source and remove it then save then carry on
+			// it works just as well to remove it normally
+			
+			this.Remove( rcConfigLang );
+			
+			return true;
+		}
+		
+		private static ResourceLang FindRCConfigLang(ResourceSource source) {
+			
+			foreach(ResourceType type in source.AllTypes) {
+				
+				if( type.Identifier.StringId == "MUI" ) {
+					
+					if( type.Names.Count == 0 ) return null;
+					
+					if( type.Names.Count == 1 ) {
+						ResourceName name = type.Names[0];
+						if( name.Langs.Count == 0 ) return null;
+						if( name.Langs.Count == 1 ) return name.Langs[0];
+						if( name.Langs.Count >  1 ) throw new AnolisException("Too many RC Configuration entries (langs)");
+					}
+					
+					if( type.Names.Count >  1 ) throw new AnolisException("To many RC Configuration entries (names)");
+				}
+			}
+			
+			return null;
+		}
+		
+		private void FinishNT6Update() {
+			
+			// re-add the RC Config
+			
+			Win32ResourceSource source = new Win32ResourceSource( FileInfo.FullName, false, ResourceSourceLoadMode.LazyLoadData );
+			
+			// Just make sure it doesn't exist
+			ResourceLang rcConfig = FindRCConfigLang(source);
+			if( rcConfig != null ) throw new AnolisException("There must not be an RC Config");
+			
+			MemoryStream ms = new MemoryStream( _rcConfig );
+			ResourceData data = ResourceData.FromFileToAdd( ms, ".bin", _rcConfigLangId, this ); 
+			
+			source.Add( new ResourceTypeIdentifier("MUI"), new ResourceIdentifier(1), _rcConfigLangId, data );
+			source.CommitChangesImpl();
+		}
+		
+#endregion
 		
 #region Resource Enumeration
 		

@@ -27,7 +27,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="BatchFilter" Type="System.String" Scope="User">
-      <Value Profile="(Default)">*.exe;*.dll;*.scr;*.msstyles;*.ocx;*.cpl</Value>
+      <Value Profile="(Default)">*.exe;*.dll;*.scr;*.msstyles;*.ocx;*.cpl;*.mui</Value>
     </Setting>
     <Setting Name="BatchReport" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -49,6 +49,12 @@
     </Setting>
     <Setting Name="BatchExportSubimage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MenuVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ToolbarVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

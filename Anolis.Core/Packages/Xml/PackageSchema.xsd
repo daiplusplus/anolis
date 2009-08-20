@@ -1,12 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="PackageSchema12" targetNamespace="http://anol.is/schemas/PackageSchema12.xsd" xmlns="http://anol.is/schemas/PackageSchema12.xsd" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="en">
+<xs:schema id="PackageSchema13" targetNamespace="http://anol.is/schemas/PackageSchema13.xsd" xmlns="http://anol.is/schemas/PackageSchema13.xsd" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="en">
 	
 	<xs:element name="package">
 		<xs:complexType>
 			<xs:sequence>
 				
+				<!-- Defined Presets -->
+				<xs:element ref="presets" minOccurs="0" maxOccurs="1" />
+				
 				<!-- The root group -->
-				<xs:element name="group" type="itemGroup" maxOccurs="1" />
+				<xs:element name="group" type="itemGroup" minOccurs="1" maxOccurs="1" />
 				
 			</xs:sequence>
 			
@@ -26,6 +29,30 @@
 			
 		</xs:complexType>
 	</xs:element><!-- /package -->
+	
+	<xs:element name="presets">
+		<xs:complexType>
+			<xs:sequence>
+				
+				<xs:element ref="preset" minOccurs="0" maxOccurs="unbounded" />
+				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="preset">
+		<xs:complexType>
+			
+			<xs:attribute name="id"          type="xs:ID"     use="optional" />
+			<xs:attribute name="name"        type="xs:string" use="required" />
+			
+			<xs:attribute name="bmpGroup"    type="xs:IDREF" use="required" />
+			<xs:attribute name="welcome"     type="xs:IDREF" use="required" />
+			<xs:attribute name="wallpaper"   type="xs:IDREF" use="required" />
+			<xs:attribute name="visualStyle" type="xs:IDREF" use="required" />
+			
+		</xs:complexType>
+	</xs:element>
 	
 	<xs:complexType name="itemGroup">
 		
@@ -121,7 +148,7 @@
 					</xs:complexType>
 				</xs:element>
 				
-				<xs:element name="clearIconcache" minOccurs="0" maxOccurs="1">
+				<xs:element name="clearIconCache" minOccurs="0" maxOccurs="1">
 					<xs:complexType>
 						
 						<!-- <uninstallation /> attributes -->
@@ -218,21 +245,24 @@
 		<!-- <group> attributes -->
 		<xs:attributeGroup ref="common" />
 		
+		<xs:attribute name="isResGroup" type="xs:boolean" use="optional" />
+		
 	</xs:complexType>
 	
 	<!-- Common Attributes -->
 	<xs:attributeGroup name="common">
 		
-		<xs:attribute name="id"        type="xs:ID"      use="optional" />
-		<xs:attribute name="name"      type="xs:string"  use="optional" />
+		<xs:attribute name="id"         type="xs:ID"      use="optional" />
+		<xs:attribute name="name"       type="xs:string"  use="optional" />
 		
-		<xs:attribute name="desc"      type="xs:string"  use="optional" />
-		<xs:attribute name="descImg"   type="xs:anyURI"  use="optional" />
+		<xs:attribute name="desc"       type="xs:string"  use="optional" />
+		<xs:attribute name="descImg"    type="xs:anyURI"  use="optional" />
+		<xs:attribute name="previewImg" type="xs:anyURI"  use="optional" />
 		
-		<xs:attribute name="enabled"   type="xs:boolean" use="optional" />
-		<xs:attribute name="hidden"    type="xs:boolean" use="optional" />
+		<xs:attribute name="enabled"    type="xs:boolean" use="optional" />
+		<xs:attribute name="hidden"     type="xs:boolean" use="optional" />
 		
-		<xs:attribute name="condition" type="xs:string"  use="optional" />
+		<xs:attribute name="condition"  type="xs:string"  use="optional" />
 		
 	</xs:attributeGroup>
 	

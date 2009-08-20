@@ -17,9 +17,9 @@ namespace Anolis.Core {
 #region Static
 			
 			private static ReadOnlyCollection<ResourceSourceFactory> _factoriesRo;
-			private static List<ResourceSourceFactory> _factories;
+			private static List<ResourceSourceFactory>               _factories;
 			
-			public static ReadOnlyCollection<ResourceSourceFactory> ListFactories() {
+			public static ReadOnlyCollection<ResourceSourceFactory> GetFactories() {
 				
 				if( _factories == null ) {
 					
@@ -31,6 +31,8 @@ namespace Anolis.Core {
 					LoadFactoriesFromAssemblies<ResourceSourceFactory>( _factories );
 					
 					_factoriesRo = new ReadOnlyCollection<ResourceSourceFactory>( _factories );
+					
+					foreach(FactoryBase factory in _factories) factory.RegisterOptions();
 				}
 				
 				return _factoriesRo;
@@ -44,7 +46,7 @@ namespace Anolis.Core {
 				ResourceSourceFactory maybeMatch = null;
 				ResourceSourceFactory allMatch   = null;
 				
-				IList<ResourceSourceFactory> factories = ListFactories();
+				IList<ResourceSourceFactory> factories = GetFactories();
 				foreach(ResourceSourceFactory factory in factories) {
 					
 					Compatibility compat = factory.HandlesExtension( extension );

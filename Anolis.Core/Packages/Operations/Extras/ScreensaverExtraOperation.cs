@@ -30,22 +30,40 @@ namespace Anolis.Core.Packages.Operations {
 			// copy all the screensaver files to the system directory; I can't see any other directories the Display panel searches
 			
 			String destDir = System.Environment.GetFolderPath(System.Environment.SpecialFolder.System);
+			Boolean reg = Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular;
 			
-			String lastSaver = null;
+			String lastSaver    = null;
+			String lastSelected = null;
 			
-			foreach(String source in Files) {
+			foreach(ExtraFile file in Files) {
 				
-				String dest = P.Combine( destDir, P.GetFileName( source ) );
+				String dest;
 				
-				String moved = PackageUtility.ReplaceFile( dest );
-				if(moved != null) Package.Log.Add( LogSeverity.Warning, "File renamed: " + dest + " -> " + moved );
+				if( reg ) {
+					
+					InstallRegular( destDir, file.FileName, out dest );
+					lastSaver = dest;
+					if( file.IsSelected ) lastSelected = dest;
+					
+				} else {
+					
+					InstallCDImage( file.FileName );
+				}
 				
-				File.Copy( source, dest );
 				
-				lastSaver = dest;
 			}
 			
-			if( lastSaver != null ) SetScreensaver( lastSaver );
+			if( reg ) {
+				
+				if( lastSelected != null ) {
+					
+					SetScreensaver( lastSelected );
+					
+				} else if( lastSaver != null ) {
+					
+					SetScreensaver( lastSaver );
+				}
+			}
 			
 		}
 		
@@ -65,6 +83,26 @@ namespace Anolis.Core.Packages.Operations {
 				MakeRegOp(backupGroup, keyPath, "SCRNSAVE.EXE");
 				MakeRegOp(backupGroup, keyPath, "ScreenSaveActive");
 			}
+		}
+		
+		private void InstallRegular(String destDir, String fileName, out String destFilename) {
+			
+			destFilename = P.Combine( destDir, P.GetFileName( fileName ) );
+			
+			String moved = PackageUtility.ReplaceFile( destFilename );
+			if(moved != null) Package.Log.Add( LogSeverity.Warning, "File renamed: " + destFilename + " -> " + moved );
+			
+			File.Copy( fileName, destFilename );
+		}
+		
+		private void InstallCDImage(String fileName) {
+			
+			DirectoryInfo windir = Package.ExecutionInfo.CDImage.OemWindows;
+			DirectoryInfo system32 = windir.GetDirectory("system32");
+			if( !system32.Exists ) system32.Create();
+			
+			File.Copy( fileName, P.Combine( system32.FullName, P.GetFileName( fileName ) ) );
+			
 		}
 		
 		private void SetScreensaver(String screensaverFilename) {

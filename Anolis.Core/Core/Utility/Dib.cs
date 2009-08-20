@@ -111,6 +111,16 @@ namespace Anolis.Core.Utility {
 		
 		public DibClass Class { get; private set; }
 		
+#region Exposed Fields
+		
+		public Int32 Width    { get { return _infoHeader.bV5Width; } }
+		public Int32 Height   { get { return _infoHeader.bV5Height; } }
+		
+		public Int32 Planes   { get { return _infoHeader.bV5Planes; } }
+		public Int32 BitCount { get { return _infoHeader.bV5BitCount; } }
+		
+#endregion
+		
 		/// <summary>Converts the data in this Dib into a System.Drawing.Bitmap image. Returns null if the operation fails (typically because the Dib data is invalid or not supported by System.Drawing.Bitmap).</summary>
 		public Bitmap ToBitmap() {
 			
@@ -341,7 +351,7 @@ namespace Anolis.Core.Utility {
 	}
 	
 	[Serializable]
-	public class DibException : Exception {
+	public class DibException : AnolisException {
 		
 		public DibException() {
 		}

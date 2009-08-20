@@ -76,9 +76,9 @@
 			// 
 			// __authorWebsiteLbl
 			// 
-			this.@__authorWebsiteLbl.Location = new System.Drawing.Point(16, 210);
+			this.@__authorWebsiteLbl.Location = new System.Drawing.Point(0, 210);
 			this.@__authorWebsiteLbl.Name = "__authorWebsiteLbl";
-			this.@__authorWebsiteLbl.Size = new System.Drawing.Size(106, 18);
+			this.@__authorWebsiteLbl.Size = new System.Drawing.Size(122, 46);
 			this.@__authorWebsiteLbl.TabIndex = 6;
 			this.@__authorWebsiteLbl.Text = "{packageAuthor}";
 			this.@__authorWebsiteLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;

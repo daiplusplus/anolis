@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-
-using P = System.IO.Path;
-using System.Xml;
-using Anolis.Core.Utility;
-using System.Globalization;
-using System.Diagnostics;
-using System.Threading;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Threading;
+using System.Xml;
+
+using Anolis.Core.Utility;
+using P = System.IO.Path;
 
 namespace Anolis.Core.Packages.Operations {
 	
@@ -17,7 +15,8 @@ namespace Anolis.Core.Packages.Operations {
 		
 		protected PatchOperation(Group parent, XmlElement operationElement) : base(parent, operationElement) {
 			
-			I386Path = operationElement.GetAttribute("i386path");
+			ConditionHash = operationElement.GetAttribute("conditionHash");
+			I386Path      = operationElement.GetAttribute("i386path");
 		}
 		
 		protected PatchOperation(Group parent, String path) : base(parent, path) {
@@ -76,6 +75,20 @@ namespace Anolis.Core.Packages.Operations {
 				return;
 			}
 			
+			if( System.Environment.OSVersion.Version.Major == 5 ) {
+				
+				ExecuteRegularFileNT5( fileName );
+				
+			} else if( System.Environment.OSVersion.Version.Major == 6 ) {
+				
+				ExecuteRegularFileNT6( fileName );
+				
+			}
+			
+		}
+		
+		private void ExecuteRegularFileNT5(String fileName) {
+			
 			// copy the file first
 			// there used to be support for the SaveTo attribute, but I removed it in the current version of the schema
 			String workOnThis = fileName + ".anofp"; // "Anolis File Pending"
@@ -95,11 +108,62 @@ namespace Anolis.Core.Packages.Operations {
 				
 				Package.ExecutionInfo.RequiresRestart = true;
 				
+#if !DEBUG
+				Package.Log.Add( new LogItem(LogSeverity.Info, "Patched: " + fileName) );
+#endif
+			} else {
+				
+				Package.Log.Add( new LogItem(LogSeverity.Error, "Didn't patch: " + fileName + ", deleted " + workOnThis) );
+				File.Delete( workOnThis );
+				
 			}
 			
+		}
+		
+		private void ExecuteRegularFileNT6(String fileName) {
+			
+			// it's the shame the more elegant NT5 system doesn't work on NT6
+			// ah well
+			
+			String workOnThis = fileName + ".anorp"; // "Anolis Rename Pending"
+			
+			if( File.Exists( workOnThis ) ) Package.Log.Add( LogSeverity.Warning, "Overwritten *.anorp: " + workOnThis);
+			File.Copy( fileName, workOnThis, true );
+			
+			// problem: the file replacement system is working fine... the resources just aren't being replaced in the anorp file, wtf
+			
+			if( PatchFile( workOnThis ) ) {
+				
+				// Take Control of the original file
+				
+				PackageUtility.TakeOwnershipAndFullControl( fileName );
+				
+				String holdingName = fileName + ".anodp"; // "Anolis Delete Pending"
+				
+				if( File.Exists( holdingName ) ) {
+					File.Delete( holdingName );
+					Package.Log.Add( LogSeverity.Warning, "Deleted anodp file: " + holdingName );
+				}
+				
+				File.Move( fileName, holdingName ); // apparently you can do this for files currently in use
+				
+				File.Move( workOnThis, fileName );
+				
+				PackageUtility.AddPfroEntry( holdingName, null ); // delete the *.anodp file on reboot
+				Package.ExecutionInfo.RequiresRestart = true;
+				
+				PackageUtility.ResetOwnershipAndRelinquishControl( fileName );
+				
 #if !DEBUG
-			Package.Log.Add( new LogItem(LogSeverity.Info, "Patched: " + fileName) );
+				Package.Log.Add( new LogItem(LogSeverity.Info, "Patched: " + fileName) );
 #endif
+				
+			} else {
+				
+				Package.Log.Add( new LogItem(LogSeverity.Error, "Didn't patch: " + fileName + ", deleted " + workOnThis) );
+				File.Delete( workOnThis );
+				
+			}
 			
 		}
 		

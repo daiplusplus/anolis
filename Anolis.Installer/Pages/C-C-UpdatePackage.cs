@@ -22,7 +22,7 @@ namespace Anolis.Installer.Pages {
 		
 		private PackageUpdateInfo _updateInfo;
 		
-		private TransferRateCalculator _rate = new TransferRateCalculator();
+		private RateCalculator _rate = new RateCalculator();
 		
 		public UpdatePackagePage() {
 			
@@ -36,8 +36,6 @@ namespace Anolis.Installer.Pages {
 			
 			this.__bw.DoWork += new DoWorkEventHandler(__bw_DoWork);
 			this.__bw.ProgressChanged += new ProgressChangedEventHandler(__bw_ProgressChanged);
-			
-			Localize();
 		}
 		
 		protected override String LocalizePrefix { get { return "C_C"; } }
@@ -182,7 +180,7 @@ namespace Anolis.Installer.Pages {
 			client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
 			client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
 			
-			_rate.Reset();
+			_rate.Reset(0);
 			
 			client.DownloadFileAsync( _updateInfo.PackageLocation, savePackageTo, savePackageTo );
 			
@@ -211,7 +209,7 @@ namespace Anolis.Installer.Pages {
 			
 			_rate.Add( e.BytesReceived );
 			
-			Int32 xferRate = _rate.GetTransferRate();
+			Int64 xferRate = _rate.GetRate();
 			
 			String message = InstallerResources.GetString("C_C_downloadProgress");
 			message = String.Format(Cult.CurrentCulture, message, e.ProgressPercentage, e.BytesReceived / 1024, e.TotalBytesToReceive / 1024, xferRate);

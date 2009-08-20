@@ -18,7 +18,7 @@ namespace Anolis.Core.Packages {
 		
 		private void _dec_ProgressEvent(object sender, ProgressEventArgs e) {
 			
-			OnPackageProgressEvent( new PackageProgressEventArgs( e.Percentage, e.Message ) );
+			OnPackageProgressEvent( new PackageProgressEventArgs( e.Percentage, e.Message, e.ProcessComplete, e.ProcessTotal ) );
 		}
 		
 		public override void Extract(String destinationDirectory) {

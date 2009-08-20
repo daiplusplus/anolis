@@ -25,8 +25,13 @@ namespace Anolis.Installer.Pages {
 			this.__packageView.AfterSelect    += new TreeViewEventHandler(__packageView_AfterSelect);
 			this.__packageView.BeforeCollapse += new TreeViewCancelEventHandler(__packageView_BeforeCollapse);
 			this.__packageView.AfterCheck     += new TreeViewEventHandler(__packageView_AfterCheck);
+			this.__packageView.NodeMouseClick += new TreeNodeMouseClickEventHandler(__packageView_NodeMouseClick);
 			
-			Localize();
+			this.__simple.Click += new EventHandler(__simple_Click);
+			
+			this.__cmInherit.Click += new EventHandler(__cmmItem_Click);
+			this.__cmEnable .Click += new EventHandler(__cmmItem_Click);
+			this.__cmDisable.Click += new EventHandler(__cmmItem_Click);
 		}
 		
 		protected override String LocalizePrefix { get { return "C_E"; } }
@@ -48,21 +53,65 @@ namespace Anolis.Installer.Pages {
 		
 		private void __packageView_AfterCheck(object sender, TreeViewEventArgs e) {
 			
+			switch(e.Action) {
+				case TreeViewAction.ByKeyboard:
+				case TreeViewAction.ByMouse:
+				case TreeViewAction.Collapse:
+				case TreeViewAction.Expand:
+					break;
+				case TreeViewAction.Unknown:
+				default:
+					return;
+			}
+			
+			// this is explicitly setting .Enabled on an item
+			
 			PackageItem item = e.Node.Tag as PackageItem;
 			if( item != null ) {
 				item.Enabled = e.Node.Checked;
+				e.Node.ToolTipText = GetToolTipText( item );
 			}
 			
 			if( e.Action != TreeViewAction.Unknown ) {
 				
-				RefreshTreeView( e.Node.Nodes );
+				RefreshTreeView( e.Node );
 			}
 			
+		}
+		
+		private void __cmmItem_Click(object sender, EventArgs e) {
+			
+			TreeNode node = __cm.Tag as TreeNode;
+			if( node == null ) return;
+			
+			PackageItem item = node.Tag as PackageItem;
+			
+			if( sender == __cmEnable  ) item.Enabled = true;
+			if( sender == __cmDisable ) item.Enabled = false;
+			if( sender == __cmInherit ) item.Enabled = null;
+			
+			RefreshTreeView( node );
+		}
+		
+		private void __packageView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
+			
+			if( e.Button != MouseButtons.Right ) return;
+			if( e.Node   == null               ) return;
+			
+			__cm.Tag = e.Node;
+			__cm.Show( __packageView, e.Location);
+		}
+		
+		private void __simple_Click(object sender, EventArgs e) {
+			InstallationInfo.UseSelector = true;
+			WizardForm.LoadPage( Program.PageCE1Selector );
 		}
 		
 #endregion
 		
 		private void ModifyPackagePage_Load(object sender, EventArgs e) {
+			
+			__simple.Enabled = __simple.Visible = PackageInfo.Package.Presets.Count > 0;
 			
 			WizardForm.EnableNext = true;
 			
@@ -93,7 +142,12 @@ namespace Anolis.Installer.Pages {
 			
 			if( item.Hidden ) return null;
 			
-			TreeNode node = new TreeNode( item.ToString() ) { Checked = item.Enabled, Tag = item };
+			TreeNode node = new TreeNode() {
+				Checked     = item.IsEnabled,
+				Tag         = item,
+				Text        = item.ToString(),
+				ToolTipText = GetToolTipText( item )
+			};
 			
 			parent.Add( node );
 			
@@ -108,16 +162,41 @@ namespace Anolis.Installer.Pages {
 			return node;
 		}
 		
-		private void RefreshTreeView(TreeNodeCollection nodes) {
+		private void RefreshTreeView(TreeNode node) {
 			
-			foreach(TreeNode child in nodes) {
-				
-				PackageItem item = child.Tag as PackageItem;
-				if( item != null ) child.Checked = item.Enabled;
-				
-				RefreshTreeView( child.Nodes );
+			PackageItem item = node.Tag as PackageItem;
+			if( item != null ) {
+				node.Checked     = item.IsEnabled;
+				node.ToolTipText = GetToolTipText( item );
+			} else {
+				node.ToolTipText = G("NullItem");
 			}
 			
+			foreach(TreeNode child in node.Nodes) {
+				
+				RefreshTreeView( child );
+			}
+			
+		}
+		
+		private String G(String name) {
+			
+			return InstallerResources.GetString( LocalizePrefix + "_" + name );
+		}
+		
+		private String GetToolTipText(PackageItem item) {
+			
+			String nameStr      = item.Name;
+			String enabledStr   = item.IsEnabled       ? G("Enabled") : G("Disabled");
+			String inheritedStr = item.Enabled == null ? G("Inherit") : G("Explicit");
+			
+			if( String.IsNullOrEmpty( nameStr ) ) {
+				if( item is Group ) nameStr = G("UnnamedGroup");
+				Operation op = item as Operation;
+				if( op != null ) nameStr = G("Unnamed") + " " + op.OperationName;
+			}
+			
+			return nameStr + " (" + enabledStr + ", " + inheritedStr + ")";
 		}
 		
 		private void PopulatePackageItemInfo(PackageItem item) {

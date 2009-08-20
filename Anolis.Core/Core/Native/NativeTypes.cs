@@ -44,7 +44,7 @@ namespace Anolis.Core.Native {
 			public Int32  biWidth;
 			public Int32  biHeight;
 			public UInt16 biPlanes;
-			public UInt16 biBitCount;
+			public UInt16 biBitCount; // Core end
 			public BiCompression biCompression;
 			public UInt32 biSizeImage;
 			public Int32  biXPelsPerMeter;
@@ -75,13 +75,13 @@ namespace Anolis.Core.Native {
 			public Int32  bV4Width;
 			public Int32  bV4Height;
 			public UInt16 bV4Planes;
-			public UInt16 bV4BitCount;
+			public UInt16 bV4BitCount; // Core end
 			public BiCompression bV4Compression;
 			public UInt32 bV4SizeImage;
 			public Int32  bV4XPelsPerMeter;
 			public Int32  bV4YPelsPerMeter;
 			public UInt32 bV4ClrUsed;
-			public UInt32 bV4ClrImportant;
+			public UInt32 bV4ClrImportant; // V3 end
 			public UInt32 bV4RedMask;
 			public UInt32 bV4GreenMask;
 			public UInt32 bV4BlueMask;
@@ -124,13 +124,13 @@ namespace Anolis.Core.Native {
 			public Int32  bV5Width;
 			public Int32  bV5Height;
 			public UInt16 bV5Planes;
-			public UInt16 bV5BitCount;
+			public UInt16 bV5BitCount; // Core end
 			public BiCompression bV5Compression;
 			public UInt32 bV5SizeImage;
 			public Int32  bV5XPelsPerMeter;
 			public Int32  bV5YPelsPerMeter;
 			public UInt32 bV5ClrUsed;
-			public UInt32 bV5ClrImportant;
+			public UInt32 bV5ClrImportant; // V3 end
 			public UInt32 bV5RedMask;
 			public UInt32 bV5GreenMask;
 			public UInt32 bV5BlueMask;
@@ -139,7 +139,7 @@ namespace Anolis.Core.Native {
 			public CieXyzTriple bV5Endpoints;
 			public UInt32 bV5GammaRed;
 			public UInt32 bV5GammaGreen;
-			public UInt32 bV5GammaBlue;
+			public UInt32 bV5GammaBlue; // V4 end
 			public UInt32 bV5Intent;
 			public UInt32 bV5ProfileData;
 			public UInt32 bV5ProfileSize;
@@ -1267,6 +1267,8 @@ namespace Anolis.Core.Native {
 	
 #endregion
 	
+#region File Maps
+	
 	[Flags]
 	public enum FileMapAccess : uint {
 		FileMapCopy = 0x0001,
@@ -1306,6 +1308,29 @@ namespace Anolis.Core.Native {
 			return NativeMethods.CloseHandle(handle);
 		}
 	}
+	
+#endregion
+	
+#region System Restore
+
+	/// <summary>Contains information used by the SRSetRestorePoint function</summary>
+	[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Unicode)]
+	internal struct RestorePointInfo {
+		public Int32 dwEventType; // The type of event
+		public Int32 dwRestorePtType; // The type of restore point
+		public Int64 llSequenceNumber; // The sequence number of the restore point
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256 + 1)]
+		public String szDescription; // The description to be displayed so the user can easily identify a restore point
+	}
+	
+	/// <summary>Contains status information used by the SRSetRestorePoint function</summary>
+	[StructLayout(LayoutKind.Sequential)]
+	internal struct StateManagerStatus {
+		public Int32 nStatus; // The status code
+		public Int64 llSequenceNumber; // The sequence number of the restore point
+	}
+	
+#endregion
 	
 	public enum SpiAction : uint {
 		

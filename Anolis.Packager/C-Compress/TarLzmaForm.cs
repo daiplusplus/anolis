@@ -11,9 +11,13 @@ namespace Anolis.Packager {
 	
 	public partial class TarLzmaForm : Form {
 		
+		private ProgressForm _progress;
+		
 		public TarLzmaForm() {
 			
 			InitializeComponent();
+			
+			_progress = new ProgressForm();
 			
 			this.__compress          .Click += new EventHandler(__compress_Click);
 			this.__compressAddDir    .Click += new EventHandler(__compressAddDir_Click);
@@ -25,6 +29,13 @@ namespace Anolis.Packager {
 			
 			this.__decompresBrowse   .Click += new EventHandler(__decompresBrowse_Click);
 			this.__decompress        .Click += new EventHandler(__decompress_Click);
+
+			this.__bw.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(__bw_RunWorkerCompleted);
+		}
+		
+		private void __bw_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e) {
+			
+			if( _progress.Visible ) _progress.Hide();
 		}
 		
 		private void __quickload_Click(object sender, EventArgs e) {
@@ -66,8 +77,8 @@ namespace Anolis.Packager {
 			
 			this.BeginInvoke( new MethodInvoker( delegate() {
 				
-				__status.Text    = e.Message;
-				__progress.Value = e.Percentage;
+				_progress.Status   = e.Message;
+				_progress.SetProgress( e.Percentage, e.ProcessComplete, e.ProcessTotal );
 				
 			} ) );
 			
@@ -85,28 +96,20 @@ namespace Anolis.Packager {
 			TarLzmaEncoder enc = new TarLzmaEncoder( __compressRoot.Text, false );
 			enc.ProgressEvent += new EventHandler<ProgressEventArgs>(ProgressEvent);
 			
-			foreach(FileSystemInfo fsi in __items.Items) {
-				
-				DirectoryInfo di = fsi as DirectoryInfo;
-				if(di != null) enc.AddDirectory( di );
-				
-				FileInfo fi = fsi as FileInfo;
-				if(fi != null) enc.AddFile( fi );
-				
-				ProgressEvent(this, new ProgressEventArgs(0, fsi.FullName) );
+			FileSystemInfo[] files = new FileSystemInfo[ __items.Items.Count ];
+			for(int i=0;i<__items.Items.Count;i++) {
+				files[i] = (FileSystemInfo)__items.Items[i];
 			}
-			
-			enc.FinishAdding();
 			
 			if( __sfd.FilterIndex != 2 ) {
 				
 				__bw.DoWork += new System.ComponentModel.DoWorkEventHandler(__bw_DoWork_CompressTarLzma);
-				__bw.RunWorkerAsync( new Object[] { enc, destFilename } );
+				__bw.RunWorkerAsync( new Object[] { enc, destFilename, files } );
 				
 			} else {
 				
 				__bw.DoWork += new System.ComponentModel.DoWorkEventHandler(__bw_DoWork_CompressTar);
-				__bw.RunWorkerAsync( new Object[] { enc, destFilename } );
+				__bw.RunWorkerAsync( new Object[] { enc, destFilename, files } );
 				
 			}
 			
@@ -116,8 +119,27 @@ namespace Anolis.Packager {
 			
 			Object[] args = e.Argument as Object[];
 			
-			TarLzmaEncoder enc = args[0] as TarLzmaEncoder;
-			String        path = args[1] as String;
+			TarLzmaEncoder       enc = args[0] as TarLzmaEncoder;
+			String              path = args[1] as String;
+			FileSystemInfo[] fsitems = args[2] as FileSystemInfo[];
+			
+			BeginInvoke( new MethodInvoker(delegate() {
+				
+				_progress.ShowDialog(this);
+			}));
+			
+			foreach(FileSystemInfo fsi in fsitems) {
+				
+				ProgressEvent(this, new ProgressEventArgs(0, fsi.FullName) );
+				
+				DirectoryInfo di = fsi as DirectoryInfo;
+				if(di != null) enc.AddDirectory( di );
+				
+				FileInfo fi = fsi as FileInfo;
+				if(fi != null) enc.AddFile( fi );
+			}
+			
+			enc.FinishAdding();
 			
 			enc.Compress( path );
 			

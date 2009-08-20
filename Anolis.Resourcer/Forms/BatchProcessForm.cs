@@ -24,14 +24,10 @@ namespace Anolis.Resourcer {
 			
 			this.__sourceFileBrowse.Click += new EventHandler(__sourceFileBrowse_Click);
 			this.__sourceDirBrowse .Click += new EventHandler(__sourceDirBrowse_Click);
-			this.__reportBrowse    .Click += new EventHandler(__reportBrowse_Click);
 			this.__exportBrowse    .Click += new EventHandler(__exportBrowse_Click);
-			
-			this.__reportEnable.CheckedChanged += new EventHandler(__reportEnable_CheckedChanged);
 			
 			this.__sourceFile     .Validating += new CancelEventHandler(__sourceFile_Validating);
 			this.__sourceDir      .Validating += new CancelEventHandler(__sourceDir_Validating);
-			this.__reportFilename .Validating += new CancelEventHandler(__reportFilename_Validating);
 			this.__exportDirectory.Validating += new CancelEventHandler(__exportDirectory_Validating);
 			
 			this.__exportNonvisual    .CheckedChanged += new EventHandler(__exportNonvisual_CheckedChanged);
@@ -64,7 +60,6 @@ namespace Anolis.Resourcer {
 			
 			__sourceDir.Text = S.Default.BatchSource;
 			__sourceFilter.Text    = S.Default.BatchFilter;
-			__reportFilename.Text  = S.Default.BatchReport;
 			__exportDirectory.Text = S.Default.BatchExport;
 			
 			__exportNonvisual.Checked      = S.Default.BatchExportNonVis;
@@ -78,7 +73,6 @@ namespace Anolis.Resourcer {
 			
 			S.Default.BatchSource = __sourceDir.Text;
 			S.Default.BatchFilter = __sourceFilter.Text;
-			S.Default.BatchReport = __reportFilename.Text;
 			S.Default.BatchExport = __exportDirectory.Text;
 			
 			S.Default.BatchExportNonVis       = __exportNonvisual.Checked;
@@ -126,7 +120,7 @@ namespace Anolis.Resourcer {
 		
 		private void __sourceFileBrowse_Click(object sender, EventArgs e) {
 			
-			IList<ResourceSourceFactory> factories = ResourceSourceFactory.ListFactories();
+			IList<ResourceSourceFactory> factories = ResourceSourceFactory.GetFactories();
 			
 			String filter = String.Empty;
 			foreach(ResourceSourceFactory factory in factories) filter += factory.OpenFileFilter + '|';
@@ -143,22 +137,9 @@ namespace Anolis.Resourcer {
 		
 		private void __sourceDirBrowse_Click(object sender, EventArgs e) {
 			
-			if( Directory.Exists( __reportFilename.Text ) ) __fbd.SelectedPath = __sourceDir.Text;
-			
 			if( __fbd.ShowDialog(this) == DialogResult.OK ) {
 				
 				__sourceDir.Text = __fbd.SelectedPath;
-			}
-			
-		}
-		
-		private void __reportBrowse_Click(object sender, EventArgs e) {
-			
-			if( File.Exists( __reportFilename.Text ) ) __sfd.FileName = __reportFilename.Text;
-			
-			if( __sfd.ShowDialog(this) == DialogResult.OK ) {
-				
-				__reportFilename.Text = __sfd.FileName;
 			}
 			
 		}
@@ -263,35 +244,12 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		private void __reportFilename_Validating(object sender, CancelEventArgs e) {
-			
-			if( !__reportEnable.Checked ) {
-				
-				__error.SetError( __reportFilename, "" );
-				return;
-			}
-			
-			if( __reportFilename.Text.Length == 0 ) {
-				
-				e.Cancel = true;
-				
-				__error.SetError( __reportFilename, "Choose a report filename" );
-				
-			} else {
-				__error.SetError( __reportFilename, "" );
-			}
-		}
-		
 	#endregion
 		
 		private void SetEnabled(Boolean busy) {
 			
 			__sourceGrp .Enabled = !busy;
 			__optionsGrp.Enabled = !busy;
-			
-			__reportFilename   .Enabled = __reportEnable.Checked;
-			__reportBrowse     .Enabled = __reportEnable.Checked;
-			__reportFilenameLbl.Enabled = __reportEnable.Checked;
 			
 			__progGrp.Enabled = busy;
 			
@@ -326,7 +284,9 @@ namespace Anolis.Resourcer {
 			if( !IsHandleCreated ) return;
 			
 			__progSource .Value = 100;
+			__progSourceLbl.Text = "100% - Complete";
 			__progOverall.Value = 100;
+			__progOverallLbl.Text = "100% - Complete";
 			
 			SetEnabled(false);
 			
@@ -411,10 +371,6 @@ namespace Anolis.Resourcer {
 				options.SourceRecurse   = __sourceRecurse.Checked;
 				
 			}
-			
-			options.ReportCreate        = __reportEnable.Checked;
-			if( options.ReportCreate )
-				options.ReportFile      = new FileInfo( __reportFilename.Text );
 			
 			options.ExportDirectory     = new DirectoryInfo( __exportDirectory.Text );	
 			options.ExportCommonRes     = __exportCommonplace.Checked;

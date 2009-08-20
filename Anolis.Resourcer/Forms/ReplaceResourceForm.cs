@@ -21,7 +21,21 @@ namespace Anolis.Resourcer {
 			
 			PopulateOfdFilter();
 			
+			this.__factoryOptions.Click += new EventHandler(__factoryOptions_Click);
+			
+			this.__repLoad.Click += new EventHandler(__repLoad_Click);
 			this.__browse.Click += new EventHandler(__browse_Click);
+		}
+		
+		private void __factoryOptions_Click(object sender, EventArgs e) {
+			
+			FactoryOptionsForm form = new FactoryOptionsForm();
+			form.ShowDialog(this);
+		}
+		
+		private void __repLoad_Click(object sender, EventArgs e) {
+			
+			LoadReplacement( __repFilename.Text );
 		}
 		
 		private FilterPair[] _filters;
@@ -38,15 +52,19 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		public void LoadReplacement(String filename) {
+		public void LoadReplacement(String fileName) {
 			
-			__repFilename.Text = filename;
+			if( !System.IO.File.Exists( fileName ) ) {
+				
+				__repSubclass.Text = "Specified file does not exist";
+				return;
+			}
 			
 			try {
 				
-				_replacement = ResourceData.FromFileToUpdate( filename, _initial.Lang );
+				_replacement = ResourceData.FromFileToUpdate( fileName, _initial.Lang );
 				
-				_replacement.Tag["sourceFile"] = filename;
+				_replacement.Tag["sourceFile"] = fileName;
 				
 			} catch( AnolisException ex) {
 				
@@ -68,7 +86,7 @@ namespace Anolis.Resourcer {
 			
 			if( __ofd.ShowDialog(this) != DialogResult.OK ) return;
 			
-			LoadReplacement( __ofd.FileName );
+			__repFilename.Text = __ofd.FileName;
 		}
 		
 		private ResourceData _initial;

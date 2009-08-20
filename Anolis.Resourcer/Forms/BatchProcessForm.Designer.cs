@@ -28,10 +28,6 @@
 			this.@__exportDirectoryLbl = new System.Windows.Forms.Label();
 			this.@__exportDirectory = new System.Windows.Forms.TextBox();
 			this.@__exportBrowse = new System.Windows.Forms.Button();
-			this.@__reportEnable = new System.Windows.Forms.CheckBox();
-			this.@__reportFilenameLbl = new System.Windows.Forms.Label();
-			this.@__reportFilename = new System.Windows.Forms.TextBox();
-			this.@__reportBrowse = new System.Windows.Forms.Button();
 			this.@__exportNonvisual = new System.Windows.Forms.CheckBox();
 			this.@__exportCommonplace = new System.Windows.Forms.CheckBox();
 			this.@__exportNonvisualSize = new System.Windows.Forms.CheckBox();
@@ -76,10 +72,6 @@
 			this.@__optionsGrp.Controls.Add(this.@__exportDirectoryLbl);
 			this.@__optionsGrp.Controls.Add(this.@__exportDirectory);
 			this.@__optionsGrp.Controls.Add(this.@__exportBrowse);
-			this.@__optionsGrp.Controls.Add(this.@__reportEnable);
-			this.@__optionsGrp.Controls.Add(this.@__reportFilenameLbl);
-			this.@__optionsGrp.Controls.Add(this.@__reportFilename);
-			this.@__optionsGrp.Controls.Add(this.@__reportBrowse);
 			this.@__optionsGrp.Controls.Add(this.@__exportNonvisual);
 			this.@__optionsGrp.Controls.Add(this.@__exportCommonplace);
 			this.@__optionsGrp.Controls.Add(this.@__exportNonvisualSize);
@@ -88,7 +80,7 @@
 			this.@__optionsGrp.Controls.Add(this.@__exportIconSubimages);
 			this.@__optionsGrp.Location = new System.Drawing.Point(12, 186);
 			this.@__optionsGrp.Name = "__optionsGrp";
-			this.@__optionsGrp.Size = new System.Drawing.Size(589, 190);
+			this.@__optionsGrp.Size = new System.Drawing.Size(589, 143);
 			this.@__optionsGrp.TabIndex = 1;
 			this.@__optionsGrp.TabStop = false;
 			this.@__optionsGrp.Text = "Export Options";
@@ -122,53 +114,10 @@
 			this.@__exportBrowse.Text = "Browse...";
 			this.@__exportBrowse.UseVisualStyleBackColor = true;
 			// 
-			// __reportEnable
-			// 
-			this.@__reportEnable.AutoSize = true;
-			this.@__reportEnable.Enabled = false;
-			this.@__reportEnable.Location = new System.Drawing.Point(116, 45);
-			this.@__reportEnable.Name = "__reportEnable";
-			this.@__reportEnable.Size = new System.Drawing.Size(155, 17);
-			this.@__reportEnable.TabIndex = 2;
-			this.@__reportEnable.Text = "Generate Report Webpage";
-			this.@__reportEnable.UseVisualStyleBackColor = true;
-			// 
-			// __reportFilenameLbl
-			// 
-			this.@__reportFilenameLbl.Enabled = false;
-			this.@__reportFilenameLbl.Location = new System.Drawing.Point(9, 71);
-			this.@__reportFilenameLbl.Name = "__reportFilenameLbl";
-			this.@__reportFilenameLbl.Size = new System.Drawing.Size(100, 20);
-			this.@__reportFilenameLbl.TabIndex = 10;
-			this.@__reportFilenameLbl.Text = "Report Filename";
-			this.@__reportFilenameLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
-			// 
-			// __reportFilename
-			// 
-			this.@__reportFilename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__reportFilename.Enabled = false;
-			this.@__reportFilename.Location = new System.Drawing.Point(116, 68);
-			this.@__reportFilename.Name = "__reportFilename";
-			this.@__reportFilename.Size = new System.Drawing.Size(372, 20);
-			this.@__reportFilename.TabIndex = 3;
-			// 
-			// __reportBrowse
-			// 
-			this.@__reportBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__reportBrowse.Enabled = false;
-			this.@__reportBrowse.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.@__reportBrowse.Location = new System.Drawing.Point(506, 66);
-			this.@__reportBrowse.Name = "__reportBrowse";
-			this.@__reportBrowse.Size = new System.Drawing.Size(75, 23);
-			this.@__reportBrowse.TabIndex = 4;
-			this.@__reportBrowse.Text = "Browse...";
-			this.@__reportBrowse.UseVisualStyleBackColor = true;
-			// 
 			// __exportNonvisual
 			// 
 			this.@__exportNonvisual.AutoSize = true;
-			this.@__exportNonvisual.Location = new System.Drawing.Point(116, 94);
+			this.@__exportNonvisual.Location = new System.Drawing.Point(116, 45);
 			this.@__exportNonvisual.Name = "__exportNonvisual";
 			this.@__exportNonvisual.Size = new System.Drawing.Size(156, 17);
 			this.@__exportNonvisual.TabIndex = 6;
@@ -179,7 +128,7 @@
 			// 
 			this.@__exportCommonplace.AutoSize = true;
 			this.@__exportCommonplace.Enabled = false;
-			this.@__exportCommonplace.Location = new System.Drawing.Point(116, 117);
+			this.@__exportCommonplace.Location = new System.Drawing.Point(116, 68);
 			this.@__exportCommonplace.Name = "__exportCommonplace";
 			this.@__exportCommonplace.Size = new System.Drawing.Size(295, 17);
 			this.@__exportCommonplace.TabIndex = 14;
@@ -190,17 +139,17 @@
 			// 
 			this.@__exportNonvisualSize.AutoSize = true;
 			this.@__exportNonvisualSize.Enabled = false;
-			this.@__exportNonvisualSize.Location = new System.Drawing.Point(116, 140);
+			this.@__exportNonvisualSize.Location = new System.Drawing.Point(116, 91);
 			this.@__exportNonvisualSize.Name = "__exportNonvisualSize";
-			this.@__exportNonvisualSize.Size = new System.Drawing.Size(209, 17);
+			this.@__exportNonvisualSize.Size = new System.Drawing.Size(232, 17);
 			this.@__exportNonvisualSize.TabIndex = 15;
-			this.@__exportNonvisualSize.Text = "Export non-visual resources larger than";
+			this.@__exportNonvisualSize.Text = "Only export non-visual resources larger than";
 			this.@__exportNonvisualSize.UseVisualStyleBackColor = true;
 			// 
 			// __exportNonvisualSizeNum
 			// 
 			this.@__exportNonvisualSizeNum.Enabled = false;
-			this.@__exportNonvisualSizeNum.Location = new System.Drawing.Point(333, 138);
+			this.@__exportNonvisualSizeNum.Location = new System.Drawing.Point(351, 90);
 			this.@__exportNonvisualSizeNum.Maximum = new decimal(new int[] {
             2097152,
             0,
@@ -211,7 +160,7 @@
 			this.@__exportNonvisualSizeNum.TabIndex = 18;
 			this.@__exportNonvisualSizeNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.@__exportNonvisualSizeNum.Value = new decimal(new int[] {
-            14,
+            1,
             0,
             0,
             0});
@@ -220,7 +169,7 @@
 			// 
 			this.@__exportNonvisualSizeLbl.AutoSize = true;
 			this.@__exportNonvisualSizeLbl.Enabled = false;
-			this.@__exportNonvisualSizeLbl.Location = new System.Drawing.Point(399, 141);
+			this.@__exportNonvisualSizeLbl.Location = new System.Drawing.Point(411, 93);
 			this.@__exportNonvisualSizeLbl.Name = "__exportNonvisualSizeLbl";
 			this.@__exportNonvisualSizeLbl.Size = new System.Drawing.Size(21, 13);
 			this.@__exportNonvisualSizeLbl.TabIndex = 17;
@@ -229,7 +178,7 @@
 			// __exportIconSubimages
 			// 
 			this.@__exportIconSubimages.AutoSize = true;
-			this.@__exportIconSubimages.Location = new System.Drawing.Point(116, 163);
+			this.@__exportIconSubimages.Location = new System.Drawing.Point(116, 114);
 			this.@__exportIconSubimages.Name = "__exportIconSubimages";
 			this.@__exportIconSubimages.Size = new System.Drawing.Size(221, 17);
 			this.@__exportIconSubimages.TabIndex = 7;
@@ -317,7 +266,7 @@
 			this.@__sourceFile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
 			this.@__sourceFile.Location = new System.Drawing.Point(116, 39);
 			this.@__sourceFile.Name = "__sourceFile";
-			this.@__sourceFile.Size = new System.Drawing.Size(372, 21);
+			this.@__sourceFile.Size = new System.Drawing.Size(372, 20);
 			this.@__sourceFile.TabIndex = 12;
 			// 
 			// __sourceFileBrowse
@@ -349,7 +298,7 @@
 			this.@__sourceDir.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
 			this.@__sourceDir.Location = new System.Drawing.Point(116, 91);
 			this.@__sourceDir.Name = "__sourceDir";
-			this.@__sourceDir.Size = new System.Drawing.Size(372, 21);
+			this.@__sourceDir.Size = new System.Drawing.Size(372, 20);
 			this.@__sourceDir.TabIndex = 7;
 			// 
 			// __sourceFilterLbl
@@ -369,13 +318,13 @@
 			this.@__sourceFilter.Name = "__sourceFilter";
 			this.@__sourceFilter.Size = new System.Drawing.Size(372, 20);
 			this.@__sourceFilter.TabIndex = 2;
-			this.@__sourceFilter.Text = "*.exe;*.dll;*.scr;*.msstyles;*.ocx;*.cpl";
+			this.@__sourceFilter.Text = "*.exe;*.dll;*.scr;*.msstyles;*.ocx;*.cpl;*.mui";
 			// 
 			// __process
 			// 
 			this.@__process.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__process.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.@__process.Location = new System.Drawing.Point(445, 500);
+			this.@__process.Location = new System.Drawing.Point(445, 451);
 			this.@__process.Name = "__process";
 			this.@__process.Size = new System.Drawing.Size(75, 23);
 			this.@__process.TabIndex = 3;
@@ -390,7 +339,7 @@
 			this.@__progGrp.Controls.Add(this.@__progSource);
 			this.@__progGrp.Controls.Add(this.@__progOverallLbl);
 			this.@__progGrp.Controls.Add(this.@__progOverall);
-			this.@__progGrp.Location = new System.Drawing.Point(12, 382);
+			this.@__progGrp.Location = new System.Drawing.Point(12, 335);
 			this.@__progGrp.Name = "__progGrp";
 			this.@__progGrp.Size = new System.Drawing.Size(589, 107);
 			this.@__progGrp.TabIndex = 2;
@@ -438,7 +387,7 @@
 			this.@__close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.@__close.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.@__close.Location = new System.Drawing.Point(526, 500);
+			this.@__close.Location = new System.Drawing.Point(526, 451);
 			this.@__close.Name = "__close";
 			this.@__close.Size = new System.Drawing.Size(75, 23);
 			this.@__close.TabIndex = 4;
@@ -457,7 +406,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
 			this.CancelButton = this.@__close;
-			this.ClientSize = new System.Drawing.Size(613, 534);
+			this.ClientSize = new System.Drawing.Size(613, 485);
 			this.Controls.Add(this.@__sourceGrp);
 			this.Controls.Add(this.@__optionsGrp);
 			this.Controls.Add(this.@__progGrp);
@@ -491,9 +440,6 @@
 		private System.Windows.Forms.GroupBox __sourceGrp;
 		private System.Windows.Forms.TextBox __sourceFilter;
 		private System.Windows.Forms.Label __sourceFilterLbl;
-		private System.Windows.Forms.TextBox __reportFilename;
-		private System.Windows.Forms.Button __reportBrowse;
-		private System.Windows.Forms.Label __reportFilenameLbl;
 		private System.Windows.Forms.GroupBox __progGrp;
 		private System.Windows.Forms.ProgressBar __progOverall;
 		private System.Windows.Forms.ProgressBar __progSource;
@@ -508,7 +454,6 @@
 		private System.Windows.Forms.FolderBrowserDialog __fbd;
 		private System.Windows.Forms.SaveFileDialog __sfd;
 		private System.Windows.Forms.ErrorProvider __error;
-		private System.Windows.Forms.CheckBox __reportEnable;
 		private System.ComponentModel.BackgroundWorker __bw;
 		private System.Windows.Forms.CheckBox __exportIconSubimages;
 		private System.Windows.Forms.CheckBox __exportCommonplace;

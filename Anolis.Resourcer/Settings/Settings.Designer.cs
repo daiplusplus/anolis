@@ -119,7 +119,7 @@ namespace Anolis.Resourcer.Settings {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("*.exe;*.dll;*.scr;*.msstyles;*.ocx;*.cpl")]
+        [global::System.Configuration.DefaultSettingValueAttribute("*.exe;*.dll;*.scr;*.msstyles;*.ocx;*.cpl;*.mui")]
         public string BatchFilter {
             get {
                 return ((string)(this["BatchFilter"]));
@@ -210,6 +210,30 @@ namespace Anolis.Resourcer.Settings {
             }
             set {
                 this["BatchExportSubimage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool MenuVisible {
+            get {
+                return ((bool)(this["MenuVisible"]));
+            }
+            set {
+                this["MenuVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ToolbarVisible {
+            get {
+                return ((bool)(this["ToolbarVisible"]));
+            }
+            set {
+                this["ToolbarVisible"] = value;
             }
         }
     }

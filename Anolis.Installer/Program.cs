@@ -48,12 +48,28 @@ namespace Anolis.Installer {
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
 				
+				InstallerResources.CurrentLanguageChanged += new EventHandler(InstallerResources_CurrentLanguageChanged);
+				
 				ProgramMode = ProgramMode.None;
+				
+#region Initial PackageInfo Options
+				
+				// set this here because there's nowhere else to put it
+				// HACK: Devise a shortlist of known languages that have this problem
+				// also, does this affect Vista?
+				if( Environment.OSVersion.Version.Major == 5 ) {
+					
+					PackageInfo.LiteMode = System.Globalization.CultureInfo.InstalledUICulture.DisplayName.IndexOf("English", StringComparison.OrdinalIgnoreCase) == -1;
+				}
 				
 				if( InstallerResources.IsCustomized ) {
 					
 					PackageInfo.IgnoreCondition = InstallerResources.CustomizedSettings.DisablePackageCheck;
 				}
+				
+				PackageInfo.SystemRestore = true;
+				
+#endregion
 				
 				if( args.Length > 0 ) {
 					
@@ -89,8 +105,6 @@ namespace Anolis.Installer {
 //					}
 				}
 				
-				
-				
 				// preload resources
 				System.Drawing.Image
 					image = InstallerResources.GetImage("Background");
@@ -101,25 +115,27 @@ namespace Anolis.Installer {
 				String title = InstallerResources.IsCustomized ? InstallerResources.CustomizedSettings.InstallerFullName : "Anolis Package Installer";
 				
 				// create the pages
-				PageAWelcome        = new WelcomePage();
-				PageBMainAction     = new MainActionPage();
+				PageAWelcome         = new WelcomePage();
+				PageBMainAction      = new MainActionPage();
 				
-				PageCASelectPackage = new SelectPackagePage();
-				PageCBExtracting    = new ExtractingPage();
-				PageCCUpdatePackage = new UpdatePackagePage();
-				PageCDReleaseNotes  = new ReleaseNotesPage();
-				PageCEModifyPackage = new ModifyPackagePage();
-				PageCFInstallOpts   = new InstallationOptionsPage();
-				PageCGInstalling    = new InstallingPage();
+				PageCASelectPackage  = new SelectPackagePage();
+				PageCBExtracting     = new ExtractingPage();
+				PageCCUpdatePackage  = new UpdatePackagePage();
+				PageCDReleaseNotes   = new ReleaseNotesPage();
+				PageCE1Selector      = new SelectorPage();
+				PageCE2ModifyPackage = new ModifyPackagePage();
+				PageCFInstallOpts    = new InstallationOptionsPage();
+				PageCFInstallOptForm = new InstallationOptionsForm();
+				PageCGInstalling     = new InstallingPage();
 				
-				PageDADestination   = new DestinationPage();
-				PageDBDownloading   = new DownloadingPage();
+				PageDADestination    = new DestinationPage();
+				PageDBDownloading    = new DownloadingPage();
 				
-				PageEASelectBackup  = new SelectBackupPage();
+				PageEASelectBackup   = new SelectBackupPage();
 				
-				PageFFinished       = new FinishedPage();
+				PageFFinished        = new FinishedPage();
 				
-				WizardForm          = InstallationInfo.CreateWizard();
+				WizardForm           = InstallationInfo.CreateWizard();
 				
 				WizardForm.CancelClicked += new EventHandler(wiz_CancelClicked);
 				WizardForm.HasHelp        = false;
@@ -129,6 +145,8 @@ namespace Anolis.Installer {
 				WizardForm.NextText   = InstallerResources.GetString("Wiz_Next");
 				WizardForm.BackText   = InstallerResources.GetString("Wiz_Prev");
 				WizardForm.CancelText = InstallerResources.GetString("Wiz_Cancel");
+				
+				InstallerResources.ForceLocalize();
 				
 			} catch(Exception ex) {
 				
@@ -164,13 +182,30 @@ namespace Anolis.Installer {
 			WizardForm.Run();
 			
 			
-			
 			// Clean-up
 			if( PackageInfo.Package != null && ( PackageInfo.Source == PackageSource.Embedded || PackageInfo.Source == PackageSource.Archive ) ) {
 				
 				PackageInfo.Package.DeleteFiles();
 			}
 			
+		}
+		
+		private static void InstallerResources_CurrentLanguageChanged(object sender, EventArgs e) {
+			
+			// you need to wrap the RightToLeft set in SuspendLayout / ResumeLayout to prevent AccessViolationExceptions from occurring
+			// I only get the exception when the program is being run standalone, not attached to the debugger
+			
+			RightToLeft orig = WizardForm.RightToLeft;
+			RightToLeft newg = InstallerResources.CurrentLanguage.RightToLeft ? RightToLeft.Yes : RightToLeft.No;
+			
+			if( orig == newg ) return;
+			
+			Form wizForm = WizardForm as Form;
+			if( wizForm != null ) wizForm.SuspendLayout();
+			
+			WizardForm.RightToLeft = newg;
+			
+			if( wizForm != null ) wizForm.ResumeLayout();
 		}
 		
 		private static void wiz_CancelClicked(object sender, EventArgs e) {
@@ -184,28 +219,30 @@ namespace Anolis.Installer {
 			
 		}
 		
-		internal static IWizardForm             WizardForm          { get; private set; }
+		internal static IWizardForm             WizardForm           { get; private set; }
 		
-		internal static WelcomePage             PageAWelcome        { get; private set; }
-		internal static MainActionPage          PageBMainAction     { get; private set; }
+		internal static WelcomePage             PageAWelcome         { get; private set; }
+		internal static MainActionPage          PageBMainAction      { get; private set; }
 		
-		internal static SelectPackagePage       PageCASelectPackage { get; private set; }
-		internal static ExtractingPage          PageCBExtracting    { get; private set; }
-		internal static UpdatePackagePage       PageCCUpdatePackage { get; private set; }
-		internal static ReleaseNotesPage        PageCDReleaseNotes  { get; private set; }
-		internal static ModifyPackagePage       PageCEModifyPackage { get; private set; }
-		internal static InstallationOptionsPage PageCFInstallOpts   { get; private set; }
-		internal static InstallingPage          PageCGInstalling    { get; private set; }
+		internal static SelectPackagePage       PageCASelectPackage  { get; private set; }
+		internal static ExtractingPage          PageCBExtracting     { get; private set; }
+		internal static UpdatePackagePage       PageCCUpdatePackage  { get; private set; }
+		internal static ReleaseNotesPage        PageCDReleaseNotes   { get; private set; }
+		internal static SelectorPage            PageCE1Selector      { get; private set; }
+		internal static ModifyPackagePage       PageCE2ModifyPackage { get; private set; }
+		internal static InstallationOptionsPage PageCFInstallOpts    { get; private set; }
+		internal static InstallationOptionsForm PageCFInstallOptForm { get; private set; }
+		internal static InstallingPage          PageCGInstalling     { get; private set; }
 		
-		internal static DestinationPage         PageDADestination   { get; private set; }
-		internal static DownloadingPage         PageDBDownloading   { get; private set; }
+		internal static DestinationPage         PageDADestination    { get; private set; }
+		internal static DownloadingPage         PageDBDownloading    { get; private set; }
 		
-		internal static SelectBackupPage        PageEASelectBackup  { get; private set; }
+		internal static SelectBackupPage        PageEASelectBackup   { get; private set; }
 		
-		internal static FinishedPage            PageFFinished       { get; private set; }
+		internal static FinishedPage            PageFFinished        { get; private set; }
 		
 		
-		internal static ProgramMode             ProgramMode         { get; set; }
+		internal static ProgramMode             ProgramMode          { get; set; }
 	}
 	
 	/// <summary>Meta-information about the installation</summary>
@@ -286,6 +323,10 @@ namespace Anolis.Installer {
 			
 		}
 		
+		//////////////////////////////////////
+		
+		public static Boolean? UseSelector { get; set; }
+		
 #region Tools
 		
 		public static readonly Uri ToolsInfoUri = new Uri("http://anol.is/tools/toolsInfo.txt");
@@ -319,6 +360,8 @@ namespace Anolis.Installer {
 		public static Boolean        RequiresRestart { get; set; }
 		
 		public static Boolean        IgnoreCondition { get; set; }
+		
+		public static Boolean        LiteMode        { get; set; }
 		
 		//////////////////////////////////////
 		// Regular-specific

@@ -19,11 +19,14 @@ namespace Anolis.Core.Packages.Operations {
 			
 			PackageUtility.ClearIconCache();
 			
-			if( !NativeMethods.SystemParametersInfo( SpiAction.SetIcons, 0, IntPtr.Zero ) ) {
+			Boolean result = NativeMethods.SystemParametersInfo( SpiAction.SetIcons, 0, IntPtr.Zero );
+			
+			if(!result) {
+				String error = NativeMethods.GetLastErrorString();
 				
-				String message = NativeMethods.GetLastErrorString();
+				String args = SpiAction.SetIcons.ToString() + "," + 0.ToStringInvariant() + "," + 0.ToStringInvariant();
 				
-				Package.Log.Add( LogSeverity.Error, "SystemParametersInfo Failed: " + message );
+				Package.Log.Add( LogSeverity.Error, "SystemParametersInfo(" + args + ") failed: " + error );
 			}
 			
 		}

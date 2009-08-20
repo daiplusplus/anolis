@@ -9,9 +9,9 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class FileOperation : PathOperation {
 		
-		public FileOperation(Group group, XmlElement operationElement) : base(group, operationElement) {
+		public FileOperation(Group group, XmlElement element) : base(group, element) {
 			
-			String opType = operationElement.GetAttribute("operation").ToUpperInvariant();
+			String opType = element.GetAttribute("operation").ToUpperInvariant();
 			switch(opType) {
 				case "COPY":
 					Operation = FileOperationType.Copy; break;
@@ -23,12 +23,9 @@ namespace Anolis.Core.Packages.Operations {
 					Operation = FileOperationType.None; break;
 			}
 			
-			SpecifiedPath = operationElement.GetAttribute("path");
-			ConditionHash = operationElement.GetAttribute("conditionHash");
-			
-			// the .Path setter resolves environment variables and sets the root to the package directory if non-rooted
-			Path       = SpecifiedPath;
-			SourceFile = PackageUtility.ResolvePath( operationElement.GetAttribute("src"), Package.RootDirectory.FullName );
+			SpecifiedPath = element.GetAttribute("path");
+			ConditionHash = element.GetAttribute("conditionHash");
+			SourceFile    = PackageUtility.ResolvePath( element.GetAttribute("src"), Package.RootDirectory.FullName );
 		}
 		
 		public FileOperation(Group parent, String sourcePath, String destPath, FileOperationType operation) : base(parent, destPath) {
@@ -83,28 +80,37 @@ namespace Anolis.Core.Packages.Operations {
 			
 			// remember, the Package.Execute method sets AllowProtectedRenames already
 			
-			if( Operation == FileOperationType.Delete ) {
+			switch(Operation) {
 				
-				PackageUtility.AddPfroEntry( Path, null );
-				
-				Package.ExecutionInfo.RequiresRestart = true;
-				
-			} else {
-				
-				
-				if( Operation == FileOperationType.Replace ) {
+				case FileOperationType.Delete:
 					
-					if( !File.Exists( Path ) ) return;
-				}
+					PackageUtility.AddPfroEntry( Path, null );
+					
+					Package.ExecutionInfo.RequiresRestart = true;
+					
+					break;
 				
-				String pendingFileName = Path + ".anofp";
-				pendingFileName = PackageUtility.GetUnusedFileName( pendingFileName );
-				File.Copy( SourceFile, pendingFileName, true );
-				
-				PackageUtility.AddPfroEntry( pendingFileName, Path ); // overwrite the file, this deletes the original methinks
-				
-				Package.ExecutionInfo.RequiresRestart = true;
-				
+				case FileOperationType.Copy:
+				case FileOperationType.Replace:
+					
+					if( Operation == FileOperationType.Replace ) {
+					
+						if( !File.Exists( Path ) ) return;
+					}
+					
+					String pendingFileName = Path + ".anofp";
+					pendingFileName = PackageUtility.GetUnusedFileName( pendingFileName );
+					File.Copy( SourceFile, pendingFileName, true );
+					
+					PackageUtility.AddPfroEntry( pendingFileName, Path ); // overwrite the file, this deletes the original methinks
+					
+					Package.ExecutionInfo.RequiresRestart = true;
+					
+					break;
+					
+				case FileOperationType.None:
+				default:
+					return;
 			}
 			
 		}
@@ -180,8 +186,8 @@ namespace Anolis.Core.Packages.Operations {
 			
 			XmlElement element = CreateElement(parent, "file",
 				"operation", Operation.ToString(),
-				"src", SourceFile,
-				"path", Path,
+				"src"      , SourceFile,
+				"path"     , Path,
 				"conditionHash", ConditionHash
 			);
 			

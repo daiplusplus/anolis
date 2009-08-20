@@ -58,17 +58,31 @@ namespace Anolis.Core.Packages {
 			//////////////////////////////////////
 			// Children
 			
-			// there can only be one root group element as a child, but as Whitespace is being preserved there may be other nodes in the document
+			// there can only be one root <group> element as a child, but as Whitespace is being preserved there may be other nodes in the document
+			// then there's alsot he <presets> element
+			
+			XmlElement presetsElement = null;
 			
 			foreach(XmlNode node in packageElement.ChildNodes) {
 				
-				XmlElement rootGroupElement = node as XmlElement;
-				if( rootGroupElement == null ) continue;
+				XmlElement rootElement = node as XmlElement;
+				if( rootElement == null ) continue;
 				
-				if( RootGroup != null ) throw new PackageException("<package> element must have one (and only one) <group> child element");
-				
-				RootGroup = new Group(this, null, rootGroupElement);
-				
+				if( rootElement.Name == "presets" ) {
+					
+					if( presetsElement != null ) throw new PackageValidationException("<package> element can have at most one <presets> child element");
+					presetsElement = rootElement;
+					
+				} else if( rootElement.Name == "group" ) {
+					
+					if( RootGroup != null ) throw new PackageValidationException("<package> element must have one (and only one) <group> child element");
+					RootGroup = new Group(this, null, rootElement);
+					
+				}	
+			}
+			
+			if( presetsElement != null ) {
+				BuildPresets( presetsElement );
 			}
 			
 		}
@@ -76,6 +90,7 @@ namespace Anolis.Core.Packages {
 		private void CreateState() {
 			PackageImages = new Dictionary<String,Image>();
 			Log           = new Log();
+			Presets       = new PresetCollection();
 		}
 		
 		private void EnsureState() {
@@ -95,6 +110,8 @@ namespace Anolis.Core.Packages {
 		
 		public Group         RootGroup     { get; private set; }
 		public DirectoryInfo RootDirectory { get; private set; }
+		
+		public PresetCollection Presets    { get; private set; }
 		
 		internal Dictionary<String,System.Drawing.Image> PackageImages { get; private set; }
 		
@@ -185,6 +202,32 @@ namespace Anolis.Core.Packages {
 		
 		//////////////////////////////
 		
+		/// <summary>Enables, Disables, and sets IsSelected as appropriate on child elements to match the specified preset</summary>
+		public void ApplySelections(Preset preset) {
+			
+			List<Group>                     opsB;
+			List<ResPatchOperation>         opsR;
+			List<WallpaperExtraOperation>   opsW;
+			List<VisualStyleExtraOperation> opsV;
+			
+			Preset.GetPackageItems(RootGroup, out opsB, out opsR, out opsW, out opsV);
+			
+			foreach(Group group in opsB)
+				group.Enabled = group == preset.Group;
+			
+			foreach(ResPatchOperation opR in opsR)
+				opR.Enabled = opR == preset.WelcomeScreen;
+			
+			foreach(WallpaperExtraOperation opW in opsW)
+				opW.Selected = opW == preset.Wallpaper;
+			
+			foreach(VisualStyleExtraOperation opV in opsV)
+				opV.Selected = opV == preset.VisualStyle;
+			
+		}
+		
+		//////////////////////////////
+		
 		protected void OnProgressEvent(ProgressEventArgs e) {
 			
 			if( ProgressEvent != null ) ProgressEvent(this, e);
@@ -206,7 +249,16 @@ namespace Anolis.Core.Packages {
 			
 			EnsureState();
 			
-			if( IsBusy ) throw new InvalidOperationException("Currently executing a package.");
+			if( IsBusy ) throw new InvalidOperationException("Cannot execute another package whilst executing a package.");
+			IsBusy = true;
+			
+			if( settings.LiteMode ) {
+				FactoryOptions.Populate();
+				FactoryOptions.Instance[ Anolis.Core.Data.DirectoryResourceDataFactory.IconSizeLimit ] = 128;
+			}
+			
+			///////////////////////////////////
+			// Create Backup Details
 			
 			Group backupGroup = null;
 			if( settings.BackupDirectory != null ) {
@@ -225,14 +277,12 @@ namespace Anolis.Core.Packages {
 				backupGroup = backupPackage.RootGroup;
 			}
 			
-			ExecutionInfo = new PackageExecutionSettingsInfo(this, settings.ExecutionMode, settings.CreateSystemRestorePoint, backupGroup, settings.I386Directory );
-			
-			IsBusy = true;
+			ExecutionInfo = new PackageExecutionSettingsInfo(this, settings.ExecutionMode, settings.CreateSystemRestorePoint, settings.LiteMode, backupGroup, settings.I386Directory );
 			
 			///////////////////////////////////
 			// Flatten
 			
-			Log.Add( LogSeverity.Info, "Beginning package execution: " + this.RootGroup.Name );
+			Log.Add( LogSeverity.Info, "Beginning package execution: " + this.Name + ", with mode " + ExecutionInfo.ExecutionMode.ToString() );
 			
 			OnProgressEvent( new PackageProgressEventArgs( 0, "Flattening Package Tree" ) );
 			
@@ -271,19 +321,28 @@ namespace Anolis.Core.Packages {
 			if( ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular )
 				PackageUtility.AllowProtectedRenames();
 			
-			Boolean systemRestoreCreationSuccessful = false;
+			Int64 restorePointSequenceNumber = -2;
 			
 			///////////////////////////////////
 			// System Restore, Part 1
 			if( ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular && ExecutionInfo.CreateSystemRestorePoint ) {
 				
-				OnProgressEvent( new PackageProgressEventArgs( -1, "Creating System Restore Point" ) );
+				if( SystemRestore.IsSystemRestoreAvailable() ) {
+					
+					OnProgressEvent( new PackageProgressEventArgs( -1, "Creating System Restore Point" ) );
+					
+					String pointName = "Installed Anolis Package \"" + this.Name + '"';
+					
+					restorePointSequenceNumber = SystemRestore.CreateRestorePoint( pointName, SystemRestoreType.ApplicationInstall );
+					
+					if( restorePointSequenceNumber < 0 ) Log.Add( LogSeverity.Error, "Failed to create System Restore point" ); 
+					
+				} else {
+					
+					Log.Add( LogSeverity.Error, "System Restore not supported" ); 
+				}
 				
-				String pointName = "Installed Anolis Package \"" + this.RootGroup.Name + '"';
 				
-				systemRestoreCreationSuccessful = PackageUtility.CreateSystemRestorePoint( pointName, PackageUtility.SystemRestoreType.ApplicationInstall, PackageUtility.SystemRestoreEventType.BeginSystemChange );
-				
-				if( !systemRestoreCreationSuccessful ) Log.Add( LogSeverity.Error, "Failed to create System Restore point" ); 
 			}
 			
 			///////////////////////////////////
@@ -350,13 +409,11 @@ namespace Anolis.Core.Packages {
 				
 				///////////////////////////////////
 				// System Restore, Part 2
-				if( systemRestoreCreationSuccessful ) {
+				if( restorePointSequenceNumber >= 0 ) {
 					
 					OnProgressEvent( new PackageProgressEventArgs( -1, "Finishing System Restore Point" ) );
 					
-					String pointName = "Installed Anolis Package \"" + this.RootGroup.Name + '"';
-					
-					PackageUtility.CreateSystemRestorePoint( pointName, PackageUtility.SystemRestoreType.ApplicationInstall, PackageUtility.SystemRestoreEventType.EndSystemChange );
+					SystemRestore.EndRestorePoint( restorePointSequenceNumber );
 				}
 				
 				///////////////////////////////////
@@ -383,7 +440,7 @@ namespace Anolis.Core.Packages {
 		
 		public void DeleteFiles() {
 			
-			if( this.IsBusy ) throw new InvalidOperationException("Cannot delete files whilst the package is executing");
+			if( IsBusy ) throw new InvalidOperationException("Cannot delete files whilst the package is executing");
 			
 			FileInfo logFile = RootDirectory.GetFile("Anolis.Installer.log");
 			String logFileDest = RootDirectory.Parent.GetFile( logFile.Name ).FullName;
@@ -432,7 +489,7 @@ namespace Anolis.Core.Packages {
 		
 #endregion
 		
-		/// <summary>A blocking method that returns details of the latest version, if it exists. Returns null under all failure conditions.</summary>
+		/// <summary>A blocking (synchronous) method that returns details of the latest version, if it exists. Returns null under all failure conditions.</summary>
 		public PackageUpdateInfo CheckForUpdates() {
 			
 			if( this.UpdateUri == null ) return null;
@@ -461,14 +518,28 @@ namespace Anolis.Core.Packages {
 			if( lines.Length < 4 ) return null;
 			
 			String name = lines[0];
-			Single version; Uri packageLocation, infoLocation;
+			Single version; Uri packageLocation = null, infoLocation = null;
 			
-			if( !Single.TryParse ( lines[1], N.Any, Cult.InvariantCulture, out version         ) ) return null;
-			if( !Uri   .TryCreate( lines[2], UriKind.Absolute            , out packageLocation ) ) return null;
-			if( !Uri   .TryCreate( lines[3], UriKind.Absolute            , out infoLocation    ) ) return null;
+			if( !Single.TryParse ( lines[1], N.Any, Cult.InvariantCulture, out version ) ) return null;
+			
+			Uri.TryCreate( lines[2], UriKind.Absolute, out packageLocation );
+			Uri.TryCreate( lines[3], UriKind.Absolute, out infoLocation );
 			
 			PackageUpdateInfo info = new PackageUpdateInfo( name, version, packageLocation, infoLocation );
 			return info;
+			
+		}
+		
+		private void BuildPresets(XmlElement presetsElement) {
+			
+			foreach(XmlNode child in presetsElement.ChildNodes) {
+				XmlElement childElement = child as XmlElement;
+				if( childElement == null ) continue;
+				
+				Preset preset = new Preset( RootGroup, childElement );
+				Presets.Add( preset );
+				
+			}
 			
 		}
 		

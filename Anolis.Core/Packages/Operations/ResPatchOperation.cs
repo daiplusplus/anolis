@@ -19,7 +19,7 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public ResPatchOperation(Group parent, XmlElement operationElement) : base(parent, operationElement) {
 			
-			ResourceSet   = new PatchResourceSet( base.Condition );
+			ResourceSet   = new PatchResourceSet( base.Condition, parent, ConditionHash );
 			_resourceSets = new List<PatchResourceSet>() { ResourceSet };
 			
 			foreach(XmlNode node in operationElement.ChildNodes) {
@@ -48,7 +48,7 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public ResPatchOperation(Group parent, String path) : base(parent, path) {
 			
-			ResourceSet   = new PatchResourceSet( base.Condition );
+			ResourceSet   = new PatchResourceSet( base.Condition, parent, null );
 			_resourceSets = new List<PatchResourceSet>() { ResourceSet };
 		}
 		
@@ -63,9 +63,6 @@ namespace Anolis.Core.Packages.Operations {
 		public override Boolean CustomEvaluation {
 			get { return true; }
 		}
-		
-		
-		
 		
 		public PatchResourceSet ResourceSet { get; private set; }
 		
@@ -294,17 +291,20 @@ namespace Anolis.Core.Packages.Operations {
 	
 	public class PatchResourceSet {
 		
-		public PatchResourceSet(Expression expression) {
+		public PatchResourceSet(Expression expression, Group parentGroup, String conditionHash) {
 			
-			Condition = expression;
 			Resources  = new Collection<PatchResource>();
+			
+			Condition     = expression;
+			ParentGroup   = parentGroup;
+			ConditionHash = conditionHash;
 		}
 		
-		public Group      ParentGroup   { get; set; }
+		public Group      ParentGroup   { get; private set; }
 		
-		public Expression Condition     { get; set; }
+		public Expression Condition     { get; private set; }
 		
-		public String     ConditionHash { get; set; }
+		public String     ConditionHash { get; private set; }
 		
 		public Collection<PatchResource> Resources { get; private set; }
 		

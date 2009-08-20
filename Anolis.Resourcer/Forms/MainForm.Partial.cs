@@ -266,7 +266,7 @@ namespace Anolis.Resourcer {
 			
 			if( !SourceUnload() ) return;
 			
-			IList<ResourceSourceFactory> factories = ResourceSourceFactory.ListFactories();
+			IList<ResourceSourceFactory> factories = ResourceSourceFactory.GetFactories();
 			
 			String filter = String.Empty;
 			foreach(ResourceSourceFactory factory in factories) filter += factory.NewFileFilter + '|';
@@ -287,7 +287,7 @@ namespace Anolis.Resourcer {
 		/// <summary>Presents a File Open Dialog to the user and either loads the selected source or does nothing if nothing was selected or the FOD was cancelled.</summary>
 		private void SourceLoadDialog() {
 			
-			IList<ResourceSourceFactory> factories = ResourceSourceFactory.ListFactories();
+			IList<ResourceSourceFactory> factories = ResourceSourceFactory.GetFactories();
 			
 			String filter = String.Empty;
 			foreach(ResourceSourceFactory factory in factories) filter += factory.OpenFileFilter + '|';
@@ -535,7 +535,14 @@ namespace Anolis.Resourcer {
 			
 			_viewData.ShowResource( CurrentData );
 			
-			TreeNodeEnsureVisible( lang );
+			if( lang.Name.Langs.Count == 1 ) {
+				
+				TreeNodeEnsureVisible( lang.Name );
+				
+			} else {
+			
+				TreeNodeEnsureVisible( lang );
+			}
 			
 			NavigateAdd();
 		}

@@ -59,6 +59,41 @@ namespace Anolis.Resourcer {
 			this.__tree.AfterSelect         += new TreeViewEventHandler(__tree_AfterSelect);
 			this.__treeMenu.Opening         += new System.ComponentModel.CancelEventHandler(__treeMenu_Opening);
 			
+#region Menu Events
+			
+			this.__mFileNew         .Click += new EventHandler(__mFileNew_Click);
+			this.__mFileOpen        .Click += new EventHandler(__mFileOpen_Click);
+			this.__mFileSave        .Click += new EventHandler(__mFileSave_Click);
+			this.__mFileBackup      .Click += new EventHandler(__mFileBackup_Click);
+			this.__mFileRevert      .Click += new EventHandler(__mFileRevert_Click);
+			this.__mFileExit        .Click += new EventHandler(__mFileExit_Click);
+			
+			this.__mEditCut         .Click += new EventHandler(__mEditCut_Click);
+			this.__mEditCopy        .Click += new EventHandler(__mEditCopy_Click);
+			this.__mEditPaste       .Click += new EventHandler(__mEditPaste_Click);
+			this.__mEditSelectAll   .Click += new EventHandler(__mEditSelectAll_Click);
+			
+			this.__mViewToolbar     .Click += new EventHandler(__mViewToolbar_Click);
+			this.__mViewToolbarLarge.Click += new EventHandler(__mViewToolbarLarge_Click);
+			this.__mViewToolbarSmall.Click += new EventHandler(__mViewToolbarSmall_Click);
+			this.__mViewMenus       .Click += new EventHandler(__mViewMenus_Click);
+			this.__mViewEffects     .Click += new EventHandler(__mViewEffects_Click);
+			
+			this.__mActionImport    .Click += new EventHandler(__mActionImport_Click);
+			this.__mActionExport    .Click += new EventHandler(__mActionExport_Click);
+			this.__mActionReplace   .Click += new EventHandler(__mActionReplace_Click);
+			this.__mActionDelete    .Click += new EventHandler(__mActionDelete_Click);
+			this.__mActionCancel    .Click += new EventHandler(__mActionCancel_Click);
+			
+			this.__mToolsBatch      .Click += new EventHandler(__mToolsBatch_Click);
+			this.__mToolsOptions    .Click += new EventHandler(__mToolsOptions_Click);
+			
+			this.__mHelpTopics      .Click += new EventHandler(__mHelpTopics_Click);
+			this.__mHelpUpdates     .Click += new EventHandler(__mHelpUpdates_Click);
+			this.__mHelpAbout       .Click += new EventHandler(__mHelpAbout_Click);
+			
+#endregion
+			
 			//this.__treeStateImages.Images.Add( "Add", Resources.Tree_Add );
 			//this.__treeStateImages.Images.Add( "Upd", Resources.Tree_Edit );
 			//this.__treeStateImages.Images.Add( "Del", Resources.Tree_Delete );
@@ -278,7 +313,6 @@ namespace Anolis.Resourcer {
 		private void __tSrcNew_Click(object sender, EventArgs e) {
 			
 			this.SourceNew();
-			
 		}
 		
 		private void __tSrcMruItem_Click(Object sender, EventArgs e) {
@@ -353,6 +387,8 @@ namespace Anolis.Resourcer {
 		}
 		
 		private void ToolbarUpdate(Boolean updateSourceDetails, Boolean updateDataDetails, Boolean updateToolbarShape) {
+			
+			MenubarUpdate();
 			
 			Boolean isReadOnly = (CurrentSource == null) ? true : CurrentSource.IsReadOnly;
 			
@@ -650,6 +686,230 @@ namespace Anolis.Resourcer {
 			
 			NavigateBack();
 		}
+		
+	#endregion
+	
+	#region Main Menu
+		
+		private void MenubarUpdate() {
+			
+			////////////////////////
+			// MRU
+			
+			__mFileRecent.MenuItems.Clear();
+			
+			if( _mru.Items.Length == 0 ) {
+				
+				__mFileRecent.Enabled = false;
+				
+			} else {
+				
+				__mFileRecent.Enabled = true;
+				
+				foreach(String fileName in _mru.Items) {
+					
+					MenuItem mruItem = new MenuItem( fileName );
+					
+					__mFileRecent.MenuItems.Add( mruItem );
+				}
+				
+				
+			}
+			
+			////////////////////////
+			// View Menu
+			
+			__mViewToolbar.Checked      = Settings.Settings.Default.ToolbarVisible;
+			
+			__mViewToolbarSmall.Checked = Settings.Settings.Default.Toolbar24;
+			__mViewToolbarLarge.Checked = !__mViewToolbarSmall.Checked;
+			
+			__mViewMenus.Checked        = Settings.Settings.Default.MenuVisible;
+		}
+		
+		#region File
+		
+		private void __mFileNew_Click(object sender, EventArgs e) {
+			
+			SourceNew();
+		}
+		
+		private void __mFileOpen_Click(object sender, EventArgs e) {
+			
+			SourceLoadDialog();
+		}
+		
+		private void __mFileSave_Click(object sender, EventArgs e) {
+			
+			SourceSave();
+		}
+		
+		private void __mFileBackup_Click(object sender, EventArgs e) {
+			
+			SourceBackup();
+		}
+		
+		private void __mFileRevert_Click(object sender, EventArgs e) {
+			
+			SourceRevert();
+		}
+		
+		private void __mFileExit_Click(object sender, EventArgs e) {
+			
+			if( SourceUnload() ) {
+				
+				Close();
+			}
+		}
+		
+		#endregion
+		
+		#region Edit
+		
+		private void __mEditSelectAll_Click(object sender, EventArgs e) {
+			
+		}
+		
+		private void __mEditPaste_Click(object sender, EventArgs e) {
+			
+		}
+		
+		private void __mEditCopy_Click(object sender, EventArgs e) {
+			
+		}
+		
+		private void __mEditCut_Click(object sender, EventArgs e) {
+			
+		}
+		
+		#endregion
+		
+		#region View
+		
+		private void __mViewEffects_Click(object sender, EventArgs e) {
+			
+			Boolean useGimmicks = !__mViewEffects.Checked;
+			
+			Settings.Settings.Default.Gimmicks = useGimmicks;
+			
+			__mViewEffects.Checked = useGimmicks;
+		}
+		
+		private void __mViewMenus_Click(object sender, EventArgs e) {
+			
+			// you need to manually update .Checked
+			
+			Boolean showMenu = !__mViewMenus.Checked;
+			
+			if( !showMenu && !__t.Visible ) return; // don't allow the user to hide both at the same time
+			
+			__mViewToolbar.Enabled = showMenu;
+			__mViewMenus  .Checked = showMenu;
+			
+			// you can't hide a MainMenu itself, only its root items
+			foreach(MenuItem item in __menu.MenuItems) item.Visible = showMenu;
+			
+			// TODO: Save this to settings
+		}
+		
+		private void __mViewToolbarSmall_Click(object sender, EventArgs e) {
+			
+			if( __mViewToolbarSmall.Checked ) return; // don't bother re-setting it
+			
+			Settings.Settings.Default.Toolbar24 = true;
+			
+			ToolbarUpdate(false, false, true);
+			
+			__mViewToolbarSmall.Checked = true;
+			__mViewToolbarLarge.Checked = false;
+		}
+		
+		private void __mViewToolbarLarge_Click(object sender, EventArgs e) {
+			
+			if( __mViewToolbarLarge.Checked ) return; // don't bother re-setting it
+			
+			Settings.Settings.Default.Toolbar24 = false;
+			
+			ToolbarUpdate(false, false, true);
+			
+			__mViewToolbarSmall.Checked = false;
+			__mViewToolbarLarge.Checked = true;
+		}
+		
+		private void __mViewToolbar_Click(object sender, EventArgs e) {
+			
+			Boolean showToolbar = !__mViewToolbar.Checked;
+			
+			if( !showToolbar && !__menu.MenuItems[0].Visible ) return; // don't allow the user to hide both at the same time
+			
+			__mViewMenus  .Enabled = showToolbar;
+			__mViewToolbar.Checked = showToolbar;
+			
+			__t.Visible = showToolbar;
+			
+			// TODO: Save this to settings
+		}
+		
+		#endregion
+		
+		#region Action
+		
+		private void __mActionCancel_Click(object sender, EventArgs e) {
+			
+			DataCancel();
+		}
+		
+		private void __mActionDelete_Click(object sender, EventArgs e) {
+			
+			DataRemove();
+		}
+		
+		private void __mActionReplace_Click(object sender, EventArgs e) {
+			
+			DataReplace();
+		}
+		
+		private void __mActionExport_Click(object sender, EventArgs e) {
+			
+			DataExport();
+		}
+		
+		private void __mActionImport_Click(object sender, EventArgs e) {
+			
+			DataImport();
+		}
+		
+		#endregion
+		
+		#region Tools
+		
+		private void __mToolsOptions_Click(object sender, EventArgs e) {
+			
+			OptionsShow();
+		}
+		
+		private void __mToolsBatch_Click(object sender, EventArgs e) {
+			
+			SourceBatchProcessShow();
+		}
+		
+		#endregion
+		
+		#region Help
+		
+		private void __mHelpAbout_Click(object sender, EventArgs e) {
+			
+		}
+		
+		private void __mHelpUpdates_Click(object sender, EventArgs e) {
+			
+		}
+		
+		private void __mHelpTopics_Click(object sender, EventArgs e) {
+			
+		}
+		
+		#endregion
 		
 	#endregion
 	

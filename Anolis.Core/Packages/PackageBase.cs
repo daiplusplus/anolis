@@ -190,9 +190,12 @@ namespace Anolis.Core.Packages {
 			
 			if( String.IsNullOrEmpty( fileVersion ) ) return null;
 			
-			Version vs = new Version( fileVersion );
+			// often the version string is followed by a complicated parenthesised string
 			
-			return vs;
+			if( fileVersion.IndexOf(' ') > -1 ) fileVersion = fileVersion.Substring(0, fileVersion.IndexOf(' ') ).Trim();
+			
+			// the ArgumentException will be caught by Package.Execute
+			return new Version( fileVersion );
 			
 		}
 		

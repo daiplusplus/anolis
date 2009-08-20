@@ -20,6 +20,9 @@ namespace Anolis.Core.Utility {
 			// NOTE: C:\Boot.ini is a hardcoded location. I don't know about if Windows is somehow installed to D:\
 			// I think it's obtained with a lookup from HKLM\System\Setup\SystemPartition
 			
+			// Switch reference:
+			// http://technet.microsoft.com/en-gb/sysinternals/bb963892.aspx
+			
 			String defaultBootIni = @"C:\boot.ini";
 			
 			if( !File.Exists( defaultBootIni ) ) return null;

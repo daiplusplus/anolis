@@ -27,7 +27,8 @@ namespace Anolis.Core.Packages.Operations {
 			
 			Int32 i=1;
 			
-			foreach(String path in Files) {
+			foreach(ExtraFile file in Files) {
+				String path = file.FileName;
 				
 				String vName = "AnolisRO" + (i++).ToStringInvariant();
 				

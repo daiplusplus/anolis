@@ -9,11 +9,7 @@ using W3b.Wizards.WindowsForms;
 
 namespace Anolis.Installer.Pages {
 	
-#if DEBUG
-	public class BaseInteriorPage : InteriorPage {
-#else
 	public abstract class BaseInteriorPage : InteriorPage {
-#endif
 		
 		private static Bitmap _bannerImage = GetBannerImage();
 		
@@ -35,39 +31,7 @@ namespace Anolis.Installer.Pages {
 		
 		protected virtual void Localize() {
 			
-			String title = InstallerResources.GetString( LocalizePrefix + '_' + "Title" );
-			if(title != null) PageTitle = title;
-			
-			String subtitle = InstallerResources.GetString( LocalizePrefix + '_' + "Subtitle" );
-			if(subtitle != null) PageSubtitle = subtitle;
-			
-			RightToLeft = InstallerResources.CurrentLanguage.RightToLeft ? RightToLeft.Yes : RightToLeft.No;
-			
-			foreach(Control c in this.Controls) {
-				
-				RecurseLocalizeControl( c );
-			}
-			
-			////////////////////
-			
-			if( WizardForm != null ) {
-				
-				WizardForm.BackText   = InstallerResources.GetString("Wiz_Prev");
-				WizardForm.NextText   = InstallerResources.GetString("Wiz_Next");
-				WizardForm.CancelText = InstallerResources.GetString("Wiz_Cancel");
-			}
-		}
-		
-		private void RecurseLocalizeControl(Control c) {
-			
-			String key = LocalizePrefix + '_' + c.Name.Replace("__", "");
-			
-			String text = InstallerResources.GetString( key );
-			if(text != null) c.Text = text;
-			
-			foreach(Control child in c.Controls)
-				RecurseLocalizeControl( child );
-			
+			LocalizerHelper.Localize( LocalizePrefix, this );
 		}
 		
 		protected virtual String LocalizePrefix {
@@ -81,7 +45,6 @@ namespace Anolis.Installer.Pages {
 			// 
 			this.Name = "BaseInteriorPage";
 			this.ResumeLayout(false);
-		
 		}
 		
 #if DEBUG
