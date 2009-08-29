@@ -78,17 +78,23 @@ Per continuare, premi Avanti</value>
 
 Per continuare, premi Avanti</value>
   </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>Il programma di installazione Anolis ha individuato dei cambiameni a questo PC dovuti ad una precedente installazione che avranno effetto dopo un riavvio. E' necessario riavviare il computer prima di poter eseguire il programma di isntallazione Anolis..</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>{0} ha individuato dei cambiameni a questo PC dovuti ad una precedente installazione che avranno effetto dopo un riavvio. E' necessario riavviare il computer prima di poter eseguire l'installazione di {0}.</value>
+  </data>
   <data name="A_title" xml:space="preserve">
-    <value>Benvenuto nell'Installatore di pacchetti Anolis</value>
+    <value>Benvenuto nel programma di installazione di pacchetti Anolis</value>
   </data>
   <data name="A_Title_Cus" xml:space="preserve">
-    <value>Benvenuto nell'Installatore di {0}</value>
+    <value>Benvenuto nel programma di installazione di {0}</value>
   </data>
   <data name="B_installBlurb" xml:space="preserve">
-    <value>Installa un pacchetto collocato in questa distribuzione Anolis o in un altra posizione su questo PC. Il pacchetto può essere installato in una cartella di installazione dei file (I386).</value>
+    <value>Installa un pacchetto incluso in questa distribuzione Anolis o in un altra posizione su questo PC. Il pacchetto può essere installato in una cartella di installazione (I386).</value>
   </data>
   <data name="B_installBlurb_Cus" xml:space="preserve">
-    <value>Installa {0} in questo computer o in una cartella dei file di installazione (I386).</value>
+    <value>Installa {0} in questo computer o in una cartella di installazione (I386).</value>
   </data>
   <data name="B_installRad" xml:space="preserve">
     <value>Installa un pacchetto</value>
@@ -112,7 +118,7 @@ Per continuare, premi Avanti</value>
     <value>Crea il tuo pacchetto o distribuzione personale</value>
   </data>
   <data name="B_uninstallBlurb" xml:space="preserve">
-    <value>Ripristina i file al loro stato precedente. Ti servirà la cartella di backup creata durante l'installazione</value>
+    <value>Ripristina i file al loro stato precedente. Ti servirà la cartella di Backup creata durante l'installazione</value>
   </data>
   <data name="B_uninstallRad" xml:space="preserve">
     <value>Annulla modifiche applicate dall'installazione un pacchetto</value>
@@ -130,7 +136,7 @@ Per continuare, premi Avanti</value>
     <value>Un pacchetto compresso (*.anop) su questo computer</value>
   </data>
   <data name="C_A_embedRad" xml:space="preserve">
-    <value>Un pacchetto incorporato in questo installatore</value>
+    <value>Un pacchetto incluso in questo programma di installazione</value>
   </data>
   <data name="C_A_notFileExists" xml:space="preserve">
     <value>Il file "{0}" non esiste</value>
@@ -142,52 +148,52 @@ Per continuare, premi Avanti</value>
     <value>Nome file</value>
   </data>
   <data name="C_A_packRad" xml:space="preserve">
-    <value>Un file di definizione del pacchetto (package.xml) su questo computer</value>
+    <value>Un file di configurazione del pacchetto (package.xml) su questo computer</value>
   </data>
   <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
-    <value>Seleziona un pacchetto incorporato prima di continuare</value>
+    <value>Seleziona uno dei pacchetti inclusi prima di continuare</value>
   </data>
   <data name="C_A_Subtitle" xml:space="preserve">
-    <value>Il pacchetto da installare può essere sia nel filesystem di questo computer o incorporato nell'installatore</value>
+    <value>Il pacchetto da installare può essere sia nel filesystem di questo computer o incluso nel programma di installazione</value>
   </data>
   <data name="C_A_Title" xml:space="preserve">
     <value>Seleziona un pacchetto da installare</value>
   </data>
   <data name="C_B_conditionError" xml:space="preserve">
-    <value>Si è verificato un errorenel tentativo di valutare la compatibilità del pacchetto con questo computer. Contattare l'autore del pacchetto.</value>
+    <value>Si è verificato un errore nel tentativo di valutare la compatibilità del programma con questo computer. Contattare l'autore del programma.</value>
   </data>
   <data name="C_B_error" xml:space="preserve">
-    <value>Si è verificato un errore nel tentativo di estrarre il pacchetto</value>
+    <value>Si è verificato un errore nel tentativo di estrarre il programma</value>
   </data>
   <data name="C_B_error_Cus" xml:space="preserve">
     <value>Si è verificato un errore nel tentativo di estrarre {0}</value>
   </data>
   <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
-    <value>Il pacchetto compresso specificato non contiene un file di definizioni del pacchetto.</value>
+    <value>Il pacchetto compresso specificato non contiene un file di configurazione del pacchetto.</value>
   </data>
   <data name="C_B_instantiating" xml:space="preserve">
-    <value>Allocazione Pacchetto</value>
+    <value>Allocazione pacchetto</value>
   </data>
   <data name="C_B_statusLbl" xml:space="preserve">
     <value>Preparazione...</value>
   </data>
   <data name="C_B_Subtitle" xml:space="preserve">
-    <value>Attendi mentre l'installatore prepara il pacchetto per l'installazione</value>
+    <value>Attendi mentre il programma di installazione prepara il pacchetto per l'installazione</value>
   </data>
   <data name="C_B_Subtitle_Cus" xml:space="preserve">
-    <value>Attendi mentre l'installatore prepara {0} per l'installazione</value>
+    <value>Attendi mentre il programma di installazione prepara {0} per l'installazione</value>
   </data>
   <data name="C_B_Title" xml:space="preserve">
-    <value>Sto preparando il Pacchetto</value>
+    <value>Sto preparando il programma</value>
   </data>
   <data name="C_B_Title_Cus" xml:space="preserve">
     <value>Sto preparando {0}</value>
   </data>
   <data name="C_C_downloadInfo" xml:space="preserve">
-    <value>Visita Sito del Pacchetto</value>
+    <value>Visita la pagina web del programma</value>
   </data>
   <data name="C_C_downloadInfo_Cus" xml:space="preserve">
-    <value>Visita Sito di {0} </value>
+    <value>Visita la pagina web di {0} </value>
   </data>
   <data name="C_C_downloadNo" xml:space="preserve">
     <value>No</value>
@@ -196,10 +202,10 @@ Per continuare, premi Avanti</value>
     <value>{0}% - {1}KB di {2}KB scaricati a {3}KBps</value>
   </data>
   <data name="C_C_downloadYes" xml:space="preserve">
-    <value>Si</value>
+    <value>Sì</value>
   </data>
   <data name="C_C_infoChecking" xml:space="preserve">
-    <value>Ricerca di aggiornamenti del Pacchetto</value>
+    <value>Ricerca di aggiornamenti del programma</value>
   </data>
   <data name="C_C_infoFailed" xml:space="preserve">
     <value>Ricerca di aggiornamenti fallita: impossibile scaricare informazioni sull'aggiornamento</value>
@@ -208,10 +214,10 @@ Per continuare, premi Avanti</value>
     <value>E' disponibile una versione aggiornata ({0}) di questo pacchetto. Desideri scaricarla adesso?</value>
   </data>
   <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
-    <value>E' disponibile una versione aggiornata ({0}) di questo pacchetto, tuttavia è necessario scaricarla manualmente. Clicca Visita Sito del Pacchetto per maggiori informazioni.</value>
+    <value>E' disponibile una versione aggiornata ({0}) di questo pacchetto, tuttavia è necessario scaricarla manualmente. Clicca Visita la pagina web del programma per maggiori informazioni.</value>
   </data>
   <data name="C_C_infoUpdateLatest" xml:space="preserve">
-    <value>Disponi dell'ultima versione ({0}) di questo pacchetto.</value>
+    <value>Disponi dell'ultima versione ({0}) di questo programma.</value>
   </data>
   <data name="C_C_sfdTitle" xml:space="preserve">
     <value>Salva il pacchetto scaricato in...</value>
@@ -226,22 +232,22 @@ Per continuare, premi Avanti</value>
     <value>Il pacchetto potrebbe essere stato aggiornato da quando l'hai ottenuto. Ricerca di aggiornamenti in corso...</value>
   </data>
   <data name="C_C_Title" xml:space="preserve">
-    <value>Ricerca di aggiornamenti del Pacchetto</value>
+    <value>Ricerca di aggiornamenti del programma</value>
   </data>
   <data name="C_D_installerNotes" xml:space="preserve">
-    <value>Leggimi dell'Installatore Anolis</value>
+    <value>File Leggimi del programma di installazione Anolis</value>
   </data>
   <data name="C_D_packageNotes" xml:space="preserve">
-    <value>{0} Note di Rilascio del Pacchetto</value>
+    <value>{0} Note di rilascio del programma</value>
   </data>
   <data name="C_D_Subtitle" xml:space="preserve">
-    <value>Rivedi le note di rilascio dell'autore del pacchetto</value>
+    <value>Rivedi le note di rilascio dell'autore del programma</value>
   </data>
   <data name="C_D_Subtitle_Cus" xml:space="preserve">
     <value>Rivedi le note di rilascio di {0}</value>
   </data>
   <data name="C_D_Title" xml:space="preserve">
-    <value>Note di Rilascio del Pacchetto</value>
+    <value>Note di rilascio del programma</value>
   </data>
   <data name="C_E_Disabled" xml:space="preserve">
     <value>Disabilitato</value>
@@ -259,7 +265,7 @@ Per continuare, premi Avanti</value>
     <value>L'oggetto selezionato '{0}' non ha associata alcuna informazione</value>
   </data>
   <data name="C_E_NullItem" xml:space="preserve">
-    <value>Oggetto Nullo</value>
+    <value>Oggetto nullo</value>
   </data>
   <data name="C_E_simple" xml:space="preserve">
     <value>Semplice</value>
@@ -268,13 +274,13 @@ Per continuare, premi Avanti</value>
     <value>Puoi scegliere se installare o meno i componenti di questo pacchetto</value>
   </data>
   <data name="C_E_Title" xml:space="preserve">
-    <value>Modifica Pacchetto</value>
+    <value>Modifica il programma</value>
   </data>
   <data name="C_E_Unnamed" xml:space="preserve">
-    <value>Senza Nome</value>
+    <value>Senza nome</value>
   </data>
   <data name="C_E_UnnamedGroup" xml:space="preserve">
-    <value>Gruppo Senza Nome</value>
+    <value>Gruppo senza nome</value>
   </data>
   <data name="C_E1_advanced" xml:space="preserve">
     <value>Avanzate</value>
@@ -286,7 +292,7 @@ Per continuare, premi Avanti</value>
     <value>Personalizzato</value>
   </data>
   <data name="C_E1_logonLbl" xml:space="preserve">
-    <value>Schermata di Benvenuto</value>
+    <value>Schermata di benvenuto</value>
   </data>
   <data name="C_E1_logonPreview" xml:space="preserve">
     <value>Anteprima</value>
@@ -295,7 +301,7 @@ Per continuare, premi Avanti</value>
     <value>Schemi preconfigurati</value>
   </data>
   <data name="C_E1_previewLbl" xml:space="preserve">
-    <value>Area di Anteprima</value>
+    <value>Area di anteprima</value>
   </data>
   <data name="C_E1_Subtitle" xml:space="preserve">
     <value>Puoi personalizzare l'aspetto che avrà il tuo computer dopo l'installazione</value>
@@ -304,22 +310,22 @@ Per continuare, premi Avanti</value>
     <value>Seleziona le opzioni del tema</value>
   </data>
   <data name="C_E1_visualStylesLbl" xml:space="preserve">
-    <value>Stile di Visualizzazione</value>
+    <value>Modalità di visualizzazione</value>
   </data>
   <data name="C_E1_wallpaperLbl" xml:space="preserve">
     <value>Sfondo</value>
   </data>
   <data name="C_F_advanced" xml:space="preserve">
-    <value>Opzioni Avanzate...</value>
+    <value>Opzioni avanzate...</value>
   </data>
   <data name="C_F_backup" xml:space="preserve">
-    <value>Crea una cartella di backup per la disinstallazione (Consigliato)</value>
+    <value>Crea una cartella di Backup per la disinstallazione (Consigliato)</value>
   </data>
   <data name="C_F_backupBrowse" xml:space="preserve">
     <value>Sfoglia...</value>
   </data>
   <data name="C_F_backupDesc" xml:space="preserve">
-    <value>E' necessario creare una cartella di backup se mai vorrai disinstallare questo pacchetto in futuro</value>
+    <value>E' necessario creare una cartella di backup per disinstallare questo pacchetto in futuro</value>
   </data>
   <data name="C_F_comp" xml:space="preserve">
     <value>Installa su questo Computer</value>
@@ -337,7 +343,7 @@ Per continuare, premi Avanti</value>
     <value>Installa</value>
   </data>
   <data name="C_F_pathExistsBackup" xml:space="preserve">
-    <value>La cartella di backup specificata già esiste e contiene file. I backup devono essere fatti o in una cartella vuota o in una cartella che non è ancora stata creata.</value>
+    <value>La cartella di Backup specificata esiste già e contiene file. I backup devono essere fatti o in una cartella vuota o in una cartella che non è ancora stata creata.</value>
   </data>
   <data name="C_F_pathInvalidBackup" xml:space="preserve">
     <value>Il percorso di backup specificato non è valido</value>
@@ -348,29 +354,38 @@ Per continuare, premi Avanti</value>
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>Seleziona una cartella di Backup ed altre opzioni</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>Crea un punto di ripristino del sistema (Consigliato)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>Un livello di sicurezza in più. Si avvisa comunque che questo non sempre protegge da modifiche fatte a dei file non di sistema nella cartella Programmi</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
-    <value>Opzioni di Installazione</value>
+    <value>Opzioni di installazione</value>
+  </data>
+  <data name="C_F2_feedback" xml:space="preserve">
+    <value>Invio di informazioni relative all'installazione</value>
+  </data>
+  <data name="C_F2_feedbackDesc" xml:space="preserve">
+    <value>Dettagli anonimi di questa installazione (come il sistema operativo, la lingua e qualunque errore) verranno inviati allo sviluppatore del programma per migliorare in futuro il programma</value>
+  </data>
+  <data name="C_F2_lite" xml:space="preserve">
+    <value>Installazione "Lite" per le versioni di Windows non in lingua inglese</value>
   </data>
   <data name="C_F2_liteDesc" xml:space="preserve">
     <value>Se le icone di dimensione 128x128 (e più grandi) sono installate su versioni non inglesi di Windows alcuni file di sistema potrebbero non comportarsi come previsto e potrebbero causare problemi di compatibilità con alcuni programmi. Selezionando questa opzione si previene l'installazione delle icone grandi 128x128.</value>
   </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>Crea un punto di ripristino del sistema (Consigliato)</value>
+  </data>
   <data name="C_F2_restoreDesc" xml:space="preserve">
-    <value>Ripristino Configurazione di Sistema è un livello aggiunto di protezione per la disinstallazione. Tenere presente che però questo non sempre protegge da modifiche applicate a file non di Windows nella cartella Programmi.</value>
+    <value>Ripristino Configurazione di Sistema è un livello aggiuntivo di protezione per la disinstallazione. Tenere presente che questo non sempre protegge da modifiche applicate a file non di Windows nella cartella Programmi.</value>
   </data>
   <data name="C_F2_RestoreDescNA" xml:space="preserve">
     <value>Ripristino Configurazione di Sistema non è disponibile sul tuo sistema e non può essere abilitato per questa installazione.</value>
   </data>
   <data name="C_F2_Title" xml:space="preserve">
-    <value>Opzioni di Installazione Avanzate</value>
+    <value>Opzioni di installazione avanzate</value>
   </data>
   <data name="C_G_cleanup" xml:space="preserve">
-    <value>Pulizia Post-Installazione</value>
+    <value>Pulizia post-installazione</value>
   </data>
   <data name="C_G_status" xml:space="preserve">
     <value>Completato al {0}% - {1}</value>
@@ -385,7 +400,10 @@ Per continuare, premi Avanti</value>
     <value>{0} è in fase di installazione</value>
   </data>
   <data name="C_G_Title" xml:space="preserve">
-    <value>Installazione del Pacchetto</value>
+    <value>Installazione del programma</value>
+  </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>Sto installando {0}</value>
   </data>
   <data name="D_A_destBrowse" xml:space="preserve">
     <value>Sfoglia....</value>
@@ -394,7 +412,7 @@ Per continuare, premi Avanti</value>
     <value>Cartella di destinazione</value>
   </data>
   <data name="D_A_progGroup" xml:space="preserve">
-    <value>Crea un gruppo di programmi Anolis nel Menu Start</value>
+    <value>Crea un gruppo di programmi Anolis nel menu Start</value>
   </data>
   <data name="D_A_progGroupAll" xml:space="preserve">
     <value>Per tutti gli utenti</value>
@@ -406,7 +424,7 @@ Per continuare, premi Avanti</value>
     <value>Seleziona una cartella dove mettere gli strumenti scaricati e imposta altre opzioni</value>
   </data>
   <data name="D_A_Title" xml:space="preserve">
-    <value>Cartella di Destinazione ed Opzioni Installazione</value>
+    <value>Cartella di destinazione ed opzioni installazione</value>
   </data>
   <data name="D_A_toolsLbl" xml:space="preserve">
     <value>Gli strumenti scaricabili includono Resourcer, un potente editor di risorse; Packager, usato per creare i file del tuo pacchetto ed installatori personalizzati; e vari altri strumenti incluso un semplice editor di icone.</value>
@@ -432,6 +450,9 @@ Per continuare, premi Avanti</value>
   <data name="E_A_dirLbl" xml:space="preserve">
     <value>Cartella</value>
   </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>Seleziona la cartella di Backup da cui recuperare i file</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>La cartella specificata non contiene un pacchetto di disinstallazione valido</value>
   </data>
@@ -442,10 +463,13 @@ Per continuare, premi Avanti</value>
     <value>Crea un punto di ripristino del sistema (Consigliato)</value>
   </data>
   <data name="E_A_sysResDesc" xml:space="preserve">
-    <value>Un livello di sicurezza in più. Si avvisa comunque che questo non sempre protegge da modifiche fatte a dei file non di sistema nella cartella Programmi</value>
+    <value>Un livello di sicurezza in più. Si avvisa comunque che questo non sempre protegge da modifiche fatte a dei file non di Windows nella cartella Programmi</value>
   </data>
   <data name="E_A_Title" xml:space="preserve">
-    <value>Seleziona una Cartella di Backup</value>
+    <value>Seleziona una cartella di Backup</value>
+  </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>Lingua di disinstallazione</value>
   </data>
   <data name="E_A_uninstallButton" xml:space="preserve">
     <value>Disinstalla</value>
@@ -457,7 +481,7 @@ Per continuare, premi Avanti</value>
     <value>Sto disinstallando {0}...</value>
   </data>
   <data name="E_B_Title" xml:space="preserve">
-    <value>Disinstallazione del pacchetto</value>
+    <value>Disinstallazione del programma</value>
   </data>
   <data name="F_aborted" xml:space="preserve">
     <value>Installazione annullata</value>
@@ -483,7 +507,10 @@ Chiudere tutte le applicazioni aperte prima di continuare. Non cercare di aprire
     <value>Riavvia</value>
   </data>
   <data name="F_title" xml:space="preserve">
-    <value>Installazione Completata</value>
+    <value>Installazione completata</value>
+  </data>
+  <data name="F_TitleUninstall" xml:space="preserve">
+    <value>Disinstallazione completata</value>
   </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
     <value>La disinstallazione è stata completata con successo.</value>
@@ -497,10 +524,10 @@ Chiudere tutte le applicazioni aperte prima di continuare. Non cercare di aprire
     <value>Riavvio del computer in corso...</value>
   </data>
   <data name="G_Title" xml:space="preserve">
-    <value>Attendere Prego...</value>
+    <value>Attendere prego...</value>
   </data>
   <data name="Lang_Attribution" xml:space="preserve">
-    <value>Tradotto da Smiley89</value>
+    <value>Tradotto da GiGiSSiMo</value>
   </data>
   <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Flags\it.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -518,7 +545,7 @@ Chiudere tutte le applicazioni aperte prima di continuare. Non cercare di aprire
     <value>Annulla</value>
   </data>
   <data name="Wiz_CancelConfirm" xml:space="preserve">
-    <value>Siete sicuri di voler annullare l'installazione?</value>
+    <value>Sei sicuro di voler annullare l'installazione?</value>
   </data>
   <data name="Wiz_Defaults" xml:space="preserve">
     <value>Predefiniti</value>
@@ -533,12 +560,12 @@ Chiudere tutte le applicazioni aperte prima di continuare. Non cercare di aprire
     <value>Indietro</value>
   </data>
   <data name="X_Bootscreen" xml:space="preserve">
-    <value>Schermata di Boot</value>
+    <value>Schermata di avvio</value>
   </data>
   <data name="X_CursorScheme" xml:space="preserve">
-    <value>Cursori del Mouse</value>
+    <value>Puntatori del mouse</value>
   </data>
   <data name="X_Screensaver" xml:space="preserve">
-    <value>Screensaver</value>
+    <value>Salvaschermo</value>
   </data>
 </root>

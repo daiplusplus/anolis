@@ -95,8 +95,14 @@ namespace Anolis.Core.Utility {
 				
 				indent++;
 			}
-			
 		}
+		
+		public void Write(StringBuilder sb) {
+			
+			StringWriter wtr = new StringWriter(sb);
+			Write( wtr );
+		}
+		
 	}
 	
 	public enum LogSeverity {

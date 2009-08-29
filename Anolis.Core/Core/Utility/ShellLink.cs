@@ -176,24 +176,6 @@ namespace Anolis.Core.Utility {
 			SLGP_UNCPRIORITY = 2
 		}
 		
-		[Flags]
-		private enum EShowWindowFlags : uint {
-			SW_HIDE = 0,
-			SW_SHOWNORMAL = 1,
-			SW_NORMAL = 1,
-			SW_SHOWMINIMIZED = 2,
-			SW_SHOWMAXIMIZED = 3,
-			SW_MAXIMIZE = 3,
-			SW_SHOWNOACTIVATE = 4,
-			SW_SHOW = 5,
-			SW_MINIMIZE = 6,
-			SW_SHOWMINNOACTIVE = 7,
-			SW_SHOWNA = 8,
-			SW_RESTORE = 9,
-			SW_SHOWDEFAULT = 10,
-			SW_MAX = 10
-		}
-		
 		[StructLayoutAttribute(LayoutKind.Sequential, Pack = 4, Size = 0, CharSet = CharSet.Unicode)]
 		private struct _WIN32_FIND_DATAW {
 			public uint dwFileAttributes;
@@ -230,14 +212,6 @@ namespace Anolis.Core.Utility {
 		private struct _FILETIME {
 			public uint dwLowDateTime;
 			public uint dwHighDateTime;
-		}
-		
-		private class UnManagedMethods {
-			[DllImport("Shell32", CharSet = CharSet.Auto)]
-			internal extern static int ExtractIconEx([MarshalAs(UnmanagedType.LPTStr)] string lpszFile, int nIconIndex, IntPtr[] phIconLarge, IntPtr[] phIconSmall, int nIcons);
-			
-			[DllImport("user32")]
-			internal static extern int DestroyIcon(IntPtr hIcon);
 		}
 		
 		/// <summary>Flags determining how the links with missing targets are resolved.</summary>
@@ -280,18 +254,27 @@ namespace Anolis.Core.Utility {
 			SLR_UPDATE = 0x4
 		}
 		
-		public enum LinkDisplayMode : uint {
-			edmNormal = EShowWindowFlags.SW_NORMAL,
-			edmMinimized = EShowWindowFlags.SW_SHOWMINNOACTIVE,
-			edmMaximized = EShowWindowFlags.SW_MAXIMIZE
-		}
-		
 		// Use Unicode (W) under NT, otherwise use ANSI		
 		private IShellLinkW linkW;
 		private IShellLinkA linkA;
 		private string shortcutFile = "";
 		
 #endregion
+		
+		[Flags]
+		public enum WindowMode : uint {
+			Hide           = 0,
+			Normal         = 1,
+			Minimized      = 2,
+			Maximized      = 3,
+			ShowNoActivate = 4,
+			Show           = 5,
+			Minimize       = 6,
+			ShowMinimizedNoActivate = 7,
+			ShowNA         = 8,
+			Restore        = 9,
+			ShowDefault    = 10
+		}
 		
 		/// <summary>Creates an instance of the Shell Link object.</summary>
 		public ShellLink() {
@@ -469,7 +452,7 @@ namespace Anolis.Core.Utility {
 		}
 		
 		/// <summary>Gets/sets the initial display mode when the shortcut is run</summary>
-		public LinkDisplayMode DisplayMode {
+		public WindowMode DisplayMode {
 			get {
 				uint cmd = 0;
 				if(linkA == null) {
@@ -477,7 +460,7 @@ namespace Anolis.Core.Utility {
 				} else {
 					linkA.GetShowCmd(out cmd);
 				}
-				return (LinkDisplayMode)cmd;
+				return (WindowMode)cmd;
 			}
 			set {
 				if(linkA == null) {

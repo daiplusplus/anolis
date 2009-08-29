@@ -20,7 +20,7 @@ namespace Anolis.Core.Data {
 		/// <summary>Returns null if unsuccessful. Wrap all exceptions in ResourceDataException.</summary>
 		public abstract ResourceData FromResource(ResourceLang lang, Byte[] data);
 		
-		public abstract ResourceData FromFileToAdd   (Stream stream, String extension, UInt16 lang, ResourceSource currentSource);
+		public abstract ResourceData FromFileToAdd   (Stream stream, String extension, UInt16 langId, ResourceSource currentSource);
 		public abstract ResourceData FromFileToUpdate(Stream stream, String extension, ResourceLang currentLang);
 		
 		/// <summary>Gets the (human-readable) message as to why the previously loaded resource could not be loaded.</summary>
@@ -42,7 +42,7 @@ namespace Anolis.Core.Data {
 			return data;
 		}
 		
-		protected static Boolean IsExtension(String extension, params String[] extensions) {
+		protected internal static Boolean IsExtension(String extension, params String[] extensions) {
 			
 			if( extension.StartsWith(".", StringComparison.Ordinal) ) extension = extension.Substring(1);
 			

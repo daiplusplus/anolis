@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using Anolis.Core;
 using Anolis.Core.Data;
 
-using VersionItem = Anolis.Core.Data.VersionResourceData.VersionItem;
 using StringDict = System.Collections.Generic.Dictionary<string,string>;
 
 namespace Anolis.Resourcer.TypeViewers {
@@ -80,7 +79,7 @@ namespace Anolis.Resourcer.TypeViewers {
 			
 			__versionItems.Nodes.Add( ffi );
 			
-			foreach(VersionResourceData.VersionItem child in vd.VSVersionInfo.Children) {
+			foreach(VersionItem child in vd.VSVersionInfo.Children) {
 				
 				AddNode( __versionItems.Nodes, child );
 			}

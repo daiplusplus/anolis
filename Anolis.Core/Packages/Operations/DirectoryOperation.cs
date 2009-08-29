@@ -51,7 +51,14 @@ namespace Anolis.Core.Packages.Operations {
 				
 				case FileOperationType.Delete:
 					
-					Directory.Delete( Path, true );
+					DirectoryInfo dirToDelete = new DirectoryInfo( Path );
+					if( !dirToDelete.Exists ) {
+						Package.Log.Add( LogSeverity.Error, "Could not find directory to delete: " + Path );
+						return;
+					}
+					
+					//Directory.Delete( Path, true );
+					PackageUtility.AddPfroEntry( dirToDelete );
 					
 					break;
 					

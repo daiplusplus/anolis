@@ -40,11 +40,11 @@ namespace Anolis.Core.Data {
 		}
 		
 		/// <summary>When this directory is removed from the ResourceSource it will ensure all child (member) directory members are removed with it</summary>
-		protected internal override void OnRemove(Boolean underlyingDelete, RemoveFunction removeFunction) {
+		protected internal override void OnRemove(Boolean underlyingDelete, RemoveFunction deleteFunction) {
 			
 			foreach(IDirectoryMember member in Members) {
 				
-				removeFunction( member.ResourceData.Lang );
+				deleteFunction( member.ResourceData.Lang );
 			}
 			
 		}

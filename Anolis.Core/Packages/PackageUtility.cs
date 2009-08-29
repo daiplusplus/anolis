@@ -1,17 +1,20 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Security.AccessControl;
 using System.Security.Principal;
 using System.Text;
-
-using Anolis.Core.Native;
 using Microsoft.Win32;
 
+using Anolis.Core.Native;
+
+using MoveFileFlags = Anolis.Core.Native.NativeMethods.MoveFileFlags;
 using Path          = System.IO.Path;
 using Stream        = System.IO.Stream;
-using MoveFileFlags = Anolis.Core.Native.NativeMethods.MoveFileFlags;
+using Miscellaneous = Anolis.Core.Utility.Miscellaneous;
 
 namespace Anolis.Core.Packages {
 	
@@ -86,6 +89,65 @@ namespace Anolis.Core.Packages {
 			
 		}
 		
+		public static Boolean HasPendingRestart() {
+			
+			if( HasPendingRenames() ) return true;
+			
+			if( HasPendingWURestart() ) return true;
+			
+			return false;
+		}
+		
+		private static Boolean HasPendingRenames() {
+			
+			RegistryKey sessionManager = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Session Manager", false);
+			if( sessionManager == null ) return false;
+			
+			String[] names = sessionManager.GetValueNames();
+			Boolean hasEntry = false;
+			foreach(String valueName in names) {
+				
+				if( String.Equals(valueName, "PendingFileRenameOperations", StringComparison.OrdinalIgnoreCase ) ) hasEntry = true;
+			}
+			
+			if( !hasEntry ) {
+				sessionManager.Close();
+				return false;
+			}
+			
+			RegistryValueKind kind = sessionManager.GetValueKind("PendingFileRenameOperations");
+			if( kind != RegistryValueKind.MultiString ) {
+				
+				sessionManager.Close();
+				return false;
+			}
+			
+			String[] pfro = (String[])sessionManager.GetValue("PendingFileRenameOperations", null);
+			if( pfro.Length == 0 ) {
+				
+				sessionManager.Close();
+				return false;
+			}
+			
+			sessionManager.Close();
+			return true;
+			
+		}
+		
+		private static Boolean HasPendingWURestart() {
+			
+			RegistryKey autoUpdateKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update");
+			if( autoUpdateKey == null ) return false;
+			
+			String[] subkeyNames = autoUpdateKey.GetSubKeyNames();
+			foreach(String subkeyName in subkeyNames) {
+				
+				if( String.Equals(subkeyName, "RebootRequired", StringComparison.OrdinalIgnoreCase ) ) return true;
+			}
+			
+			return false;
+		}
+		
 		public static void AddPfroEntry(String fromFileName, String toFileName) {
 			
 			if( !NativeMethods.MoveFileEx( fromFileName, toFileName, MoveFileFlags.DelayUntilReboot | MoveFileFlags.ReplaceExisting ) ) {
@@ -93,6 +155,29 @@ namespace Anolis.Core.Packages {
 				throw new PackageException("MoveFileEx failed: " + NativeMethods.GetLastErrorString() );
 			}
 			
+		}
+		
+		public static void AddPfroEntry(DirectoryInfo directoryToDelete) {
+			
+			// do a DFS with the files deleted before the directory, as is required by MoveFileEx
+			
+			foreach(DirectoryInfo child in directoryToDelete.GetDirectories()) {
+				
+				AddPfroEntry( child );
+			}
+			
+			// then delete all the files
+			
+			foreach(FileInfo file in directoryToDelete.GetFiles()) {
+				
+				AddPfroEntry( file.FullName, null );
+			}
+			
+			// then the directory itself
+			
+			AddPfroEntry( directoryToDelete.FullName, null );
+			
+			// then recurse back (i.e. return)
 		}
 		
 		public static void InitRestart() {
@@ -178,7 +263,7 @@ namespace Anolis.Core.Packages {
 				
 				String relativePath = fileName.Substring( _resolvedSystem32Path.Length );
 				
-				if( relativePath.StartsWith("\\") ) relativePath = relativePath.Substring(1);
+				if( relativePath.StartsWith("\\", StringComparison.OrdinalIgnoreCase) ) relativePath = relativePath.Substring(1);
 				
 				fileName = Path.Combine( _resolvedSysWow64Path, relativePath );
 				
@@ -275,21 +360,6 @@ namespace Anolis.Core.Packages {
 			AddPfroEntry( iconCacheFile, null );
 		}
 		
-		public static UInt16 GetSystemInstallLanguage() {
-			
-			return NativeMethods.GetSystemDefaultUILanguage();
-		}
-		
-		public static UInt16 GetSystemInstallPriLanguage() {
-			
-			UInt16 lang = NativeMethods.GetSystemDefaultUILanguage();
-			
-			// based on the PRIMARYLANGID macro
-			lang = (ushort)( (ushort)lang & (ushort)0x3FF );
-			
-			return lang;
-		}
-		
 		/// <summary>If the specified file exists it will be renamed to the next available name by adding an incrementing number to the end of it. Returns null if the file does not exist.</summary>
 		public static String ReplaceFile(String path) {
 			
@@ -320,7 +390,7 @@ namespace Anolis.Core.Packages {
 			if( !File.Exists( suspectPath ) ) return suspectPath;
 			
 			String dir = Path.GetDirectoryName( suspectPath ),
-			       nom = Path.GetFileName( suspectPath ),
+			       nom = Path.GetFileNameWithoutExtension( suspectPath ),
 			       ext = Path.GetExtension( suspectPath );
 			
 			Int32 i = 1;
@@ -470,6 +540,22 @@ namespace Anolis.Core.Packages {
 			aclSec.RemoveAccessRule( new FileSystemAccessRule( builtinAdministratorsGroupSid, FileSystemRights.FullControl, AccessControlType.Allow ) );
 			file.SetAccessControl( aclSec );
 			
+		}
+		
+		private static readonly String RegPath = PackageUtility.ResolvePath( @"%windir%\system32\reg.exe" );
+		
+		public static void RegistryExport(String keyName, String fileName) {
+			
+			String args = String.Format(CultureInfo.InvariantCulture, "EXPORT \"{0}\" \"{1}\" /y", keyName, fileName );
+			
+			Miscellaneous.RunProcHiddenSync( RegPath, args, 2000 );
+		}
+		
+		public static void RegistryImport(String fileName) {
+			
+			String args = String.Format(CultureInfo.InvariantCulture, "IMPORT \"{0}\"", fileName );
+			
+			Miscellaneous.RunProcHiddenSync( RegPath, args, 2000 );
 		}
 		
 	}

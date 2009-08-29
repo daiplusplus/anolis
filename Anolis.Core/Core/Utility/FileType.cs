@@ -63,7 +63,7 @@ namespace Anolis.Core.Utility {
 		
 		public FileExtension GetExtension(String extension) {
 			
-			if( !extension.StartsWith(".") ) return null;
+			if( !extension.StartsWith(".", StringComparison.OrdinalIgnoreCase) ) return null;
 			
 //			Int32 idx = Array.BinarySearch( AllExtensions, extension, _extComp );
 //			if( idx < 0 ) return null;
@@ -152,7 +152,7 @@ namespace Anolis.Core.Utility {
 		
 		public String GetUnusedProgIdForExtension(String extension) {
 			
-			if( extension.StartsWith(".") ) extension = extension.Substring(1);
+			if( extension.StartsWith(".", StringComparison.OrdinalIgnoreCase) ) extension = extension.Substring(1);
 			
 			String origProgId = extension + "file";
 			String progId = origProgId;
@@ -383,7 +383,7 @@ namespace Anolis.Core.Utility {
 		
 		public Int32 CompareTo(FileType other) {
 			
-			return this.ProgId.CompareTo( other.ProgId );
+			return String.Compare( ProgId, other.ProgId, StringComparison.OrdinalIgnoreCase );
 		}
 		
 	}
@@ -490,7 +490,7 @@ namespace Anolis.Core.Utility {
 		
 		public Int32 CompareTo(FileExtension other) {
 			
-			return this.Extension.CompareTo( other.Extension );
+			return String.Compare( Extension, other.Extension, StringComparison.OrdinalIgnoreCase );
 		}
 		
 	}

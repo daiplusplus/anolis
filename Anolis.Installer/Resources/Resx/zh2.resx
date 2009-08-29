@@ -59,8 +59,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="A_cultureLbl" xml:space="preserve">
+    <value>安装语言</value>
+  </data>
+  <data name="A_DeletingTemporaryFiles" xml:space="preserve">
+    <value>正在删除临时文件</value>
+  </data>
+  <data name="A_DisableAV" xml:space="preserve">
+    <value>若要继续, 请先禁用 Windows Defender 或任何其它反病毒程序, 因为它们会减慢安装过程.</value>
+  </data>
   <data name="A_notes" xml:space="preserve">
-    <value>当前向导将会帮助您完成安装整个 Anolis 封包的步骤
+    <value>当前向导将会帮助您完成安装整个 Anolis 封包的过程.
 
 若要继续, 请按 [下一步]</value>
   </data>
@@ -69,6 +78,12 @@
 
 若要继续, 请按 [下一步]</value>
   </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>Anolis 安装程序检测到您之前的更改需在重启计算机后才能生效. 您只能在此之后再次运行 Anolis 安装程序.</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>{0} 安装程序检测到您之前的更改需在重启计算机后才能生效. 您只能在此之后再次运行 {0}.</value>
+  </data>
   <data name="A_title" xml:space="preserve">
     <value>欢迎使用 Anolis 封包安装程序</value>
   </data>
@@ -76,10 +91,10 @@
     <value>欢迎使用 {0}</value>
   </data>
   <data name="B_installBlurb" xml:space="preserve">
-    <value>安装内嵌于程序或存储于当前计算机其它位置的封包. 此封包亦可安装至 Windows XP 安装程序的 i386 文件夹.</value>
+    <value>安装内嵌于程序或存储于当前计算机其它位置的封包. 此封包亦可安装至 Windows 的安装 CD (i386).</value>
   </data>
   <data name="B_installBlurb_Cus" xml:space="preserve">
-    <value>安装 {0} 至当前计算机或者 Windows XP 安装程序的 i386 文件夹.</value>
+    <value>安装 {0} 至当前计算机或者安装至 Windows 的安装 CD (i386).</value>
   </data>
   <data name="B_installRad" xml:space="preserve">
     <value>安装封包</value>
@@ -103,7 +118,7 @@
     <value>创建自己的封包或安装程序</value>
   </data>
   <data name="B_uninstallBlurb" xml:space="preserve">
-    <value>为了能够还原文件至安装封包前的状态, 您必须要选择一个备份目录</value>
+    <value>为了能够还原文件至更改前的状态, 您必须在安装过程中选择一个备份目录</value>
   </data>
   <data name="B_uninstallRad" xml:space="preserve">
     <value>撤销由于安装封包导致的变更</value>
@@ -123,6 +138,9 @@
   <data name="C_A_embedRad" xml:space="preserve">
     <value>内嵌于安装程序中的封包</value>
   </data>
+  <data name="C_A_notFileExists" xml:space="preserve">
+    <value>文件 "{0}" 不存在</value>
+  </data>
   <data name="C_A_packBrowse" xml:space="preserve">
     <value>浏览...</value>
   </data>
@@ -132,11 +150,17 @@
   <data name="C_A_packRad" xml:space="preserve">
     <value>当前计算机中的封包定义文件 (package.xml)</value>
   </data>
+  <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
+    <value>若要继续, 选择一个内嵌的封包</value>
+  </data>
   <data name="C_A_Subtitle" xml:space="preserve">
     <value>需要安装的封包既可以是存储于当前计算机文件系统中的, 亦可以是内嵌于安装程序中的</value>
   </data>
   <data name="C_A_Title" xml:space="preserve">
-    <value>选择封包并安装</value>
+    <value>选择一个封包并安装</value>
+  </data>
+  <data name="C_B_conditionError" xml:space="preserve">
+    <value>评估封包与您计算机的兼容性时遇到错误. 请联系封包的作者.</value>
   </data>
   <data name="C_B_error" xml:space="preserve">
     <value>尝试解压封包时遇到错误</value>
@@ -148,7 +172,7 @@
     <value>指定的封包并不包含定义文件.</value>
   </data>
   <data name="C_B_instantiating" xml:space="preserve">
-    <value>封包说明</value>
+    <value>初始化封包</value>
   </data>
   <data name="C_B_statusLbl" xml:space="preserve">
     <value>准备中...</value>
@@ -166,10 +190,10 @@
     <value>准备 {0} 中</value>
   </data>
   <data name="C_C_downloadInfo" xml:space="preserve">
-    <value>访问封包的网页</value>
+    <value>访问作者站点</value>
   </data>
   <data name="C_C_downloadInfo_Cus" xml:space="preserve">
-    <value>访问 {0} 的网页</value>
+    <value>访问作 {0} 站点</value>
   </data>
   <data name="C_C_downloadNo" xml:space="preserve">
     <value>否</value>
@@ -194,6 +218,9 @@
   </data>
   <data name="C_C_infoUpdateLatest" xml:space="preserve">
     <value>您已拥有最新版本的 {0}.</value>
+  </data>
+  <data name="C_C_sfdTitle" xml:space="preserve">
+    <value>保存下载的封包至...</value>
   </data>
   <data name="C_C_skipCheckLbl" xml:space="preserve">
     <value>您可以随时按 [下一步] 按钮以跳过更新.</value>
@@ -222,17 +249,77 @@
   <data name="C_D_Title" xml:space="preserve">
     <value>封包发行说明</value>
   </data>
+  <data name="C_E_Disabled" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="C_E_Enabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="C_E_Explicit" xml:space="preserve">
+    <value>明确</value>
+  </data>
+  <data name="C_E_Inherit" xml:space="preserve">
+    <value>继承</value>
+  </data>
   <data name="C_E_noInfo" xml:space="preserve">
-    <value>所选项目 {0} 没有任何与之相关的信息</value>
+    <value>所选项目 '{0}' 没有任何与之相关的信息</value>
+  </data>
+  <data name="C_E_NullItem" xml:space="preserve">
+    <value>空项目</value>
+  </data>
+  <data name="C_E_simple" xml:space="preserve">
+    <value>简单</value>
   </data>
   <data name="C_E_Subtitle" xml:space="preserve">
-    <value>您可以选择是否安装封包内的组件</value>
+    <value>您可以选择是否安装封包内的各个组件</value>
   </data>
   <data name="C_E_Title" xml:space="preserve">
     <value>修改封包</value>
   </data>
+  <data name="C_E_Unnamed" xml:space="preserve">
+    <value>未命名</value>
+  </data>
+  <data name="C_E_UnnamedGroup" xml:space="preserve">
+    <value>未命名组</value>
+  </data>
+  <data name="C_E1_advanced" xml:space="preserve">
+    <value>高级</value>
+  </data>
+  <data name="C_E1_bitmapsLbl" xml:space="preserve">
+    <value>位图</value>
+  </data>
+  <data name="C_E1_Custom" xml:space="preserve">
+    <value>定制</value>
+  </data>
+  <data name="C_E1_logonLbl" xml:space="preserve">
+    <value>欢迎界面</value>
+  </data>
+  <data name="C_E1_logonPreview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="C_E1_Presets" xml:space="preserve">
+    <value>预设主题</value>
+  </data>
+  <data name="C_E1_previewLbl" xml:space="preserve">
+    <value>预览区域</value>
+  </data>
+  <data name="C_E1_Subtitle" xml:space="preserve">
+    <value>您可以定制安装结束后的电脑界面</value>
+  </data>
+  <data name="C_E1_Title" xml:space="preserve">
+    <value>选择主题项</value>
+  </data>
+  <data name="C_E1_visualStylesLbl" xml:space="preserve">
+    <value>视觉效果</value>
+  </data>
+  <data name="C_E1_wallpaperLbl" xml:space="preserve">
+    <value>壁纸</value>
+  </data>
+  <data name="C_F_advanced" xml:space="preserve">
+    <value>高级设定...</value>
+  </data>
   <data name="C_F_backup" xml:space="preserve">
-    <value>创建可供卸载时还原用的备份目录 (建议)</value>
+    <value>创建可供卸载时还原用的备份目录 (建议选择)</value>
   </data>
   <data name="C_F_backupBrowse" xml:space="preserve">
     <value>浏览...</value>
@@ -244,7 +331,7 @@
     <value>安装至当前计算机</value>
   </data>
   <data name="C_F_i386" xml:space="preserve">
-    <value>安装至 Windows XP 安装程序的 i386 文件夹</value>
+    <value>安装至 Windows 的安装 CD (i386)</value>
   </data>
   <data name="C_F_i386Browse" xml:space="preserve">
     <value>浏览...</value>
@@ -262,19 +349,43 @@
     <value>指定的备份路径是无效的</value>
   </data>
   <data name="C_F_pathInvalidI386" xml:space="preserve">
-    <value>指定的 Windows XP 安装程序的 i386 路径是无效的</value>
+    <value>指定的 CD 根目录是无效的</value>
   </data>
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>选择一个备份目录和其它选项</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>创建系统还原点 (建议)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>增加一层保护, 但请注意这并不能保证文件不遭受修改</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>安装选项</value>
+  </data>
+  <data name="C_F2_feedback" xml:space="preserve">
+    <value>将安装过程的详情进行反馈</value>
+  </data>
+  <data name="C_F2_feedbackDesc" xml:space="preserve">
+    <value>发送安装过程中的细节体验 (例如您的操作系统, 语言和任何错误) 以帮助封包的制作者继续改进.</value>
+  </data>
+  <data name="C_F2_lite" xml:space="preserve">
+    <value>用于非英文 Windows 语言的 "精简" 安装程序</value>
+  </data>
+  <data name="C_F2_liteDesc" xml:space="preserve">
+    <value>如果 128x128 (或更大) 尺寸的图标被安装于非英文语言版本的 Windows, 一些系统文件可能会有兼容性异常的问题. 该选项用以防止 128x128 尺寸的图标被安装.</value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>创建系统还原点 (建议选择)</value>
+  </data>
+  <data name="C_F2_restoreDesc" xml:space="preserve">
+    <value>系统还原可以为卸载程序提供额外的一层保护, 但需要注意的是, 这并不能保证文件不遭受修改</value>
+  </data>
+  <data name="C_F2_RestoreDescNA" xml:space="preserve">
+    <value>您系统的系统还原不可用, 且在当前安装过程中无法启用</value>
+  </data>
+  <data name="C_F2_Title" xml:space="preserve">
+    <value>高级安装选项</value>
+  </data>
+  <data name="C_G_cleanup" xml:space="preserve">
+    <value>安装后的清理</value>
   </data>
   <data name="C_G_status" xml:space="preserve">
     <value>{0}% 已完成 - {1}</value>
@@ -291,6 +402,9 @@
   <data name="C_G_Title" xml:space="preserve">
     <value>安装封包中</value>
   </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>安装 {0} 中</value>
+  </data>
   <data name="D_A_destBrowse" xml:space="preserve">
     <value>浏览...</value>
   </data>
@@ -298,7 +412,7 @@
     <value>目标目录</value>
   </data>
   <data name="D_A_progGroup" xml:space="preserve">
-    <value>在开始菜单中创建 Anolis 程序组</value>
+    <value>在开始菜单中创建程序组</value>
   </data>
   <data name="D_A_progGroupAll" xml:space="preserve">
     <value>为所有用户</value>
@@ -307,7 +421,7 @@
     <value>为当前用户</value>
   </data>
   <data name="D_A_Subtitle" xml:space="preserve">
-    <value>选择下载工具集的存放目录并设定其它选项</value>
+    <value>选择下载工具集的存放位置并设定其它选项</value>
   </data>
   <data name="D_A_Title" xml:space="preserve">
     <value>目标目录和安装选项</value>
@@ -315,7 +429,13 @@
   <data name="D_A_toolsLbl" xml:space="preserve">
     <value>可供下载的工具集包括 Resourcer (强大的资源编辑器), Packager (创建属于你自己的封包和安装程序) 以及多种其它工具.</value>
   </data>
+  <data name="D_B_downloadFailed" xml:space="preserve">
+    <value>下载失败</value>
+  </data>
   <data name="D_B_status" xml:space="preserve">
+    <value>准备中...</value>
+  </data>
+  <data name="D_B_statusLbl" xml:space="preserve">
     <value>准备中...</value>
   </data>
   <data name="D_B_Subtitle" xml:space="preserve">
@@ -330,17 +450,53 @@
   <data name="E_A_dirLbl" xml:space="preserve">
     <value>目录</value>
   </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>选择用于还原的备份目录</value>
+  </data>
+  <data name="E_A_feedbackLbl" xml:space="preserve">
+    <value>您为何要卸载此封包? 您的反馈将被发送给制作者以继续改进 {0}.</value>
+  </data>
+  <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
+    <value>您为何要卸载 {0}? 您的反馈将被发送给 {1} 以帮助改进.</value>
+  </data>
+  <data name="E_A_notValidDirectory" xml:space="preserve">
+    <value>指定的的目录不包含有效的封包卸载程序</value>
+  </data>
+  <data name="E_A_Subtitle" xml:space="preserve">
+    <value>选择用于还原的目录</value>
+  </data>
   <data name="E_A_sysRes" xml:space="preserve">
-    <value>创建系统还原点 (推荐)</value>
+    <value>创建系统还原点 (建议选择)</value>
   </data>
   <data name="E_A_sysResDesc" xml:space="preserve">
-    <value>增加一层保护, 但请注意这并不能保证文件不遭受修改</value>
+    <value>提供额外的一层保护, 但需要注意的是, 这并不能保证文件不遭受修改</value>
   </data>
   <data name="E_A_Title" xml:space="preserve">
     <value>选择用于备份的目录</value>
   </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>卸载语言</value>
+  </data>
+  <data name="E_A_uninstallButton" xml:space="preserve">
+    <value>卸载</value>
+  </data>
   <data name="E_B_Subtitle" xml:space="preserve">
-    <value>选择用于还原的目录</value>
+    <value>现正卸载您的封包</value>
+  </data>
+  <data name="E_B_Subtitle_Cus" xml:space="preserve">
+    <value>正在卸载 {0}</value>
+  </data>
+  <data name="E_B_Title" xml:space="preserve">
+    <value>正在卸载封包</value>
+  </data>
+  <data name="E_B_Title_Cus" xml:space="preserve">
+    <value>正在卸载 {0}</value>
+  </data>
+  <data name="F_aborted" xml:space="preserve">
+    <value>安装中止</value>
+  </data>
+  <data name="F_abortedDesc" xml:space="preserve">
+    <value>安装程序因为不可预知的状况中止</value>
   </data>
   <data name="F_finishButton" xml:space="preserve">
     <value>结束</value>
@@ -362,30 +518,81 @@
   <data name="F_title" xml:space="preserve">
     <value>安装完成</value>
   </data>
+  <data name="F_TitleUninstall" xml:space="preserve">
+    <value>卸载完成</value>
+  </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>卸载成功结束, 您的计算机即将重启.</value>
+  </data>
+  <data name="F_uninstallationCompleteRestart" xml:space="preserve">
     <value>卸载成功结束, 您的计算机即将重启.
 
 重启前请先关闭所有打开的程序, 保存好数据, 并且不要再尝试运行任何程序, 以免造成损失.</value>
   </data>
+  <data name="G_restarting" xml:space="preserve">
+    <value>即将重启您的计算机</value>
+  </data>
+  <data name="G_Title" xml:space="preserve">
+    <value>请等待</value>
+  </data>
+  <data name="G2_ErrorMessage" xml:space="preserve">
+    <value>由于以下原因您的安装反馈无法发送</value>
+  </data>
+  <data name="G2_ErrorTitle" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="G2_status" xml:space="preserve">
+    <value>正在发送您的安装反馈</value>
+  </data>
+  <data name="G2_Title" xml:space="preserve">
+    <value>请等待...</value>
+  </data>
+  <data name="G2_UnknownError" xml:space="preserve">
+    <value>未知错误</value>
+  </data>
   <data name="Lang_Attribution" xml:space="preserve">
     <value>heeroyuyj</value>
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value>mailto:heeroyuyj@hotmail.com</value>
   </data>
   <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Flags\zh.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Lang_Lcid" xml:space="preserve">
-    <value>zh</value>
+    <value>zh-CN</value>
   </data>
   <data name="Lang_Name" xml:space="preserve">
     <value>简体中文 </value>
   </data>
+  <data name="Lang_RTL" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="Wiz_Cancel" xml:space="preserve">
     <value>取消</value>
+  </data>
+  <data name="Wiz_CancelConfirm" xml:space="preserve">
+    <value>您确定需要取消安装吗?</value>
+  </data>
+  <data name="Wiz_Defaults" xml:space="preserve">
+    <value>默认</value>
   </data>
   <data name="Wiz_Next" xml:space="preserve">
     <value>下一步</value>
   </data>
+  <data name="Wiz_OK" xml:space="preserve">
+    <value>确定</value>
+  </data>
   <data name="Wiz_Prev" xml:space="preserve">
-    <value>返回</value>
+    <value>上一步</value>
+  </data>
+  <data name="X_Bootscreen" xml:space="preserve">
+    <value>启动画面</value>
+  </data>
+  <data name="X_CursorScheme" xml:space="preserve">
+    <value>鼠标指针</value>
+  </data>
+  <data name="X_Screensaver" xml:space="preserve">
+    <value>屏幕保护</value>
   </data>
 </root>

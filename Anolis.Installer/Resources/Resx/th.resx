@@ -78,6 +78,12 @@
 
 กดปุ่ม ต่อไป เพื่อดำเนินการต่อ</value>
   </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>ตัวติดตั้ง Anolis พบว่าการติดตั้งโปรแกรมก่อนหน้านี้จำเป็นต้องรีสตาร์ทคอมพิวเตอร์ คุณต้องรีสตาร์ทคอมพิวเตอร์ก่อนจึงจะสามารถรันตัวติดตั้ง Anolis ได้</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>ตัวติดตั้ง {0} พบว่าการติดตั้งโปรแกรมก่อนหน้านี้จำเป็นต้องรีสตาร์ทคอมพิวเตอร์ คุณต้องรีสตาร์ทคอมพิวเตอร์ก่อนจึงจะสามารถรันตัวติดตั้ง {0} ได้</value>
+  </data>
   <data name="A_title" xml:space="preserve">
     <value>ยินดีต้อนรับสู่การติดตั้งแพ็กเกจ Anolis</value>
   </data>
@@ -262,7 +268,7 @@
     <value>ไอเท็มว่าง</value>
   </data>
   <data name="C_E_simple" xml:space="preserve">
-    <value>ปรับแต่งแบบง่าย</value>
+    <value>แบบง่าย</value>
   </data>
   <data name="C_E_Subtitle" xml:space="preserve">
     <value>คุณสามารถเลือกติดตั้งแพ็กเกจนี้เฉพาะในส่วนที่ต้องการ</value>
@@ -277,7 +283,7 @@
     <value>กลุ่มที่ไม่มีชื่อ</value>
   </data>
   <data name="C_E1_advanced" xml:space="preserve">
-    <value>ปรับแต่งแบบละเอียด</value>
+    <value>แบบละเอียด</value>
   </data>
   <data name="C_E1_bitmapsLbl" xml:space="preserve">
     <value>ภาพบิตแมพ</value>
@@ -331,7 +337,7 @@
     <value>เลือก...</value>
   </data>
   <data name="C_F_i386Lbl" xml:space="preserve">
-    <value>ไดเร็กทอรีนอกสุดของ CD</value>
+    <value>ไดเร็กทอรีของ CD</value>
   </data>
   <data name="C_F_installButton" xml:space="preserve">
     <value>ติดตั้ง</value>
@@ -348,17 +354,26 @@
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>กำหนดไดเร็กทอรีสำรองข้อมูลและตัวเลือกอื่นๆ</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>สร้าง System Restore Point (แนะนำให้สร้าง)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>เป็นการเพิ่มระดับการป้องกันอีกชั้นหนึ่ง อย่างไรก็ตามนี่อาจไม่สามารถป้องกันการแก้ไขไฟล์ที่ไม่ใช่ของวินโดวส์ที่อยู่ใน Program Files</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>ตัวเลือกในการติดตั้ง</value>
   </data>
+  <data name="C_F2_feedback" xml:space="preserve">
+    <value>แจ้งรายละเอียดการติดตั้งกลับไปให้ผู้พัฒนา</value>
+  </data>
+  <data name="C_F2_feedbackDesc" xml:space="preserve">
+    <value>รายละเอียดในระหว่างการติดตั้งของคุณ (เช่น ระบบปฏิบัติการที่ใช้, ภาษา, และข้อผิดพลาดต่างๆ) จะถูกส่งไปยังผู้พัฒนาแพ็กเกจเพื่อเป็นข้อมูลในการปรับปรุงแพ็กเกจในอนาคต</value>
+  </data>
+  <data name="C_F2_lite" xml:space="preserve">
+    <value>การติดตั้งแบบ "Lite" สำหรับวินโดวส์รุ่นที่ไม่ใช่ภาษาอังกฤษ</value>
+  </data>
   <data name="C_F2_liteDesc" xml:space="preserve">
-    <value>ถ้าติดตั้งไอคอนขนาด 128x128 (หรือใหญ่กว่า) ลงในวินโดวส์รุ่นที่ไม่ใช่ภาษาอังกฤษ อาจทำให้ไฟล์ระบบบางไฟล์ผิดปกติและอาจส่งผลให้โปรแกรมที่เรียกใช้ไม่สามารถทำงานได้ เลือกตัวเลือกนี้หากไม่ต้องการติดตั้งไอคอนขนาด 128x128</value>
+    <value>หากติดตั้งไอคอนขนาด 128x128 (หรือใหญ่กว่า) ลงในวินโดวส์รุ่นที่ไม่ใช่ภาษาอังกฤษ อาจทำให้ไฟล์ระบบบางไฟล์ผิดปกติและอาจส่งผลให้โปรแกรมที่เรียกใช้ไม่สามารถทำงานได้ เลือกตัวเลือกนี้หากไม่ต้องการติดตั้งไอคอนขนาด 128x128</value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>ตกลง</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>สร้าง System Restore Point (แนะนำให้สร้าง)</value>
   </data>
   <data name="C_F2_restoreDesc" xml:space="preserve">
     <value>System Restore ช่วยเพิ่มระดับการป้องกันอีกชั้นให้กับตัวถอนการติดตั้ง อย่างไรก็ตามนี่อาจไม่สามารถป้องกันการแก้ไขไฟล์ที่ไม่ใช่ของวินโดวส์ที่อยู่ใน Program Files</value>
@@ -386,6 +401,9 @@
   </data>
   <data name="C_G_Title" xml:space="preserve">
     <value>กำลังติดตั้งแพ็กเกจ</value>
+  </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>กำลังติดตั้ง {0}</value>
   </data>
   <data name="D_A_destBrowse" xml:space="preserve">
     <value>เลือก...</value>
@@ -432,6 +450,15 @@
   <data name="E_A_dirLbl" xml:space="preserve">
     <value>ไดเร็กทอรี</value>
   </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>เลือกไดเร็กทอรีที่เก็บข้อมูลที่สำรองไว้</value>
+  </data>
+  <data name="E_A_feedbackLbl" xml:space="preserve">
+    <value>เหตุผลที่คุณถอนการติดตั้งแพ็กเกจนี้ คำตอบของคุณจะถูกส่งไปให้ผู้พัฒนาเพื่อนำไปปรับปรุง {0} ในอนาคต</value>
+  </data>
+  <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
+    <value>เหตุผลที่คุณถอนการติดตั้ง {0} คำตอบของคุณจะถูกส่งไปให้ {0} เพื่อนำไปปรับปรุงแพ็กเกจในอนาคต</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>ไม่มีแพ็กเกจสำหรับถอนการติดตั้งในไดเร็กทอรีที่ระบุ</value>
   </data>
@@ -447,6 +474,9 @@
   <data name="E_A_Title" xml:space="preserve">
     <value>เลือกไดเร็กทอรีสำรองข้อมูล</value>
   </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>ภาษาที่ใช้ในการถอนการติดตั้ง</value>
+  </data>
   <data name="E_A_uninstallButton" xml:space="preserve">
     <value>ถอนการติดตั้ง</value>
   </data>
@@ -458,6 +488,9 @@
   </data>
   <data name="E_B_Title" xml:space="preserve">
     <value>กำลังถอนการติดตั้งแพ็กเกจ</value>
+  </data>
+  <data name="E_B_Title_Cus" xml:space="preserve">
+    <value>กำลังถอนการติดตั้ง {0}</value>
   </data>
   <data name="F_aborted" xml:space="preserve">
     <value>ยกเลิกการติดตั้ง</value>
@@ -485,6 +518,9 @@
   <data name="F_title" xml:space="preserve">
     <value>การติดตั้งเสร็จสมบูรณ์</value>
   </data>
+  <data name="F_TitleUninstall" xml:space="preserve">
+    <value>การถอนการติดตั้งเสร็จสมบูรณ์</value>
+  </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
     <value>การถอนการติดตั้งเสร็จสมบูรณ์</value>
   </data>
@@ -498,6 +534,21 @@
   </data>
   <data name="G_Title" xml:space="preserve">
     <value>กรุณารอสักครู่...</value>
+  </data>
+  <data name="G2_ErrorMessage" xml:space="preserve">
+    <value>ไม่สามารถส่งรายละเอียดการติดตั้งเนื่องจาก:</value>
+  </data>
+  <data name="G2_ErrorTitle" xml:space="preserve">
+    <value>เกิดข้อผิดพลาด</value>
+  </data>
+  <data name="G2_status" xml:space="preserve">
+    <value>กำลังส่งรายละเอียดการติดตั้ง</value>
+  </data>
+  <data name="G2_Title" xml:space="preserve">
+    <value>กรุณารอสักครู่...</value>
+  </data>
+  <data name="G2_UnknownError" xml:space="preserve">
+    <value>เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</value>
   </data>
   <data name="Lang_Attribution" xml:space="preserve">
     <value>แปลโดย kong</value>

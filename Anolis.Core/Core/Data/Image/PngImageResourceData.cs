@@ -19,12 +19,12 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override Compatibility HandlesExtension(string fileNameExtension) {
-			if( IsExtension( fileNameExtension, "png" ) ) return Compatibility.Yes;
+			if( IsExtension( fileNameExtension, "PNG" ) ) return Compatibility.Yes;
 			return Compatibility.No;
 		}
 		
 		public override String OpenFileFilter {
-			get { return CreateFileFilter("PngImage", "png"); }
+			get { return CreateFileFilter("PngImage", "PNG"); }
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, byte[] data) {
@@ -36,7 +36,7 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(System.IO.Stream stream, String extension, UInt16 langId, ResourceSource currentSource) {
 			return FromFile(stream, extension);
 		}
 		

@@ -399,9 +399,6 @@ namespace Anolis.Core.Native {
 		
 #region Loading Libraries
 		
-		[DllImport("Kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
-		public static extern IntPtr GetModuleHandle(String modulePath);
-		
 		[Flags]
 		public enum LoadLibraryFlags {
 			/// <summary>If the module is a DLL the system does not call DllMain for process and thread initialization and termination. Also the system does not load additional modules referenced by the DLL.</summary>
@@ -590,10 +587,6 @@ namespace Anolis.Core.Native {
 	#endregion
 		
 #endregion
-		
-		// TODO: Replace with CultureInfo.InstalledUICulture
-		[DllImport("kernel32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
-		public static extern UInt16 GetSystemDefaultUILanguage();
 		
 		[DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError=true)]
 		public static extern uint GetShortPathName([MarshalAs(UnmanagedType.LPTStr)]String lpszLongPath, [MarshalAs(UnmanagedType.LPTStr)]System.Text.StringBuilder lpszShortPath, uint cchBuffer);

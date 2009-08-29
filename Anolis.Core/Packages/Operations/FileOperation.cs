@@ -36,6 +36,11 @@ namespace Anolis.Core.Packages.Operations {
 			Operation = operation;
 		}
 		
+		public FileOperation(Group parent, String pathOfFileToDelete) : base(parent, pathOfFileToDelete) {
+			
+			Operation = FileOperationType.Delete;
+		}
+		
 		public String SourceFile    { get; set; }
 		public String SpecifiedPath { get; set; }
 		public String ConditionHash { get; set; }
@@ -174,7 +179,7 @@ namespace Anolis.Core.Packages.Operations {
 				
 			} else {
 				
-				FileOperation del = new FileOperation(backupGroup, "", SpecifiedPath, FileOperationType.Delete);
+				FileOperation del = new FileOperation(backupGroup, SpecifiedPath);
 				
 				backupGroup.Operations.Add( del );
 				

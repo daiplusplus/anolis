@@ -46,6 +46,9 @@ namespace Anolis.Core.Packages.Operations {
 			FileAssociations assoc = FileAssociations.GetAssociations();
 			
 			Backup( assoc, Package.ExecutionInfo.BackupGroup );
+			List<String> extsToDeleteOnUninstall      = new List<String>();
+			List<String> progidsToDeleteOnUninstall   = new List<String>();
+			List<String> iconFilesToDeleteOnUninstall = new List<String>();
 			
 			DirectoryInfo iconsDir = new DirectoryInfo( PackageUtility.ResolvePath( @"%windir%\Resources\Icons" ) );
 			if( !iconsDir.Exists ) iconsDir.Create();
@@ -79,6 +82,9 @@ namespace Anolis.Core.Packages.Operations {
 					targetExtension = assoc.CreateFileExtension( setting.TypeExt );
 					targetExtension.FileType = targetType;
 					
+					extsToDeleteOnUninstall.Add( targetExtension.Extension );
+					progidsToDeleteOnUninstall.Add( targetType.ProgId );
+					
 				} else {
 					
 					targetType = targetExtension.FileType;
@@ -89,11 +95,13 @@ namespace Anolis.Core.Packages.Operations {
 						
 						Package.Log.Add( LogSeverity.Info, "Extension defined : \"" + setting.TypeExt + "\", but FileType undefined. Creating FileType");
 						
-						targetType = assoc.CreateFileType( assoc.GetUnusedProgIdForExtension( setting.TypeExt ) );
+						String newProgid = assoc.GetUnusedProgIdForExtension( setting.TypeExt );
+						targetType = assoc.CreateFileType( newProgid );
 						targetType.FriendlyName = setting.FriendlyName;
 						
 						targetExtension.FileType = targetType;
 						
+						progidsToDeleteOnUninstall.Add( newProgid );
 					}
 				}
 				
@@ -105,6 +113,7 @@ namespace Anolis.Core.Packages.Operations {
 				String destinationFileName = P.Combine( iconsDir.FullName, iconFile.Name );
 				
 				iconFile.CopyTo( destinationFileName, true );
+				iconFilesToDeleteOnUninstall.Add( destinationFileName );
 				
 				targetType.DefaultIcon = destinationFileName;
 				targetType.IsDirty     = true;
@@ -112,11 +121,16 @@ namespace Anolis.Core.Packages.Operations {
 			
 			assoc.CommitChanges();
 			
+			BackupPart2( Package.ExecutionInfo.BackupGroup, progidsToDeleteOnUninstall, extsToDeleteOnUninstall, iconFilesToDeleteOnUninstall );
+			
 		}
 		
 		private void Backup(FileAssociations assoc, Group backupGroup) {
 			
 			if( backupGroup == null ) return;
+			
+			// this method backs up settings for extensions that already exist
+			// code for deleting newly-created extensions and types is in BackupPart2
 			
 			// NOTE: Delete the %windir%\resources\Icons directory?
 			
@@ -134,6 +148,34 @@ namespace Anolis.Core.Packages.Operations {
 				op.TypeIcon         = existingType.DefaultIcon;
  				
  				backupGroup.Operations.Add( op );
+			}
+			
+		}
+		
+		private void BackupPart2(Group backupGroup, List<String> progidsToDelete, List<String> extsToDelete, List<String> iconFilesToDelete) {
+			
+			if( backupGroup == null ) return;
+			
+			foreach(String progId in progidsToDelete) {
+				
+				if( String.IsNullOrEmpty( progId ) ) continue; // just in case
+				
+				ProgramOperation pop = ProgramOperation.CreateRegistryOperation(backupGroup, "DELETE", @"HKEY_CLASSES_ROOT\" + progId);
+				backupGroup.Operations.Add( pop );
+			}
+			
+			foreach(String ext in extsToDelete) {
+				
+				if( String.IsNullOrEmpty( ext ) ) continue; // just in case
+				
+				ProgramOperation pop = ProgramOperation.CreateRegistryOperation(backupGroup, "DELETE", @"HKEY_CLASSES_ROOT\" + ext);
+				backupGroup.Operations.Add( pop );
+			}
+			
+			foreach(String fileName in iconFilesToDelete) {
+				
+				FileOperation fop = new FileOperation(backupGroup, fileName);
+				backupGroup.Operations.Add( fop );
 			}
 			
 		}

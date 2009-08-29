@@ -73,6 +73,7 @@ namespace Anolis.Resourcer.TypeViewers {
 		}
 		
 		public override TypeViewerCompatibility CanHandleResource(ResourceData data) {
+			if( data is SgmlResourceData ) return TypeViewerCompatibility.Ideal;
 			return TypeViewerCompatibility.Works;
 		}
 		

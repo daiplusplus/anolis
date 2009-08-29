@@ -101,7 +101,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			if( patchResources.Count == 0 ) {
 				
-				Package.Log.Add( LogSeverity.Info, "No resources to patch: " + fileName );
+				Package.Log.Add( LogSeverity.Warning, "No resources to patch: " + fileName );
 				return false;
 			}
 			
@@ -115,7 +115,7 @@ namespace Anolis.Core.Packages.Operations {
 					
 					foreach(PatchResource res in patchResources) {
 						
-						if( res.Source.StartsWith("comp:") ) {
+						if( res.Source.StartsWith("comp:", StringComparison.OrdinalIgnoreCase) ) {
 							
 							CompositedImage comp = new CompositedImage( res.Source, Package.RootDirectory );
 							

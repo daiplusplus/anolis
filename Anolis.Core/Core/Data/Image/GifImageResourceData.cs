@@ -21,7 +21,7 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesExtension(String fileNameExtension) {
 			
-			return ( IsExtension( fileNameExtension, "gif" ) ) ? Compatibility.Yes : Compatibility.No;
+			return ( IsExtension( fileNameExtension, "GIF" ) ) ? Compatibility.Yes : Compatibility.No;
 			
 		}
 		
@@ -51,7 +51,7 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(System.IO.Stream stream, String extension, UInt16 langId, ResourceSource currentSource) {
 			return FromFile(stream, extension);
 		}
 		
@@ -106,7 +106,7 @@ namespace Anolis.Core.Data {
 		
 		protected override void SaveAs(System.IO.Stream stream, String extension) {
 			
-			if(extension == "gif") {
+			if( IsExtension( extension, "GIF" ) ) {
 				
 				stream.Write( this.RawData, 0, RawData.Length );
 				

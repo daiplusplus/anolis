@@ -24,6 +24,7 @@
 			<xs:attribute name="attribution"   type="xs:string"  use="required" />
 			<xs:attribute name="website"       type="xs:anyURI"  use="optional" />
 			<xs:attribute name="updateUri"     type="xs:anyURI"  use="optional" />
+			<xs:attribute name="feedbackUri"   type="xs:anyURI"  use="optional" />
 			
 			<xs:attribute name="releaseNotes"  type="xs:anyURI"  use="optional" />
 			
@@ -232,8 +233,12 @@
 						<!-- <extra /> attributes -->
 						<xs:attributeGroup ref="common" />
 						<xs:attribute name="path"        type="xs:anyURI"  use="required" />
+						
 						<xs:attribute name="arguments"   type="xs:anyURI"  use="optional" />
 						<xs:attribute name="timeout"     type="xs:integer" use="optional" />
+						
+						<xs:attribute name="uninstall"     type="xs:anyURI"  use="optional" />
+						<xs:attribute name="uninstallArgs" type="xs:anyURI"  use="optional" />
 						
 					</xs:complexType>
 				</xs:element>

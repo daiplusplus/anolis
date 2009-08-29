@@ -46,25 +46,25 @@ namespace Anolis.Installer.Pages {
 		private void MainActionPage_PageUnload(object sender, PageChangeEventArgs e) {
 			
 			if(e.PageToBeLoaded == Program.PageAWelcome) {
-				Program.ProgramMode = ProgramMode.None;
+				InstallationInfo.ProgramMode = ProgramMode.None;
 				return;
 			}
 			
 			if( __installRad.Checked ) {
 				
-				Program.ProgramMode = ProgramMode.InstallPackage;
+				InstallationInfo.ProgramMode = ProgramMode.InstallPackage;
 				
 			} else if( __uninstallRad.Checked ) {
 				
-				Program.ProgramMode = ProgramMode.UninstallPackage;
+				InstallationInfo.ProgramMode = ProgramMode.UninstallPackage;
 				
 			} else if( __toolsRad.Checked ) {
 				
-				Program.ProgramMode = ProgramMode.InstallTools;
+				InstallationInfo.ProgramMode = ProgramMode.InstallTools;
 				
 			} else {
 				
-				Program.ProgramMode = ProgramMode.None;
+				InstallationInfo.ProgramMode = ProgramMode.None;
 			}
 			
 		}

@@ -22,7 +22,7 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesExtension(String fileNameExtension) {
 			
-			if( IsExtension( fileNameExtension, "cur" ) ) return Compatibility.Yes;
+			if( IsExtension( fileNameExtension, "CUR" ) ) return Compatibility.Yes;
 			
 			return Compatibility.No;
 			
@@ -45,7 +45,7 @@ namespace Anolis.Core.Data {
 		
 		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 langId, ResourceSource currentSource) {
 			
-			if( !IsExtension( extension, "cur" ) ) throw new ArgumentException("cur is the only supported extension");
+			if( !IsExtension( extension, "CUR" ) ) throw new ArgumentException("cur is the only supported extension");
 			
 			IconGroup group = new IconGroup(stream);
 			group.BindToSource( currentSource, langId );
@@ -55,7 +55,7 @@ namespace Anolis.Core.Data {
 		
 		public override ResourceData FromFileToUpdate(Stream stream, String extension, ResourceLang currentLang) {
 			
-			if( !IsExtension( extension, "cur" ) ) throw new ArgumentException("cur is the only supported extension");
+			if( !IsExtension( extension, "CUR" ) ) throw new ArgumentException("cur is the only supported extension");
 			
 			CursorDirectoryResourceData originalData = currentLang.Data as CursorDirectoryResourceData;
 			if(originalData == null) throw new ResourceDataException("Unexpected original data subclass");
@@ -92,7 +92,7 @@ namespace Anolis.Core.Data {
 		
 		protected override void SaveAs(Stream stream, String extension) {
 			
-			if(extension != "cur") throw new ArgumentException("cur is the only supported extension");
+			if( !IsExtension( extension, "CUR") ) throw new ArgumentException("cur is the only supported extension");
 			
 			IconGroup.Save(stream);
 		}

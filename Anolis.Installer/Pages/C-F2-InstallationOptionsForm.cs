@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 using Anolis.Core.Utility;
@@ -18,21 +12,33 @@ namespace Anolis.Installer.Pages {
 			
 			this.__ok.Click += new EventHandler(__ok_Click);
 			
-			this.__restore.CheckedChanged += new EventHandler(__restore_CheckedChanged);
-			this.__lite   .CheckedChanged += new EventHandler(__lite_CheckedChanged);
+			this.__restore .CheckedChanged += new EventHandler(__restore_CheckedChanged);
+			this.__lite    .CheckedChanged += new EventHandler(__lite_CheckedChanged);
+			this.__feedback.CheckedChanged += new EventHandler(__feedback_CheckedChanged);
 			
-			this.Load += new EventHandler(InstallationOptionsForm_Load);
-			
-			Localize();
+			this.Load           += new EventHandler(InstallationOptionsForm_Load);
+			this.VisibleChanged += new EventHandler(InstallationOptionsForm_VisibleChanged);
+			this.FormClosing    += new System.Windows.Forms.FormClosingEventHandler(InstallationOptionsForm_FormClosing);
 		}
 		
-		private void InstallationOptionsForm_Load(object sender, EventArgs e) {
+		private void InstallationOptionsForm_Load(Object sender, EventArgs e) {
 			
 			LoadUI();
 		}
 		
+		private void InstallationOptionsForm_VisibleChanged(Object sender, EventArgs e) {
+			
+			if( Visible ) LoadUI();
+		}
+		
+		private void InstallationOptionsForm_FormClosing(Object sender, FormClosingEventArgs e) {
+			e.Cancel = true;
+			Owner.BringToForeground();
+			Hide();
+		}
+		
 		private void __ok_Click(object sender, EventArgs e) {
-			this.Close();
+			Close(); // which calls FormClosing
 		}
 		
 		protected override String LocalizePrefix {
@@ -59,25 +65,29 @@ namespace Anolis.Installer.Pages {
 			PackageInfo.LiteMode = __lite.Checked;
 		}
 		
+		private void __feedback_CheckedChanged(object sender, EventArgs e) {
+			
+			InstallationInfo.FeedbackSend = __feedback.Checked;
+		}
+		
 		private void LoadUI() {
 			
-			if( Anolis.Core.Utility.SystemRestore.IsSystemRestoreAvailable() ) {
+			if( __restore.Enabled = __restoreDesc.Enabled = Anolis.Core.Utility.SystemRestore.IsSystemRestoreAvailable() ) {
 				
-				__restore.Enabled  = true;
 				__restore.Checked  = PackageInfo.SystemRestore;
-				
-				__restoreDesc.Enabled = true;
 				
 			} else {
 				
-				__restore.Enabled     = false;
-				__restore.Checked     = false;
-				
-				__restoreDesc.Enabled = false;
+				__restore.Checked  = false;
 			}
 			
-			__lite.Checked = PackageInfo.LiteMode;
+			__lite        .Checked = PackageInfo.LiteMode;
+			__feedback    .Checked = InstallationInfo.FeedbackSend;
 			
+			__feedback    .Enabled = InstallationInfo.FeedbackCanSend;
+			__feedbackDesc.Enabled = InstallationInfo.FeedbackCanSend;
+			
+			if( !__feedback.Enabled ) __feedback.Checked = false;
 		}
 		
 	}

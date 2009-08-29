@@ -279,14 +279,11 @@ For at forsætte, tryk Næste.</value>
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>Vælg et backup mappe og andre muligheder</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>Lav et System gendannelses punkt (Anbefalet)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>Et ekstra lag af sikkerhed. Læg mærke til at dette vil ikke altid forhindre imod ændringer lavet til ikke-Windows filer under Programmer</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>Installations muligheder</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>Lav et System gendannelses punkt (Anbefalet)</value>
   </data>
   <data name="C_G_status" xml:space="preserve">
     <value>{0}% færdig - {1}</value>

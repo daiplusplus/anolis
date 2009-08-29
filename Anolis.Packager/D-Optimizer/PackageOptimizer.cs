@@ -12,15 +12,20 @@ namespace Anolis.Packager {
 	
 	public class PackageOptimizer {
 		
-		private String      _fileName;
-		private XmlDocument _doc;
+		private String                _fileName;
+		private XmlDocument           _doc;
+		private List<CompositedImage> _compImages;
 		
 		public PackageOptimizer(String fileName) {
 			
-			_fileName = fileName;
+			_fileName   = fileName;
 			
-			_doc = new XmlDocument();
-			
+			_doc        = new XmlDocument();
+			_compImages = new List<CompositedImage>();
+		}
+		
+		public String XmlFileName {
+			get { return _fileName; }
 		}
 		
 		public List<String> LoadAndValidate() {
@@ -165,7 +170,7 @@ namespace Anolis.Packager {
 			return files.ToArray();
 		}
 		
-		private static readonly String[] _attributes = new String[] {
+		internal static readonly String[] FileAttributes = new String[] {
 			"releaseNotes",
 			"src",
 			"icon",
@@ -175,67 +180,99 @@ namespace Anolis.Packager {
 			"previewImg"
 		};
 		
-		private static void ProcessElement(DirectoryInfo root, XmlElement element, List<String> files) {
+		private void ProcessElement(DirectoryInfo root, XmlElement element, List<String> files) {
 			
 			// ideally HashSet<String> should be used, but it's a 3.5 class
 			
-			foreach(String attributeName in _attributes) {
+			foreach(String attributeName in FileAttributes) {
 				
 				if( attributeName == "path" && element.Name == "file" ) continue;
 				
 				String attributeValue = element.GetAttribute(attributeName);
-				if( attributeValue.Length > 0 ) {
+				if( attributeValue.Length == 0 ) continue;
 					
-					attributeValue = attributeValue.ToLowerInvariant();
+				attributeValue = attributeValue.ToLowerInvariant();
+				
+				if( attributeValue.StartsWith("comp:", StringComparison.OrdinalIgnoreCase) ) {
 					
-					if( attributeValue.StartsWith("comp:") ) {
+					// get the paths of the images
+					
+					try {
 						
-						// get the paths of the images
-						
-						try {
+						CompositedImage img = new CompositedImage( attributeValue, root );
+						foreach(Layer layer in img.Layers) {
 							
-							CompositedImage img = new CompositedImage( attributeValue, root );
-							foreach(Layer layer in img.Layers) {
+							String fn = layer.ImageFileName.Substring( root.FullName.Length + 1 ).ToLowerInvariant();
+							
+							if( !files.Contains( fn ) ) {
 								
-								String fn = layer.ImageFileName.Substring( root.FullName.Length + 1 ).ToLowerInvariant();
-								
-								System.Drawing.Bitmap bmp = (System.Drawing.Bitmap)layer.Image;
-								
-								if( !files.Contains( fn ) ) {
-									
-									files.Add( fn );
-								}
+								files.Add( fn );
 							}
-							
-						} catch(FileNotFoundException fex) {
-							
-							files.Add( fex.FileName );
 						}
+						_compImages.Add( img );
 						
-					} else {
+					} catch(FileNotFoundException fex) {
 						
-						if( !files.Contains(attributeValue) && !attributeValue.Contains("%") ) {
-							
-							files.Add( attributeValue );
-						}
+						files.Add( fex.FileName );
+					}
+					
+				} else {
+					
+					if( !files.Contains(attributeValue) && !attributeValue.Contains("%") ) {
 						
+						files.Add( attributeValue );
 					}
 					
 				}
 				
 			}
 			
+			List<XmlNode> commentsToRemove = new List<XmlNode>();
+			
 			foreach(XmlNode child in element.ChildNodes) {
 				
-				XmlElement childElement = child as XmlElement;
-				if(childElement != null)
-					ProcessElement( root, childElement, files );
-				
+				if(child is XmlComment) {
+					
+					commentsToRemove.Add( child );
+					
+				} else {
+					
+					XmlElement childElement = child as XmlElement;
+					if(childElement != null)
+						ProcessElement( root, childElement, files );
+					
+				}
 			}
+			
+			foreach(XmlNode comment in commentsToRemove) element.RemoveChild( comment );
 			
 		}
 		
-		// duplicate file remover
+		public List<CompositedImage> CompositedImages {
+			get {
+				return _compImages;
+			}
+		}
+		
+		private DuplicateFinder _finder;
+		
+		public DuplicateFinder GetDuplicateFilesFinder() {
+			
+			if( _finder == null ) {
+				_finder = new DuplicateFinder( new DirectoryInfo( Path.GetDirectoryName( _fileName ) ), null );
+			}
+			
+			return _finder;
+			
+		}
+		
+		public XmlDocument Document {
+			get { return _doc; }
+		}
 		
 	}
+	
+	
+	
+	
 }

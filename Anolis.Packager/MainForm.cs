@@ -10,13 +10,6 @@ namespace Anolis.Packager {
 		public MainForm() {
 			InitializeComponent();
 			
-			this.__import.Tag = new ImportForm();
-			this.__define.Tag = new DefinitionForm();
-			this.__compre.Tag = new TarLzmaForm();
-			this.__optimi.Tag = new OptimizerForm();
-			this.__distro.Tag = new DistributorForm();
-			
-			
 			this.__import.Click += new EventHandler(__button_Click);
 			this.__define.Click += new EventHandler(__button_Click);
 			this.__compre.Click += new EventHandler(__button_Click);
@@ -35,6 +28,14 @@ namespace Anolis.Packager {
 		private void __button_Click(object sender, EventArgs e) {
 			
 			Form form = (sender as Button).Tag as Form;
+			if( form == null || form.IsDisposed ) {
+				
+				     if( sender == __import ) __import.Tag = form = new ImportForm();
+				else if( sender == __define ) __define.Tag = form = new DefinitionForm();
+				else if( sender == __compre ) __compre.Tag = form = new TarLzmaForm();
+				else if( sender == __optimi ) __optimi.Tag = form = new OptimizerForm();
+				else if( sender == __distro ) __distro.Tag = form = new DistributorForm();
+			}
 			
 			if( form.Visible ) {
 				

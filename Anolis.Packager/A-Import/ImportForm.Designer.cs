@@ -50,11 +50,11 @@
 			this.@__root.Size = new System.Drawing.Size(204, 20);
 			this.@__root.TabIndex = 1;
 			// 
-			// __browse
+			// __loadBrowse
 			// 
 			this.@__browse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__browse.Location = new System.Drawing.Point(304, 4);
-			this.@__browse.Name = "__browse";
+			this.@__browse.Name = "__loadBrowse";
 			this.@__browse.Size = new System.Drawing.Size(75, 23);
 			this.@__browse.TabIndex = 2;
 			this.@__browse.Text = "Browse...";

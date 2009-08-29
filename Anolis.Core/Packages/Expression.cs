@@ -10,11 +10,7 @@ namespace Anolis.Core.Packages {
 	
 	using P = Anolis.Core.Packages.Precedence;
 	
-	// TODO:
-		// * Add support for boolean operators &&, ||, ^^, !
-		// * Add support for functions, e.g. sin(), a function can be defined in the symbol table: with that functions' expression as the dictionary value
-			// this is a bit hard. I'll leave it for now
-		// I think booleans can be supported by having false == 0 and true == non-zero
+	// TODO: Add support for functions, e.g. sin(), a function can be defined in the symbol table: with that functions' expression as the dictionary value (that would require a 'string' dictionary value type)
 	
 	/// <summary>A C# implementation of Tom Niemann's Operator Precedence Parsing system ( http://epaperpress.com/oper/index.html ).</summary>
 	public class Expression {
@@ -262,7 +258,7 @@ namespace Anolis.Core.Packages {
 						// either a number or a name
 						// if it's a name, resolve it
 						
-						// TODO: This line caused a bunch of bugs on systems where '.' does not mean a decimal place (e.g. russian ones)
+						// NOTE: This line caused a bunch of bugs on systems where '.' does not mean a decimal place (e.g. russian ones)
 						if( Double.TryParse( s, N.Any, Cult.InvariantCulture, out _value ) ) {
 							
 							_token = Operator.Val;

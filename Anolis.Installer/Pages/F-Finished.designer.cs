@@ -34,6 +34,7 @@
 			// __title
 			// 
 			this.@__title.BackColor = System.Drawing.Color.Transparent;
+			this.@__title.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
 			this.@__title.Text = "Installation Complete";
 			// 
 			// __openingText

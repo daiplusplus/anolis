@@ -101,7 +101,7 @@ namespace Anolis.Core.Packages {
 		private DirectoryInfo _oemRoot;
 		private DirectoryInfo _oemWindows;
 		
-		public NT5CDImage(DirectoryInfo root) : base(root) {
+		protected NT5CDImage(DirectoryInfo root) : base(root) {
 			
 		}
 		

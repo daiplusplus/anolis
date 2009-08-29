@@ -102,7 +102,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			foreach(String installedWallaper in installedWallpapers) {
 				
-				FileOperation op = new FileOperation( backupGroup, null, installedWallaper, FileOperationType.Delete );
+				FileOperation op = new FileOperation( backupGroup, installedWallaper);
 				backupGroup.Operations.Add( op );
 			}
 			

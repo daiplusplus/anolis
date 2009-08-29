@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -10,8 +9,6 @@ using Anolis.Installer.Pages;
 
 using W3b.Wizards;
 
-using Env = Anolis.Core.Utility.Environment;
-using Symbols = System.Collections.Generic.Dictionary<System.String, System.Double>;
 
 namespace Anolis.Installer {
 	
@@ -50,7 +47,7 @@ namespace Anolis.Installer {
 				
 				InstallerResources.CurrentLanguageChanged += new EventHandler(InstallerResources_CurrentLanguageChanged);
 				
-				ProgramMode = ProgramMode.None;
+				InstallationInfo.ProgramMode = ProgramMode.None;
 				
 #region Initial PackageInfo Options
 				
@@ -69,6 +66,8 @@ namespace Anolis.Installer {
 				
 				PackageInfo.SystemRestore = true;
 				
+				InstallationInfo.FeedbackSend = true;
+				
 #endregion
 				
 				if( args.Length > 0 ) {
@@ -86,7 +85,7 @@ namespace Anolis.Installer {
 					String uninstall = GetUninstallation( args );
 					if( uninstall != null ) {
 						InstallationInfo.UninstallPackage = new FileInfo( uninstall );
-						ProgramMode = ProgramMode.UninstallPackage;
+						InstallationInfo.ProgramMode = ProgramMode.UninstallPackage;
 					}
 					
 					//////////////////////////////////////////
@@ -105,14 +104,16 @@ namespace Anolis.Installer {
 //					}
 				}
 				
+				
+				
+				
+				
 				// preload resources
 				System.Drawing.Image
 					image = InstallerResources.GetImage("Background");
 					image = InstallerResources.GetImage("Banner");
 				
 				// Set up the wizard
-				
-				String title = InstallerResources.IsCustomized ? InstallerResources.CustomizedSettings.InstallerFullName : "Anolis Package Installer";
 				
 				// create the pages
 				PageAWelcome         = new WelcomePage();
@@ -139,7 +140,7 @@ namespace Anolis.Installer {
 				
 				WizardForm.CancelClicked += new EventHandler(wiz_CancelClicked);
 				WizardForm.HasHelp        = false;
-				WizardForm.Title          = title;
+				WizardForm.Title          = InstallationInfo.InstallerTitle;
 				WizardForm.Icon           = InstallerResources.GetIcon("Package");
 				
 				WizardForm.NextText   = InstallerResources.GetString("Wiz_Next");
@@ -168,7 +169,7 @@ namespace Anolis.Installer {
 				return;
 			}
 			
-			switch(ProgramMode) {
+			switch(InstallationInfo.ProgramMode) {
 				case ProgramMode.UninstallPackage:
 					WizardForm.LoadPage( PageEASelectBackup );
 					break;
@@ -241,153 +242,6 @@ namespace Anolis.Installer {
 		
 		internal static FinishedPage            PageFFinished        { get; private set; }
 		
-		
-		internal static ProgramMode             ProgramMode          { get; set; }
-	}
-	
-	/// <summary>Meta-information about the installation</summary>
-	internal static class InstallationInfo {
-		
-#region Wizard Style
-		
-		public static WizardStyle WizStyle { get; set; }
-		
-		public enum WizardStyle {
-			PlatformDefault,
-			Wizard97,
-			Aero
-		}
-		
-		public static IWizardForm CreateWizard() {
-			
-			switch(WizStyle) {
-				case WizardStyle.Aero:
-					return new W3b.Wizards.WindowsForms.Aero.AeroWizardForm();
-				case WizardStyle.Wizard97:
-					return new W3b.Wizards.WindowsForms.Wizard97.Wizard97WizardForm();
-				case WizardStyle.PlatformDefault:
-				default:
-					return WizardFactory.Create();
-			}
-			
-		}
-#endregion
-		
-		public static FileInfo UninstallPackage { get; set; }
-		
-		//////////////////////////////////////
-		
-		public static Boolean FailedCondition { get; set; }
-		
-		public static Boolean EvaluateInstallerCondition() {
-			
-			if( !InstallerResources.IsCustomized ) return true;
-			
-			String exprStr = InstallerResources.CustomizedSettings.InstallerCondition;
-			if( String.IsNullOrEmpty( exprStr ) ) return true;
-			
-			Expression expr = new Expression( exprStr );
-			return expr.Evaluate( GetSymbols() ) == 1;
-		}
-		
-		private static Symbols GetSymbols() {
-			
-			return new Symbols() {
-				
-				{"osversion"   , Env.OSVersion.Version.Major + ( (Double)Env.OSVersion.Version.Minor ) / 10 },
-				{"servicepack" , Env.ServicePack },
-				{"architecture", Env.IsX64 ? 64 : 32 }
-			};
-		}
-		
-		//////////////////////////////////////
-		
-		public static Boolean InstallationAborted { get; set; }
-		
-		public static void WriteException(Exception ex) {
-			
-			using(FileStream fs = new FileStream("Anolis.Installer.Error.log", FileMode.Append, FileAccess.Write))
-			using(StreamWriter wtr = new StreamWriter(fs)) {
-				
-				wtr.WriteLine( DateTime.Now.ToString("s") );
-				
-				while( ex != null ) {
-					
-					wtr.WriteLine( ex.Message );
-					wtr.WriteLine( ex.StackTrace );
-					
-					ex = ex.InnerException;
-				}
-				
-			}
-			
-		}
-		
-		//////////////////////////////////////
-		
-		public static Boolean? UseSelector { get; set; }
-		
-#region Tools
-		
-		public static readonly Uri ToolsInfoUri = new Uri("http://anol.is/tools/toolsInfo.txt");
-		
-		public static DirectoryInfo ToolsDestination { get; set; }
-		
-		public static StartMenu ToolsStartMenu { get; set; }
-		
-		internal enum StartMenu {
-			None,
-			Myself,
-			AllUsers
-		}
-		
-#endregion
-		
-	}
-	
-	
-	internal static class PackageInfo {
-		
-		//////////////////////////////////////
-		// Common
-		
-		public static PackageSource  Source     { get; set; }
-		public static String         SourcePath { get; set; }
-		public static PackageArchive Archive    { get; set; }
-		
-		public static Package        Package    { get; set; }
-		
-		public static Boolean        RequiresRestart { get; set; }
-		
-		public static Boolean        IgnoreCondition { get; set; }
-		
-		public static Boolean        LiteMode        { get; set; }
-		
-		//////////////////////////////////////
-		// Regular-specific
-		
-		public static Boolean        SystemRestore { get; set; }
-		public static String         BackupPath    { get; set; }
-		
-		//////////////////////////////////////
-		// I386-specific
-		
-		public static Boolean        I386Install   { get; set; }
-		public static DirectoryInfo  I386Directory { get; set; }
-		
-	}
-	
-	internal enum PackageSource {
-		Archive,
-		Embedded,
-		File
-	}
-	
-	internal enum ProgramMode {
-		None             = 0,
-		InstallPackage,
-		UninstallPackage,
-		InstallTools
 	}
 	
 }

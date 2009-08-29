@@ -330,7 +330,7 @@ namespace Anolis.Installer {
 			return String.Format( CultureInfo.CurrentCulture, s, formatArgs );
 		}
 		
-//		private static List<String> nulls = new List<String>();
+		private static List<String> nulls = new List<String>();
 		
 		public static String GetString(String name) {
 			
@@ -345,8 +345,8 @@ namespace Anolis.Installer {
 			if( ret != null ) return ret;
 			
 			ret = _english.ResourceSet.GetString( name );
-//			if( ret == null || ret.Length == 0 )
-//				nulls.Add( name );
+			if( ret == null || ret.Length == 0 )
+				nulls.Add( name );
 			
 			return ret;
 		}

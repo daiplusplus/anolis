@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Xml;
 
 using Microsoft.Win32;
 
 using P = System.IO.Path;
-using System.Reflection;
+using Cult = System.Globalization.CultureInfo;
+
 
 namespace Anolis.Core.Packages.Operations {
 	
@@ -65,10 +67,10 @@ namespace Anolis.Core.Packages.Operations {
 			                              prodKey.SetValue("Publisher"      , Package.Attribution              , RegistryValueKind.String);
 			                              prodKey.SetValue("InstallDate"    , DateTime.Now.ToString("yyyyMMdd"), RegistryValueKind.String);
 			
-			// TODO: Get the Package version and split up into Major and Minor DWORDs
-//			                              prodKey.SetValue("Version"        , "", RegistryValueKind.DWord);
-//			                              prodKey.SetValue("VersionMajor"   , "", RegistryValueKind.DWord);
-//			                              prodKey.SetValue("VersionMinor"   , "", RegistryValueKind.DWord);
+			                              prodKey.SetValue("DisplayVersion" , Package.Version.ToString(), RegistryValueKind.String );
+			                              prodKey.SetValue("Version"        , Package.Version.Major, RegistryValueKind.DWord); // I've no idea what the convention for the 'Version' value is
+			                              prodKey.SetValue("VersionMajor"   , Package.Version.Major, RegistryValueKind.DWord);
+			                              prodKey.SetValue("VersionMinor"   , Package.Version.Minor, RegistryValueKind.DWord);
 			
 			
 			String fullKeyPath = uninstallKey.Name + '\\' + regKeyName;
@@ -84,11 +86,9 @@ namespace Anolis.Core.Packages.Operations {
 			
 			// basically, run reg.exe such that it deletes the uninstallation registry key
 			
-			ProgramOperation op = new ProgramOperation(backupGroup, @"%windir%\system32\reg.exe");
-			op.Arguments = "DELETE \"" + regKeyPath + "\" /F";
+			ProgramOperation op = ProgramOperation.CreateRegistryOperation(backupGroup, "DELETE", regKeyPath);
 			
 			backupGroup.Operations.Add( op );
-			
 		}
 		
 		public override void Write(XmlElement parent) {

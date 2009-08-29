@@ -126,13 +126,15 @@ namespace Anolis.Tools.CompositedImages {
 			Int32  newBgHeight  = (Int32)( (Single)item.FinalDimensions.Width / aspectRatio );
 			
 			String bgPath = GetBGPath( item.SizeType );
-			if( bgPath != null )
-				opts += ";" + Layer.MakeString( bgPath, 0, 0, null, item.FinalDimensions.Width, newBgHeight );
+			if( bgPath != null ) {
+				Size dimensions = new Size( item.FinalDimensions.Width, newBgHeight );
+				opts += ";" + Layer.MakeString( bgPath, 0, 0, null, dimensions );
+			}
 			
 			/////////////////////////////////////////////////////////
 			// Foreground
 			
-			opts += ";" + Layer.MakeString( item.ForegroundImagePath, item.ForegroundCoords.X, item.ForegroundCoords.Y, null, null, null );
+			opts += ";" + Layer.MakeString( item.ForegroundImagePath, item.ForegroundCoords.X, item.ForegroundCoords.Y, null, Size.Empty );
 			
 			return opts;
 		}
@@ -166,7 +168,7 @@ namespace Anolis.Tools.CompositedImages {
 			// Background Stripe (goes at the very front because sometimes the foreground spreads on to it)
 			if( item.SizeType != SizeType.Small ) {
 				
-				opts += ";" + Layer.MakeString( pathToStripe, item.FinalDimensions.Width - 4, 0, null, null, null );
+				opts += ";" + Layer.MakeString( pathToStripe, item.FinalDimensions.Width - 4, 0, null, Size.Empty );
 			}
 			
 			return opts;
@@ -202,7 +204,7 @@ namespace Anolis.Tools.CompositedImages {
 			// Background Stripe (goes at the very front because sometimes the foreground spreads on to it)
 			if( item.SizeType != SizeType.Small ) {
 				
-				opts += ";" + Layer.MakeString( pathToStripe, item.FinalDimensions.Width - 4, 0, null, null, null );
+				opts += ";" + Layer.MakeString( pathToStripe, item.FinalDimensions.Width - 4, 0, null, Size.Empty );
 			}
 			
 			return opts;
@@ -293,7 +295,7 @@ namespace Anolis.Tools.CompositedImages {
 			// Background Stripe (goes at the very front because sometimes the foreground spreads on to it)
 			if( item.SizeType != SizeType.Small ) {
 				
-				opts += ";" + Layer.MakeString( pathToStripe, item.FinalDimensions.Width - 3, 0, null, null, null );
+				opts += ";" + Layer.MakeString( pathToStripe, item.FinalDimensions.Width - 3, 0, null, Size.Empty );
 			}
 			
 			return opts;

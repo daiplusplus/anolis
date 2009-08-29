@@ -10,6 +10,8 @@ using Microsoft.Win32;
 
 using P = System.IO.Path;
 
+using Anolis.Core.Utility;
+
 namespace Anolis.Core.Packages.Operations {
 	
 	public class VisualStyleExtraOperation : ExtraOperation {
@@ -32,7 +34,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			Boolean reg = Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular;
 			
-			Backup( Package.ExecutionInfo.BackupGroup );
+			Backup( Package.ExecutionInfo.BackupGroup, Package.ExecutionInfo.BackupDirectory );
 			
 			String lastMsstyle  = null;
 			String lastSelected = null;
@@ -69,33 +71,51 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		private void Backup(Group backupGroup) {
+		private void Backup(Group backupGroup, DirectoryInfo backupDir) {
 			
 			if( backupGroup == null ) return;
 			
-			String keyPath = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ThemeManager";
-			
-			MakeRegOp(backupGroup, keyPath, "WCreatedUser");
-			MakeRegOp(backupGroup, keyPath, "LoadedBefore");
-			MakeRegOp(backupGroup, keyPath, "ThemeActive");
-			MakeRegOp(backupGroup, keyPath, "ColorName");
-			MakeRegOp(backupGroup, keyPath, "SizeName");
-			MakeRegOp(backupGroup, keyPath, "DllName");
-			
-			if( Package.ExecutionInfo.ApplyToDefault ) {
+			try {
 				
-				keyPath = @"HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\ThemeManager";
+				BackupThemeConfig(backupGroup, backupDir, @"HKEY_CURRENT_USER");
 				
-				MakeRegOp(backupGroup, keyPath, "WCreatedUser");
-				MakeRegOp(backupGroup, keyPath, "LoadedBefore");
-				MakeRegOp(backupGroup, keyPath, "ThemeActive");
-				MakeRegOp(backupGroup, keyPath, "ColorName");
-				MakeRegOp(backupGroup, keyPath, "SizeName");
-				MakeRegOp(backupGroup, keyPath, "DllName");
+				if( Package.ExecutionInfo.ApplyToDefault ) {
+					
+					BackupThemeConfig(backupGroup, backupDir, @"HKEY_USERS\.DEFAULT");
+				}
+				
+			} catch(AnolisException aex) {
+				
+				Package.Log.Add( new LogItem(LogSeverity.Error, aex, "Error whilst attempting to save theme config") );
 			}
 			
 			// The PFRO deletions for the msstyles directory are made in InstallStyleRegular
 			
+		}
+		
+		private static void BackupThemeConfig(Group backupGroup, DirectoryInfo backupDir, String userKey) {
+			
+			String[] files = new String[] {
+				ExportKey(userKey + @"\Software\Microsoft\Windows\CurrentVersion\ThemeManager", backupDir),
+				ExportKey(userKey + @"\Control Panel\Colors"                                  , backupDir),
+				ExportKey(userKey + @"\Control Panel\Desktop\WindowMetrics"                   , backupDir)
+			};
+			
+			foreach(String file in files) {
+				
+				RegistryExtraOperation rop = new RegistryExtraOperation(backupGroup, file);
+				backupGroup.Operations.Add( rop );
+			}
+			
+		}
+		
+		private static String ExportKey(String keyPath, DirectoryInfo backupDir) {
+			
+			String destFileName = PackageUtility.GetUnusedFileName( backupDir.GetFile("Theme.reg").FullName );
+			
+			PackageUtility.RegistryExport( keyPath, destFileName );
+			
+			return destFileName;
 		}
 		
 		private Boolean InstallStyleRegular(String packageMsstylesPath, out String installedMsstylesPath) {

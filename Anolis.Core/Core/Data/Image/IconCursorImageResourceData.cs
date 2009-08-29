@@ -60,7 +60,7 @@ namespace Anolis.Core.Data {
 			get { return "Icon / Cursor Directory Member Image"; }
 		}
 		
-		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 langId, ResourceSource currentSource) {
 			LastErrorMessage = "Not supported";
 			return null;
 		}
@@ -243,7 +243,7 @@ typdef struct {
 		
 		protected override void SaveAs(Stream stream, String extension) {
 			
-			if( extension == "png" ) {
+			if( IsExtension(extension, "PNG") ) {
 				
 				// hmm, that was simple
 				//Icon.Save( stream );

@@ -28,17 +28,17 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesExtension(String fileNameExtension) {
 			
-			if( IsExtension( fileNameExtension, "bmp", "dib", "rle" ) ) return Compatibility.Yes;
+			if( IsExtension( fileNameExtension, "BMP", "DIB", "RLE" ) ) return Compatibility.Yes;
 			
 			return Compatibility.No;
 			
 		}
 		
 		public override String OpenFileFilter {
-			get { return CreateFileFilter("BmpImage", "bmp", "dib", "rle"); }
+			get { return CreateFileFilter("BmpImage", "BMP", "DIB", "RLE"); }
 		}
 		
-		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort langId, ResourceSource currentSource) {
 			return FromFile(stream, extension);
 		}
 		
@@ -48,7 +48,7 @@ namespace Anolis.Core.Data {
 		
 		private ResourceData FromFile(Stream stream, String extension) {
 			
-			if( IsExtension(extension, "bmp", "dib", "rle") ) {
+			if( IsExtension(extension, "BMP", "DIB", "RLE") ) {
 				
 				Byte[] fileData = GetAllBytesFromStream(stream);
 				
@@ -109,7 +109,7 @@ namespace Anolis.Core.Data {
 			
 			// don't use Image.Save since we want to save it without any added .NET Image class nonsense, and preserve the Dib headers and stuff
 			
-			if(extension == "bmp") {
+			if( IsExtension(extension, "BMP", "RLE", "DIB" ) ) {
 				
 				_dib.Save( stream );
 				

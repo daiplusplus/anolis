@@ -78,6 +78,12 @@ Klicka på "Nästa" för att fortsätta.</value>
 
 Klicka på "Nästa" för att fortsätta.</value>
   </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>Anolis Installeraren har upptäckt att en tidigare installation har gjort ändringar i din dator som börjar gälla efter omstart. Du måste starta om datorn innan du kan köra Anolis Installeraren.</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>{0} har upptäckt att en tidigare installation har gjort ändringar i din dator som börjar gälla efter omstart. Du måste starta om datorn innan du kan köra {0}.</value>
+  </data>
   <data name="A_title" xml:space="preserve">
     <value>Välkommen till Anolis installationspaket</value>
   </data>
@@ -349,17 +355,26 @@ Kontakta upphovsmannen till paketet.</value>
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>Välj en backup katalog och andra alternativ</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>Skapa systemåterställningspunkt (Rekommenderas)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>Observera att denna extra säkerhet inte alltid skyddar mot ändringar av icke-Windows-filer i mappen 'Program'</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>Installationsalternativ</value>
   </data>
+  <data name="C_F2_feedback" xml:space="preserve">
+    <value>Skicka installationsinformation som feedback</value>
+  </data>
+  <data name="C_F2_feedbackDesc" xml:space="preserve">
+    <value>Anonym information om dina erfarenheter (t.ex. ditt operativsystem, språk och eventuella fel) kommer att skickas till paketets utvecklare för att bidra till att förbättra paket i framtiden.</value>
+  </data>
+  <data name="C_F2_lite" xml:space="preserve">
+    <value>"Lite" (grundläggande installation), rekommenderas för alla icke-engelska versioner av Windows</value>
+  </data>
   <data name="C_F2_liteDesc" xml:space="preserve">
     <value>Om ikoner från en storlek på 128 x 128 pixlar installeras på en icke-engelsk version av Windows, kan det förekomma att vissa systemfiler i samband agerar annorlunda, vilket kan leda till kompabilitetsproblem med vissa program. Om du väljer det här alternativet förhindras installation av stora ikoner.</value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>Skapa systemåterställningspunkt (Rekommenderas)</value>
   </data>
   <data name="C_F2_restoreDesc" xml:space="preserve">
     <value>Systemåterställning ger ett extra skyddslager för avinstallationsprogrammet. Observera att detta inte alltid skyddar mot ändringar som görs till icke-Windows-filer under mappen 'Program'</value>
@@ -388,6 +403,9 @@ Kontakta upphovsmannen till paketet.</value>
   <data name="C_G_Title" xml:space="preserve">
     <value>Installerar Paketet</value>
   </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>Installerar {0}</value>
+  </data>
   <data name="D_A_destBrowse" xml:space="preserve">
     <value>Bläddra...</value>
   </data>
@@ -410,7 +428,7 @@ Kontakta upphovsmannen till paketet.</value>
     <value>Destinationsmapp och Installations inställningar</value>
   </data>
   <data name="D_A_toolsLbl" xml:space="preserve">
-    <value>De nedladdningsbara verktygen omfattar Resourcer, en kraftfull resurs redigerare; förpackare, som används för att skapa egna paketfiler och installationsrutiner; och diverse andra verktyg inklusive en liten ikon-ändrare.</value>
+    <value>De nedladdningsbara verktygen omfattar Resourcer, en kraftfull resurs redigerare; förpackare, som används för att skapa egna paketfiler och installationsrutiner; samt diverse andra verktyg inklusive en liten ikon-redigerare.</value>
   </data>
   <data name="D_B_downloadFailed" xml:space="preserve">
     <value>Nerladdningen misslyckades</value>
@@ -433,6 +451,15 @@ Kontakta upphovsmannen till paketet.</value>
   <data name="E_A_dirLbl" xml:space="preserve">
     <value>Sökväg</value>
   </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>Välj backup katalog över vad som ska återställas</value>
+  </data>
+  <data name="E_A_feedbackLbl" xml:space="preserve">
+    <value>Varför vill du avinstallera detta paket? Dina kommentarer kommer att skickas till utvecklaren för att förbättra paketet i framtiden.</value>
+  </data>
+  <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
+    <value>Varför vill du avinstallera {0}? Dina kommentarer kommer att skickas till {1} för att förbättra {0} i framtiden.</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>Den valda katalogen inehåller inte ett giltigt avinstallationspaket</value>
   </data>
@@ -448,6 +475,9 @@ Kontakta upphovsmannen till paketet.</value>
   <data name="E_A_Title" xml:space="preserve">
     <value>Välj backup katalog</value>
   </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>Avinstallationsspråk</value>
+  </data>
   <data name="E_A_uninstallButton" xml:space="preserve">
     <value>Avinstallera</value>
   </data>
@@ -459,6 +489,9 @@ Kontakta upphovsmannen till paketet.</value>
   </data>
   <data name="E_B_Title" xml:space="preserve">
     <value>Avinstallerar paketet</value>
+  </data>
+  <data name="E_B_Title_Cus" xml:space="preserve">
+    <value>Avinstallerar {0}</value>
   </data>
   <data name="F_aborted" xml:space="preserve">
     <value>Installationen avbröts</value>
@@ -486,6 +519,9 @@ Stäng alla öppna program innan du fortsätter och öppna inte andra program un
   <data name="F_title" xml:space="preserve">
     <value>Installationen är klar</value>
   </data>
+  <data name="F_TitleUninstall" xml:space="preserve">
+    <value>Avinstallationen är klar</value>
+  </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
     <value>Avinstallationen slutfördes framgångsrikt</value>
   </data>
@@ -499,6 +535,21 @@ Stäng alla öppna program innan du fortsätter och öppna inte andra program un
   </data>
   <data name="G_Title" xml:space="preserve">
     <value>Var god vänta...</value>
+  </data>
+  <data name="G2_ErrorMessage" xml:space="preserve">
+    <value>Dina installationskommentarer kunde inte skickas eftersom:</value>
+  </data>
+  <data name="G2_ErrorTitle" xml:space="preserve">
+    <value>Fel</value>
+  </data>
+  <data name="G2_status" xml:space="preserve">
+    <value>Skickar dina installationskommentarer</value>
+  </data>
+  <data name="G2_Title" xml:space="preserve">
+    <value>Var god vänta...</value>
+  </data>
+  <data name="G2_UnknownError" xml:space="preserve">
+    <value>Okänt fel</value>
   </data>
   <data name="Lang_Attribution" xml:space="preserve">
     <value>Translated by CEoCEo</value>

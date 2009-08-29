@@ -37,6 +37,8 @@ namespace Anolis.Installer {
 			
 		}
 		
+		public static List<String> nulls = new List<String>();
+		
 		public static void Localize(String localizePrefix, Form form) {
 			
 			form.Text = InstallerResources.GetString( localizePrefix + "_Title");
@@ -53,6 +55,7 @@ namespace Anolis.Installer {
 			
 			String text = InstallerResources.GetString( key );
 			if( text != null ) c.Text = text;
+			else nulls.Add( key + "\t" + c.GetType().Name );
 			
 			foreach(Control child in c.Controls)
 				RecurseLocalizeControl( localizePrefix, child );

@@ -47,7 +47,7 @@ namespace Anolis.Core.Utility {
 	
 	public sealed class Triple<TX, TY, TZ> : Pair<TX, TY> {
 		
-		public Object Z { get; set; }
+		public TZ Z { get; set; }
 		
 		public Triple(TX x, TY y, TZ z) : base(x, y) {
 			Z = z;

@@ -25,12 +25,12 @@ namespace Anolis.Core.Packages.Operations {
 			
 			if( Files.Count == 0 ) return;
 			
-			Backup( Package.ExecutionInfo.BackupGroup );
-			
 			// copy all the screensaver files to the system directory; I can't see any other directories the Display panel searches
 			
 			String destDir = System.Environment.GetFolderPath(System.Environment.SpecialFolder.System);
 			Boolean reg = Package.ExecutionInfo.ExecutionMode == PackageExecutionMode.Regular;
+			
+			List<String> installedSavers = new List<String>();
 			
 			String lastSaver    = null;
 			String lastSelected = null;
@@ -42,6 +42,8 @@ namespace Anolis.Core.Packages.Operations {
 				if( reg ) {
 					
 					InstallRegular( destDir, file.FileName, out dest );
+					
+					installedSavers.Add( dest );
 					lastSaver = dest;
 					if( file.IsSelected ) lastSelected = dest;
 					
@@ -52,6 +54,8 @@ namespace Anolis.Core.Packages.Operations {
 				
 				
 			}
+			
+			Backup( Package.ExecutionInfo.BackupGroup, installedSavers );
 			
 			if( reg ) {
 				
@@ -67,7 +71,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
-		public void Backup(Group backupGroup) {
+		public void Backup(Group backupGroup, List<String> installedSavers) {
 			
 			if( backupGroup == null ) return;
 			
@@ -83,6 +87,13 @@ namespace Anolis.Core.Packages.Operations {
 				MakeRegOp(backupGroup, keyPath, "SCRNSAVE.EXE");
 				MakeRegOp(backupGroup, keyPath, "ScreenSaveActive");
 			}
+			
+			foreach(String installedSaver in installedSavers) {
+				
+				FileOperation op = new FileOperation( backupGroup, installedSaver );
+				backupGroup.Operations.Add( op );
+			}
+			
 		}
 		
 		private void InstallRegular(String destDir, String fileName, out String destFilename) {

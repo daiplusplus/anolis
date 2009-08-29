@@ -214,7 +214,7 @@ namespace Anolis.Core.Packages.Operations {
 			
 			// Note in future I'll need to deal with the NT6 setup files format which is different
 			
-			if( path.EndsWith("_") ) { // then it's compressed
+			if( path.EndsWith("_", StringComparison.OrdinalIgnoreCase) ) { // then it's compressed
 				
 				isCompressed = true;
 				

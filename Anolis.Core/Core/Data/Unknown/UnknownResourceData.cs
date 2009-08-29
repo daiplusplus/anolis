@@ -26,7 +26,7 @@ namespace Anolis.Core.Data {
 			return new UnknownResourceData(extension, null, data);
 		}
 		
-		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 langId, ResourceSource currentSource) {
 			return FromFile(stream, extension);
 		}
 		

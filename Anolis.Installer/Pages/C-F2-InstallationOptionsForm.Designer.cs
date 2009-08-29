@@ -80,7 +80,7 @@
 			// __ok
 			// 
 			this.@__ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__ok.Location = new System.Drawing.Point(277, 190);
+			this.@__ok.Location = new System.Drawing.Point(277, 273);
 			this.@__ok.Name = "__ok";
 			this.@__ok.Size = new System.Drawing.Size(75, 23);
 			this.@__ok.TabIndex = 5;
@@ -89,14 +89,12 @@
 			// 
 			// __feedback
 			// 
-			this.@__feedback.AutoSize = true;
 			this.@__feedback.Location = new System.Drawing.Point(12, 194);
 			this.@__feedback.Name = "__feedback";
-			this.@__feedback.Size = new System.Drawing.Size(155, 17);
+			this.@__feedback.Size = new System.Drawing.Size(340, 17);
 			this.@__feedback.TabIndex = 6;
 			this.@__feedback.Text = "Send Installation Feedback";
 			this.@__feedback.UseVisualStyleBackColor = true;
-			this.@__feedback.Visible = false;
 			// 
 			// __feedbackDesc
 			// 
@@ -107,13 +105,12 @@
 			this.@__feedbackDesc.Text = "Anonymous details of your setup experience (such as your operating system, langua" +
 				"ge, and any errors) will be sent to the package\'s developers to help improve the" +
 				" package in future.";
-			this.@__feedbackDesc.Visible = false;
 			// 
 			// InstallationOptionsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(364, 225);
+			this.ClientSize = new System.Drawing.Size(364, 308);
 			this.ControlBox = false;
 			this.Controls.Add(this.@__restore);
 			this.Controls.Add(this.@__restoreDesc);
@@ -127,7 +124,6 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Advanced Installation Options";
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 

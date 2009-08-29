@@ -64,12 +64,11 @@
       <HintPath>..\_ref\Be.Windows.Forms.HexBox\Be.Windows.Forms.HexBox.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLine\BatchProcessor.cs" />

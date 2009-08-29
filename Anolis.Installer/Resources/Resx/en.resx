@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -117,6 +58,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="A_cultureLbl" xml:space="preserve">
     <value>Installation Language</value>
   </data>
@@ -136,6 +78,12 @@ To continue, press Next</value>
 
 To continue, press Next</value>
     <comment>Format string / Cus</comment>
+  </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>Anolis Installer has detected that a previous installation has made changes to your computer that will take effect after restarting. You must restart your computer before you can run Anolis Installer.</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>{0} has detected that a previous installation has made changes to your computer that will take effect after restarting. You must restart your computer before you can run {0} setup.</value>
   </data>
   <data name="A_title" xml:space="preserve">
     <value>Welcome to the Anolis Package Installer</value>
@@ -184,7 +132,6 @@ To continue, press Next</value>
     <value>Undo changes made by {0}</value>
     <comment>Format string / Cus</comment>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Background.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -431,12 +378,6 @@ To continue, press Next</value>
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>Select a backup directory and other options</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>Create System Restore Point (Recommended)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>An added layer of protection. Note this does not always protect against modifications made to non-Windows files under Program Files</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>Installation Options</value>
   </data>
@@ -451,6 +392,12 @@ To continue, press Next</value>
   </data>
   <data name="C_F2_liteDesc" xml:space="preserve">
     <value>If 128x128 (and larger) sized icon images are installed on non-English language versions of Windows certain system files may not behave as expected and may cause compatibility problems with some programs. Checking this option prevents 128x128-sized icons from being installed.</value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>Create System Restore Point (Recommended)</value>
   </data>
   <data name="C_F2_restoreDesc" xml:space="preserve">
     <value>System Restore provides an added layer of protection to the uninstaller. Note this does not always protect against modifications made to non-Windows files under Program Files</value>
@@ -480,6 +427,10 @@ To continue, press Next</value>
   </data>
   <data name="C_G_Title" xml:space="preserve">
     <value>Installing Package</value>
+  </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>Installing {0}</value>
+    <comment>Format string / Cus</comment>
   </data>
   <data name="D_A_destBrowse" xml:space="preserve">
     <value>Browse...</value>
@@ -526,6 +477,15 @@ To continue, press Next</value>
   <data name="E_A_dirLbl" xml:space="preserve">
     <value>Directory</value>
   </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>Select the backup directory to recover from</value>
+  </data>
+  <data name="E_A_feedbackLbl" xml:space="preserve">
+    <value>Why are you uninstalling this package? Your feedback will be sent to the developer to improve the package in future.</value>
+  </data>
+  <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
+    <value>Why are you uninstalling {0}? Your feedback will be sent to {1} to improve {0} in future.</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>The specified directory does not contain a valid uninstallation package</value>
   </data>
@@ -541,6 +501,9 @@ To continue, press Next</value>
   <data name="E_A_Title" xml:space="preserve">
     <value>Select Backup Directory</value>
   </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>Uninstallation Language</value>
+  </data>
   <data name="E_A_uninstallButton" xml:space="preserve">
     <value>Uninstall</value>
   </data>
@@ -549,9 +512,17 @@ To continue, press Next</value>
   </data>
   <data name="E_B_Subtitle_Cus" xml:space="preserve">
     <value>Now uninstalling {0}</value>
+    <comment>Format string / cus</comment>
   </data>
   <data name="E_B_Title" xml:space="preserve">
     <value>Uninstalling package</value>
+  </data>
+  <data name="E_B_Title_Cus" xml:space="preserve">
+    <value>Uninstalling {0}</value>
+    <comment>Format string / cus</comment>
+  </data>
+  <data name="EULA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\EULA.rtf;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="F_aborted" xml:space="preserve">
     <value>Installation aborted</value>
@@ -596,6 +567,21 @@ Close all open applications before continuing. Do not attempt to open any new ap
   <data name="G_Title" xml:space="preserve">
     <value>Please Wait...</value>
   </data>
+  <data name="G2_ErrorMessage" xml:space="preserve">
+    <value>Your installation feedback could not be sent because:</value>
+  </data>
+  <data name="G2_ErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="G2_status" xml:space="preserve">
+    <value>Sending your installation feedback</value>
+  </data>
+  <data name="G2_Title" xml:space="preserve">
+    <value>Please Wait...</value>
+  </data>
+  <data name="G2_UnknownError" xml:space="preserve">
+    <value>Unknown Error</value>
+  </data>
   <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Flags\en.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -634,18 +620,5 @@ Close all open applications before continuing. Do not attempt to open any new ap
   </data>
   <data name="X_Screensaver" xml:space="preserve">
     <value>Screensaver</value>
-  </data>
-  <data name="E_A_FbdDescription" xml:space="preserve">
-    <value>Select the backup directory to recover from</value>
-  </data>
-  <data name="E_A_uninstallationLanguage" xml:space="preserve">
-    <value>Uninstallation Language</value>
-  </data>
-  <data name="EULA" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\EULA.rtf;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="C_G_Title_Cus" xml:space="preserve">
-    <value>Installing {0}</value>
-    <comment>Format string / Cus</comment>
   </data>
 </root>

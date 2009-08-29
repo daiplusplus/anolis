@@ -41,6 +41,18 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public static Operation FromElement(Group parent, XmlElement operationElement) {
 			
+			Operation ret = FromElementImpl(parent, operationElement);
+			
+			if( ret == null ) {
+				
+				parent.Package.Log.Add(LogSeverity.Error, "Unrecognised element: " + operationElement.Name);
+			}
+			
+			return ret;
+		}
+		
+		private static Operation FromElementImpl(Group parent, XmlElement operationElement) {
+			
 			switch(operationElement.Name) {
 				case "patch":
 					return new ResPatchOperation(parent, operationElement);
@@ -67,11 +79,6 @@ namespace Anolis.Core.Packages.Operations {
 				case "clearIconCache":
 					return new ClearIconCacheOperation(parent, operationElement);
 				default:
-					// TODO: Allow additional libraries or code-generation to specify their own stuff
-					// Define types in the Package XML? http://www.codeproject.com/KB/dotnet/evaluator.aspx
-					
-					parent.Package.Log.Add(LogSeverity.Warning, "Unrecognised element: " + operationElement.Name);
-					
 					return null;
 			}
 			
