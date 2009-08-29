@@ -69,7 +69,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InstallerResources.cs" />
+    <Compile Include="Classes\Extensions.cs" />
+    <Compile Include="Classes\FeedbackSender.cs" />
+    <Compile Include="Classes\InstallationInfo.cs" />
+    <Compile Include="Classes\InstallerResources.cs" />
     <Compile Include="Pages\0-BaseExteriorPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -108,6 +111,12 @@
     </Compile>
     <Compile Include="Pages\C-C-UpdatePackage.Designer.cs">
       <DependentUpon>C-C-UpdatePackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\G2-SendFeedbackForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\G2-SendFeedbackForm.Designer.cs">
+      <DependentUpon>G2-SendFeedbackForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\D-A-Destination.cs">
       <SubType>UserControl</SubType>
@@ -328,6 +337,9 @@
     <Content Include="Resources\Flags\ru.png" />
     <None Include="Resources\Flags\th.png" />
     <None Include="Resources\Flags\se.png" />
+    <EmbeddedResource Include="Pages\G2-SendFeedbackForm.resx">
+      <DependentUpon>G2-SendFeedbackForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resx\GZip\ar.resources.gz" />
     <EmbeddedResource Include="Resources\Resx\GZip\cy.resources.gz" />
     <EmbeddedResource Include="Resources\Resx\GZip\da.resources.gz" />

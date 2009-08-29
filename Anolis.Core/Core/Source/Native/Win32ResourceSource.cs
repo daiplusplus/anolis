@@ -172,7 +172,7 @@ namespace Anolis.Core.Source {
 			
 			if( lang.Name.Type.Source != this ) throw new ArgumentException("The specified ResourceLang does not exist in this ResourceSource");
 			
-			// TODO: Check that ResourceLang refers to a Resource that actually does exist in this resource and is not a pending add operation
+			if( lang.Action == ResourceDataAction.Add ) throw new ArgumentException("The specified ResourceLang's data does not exist in this ResourceSource");
 			
 			// use FindResourceEx and LoadResource to get a handle to the resource
 			// use SizeOfResource to get the length of the byte array

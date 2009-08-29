@@ -30,6 +30,9 @@ namespace Anolis.Core.Packages.Operations {
 			}
 			Timeout = timeout;
 			
+			Uninstall     = element.GetAttribute("uninstall");
+			UninstallArgs = element.GetAttribute("uninstallArgs");
+			
 		}
 		
 		public ProgramOperation(Group parent, String path) : base(parent, path) {
@@ -37,7 +40,15 @@ namespace Anolis.Core.Packages.Operations {
 		
 		public override void Execute() {
 			
+			Backup( Package.ExecutionInfo.BackupGroup );
+			
+			if(!File.Exists( Path ) ) {
+				Package.Log.Add( LogSeverity.Error, "ProgramOperation: Couldn't find: " + Path );
+				return;
+			}
+			
 			ProcessStartInfo startInfo = new ProcessStartInfo(Path, Arguments);
+			startInfo.WindowStyle    = ProcessWindowStyle.Hidden;
 			startInfo.CreateNoWindow = true;
 			
 			Process process = Process.Start( startInfo );
@@ -56,8 +67,44 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
+		private void Backup(Group backupGroup) {
+			
+			if( backupGroup == null ) return;
+			
+			ProgramOperation opPF = new ProgramOperation(backupGroup, Uninstall);
+			opPF.Arguments = UninstallArgs;
+			backupGroup.Operations.Add( opPF );
+			
+			if( Anolis.Core.Utility.Environment.IsX64  ) {
+				
+				String x86UninstString = null;
+				
+				if( Uninstall.StartsWith("%programfiles%", StringComparison.OrdinalIgnoreCase) ) {
+					
+					x86UninstString = "%programfiles(x86)%" + Uninstall.Substring("%programfiles%".Length);
+					
+				} else if( Uninstall.StartsWith("%commonprogramfiles%", StringComparison.OrdinalIgnoreCase) ) {
+					
+					x86UninstString = "%commonprogramfiles(x86)%" + Uninstall.Substring("%commonprogramfiles%".Length);
+				}
+				
+				
+				if( x86UninstString != null ) {
+					
+					ProgramOperation opPFx86 = new ProgramOperation(backupGroup, x86UninstString);
+					opPFx86.Arguments = UninstallArgs;
+					backupGroup.Operations.Add( opPFx86 );
+				}
+				
+			}
+			
+			
+		}
+		
 		public Int32  Timeout   { get; set; }
 		public String Arguments { get; set; }
+		public String Uninstall { get; set; }
+		public String UninstallArgs { get; set; }
 		
 		public override Boolean Merge(Operation operation) {
 			return false;
@@ -96,6 +143,14 @@ namespace Anolis.Core.Packages.Operations {
 			args     = path.Substring( lastQuote );
 			
 		} */
+		
+		public static ProgramOperation CreateRegistryOperation(Group parentGroup, String regOperation, String keyPath) {
+			
+			ProgramOperation op = new ProgramOperation(parentGroup, @"%windir%\system32\reg.exe");
+			op.Arguments = regOperation + " \"" + keyPath + "\" /F";
+			return op;
+			
+		}
 		
 	}
 }

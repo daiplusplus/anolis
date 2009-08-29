@@ -129,11 +129,11 @@ namespace Anolis.Core.Utility {
 			
 			if( Environment.OSVersion.Version.Major >= 6 ) {
 				
-				RunProcHiddenSync("takeown", "/f " + fileName);
+				RunProcHiddenSync("takeown", "/f " + fileName, 500);
 				
-				RunProcHiddenSync("icacls", fileName + " /grant %username%:F");
+				RunProcHiddenSync("icacls", fileName + " /grant %username%:F", 500);
 				
-				RunProcHiddenSync("icacls", fileName + " /grant *S-1-1-0:(F)");
+				RunProcHiddenSync("icacls", fileName + " /grant *S-1-1-0:(F)", 500);
 				
 			} else if( Environment.OSVersion.Version.Major == 5) {
 				
@@ -146,18 +146,48 @@ namespace Anolis.Core.Utility {
 			
 		}
 		
-		public static void RunProcHiddenSync(String processFileName, String arguments) {
+		/// <summary>Starts a process and waits for it to exit. If it hasn't quit by the timeout (and if the timeout is specified in negative units) the process is terminated, otherwise the program resumes, leaving the started process running</summary>
+		/// <returns>true if the process finished within the timeout period. False if the process was killed.</returns>
+		public static ProcessStartState RunProcHiddenSync(String processFileName, String arguments, Int32 timeout) {
 			
 			ProcessStartInfo procStart = new ProcessStartInfo(processFileName, arguments);
 			procStart.CreateNoWindow = true;
 			procStart.WindowStyle    = ProcessWindowStyle.Hidden;
 			
-			Process proc = Process.Start( procStart );
+			try {
+				Process proc = Process.Start( procStart );
+				
+				if( !proc.WaitForExit( Math.Abs( timeout ) ) ) {
+					
+					if( timeout < 0 ) {
+						
+						proc.Kill();
+						return ProcessStartState.WasTerminated;
+						
+					} else return ProcessStartState.StillRunning;
+				}
+				
+			} catch(Win32Exception wex) {
+				
+				throw new AnolisException("Could not launch process: " + wex.Message, wex);
+			}
 			
-			if( !proc.WaitForExit( 500 ) )
-				throw new AnolisException("Process did not terminate after 500ms");
+			return ProcessStartState.FinishedWithinTimeout;
+		}
+		
+		public static void RunProcHiddenAsync(String processFileName, String arguments) {
 			
+			ProcessStartInfo procStart = new ProcessStartInfo(processFileName, arguments);
+			procStart.CreateNoWindow = true;
+			procStart.WindowStyle    = ProcessWindowStyle.Hidden;
 			
+			try {
+				Process proc = Process.Start( procStart );
+				
+			} catch(Win32Exception wex) {
+				
+				throw new AnolisException("Could not launch process: " + wex.Message, wex);
+			}
 		}
 		
 		internal static MachineType GetMachineType(String fileName) {
@@ -405,4 +435,11 @@ namespace Anolis.Core.Utility {
 #endregion
 		
 	}
+	
+	public enum ProcessStartState {
+		FinishedWithinTimeout,
+		WasTerminated,
+		StillRunning
+	}
+	
 }

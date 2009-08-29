@@ -57,7 +57,6 @@ namespace Anolis.Packager {
 			
 			if( canonicalPercentage == -1 ) {
 				
-				__progress.Value = canonicalPercentage;
 				__progress.Style = ProgressBarStyle.Marquee;
 				return;
 			}

@@ -102,6 +102,7 @@ namespace Anolis.Core.Packages.Operations {
 			return "System Parameter: " + SpiAction.ToString();
 		}
 		
+		/// <summary>Returns the inverse 'Get' SpiAction for the specified 'Set' SpiAction. Returns 'None' if the specified action is already a Getter or has no Getter partner.</summary>
 		private static SpiAction GetGetterAction(SpiAction action) {
 			
 			switch(action) {

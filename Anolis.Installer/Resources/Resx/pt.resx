@@ -78,6 +78,12 @@ Pressione Avançar  para continuar</value>
 
 Pressione Avançar  para continuar</value>
   </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>O Instalador Anolis detectou que uma instalação anterior fez modificações no computador que terão efeito após reiniciar o computador. Você deve reiniciar seu computador antes de executar o instalador Anolis.</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>{0} detectou que uma instalação anterior fez modificações no computador que terão efeito após reiniciar o computador. Você deve reiniciar seu computador antes de executar {0}.</value>
+  </data>
   <data name="A_title" xml:space="preserve">
     <value>Bem vindo ao instalador de pacotes Anolis</value>
   </data>
@@ -85,10 +91,10 @@ Pressione Avançar  para continuar</value>
     <value>Bem vindo ao instalador do {0} </value>
   </data>
   <data name="B_installBlurb" xml:space="preserve">
-    <value>Instalar o pacote localizado nesta distribuição do Anolis ou em outro local deste computador. O pacote pode ser instalado em um disco de instalação do sistema (I386).</value>
+    <value>Instalar o pacote localizado nesta distribuição do Anolis ou em outro local deste computador. O pacote pode ser integrado em um disco de instalação do sistema (I386).</value>
   </data>
   <data name="B_installBlurb_Cus" xml:space="preserve">
-    <value>Instalar {0} neste computador ou no disco de instalação do sistema (I386).</value>
+    <value>Instalar {0} neste computador ou integrar no disco de instalação do sistema (I386).</value>
   </data>
   <data name="B_installRad" xml:space="preserve">
     <value>Instalar um pacote</value>
@@ -100,7 +106,7 @@ Pressione Avançar  para continuar</value>
     <value>Escolha a operação desejada</value>
   </data>
   <data name="B_Title" xml:space="preserve">
-    <value>Seleciona uma tarefa</value>
+    <value>Selecione uma tarefa</value>
   </data>
   <data name="B_toolsBlurb" xml:space="preserve">
     <value>Baixando arquivos necessários para a criação de seu próprio pacote ou distribuição</value>
@@ -112,7 +118,7 @@ Pressione Avançar  para continuar</value>
     <value>Criar meu próprio pacote ou distribuição</value>
   </data>
   <data name="B_uninstallBlurb" xml:space="preserve">
-    <value>Para restaurar arquivos originais antes da instalação do pacote. Será necessária a pasta de backup criada durante a instalação</value>
+    <value>Para restaurar arquivos originais para antes da instalação do pacote. Será necessária a pasta de backup criada durante a instalação</value>
   </data>
   <data name="B_uninstallRad" xml:space="preserve">
     <value>Desfazer as mudanças criadas na instalação desse pacote</value>
@@ -130,7 +136,7 @@ Pressione Avançar  para continuar</value>
     <value>Um arquivo de pacote (*.anop) no computador</value>
   </data>
   <data name="C_A_embedRad" xml:space="preserve">
-    <value>Um pacote contido nesse instalador</value>
+    <value>Um pacote incluso nesse instalador</value>
   </data>
   <data name="C_A_notFileExists" xml:space="preserve">
     <value>O arquivo "{0}" não existe</value>
@@ -145,10 +151,10 @@ Pressione Avançar  para continuar</value>
     <value>Uma configuração de pacote (package.xml) no computador</value>
   </data>
   <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
-    <value>Selecione um pacote integrado antes de continuar</value>
+    <value>Selecione um pacote incluso antes de continuar</value>
   </data>
   <data name="C_A_Subtitle" xml:space="preserve">
-    <value>O pacote para a instalação pode estar no computador ou contido neste instalador</value>
+    <value>O pacote para a instalação pode estar no computador ou incluso neste instalador</value>
   </data>
   <data name="C_A_Title" xml:space="preserve">
     <value>Selecione uma pacote para instalar</value>
@@ -166,7 +172,7 @@ Pressione Avançar  para continuar</value>
     <value>O pacote especificado não contem um arquivo de definição</value>
   </data>
   <data name="C_B_instantiating" xml:space="preserve">
-    <value>Instalando Pacote</value>
+    <value>Instalando o pacote</value>
   </data>
   <data name="C_B_statusLbl" xml:space="preserve">
     <value>Preparando...</value>
@@ -202,7 +208,7 @@ Pressione Avançar  para continuar</value>
     <value>Verificando se há atualizações disponiveis para o pacote</value>
   </data>
   <data name="C_C_infoFailed" xml:space="preserve">
-    <value>Erro ao verificar atualizações: informações de atualização não puderam ser acessadas.</value>
+    <value>Erro ao verificar atualizações: Verifique sua conexão de Internet.</value>
   </data>
   <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
     <value>Uma nova versão ({0}) desse pacote foi encontrada. Deseja baixa-la agora?</value>
@@ -211,13 +217,13 @@ Pressione Avançar  para continuar</value>
     <value>Uma nova versão ({0}) desse pacote foi encontrada, mas deve ser ser baixada manualmente. Clique para mais informações</value>
   </data>
   <data name="C_C_infoUpdateLatest" xml:space="preserve">
-    <value>Você tem a ultima versão ({0}) desse pacote.</value>
+    <value>Você tem a versão atualizada ({0}) desse pacote.</value>
   </data>
   <data name="C_C_sfdTitle" xml:space="preserve">
     <value>Salvar pacote baixado em...</value>
   </data>
   <data name="C_C_skipCheckLbl" xml:space="preserve">
-    <value>Você pode pular a verificação de atualização clicando em Próximo a qualqer momento.</value>
+    <value>Você pode interromper a verificação de atualização clicando em Próximo a qualqer momento.</value>
   </data>
   <data name="C_C_statusLbl" xml:space="preserve">
     <value>Preparando...</value>
@@ -250,10 +256,10 @@ Pressione Avançar  para continuar</value>
     <value>Habilitado</value>
   </data>
   <data name="C_E_Explicit" xml:space="preserve">
-    <value>Explícito</value>
+    <value>Externo</value>
   </data>
   <data name="C_E_Inherit" xml:space="preserve">
-    <value>Herdado</value>
+    <value>Interno</value>
   </data>
   <data name="C_E_noInfo" xml:space="preserve">
     <value>O item selecionado '{0}' não tem nenhuma informação associada à ele</value>
@@ -289,16 +295,16 @@ Pressione Avançar  para continuar</value>
     <value>Tela de Boas Vindas</value>
   </data>
   <data name="C_E1_logonPreview" xml:space="preserve">
-    <value>Visualização</value>
+    <value>Visualizar</value>
   </data>
   <data name="C_E1_Presets" xml:space="preserve">
-    <value>Esquema pré-ajustado</value>
+    <value>Modo pré-definido</value>
   </data>
   <data name="C_E1_previewLbl" xml:space="preserve">
     <value>Área de visualização</value>
   </data>
   <data name="C_E1_Subtitle" xml:space="preserve">
-    <value>Você pode personalizar como seu computador aparecerá após a instalação</value>
+    <value>Você pode escolher como seu computador aparecerá após a instalação</value>
   </data>
   <data name="C_E1_Title" xml:space="preserve">
     <value>Selecione um tema</value>
@@ -325,7 +331,7 @@ Pressione Avançar  para continuar</value>
     <value>Instalar no computador</value>
   </data>
   <data name="C_F_i386" xml:space="preserve">
-    <value>Instalar no CD de instalação do Windows (I386)</value>
+    <value>Integrar em um CD de instalação do Windows (I386)</value>
   </data>
   <data name="C_F_i386Browse" xml:space="preserve">
     <value>Procurar...</value>
@@ -348,17 +354,26 @@ Pressione Avançar  para continuar</value>
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>Selecione uma pasta de restauração e outras opções</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>Criar um ponto de restauração do sistema (Recomedado)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>Uma camada de proteção foi adicionada. Mas isso não protege contra modificações feitas em arquivos que não são do windows em Arquivos de Programas</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>Opções de Instalação</value>
   </data>
+  <data name="C_F2_feedback" xml:space="preserve">
+    <value>Enviar detalhes da instalação</value>
+  </data>
+  <data name="C_F2_feedbackDesc" xml:space="preserve">
+    <value>Detalhes anônimos de sua experiência de instalação (como o seu sistema operacional, língua do sistema, e qualquer erro) serão enviados aos desenvolvedores do pacote para ajudar a melhora-lo no futuro.</value>
+  </data>
+  <data name="C_F2_lite" xml:space="preserve">
+    <value>Instalação "Lite" para alguns idiomas do Windows </value>
+  </data>
   <data name="C_F2_liteDesc" xml:space="preserve">
     <value>Em alguns idiomas do Windows, instalar ícones maiores que 128x128 pixel podem causar problemas com certos programas. Selecionando esse item, icones maiores que 128x128 pixels não serão instalados, evitando este tipo de problema. </value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>Criar um ponto de restauração do sistema (Recomedado)</value>
   </data>
   <data name="C_F2_restoreDesc" xml:space="preserve">
     <value>A Restauração do sistema fornece uma proteção a mais ao desinstalador, porém, não protege contra alterações feitas na pasta Arquivos de Programas</value>
@@ -370,7 +385,7 @@ Pressione Avançar  para continuar</value>
     <value>Opções avançadas de instalação</value>
   </data>
   <data name="C_G_cleanup" xml:space="preserve">
-    <value>Limpeza de pós instalação</value>
+    <value>Excluindo arquivos temporários...</value>
   </data>
   <data name="C_G_status" xml:space="preserve">
     <value>{0}% concluido - {1}</value>
@@ -386,6 +401,9 @@ Pressione Avançar  para continuar</value>
   </data>
   <data name="C_G_Title" xml:space="preserve">
     <value>Instalando Pacote</value>
+  </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>Instalando {0}</value>
   </data>
   <data name="D_A_destBrowse" xml:space="preserve">
     <value>Procurar...</value>
@@ -412,7 +430,7 @@ Pressione Avançar  para continuar</value>
     <value>As ferramenta baixadas incluem Resourcer, um poderoso editor de recursos, o qual foi usado para ciar o pacote atual, seus arquivos e instaladores personalizados e muitas outras ferramentas, incluindo um editor de icones.</value>
   </data>
   <data name="D_B_downloadFailed" xml:space="preserve">
-    <value>Falha no download</value>
+    <value>Falha ao baixar arquivos</value>
   </data>
   <data name="D_B_status" xml:space="preserve">
     <value>Preparando...</value>
@@ -432,6 +450,15 @@ Pressione Avançar  para continuar</value>
   <data name="E_A_dirLbl" xml:space="preserve">
     <value>Pasta</value>
   </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>Selecione a pasta de restauração</value>
+  </data>
+  <data name="E_A_feedbackLbl" xml:space="preserve">
+    <value>Por que você está desinstalando esse pacote? Seu relatório de desinstalação será enviado para o autor aprimorar o pacote no futuro.</value>
+  </data>
+  <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
+    <value>Por que você está desinstalando esse {0}? Seu relatório de desinstalação será enviado para {1} aprimorar {0} no futuro.</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>A pasta especificada não contém um pacote de desinstalação válido</value>
   </data>
@@ -442,10 +469,13 @@ Pressione Avançar  para continuar</value>
     <value>Criar um ponto de restauração do sistema (Recomendado)</value>
   </data>
   <data name="E_A_sysResDesc" xml:space="preserve">
-    <value>Uma camada de proteção foi adicionada. Mas isso não protege contra modificações feitas em arquivos que não são do Windows em Arquivos de Programas</value>
+    <value>Um ponto de restauração foi criado. Mas isso não protege contra modificações feitas em arquivos que não são do Windows em Arquivos de Programas</value>
   </data>
   <data name="E_A_Title" xml:space="preserve">
-    <value>Selecione a pasta de Backup</value>
+    <value>Selecione a pasta de restauração</value>
+  </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>Idioma de Desinstalação</value>
   </data>
   <data name="E_A_uninstallButton" xml:space="preserve">
     <value>Desinstalar</value>
@@ -458,6 +488,9 @@ Pressione Avançar  para continuar</value>
   </data>
   <data name="E_B_Title" xml:space="preserve">
     <value>Desinstalando pacote</value>
+  </data>
+  <data name="E_B_Title_Cus" xml:space="preserve">
+    <value>Desinstalando {0}</value>
   </data>
   <data name="F_aborted" xml:space="preserve">
     <value>Instalação cancelada</value>
@@ -485,6 +518,9 @@ Feche todos os programas abertos. Não abra nenhum programa.</value>
   <data name="F_title" xml:space="preserve">
     <value>Instalação concluída com sucesso</value>
   </data>
+  <data name="F_TitleUninstall" xml:space="preserve">
+    <value>Desinstalação concluída com sucesso</value>
+  </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
     <value>Desinstalação concluída com sucesso</value>
   </data>
@@ -499,11 +535,26 @@ Feche todos os programas abertos. Não abra nenhum programa.</value>
   <data name="G_Title" xml:space="preserve">
     <value>Por favor, aguarde...</value>
   </data>
+  <data name="G2_ErrorMessage" xml:space="preserve">
+    <value>O relatório de instalação não pode ser enviado porque:</value>
+  </data>
+  <data name="G2_ErrorTitle" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="G2_status" xml:space="preserve">
+    <value>Enviando seu relatório de instalação</value>
+  </data>
+  <data name="G2_Title" xml:space="preserve">
+    <value>Por Favor, Agurade...</value>
+  </data>
+  <data name="G2_UnknownError" xml:space="preserve">
+    <value>Erro Desconhecido</value>
+  </data>
   <data name="Lang_Attribution" xml:space="preserve">
     <value>Traduzido por Marrussa</value>
   </data>
   <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Flags\pt.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Flags\br.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Lang_Lcid" xml:space="preserve">
     <value>pt-br</value>

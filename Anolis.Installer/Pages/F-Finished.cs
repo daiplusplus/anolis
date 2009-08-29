@@ -68,53 +68,58 @@ namespace Anolis.Installer.Pages {
 				
 				this.WizardForm.NextText = InstallerResources.GetString("F_finishButton");
 				this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Quit);
-				
-				return;
-			}
 			
-			/////////////////////////////////
-			
-			switch( Program.ProgramMode ) {
-				case ProgramMode.InstallPackage:
-					
-					if( PackageInfo.RequiresRestart ) {
-						this.__installationComplete.Text = InstallerResources.GetString("F_installationCompleteRestart");
-					} else {
-						this.__installationComplete.Text = InstallerResources.GetString("F_installationComplete");
-					}
-					
-					break;
-					
-				case ProgramMode.UninstallPackage:
-					
-					this.__title.Text = InstallerResources.GetString("F_TitleUninstall");
-					
-					if( PackageInfo.RequiresRestart ) {
-						this.__installationComplete.Text = InstallerResources.GetString("F_uninstallationCompleteRestart");
-					} else {
-						this.__installationComplete.Text = InstallerResources.GetString("F_uninstallationComplete");
-					}
-					
-					break;
-				
-				case ProgramMode.InstallTools:
-					
-					this.__installationComplete.Text = InstallerResources.GetString("F_installTools");
-					
-					break;
-			}
-			
-			/////////////////////////////////
-			
-			if( PackageInfo.RequiresRestart ) {
-				
-				this.WizardForm.NextText     = InstallerResources.GetString("F_restartButton");
-				this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Restart);
-				
 			} else {
 				
-				this.WizardForm.NextText = InstallerResources.GetString("F_finishButton");
-				this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Quit);
+				switch( InstallationInfo.ProgramMode ) {
+					case ProgramMode.InstallPackage:
+						
+						if( PackageInfo.RequiresRestart ) {
+							this.__installationComplete.Text = InstallerResources.GetString("F_installationCompleteRestart");
+						} else {
+							this.__installationComplete.Text = InstallerResources.GetString("F_installationComplete");
+						}
+						
+						break;
+						
+					case ProgramMode.UninstallPackage:
+						
+						this.__title.Text = InstallerResources.GetString("F_TitleUninstall");
+						
+						if( PackageInfo.RequiresRestart ) {
+							this.__installationComplete.Text = InstallerResources.GetString("F_uninstallationCompleteRestart");
+						} else {
+							this.__installationComplete.Text = InstallerResources.GetString("F_uninstallationComplete");
+						}
+						
+						break;
+					
+					case ProgramMode.InstallTools:
+						
+						this.__installationComplete.Text = InstallerResources.GetString("F_installTools");
+						
+						break;
+				}
+				
+				/////////////////////////////////
+				
+				if( PackageInfo.RequiresRestart ) {
+					
+					this.WizardForm.NextText     = InstallerResources.GetString("F_restartButton");
+					this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Restart);
+					
+				} else {
+					
+					this.WizardForm.NextText = InstallerResources.GetString("F_finishButton");
+					this.WizardForm.NextClicked += new EventHandler(WizardForm_NextClicked_Quit);
+				}
+				
+			}
+			
+			if( InstallationInfo.FeedbackCanSend && InstallationInfo.FeedbackSend ) {
+				
+				SendFeedbackForm feedbackForm = new SendFeedbackForm();
+				feedbackForm.ShowDialog(this);
 			}
 			
 		}

@@ -35,10 +35,11 @@ namespace Anolis.Core.Packages {
 			
 			RootDirectory = root;
 			
-			Version       = Single.Parse( packageElement.Attributes["version"].Value, N.AllowDecimalPoint | N.AllowLeadingWhite | N.AllowTrailingWhite, Cult.InvariantCulture );
+			Version       = new Version( packageElement.Attributes["version"].Value );
 			Attribution   = packageElement.GetAttribute("attribution");
-			Website       = packageElement.GetAttribute("website")  .Length > 0 ? new Uri( packageElement.Attributes["website"]  .Value ) : null;
-			UpdateUri     = packageElement.GetAttribute("updateUri").Length > 0 ? new Uri( packageElement.Attributes["updateUri"].Value ) : null;
+			Website       = packageElement.GetAttribute("website")    .Length > 0 ? new Uri( packageElement.Attributes["website"]    .Value ) : null;
+			UpdateUri     = packageElement.GetAttribute("updateUri")  .Length > 0 ? new Uri( packageElement.Attributes["updateUri"]  .Value ) : null;
+			FeedbackUri   = packageElement.GetAttribute("feedbackUri").Length > 0 ? new Uri( packageElement.Attributes["feedbackUri"].Value ) : null;
 			ConditionDesc = packageElement.GetAttribute("conditionDesc");
 			
 			//////////////////////////////////////
@@ -95,6 +96,7 @@ namespace Anolis.Core.Packages {
 		
 		private void EnsureState() {
 			
+			if( Version       == null ) throw new PackageException("Package's version is not defined");
 			if( RootGroup     == null ) throw new PackageException("Package's root group is not defined");
 			if( RootDirectory == null ) throw new PackageException("Package's root filesystem directory is not defined");
 			
@@ -102,11 +104,12 @@ namespace Anolis.Core.Packages {
 		
 		public String ConditionDesc { get; set; }
 		
-		public Single Version      { get; set; }
-		public String Attribution  { get; set; }
-		public Uri    Website      { get; set; }
-		public Uri    UpdateUri    { get; set; }
-		public String ReleaseNotes { get; set; }
+		public Version Version      { get; set; }
+		public String  Attribution  { get; set; }
+		public Uri     Website      { get; set; }
+		public Uri     UpdateUri    { get; set; }
+		public Uri     FeedbackUri  { get; set; }
+		public String  ReleaseNotes { get; set; }
 		
 		public Group         RootGroup     { get; private set; }
 		public DirectoryInfo RootDirectory { get; private set; }
@@ -269,9 +272,11 @@ namespace Anolis.Core.Packages {
 				}
 					
 				settings.BackupDirectory.Create();
+				settings.BackupDirectory.Refresh();
 				
 				Package backupPackage = new Package( settings.BackupDirectory );
-				backupPackage.Name = "Uninstallation Package";
+				backupPackage.Version = this.Version;
+				backupPackage.Name = this.Name + " Uninstallation Package";
 				backupPackage.Attribution = "Anolis Installer";
 				
 				backupGroup = backupPackage.RootGroup;
@@ -451,37 +456,35 @@ namespace Anolis.Core.Packages {
 				logFile.MoveTo( logFileDest );
 			}
 			
-			if( RootDirectory.Exists ) {
+			if( !RootDirectory.Exists ) return;
+			
+			Exception ex = null;
+			
+			try {
 				
-				Exception ex = null;
+				RootDirectory.Delete(true);
 				
-				try {
-					
-					RootDirectory.Delete(true);
-					
-				} catch(IOException iox) {
-					ex = iox;
-				} catch(UnauthorizedAccessException uax) {
-					ex = uax;
-				} catch(System.Security.SecurityException sex) {
-					ex = sex;
-				}
+			} catch(IOException iox) {
+				ex = iox;
+			} catch(UnauthorizedAccessException uax) {
+				ex = uax;
+			} catch(System.Security.SecurityException sex) {
+				ex = sex;
+			}
+			
+			if( ex != null ) {
+				// the obvious cases have been taken care of. This exception could happen because:
+				//   * the user has a file open
+				//   * its trying to delete Uninstall.exe if this was an uninstallation package (!!!)
+				// so just append it to the log
 				
-				if( ex != null ) {
-					// the obvious cases have been taken care of. This exception could happen because:
-					//   * the user has a file open
-					//   * its trying to delete Uninstall.exe if this was an uninstallation package (!!!)
-					// so just append it to the log
-					
-					if( File.Exists( logFileDest ) ) {
-						using(StreamWriter wtr = new StreamWriter(logFileDest, true)) {
-							
-							LogItem item = new LogItem(LogSeverity.Error, ex, "DeleteFiles IOException");
-							item.Write( wtr );
-						}
+				if( File.Exists( logFileDest ) ) {
+					using(StreamWriter wtr = new StreamWriter(logFileDest, true)) {
+						
+						LogItem item = new LogItem(LogSeverity.Error, ex, "PackageDeleteFiles Exception");
+						item.Write( wtr );
 					}
-					
-				}//if
+				}
 				
 			}//if
 			
@@ -518,9 +521,9 @@ namespace Anolis.Core.Packages {
 			if( lines.Length < 4 ) return null;
 			
 			String name = lines[0];
-			Single version; Uri packageLocation = null, infoLocation = null;
+			Version version; Uri packageLocation = null, infoLocation = null;
 			
-			if( !Single.TryParse ( lines[1], N.Any, Cult.InvariantCulture, out version ) ) return null;
+			if( !Extensions.VersionTryParse( lines[1], out version ) ) return null;
 			
 			Uri.TryCreate( lines[2], UriKind.Absolute, out packageLocation );
 			Uri.TryCreate( lines[3], UriKind.Absolute, out infoLocation );
@@ -561,13 +564,14 @@ namespace Anolis.Core.Packages {
 			XmlDocument doc = new XmlDocument();
 			XmlElement root = doc.CreateElement("package");
 			
-			                        PackageItem.AddAttribute(root, "id"         , Id );
-			                        PackageItem.AddAttribute(root, "name"       , Name );
-			if( Condition != null ) PackageItem.AddAttribute(root, "condition"  , Condition.ToString() );
-			                        PackageItem.AddAttribute(root, "version"    , Version.ToString(Cult.InvariantCulture) );
-			                        PackageItem.AddAttribute(root, "attribution", Attribution );
-			if( Website   != null ) PackageItem.AddAttribute(root, "website"    , Website.ToString() );
-			if( UpdateUri != null ) PackageItem.AddAttribute(root, "updateUri"  , UpdateUri.ToString());
+			                          PackageItem.AddAttribute(root, "id"         , Id                    );
+			                          PackageItem.AddAttribute(root, "name"       , Name                  );
+			if( Condition   != null ) PackageItem.AddAttribute(root, "condition"  , Condition.ToString()  );
+			                          PackageItem.AddAttribute(root, "version"    , Version.ToString()    );
+			                          PackageItem.AddAttribute(root, "attribution", Attribution           );
+			if( Website     != null ) PackageItem.AddAttribute(root, "website"    , Website.ToString()    );
+			if( UpdateUri   != null ) PackageItem.AddAttribute(root, "updateUri"  , UpdateUri.ToString()  );
+			if( FeedbackUri != null ) PackageItem.AddAttribute(root, "feedbackUri", FeedbackUri.ToString());
 			
 			doc.AppendChild(root);
 			
@@ -591,7 +595,7 @@ namespace Anolis.Core.Packages {
 	
 	public class PackageUpdateInfo {
 		
-		public PackageUpdateInfo(String name, Single version, Uri packageLocation, Uri infoLocation) {
+		public PackageUpdateInfo(String name, Version version, Uri packageLocation, Uri infoLocation) {
 			
 			Name                = name;
 			Version             = version;
@@ -600,7 +604,7 @@ namespace Anolis.Core.Packages {
 		}
 		
 		public String  Name                { get; private set; }
-		public Single  Version             { get; private set; }
+		public Version Version             { get; private set; }
 		public Uri     PackageLocation     { get; private set; }
 		public Uri     InformationLocation { get; private set; }
 		

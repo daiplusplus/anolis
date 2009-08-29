@@ -59,8 +59,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="A_cultureLbl" xml:space="preserve">
+    <value>安裝語言</value>
+  </data>
+  <data name="A_DeletingTemporaryFiles" xml:space="preserve">
+    <value>刪除所有暫存檔案</value>
+  </data>
   <data name="A_DisableAV" xml:space="preserve">
-    <value>在繼續之前，請先把Windows Defender及其他防毒軟體等會令安裝減慢的程式關閉。</value>
+    <value>在繼續之前, 請先把Windows Defender及其他防毒軟體等會令安裝減慢的程式關閉.</value>
   </data>
   <data name="A_notes" xml:space="preserve">
     <value>這個精靈將會導引您整個Anolis封包的安裝程序
@@ -71,6 +77,12 @@
     <value>這個精靈將會導引您整個 {0}的安裝程序
 
 要繼續, 請按下一步</value>
+  </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>Anolis安裝程式已偵測出前一次的安裝程序所作出的變更. 在執行Anolis安裝程式前, 您必須重新啟動電腦.</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>{0}已偵測出前一次的安裝程序所作出的變更. 在執行{0}前, 您必須重新啟動電腦.</value>
   </data>
   <data name="A_title" xml:space="preserve">
     <value>歡迎使用Anolis封包安裝程式</value>
@@ -207,6 +219,9 @@
   <data name="C_C_infoUpdateLatest" xml:space="preserve">
     <value>您安裝的封包版本 ({0}) 已經是最新的.</value>
   </data>
+  <data name="C_C_sfdTitle" xml:space="preserve">
+    <value>儲存已下載的封包在...</value>
+  </data>
   <data name="C_C_skipCheckLbl" xml:space="preserve">
     <value>您可以在任何時間下按下一步以略過檢查更新.</value>
   </data>
@@ -234,14 +249,74 @@
   <data name="C_D_Title" xml:space="preserve">
     <value>封包的發行公告</value>
   </data>
+  <data name="C_E_Disabled" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="C_E_Enabled" xml:space="preserve">
+    <value>啟用</value>
+  </data>
+  <data name="C_E_Explicit" xml:space="preserve">
+    <value>詳盡的</value>
+  </data>
+  <data name="C_E_Inherit" xml:space="preserve">
+    <value>繼承的</value>
+  </data>
   <data name="C_E_noInfo" xml:space="preserve">
     <value>所選的項目 '{0}' 沒有任何相關的資訊存在</value>
+  </data>
+  <data name="C_E_NullItem" xml:space="preserve">
+    <value>無效的項目</value>
+  </data>
+  <data name="C_E_simple" xml:space="preserve">
+    <value>簡單的</value>
   </data>
   <data name="C_E_Subtitle" xml:space="preserve">
     <value>您可以選擇是否安裝這個封包的元件</value>
   </data>
   <data name="C_E_Title" xml:space="preserve">
     <value>修改封包</value>
+  </data>
+  <data name="C_E_Unnamed" xml:space="preserve">
+    <value>未命名的</value>
+  </data>
+  <data name="C_E_UnnamedGroup" xml:space="preserve">
+    <value>未命名的群組</value>
+  </data>
+  <data name="C_E1_advanced" xml:space="preserve">
+    <value>高級的</value>
+  </data>
+  <data name="C_E1_bitmapsLbl" xml:space="preserve">
+    <value>點陣圖</value>
+  </data>
+  <data name="C_E1_Custom" xml:space="preserve">
+    <value>自訂</value>
+  </data>
+  <data name="C_E1_logonLbl" xml:space="preserve">
+    <value>歡迎畫面</value>
+  </data>
+  <data name="C_E1_logonPreview" xml:space="preserve">
+    <value>預覽</value>
+  </data>
+  <data name="C_E1_Presets" xml:space="preserve">
+    <value>預設的主題</value>
+  </data>
+  <data name="C_E1_previewLbl" xml:space="preserve">
+    <value>預覽區</value>
+  </data>
+  <data name="C_E1_Subtitle" xml:space="preserve">
+    <value>您可以自訂電腦安裝後的模樣</value>
+  </data>
+  <data name="C_E1_Title" xml:space="preserve">
+    <value>設定主題選項</value>
+  </data>
+  <data name="C_E1_visualStylesLbl" xml:space="preserve">
+    <value>視覺風格</value>
+  </data>
+  <data name="C_E1_wallpaperLbl" xml:space="preserve">
+    <value>壁紙</value>
+  </data>
+  <data name="C_F_advanced" xml:space="preserve">
+    <value>高級設置...</value>
   </data>
   <data name="C_F_backup" xml:space="preserve">
     <value>建立移除備份資料夾 (建議)</value>
@@ -279,14 +354,38 @@
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>選擇一個備份資料夾及其他的選項</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>建立系統還原點 (建議)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>一層附加的保護層. 請注意這並不會一定能保障對於在Program Files下的非系統檔案所造成的修改</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>安裝選項</value>
+  </data>
+  <data name="C_F2_feedback" xml:space="preserve">
+    <value>報告安裝時的詳細資訊</value>
+  </data>
+  <data name="C_F2_feedbackDesc" xml:space="preserve">
+    <value>為了改進日後發表的封包, 現在安裝時相關的詳細資訊 (例如您的作業系統, 語言及任何錯誤) 將會被傳送至封包開發者</value>
+  </data>
+  <data name="C_F2_lite" xml:space="preserve">
+    <value>"Lite" (精簡) 安裝</value>
+  </data>
+  <data name="C_F2_liteDesc" xml:space="preserve">
+    <value>如果把解像度為128x128 (或更大) 的圖示檔安裝在非英文視窗上, 可能會導致某些系統檔案不穩定和可能引致出現與某些應用程式的相容問題. 檢查這個選項以防止安裝解像度為128x128 的圖示檔.</value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>建立系統還原點 (建議)</value>
+  </data>
+  <data name="C_F2_restoreDesc" xml:space="preserve">
+    <value>系統還原能為移除程式提供一層附加的保護層. 請注意這並不會一定能保障對於在Program Files下的非系統檔案所造成的修改.</value>
+  </data>
+  <data name="C_F2_RestoreDescNA" xml:space="preserve">
+    <value>系統還原功能不允許在您的系統上執行.</value>
+  </data>
+  <data name="C_F2_Title" xml:space="preserve">
+    <value>高級的安裝選項</value>
+  </data>
+  <data name="C_G_cleanup" xml:space="preserve">
+    <value>安裝後的清理</value>
   </data>
   <data name="C_G_status" xml:space="preserve">
     <value>{0}% 已完成 - {1}</value>
@@ -302,6 +401,9 @@
   </data>
   <data name="C_G_Title" xml:space="preserve">
     <value>封包正進行安裝</value>
+  </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>安裝{0}正在進行中</value>
   </data>
   <data name="D_A_destBrowse" xml:space="preserve">
     <value>瀏覽...</value>
@@ -327,7 +429,13 @@
   <data name="D_A_toolsLbl" xml:space="preserve">
     <value>可供下載的指定元件包括Resourcer(一個功能強大的資源修改器), Packager(用作建立封包檔案及自定安裝程式)和一系列的工具包括一個細小的圖示修改器.</value>
   </data>
+  <data name="D_B_downloadFailed" xml:space="preserve">
+    <value>下載失敗</value>
+  </data>
   <data name="D_B_status" xml:space="preserve">
+    <value>正在準備...</value>
+  </data>
+  <data name="D_B_statusLbl" xml:space="preserve">
     <value>正在準備...</value>
   </data>
   <data name="D_B_Subtitle" xml:space="preserve">
@@ -342,20 +450,53 @@
   <data name="E_A_dirLbl" xml:space="preserve">
     <value>目錄</value>
   </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>選擇供還原時用的一個備份資料夾</value>
+  </data>
+  <data name="E_A_feedbackLbl" xml:space="preserve">
+    <value>為了改進日後發表的{0}, 您的回應將會被傳送至封包開發者. 請問您為何進行移除?</value>
+  </data>
+  <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
+    <value>為了改進日後發表的封包, 您的回應將會被傳送至{1}. 請問您為何進行移除{0}?</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>指定的資料夾中找不到適用的反安裝檔案</value>
+  </data>
+  <data name="E_A_Subtitle" xml:space="preserve">
+    <value>選擇供還原時用的一個目錄</value>
   </data>
   <data name="E_A_sysRes" xml:space="preserve">
     <value>建立系統還原點 (建議)</value>
   </data>
   <data name="E_A_sysResDesc" xml:space="preserve">
-    <value>一層附加的保護層. 請注意這並不會一定能保障對於在Program Files下的非系統檔案所造成的修改</value>
+    <value>一層附加的保護層. 請注意這並不會一定能保障對於在Program Files下的非系統檔案所造成的修改.</value>
   </data>
   <data name="E_A_Title" xml:space="preserve">
     <value>選擇備份資料夾</value>
   </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>移除程式的語言</value>
+  </data>
+  <data name="E_A_uninstallButton" xml:space="preserve">
+    <value>移除程式</value>
+  </data>
   <data name="E_B_Subtitle" xml:space="preserve">
     <value>選擇用來還原的資料夾</value>
+  </data>
+  <data name="E_B_Subtitle_Cus" xml:space="preserve">
+    <value>正在移除{0}</value>
+  </data>
+  <data name="E_B_Title" xml:space="preserve">
+    <value>封包移除正在進行中</value>
+  </data>
+  <data name="E_B_Title_Cus" xml:space="preserve">
+    <value>{0}移除正在進行中</value>
+  </data>
+  <data name="F_aborted" xml:space="preserve">
+    <value>安裝已取消</value>
+  </data>
+  <data name="F_abortedDesc" xml:space="preserve">
+    <value>由於出現一個出錯, 安裝已被取消</value>
   </data>
   <data name="F_finishButton" xml:space="preserve">
     <value>完成</value>
@@ -377,16 +518,35 @@
   <data name="F_title" xml:space="preserve">
     <value>安裝完成</value>
   </data>
+  <data name="F_TitleUninstall" xml:space="preserve">
+    <value>程式移除完成</value>
+  </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
-    <value>移除程式已經完成. 現在將會重新啟動電腦.
-
-請關閉所有正在運行的應用程式. 也不要再運行任何新的程序.</value>
+    <value>移除程式已經完成. 現在將會重新啟動電腦.</value>
+  </data>
+  <data name="F_uninstallationCompleteRestart" xml:space="preserve">
+    <value>移除程式已經完成. 現在將會重新啟動電腦. 請關閉所有正在運行的應用程式. 也不要再運行任何新的程序.</value>
   </data>
   <data name="G_restarting" xml:space="preserve">
     <value>現正重新啟動您的電腦</value>
   </data>
   <data name="G_Title" xml:space="preserve">
     <value>請等待片刻</value>
+  </data>
+  <data name="G2_ErrorMessage" xml:space="preserve">
+    <value>您的回應不能被傳送, 因為:</value>
+  </data>
+  <data name="G2_ErrorTitle" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="G2_status" xml:space="preserve">
+    <value>您的回應正在傳送中</value>
+  </data>
+  <data name="G2_Title" xml:space="preserve">
+    <value>請等待片刻</value>
+  </data>
+  <data name="G2_UnknownError" xml:space="preserve">
+    <value>不明的錯誤</value>
   </data>
   <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Flags\zh.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -397,16 +557,34 @@
   <data name="Lang_Name" xml:space="preserve">
     <value>英文</value>
   </data>
+  <data name="Lang_RTL" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="Wiz_Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
   <data name="Wiz_CancelConfirm" xml:space="preserve">
     <value>您確定要取消安裝？</value>
   </data>
+  <data name="Wiz_Defaults" xml:space="preserve">
+    <value>預設</value>
+  </data>
   <data name="Wiz_Next" xml:space="preserve">
     <value>下一步</value>
   </data>
+  <data name="Wiz_OK" xml:space="preserve">
+    <value>確定</value>
+  </data>
   <data name="Wiz_Prev" xml:space="preserve">
     <value>上一步</value>
+  </data>
+  <data name="X_Bootscreen" xml:space="preserve">
+    <value>啟動畫面</value>
+  </data>
+  <data name="X_CursorScheme" xml:space="preserve">
+    <value>鼠標</value>
+  </data>
+  <data name="X_Screensaver" xml:space="preserve">
+    <value>螢幕保護程式</value>
   </data>
 </root>

@@ -34,6 +34,8 @@ namespace Anolis.Installer.Pages {
 			__installerRtf.Rtf = installerNotes;
 			
 			__packageTab.Text = InstallerResources.GetString("C_D_packageNotes", PackageInfo.Package.Name);
+			
+			// TODO: Hide the package tab if it has no notes. This isn't a trivial operation, the tab has to be physically removed or re-added
 		}
 		
 		protected override String LocalizePrefix {

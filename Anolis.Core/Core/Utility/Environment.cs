@@ -4,6 +4,7 @@ using Anolis.Core.Native;
 
 using N    = System.Globalization.NumberStyles;
 using Cult = System.Globalization.CultureInfo;
+using Microsoft.Win32;
 
 namespace Anolis.Core.Utility {
 	
@@ -148,6 +149,13 @@ namespace Anolis.Core.Utility {
 		}
 		
 		public static OperatingSystem OSVersion { get { return System.Environment.OSVersion; } }
+		
+		public static String Location {
+			get {
+				Object ret = Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\International\Geo", "Nation", -1 );
+				return ret.ToString();
+			}
+		}
 		
 	}
 	

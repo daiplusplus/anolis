@@ -348,17 +348,17 @@ Klik op volgende om door te gaan.</value>
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>Kies een backup map en andere opties.</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>Maak een herstelpunt voor systeem herstellen (aanbevolen)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>Dit geeft u extra bescherming. Let op dat dit niet altijd bescherming biedt tegen wijzigingen in niet-Windows bestanden in Program Files.</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>Installatie opties</value>
   </data>
   <data name="C_F2_liteDesc" xml:space="preserve">
     <value>Als pictogrammen met een grootte van 128x128 (en groter) worden geïnstalleerd op een niet-Engelstalige versie van Windows, kunnen bepaalde systeembestanden zich niet gedragen zoals verwacht en kunnen compatibiliteitsproblemen het bepaalde programma's veroorzaken. Door deze optie aan te vinken voorkomt u dat pictogrammen met een grootte van 128x128 worden geïnstalleerd.</value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>Maak een herstelpunt voor systeem herstellen (aanbevolen)</value>
   </data>
   <data name="C_F2_restoreDesc" xml:space="preserve">
     <value>Systeemherstel biedt een extra laag van bescherming aan de uninstaller. Opgelet: dit beschermt niet altijd tegen wijzigingen van niet-Windows bestanden onder Program Files</value>
@@ -458,6 +458,9 @@ Klik op volgende om door te gaan.</value>
   </data>
   <data name="E_B_Title" xml:space="preserve">
     <value>Pakket aan het verwijderen</value>
+  </data>
+  <data name="E_B_Title_Cus" xml:space="preserve">
+    <value>{0} aan het verwijderen</value>
   </data>
   <data name="F_aborted" xml:space="preserve">
     <value>Installatie afgebroken</value>

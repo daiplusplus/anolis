@@ -78,6 +78,12 @@ Aby kontynuować, wciśnij Dalej.</value>
 
 Aby kontynuować, wciśnij Dalej</value>
   </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>Anolis Instalator wykrył, że poprzednia instalacja wprowadziła zmiany w komputerze, które wejdą w życie po ponownym uruchomieniu. Musisz ponownie uruchomić komputer przed uruchomieniem Instalatora Anolis.</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>{0} wykrył, że poprzednia instalacja wprowadziła zmiany w komputerze, które wejdą w życie po ponownym uruchomieniu. Musisz ponownie uruchomić komputer, aby można było uruchomić {0} instalację.</value>
+  </data>
   <data name="A_title" xml:space="preserve">
     <value>Witamy w instalatorze pakietu Anolis</value>
   </data>
@@ -175,7 +181,7 @@ Aby kontynuować, wciśnij Dalej</value>
     <value>Proszę czekać podczas gdy instalator przygotowuje paczkę do instalacji</value>
   </data>
   <data name="C_B_Subtitle_Cus" xml:space="preserve">
-    <value>Proszę czekać podczas gdy instalator przygotowuje [0] do instalacji</value>
+    <value>Proszę czekać podczas gdy instalator przygotowuje {0} do instalacji</value>
   </data>
   <data name="C_B_Title" xml:space="preserve">
     <value>Przygotowywanie paczki</value>
@@ -348,17 +354,26 @@ Aby kontynuować, wciśnij Dalej</value>
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>Wybierz folder kopii zapasowej i inne opcje</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>Utwórz punkt przywracania systemu (zalecane)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>Dodatkowy poziom ochrony. Pamiętaj, że nie zawsze chroni to przed modyfikacjami dokonanymi do plików nie-Windowsowych w Program Files</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>Opcje instalacji</value>
   </data>
+  <data name="C_F2_feedback" xml:space="preserve">
+    <value>Szczegóły raportu instalacji w opinii</value>
+  </data>
+  <data name="C_F2_feedbackDesc" xml:space="preserve">
+    <value>Anonimowy raport z przebiegu instalacji (takich jak system operacyjny, język i błędy) zostanie wysłany do pakietu deweloperów, aby poprawić pakiet w przyszłości.</value>
+  </data>
+  <data name="C_F2_lite" xml:space="preserve">
+    <value>Wersja "Lite" instalacji dla Windows w wersji językowej innej niż angielski</value>
+  </data>
   <data name="C_F2_liteDesc" xml:space="preserve">
     <value>Jeśli ikony o rozmiarze 128x128 (lub większe) zostaną zainstalowanie na nieanglojęzycznym systemie Windows, niektóre pliki systemowe mogą nie działać się poprawnie i mogą wystąpić problemy kompatybilności z niektórymi programami. Zaznacz tę opcję aby nie instalować ikon 128x128.</value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>Utwórz punkt przywracania systemu (zalecane)</value>
   </data>
   <data name="C_F2_restoreDesc" xml:space="preserve">
     <value>Przywracanie Systemu daje dodatkowy poziomy ochrony dla deinstalatora. Pamiętaj, że nie zawsze chroni to przed modyfikacjami dokonanymi do plików nie-Windowsowych w Program Files</value>
@@ -386,6 +401,9 @@ Aby kontynuować, wciśnij Dalej</value>
   </data>
   <data name="C_G_Title" xml:space="preserve">
     <value>Instaluję paczkę</value>
+  </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>Instalacja {0}</value>
   </data>
   <data name="D_A_destBrowse" xml:space="preserve">
     <value>Przeglądaj...</value>
@@ -432,6 +450,15 @@ Aby kontynuować, wciśnij Dalej</value>
   <data name="E_A_dirLbl" xml:space="preserve">
     <value>Folder</value>
   </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>Wybierz katalog kopi w celu odzyskania od</value>
+  </data>
+  <data name="E_A_feedbackLbl" xml:space="preserve">
+    <value>Dlaczego odinstalowujesz ten pakiet? Twoja opinia zostanie przesłana do autora w celu poprawy w przyszłości.</value>
+  </data>
+  <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
+    <value>Dlaczego odinstalowujesz {0}? Twoja opinia zostanie przesłana do {1} do  poprawy {0} w przyszłości.</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>Wybrany folder nie zawiera poprawnej paczki do deinstalacji.</value>
   </data>
@@ -447,6 +474,9 @@ Aby kontynuować, wciśnij Dalej</value>
   <data name="E_A_Title" xml:space="preserve">
     <value>Wybierz folder kopii zapasowej</value>
   </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>Dezinstalacja języka</value>
+  </data>
   <data name="E_A_uninstallButton" xml:space="preserve">
     <value>Odinstaluj</value>
   </data>
@@ -458,6 +488,9 @@ Aby kontynuować, wciśnij Dalej</value>
   </data>
   <data name="E_B_Title" xml:space="preserve">
     <value>Deinstalacja paczki</value>
+  </data>
+  <data name="E_B_Title_Cus" xml:space="preserve">
+    <value>Deinstalacja {0}</value>
   </data>
   <data name="F_aborted" xml:space="preserve">
     <value>Instalacja anulowana</value>
@@ -485,6 +518,9 @@ Zamknij wszystkie uruchomione progamy przed kontynuacją. Nie uruchamiaj żadnyc
   <data name="F_title" xml:space="preserve">
     <value>Instalacja zakończona</value>
   </data>
+  <data name="F_TitleUninstall" xml:space="preserve">
+    <value>Deinstalacja kompletna</value>
+  </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
     <value>Deinstalacja zakończyła się pomyślnie.</value>
   </data>
@@ -499,8 +535,23 @@ Zamknij wszystkie uruchomione progamy przed kontynuacją. Nie uruchamiaj żadnyc
   <data name="G_Title" xml:space="preserve">
     <value>Proszę czekać...</value>
   </data>
+  <data name="G2_ErrorMessage" xml:space="preserve">
+    <value>Twoja opinia instalacji nie może być wysłana, ponieważ:</value>
+  </data>
+  <data name="G2_ErrorTitle" xml:space="preserve">
+    <value>Błąd</value>
+  </data>
+  <data name="G2_status" xml:space="preserve">
+    <value>Wysyłanie wiadomości zwrotnej instalacji</value>
+  </data>
+  <data name="G2_Title" xml:space="preserve">
+    <value>Proszę czekać...</value>
+  </data>
+  <data name="G2_UnknownError" xml:space="preserve">
+    <value>Nieznany błąd</value>
+  </data>
   <data name="Lang_Attribution" xml:space="preserve">
-    <value>Przetłumaczone przez Viesto i yojo2</value>
+    <value>Przetłumaczone przez Viesto i yojo2 akt. dziubek</value>
   </data>
   <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Flags\pl.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

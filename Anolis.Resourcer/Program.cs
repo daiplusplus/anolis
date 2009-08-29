@@ -1,9 +1,10 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-
 using S = Anolis.Resourcer.Settings.Settings;
 using Anolis.Resourcer.CommandLine;
+
+using System.Configuration;
 
 namespace Anolis.Resourcer {
 	
@@ -19,21 +20,38 @@ namespace Anolis.Resourcer {
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
 				
-				///////////////////////////////
-				// Upgrade Settings
-				S.Default.Upgrade();
-				
-				///////////////////////////////
-				// Load Extensibility
-				if( S.Default.LoadAssemblies != null ) {
+				try {
 					
-					String[] assemblyFilenames = new String[ S.Default.LoadAssemblies.Count ];
-					for(int i=0;i<assemblyFilenames.Length;i++) {
-						assemblyFilenames[i] = S.Default.LoadAssemblies[i];
+					///////////////////////////////
+					// Upgrade Settings
+					S.Default.Upgrade();
+					
+					///////////////////////////////
+					// Load Extensibility
+					if( S.Default.LoadAssemblies != null ) {
+						
+						String[] assemblyFilenames = new String[ S.Default.LoadAssemblies.Count ];
+						for(int i=0;i<assemblyFilenames.Length;i++) {
+							assemblyFilenames[i] = S.Default.LoadAssemblies[i];
+						}
+						
+						if( assemblyFilenames.Length > 0 )
+							Anolis.Core.Utility.Miscellaneous.SetAssemblyFileNames( assemblyFilenames );
+						
 					}
+				
+				} catch(ConfigurationException) {
 					
-					if( assemblyFilenames.Length > 0 )
-						Anolis.Core.Utility.Miscellaneous.SetAssemblyFileNames( assemblyFilenames );
+					// delete all the config files
+					
+					Configuration exeConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+					if( exeConfig.HasFile ) File.Delete( exeConfig.FilePath );
+					
+					Configuration localConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+					if( localConfig.HasFile ) File.Delete( localConfig.FilePath );
+					
+					Configuration roamingConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+					if( roamingConfig.HasFile ) File.Delete( roamingConfig.FilePath );
 					
 				}
 				
@@ -101,7 +119,7 @@ Anolis.Resourcer.exe -op:del -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME [-l
 					
 					Exception e = ex;
 					while(e != null) {
-						wtr.WriteLine(e.Message);
+						wtr.WriteLine(e.GetType().Name + " : " + e.Message);
 						wtr.WriteLine(e.StackTrace);
 						wtr.WriteLine();
 						
@@ -109,15 +127,23 @@ Anolis.Resourcer.exe -op:del -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME [-l
 					}
 					
 				}
-				throw ex;
 				
+				String message = "There was a problem whilst attempting to run Resourcer:";
+				Exception e2 = ex;
+				while(e2 != null) {
+					
+					message += "\r\n" + e2.Message + " : " + e2.GetType().Name;
+					e2 = e2.InnerException;
+				}
+				
+				message += "\r\n\r\nA log has been saved to \"" + path + "\"";
+				
+				MessageBox.Show( message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1 );
+				
+				return 1;
 			}
 #endif
 			
-		}
-		
-		public static String IfYouAreReadingThisInReflectorThenYouHaveNoLife() {
-			return "no, really you are wasting your time because the complete source code is on http://www.codeplex.com/anolis";
 		}
 		
 	}

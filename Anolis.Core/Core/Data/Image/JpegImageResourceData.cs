@@ -22,14 +22,14 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesExtension(String fileNameExtension) {
 			
-			if( IsExtension( fileNameExtension, "jpg", "jpeg", "jfif" ) ) return Compatibility.Yes;
+			if( IsExtension( fileNameExtension, "JPG", "JPEG", "JFIF" ) ) return Compatibility.Yes;
 			
 			return Compatibility.No;
 			
 		}
 		
 		public override String OpenFileFilter {
-			get { return CreateFileFilter("JpegImage", "jpg", "jpeg", "jfif"); }
+			get { return CreateFileFilter("JpegImage", "JPG", "JPEG", "JFIF"); }
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
@@ -50,7 +50,7 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(System.IO.Stream stream, String extension, UInt16 langId, ResourceSource currentSource) {
 			return FromFile(stream, extension);
 		}
 		
@@ -101,7 +101,7 @@ namespace Anolis.Core.Data {
 		
 		protected override void SaveAs(System.IO.Stream stream, String extension) {
 			
-			if(extension == "jpg") {
+			if( IsExtension(extension, "JPG") ) {
 				
 				stream.Write( this.RawData, 0, RawData.Length );
 				

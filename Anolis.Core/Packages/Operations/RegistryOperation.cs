@@ -79,6 +79,7 @@ namespace Anolis.Core.Packages.Operations {
 						
 						key.DeleteValue( RegName );
 					}
+					key.Close();
 					
 				} else {
 					

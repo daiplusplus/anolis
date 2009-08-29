@@ -106,7 +106,7 @@ namespace Anolis.Resourcer {
 			
 			__lang.Items.AddRange( sortByDisplayName ? Cultures.CulturesByName : Cultures.CulturesByLcid );
 			
-			Int32 systemLcid = Anolis.Core.Packages.PackageUtility.GetSystemInstallLanguage();
+			Int32 systemLcid = CultureInfo.InstalledUICulture.LCID;
 			foreach(ListBoxItem<CultureInfo> c in __lang.Items) {
 				
 				if(c.Item.LCID == systemLcid) {

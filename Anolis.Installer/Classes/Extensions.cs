@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -16,15 +14,7 @@ namespace System.Runtime.CompilerServices {
 	
 }
 
-namespace Anolis.Packager {
-	
-	internal static class NativeMethods {
-		
-		[DllImport("User32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern Boolean SetForegroundWindow(IntPtr hWnd);
-		
-	}
+namespace Anolis.Installer {
 	
 	public static class Extensions {
 		
@@ -34,4 +24,14 @@ namespace Anolis.Packager {
 		}
 		
 	}
+	
+	internal static class NativeMethods {
+		
+		[DllImport("User32.dll", CharSet=CharSet.Unicode, BestFitMapping=false, ThrowOnUnmappableChar=true, SetLastError=true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern Boolean SetForegroundWindow(IntPtr hWnd);
+		
+	}
+	
+	
 }

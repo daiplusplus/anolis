@@ -80,6 +80,12 @@
 
 أن يواصل ، اضغط التالي</value>
   </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>Anolis المثبت لقد وجد أن التركيب السابق قد أجرى تعديلات على جهاز الكمبيوتر الخاص بك التي ستدخل حيز التنفيذ بعد استئناف. يجب عليك إعادة تشغيل الكمبيوتر قبل أن تتمكن من تشغيل Anolis المثبت.</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>{0} لقد وجد أن التركيب السابق قد أجرى تعديلات على جهاز الكمبيوتر الخاص بك التي ستدخل حيز التنفيذ بعد استئناف. يجب عليك إعادة تشغيل الكمبيوتر قبل أن تتمكن من تشغيل {0} الإعداد.</value>
+  </data>
   <data name="A_title" xml:space="preserve">
     <value>مرحبا بكم في لباقة Anolis المثبت</value>
   </data>
@@ -293,6 +299,9 @@
   <data name="C_E1_logonPreview" xml:space="preserve">
     <value>معاينة</value>
   </data>
+  <data name="C_E1_Presets" xml:space="preserve">
+    <value>مخطط مسبقا</value>
+  </data>
   <data name="C_E1_previewLbl" xml:space="preserve">
     <value>معاينة المنطقة</value>
   </data>
@@ -347,17 +356,26 @@
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>دليل اختيار الاحتياطية وغيرها من الخيارات</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>إنشاء نقاط استعادة النظام (الموصى به)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>طبقة إضافية للحماية. علما أن هذا لا تحمي دائما ضد التعديلات التي أدخلت على ملفات ويندوز من غير قيد ملفات البرنامج</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>تركيب الخيارات</value>
   </data>
+  <data name="C_F2_feedback" xml:space="preserve">
+    <value>تقرير تركيب تفاصيل اقتراحات</value>
+  </data>
+  <data name="C_F2_feedbackDesc" xml:space="preserve">
+    <value>مجهولة المصدر تفاصيل تجربة الإعداد الخاص بك (مثل نظام التشغيل الخاص بك ، واللغة ، وأية أخطاء) وسيتم ارسال هذه الصفقة لشركات التطوير للمساعدة في تحسين المجموعة في المستقبل.</value>
+  </data>
+  <data name="C_F2_lite" xml:space="preserve">
+    <value>لايت, لتركيب غير اللغة الانكليزية ويندوز</value>
+  </data>
   <data name="C_F2_liteDesc" xml:space="preserve">
     <value>إذا 128x128 (وأكبر) الحجم أيقونة الصور المثبتة على عدم نسخ باللغات الانجليزية ويندوز بعض ملفات النظام قد لا تتصرف كما هو متوقع ، والتوافق قد يسبب مشاكل مع بعض البرامج. التحقق من هذا الخيار يمنع 128x128 الحجم من الرموز التي يتم تركيبها.</value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>إنشاء نقاط استعادة النظام (الموصى به)</value>
   </data>
   <data name="C_F2_restoreDesc" xml:space="preserve">
     <value>ويوفر نظام استعادة طبقة إضافية من الحماية لuninstaller. علما أن هذا لا تحمي دائما ضد التعديلات التي أدخلت على ملفات ويندوز من غير قيد ملفات البرنامج</value>
@@ -385,6 +403,9 @@
   </data>
   <data name="C_G_Title" xml:space="preserve">
     <value>تثبيت حزمة</value>
+  </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>{0}تركيب</value>
   </data>
   <data name="D_A_destBrowse" xml:space="preserve">
     <value>...تصفح</value>
@@ -431,6 +452,9 @@
   <data name="E_A_dirLbl" xml:space="preserve">
     <value>دليل</value>
   </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>اختيار الاحتياطية ودليل على الشفاء</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>المحدد لا يحتوي على دليل صحيح صفقة إلغاء التثبيت</value>
   </data>
@@ -445,6 +469,9 @@
   </data>
   <data name="E_A_Title" xml:space="preserve">
     <value>دليل اختيار النسخ الاحتياطي</value>
+  </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>لغة إلغاء التثبيت</value>
   </data>
   <data name="E_A_uninstallButton" xml:space="preserve">
     <value>إلغاء التثبيت</value>
@@ -483,6 +510,9 @@
   </data>
   <data name="F_title" xml:space="preserve">
     <value>تركيب كاملة</value>
+  </data>
+  <data name="F_TitleUninstall" xml:space="preserve">
+    <value>إلغاء التثبيت الكامل</value>
   </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
     <value>إلغاء التثبيت قد اكتملت بنجاح. جهاز الكمبيوتر الخاص بك الآن من جديد.</value>

@@ -45,7 +45,6 @@ namespace Anolis.Core.Packages.Operations {
 			get { return ExtraType.ToString(); }
 		}
 		
-		public String              Attribution { get; private set; }
 		public ExtraType           ExtraType   { get; private set; }
 		public ExtraFileCollection Files       { get; private set; }
 		
@@ -67,13 +66,15 @@ namespace Anolis.Core.Packages.Operations {
 					return new CustomExtraOperation(parent, operationElement);
 				case ExtraType.RunOnce:
 					return new RunOnceExtraOperation(parent, operationElement);
+				case ExtraType.Registry:
+					return new RegistryExtraOperation(parent, operationElement);
 				default:
 					return null;
 			}
 		}
 		
 		public override String Key {
-			get { return ExtraType.ToString(); }
+			get { return ExtraType.ToString() + "Extra"; }
 		}
 		
 		private Boolean _selected;

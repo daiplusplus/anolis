@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using Anolis.Core.Native;
 
 using Cult = System.Globalization.CultureInfo;
+using Mode = Anolis.Core.Data.VersionItemMode;
 
 namespace Anolis.Core.Data {
 	
@@ -29,7 +30,7 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		public override ResourceData FromFileToAdd(System.IO.Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(System.IO.Stream stream, String extension, UInt16 langId, ResourceSource currentSource) {
 			throw new NotSupportedException();
 		}
 		
@@ -79,7 +80,7 @@ namespace Anolis.Core.Data {
 			
 		}
 		
-		private static VersionItem RecurseItem(Mode mode, BinaryReader rdr) {
+		private static VersionItem RecurseItem(VersionItemMode mode, BinaryReader rdr) {
 			
 			Int64 initPos = rdr.BaseStream.Position;
 			
@@ -194,17 +195,6 @@ namespace Anolis.Core.Data {
 			return u.ToString(Cult.InvariantCulture) + " - " + u.ToString("X", Cult.InvariantCulture);
 		}
 		
-		public enum Mode {
-			None,
-			Root,
-				StringFileInfoOrVarFileInfo,
-				StringFileInfo,
-					StringTable,
-						String,
-				VarFileInfo,
-					Var
-		}
-		
 		private static Mode GetNextMode(Mode mode) {
 			switch(mode) {
 				
@@ -242,35 +232,6 @@ namespace Anolis.Core.Data {
 			}
 			
 			return retval;
-			
-		}
-		
-		public class VersionItem {
-			
-			internal Mode _mode;
-			
-			public VersionItem(Mode mode) {
-				Mode = mode;
-			}
-			
-			public Mode   Mode            { get { return _mode; } set { _mode = value; } }
-			
-			public UInt16 Length          { get; set; }
-			public UInt16 ValueLength     { get; set; }
-			public UInt16 Type            { get; set; }
-			public String Key             { get; set; }
-			public VersionItem[] Children { get; set; }
-			public Object Value           { get; set; }
-			
-			public override String ToString() {
-				
-				String ret = Mode.ToString() + " - " + Key;
-				
-				if(Value != null) ret += " : " + Value.ToString();
-				
-				return ret;
-				
-			}
 			
 		}
 		
@@ -336,6 +297,46 @@ namespace Anolis.Core.Data {
 		
 #endregion
 		
+	}
+	
+	public class VersionItem {
+		
+		internal VersionItemMode _mode;
+		
+		internal VersionItem(VersionItemMode mode) {
+			_mode = mode;
+		}
+		
+		public VersionItemMode Mode   { get { return _mode; } }
+		
+		public UInt16 Length          { get; set; }
+		public UInt16 ValueLength     { get; set; }
+		public UInt16 Type            { get; set; }
+		public String Key             { get; set; }
+		public VersionItem[] Children { get; set; }
+		public Object Value           { get; set; }
+		
+		public override String ToString() {
+			
+			String ret = Mode.ToString() + " - " + Key;
+			
+			if(Value != null) ret += " : " + Value.ToString();
+			
+			return ret;
+			
+		}
+		
+	}
+	
+	public enum VersionItemMode {
+		None,
+		Root,
+			StringFileInfoOrVarFileInfo,
+			StringFileInfo,
+				StringTable,
+					String,
+			VarFileInfo,
+				Var
 	}
 	
 }

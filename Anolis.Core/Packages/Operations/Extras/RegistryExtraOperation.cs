@@ -13,14 +13,14 @@ namespace Anolis.Core.Packages.Operations {
 		public RegistryExtraOperation(Group parent, XmlElement element) :  base(ExtraType.Registry, parent, element) {
 		}
 		
+		public RegistryExtraOperation(Group parent, String path) :  base(ExtraType.Registry, parent, path) {
+		}
+		
 		public override void Execute() {
 			
 			foreach(ExtraFile regfile in Files) {
 				
-				ProcessStartInfo startInfo = new ProcessStartInfo("reg IMPORT", regfile.FileName );
-				Process p = Process.Start( startInfo );
-				p.WaitForExit(250);
-				
+				PackageUtility.RegistryImport( regfile.FileName );
 			}
 			
 		}

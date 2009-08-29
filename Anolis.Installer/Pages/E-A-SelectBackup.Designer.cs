@@ -28,18 +28,20 @@
 			this.@__browse = new System.Windows.Forms.Button();
 			this.@__fbd = new System.Windows.Forms.FolderBrowserDialog();
 			this.@__sysRes = new System.Windows.Forms.CheckBox();
-			this.@__sysResDesc = new System.Windows.Forms.Label();
 			this.@__culture = new Anolis.Installer.Pages.LanguageComboBox();
 			this.@__uninstallationLanguage = new System.Windows.Forms.Label();
+			this.@__feedback = new System.Windows.Forms.TextBox();
+			this.@__feedbackLbl = new System.Windows.Forms.Label();
 			this.@__content.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __content
 			// 
+			this.@__content.Controls.Add(this.@__feedbackLbl);
+			this.@__content.Controls.Add(this.@__feedback);
 			this.@__content.Controls.Add(this.@__uninstallationLanguage);
 			this.@__content.Controls.Add(this.@__culture);
 			this.@__content.Controls.Add(this.@__sysRes);
-			this.@__content.Controls.Add(this.@__sysResDesc);
 			this.@__content.Controls.Add(this.@__browse);
 			this.@__content.Controls.Add(this.@__dir);
 			this.@__content.Controls.Add(this.@__dirLbl);
@@ -47,7 +49,7 @@
 			// __dirLbl
 			// 
 			this.@__dirLbl.AutoSize = true;
-			this.@__dirLbl.Location = new System.Drawing.Point(19, 88);
+			this.@__dirLbl.Location = new System.Drawing.Point(19, 55);
 			this.@__dirLbl.Name = "__dirLbl";
 			this.@__dirLbl.Size = new System.Drawing.Size(49, 13);
 			this.@__dirLbl.TabIndex = 0;
@@ -57,7 +59,7 @@
 			// 
 			this.@__dir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.@__dir.Location = new System.Drawing.Point(76, 85);
+			this.@__dir.Location = new System.Drawing.Point(76, 52);
 			this.@__dir.Name = "__dir";
 			this.@__dir.Size = new System.Drawing.Size(287, 20);
 			this.@__dir.TabIndex = 1;
@@ -65,7 +67,7 @@
 			// __browse
 			// 
 			this.@__browse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.@__browse.Location = new System.Drawing.Point(369, 83);
+			this.@__browse.Location = new System.Drawing.Point(369, 50);
 			this.@__browse.Name = "__browse";
 			this.@__browse.Size = new System.Drawing.Size(75, 23);
 			this.@__browse.TabIndex = 2;
@@ -82,28 +84,19 @@
 			this.@__sysRes.AutoSize = true;
 			this.@__sysRes.Checked = true;
 			this.@__sysRes.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.@__sysRes.Location = new System.Drawing.Point(22, 122);
+			this.@__sysRes.Location = new System.Drawing.Point(22, 89);
 			this.@__sysRes.Name = "__sysRes";
 			this.@__sysRes.Size = new System.Drawing.Size(242, 17);
 			this.@__sysRes.TabIndex = 7;
 			this.@__sysRes.Text = "Create System Restore Point (Recommended)";
 			this.@__sysRes.UseVisualStyleBackColor = true;
 			// 
-			// __sysResDesc
-			// 
-			this.@__sysResDesc.Location = new System.Drawing.Point(63, 142);
-			this.@__sysResDesc.Name = "__sysResDesc";
-			this.@__sysResDesc.Size = new System.Drawing.Size(341, 30);
-			this.@__sysResDesc.TabIndex = 8;
-			this.@__sysResDesc.Text = "An added layer of protection. Note this does not always protect against modificat" +
-				"ions made to non-Windows files under Program Files";
-			// 
 			// __culture
 			// 
 			this.@__culture.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
 			this.@__culture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.@__culture.FormattingEnabled = true;
-			this.@__culture.Location = new System.Drawing.Point(76, 33);
+			this.@__culture.Location = new System.Drawing.Point(76, 25);
 			this.@__culture.Name = "__culture";
 			this.@__culture.Size = new System.Drawing.Size(189, 21);
 			this.@__culture.TabIndex = 9;
@@ -112,12 +105,32 @@
 			// __uninstallationLanguage
 			// 
 			this.@__uninstallationLanguage.AutoSize = true;
-			this.@__uninstallationLanguage.Location = new System.Drawing.Point(73, 17);
+			this.@__uninstallationLanguage.Location = new System.Drawing.Point(73, 9);
 			this.@__uninstallationLanguage.Name = "__uninstallationLanguage";
 			this.@__uninstallationLanguage.Size = new System.Drawing.Size(88, 13);
 			this.@__uninstallationLanguage.TabIndex = 10;
 			this.@__uninstallationLanguage.Text = "Uninst Language";
 			this.@__uninstallationLanguage.Visible = false;
+			// 
+			// __feedback
+			// 
+			this.@__feedback.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__feedback.Location = new System.Drawing.Point(22, 158);
+			this.@__feedback.Multiline = true;
+			this.@__feedback.Name = "__feedback";
+			this.@__feedback.Size = new System.Drawing.Size(422, 57);
+			this.@__feedback.TabIndex = 11;
+			// 
+			// __feedbackLbl
+			// 
+			this.@__feedbackLbl.Location = new System.Drawing.Point(22, 125);
+			this.@__feedbackLbl.Name = "__feedbackLbl";
+			this.@__feedbackLbl.Size = new System.Drawing.Size(425, 30);
+			this.@__feedbackLbl.TabIndex = 12;
+			this.@__feedbackLbl.Text = "Why are you uninstalling this package? Your feedback will be sent to the develope" +
+				"r to improve the package in future.";
 			// 
 			// SelectBackupPage
 			// 
@@ -137,8 +150,9 @@
 		private System.Windows.Forms.Label __dirLbl;
 		private System.Windows.Forms.FolderBrowserDialog __fbd;
 		private System.Windows.Forms.CheckBox __sysRes;
-		private System.Windows.Forms.Label __sysResDesc;
 		private System.Windows.Forms.Label __uninstallationLanguage;
 		private LanguageComboBox __culture;
+		private System.Windows.Forms.Label __feedbackLbl;
+		private System.Windows.Forms.TextBox __feedback;
 	}
 }

@@ -69,10 +69,10 @@ namespace Anolis.Core.Data {
 		}
 		
 		public override String OpenFileFilter {
-			get { return CreateFileFilter("RiffMedia", "avi", "wav"); }
+			get { return CreateFileFilter("RiffMedia", "AVI"/*, "WAV"*/); }
 		}
 		
-		public override ResourceData FromFileToAdd(Stream stream, string extension, ushort lang, ResourceSource currentSource) {
+		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 langId, ResourceSource currentSource) {
 			
 			return FromFile(stream, extension);
 		}

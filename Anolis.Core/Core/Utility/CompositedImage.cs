@@ -11,6 +11,7 @@ using Anolis.Core.Utility.Quantization;
 
 using N    = System.Globalization.NumberStyles;
 using Cult = System.Globalization.CultureInfo;
+using System.Runtime.InteropServices;
 
 namespace Anolis.Core.Utility {
 	
@@ -25,7 +26,7 @@ namespace Anolis.Core.Utility {
 		/// <param name="compositionExpression">Must be in the form "comp:width,height[,bpp];Path\To\Image1.bmp,x,y[,width,height[,opacity]];Path\To\Image2.bmp,x,y[,opacity[,width,height]]"</param>
 		public CompositedImage(String compositionExpression, DirectoryInfo root) : this() {
 			
-			if( compositionExpression == null ) throw new ArgumentNullException("compositedExpression");
+			if( compositionExpression == null ) throw new ArgumentNullException("compositionExpression");
 			if( root                  == null ) throw new ArgumentNullException("root");
 			
 			if( !root.Exists ) throw new DirectoryNotFoundException("The root directory must exit: " + root.FullName);
@@ -65,7 +66,7 @@ namespace Anolis.Core.Utility {
 				
 				String bpp = opts[2];
 				
-				if( !bpp.StartsWith("Format") ) bpp = "Format" + bpp;
+				if( !bpp.StartsWith("Format", StringComparison.OrdinalIgnoreCase) ) bpp = "Format" + bpp;
 				
 #if QUANTIZE
 				try {
@@ -226,19 +227,34 @@ namespace Anolis.Core.Utility {
 			
 		}
 		
-		public Size        Dimensions { get; set; }
+		public Size Dimensions { get; set; }
 		
 		public Collection<Layer> Layers {
 			get { return _layers; }
 		}
 		
+		public override String ToString() {
+			
+			StringBuilder sb = new StringBuilder();
+			sb.Append("comp:");
+			
+			// Options
+			sb.Append( this.Dimensions.Width );
+			sb.Append(",");
+			sb.Append( this.Dimensions.Height );
+			
+			// Layers
+			foreach(Layer layer in Layers) {
+				sb.Append(";");
+				sb.Append( layer.ToString() );
+			}
+			
+			return sb.ToString();
+		}
+		
 	}
 	
 	public class Layer {
-		
-		public Layer() {
-			Opacity = 255;
-		}
 		
 		internal Layer(String layerExpression, DirectoryInfo root) {
 			
@@ -256,7 +272,7 @@ namespace Anolis.Core.Utility {
 			///////////////////////////
 			// Image
 			
-			FileInfo file = root.GetFile( components[0] );
+			FileInfo file = root.GetFile( ImageRelativeFileName = components[0] );
 			if( !file.Exists ) throw new FileNotFoundException("Layer Image file must exist", file.FullName );
 			ImageFileName = file.FullName;
 			
@@ -285,6 +301,9 @@ namespace Anolis.Core.Utility {
 				if( !Int32.TryParse( dyStr, N.Integer, Cult.InvariantCulture, out dy ) ) throw new ArgumentException("Layer Y size must be an integer", "layerExpression");
 				
 				Dimensions = new Size( dx, dy );
+			} else {
+				
+				Dimensions = Size.Empty;
 			}
 			
 			///////////////////////////
@@ -297,6 +316,9 @@ namespace Anolis.Core.Utility {
 				if( !Byte.TryParse( oStr, N.Integer, Cult.InvariantCulture, out o ) )  throw new ArgumentException("Layer opacity must be an integer", "layerExpression");
 				
 				Opacity = o;
+			} else {
+				
+				Opacity = 255;
 			}
 			
 		}
@@ -314,24 +336,42 @@ namespace Anolis.Core.Utility {
 		}
 		
 		/// <summary>Force-loads the image as 32bppARGB</summary>
-		private Image GetImage(String fileName) {
+		private static Image GetImage(String fileName) {
 			
-			Image file = Miscellaneous.ImageFromFile( ImageFileName );
-			if( file.PixelFormat == PixelFormat.Format32bppArgb ) return file; // it's already 32bppARGB
+			Image file = Miscellaneous.ImageFromFile( fileName );
+			
+			if( file.PixelFormat != PixelFormat.Format32bppRgb ) return file; // we're only interested in 32bppRGB files, so 24bppRGB and 32bppARGB files can slip through okay
+			
 			Bitmap src = file as Bitmap;
 			if( src == null ) return file;
 			
 			BitmapData srcData = src.LockBits( new Rectangle(0, 0, src.Width, src.Height), ImageLockMode.ReadOnly, src.PixelFormat );
 			
-			Bitmap ret = new Bitmap( src.Width, src.Height, srcData.Stride, PixelFormat.Format32bppArgb, srcData.Scan0 );
+			// don't use the Bitmap( width, height, stride, pixelformat, scan0 ) constructor because the BitmapData instance containing the scan0 cannot be freed until the constructed bitmap is first
+			// (i.e. it isn't a copy constructor-of-sorts)
+			
+			Bitmap ret = new Bitmap( src.Width, src.Height, PixelFormat.Format32bppArgb );
+			BitmapData retData = ret.LockBits( new Rectangle(0, 0, ret.Width, ret.Height), ImageLockMode.WriteOnly, ret.PixelFormat );
+			
+			// if there's a way to copy from one pointer to another without using unsafe code I'd like to hear it...
+			Byte[] imageData = new Byte[ srcData.Stride * srcData.Height ];
+			
+			Marshal.Copy( srcData.Scan0, imageData, 0, imageData.Length );
+			
+			// and copy back to the new bitmap
+			
+			Marshal.Copy( imageData, 0, retData.Scan0, imageData.Length );
 			
 			src.UnlockBits( srcData );
 			src.Dispose();
+			
+			ret.UnlockBits( retData );
 			
 			return ret;
 		}
 		
 		public String ImageFileName { get; set; }
+		public String ImageRelativeFileName { get; set; }
 		
 		public Point Location { get; set; }
 		
@@ -339,7 +379,7 @@ namespace Anolis.Core.Utility {
 		
 		public Byte  Opacity { get; set; }
 		
-		public static String MakeString(String path, Int32 coordX, Int32 coordY, Byte? opacity, Int32? width, Int32? height) {
+		public static String MakeString(String path, Int32 coordX, Int32 coordY, Byte? opacity, Size dimensions) {
 			
 			StringBuilder sb = new StringBuilder();
 			sb.Append( path );
@@ -348,14 +388,14 @@ namespace Anolis.Core.Utility {
 			sb.Append(',');
 			sb.Append( coordY );
 			
-			if( width != null && height != null ) {
+			if( !dimensions.IsEmpty ) {
 				sb.Append(',');
-				sb.Append( width.Value );
+				sb.Append( dimensions.Width );
 				sb.Append(',');
-				sb.Append( height.Value );
+				sb.Append( dimensions.Height );
 			}
 			
-			if( opacity != null ) {
+			if( opacity != null && opacity < 255 ) {
 				sb.Append(',');
 				sb.Append( opacity.Value );
 			}
@@ -363,7 +403,12 @@ namespace Anolis.Core.Utility {
 			return sb.ToString();
 			
 		}
-
+		
+		public override String ToString() {
+			
+			return MakeString( this.ImageRelativeFileName, this.Location.X, this.Location.Y, this.Opacity, this.Dimensions );
+			
+		}
 		
 	}
 	

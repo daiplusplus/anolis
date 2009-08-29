@@ -78,6 +78,12 @@
 
 Для продолжения нажмите "Далее"</value>
   </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>Мастер установки Anolis обнаружил предыдущие изменения, которые будут применены после перезагрузки. Нужно перезагрузить компьютер перед следующим запуском мастера установки.</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>Мастер установки {0} обнаружил предыдущие изменения, которые будут применены после перезагрузки. Нужно перезагрузить компьютер перед следующим запуском {0}.</value>
+  </data>
   <data name="A_title" xml:space="preserve">
     <value>Вас приветствует мастер установки пакета Anolis</value>
   </data>
@@ -247,25 +253,25 @@
     <value>Описание пакета</value>
   </data>
   <data name="C_E_Disabled" xml:space="preserve">
-    <value>Отключено</value>
+    <value>Выключено</value>
   </data>
   <data name="C_E_Enabled" xml:space="preserve">
     <value>Включено</value>
   </data>
   <data name="C_E_Explicit" xml:space="preserve">
-    <value>Подробно</value>
+    <value>Явно</value>
   </data>
   <data name="C_E_Inherit" xml:space="preserve">
-    <value>Перенято</value>
+    <value>Унаследовано</value>
   </data>
   <data name="C_E_noInfo" xml:space="preserve">
     <value>Выбранный элемент "{0}" не содержит никакой связанной информации</value>
   </data>
   <data name="C_E_NullItem" xml:space="preserve">
-    <value>Недействительный пункт</value>
+    <value>Пустой элемент</value>
   </data>
   <data name="C_E_simple" xml:space="preserve">
-    <value>Простой</value>
+    <value>Просто</value>
   </data>
   <data name="C_E_Subtitle" xml:space="preserve">
     <value>Выберите компоненты пакета, которые вы хотите установить.</value>
@@ -280,19 +286,19 @@
     <value>Безымянная группа</value>
   </data>
   <data name="C_E1_advanced" xml:space="preserve">
-    <value>Дополнительно</value>
+    <value>Подробно</value>
   </data>
   <data name="C_E1_bitmapsLbl" xml:space="preserve">
-    <value>Битмэп</value>
+    <value>Картинки</value>
   </data>
   <data name="C_E1_Custom" xml:space="preserve">
     <value>Пользовательский</value>
   </data>
   <data name="C_E1_logonLbl" xml:space="preserve">
-    <value>Окно Приветствия</value>
+    <value>Приветствие</value>
   </data>
   <data name="C_E1_logonPreview" xml:space="preserve">
-    <value>Предпросмотр</value>
+    <value>Обзор</value>
   </data>
   <data name="C_E1_Presets" xml:space="preserve">
     <value>Предустановки</value>
@@ -301,19 +307,19 @@
     <value>Область предпросмотра</value>
   </data>
   <data name="C_E1_Subtitle" xml:space="preserve">
-    <value>Вы можете настроить как вам компъютер будет выглядеть после установки</value>
+    <value>Вы можете настроить как ваша система будет выглядеть после установки</value>
   </data>
   <data name="C_E1_Title" xml:space="preserve">
-    <value>Выбрать опции темы</value>
+    <value>Выбор настроек темы</value>
   </data>
   <data name="C_E1_visualStylesLbl" xml:space="preserve">
-    <value>Дизайн</value>
+    <value>Стиль</value>
   </data>
   <data name="C_E1_wallpaperLbl" xml:space="preserve">
     <value>Обои</value>
   </data>
   <data name="C_F_advanced" xml:space="preserve">
-    <value>Дополнительные настройки</value>
+    <value>Дополнительно...</value>
   </data>
   <data name="C_F_backup" xml:space="preserve">
     <value>Создать резервную папку для удаления пакета (Рекомендуется)</value>
@@ -351,23 +357,32 @@
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>Выберите резервную папку и другие настройки.</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>Создать точку восстановления системы (Рекомендуется)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>Дополнительный уровень защиты. Однако он не всегда защищает от изменений в файлах, не относящихся к Windows.</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>Настройки установки</value>
   </data>
+  <data name="C_F2_feedback" xml:space="preserve">
+    <value>Отправить отзыв с информацией об установке</value>
+  </data>
+  <data name="C_F2_feedbackDesc" xml:space="preserve">
+    <value>Анонимные данные об установке (такие как версия операционной системы, язык, возникшие ошибки) будут отправлены разработчикам для улучшения этого пакета в будущем.</value>
+  </data>
+  <data name="C_F2_lite" xml:space="preserve">
+    <value>Облегченный вариант для неанглийских систем</value>
+  </data>
   <data name="C_F2_liteDesc" xml:space="preserve">
-    <value>Если иконки 128х128 (или больше) установлены на не английской версии Windows некоторые системные файлы могут вести себя не так как обычно и могут вызвать проблемы совместимости с некоторыми программами. Выбирая эту опцию вы предотвращаете установку иконок 128х128.</value>
+    <value>Если значки 128х128 (или больше) установлены на неанглийскую версию Windows, некоторые системные файлы могут вести себя некорректно, что может вызвать проблемы совместимости с некоторыми приложениями. Выбирая эту опцию вы предотвращаете установку значков 128х128.</value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>Создать точку восстановления системы (Рекомендуется)</value>
   </data>
   <data name="C_F2_restoreDesc" xml:space="preserve">
-    <value>Восстановление системы это дополнительный слой защиты деинсталлятора. Это не всегда защищает от модификаций, сделанных с не системными файлами в папке Program Files.</value>
+    <value>Дополнительный уровень защиты. Однако он не всегда защищает от изменений в файлах, не относящихся к Windows.</value>
   </data>
   <data name="C_F2_RestoreDescNA" xml:space="preserve">
-    <value>Восстановление системы не доступно на вашей системе и не может быть включено для этой инсталяции.</value>
+    <value>Восстановление системы не доступно на вашей системе и не может быть включено для этой установки.</value>
   </data>
   <data name="C_F2_Title" xml:space="preserve">
     <value>Дополнительные настройки установки</value>
@@ -389,6 +404,9 @@
   </data>
   <data name="C_G_Title" xml:space="preserve">
     <value>Установка пакета</value>
+  </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>Установка {0}</value>
   </data>
   <data name="D_A_destBrowse" xml:space="preserve">
     <value>Найти...</value>
@@ -435,8 +453,11 @@
   <data name="E_A_dirLbl" xml:space="preserve">
     <value>Папка</value>
   </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>Выберите резервную папку для восстановления</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
-    <value>Указанная папка не содержит корректный набор файлов для отката</value>
+    <value>Указанная папка не содержит корректный набор файлов для восстановления</value>
   </data>
   <data name="E_A_Subtitle" xml:space="preserve">
     <value>Выберите резервную папку для восстановления.</value>
@@ -450,6 +471,9 @@
   <data name="E_A_Title" xml:space="preserve">
     <value>Выберите резервную папку</value>
   </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>Язык программы удаления</value>
+  </data>
   <data name="E_A_uninstallButton" xml:space="preserve">
     <value>Удалить</value>
   </data>
@@ -461,6 +485,9 @@
   </data>
   <data name="E_B_Title" xml:space="preserve">
     <value>Удаление пакета</value>
+  </data>
+  <data name="E_B_Title_Cus" xml:space="preserve">
+    <value>Удаление {0}</value>
   </data>
   <data name="F_aborted" xml:space="preserve">
     <value>Установка отменена</value>
@@ -487,6 +514,9 @@
   </data>
   <data name="F_title" xml:space="preserve">
     <value>Установка завершена</value>
+  </data>
+  <data name="F_TitleUninstall" xml:space="preserve">
+    <value>Удаление завершено</value>
   </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
     <value>Удаление успешно завершено.</value>
@@ -530,18 +560,18 @@
     <value>Далее</value>
   </data>
   <data name="Wiz_OK" xml:space="preserve">
-    <value>Ок</value>
+    <value>ОК</value>
   </data>
   <data name="Wiz_Prev" xml:space="preserve">
     <value>Назад</value>
   </data>
   <data name="X_Bootscreen" xml:space="preserve">
-    <value>Экран Загрузки</value>
+    <value>Экран загрузки</value>
   </data>
   <data name="X_CursorScheme" xml:space="preserve">
-    <value>Курсоры Мыши</value>
+    <value>Указатели мыши</value>
   </data>
   <data name="X_Screensaver" xml:space="preserve">
-    <value>Скринсейвер</value>
+    <value>Хранитель экрана</value>
   </data>
 </root>

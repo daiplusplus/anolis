@@ -277,14 +277,11 @@ To continue, press Next</value>
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>Dewisiwch ffeil back-up ac opsiynnau eraill</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>Creu 'System Restore Point'(Awgrymiadol)</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>Rhag ofn. Dydi hyn ddim bob tro yn gweithio yn erbyn newidiadau sydd wedi'w wneud i ffeiliau sydd ddim byd i wneud efo 'Windows' o dan 'Program Files'</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>Opsiynnau Llwytho</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>Creu 'System Restore Point'(Awgrymiadol)</value>
   </data>
   <data name="C_G_status" xml:space="preserve">
     <value>{0}% wedi'w cwbwlhau - {1}</value>

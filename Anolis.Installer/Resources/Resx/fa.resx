@@ -78,6 +78,12 @@
 
 برای ادامه بر روی بعدی کلیک کنید</value>
   </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>نصب کننده اناالیس شناسایی کرده نصب قبلی را که تغییراتی در رایانه انجام داده که باید برای اثر گذاشتن راه اندازی مجدد شود.شما باید راه اندازی مجدد کنید رایانه را قبل از اجرا نصب کننده انالیس.</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>{0}قابل شناسایی کرده است که در یک نصب قبلی ارسال شده تغییر کرده است به رایانه شما ثبت خواهد شد که اثر بعد از شروع مجدد رایانه. شما باید رایانه خود را راه اندازی مجدد کنید قبل از {0} نصب دوباره.</value>
+  </data>
   <data name="A_title" xml:space="preserve">
     <value>  خوش امدید به بسته نصب انو الیس</value>
   </data>
@@ -88,13 +94,13 @@
     <value>این بسته را میتوانید در مکان اصلی یا هر جای دیگر رایانه نصب کنید.این بسته میتواند نصب شود بر روی فایل های نصب سی دی ویندوز</value>
   </data>
   <data name="B_installBlurb_Cus" xml:space="preserve">
-    <value>{0}نصب بر روی رایانه یا سی دی نصب ویندوز</value>
+    <value>نصب {0} بر روی رایانه یا سی دی نصب ویندوز</value>
   </data>
   <data name="B_installRad" xml:space="preserve">
     <value>نصب بسته</value>
   </data>
   <data name="B_installRad_Cus" xml:space="preserve">
-    <value>{0}نصب</value>
+    <value> نصب{0}</value>
   </data>
   <data name="B_Subtitle" xml:space="preserve">
     <value>انتخاب عملیات برای انجام دادن</value>
@@ -106,7 +112,7 @@
     <value>دانلود ابزار بنابراین شما میتواید به اسانی بسته مورد نظر خد را بسازید یا توسعه دهید</value>
   </data>
   <data name="B_toolsBlurb_Cus" xml:space="preserve">
-    <value>{0} دانلود ابزار بنابراین شما میتواید به اسانی بسته مورد نظر خد را بسازید یا توسعه دهید فقط مانند </value>
+    <value> دانلود ابزار {0} بنابراین شما میتواید به اسانی بسته مورد نظر خد را بسازید یا توسعه دهید</value>
   </data>
   <data name="B_toolsRad" xml:space="preserve">
     <value>ساختن بسته برای خودم یا تعمیم دادن</value>
@@ -118,7 +124,7 @@
     <value>اندو تغییرات ایجاد شده توسط بسته نصب</value>
   </data>
   <data name="B_uninstallRad_Cus" xml:space="preserve">
-    <value>{0}اندو تغییرات ایجاد شده</value>
+    <value>اندو تغییرات ایجاد شده{0}</value>
   </data>
   <data name="C_A_anopBrowse" xml:space="preserve">
     <value>...جستجو</value>
@@ -160,7 +166,7 @@
     <value>وجود یک خطا در مدتی که قصد استخراج بسته را داشتید</value>
   </data>
   <data name="C_B_error_Cus" xml:space="preserve">
-    <value>{0}وجود یک خطا در مدتی که قصد استخراج بسته را داشتید</value>
+    <value>وجود یک خطا در مدتی که قصد استخراج بسته {0} را داشتید</value>
   </data>
   <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
     <value>در بسته ارشیو معین شده فایلهای تعریف شده وجود ندارد</value>
@@ -175,13 +181,13 @@
     <value>در حال نصب بسته منتظر بمانید برای نصب شدن</value>
   </data>
   <data name="C_B_Subtitle_Cus" xml:space="preserve">
-    <value>لطفا منتظر بمانید در مدت نصب{0} برای نصب شدن کامل</value>
+    <value>لطفا منتظر بمانید در مدت نصب {0} برای نصب شدن کامل</value>
   </data>
   <data name="C_B_Title" xml:space="preserve">
     <value>بسته در حال</value>
   </data>
   <data name="C_B_Title_Cus" xml:space="preserve">
-    <value> {0}در حال</value>
+    <value>در حال {0}</value>
   </data>
   <data name="C_C_downloadInfo" xml:space="preserve">
     <value>مشاهده وب پیج بسته</value>
@@ -193,7 +199,7 @@
     <value>خیر</value>
   </data>
   <data name="C_C_downloadProgress" xml:space="preserve">
-    <value>{0}% - {1}KB of {2}KB دانلود بر {3}KBps</value>
+    <value>{0}% - {1}KB از {2}KB دانلود بر {3}KBps</value>
   </data>
   <data name="C_C_downloadYes" xml:space="preserve">
     <value>بله</value>
@@ -232,13 +238,13 @@
     <value>مطالعه نصب انا الیس</value>
   </data>
   <data name="C_D_packageNotes" xml:space="preserve">
-    <value>{0} تبصره انتشار بسته</value>
+    <value>  تبصره انتشار بسته{0}</value>
   </data>
   <data name="C_D_Subtitle" xml:space="preserve">
     <value>مرور هر یک از یادداشت های نوشته شده توسط مولف بسته</value>
   </data>
   <data name="C_D_Subtitle_Cus" xml:space="preserve">
-    <value>{0}مرور هر یک از یادداشت های ایجاد شده با</value>
+    <value>مرور هر یک از یادداشت های ایجاد شده با{0}</value>
   </data>
   <data name="C_D_Title" xml:space="preserve">
     <value>تبصره انتشار بسته</value>
@@ -256,10 +262,10 @@
     <value>منع شده</value>
   </data>
   <data name="C_E_noInfo" xml:space="preserve">
-    <value>ایتمهای انتخاب شده در بر ندارد هیچ یک از ا'{0}'طلاعات شریک با ان</value>
+    <value>ایتمهای انتخاب شده در بر ندارد هیچ یک از {0}'طلاعات مشترک با ان</value>
   </data>
   <data name="C_E_NullItem" xml:space="preserve">
-    <value>ایتم پوچ</value>
+    <value>ایتم خالی</value>
   </data>
   <data name="C_E_simple" xml:space="preserve">
     <value>ساده</value>
@@ -291,8 +297,11 @@
   <data name="C_E1_logonPreview" xml:space="preserve">
     <value>پیش نمایش</value>
   </data>
+  <data name="C_E1_Presets" xml:space="preserve">
+    <value>از قبل تهیه شده</value>
+  </data>
   <data name="C_E1_previewLbl" xml:space="preserve">
-    <value>نقاط پیش نمایش</value>
+    <value>ناحیه پیش نمایش</value>
   </data>
   <data name="C_E1_Subtitle" xml:space="preserve">
     <value>شما میتوانید رایانه را سفارشی کنید که بعد از نصب چگونه پدیدار شود</value>
@@ -316,7 +325,7 @@
     <value>...جستجو</value>
   </data>
   <data name="C_F_backupDesc" xml:space="preserve">
-    <value>شما باید ایجاد کنید دایرکتوری نسخه پشتیبان اگر شما استفاده میکنید از ویژگی انینستال</value>
+    <value>شما باید دایرکتوری نسخه پشتیبان را بسازید اگر شما از ویژگی انینستال استفاده میکنید</value>
   </data>
   <data name="C_F_comp" xml:space="preserve">
     <value>نصب بر روی این رایانه</value>
@@ -328,7 +337,7 @@
     <value>...جستجو</value>
   </data>
   <data name="C_F_i386Lbl" xml:space="preserve">
-    <value>روت سی دی</value>
+    <value>شاخه سی دی</value>
   </data>
   <data name="C_F_installButton" xml:space="preserve">
     <value>نصب</value>
@@ -337,7 +346,7 @@
     <value>محل نسخه پشتیان از قبل وجود داشت و دارای فایل بود نسخه پشتیبان در پوشه خالی باید ایجاد شود</value>
   </data>
   <data name="C_F_pathInvalidBackup" xml:space="preserve">
-    <value>مسیر معییشده برای نسخه پشتیبان معتبر صحیح نمی باشد</value>
+    <value>مسیر معین شده برای نسخه پشتیبان صحیح نمیباشد</value>
   </data>
   <data name="C_F_pathInvalidI386" xml:space="preserve">
     <value>مسیر معیین شده نصب سی دی معتبر نمیباشد</value>
@@ -345,17 +354,27 @@
   <data name="C_F_Subtitle" xml:space="preserve">
     <value>انتخاب دایرکتوری نسخه پشتیبان و دیگر گزینه ها</value>
   </data>
-  <data name="C_F_sysRes" xml:space="preserve">
-    <value>ایجاد سیستم ریستور پوینت توصه میشود</value>
-  </data>
-  <data name="C_F_sysResDesc" xml:space="preserve">
-    <value>اضافه کردن یک لایه محافظ.یادداشت این همیشه محافظت نمیکند از تغییرات دوباره ایجاد شده بروی ویندوز فایل در پروگرام فایل</value>
-  </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>گزینه های نصب</value>
   </data>
+  <data name="C_F2_feedback" xml:space="preserve">
+    <value>گزارش جزییات نصب و بازخورد</value>
+  </data>
+  <data name="C_F2_feedbackDesc" xml:space="preserve">
+    <value>جزئیات ناشناس از تجربه اولیه شما را (مانند سیستم عامل ، زبان خود را ، و هر خطا) 
+را  به توسعه دهندگان این بسته را ارسال می شود برای کمک به بهبود آن بسته را در آینده است.</value>
+  </data>
+  <data name="C_F2_lite" xml:space="preserve">
+    <value>کوتاه, نصب کوتاه برای ویندوزهای غیر انگلیسی زبان</value>
+  </data>
   <data name="C_F2_liteDesc" xml:space="preserve">
-    <value>اگر 128x128 (و بزرگتر) اندازه تصاویر ، نماد هستند در عدم نصب نسخه های زبان انگلیسی - فایل های ویندوز سیستم خاصی نمی تواند به عنوان رفتار انتظار می رود و ممکن است مشکل سازگاری با برخی از برنامه ها شود. چک کردن این گزینه مانع 128x128 اندازه آیکون از بودن نصب شده است.</value>
+    <value>اگر از اندازه 128×128 و بزرگترتصاویر ایکون بر روی ویندوز غیر اینگلیسی نصب شده استفاده میکنید فایل سیستمی ممکن است دچار ناسازگاری شود با بعضی از نرم افزارهاچک کنید این مشکل را برای جلوگیری از ایکونهای بزرگتر از 128×128.</value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>تایید</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>ایجاد سیستم ریستور پوینت توصه میشود</value>
   </data>
   <data name="C_F2_restoreDesc" xml:space="preserve">
     <value>سیستم بازگردانی یک لایه اضافه را فراهم میکند برای حفاظت از حذف کننده.نکته توجه داشته باشید همیشه در برابر تغییرات ساخته شده را به غیر از فایل های ویندوز همیشه فایلهای در پروگرام فایل هستند</value>
@@ -370,7 +389,7 @@
     <value>پست-نصب تمیز کننده</value>
   </data>
   <data name="C_G_status" xml:space="preserve">
-    <value>{0}% کامل - {1}</value>
+    <value>% کامل{0} - {1}</value>
   </data>
   <data name="C_G_statusLbl" xml:space="preserve">
     <value>...در حال</value>
@@ -379,10 +398,13 @@
     <value>شما انتخاب کردید بسته را بر نصب</value>
   </data>
   <data name="C_G_Subtitle_Cus" xml:space="preserve">
-    <value>{0} ان نصب شده است</value>
+    <value>سته ب{0} ان نصب شده است</value>
   </data>
   <data name="C_G_Title" xml:space="preserve">
     <value>در حال نصب بسته</value>
+  </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>درحال نصب {0}</value>
   </data>
   <data name="D_A_destBrowse" xml:space="preserve">
     <value>...جستجو</value>
@@ -391,7 +413,7 @@
     <value>مقصد دایرکتوری</value>
   </data>
   <data name="D_A_progGroup" xml:space="preserve">
-    <value>ایجاد انا الیس در گروه نرمافزاری در استارت منو</value>
+    <value>ایجاد اناالیس در گروه نرمافزاری در استارت منو</value>
   </data>
   <data name="D_A_progGroupAll" xml:space="preserve">
     <value>برای همه کاربرها</value>
@@ -429,8 +451,11 @@
   <data name="E_A_dirLbl" xml:space="preserve">
     <value>دایرکتوری</value>
   </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>انتخاب دایرکتوری پشتیبان گیری برای بازگردانی ازان</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
-    <value>دایرکتوری تعیین شده در بر نداردانیستالر معتبر بسته</value>
+    <value>دایرکتوری مشخص شده حذف کننده یا انیستالر صحیح ندارد</value>
   </data>
   <data name="E_A_Subtitle" xml:space="preserve">
     <value>انتخاب دایرکتوری برای بازگردانی از</value>
@@ -444,14 +469,17 @@
   <data name="E_A_Title" xml:space="preserve">
     <value>انتخاب دایرکتوری نسخه پشتیبان</value>
   </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>زبان حذف کامل</value>
+  </data>
   <data name="E_A_uninstallButton" xml:space="preserve">
     <value>حذف کامل</value>
   </data>
   <data name="E_B_Subtitle" xml:space="preserve">
-    <value>انتخاب دایرکتوری برای ریکاور از</value>
+    <value>حالا حذف کامل بسته شما</value>
   </data>
   <data name="E_B_Subtitle_Cus" xml:space="preserve">
-    <value>{0} در حال حذف کامل</value>
+    <value> در حال حذف کامل {0}</value>
   </data>
   <data name="E_B_Title" xml:space="preserve">
     <value>در حال حذف کامل بسته</value>
@@ -470,6 +498,7 @@
   </data>
   <data name="F_installationCompleteRestart" xml:space="preserve">
     <value>نصب با دقت انجام شد رایانه شما حالا ریستارت میشود
+
 بستن همه پنجره های باز قبل از ادامه سعی نکید برای باز کردن نرم افزار دیگر</value>
   </data>
   <data name="F_installTools" xml:space="preserve">
@@ -480,6 +509,9 @@
   </data>
   <data name="F_title" xml:space="preserve">
     <value>نصب کامل شد</value>
+  </data>
+  <data name="F_TitleUninstall" xml:space="preserve">
+    <value>حذف نرم افزار کامل شد</value>
   </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
     <value>عملیات حذف با موفقیت انجام شد.رایانه شما حالا ریستارت میشود</value>

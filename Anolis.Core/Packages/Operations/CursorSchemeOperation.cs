@@ -55,10 +55,13 @@ namespace Anolis.Core.Packages.Operations {
 				scheme.Install();
 				scheme.Register();
 				
+				BackupDeleteScheme( Package.ExecutionInfo.BackupGroup, scheme );
+				
 				if(i == _schemes.Count - 1)
 					scheme.MakeActive();
 				
 			}
+			
 			
 		}
 		
@@ -75,6 +78,30 @@ namespace Anolis.Core.Packages.Operations {
 			op._schemes.Add( currentScheme );
 			
 			backupGroup.Operations.Add( op );
+		}
+		
+		private void BackupDeleteScheme(Group backupGroup, CursorScheme scheme) {
+			
+			if( backupGroup == null ) return;
+			
+			RegistryOperation deleteSchemeOp = new RegistryOperation(backupGroup);
+			deleteSchemeOp.RegKey   = @"HKEY_CURRENT_USER\Control Panel\Cursors\Schemes";
+			deleteSchemeOp.RegName  = scheme.SchemeName;
+			deleteSchemeOp.RegValue = "###ANOLISREMOVE####";
+			deleteSchemeOp.RegKind  = RegistryValueKind.String;
+			
+			backupGroup.Operations.Add( deleteSchemeOp );
+			
+			foreach(CursorEntry entry in scheme.Cursors) {
+				
+				if( File.Exists( entry.CursorFilename ) ) {
+					
+					FileOperation op = new FileOperation(backupGroup, entry.CursorFilename);
+					backupGroup.Operations.Add( op );
+				}
+				
+			}
+			
 		}
 		
 		public override void Write(XmlElement parent) {
@@ -234,7 +261,12 @@ namespace Anolis.Core.Packages.Operations {
 			
 			public void MakeActive() {
 				
+				// delete all current values
 				RegistryKey activeCursorsKey = Registry.CurrentUser.OpenSubKey(@"Control Panel\Cursors", true);
+				
+				String[] names = activeCursorsKey.GetValueNames();
+				foreach(String name in names) activeCursorsKey.DeleteValue(name, false);
+				
 				activeCursorsKey.SetValue(null, SchemeName, RegistryValueKind.String);
 				activeCursorsKey.SetValue("Scheme Source", 1, RegistryValueKind.DWord); // 0 = Windows Default, 1 = User Scheme, 2 = System Scheme
 				

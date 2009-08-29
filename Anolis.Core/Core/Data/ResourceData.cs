@@ -115,6 +115,11 @@ namespace Anolis.Core.Data {
 			}
 		}
 		
+		protected static Boolean IsExtension(String extension, params String[] extensions) {
+			
+			return ResourceDataFactory.IsExtension( extension, extensions );
+		}
+		
 		//////////////////////////////////////////////////////
 		// Tags
 		
@@ -210,7 +215,7 @@ namespace Anolis.Core.Data {
 			
 			// 'intelligent reading' of the file itself is too resource intensive. Better just to trust the extension.
 			
-			extension = extension.ToLowerInvariant();
+			extension = extension.ToUpperInvariant();
 			if(extension.StartsWith(".", StringComparison.OrdinalIgnoreCase)) extension = extension.Substring(1);
 			
 			ResourceDataFactory[] factories = ResourceDataFactory.GetFactoriesForExtension( extension );
@@ -234,7 +239,7 @@ namespace Anolis.Core.Data {
 		/// <summary>Creates a ResourceData instance from a file containing data convertible into a resource ready to replace the specified ResourceLang (but doesn't actually replace it). For instance a *.bmp can be converted into a BITMAP resource.</summary>
 		public static ResourceData FromFileToUpdate(String fileName, ResourceLang lang) {
 			
-			if(fileName == null) throw new ArgumentNullException("filename");
+			if( fileName == null       ) throw new ArgumentNullException("fileName");
 			if( !File.Exists(fileName) ) throw new FileNotFoundException("The file to load the resource data from was not found", fileName);
 			
 			using(Stream stream = File.OpenRead(fileName)) {

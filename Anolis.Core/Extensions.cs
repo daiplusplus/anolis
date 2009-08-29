@@ -92,6 +92,23 @@ namespace Anolis.Core {
 			return n.ToString( C.InvariantCulture );
 		}
 		
+		public static Boolean VersionTryParse(String s, out Version version) {
+			
+			version = null;
+			
+			try {
+				version = new Version( s );
+			} catch(ArgumentException) {
+				return false;
+			} catch(FormatException) {
+				return false;
+			} catch(OverflowException) {
+				return false;
+			}
+			
+			return true;
+		}
+		
 #endregion
 		
 #region Strings

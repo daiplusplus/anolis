@@ -14,8 +14,8 @@ namespace Anolis.Installer.Pages {
 		public WelcomePage() {
 			
 			InitializeComponent();
-			
-			this.Load += new EventHandler(WelcomePage_Load);
+
+			this.PageUnload += new EventHandler<W3b.Wizards.PageChangeEventArgs>(WelcomePage_PageUnload);
 			
 			this.__cultureAttrib.Click += new EventHandler(__cultureAttrib_Click);
 			this.__culture.SelectedIndexChanged += new EventHandler(__culture_SelectedIndexChanged);
@@ -73,14 +73,40 @@ namespace Anolis.Installer.Pages {
 			
 			WizardForm.EnableNext = true;
 			
+			
+			
+		}
+		
+		private void WelcomePage_PageUnload(object sender, W3b.Wizards.PageChangeEventArgs e) {
+			
 			///////////////////////
-			// Inform the user about the condition
+			// Installer Condition
 			
 			if( !PackageInfo.IgnoreCondition && !InstallationInfo.EvaluateInstallerCondition() ) {
 				
 				String message = InstallerResources.CustomizedSettings.InstallerConditionMessage;
 				
 				MessageBox.Show(this, message, "Anolis Installer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+			}
+			
+			///////////////////////
+			// Pending Operations
+			
+			if( !PackageInfo.IgnoreCondition && Anolis.Core.Packages.PackageUtility.HasPendingRestart() ) {
+				
+				String message;
+				if( InstallerResources.IsCustomized ) {
+					
+					message = InstallerResources.GetString("A_PendingOperations_Cus", InstallerResources.CustomizedSettings.InstallerFullName );
+					
+				} else {
+					
+					message = InstallerResources.GetString("A_PendingOperations"); 
+				}
+				
+				MessageBox.Show( message, InstallationInfo.InstallerTitle, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1 );
+				
+				e.Cancel = true;
 			}
 			
 		}

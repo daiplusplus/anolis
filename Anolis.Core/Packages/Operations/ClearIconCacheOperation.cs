@@ -11,11 +11,16 @@ namespace Anolis.Core.Packages.Operations {
 		public ClearIconCacheOperation(Group parent, System.Xml.XmlElement element) : base(parent, element) {
 		}
 		
+		public ClearIconCacheOperation(Group parent) : base(parent) {
+		}
+		
 		public override string OperationName {
 			get { return "Clear Icon Cache"; }
 		}
 		
 		public override void Execute() {
+			
+			Backup( Package.ExecutionInfo.BackupGroup );
 			
 			PackageUtility.ClearIconCache();
 			
@@ -31,12 +36,21 @@ namespace Anolis.Core.Packages.Operations {
 			
 		}
 		
+		private void Backup(Group backupGroup) {
+			
+			if( backupGroup == null ) return;
+			
+			ClearIconCacheOperation op = new ClearIconCacheOperation(backupGroup);
+			backupGroup.Operations.Add( op );
+			
+		}
+		
 		public override Boolean Merge(Operation operation) {
 			return true;
 		}
 		
 		public override void Write(System.Xml.XmlElement parent) {
-			CreateElement(parent, "ClearIconCache");
+			CreateElement(parent, "clearIconCache");
 		}
 	}
 }

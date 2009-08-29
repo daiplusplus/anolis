@@ -30,10 +30,18 @@ namespace Anolis.Installer.Pages {
 		protected override void Localize() {
 			base.Localize();
 			
-			if( Program.ProgramMode == ProgramMode.UninstallPackage ) {
+			if( InstallationInfo.ProgramMode == ProgramMode.UninstallPackage ) {
 				
-				PageTitle    = InstallerResources.GetString("E_B_Title");
-				PageSubtitle = InstallerResources.GetString("E_B_Subtitle");
+				if( InstallerResources.IsCustomized ) {
+					
+					PageSubtitle = InstallerResources.GetString("E_B_Title_Cus"   , InstallerResources.CustomizedSettings.InstallerName);
+					PageSubtitle = InstallerResources.GetString("E_B_Subtitle_Cus", InstallerResources.CustomizedSettings.InstallerName);
+					
+				} else {
+					
+					PageTitle    = InstallerResources.GetString("E_B_Title");
+					PageSubtitle = InstallerResources.GetString("E_B_Subtitle");
+				}
 				
 			} else {
 				

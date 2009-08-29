@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
 using Anolis.Core;
+using Anolis.Core.Packages;
 
 using W3b.Wizards.WindowsForms;
-using System.IO;
-using Anolis.Core.Packages;
 
 namespace Anolis.Installer.Pages {
 	
@@ -27,6 +27,10 @@ namespace Anolis.Installer.Pages {
 		protected override void Localize() {
 			base.Localize();
 			
+			if( InstallerResources.IsCustomized ) {
+				
+				__feedbackLbl.Text = InstallerResources.GetString("E_A_feedbackLbl_Cus", InstallerResources.CustomizedSettings.InstallerName, InstallerResources.CustomizedSettings.InstallerDeveloper);
+			}
 			
 		}
 		
@@ -39,6 +43,8 @@ namespace Anolis.Installer.Pages {
 		}
 		
 		private Boolean PrepareToUninstall() {
+			
+			InstallationInfo.FeedbackMessage = __feedback.Text;
 			
 			if( __dir.Text.Length == 0 ) return false;
 			if( !Path.IsPathRooted( __dir.Text ) ) return false;
@@ -74,7 +80,7 @@ namespace Anolis.Installer.Pages {
 		
 		private void Page_Load(object sender, EventArgs e) {
 			
-			Program.ProgramMode = ProgramMode.UninstallPackage;
+			InstallationInfo.ProgramMode = ProgramMode.UninstallPackage;
 			
 			WizardForm.NextText = InstallerResources.GetString("E_A_uninstallButton");
 			

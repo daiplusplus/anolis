@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-using W3b.Wizards;
-using W3b.Wizards.WindowsForms;
 using System.IO;
+using System.Windows.Forms;
 using Anolis.Core;
 using Anolis.Core.Packages;
 using Anolis.Core.Utility;
+using W3b.Wizards;
+using W3b.Wizards.WindowsForms;
 
 namespace Anolis.Installer.Pages {
 	
@@ -147,9 +142,7 @@ namespace Anolis.Installer.Pages {
 		
 		private void __advanced_Click(object sender, EventArgs e) {
 			
-			InstallationOptionsForm opts = new InstallationOptionsForm();
-			opts.ShowDialog(this);
-			
+			Program.PageCFInstallOptForm.ShowDialog(this);
 		}
 		
 		private String _oldNextText;

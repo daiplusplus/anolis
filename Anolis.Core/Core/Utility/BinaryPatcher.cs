@@ -183,7 +183,7 @@ namespace Anolis.Core.Utility.BinaryPatch {
 		
 	}
 	
-	public class UXThemePatchFinderFactory {
+	public static class UXThemePatchFinderFactory {
 		
 		public static PatchFinder Create(String fileName) {
 			

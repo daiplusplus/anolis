@@ -22,14 +22,14 @@ namespace Anolis.Core.Data {
 		
 		public override Compatibility HandlesExtension(String fileNameExtension) {
 			
-			if( IsExtension( fileNameExtension, "ico" ) ) return Compatibility.Yes;
+			if( IsExtension( fileNameExtension, "ICO" ) ) return Compatibility.Yes;
 			
 			return Compatibility.No;
 			
 		}
 		
 		public override String OpenFileFilter {
-			get { return CreateFileFilter("IconDirectory", "ico"); }
+			get { return CreateFileFilter("IconDirectory", "ICO"); }
 		}
 		
 		public override ResourceData FromResource(ResourceLang lang, Byte[] data) {
@@ -45,7 +45,7 @@ namespace Anolis.Core.Data {
 		
 		public override ResourceData FromFileToAdd(Stream stream, String extension, UInt16 langId, ResourceSource currentSource) {
 			
-			if( !IsExtension( extension, "ico" ) ) throw new ArgumentException("ico is the only supported extension");
+			if( !IsExtension( extension, "ICO" ) ) throw new ArgumentException("ico is the only supported extension");
 			
 			IconGroup group = new IconGroup( stream );
 			group.BindToSource( currentSource, langId );
@@ -55,7 +55,7 @@ namespace Anolis.Core.Data {
 		
 		public override ResourceData FromFileToUpdate(Stream stream, String extension, ResourceLang currentLang) {
 			
-			if( !IsExtension( extension, "ico" ) ) throw new ArgumentException("ico is the only supported extension");
+			if( !IsExtension( extension, "ICO" ) ) throw new ArgumentException("ico is the only supported extension");
 			
 			IconDirectoryResourceData originalData = currentLang.Data as IconDirectoryResourceData;
 			if(originalData == null) throw new ResourceDataException("Unexpected original data subclass");
@@ -89,7 +89,7 @@ namespace Anolis.Core.Data {
 		
 		protected override void SaveAs(Stream stream, String extension) {
 			
-			if(extension != "ico") throw new ArgumentException("ico is the only supported extension");
+			if( !IsExtension(extension, "ICO") ) throw new ArgumentException("ico is the only supported extension");
 			
 			IconGroup.Save(stream);
 		}

@@ -29,8 +29,6 @@ namespace Anolis.Core.Utility {
 				// Supported in XP and later, but not 2000
 				if( ver.Major == 5 && ver.Minor >= 1 ) {
 					
-					// TODO ensure system restore DLLs and functions are present
-					
 					return true;
 				}
 				

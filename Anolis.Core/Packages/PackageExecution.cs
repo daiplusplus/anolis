@@ -21,6 +21,8 @@ namespace Anolis.Core.Packages {
 		
 		internal PackageExecutionSettingsInfo(Package package, PackageExecutionMode mode, Boolean createSysRes, Boolean liteMode, Group backupGroup, DirectoryInfo cdImageDirectory) {
 			
+			Package                  = package;
+			
 			ExecutionMode            = mode;
 			LiteMode                 = liteMode;
 			CreateSystemRestorePoint = createSysRes;
