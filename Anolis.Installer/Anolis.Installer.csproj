@@ -337,6 +337,7 @@
     <Content Include="Resources\Flags\ru.png" />
     <None Include="Resources\Flags\th.png" />
     <None Include="Resources\Flags\se.png" />
+    <None Include="Resources\Resx\GZip\en.resources.gz" />
     <EmbeddedResource Include="Pages\G2-SendFeedbackForm.resx">
       <DependentUpon>G2-SendFeedbackForm.cs</DependentUpon>
     </EmbeddedResource>

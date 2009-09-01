@@ -546,7 +546,10 @@ namespace Anolis.Core.Packages {
 		
 		public static void RegistryExport(String keyName, String fileName) {
 			
-			String args = String.Format(CultureInfo.InvariantCulture, "EXPORT \"{0}\" \"{1}\" /y", keyName, fileName );
+			// the /y switch is only supported on NT5.2 (and later?) and not NT5.1, so this command fails on XP x86 unless you remove it
+			
+			//String args = String.Format(CultureInfo.InvariantCulture, "EXPORT \"{0}\" \"{1}\" /y", keyName, fileName );
+			String args = String.Format(CultureInfo.InvariantCulture, "EXPORT \"{0}\" \"{1}\"", keyName, fileName );
 			
 			Miscellaneous.RunProcHiddenSync( RegPath, args, 2000 );
 		}

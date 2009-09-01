@@ -454,7 +454,7 @@ Presiona Siguiente para continuar</value>
     <value>Seleciona el directorio de respaldo para recuperar</value>
   </data>
   <data name="E_A_feedbackLbl" xml:space="preserve">
-    <value>¿Por que has decidido desinstalar este paquete? Tu información será enviada al programador para mejorar el paquete {0} en el futuro.</value>
+    <value>¿Por que has decidido desinstalar este paquete? Tu información será enviada al programador para mejorar el paquete en el futuro.</value>
   </data>
   <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
     <value>¿Por que has decidido desinstalar {0}? Tu información será enviada a {1} para mejorar el paquete en el futuro.</value>

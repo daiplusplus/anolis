@@ -454,7 +454,7 @@
     <value>選擇供還原時用的一個備份資料夾</value>
   </data>
   <data name="E_A_feedbackLbl" xml:space="preserve">
-    <value>為了改進日後發表的{0}, 您的回應將會被傳送至封包開發者. 請問您為何進行移除?</value>
+    <value>為了改進日後發表的, 您的回應將會被傳送至封包開發者. 請問您為何進行移除?</value>
   </data>
   <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
     <value>為了改進日後發表的封包, 您的回應將會被傳送至{1}. 請問您為何進行移除{0}?</value>

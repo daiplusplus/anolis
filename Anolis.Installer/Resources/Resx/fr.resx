@@ -66,17 +66,17 @@
     <value>Suppression des fichiers temporaires en cours</value>
   </data>
   <data name="A_DisableAV" xml:space="preserve">
-    <value>Avant de poursuivre, désactivez Windows Defender ou tout autre logiciel anti-virus qui ralentissent le processus d'installation.</value>
+    <value>Avant de poursuivre, désactivez Windows Defender ou tout autre logiciel anti-virus susceptible de ralentir le processus d'installation.</value>
   </data>
   <data name="A_notes" xml:space="preserve">
     <value>Cet assistant vous guidera dans le processus d'installation d'un paquet Anolis
 
-Pour continuer, cliquez sur Suivant</value>
+Cliquez sur Suivant pour continuer</value>
   </data>
   <data name="A_Notes_Cus" xml:space="preserve">
     <value>Cet assistant vous guidera dans le processus d'installation de {0} 
 
-Pour continuer, cliquez sur Suivant</value>
+Cliquez sur Suivant pour continuer</value>
   </data>
   <data name="A_PendingOperations" xml:space="preserve">
     <value>L'installateur Anolis a détecté qu'une installation antérieure a modifié votre configuration. Ces modifications prendront effet après un redémarrage. Vous devez redémarrer votre ordinateur avant de lancer l'Installateur Anolis.</value>
@@ -85,13 +85,13 @@ Pour continuer, cliquez sur Suivant</value>
     <value>{0} a détecté qu'une installation antérieure a modifié votre configuration. Ces modifications prendront effet après un redémarrage. Vous devez redémarrer votre ordinateur avant de lancer l'installation de {0}.</value>
   </data>
   <data name="A_title" xml:space="preserve">
-    <value>Bienvenue à Anolis Package Installer</value>
+    <value>Bienvenue à l'Installeur de Paquets Anolis</value>
   </data>
   <data name="A_Title_Cus" xml:space="preserve">
-    <value>Bienvenue à {0}</value>
+    <value>Bienvenue à l'Installeur de {0}</value>
   </data>
   <data name="B_installBlurb" xml:space="preserve">
-    <value>Installe un paquet situé dans cette distribution Anolis ou ailleurs dans cet ordinateur. Le paquet peut être installé dans un dossier des fichiers d'installation (I386).</value>
+    <value>Installe un paquet figurant dans cette distribution Anolis, ou dans un autre répertoire de cet ordinateur. Le paquet peut être installé dans les archives d'installation du dossier I386.</value>
   </data>
   <data name="B_installBlurb_Cus" xml:space="preserve">
     <value>Installe {0} dans cet ordinateur ou dans un dossier des fichiers d'installation (I386).</value>
@@ -118,13 +118,13 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Créez votre propre paquet ou distribution</value>
   </data>
   <data name="B_uninstallBlurb" xml:space="preserve">
-    <value>Restaure les fichiers à leur état initial. Vous aurez besoin du dossier de sauvegarde qui a été créé durant l'installation</value>
+    <value>Restaure les fichiers à leur état initial avant application du patch. Vous aurez besoin du dossier de sauvegarde qui a été créé durant l'installation</value>
   </data>
   <data name="B_uninstallRad" xml:space="preserve">
-    <value>Annuler les modifications faites par l'installation d'un paquet</value>
+    <value>Annuler les modifications faites par l'installation d'un paquet.</value>
   </data>
   <data name="B_uninstallRad_Cus" xml:space="preserve">
-    <value>Annuler les modifications faites par {0}</value>
+    <value>Annuler les modifications effectuées par {0}</value>
   </data>
   <data name="C_A_anopBrowse" xml:space="preserve">
     <value>Parcourir...</value>
@@ -133,10 +133,10 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Nom du fichier</value>
   </data>
   <data name="C_A_anopRad" xml:space="preserve">
-    <value>Une archive paquet (*.anop) sur mon ordinateur</value>
+    <value>Une archive de paquet (*.anop) sur mon ordinateur</value>
   </data>
   <data name="C_A_embedRad" xml:space="preserve">
-    <value>Un paquet intégré dans ce programme d'installation</value>
+    <value>Un paquet intégré à ce programme d'installation</value>
   </data>
   <data name="C_A_notFileExists" xml:space="preserve">
     <value>Le fichier "{0}" n'existe pas</value>
@@ -148,13 +148,13 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Nom du fichier</value>
   </data>
   <data name="C_A_packRad" xml:space="preserve">
-    <value>Un fichier de définition de paquet (package.xml) sur mon ordinateur</value>
+    <value>Un fichier archive des définitions (package.xml) sur mon ordinateur</value>
   </data>
   <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
-    <value>Sélectionnez un paquet intégré avant de continuer</value>
+    <value>Sélectionnez un paquet avant de continuer</value>
   </data>
   <data name="C_A_Subtitle" xml:space="preserve">
-    <value>Le paquet à installer peut être dans le système de fichiers de cet ordinateur ou intégré à ce programme d'installation</value>
+    <value>Le paquet à installer peut se trouver sur cet ordinateur, ou dans ce programme d'installation</value>
   </data>
   <data name="C_A_Title" xml:space="preserve">
     <value>Sélectionnez un paquet à installer</value>
@@ -163,7 +163,7 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Une erreur s'est produite lors du contrôle de compatibilité du paquet avec votre ordinateur. Contactez l'auteur du paquet.</value>
   </data>
   <data name="C_B_error" xml:space="preserve">
-    <value>Une erreur s'est produite en essayant d'extraire le paquet.</value>
+    <value>Une erreur s'est produite en essayant d'extraire le paquett.</value>
   </data>
   <data name="C_B_error_Cus" xml:space="preserve">
     <value>Une erreur s'est produite en essayant d'extraire {0}</value>
@@ -172,16 +172,16 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Le paquet spécifiée ne contient pas de fichier archive de définition.</value>
   </data>
   <data name="C_B_instantiating" xml:space="preserve">
-    <value>Initialisation du paquet en cours...</value>
+    <value>Initialisation du package en cours...</value>
   </data>
   <data name="C_B_statusLbl" xml:space="preserve">
     <value>Préparation en cours...</value>
   </data>
   <data name="C_B_Subtitle" xml:space="preserve">
-    <value>Veuillez patienter pendant que le programme d'installation prépare le paquet à installer.</value>
+    <value>Veuillez patienter pendant que l'installeur prépare le paquet à installer.</value>
   </data>
   <data name="C_B_Subtitle_Cus" xml:space="preserve">
-    <value>Veuillez patienter pendant que le programme d'installation prépare {0} à installer</value>
+    <value>Veuillez patienter pendant que l'installeur prépare {0} pour installation.</value>
   </data>
   <data name="C_B_Title" xml:space="preserve">
     <value>Préparation du paquet en cours</value>
@@ -214,16 +214,16 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Une mise à jour ({0}) de ce paquet est disponible. Souhaitez-vous la télécharger maintenant ?</value>
   </data>
   <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
-    <value>Une mise à jour ({0}) de ce paquet est disponible, mais vous devez la télécharger manuellement. Cliquez sur "Visitez le siteInternet du paquet" pour plus d'information.</value>
+    <value>Une mise à jour ({0}) de ce paquet est disponible, mais vous devrez la télécharger manuellement. Cliquez sur "Visitez le siteInternet du paquet" pour plus d'information.</value>
   </data>
   <data name="C_C_infoUpdateLatest" xml:space="preserve">
     <value>Vous disposez de la dernière version ({0}) de ce paquet.</value>
   </data>
   <data name="C_C_sfdTitle" xml:space="preserve">
-    <value>Enregistrez le paquet téléchargé vers...</value>
+    <value>Enregistrer le paquet téléchargé vers...</value>
   </data>
   <data name="C_C_skipCheckLbl" xml:space="preserve">
-    <value>Vous pouvez passer la vérification des mises à jour en cliquant sur le bouton Suivant à tout moment.</value>
+    <value>Vous pouvez ignorer la vérification des mises à jour en cliquant sur le bouton Suivant à tout moment.</value>
   </data>
   <data name="C_C_statusLbl" xml:space="preserve">
     <value>Préparation en cours...</value>
@@ -235,16 +235,16 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Vérification de la mise à jour des paquets</value>
   </data>
   <data name="C_D_installerNotes" xml:space="preserve">
-    <value>Fichier "Lisez-moi" d'Anolis Installer</value>
+    <value>Fichier "Lisez-moi" de l'Installeur Anolis</value>
   </data>
   <data name="C_D_packageNotes" xml:space="preserve">
     <value>Notes de publication du paquet {0}</value>
   </data>
   <data name="C_D_Subtitle" xml:space="preserve">
-    <value>Passez en revue les notes de publication faites par l'auteur du paquet.</value>
+    <value>Consulter les notes de publication rédigées par l'auteur du paquet.</value>
   </data>
   <data name="C_D_Subtitle_Cus" xml:space="preserve">
-    <value>Passez en revue les notes de publication faite par {0}</value>
+    <value>Passez en revue les notes de publication rédigées par {0}</value>
   </data>
   <data name="C_D_Title" xml:space="preserve">
     <value>Notes de publication du paquet</value>
@@ -298,7 +298,7 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Prévisualisation</value>
   </data>
   <data name="C_E1_Presets" xml:space="preserve">
-    <value>Préréglage du Thème</value>
+    <value>Préréglages du Thème</value>
   </data>
   <data name="C_E1_previewLbl" xml:space="preserve">
     <value>Zone de prévisualisation</value>
@@ -307,7 +307,7 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Vous pouvez personnaliser l'apparence de votre ordinateur après l'installation.</value>
   </data>
   <data name="C_E1_Title" xml:space="preserve">
-    <value>Sélectionnez les options de thème</value>
+    <value>Sélectionner les options de thème</value>
   </data>
   <data name="C_E1_visualStylesLbl" xml:space="preserve">
     <value>Style visuel</value>
@@ -319,19 +319,19 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Options avancées...</value>
   </data>
   <data name="C_F_backup" xml:space="preserve">
-    <value>Créez un dossier de sauvegarde de désinstallation (Recommandé)</value>
+    <value>Créer un dossier de sauvegarde de désinstallation (Recommandé)</value>
   </data>
   <data name="C_F_backupBrowse" xml:space="preserve">
     <value>Parcourir...</value>
   </data>
   <data name="C_F_backupDesc" xml:space="preserve">
-    <value>Vous devez créer un dossier de sauvegarde si à l'avenir vous souhaitez désinstaller ce paquet ultérieurement.</value>
+    <value>Vous devez créer un dossier de sauvegarde si vous souhaitez désinstaller ce paquet ultérieurement.</value>
   </data>
   <data name="C_F_comp" xml:space="preserve">
     <value>Installer sur cet ordinateur</value>
   </data>
   <data name="C_F_i386" xml:space="preserve">
-    <value>Installer dans i386</value>
+    <value>Installer dans un CD d'installation de Windows ( i386)</value>
   </data>
   <data name="C_F_i386Browse" xml:space="preserve">
     <value>Parcourir...</value>
@@ -340,7 +340,7 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Racine du CD</value>
   </data>
   <data name="C_F_installButton" xml:space="preserve">
-    <value>Installez</value>
+    <value>Installer</value>
   </data>
   <data name="C_F_pathExistsBackup" xml:space="preserve">
     <value>Le dossier de sauvegarde spécifié existe déjà et contient des fichiers. Les sauvegardes doivent être faites dans un dossier vide, ou dans un nouveau dossier.</value>
@@ -352,7 +352,7 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Le chemin i386 spécifié n'est pas valide.</value>
   </data>
   <data name="C_F_Subtitle" xml:space="preserve">
-    <value>Selectionnez un dossier de sauvegarde et des autres options</value>
+    <value>Selectionner un dossier de sauvegarde et autres options</value>
   </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>Options d'installation</value>
@@ -361,16 +361,19 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Envoyer le détail des informations d'installation.</value>
   </data>
   <data name="C_F2_feedbackDesc" xml:space="preserve">
-    <value>Le détail des informations d'installation (système d'exploitation, langue, ou toute autre erreur) seront envoyées de manière anonyme à l'auteur du paquet pour l'aider à améliorer les versions futures.</value>
+    <value>Le détail des informations d'installation (tel que le système d'exploitation, la  langue, ou toute autre erreur) sera envoyé de manière anonyme à l'auteur du paquet pour l'améliorationles versions futures.</value>
   </data>
   <data name="C_F2_lite" xml:space="preserve">
-    <value>Installation "Lite" pour les version non-anglophones de WIndows</value>
+    <value>Installation "Lite" pour les versions non-anglophones de Windows</value>
   </data>
   <data name="C_F2_liteDesc" xml:space="preserve">
-    <value>Si le format d' icônes 128x128 (et au-delà) est installé sur des versions non-anglophones de Windows, il se peut que certains fichiers système puissent se conduire de manière inattendue et poser des problèmes de compatibilité avec certains programmes. La validation de cette option empêche l'installation des icônes au format 128x128.</value>
+    <value>Si le format d' icônes 128x128 (et au-delà) est installé sur des versions non-anglophones de Windows, il se peut que certains fichiers système se conduisent de manière inattendue et posent des problèmes de compatibilité avec certains programmes. La validation de cette option empêche l'installation des icônes au format 128x128.</value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="C_F2_restore" xml:space="preserve">
-    <value>Créez un point de restauration système (Recommandé)</value>
+    <value>Créer un Point de Restauration (Recommandé)</value>
   </data>
   <data name="C_F2_restoreDesc" xml:space="preserve">
     <value>La Restauration du Système fournit un niveau de protection suppémentaire au programme de désinstallation. Notez que cela ne préserve pas toujours les modifications de fichiers non-Windows du dossier Program Files</value>
@@ -409,7 +412,7 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Dossier de destination</value>
   </data>
   <data name="D_A_progGroup" xml:space="preserve">
-    <value>Créer un groupe Anolis dans le menu Démarrer</value>
+    <value>Créer un dossier Anolis dans le menu Démarrer</value>
   </data>
   <data name="D_A_progGroupAll" xml:space="preserve">
     <value>Pour tous les utilisateurs</value>
@@ -418,13 +421,13 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Seulement pour moi</value>
   </data>
   <data name="D_A_Subtitle" xml:space="preserve">
-    <value>Sélectionnez un dossier pour les outils téléchargés et définissez les autres options</value>
+    <value>Sélectionner un dossier pour les outils téléchargés et configurer d'autres options</value>
   </data>
   <data name="D_A_Title" xml:space="preserve">
     <value>Dossier de Destination et Options d'Installation</value>
   </data>
   <data name="D_A_toolsLbl" xml:space="preserve">
-    <value>Les outils téléchargeables incluent Resourcer, un puissant éditeur de ressources. Ils incluent également Packager, pour créer vos fichiers de paquet, vos programmes d'installation, et d'autres outils dont un éditeur d'icônes allégé.</value>
+    <value>Les outils téléchargeables incluent Resourcer, un puissant éditeur de ressources ; Packager, utilisé pour créer les archives du paquet et installeur personnalisé que vous utilisez actuellement ; ainsi que d'autres outils dont un éditeur d'icônes allégé.</value>
   </data>
   <data name="D_B_downloadFailed" xml:space="preserve">
     <value>Le téléchargment a échoué</value>
@@ -448,25 +451,25 @@ Pour continuer, cliquez sur Suivant</value>
     <value>Dossier</value>
   </data>
   <data name="E_A_FbdDescription" xml:space="preserve">
-    <value>Sélectionnez le répertoire de sauvegarde à récupérer</value>
+    <value>Sélectionner le répertoire de sauvegarde à récupérer</value>
   </data>
   <data name="E_A_feedbackLbl" xml:space="preserve">
-    <value>Pour quelle(s) raison(s) installez-vous ce paquet ? Votre réponse sera envoyée au développeur pour l'amélioration de la prochaine version de {0}. </value>
+    <value>Pourquoi désinstallez-vous ce package ? Votre réponse sera envoyée au développeur l'amélioration de la prochaine version.</value>
   </data>
   <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
-    <value>Pour quelle(s) raison(s) désinstallez-vous ce paquet ? Votre réponse sera envoyée à {1} pour l'amélioration de la prochaine version. </value>
+    <value>Pourquoi installez-vous {0}? Votre réponse sera envoyée à {1} pour l'amélioration de la prochaine version de {0}. </value>
   </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>Le dossier sélectionné ne contient pas de paquet de désinstallation valide.</value>
   </data>
   <data name="E_A_Subtitle" xml:space="preserve">
-    <value>Sélectionnez le dossier à récupérer</value>
+    <value>Sélectionner le dossier à récupérer</value>
   </data>
   <data name="E_A_sysRes" xml:space="preserve">
     <value>Créez un point de restauration système (Recommandé)</value>
   </data>
   <data name="E_A_sysResDesc" xml:space="preserve">
-    <value>Niveau de protection supplémentaire. Notez que cela ne préserve pas toujours les modifications apportées à des fichier non-Windows du dossier Program Files</value>
+    <value>Niveau de protection supplémentaire. Notez que cela ne préserve pas toujours les modifications apportées aux fichiers non-Windows du dossier Program Files</value>
   </data>
   <data name="E_A_Title" xml:space="preserve">
     <value>Sélectionner un dossier de sauvegarde</value>
@@ -513,7 +516,7 @@ Fermez toutes les applications en cours avant de continuer. N'ouvrez pas de nouv
     <value>Redémarrer</value>
   </data>
   <data name="F_title" xml:space="preserve">
-    <value>Installation terminée</value>
+    <value>Installation Terminée</value>
   </data>
   <data name="F_TitleUninstall" xml:space="preserve">
     <value>DésinstallationTerminée </value>
@@ -522,7 +525,7 @@ Fermez toutes les applications en cours avant de continuer. N'ouvrez pas de nouv
     <value>Le désinstallation a été effectuée avec succès.</value>
   </data>
   <data name="F_uninstallationCompleteRestart" xml:space="preserve">
-    <value>Votre ordinateur va maintenant redémarrer.
+    <value>La désinstallation s'est terminée avec succès. Votre ordinateur va maintenant redémarrer.
 
 Fermez toutes les applications en cours avant de continuer. N'ouvrez pas de nouvelles applications.</value>
   </data>
@@ -533,16 +536,16 @@ Fermez toutes les applications en cours avant de continuer. N'ouvrez pas de nouv
     <value>Merci de patienter quelques instants...</value>
   </data>
   <data name="G2_ErrorMessage" xml:space="preserve">
-    <value>Vos informations d'installation n'ont pu être envoyée car : </value>
+    <value>Vos informations d'installation n'ont pu être envoyées car : </value>
   </data>
   <data name="G2_ErrorTitle" xml:space="preserve">
     <value>Erreur</value>
   </data>
   <data name="G2_status" xml:space="preserve">
-    <value>Envoi des informations d'installation en cours</value>
+    <value>Informations d'installation en cours d'envoi</value>
   </data>
   <data name="G2_Title" xml:space="preserve">
-    <value> Merci de patienter...</value>
+    <value> Merci de Patienter...</value>
   </data>
   <data name="G2_UnknownError" xml:space="preserve">
     <value>Erreur Inconnue</value>

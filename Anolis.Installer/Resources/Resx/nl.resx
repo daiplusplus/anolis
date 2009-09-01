@@ -78,6 +78,12 @@ Klik op volgende om door te gaan.</value>
 
 Klik op volgende om door te gaan.</value>
   </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>Anolis Installer heeft vastgesteld dat een vorige installatie wijzigingen aan uw computer heeft gedaan die in werking zullen treden na het herstarten. U moet de computer opnieuw opstarten voordat u Anolis Installer kan draaien.</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>{0} heeft vastgesteld dat een vorige installatie wijzigingen aan uw computer heeft gedaan die in werking zullen treden na het herstarten. U moet de computer opnieuw opstarten voordat u {0} kan draaien.</value>
+  </data>
   <data name="A_title" xml:space="preserve">
     <value>Welkom bij de Anolis Pakket Installatie.</value>
   </data>
@@ -193,7 +199,7 @@ Klik op volgende om door te gaan.</value>
     <value>Nee</value>
   </data>
   <data name="C_C_downloadProgress" xml:space="preserve">
-    <value>{0}% - {1}KB van {2}KB gedownload met {3}KB/s</value>
+    <value>{0}% - {1} KB van {2} KB gedownload met {3} KB/s</value>
   </data>
   <data name="C_C_downloadYes" xml:space="preserve">
     <value>Ja</value>
@@ -238,7 +244,7 @@ Klik op volgende om door te gaan.</value>
     <value>Bekijk opmerkingen voor deze release van de maker van het pakket.</value>
   </data>
   <data name="C_D_Subtitle_Cus" xml:space="preserve">
-    <value>Bekijk opmerkinge voor deze release van {0}</value>
+    <value>Bekijk opmerkingen voor deze release van {0}</value>
   </data>
   <data name="C_D_Title" xml:space="preserve">
     <value>Pakket Release-opmerkingen</value>
@@ -351,6 +357,15 @@ Klik op volgende om door te gaan.</value>
   <data name="C_F_Title" xml:space="preserve">
     <value>Installatie opties</value>
   </data>
+  <data name="C_F2_feedback" xml:space="preserve">
+    <value>Installatiedetails als feedback opsturen.</value>
+  </data>
+  <data name="C_F2_feedbackDesc" xml:space="preserve">
+    <value>Anonieme details van uw installatie-ervaring (zoals uw besturingssysteem, taal, en fouten) zullen naar de ontwikkelaar van het pakket gestuurd worden om het pakket in de toekomst te helpen verbeteren.</value>
+  </data>
+  <data name="C_F2_lite" xml:space="preserve">
+    <value>"Lite" installatie voor niet-Engelstalige Windows taal.</value>
+  </data>
   <data name="C_F2_liteDesc" xml:space="preserve">
     <value>Als pictogrammen met een grootte van 128x128 (en groter) worden geïnstalleerd op een niet-Engelstalige versie van Windows, kunnen bepaalde systeembestanden zich niet gedragen zoals verwacht en kunnen compatibiliteitsproblemen het bepaalde programma's veroorzaken. Door deze optie aan te vinken voorkomt u dat pictogrammen met een grootte van 128x128 worden geïnstalleerd.</value>
   </data>
@@ -386,6 +401,9 @@ Klik op volgende om door te gaan.</value>
   </data>
   <data name="C_G_Title" xml:space="preserve">
     <value>Pakket installeren</value>
+  </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>{0} installeren</value>
   </data>
   <data name="D_A_destBrowse" xml:space="preserve">
     <value>Bladeren...</value>
@@ -432,6 +450,15 @@ Klik op volgende om door te gaan.</value>
   <data name="E_A_dirLbl" xml:space="preserve">
     <value>Map</value>
   </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>Kies de backup map waarvandaan u wilt herstellen</value>
+  </data>
+  <data name="E_A_feedbackLbl" xml:space="preserve">
+    <value>Waarom wilt u dit pakket verwijderen? Uw feedback zal naar de ontwikkelaar gestuurd worden om in de toekomst te verbeteren.</value>
+  </data>
+  <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
+    <value>Waarom wilt u {0} verwijderen? Uw feedback zal naar {1} gestuurd worden om het pakket in de toekomst te verbeteren.</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>De opgegeven map bevat geen geldig deïnstallatie pakket</value>
   </data>
@@ -447,11 +474,14 @@ Klik op volgende om door te gaan.</value>
   <data name="E_A_Title" xml:space="preserve">
     <value>Kies Backup Map</value>
   </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>Taal van verwijderen</value>
+  </data>
   <data name="E_A_uninstallButton" xml:space="preserve">
     <value>Verwijderen</value>
   </data>
   <data name="E_B_Subtitle" xml:space="preserve">
-    <value>Kies de map waarvandaan u wilt herstellen</value>
+    <value>Nu uw pakket aan het verwijderen</value>
   </data>
   <data name="E_B_Subtitle_Cus" xml:space="preserve">
     <value>Nu {0} aan het verwijderen</value>
@@ -488,6 +518,9 @@ Sluit alle programma's voordat u verder gaat. Probeer geen geen nieuwe programma
   <data name="F_title" xml:space="preserve">
     <value>Installatie voltooid</value>
   </data>
+  <data name="F_TitleUninstall" xml:space="preserve">
+    <value>Verwijderen voltooid</value>
+  </data>
   <data name="F_uninstallationComplete" xml:space="preserve">
     <value>Het ongedaan maken van de installatie is met succes voltooid.</value>
   </data>
@@ -501,6 +534,21 @@ Sluit alle programma's voordat u verder gaat. Probeer geen geen nieuwe programma
   </data>
   <data name="G_Title" xml:space="preserve">
     <value>Een ongenblik geduld a.u.b....</value>
+  </data>
+  <data name="G2_ErrorMessage" xml:space="preserve">
+    <value>Uw feedback kon niet verstuurd worden omdat:</value>
+  </data>
+  <data name="G2_ErrorTitle" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="G2_status" xml:space="preserve">
+    <value>Uw feedback aan het versturen</value>
+  </data>
+  <data name="G2_Title" xml:space="preserve">
+    <value>Gelieve te wachten...</value>
+  </data>
+  <data name="G2_UnknownError" xml:space="preserve">
+    <value>Onbekende fout</value>
   </data>
   <data name="Lang_Attribution" xml:space="preserve">
     <value>Sven Groot</value>

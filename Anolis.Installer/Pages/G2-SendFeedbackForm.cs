@@ -56,20 +56,28 @@ namespace Anolis.Installer.Pages {
 		
 		private void __bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
 			
-			FeedbackResult result;
+			String title   = InstallerResources.GetString("G2_ErrorTitle");
+			String message = InstallerResources.GetString("G2_ErrorMessage");
 			
-			if( e.Result == null ) result = FeedbackResult.Error;
-			else                   result = (FeedbackResult)e.Result;
-			
-			if( result == FeedbackResult.Error ) {
+			if( e.Error != null ) {
 				
-				String reason = InstallerResources.GetString("G2_UnknownError");
-				if( e.Error != null ) reason = e.Error.Message +  " - " + e.Error.GetType().Name;
+				// never query e.Result, it raises exceptions if there's an error
+				message += " " + e.Error.Message +  " - " + e.Error.GetType().Name;
 				
-				String title   = InstallerResources.GetString("G2_ErrorTitle");
-				String message = InstallerResources.GetString("G2_ErrorMessage");
+				MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 				
-				MessageBox.Show(this, message + " " + reason, title, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+			} else {
+				
+				if( e.Result == null || (FeedbackResult)e.Result == FeedbackResult.Error ) {
+					
+					// then it's an unknown error (spooky!)
+					
+					message += " " + InstallerResources.GetString("G2_UnknownError");
+					
+					MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					
+				}
+				
 			}
 			
 			Close();

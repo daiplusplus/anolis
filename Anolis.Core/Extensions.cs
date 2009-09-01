@@ -397,11 +397,54 @@ namespace Anolis.Core {
 		
 		public static Boolean IsEmpty(this DirectoryInfo directory) {
 			
+			directory.Refresh();
+			
 			if( directory.GetDirectories().Length > 0 ) return false;
 			
 			if( directory.GetFiles().Length > 0 ) return false;
 			
 			return true;
+		}
+		
+		/// <summary>Recursively deletes a directory, listing all of the files it couldn't delete.</summary>
+		public static String[] DeleteSafely(this DirectoryInfo directory) {
+			
+			// a directory must be empty before deleting
+			
+			List<String> undeletable = new List<String>();
+			
+			DeleteDirectory( directory, undeletable);
+			
+			return undeletable.ToArray();
+			
+		}
+		
+		private static void DeleteDirectory(DirectoryInfo directory, List<String> undeletable) {
+			
+			foreach(DirectoryInfo child in directory.GetDirectories()) {
+				
+				DeleteDirectory( child, undeletable );
+			}
+			
+			foreach(FileInfo file in directory.GetFiles()) {
+				
+				try {
+					file.Delete();
+				} catch(IOException) {
+					undeletable.Add( file.FullName );
+				} catch(UnauthorizedAccessException) {
+					undeletable.Add( file.FullName );
+				}
+				
+			}
+			
+			try {
+				if( directory.IsEmpty() ) directory.Delete();
+			
+			} catch(IOException) {
+				
+				undeletable.Add( directory.FullName );
+			}
 		}
 		
 #endregion

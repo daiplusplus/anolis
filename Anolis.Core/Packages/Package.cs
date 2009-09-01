@@ -275,9 +275,10 @@ namespace Anolis.Core.Packages {
 				settings.BackupDirectory.Refresh();
 				
 				Package backupPackage = new Package( settings.BackupDirectory );
-				backupPackage.Version = this.Version;
-				backupPackage.Name = this.Name + " Uninstallation Package";
+				backupPackage.Version     = this.Version;
+				backupPackage.Name        = this.Name + " Uninstallation Package";
 				backupPackage.Attribution = "Anolis Installer";
+				backupPackage.FeedbackUri = this.FeedbackUri;
 				
 				backupGroup = backupPackage.RootGroup;
 			}
@@ -447,6 +448,10 @@ namespace Anolis.Core.Packages {
 			
 			if( IsBusy ) throw new InvalidOperationException("Cannot delete files whilst the package is executing");
 			
+			RootDirectory.Refresh();
+			
+			if( !RootDirectory.Exists ) return; // this is because .DeleteFiles is called twice
+			
 			FileInfo logFile = RootDirectory.GetFile("Anolis.Installer.log");
 			String logFileDest = RootDirectory.Parent.GetFile( logFile.Name ).FullName;
 			if( logFile.Exists ) {
@@ -456,37 +461,15 @@ namespace Anolis.Core.Packages {
 				logFile.MoveTo( logFileDest );
 			}
 			
-			if( !RootDirectory.Exists ) return;
+			String[] undeletable = RootDirectory.DeleteSafely();
 			
-			Exception ex = null;
-			
-			try {
+			if( undeletable.Length > 0 ) {
 				
-				RootDirectory.Delete(true);
+				// certain files might be undeletable, like Uninstall.exe
+				// so use PFRO
 				
-			} catch(IOException iox) {
-				ex = iox;
-			} catch(UnauthorizedAccessException uax) {
-				ex = uax;
-			} catch(System.Security.SecurityException sex) {
-				ex = sex;
+				PackageUtility.AddPfroEntry( RootDirectory );
 			}
-			
-			if( ex != null ) {
-				// the obvious cases have been taken care of. This exception could happen because:
-				//   * the user has a file open
-				//   * its trying to delete Uninstall.exe if this was an uninstallation package (!!!)
-				// so just append it to the log
-				
-				if( File.Exists( logFileDest ) ) {
-					using(StreamWriter wtr = new StreamWriter(logFileDest, true)) {
-						
-						LogItem item = new LogItem(LogSeverity.Error, ex, "PackageDeleteFiles Exception");
-						item.Write( wtr );
-					}
-				}
-				
-			}//if
 			
 		}//void
 		

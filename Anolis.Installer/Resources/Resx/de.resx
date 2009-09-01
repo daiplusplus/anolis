@@ -459,7 +459,7 @@ Jetzt die Verfügbarkeit einer Paket-Aktualisierung prüfen.</value>
     <value>Wähle das Sicherungs-Verzeichnis, von welchem wiederhergestellt werden soll</value>
   </data>
   <data name="E_A_feedbackLbl" xml:space="preserve">
-    <value>Wieso deinstallieren Sie dieses Paket? Ihre Antwort wird an den Autor gesandtt, um {0} in Zukunft zu verbessern.</value>
+    <value>Wieso deinstallieren Sie dieses Paket? Ihre Antwort wird an den Autor gesandt, um das Paket in Zukunft zu verbessern.</value>
   </data>
   <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
     <value>Wieso deinstallieren Sie {0}? Ihre Antwort wird an {1} gesandt, um das Paket in Zukunft zu verbessern.</value>

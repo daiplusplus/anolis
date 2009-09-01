@@ -86,10 +86,10 @@ namespace Anolis.Core.Packages {
 					
 					_baseSymbols = new Symbols() {
 						
-						{"osversion"   , Env.OSVersion.Version.Major + ( (Double)Env.OSVersion.Version.Minor ) / 10 },
-						{"servicepack" , Env.ServicePack },
+						{"osVersion"   , Env.OSVersion.Version.Major + ( (Double)Env.OSVersion.Version.Minor ) / 10 },
+						{"servicePack" , Env.ServicePack },
 						{"architecture", Env.IsX64 ? 64 : 32 },
-						{"installlang" , Cult.InstalledUICulture.LCID },
+						{"installLang" , Cult.InstalledUICulture.LCID },
 						{"cdImage"     , 0 }
 					};
 					
@@ -100,10 +100,10 @@ namespace Anolis.Core.Packages {
 					
 					_baseSymbols = new Symbols() {
 						
-						{"osversion"   , ver.Major + ( (Double)ver.Minor ) / 10 },
-						{"servicepack" , cdo.ServicePack },
+						{"osVersion"   , ver.Major + ( (Double)ver.Minor ) / 10 },
+						{"servicePack" , cdo.ServicePack },
 						{"architecture", cdo.IsX64 ? 64 : 32 },
-						{"installlang" , cdo.Language.LCID },
+						{"installLang" , cdo.Language.LCID },
 						{"cdImage"     , 1 }
 					};
 					

@@ -188,6 +188,11 @@ namespace Anolis.Core.Packages.Operations {
 				CDImagePrepare( file.FullName, out workingPath, out isCompressed );
 				if( workingPath == null ) continue;
 				
+				if( !File.Exists( workingPath ) ) {
+					Package.Log.Add( LogSeverity.Error, "Didn't expand file:" + file.FullName + " > " + workingPath );
+					continue;
+				}
+				
 				Boolean patchOK = PatchFile( workingPath );
 				
 				if( patchOK ) {
@@ -245,6 +250,12 @@ namespace Anolis.Core.Packages.Operations {
 					return;
 				}
 				
+				if( !File.Exists( destFile ) ) {
+					Package.Log.Add( LogSeverity.Error, "File expansion failed");
+					workingFilePath = null;
+					return;
+				}
+				
 				workingFilePath = destFile;
 				
 			} else {
@@ -294,6 +305,8 @@ namespace Anolis.Core.Packages.Operations {
 				Package.Log.Add( LogSeverity.Error, "WaitForExit: " + wex.Message);
 				return;
 			}
+			
+			Thread.Sleep(250); // 250ms pause for any locks on the file to expire
 			
 			try {
 				// delete the expanded file

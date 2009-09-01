@@ -455,6 +455,12 @@
   <data name="E_A_FbdDescription" xml:space="preserve">
     <value>اختيار الاحتياطية ودليل على الشفاء</value>
   </data>
+  <data name="E_A_feedbackLbl" xml:space="preserve">
+    <value>لماذا أنت إلغاء تثبيت هذه الحزمة؟ ملاحظاتك وسوف يتم إرسالها إلى مطور لتحسين  في المستقبل.</value>
+  </data>
+  <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
+    <value>لماذا أنت إلغاء {0}؟ ملاحظاتك وسوف يتم إرسالها إلى {1}  لتحسين الحزمة في المستقبل.</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>المحدد لا يحتوي على دليل صحيح صفقة إلغاء التثبيت</value>
   </data>
@@ -484,6 +490,9 @@
   </data>
   <data name="E_B_Title" xml:space="preserve">
     <value>إلغاء تثبيت حزمة</value>
+  </data>
+  <data name="E_B_Title_Cus" xml:space="preserve">
+    <value>{0}الآن في إلغاء تثبيت</value>
   </data>
   <data name="F_aborted" xml:space="preserve">
     <value>تركيب أجهضت</value>
@@ -527,6 +536,21 @@
   </data>
   <data name="G_Title" xml:space="preserve">
     <value>...انتظر من فضلك</value>
+  </data>
+  <data name="G2_ErrorMessage" xml:space="preserve">
+    <value>ويمكن تثبيت الملاحظات الخاص بك لا ترسل للأسباب التالية :</value>
+  </data>
+  <data name="G2_ErrorTitle" xml:space="preserve">
+    <value>الخطأ</value>
+  </data>
+  <data name="G2_status" xml:space="preserve">
+    <value>ارسال ملاحظات التثبيت الخاص بك</value>
+  </data>
+  <data name="G2_Title" xml:space="preserve">
+    <value>يرجى الانتظار...</value>
+  </data>
+  <data name="G2_UnknownError" xml:space="preserve">
+    <value>خطأ غير معروف</value>
   </data>
   <data name="Lang_Attribution" xml:space="preserve">
     <value>Hessam</value>

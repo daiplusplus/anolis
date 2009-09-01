@@ -60,7 +60,7 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="A_cultureLbl" xml:space="preserve">
-    <value>Lingua di Installazione</value>
+    <value>Lingua di installazione</value>
   </data>
   <data name="A_DeletingTemporaryFiles" xml:space="preserve">
     <value>Pulizia dei file temporanei</value>
@@ -79,10 +79,10 @@ Per continuare, premi Avanti</value>
 Per continuare, premi Avanti</value>
   </data>
   <data name="A_PendingOperations" xml:space="preserve">
-    <value>Il programma di installazione Anolis ha individuato dei cambiameni a questo PC dovuti ad una precedente installazione che avranno effetto dopo un riavvio. E' necessario riavviare il computer prima di poter eseguire il programma di isntallazione Anolis..</value>
+    <value>Il programma di installazione Anolis ha individuato dei cambiamenti a questo computer dovuti ad una precedente installazione che avranno effetto dopo un riavvio. E' necessario riavviare il computer prima di poter eseguire il programma di isntallazione Anolis.</value>
   </data>
   <data name="A_PendingOperations_Cus" xml:space="preserve">
-    <value>{0} ha individuato dei cambiameni a questo PC dovuti ad una precedente installazione che avranno effetto dopo un riavvio. E' necessario riavviare il computer prima di poter eseguire l'installazione di {0}.</value>
+    <value>{0} ha individuato dei cambiameni a questo computer dovuti ad una precedente installazione che avranno effetto dopo un riavvio. E' necessario riavviare il computer prima di poter eseguire l'installazione di {0}.</value>
   </data>
   <data name="A_title" xml:space="preserve">
     <value>Benvenuto nel programma di installazione di pacchetti Anolis</value>
@@ -91,7 +91,7 @@ Per continuare, premi Avanti</value>
     <value>Benvenuto nel programma di installazione di {0}</value>
   </data>
   <data name="B_installBlurb" xml:space="preserve">
-    <value>Installa un pacchetto incluso in questa distribuzione Anolis o in un altra posizione su questo PC. Il pacchetto può essere installato in una cartella di installazione (I386).</value>
+    <value>Installa un pacchetto incluso in questa distribuzione Anolis o in un altra posizione su questo computer. Il pacchetto può essere installato in una cartella di installazione (I386).</value>
   </data>
   <data name="B_installBlurb_Cus" xml:space="preserve">
     <value>Installa {0} in questo computer o in una cartella di installazione (I386).</value>
@@ -118,7 +118,7 @@ Per continuare, premi Avanti</value>
     <value>Crea il tuo pacchetto o distribuzione personale</value>
   </data>
   <data name="B_uninstallBlurb" xml:space="preserve">
-    <value>Ripristina i file al loro stato precedente. Ti servirà la cartella di Backup creata durante l'installazione</value>
+    <value>Ripristina i file al loro stato precedente. Ti servirà la cartella di backup creata durante l'installazione</value>
   </data>
   <data name="B_uninstallRad" xml:space="preserve">
     <value>Annulla modifiche applicate dall'installazione un pacchetto</value>
@@ -229,7 +229,7 @@ Per continuare, premi Avanti</value>
     <value>Preparazione...</value>
   </data>
   <data name="C_C_Subtitle" xml:space="preserve">
-    <value>Il pacchetto potrebbe essere stato aggiornato da quando l'hai ottenuto. Ricerca di aggiornamenti in corso...</value>
+    <value>Il pacchetto potrebbe essere stato aggiornato da quando l'hai ottenuto. Ricerca di aggiornamenti in corso.</value>
   </data>
   <data name="C_C_Title" xml:space="preserve">
     <value>Ricerca di aggiornamenti del programma</value>
@@ -274,7 +274,7 @@ Per continuare, premi Avanti</value>
     <value>Puoi scegliere se installare o meno i componenti di questo pacchetto</value>
   </data>
   <data name="C_E_Title" xml:space="preserve">
-    <value>Modifica il programma</value>
+    <value>Modifica il pacchetto</value>
   </data>
   <data name="C_E_Unnamed" xml:space="preserve">
     <value>Senza nome</value>
@@ -319,7 +319,7 @@ Per continuare, premi Avanti</value>
     <value>Opzioni avanzate...</value>
   </data>
   <data name="C_F_backup" xml:space="preserve">
-    <value>Crea una cartella di Backup per la disinstallazione (Consigliato)</value>
+    <value>Crea una cartella di backup per la disinstallazione (Consigliato)</value>
   </data>
   <data name="C_F_backupBrowse" xml:space="preserve">
     <value>Sfoglia...</value>
@@ -328,7 +328,7 @@ Per continuare, premi Avanti</value>
     <value>E' necessario creare una cartella di backup per disinstallare questo pacchetto in futuro</value>
   </data>
   <data name="C_F_comp" xml:space="preserve">
-    <value>Installa su questo Computer</value>
+    <value>Installa su questo computer</value>
   </data>
   <data name="C_F_i386" xml:space="preserve">
     <value>Installa su un CD di installazione di Windows (I386)</value>
@@ -343,7 +343,7 @@ Per continuare, premi Avanti</value>
     <value>Installa</value>
   </data>
   <data name="C_F_pathExistsBackup" xml:space="preserve">
-    <value>La cartella di Backup specificata esiste già e contiene file. I backup devono essere fatti o in una cartella vuota o in una cartella che non è ancora stata creata.</value>
+    <value>La cartella di backup specificata esiste già e contiene file. I backup devono essere fatti o in una cartella vuota o in una cartella che non è ancora stata creata.</value>
   </data>
   <data name="C_F_pathInvalidBackup" xml:space="preserve">
     <value>Il percorso di backup specificato non è valido</value>
@@ -352,13 +352,13 @@ Per continuare, premi Avanti</value>
     <value>La radice del CD specificata non è valida</value>
   </data>
   <data name="C_F_Subtitle" xml:space="preserve">
-    <value>Seleziona una cartella di Backup ed altre opzioni</value>
+    <value>Seleziona una cartella di backup ed altre opzioni</value>
   </data>
   <data name="C_F_Title" xml:space="preserve">
     <value>Opzioni di installazione</value>
   </data>
   <data name="C_F2_feedback" xml:space="preserve">
-    <value>Invio di informazioni relative all'installazione</value>
+    <value>Invio di commenti relativi all'installazione</value>
   </data>
   <data name="C_F2_feedbackDesc" xml:space="preserve">
     <value>Dettagli anonimi di questa installazione (come il sistema operativo, la lingua e qualunque errore) verranno inviati allo sviluppatore del programma per migliorare in futuro il programma</value>
@@ -385,7 +385,7 @@ Per continuare, premi Avanti</value>
     <value>Opzioni di installazione avanzate</value>
   </data>
   <data name="C_G_cleanup" xml:space="preserve">
-    <value>Pulizia post-installazione</value>
+    <value>Pulizia successiva all'installazione</value>
   </data>
   <data name="C_G_status" xml:space="preserve">
     <value>Completato al {0}% - {1}</value>
@@ -418,7 +418,7 @@ Per continuare, premi Avanti</value>
     <value>Per tutti gli utenti</value>
   </data>
   <data name="D_A_progGroupMe" xml:space="preserve">
-    <value>Solo per me</value>
+    <value>Per questo utente</value>
   </data>
   <data name="D_A_Subtitle" xml:space="preserve">
     <value>Seleziona una cartella dove mettere gli strumenti scaricati e imposta altre opzioni</value>
@@ -442,7 +442,7 @@ Per continuare, premi Avanti</value>
     <value>Sto scaricando gli strumenti Anolis</value>
   </data>
   <data name="D_B_Title" xml:space="preserve">
-    <value>Scaricamento</value>
+    <value>Scaricamenrto in corso</value>
   </data>
   <data name="E_A_browse" xml:space="preserve">
     <value>Sfoglia...</value>
@@ -451,7 +451,13 @@ Per continuare, premi Avanti</value>
     <value>Cartella</value>
   </data>
   <data name="E_A_FbdDescription" xml:space="preserve">
-    <value>Seleziona la cartella di Backup da cui recuperare i file</value>
+    <value>Seleziona la cartella di backup da cui recuperare i file</value>
+  </data>
+  <data name="E_A_feedbackLbl" xml:space="preserve">
+    <value>Perchè stai disinstallando questo programma? Il tuo commento verrà inviato allo sviluppatore per migliorarlo in futuro.</value>
+  </data>
+  <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
+    <value>Perchè stai disinstallando {0}? Il tuo commento verrà inviato a {1} per migliorare {0} in futuro.</value>
   </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>La cartella specificata non contiene un pacchetto di disinstallazione valido</value>
@@ -466,7 +472,7 @@ Per continuare, premi Avanti</value>
     <value>Un livello di sicurezza in più. Si avvisa comunque che questo non sempre protegge da modifiche fatte a dei file non di Windows nella cartella Programmi</value>
   </data>
   <data name="E_A_Title" xml:space="preserve">
-    <value>Seleziona una cartella di Backup</value>
+    <value>Seleziona una cartella di backup</value>
   </data>
   <data name="E_A_uninstallationLanguage" xml:space="preserve">
     <value>Lingua di disinstallazione</value>
@@ -482,6 +488,9 @@ Per continuare, premi Avanti</value>
   </data>
   <data name="E_B_Title" xml:space="preserve">
     <value>Disinstallazione del programma</value>
+  </data>
+  <data name="E_B_Title_Cus" xml:space="preserve">
+    <value>Disinstallazione di {0} in corso</value>
   </data>
   <data name="F_aborted" xml:space="preserve">
     <value>Installazione annullata</value>
@@ -521,10 +530,25 @@ Chiudere tutte le applicazioni aperte prima di continuare. Non cercare di aprire
 Chiudere tutte le applicazioni aperte prima di continuare. Non cercare di aprire alcuna nuova applicazione.</value>
   </data>
   <data name="G_restarting" xml:space="preserve">
-    <value>Riavvio del computer in corso...</value>
+    <value>Riavvio del computer in corso</value>
   </data>
   <data name="G_Title" xml:space="preserve">
     <value>Attendere prego...</value>
+  </data>
+  <data name="G2_ErrorMessage" xml:space="preserve">
+    <value>Il tuo commento non può essere inviato perchè:</value>
+  </data>
+  <data name="G2_ErrorTitle" xml:space="preserve">
+    <value>Errore</value>
+  </data>
+  <data name="G2_status" xml:space="preserve">
+    <value>Sto inviando il commento sull'installazione</value>
+  </data>
+  <data name="G2_Title" xml:space="preserve">
+    <value>Attendere prego...</value>
+  </data>
+  <data name="G2_UnknownError" xml:space="preserve">
+    <value>Errore sconosciuto</value>
   </data>
   <data name="Lang_Attribution" xml:space="preserve">
     <value>Tradotto da GiGiSSiMo</value>

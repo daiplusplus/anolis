@@ -55,7 +55,6 @@ namespace Anolis.Core.Utility {
 			Location    = new Point(template.x, template.y);
 			Text        = (template.exTitle == null ? "" : template.exTitle.ToString());
 			WindowClass = template.exWindowClass;
-			
 		}
 		
 		internal DialogControl(DlgItemTemplateEx template) {
@@ -65,6 +64,8 @@ namespace Anolis.Core.Utility {
 			WindowClass = template.windowClass;
 			
 		}
+		
+		
 		
 /*		private void SetClass(UInt16 windowClass) {
 			
