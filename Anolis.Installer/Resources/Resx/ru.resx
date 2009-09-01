@@ -456,6 +456,12 @@
   <data name="E_A_FbdDescription" xml:space="preserve">
     <value>Выберите резервную папку для восстановления</value>
   </data>
+  <data name="E_A_feedbackLbl" xml:space="preserve">
+    <value>Почему вы решили удалить пакет? Ваш отзыв будет отправлен разработчику и поможет ему в дальнейшем улучшить пакет.</value>
+  </data>
+  <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
+    <value>Почему вы решили удалить {0}? Ваш отзыв будет отправлен {1} и поможет ему в дальнейшем улучшить {0}.</value>
+  </data>
   <data name="E_A_notValidDirectory" xml:space="preserve">
     <value>Указанная папка не содержит корректный набор файлов для восстановления</value>
   </data>

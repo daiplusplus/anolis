@@ -138,9 +138,14 @@ namespace Anolis.Packager {
 			_opt = new PackageOptimizer( __fileName.Text );
 			List<String> messages = _opt.LoadAndValidate();
 			
-			String[] missing, unreferenced;
+			String[] missing = new String[0], unreferenced = new String[0];
 			
 			__bwLoad.ReportProgress(-1, "Loading Missing and Unreferenced Files");
+			
+			if( messages.Count > 0 ) {
+				
+				return new Triple<String[],String[],String[]>( messages.ToArray(), missing, unreferenced );
+			}
 			
 			/////////////////////////
 			// Missing and Unreferenced Files

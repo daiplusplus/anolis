@@ -61,6 +61,8 @@ namespace Anolis.Installer.Pages {
 		
 		private void __i386_CheckedChanged(object sender, EventArgs e) {
 			
+			PackageInfo.I386Install = __i386.Checked;
+			
 			// this code can be optimised for space, but using literals makes it easier to read
 			////////////////////////////////////
 			

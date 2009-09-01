@@ -81,12 +81,11 @@
 			// 
 			// __sysRes
 			// 
-			this.@__sysRes.AutoSize = true;
 			this.@__sysRes.Checked = true;
 			this.@__sysRes.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.@__sysRes.Location = new System.Drawing.Point(22, 89);
 			this.@__sysRes.Name = "__sysRes";
-			this.@__sysRes.Size = new System.Drawing.Size(242, 17);
+			this.@__sysRes.Size = new System.Drawing.Size(422, 22);
 			this.@__sysRes.TabIndex = 7;
 			this.@__sysRes.Text = "Create System Restore Point (Recommended)";
 			this.@__sysRes.UseVisualStyleBackColor = true;
@@ -125,9 +124,11 @@
 			// 
 			// __feedbackLbl
 			// 
+			this.@__feedbackLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__feedbackLbl.Location = new System.Drawing.Point(22, 125);
 			this.@__feedbackLbl.Name = "__feedbackLbl";
-			this.@__feedbackLbl.Size = new System.Drawing.Size(425, 30);
+			this.@__feedbackLbl.Size = new System.Drawing.Size(422, 30);
 			this.@__feedbackLbl.TabIndex = 12;
 			this.@__feedbackLbl.Text = "Why are you uninstalling this package? Your feedback will be sent to the develope" +
 				"r to improve the package in future.";

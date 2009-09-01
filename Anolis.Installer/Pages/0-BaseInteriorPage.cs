@@ -9,7 +9,7 @@ using W3b.Wizards.WindowsForms;
 
 namespace Anolis.Installer.Pages {
 	
-	public /* abstract */ class BaseInteriorPage : InteriorPage {
+	public abstract class BaseInteriorPage : InteriorPage {
 		
 		private static Bitmap _bannerImage = GetBannerImage();
 		

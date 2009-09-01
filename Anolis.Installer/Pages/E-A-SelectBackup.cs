@@ -27,6 +27,8 @@ namespace Anolis.Installer.Pages {
 		protected override void Localize() {
 			base.Localize();
 			
+			// problem: the feedback form will be shown regardless of whether or not the uninstallation package has a feedback URI set
+			
 			if( InstallerResources.IsCustomized ) {
 				
 				__feedbackLbl.Text = InstallerResources.GetString("E_A_feedbackLbl_Cus", InstallerResources.CustomizedSettings.InstallerName, InstallerResources.CustomizedSettings.InstallerDeveloper);

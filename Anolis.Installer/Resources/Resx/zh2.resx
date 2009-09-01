@@ -454,7 +454,7 @@
     <value>选择用于还原的备份目录</value>
   </data>
   <data name="E_A_feedbackLbl" xml:space="preserve">
-    <value>您为何要卸载此封包? 您的反馈将被发送给制作者以继续改进 {0}.</value>
+    <value>您为何要卸载此封包? 您的反馈将被发送给制作者以继续改进.</value>
   </data>
   <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
     <value>您为何要卸载 {0}? 您的反馈将被发送给 {1} 以帮助改进.</value>

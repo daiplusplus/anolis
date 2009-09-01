@@ -72,13 +72,22 @@ namespace Anolis.Installer.Pages {
 		
 		private void LoadUI() {
 			
-			if( __restore.Enabled = __restoreDesc.Enabled = Anolis.Core.Utility.SystemRestore.IsSystemRestoreAvailable() ) {
+			if( PackageInfo.I386Install ) {
 				
-				__restore.Checked  = PackageInfo.SystemRestore;
+				__restore.Enabled = false;
+				__restore.Checked = false;
 				
 			} else {
 				
-				__restore.Checked  = false;
+				if( __restore.Enabled = __restoreDesc.Enabled = Anolis.Core.Utility.SystemRestore.IsSystemRestoreAvailable() ) {
+					
+					__restore.Checked  = PackageInfo.SystemRestore;
+					
+				} else {
+					
+					__restore.Checked  = false;
+				}
+				
 			}
 			
 			__lite        .Checked = PackageInfo.LiteMode;
