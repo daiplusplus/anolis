@@ -100,17 +100,13 @@ namespace Anolis.Core {
 			
 			// is the string a number?
 			
-			Int32 number;
+			Int32 number2;
 			NumberStyles numStyle = ambiguousStringUpper.StartsWith("0x", StringComparison.OrdinalIgnoreCase) ? NumberStyles.HexNumber : NumberStyles.Integer;
 			
-			if( Int32.TryParse( ambiguousStringUpper, numStyle, Cult.InvariantCulture, out number ) ) {
+			if( Int32.TryParse( ambiguousStringUpper, numStyle, Cult.InvariantCulture, out number2 ) ) {
 				
-				return new ResourceIdentifier( new IntPtr( number ) );
+				return new ResourceIdentifier( new IntPtr( number2 ) );
 			}
-			
-			// finally, interpret it as a string identifier
-			// HACK: I'll forgoe '#' prefix support, it only applies to internal resources anyway
-			// what about numbers that are meant to represent strings? I'll do if it anyone encounters a file that uses that system. I'd need a way to denote it, maybe with " symbols?
 			
 			return new ResourceIdentifier( ambiguousString );
 			

@@ -33,6 +33,7 @@ namespace Anolis.Resourcer {
 			System.Windows.Forms.MenuItem @__mViewSep1;
 			System.Windows.Forms.MenuItem @__mActionSep1;
 			System.Windows.Forms.MenuItem @__mEditSep1;
+			System.Windows.Forms.MenuItem @__cSep1;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.@__sSep1 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__sSep2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -78,7 +79,7 @@ namespace Anolis.Resourcer {
 			this.@__mFileNew = new System.Windows.Forms.MenuItem();
 			this.@__mFileOpen = new System.Windows.Forms.MenuItem();
 			this.@__mFileRecent = new System.Windows.Forms.MenuItem();
-			this.menuItem1 = new System.Windows.Forms.MenuItem();
+			this.@__mFileClose = new System.Windows.Forms.MenuItem();
 			this.@__mFileSave = new System.Windows.Forms.MenuItem();
 			this.@__mFileBackup = new System.Windows.Forms.MenuItem();
 			this.@__mFileRevert = new System.Windows.Forms.MenuItem();
@@ -103,10 +104,16 @@ namespace Anolis.Resourcer {
 			this.@__mTools = new System.Windows.Forms.MenuItem();
 			this.@__mToolsBatch = new System.Windows.Forms.MenuItem();
 			this.@__mToolsOptions = new System.Windows.Forms.MenuItem();
+			this.@__mToolsPending = new System.Windows.Forms.MenuItem();
 			this.@__mHelp = new System.Windows.Forms.MenuItem();
 			this.@__mHelpTopics = new System.Windows.Forms.MenuItem();
 			this.@__mHelpUpdates = new System.Windows.Forms.MenuItem();
 			this.@__mHelpAbout = new System.Windows.Forms.MenuItem();
+			this.@__c = new System.Windows.Forms.ContextMenu();
+			this.@__cToolbar = new System.Windows.Forms.MenuItem();
+			this.@__cToolbarLarge = new System.Windows.Forms.MenuItem();
+			this.@__cToolbarSmall = new System.Windows.Forms.MenuItem();
+			this.@__cMenu = new System.Windows.Forms.MenuItem();
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSrcMruSep1 = new System.Windows.Forms.ToolStripSeparator();
@@ -116,6 +123,7 @@ namespace Anolis.Resourcer {
 			@__mViewSep1 = new System.Windows.Forms.MenuItem();
 			@__mActionSep1 = new System.Windows.Forms.MenuItem();
 			@__mEditSep1 = new System.Windows.Forms.MenuItem();
+			@__cSep1 = new System.Windows.Forms.MenuItem();
 			this.@__split.Panel1.SuspendLayout();
 			this.@__split.SuspendLayout();
 			this.@__nav.SuspendLayout();
@@ -169,6 +177,11 @@ namespace Anolis.Resourcer {
 			// 
 			@__mEditSep1.Index = 3;
 			@__mEditSep1.Text = "-";
+			// 
+			// __cSep1
+			// 
+			@__cSep1.Index = 3;
+			@__cSep1.Text = "-";
 			// 
 			// __sSep1
 			// 
@@ -536,7 +549,7 @@ namespace Anolis.Resourcer {
             this.@__mFileNew,
             this.@__mFileOpen,
             this.@__mFileRecent,
-            this.menuItem1,
+            this.@__mFileClose,
             @__mFileSep1,
             this.@__mFileSave,
             this.@__mFileBackup,
@@ -562,11 +575,11 @@ namespace Anolis.Resourcer {
 			this.@__mFileRecent.Index = 2;
 			this.@__mFileRecent.Text = "Open Recent";
 			// 
-			// menuItem1
+			// __mFileClose
 			// 
-			this.menuItem1.Index = 3;
-			this.menuItem1.Shortcut = System.Windows.Forms.Shortcut.CtrlW;
-			this.menuItem1.Text = "Close";
+			this.@__mFileClose.Index = 3;
+			this.@__mFileClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW;
+			this.@__mFileClose.Text = "Close";
 			// 
 			// __mFileSave
 			// 
@@ -602,24 +615,28 @@ namespace Anolis.Resourcer {
 			// 
 			// __mEditCut
 			// 
+			this.@__mEditCut.Enabled = false;
 			this.@__mEditCut.Index = 0;
 			this.@__mEditCut.Shortcut = System.Windows.Forms.Shortcut.CtrlX;
 			this.@__mEditCut.Text = "Cut";
 			// 
 			// __mEditCopy
 			// 
+			this.@__mEditCopy.Enabled = false;
 			this.@__mEditCopy.Index = 1;
 			this.@__mEditCopy.Shortcut = System.Windows.Forms.Shortcut.CtrlC;
 			this.@__mEditCopy.Text = "Copy";
 			// 
 			// __mEditPaste
 			// 
+			this.@__mEditPaste.Enabled = false;
 			this.@__mEditPaste.Index = 2;
 			this.@__mEditPaste.Shortcut = System.Windows.Forms.Shortcut.CtrlV;
 			this.@__mEditPaste.Text = "Paste";
 			// 
 			// __mEditSelectAll
 			// 
+			this.@__mEditSelectAll.Enabled = false;
 			this.@__mEditSelectAll.Index = 4;
 			this.@__mEditSelectAll.Shortcut = System.Windows.Forms.Shortcut.CtrlA;
 			this.@__mEditSelectAll.Text = "Select All";
@@ -705,6 +722,7 @@ namespace Anolis.Resourcer {
 			this.@__mTools.Index = 4;
 			this.@__mTools.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.@__mToolsBatch,
+            this.@__mToolsPending,
             this.@__mToolsOptions});
 			this.@__mTools.Text = "&Tools";
 			// 
@@ -715,8 +733,13 @@ namespace Anolis.Resourcer {
 			// 
 			// __mToolsOptions
 			// 
-			this.@__mToolsOptions.Index = 1;
+			this.@__mToolsOptions.Index = 2;
 			this.@__mToolsOptions.Text = "Options...";
+			// 
+			// __mToolsPending
+			// 
+			this.@__mToolsPending.Index = 1;
+			this.@__mToolsPending.Text = "Pending Operations...";
 			// 
 			// __mHelp
 			// 
@@ -742,6 +765,37 @@ namespace Anolis.Resourcer {
 			// 
 			this.@__mHelpAbout.Index = 2;
 			this.@__mHelpAbout.Text = "About Resourcer";
+			// 
+			// __c
+			// 
+			this.@__c.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.@__cToolbar,
+            this.@__cToolbarLarge,
+            this.@__cToolbarSmall,
+            @__cSep1,
+            this.@__cMenu});
+			// 
+			// __cToolbar
+			// 
+			this.@__cToolbar.Index = 0;
+			this.@__cToolbar.Text = "Show Toolbar";
+			// 
+			// __cToolbarLarge
+			// 
+			this.@__cToolbarLarge.Index = 1;
+			this.@__cToolbarLarge.RadioCheck = true;
+			this.@__cToolbarLarge.Text = "Large Toolbar Icons";
+			// 
+			// __cToolbarSmall
+			// 
+			this.@__cToolbarSmall.Index = 2;
+			this.@__cToolbarSmall.RadioCheck = true;
+			this.@__cToolbarSmall.Text = "Small Toolbar Icons";
+			// 
+			// __cMenu
+			// 
+			this.@__cMenu.Index = 4;
+			this.@__cMenu.Text = "Show Menu";
 			// 
 			// MainForm
 			// 
@@ -846,7 +900,13 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.MenuItem __mHelpUpdates;
 		private System.Windows.Forms.MenuItem __mHelpAbout;
 		private System.Windows.Forms.MenuItem __mViewToolbar;
-		private System.Windows.Forms.MenuItem menuItem1;
+		private System.Windows.Forms.MenuItem __mFileClose;
+		private System.Windows.Forms.MenuItem __mToolsPending;
+		private System.Windows.Forms.ContextMenu __c;
+		private System.Windows.Forms.MenuItem __cToolbar;
+		private System.Windows.Forms.MenuItem __cToolbarLarge;
+		private System.Windows.Forms.MenuItem __cToolbarSmall;
+		private System.Windows.Forms.MenuItem __cMenu;
 	}
 }
 

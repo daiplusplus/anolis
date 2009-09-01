@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 using Anolis.Core;
-using Anolis.Resourcer.Settings;
 using Anolis.Core.Data;
+using Anolis.Core.Source;
+using Anolis.Resourcer.Settings;
 
 using Cult             = System.Globalization.CultureInfo;
 using TypeViewerList   = System.Collections.Generic.List<Anolis.Resourcer.TypeViewers.TextViewer>;
@@ -13,8 +15,6 @@ using Path     = System.IO.Path;
 using File     = System.IO.File;
 
 using FileResourceSource = Anolis.Core.Source.FileResourceSource;
-using Anolis.Core.Source;
-using System.Collections.Generic;
 
 namespace Anolis.Resourcer {
 	
@@ -129,7 +129,7 @@ namespace Anolis.Resourcer {
 		
 #region Navigation
 		
-		private ViewMode _currentViewMode;
+		private ViewMode _currentViewMode = ViewMode.None;
 		
 		private System.Collections.Generic.Stack<NavigateItem> _history;
 		
@@ -139,17 +139,17 @@ namespace Anolis.Resourcer {
 		}
 		
 		private enum ViewMode {
+			None,
 			ViewSource,
 			ViewType,
 			ViewName,
-			ViewLangData,
-			Other
+			ViewLangData
 		}
 		
 		private void NavigateUpdateUI() {
 			
 			__navBack.Enabled = _history.Count > 1; // the 0th element will be the start point
-			__navUp.Enabled   = (_currentViewMode != ViewMode.ViewSource && _currentViewMode != ViewMode.Other);
+			__navUp.Enabled   = (_currentViewMode != ViewMode.ViewSource && _currentViewMode != ViewMode.None);
 		}
 		
 		private void NavigateClear() {
@@ -184,9 +184,6 @@ namespace Anolis.Resourcer {
 				case ViewMode.ViewLangData:
 					
 					DataLoad( lastItem.Argument as ResourceLang );
-					break;
-					
-				case ViewMode.Other:
 					break;
 			}
 			
@@ -432,7 +429,13 @@ namespace Anolis.Resourcer {
 			if( retval ) {
 				NavigateClear();
 				CurrentSource.Dispose();
-			}	
+				CurrentSource = null;
+			}
+			
+			ToolbarUpdate(true, true, false);
+			StatusbarUpdate();
+			TreePopulate();
+			ListHide();
 			
 			return retval;
 			
@@ -743,6 +746,12 @@ namespace Anolis.Resourcer {
 			NavigateAdd();
 		}
 		
+		private void ListHide() {
+			
+			_viewList.Visible = false;
+			_currentViewMode = ViewMode.None;
+		}
+		
 #endregion
 		
 #region Resource Tree
@@ -754,7 +763,10 @@ namespace Anolis.Resourcer {
 			
 			__tree.Nodes.Clear();
 			
-			if(CurrentSource == null) return;
+			if(CurrentSource == null) {
+				__tree.EndUpdate();
+				return;
+			}
 			
 			TreeNode root = new TreeNode( CurrentSource.Name ) { Tag = CurrentSource };
 			root.ImageKey = root.SelectedImageKey = "File";
@@ -956,9 +968,24 @@ namespace Anolis.Resourcer {
 			if(options.ShowDialog(this) == DialogResult.OK) { // then a setting may have been changed
 				
 				ToolbarUpdate(false, false, true);
-				
 			}
 			
+		}
+		
+		private void OptionsAboutShow() {
+			
+			OptionsForm form = new OptionsForm();
+			form.SelectedPage = OptionsFormPage.About;
+			if( form.ShowDialog(this) == DialogResult.OK ) {
+				
+				ToolbarUpdate(false, false, true);
+			}
+			
+		}
+		
+		private void OptionsUpdateShow() {
+			
+			OptionsForm.CheckForUpdates(this);
 		}
 		
 		private void EnsureView(Control control) {
@@ -979,6 +1006,8 @@ namespace Anolis.Resourcer {
 				}
 			}
 			
+			control.Visible = true;
+			
 		}
 		
 		private void SavePendingOperationsShow() {
@@ -989,6 +1018,20 @@ namespace Anolis.Resourcer {
 			// in case anything happened, it'd need to be repopulated
 			TreePopulate();
 			ToolbarUpdate( false, true, false );
+			
+		}
+		
+		private void HelpShow() {
+			
+			// extract the help file
+			
+			String helpHtml = Resources.Help;
+			
+			String fileName = Path.Combine( Path.GetTempPath(), "ResourcerHelp.htm");
+			
+			File.WriteAllText( fileName, helpHtml, System.Text.Encoding.UTF8 );
+			
+			System.Diagnostics.Process.Start( fileName );
 			
 		}
 		

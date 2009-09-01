@@ -60,36 +60,19 @@ namespace Anolis.Resourcer {
 				CommandLineFlag batchFlag = cmd.GetFlag("batch");
 				if( batchFlag != null ) {
 					
-					return StatelessResourceEditor.ProcessBatch( batchFlag.Argument );
+					StatelessResult result = StatelessResourceEditor.ProcessBatch( batchFlag.Argument );
+					return result.WasSuccess ? 0 : 1;
 				}
 				
 				if( cmd.Args.Count > 1 ) {
 					
-					Int32 retval = StatelessResourceEditor.PerformOneOff(cmd);
+					StatelessResult result = StatelessResourceEditor.PerformOneOff(cmd);
 					
-					switch(retval) {
-						case 2: // file not found
-							
-							MessageBox.Show("File not found error: " + cmd.ToString(), "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-							
-							break;
-						case 1: // syntax error
-							
-							String message = 
-@"Anolis.Resourcer.exe -batch:""C:\batchfile.txt""
-Anolis.Resourcer.exe -op:add -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME  -lang:1033  -file:""C:\foo\icon.ico""
-Anolis.Resourcer.exe -op:upd -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME [-lang:1033] -file:""C:\foo\icon.ico""
-Anolis.Resourcer.exe -op:ext -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME  -lang:1033  -file:""C:\foo\icon.ico""
-Anolis.Resourcer.exe -op:del -src:""C:\dest.exe"" -type:ICONGROUP -name:NAME [-lang:1033]";
-							
-							MessageBox.Show("Syntax error: " + cmd.ToString() + "\r\n\r\nExpected:\r\n" + message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-							
-							break;
-						case 0: // OK
-							break;
-					}
+					if( result.WasSuccess ) return 0;
 					
-					return retval;
+					MessageBox.Show( result.ErrorMessage , "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					
+					return 1;
 				}
 				
 				MainForm main = new MainForm();
