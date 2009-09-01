@@ -95,6 +95,40 @@ namespace Anolis.Resourcer {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; &gt;
+        ///&lt;head&gt;
+        ///	&lt;title&gt;Anolis Resourcer Help&lt;/title&gt;
+        ///	&lt;style type=&quot;text/css&quot;&gt;
+        ///
+        ///body {
+        ///	font-family: sans-serif;
+        ///}
+        ///
+        ///h1, h2, h3 {
+        ///	border: 1px solid #638ADA;
+        ///	background: #4166B1;
+        ///	color: #FFF;
+        ///	
+        ///	padding: 0.25em; }
+        ///	
+        ///h2 {
+        ///	background: #547BC7;
+        ///	margin-left: 1em; }
+        ///h3 {
+        ///	background: #7198E9;
+        ///	margin-left: 3em; }
+        ///
+        ///div.section {
+        ///	margin-left: [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap Icon16 {
             get {
                 object obj = ResourceManager.GetObject("Icon16", resourceCulture);

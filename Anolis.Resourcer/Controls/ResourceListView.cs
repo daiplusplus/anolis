@@ -463,7 +463,7 @@ namespace Anolis.Resourcer.Controls {
 				ImageResourceData imgData = data as ImageResourceData;
 				Size s = __images.ImageSize;
 				
-				Image thumb = imgData.Image.GetThumbnailImage( s.Width, s.Height, new Image.GetThumbnailImageAbort(delegate() { return true; }), IntPtr.Zero);
+				Image thumb = GetThumbnailImage( s, imgData.Image );
 				
 				return thumb;
 				
@@ -528,6 +528,62 @@ namespace Anolis.Resourcer.Controls {
 				lang.Data.RawData.Length + " bytes",
 				lang.Data.GetType().Name
 			};
+			
+		}
+		
+		///////////////////////////////////////
+		
+		private static Image GetThumbnailImage(Size size, Image image) {
+			
+			Bitmap thumb = new Bitmap(size.Width, size.Height);
+			using(Graphics g = Graphics.FromImage(thumb)) {
+				
+				// draw border
+				g.DrawRectangle( SystemPens.Control, 0, 0, size.Width - 1, size.Height - 1 );
+				
+				Int32 x, y, width, height;
+				
+				if( image.Width > size.Width || image.Height > size.Height ) {
+					
+					// downscale it
+					Single aspectRatioOrig = (float)image.Width / (float)image.Height;
+					Single aspectRatioDest = (float)size.Width  / (float)size.Height;
+					
+					if( aspectRatioOrig > aspectRatioDest ) {
+						
+						Single scale = (float)size.Width / (float)image.Width;
+						
+						width  = size.Width;
+						x      = 0;
+						height = (int)(scale * (float)image.Height);
+						y      = (size.Height - height) / 2;
+						
+					} else {
+						
+						Single scale = (float)size.Height / (float)image.Height;
+						
+						width  = (int)(scale * (float)image.Width);
+						x      = (size.Width - width) / 2;
+						height = size.Height;
+						y      = 0;
+						
+					}
+					
+				} else {
+					
+					// center it
+					width  = image.Width;
+					x      = (size.Width - image.Width) / 2;
+					height = image.Height;
+					y      = (size.Height - image.Height) / 2;
+					
+				}
+				
+				g.DrawImage(image, x, y, width, height);
+				
+			}
+			
+			return thumb;
 			
 		}
 		

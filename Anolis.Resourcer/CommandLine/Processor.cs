@@ -8,12 +8,12 @@ namespace Anolis.Resourcer.CommandLine {
 	
 	public static class StatelessResourceEditor {
 		
-		public static Int32 ProcessBatch(String batchfile) {
+		public static StatelessResult ProcessBatch(String batchfile) {
 			
-			return 0;
+			return new StatelessResult("Not implemented");
 		}
 		
-		public static Int32 PerformOneOff(CommandLineParser args) {
+		public static StatelessResult PerformOneOff(CommandLineParser args) {
 			
 			// one-off command:
 			// Anolis.Resourcer.exe -op:add -src:"C:\dest.exe" -type:ICONDIR -name:NAME  -lang:1033  -file:"C:\foo\icon.ico"
@@ -35,7 +35,7 @@ namespace Anolis.Resourcer.CommandLine {
 			
 			// Individual arguments
 			
-			if(operation == null || resSource == null || dataType == null || dataName == null) return 1;
+			if(operation == null || resSource == null || dataType == null || dataName == null) return new StatelessResult(false, "Syntax error: not all arguments set");
 			
 			switch(operation.Argument) {
 				case "add":
@@ -44,31 +44,35 @@ namespace Anolis.Resourcer.CommandLine {
 				case "del":
 					break;
 				default:
-					return 1;
+					return new StatelessResult("Syntax error: invalid operation value, must be one of 'add', 'del', 'upd', or 'ext'.");
 			}
 			
-			if( !File.Exists( resSource.Argument ) ) return 2;
+			// resolve fileNames
+			if(                      !String.IsNullOrEmpty( resSource.Argument ) ) resSource.Argument = Path.GetFullPath( resSource.Argument );
+			if( dataFile  != null && !String.IsNullOrEmpty(  dataFile.Argument ) )  dataFile.Argument = Path.GetFullPath(  dataFile.Argument );
+			
+			if( !File.Exists( resSource.Argument ) ) return new StatelessResult("File not found: " + resSource.Argument);
 			
 			if( dataLang != null ) {
 				
 				String num = dataLang.Argument;
 				
-				if( !UInt16.TryParse( num, out dataLangN ) ) return 1;
+				if( !UInt16.TryParse( num, out dataLangN ) ) return new StatelessResult("Syntax error: langId is not an unsigned integer less than 2^16");
 			}
 			
 			// Combinations
 			
 			//////// Add
-			if( operation.Argument == "add" && dataLang == null )                  return 1;
-			if( operation.Argument == "add" && !File.Exists( dataFile.Argument ) ) return 2;
+			if( operation.Argument == "add" && dataLang == null )                  return new StatelessResult("LangId not specified for add");
+			if( operation.Argument == "add" && !File.Exists( dataFile.Argument ) ) return new StatelessResult("File not found: " + dataFile.Argument);
 			
 			//////// Update
-			if( operation.Argument == "upd" && !File.Exists( dataFile.Argument ) ) return 2;
+			if( operation.Argument == "upd" && !File.Exists( dataFile.Argument ) ) return new StatelessResult("File not found: " + dataFile.Argument);
 			
 			//////// Extract
 			
 			//////// Delete
-			if(!operation.Argument.StartsWith("del") && dataFile == null)          return 1;
+			if( operation.Argument != "del" && dataFile == null) return new StatelessResult("A file must be specified");
 			
 			///////////////////////////////////////
 			
@@ -96,28 +100,28 @@ namespace Anolis.Resourcer.CommandLine {
 					return OneOffExtract(resSource.Argument, typeId, nameId, langId, dataFile.Argument);
 			}
 			
-			return 0;
+			return new StatelessResult("No valid operation specified, must be one of 'add', 'del', 'upd', or 'ext'.");
 		}
 		
 #region Delete
 		
-		private static Int32 OneOffDelete( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId ) {
+		private static StatelessResult OneOffDelete( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId ) {
 			
 			ResourceSource source = ResourceSource.Open( sourceFilename, false, ResourceSourceLoadMode.EnumerateOnly );
 			
 			// delete all the ResourceLangs that match this typeId/nameId criterion. When reloaded the ResourceName should no-longer exist
 			
 			ResourceName name = source.GetName( typeId, nameId );
-			if(name == null) return 1;
+			if(name == null) return new StatelessResult("Could not find name " + GetResPath(typeId, nameId, null) + " to delete.");;
 			
 			foreach(ResourceLang lang in name.Langs) source.Remove( lang );
 			
 			source.CommitChanges();
 			
-			return 0;
+			return StatelessResult.Success;
 		}
 		
-		private static Int32 OneOffDelete( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId) {
+		private static StatelessResult OneOffDelete( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId) {
 			
 			ResourceSource source = ResourceSource.Open( sourceFilename, false, ResourceSourceLoadMode.Blind );
 			
@@ -125,14 +129,14 @@ namespace Anolis.Resourcer.CommandLine {
 			
 			source.CommitChanges();
 			
-			return 0;
+			return StatelessResult.Success;
 		}
 		
 #endregion
 		
 #region Add
 		
-		private static Int32 OneOffAdd( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, String dataFilename ) {
+		private static StatelessResult OneOffAdd( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, String dataFilename ) {
 			
 			ResourceSource source = ResourceSource.Open( sourceFilename, false, ResourceSourceLoadMode.EnumerateOnly );
 			
@@ -142,7 +146,7 @@ namespace Anolis.Resourcer.CommandLine {
 			
 			source.CommitChanges();
 			
-			return 0;
+			return StatelessResult.Success;
 		}
 		
 #endregion
@@ -150,27 +154,28 @@ namespace Anolis.Resourcer.CommandLine {
 		
 #region Update
 		
-		private static Int32 OneOffUpdate( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, String dataFilename ) {
+		private static StatelessResult OneOffUpdate( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, String dataFilename ) {
 			
 			ResourceSource source = ResourceSource.Open( sourceFilename, false, ResourceSourceLoadMode.LazyLoadData );
 			
 			ResourceLang lang = source.GetLang(typeId, nameId, langId);
+			if( lang == null ) return new StatelessResult("Could not find lang " + GetResPath(typeId, nameId, langId) + " to update.");
 			
 			ResourceData newData = ResourceData.FromFileToUpdate( dataFilename, lang );
 			lang.SwapData( newData );
 			
 			source.CommitChanges();
 			
-			return 0;
+			return StatelessResult.Success;
 		}
 		
-		private static Int32 OneOffUpdate( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, String dataFilename ) {
+		private static StatelessResult OneOffUpdate( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, String dataFilename ) {
 			
 			ResourceSource source = ResourceSource.Open( sourceFilename, false, ResourceSourceLoadMode.LazyLoadData );
 			
 			// for each lang in name, update
 			ResourceName name = source.GetName(typeId, nameId);
-			if(name == null) return 1;
+			if(name == null) return new StatelessResult("Could not find name " + GetResPath(typeId, nameId, null) + " to extract.");
 			
 			foreach(ResourceLang lang in name.Langs) {
 				
@@ -181,7 +186,7 @@ namespace Anolis.Resourcer.CommandLine {
 			
 			source.CommitChanges();
 			
-			return 0;
+			return StatelessResult.Success;
 			
 		}
 		
@@ -189,20 +194,65 @@ namespace Anolis.Resourcer.CommandLine {
 		
 #region Extract
 		
-		private static Int32 OneOffExtract( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, String dataFilename) {
+		private static StatelessResult OneOffExtract( String sourceFilename, ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16 langId, String dataFilename) {
 			
 			ResourceSource source = ResourceSource.Open( sourceFilename, true, ResourceSourceLoadMode.LazyLoadData );
 			
 			ResourceLang lang = source.GetLang( typeId, nameId, langId );
 			
-			if(lang == null) return 1;
+			if(lang == null) return new StatelessResult("Could not find lang " + GetResPath(typeId, nameId, langId) + " to extract.");
 			
 			lang.Data.Save( dataFilename );
 			
-			return 0;
+			return StatelessResult.Success;
 		}
 		
 #endregion
 		
+		private static String GetResPath(ResourceTypeIdentifier typeId, ResourceIdentifier nameId, UInt16? langId) {
+			
+			String ret = String.Empty;
+			
+			if(typeId.KnownType == Win32ResourceType.Custom) {
+				
+				ret += typeId.StringId;
+				
+			} else {
+				
+				ret += typeId.IntegerId.Value.ToStringInvariant();
+			}
+			
+			ret += '\\' + nameId.FriendlyName;
+			
+			if( langId != null ) ret += '\\' + langId.Value.ToStringInvariant();
+			
+			return ret;
+		}
+		
 	}
+	
+	public class StatelessResult {
+		
+		public StatelessResult(Boolean success) {
+			
+			WasSuccess   = success;
+			ErrorMessage = null;
+		}
+		public StatelessResult(Boolean success, String errorMessage) {
+			
+			WasSuccess   = success;
+			ErrorMessage = errorMessage;
+		}
+		public StatelessResult(String errorMessage) {
+			
+			WasSuccess   = false;
+			ErrorMessage = errorMessage;
+		}
+		
+		public Boolean WasSuccess   { get; set; }
+		public String  ErrorMessage { get; set; }
+		
+		public static readonly StatelessResult Success = new StatelessResult(true);
+	}
+	
 }

@@ -52,6 +52,27 @@ namespace Anolis.Resourcer {
 		
 		public MainForm MainForm { get; set; }
 		
+		public OptionsFormPage SelectedPage {
+			get {
+				if( __tabs.SelectedTab == __tSettings ) return OptionsFormPage.Settings;
+				if( __tabs.SelectedTab == __tLegal    ) return OptionsFormPage.Legal;
+				if( __tabs.SelectedTab == __tAbout    ) return OptionsFormPage.About;
+				return OptionsFormPage.None;
+			}
+			set {
+				switch(value) {
+					case OptionsFormPage.None:
+						throw new ArgumentOutOfRangeException("Must be a valid page");
+					case OptionsFormPage.Settings:
+						__tabs.SelectedTab = __tSettings; return;
+					case OptionsFormPage.About:
+						__tabs.SelectedTab = __tAbout; return;
+					case OptionsFormPage.Legal:
+						__tabs.SelectedTab = __tLegal; return;
+				}
+			}
+		}
+		
 		private void OptionsForm_Load(object sender, EventArgs e) {
 			
 			__legalText.Text = Anolis.Core.Resources.LegalOverview;
@@ -188,6 +209,65 @@ namespace Anolis.Resourcer {
 		
 #endregion
 		
+#region Updates
+		
+		public static void CheckForUpdates(IWin32Window window) {
+			
+			WebClient w = new WebClient();
+			
+			Int32 updBuild;
+			
+			String downloadLink = "http://www.anol.is/download.php";
+			
+			try {
+				String version = w.DownloadString("http://www.anol.is/resourcer/versionInfo.txt");
+				
+				String[] strs = version.Replace("\r", "").Split('\n');
+				if(strs.Length < 2) throw new FormatException("Split version string's length was less than 2");
+				
+				updBuild = Int32.Parse( strs[0] );
+				downloadLink = strs[1];
+			
+			} catch(WebException wex) {
+				
+				MessageBox.Show(window, "Unable to download information about the latest version, the error was: " + wex.Message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				return;
+				
+			} catch(FormatException fex) {
+				
+				MessageBox.Show(window, "Unable to read information about the latest version, the error was: " + fex.Message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				return;
+				
+			}
+			
+			// get this version
+			Assembly thisAssembly = Assembly.GetAssembly( typeof(OptionsForm) );
+			AssemblyName name = thisAssembly.GetName();
+			Int32 thisBuild = name.Version.Build;
+			
+			if( updBuild > thisBuild ) {
+				
+				DialogResult r = MessageBox.Show(window, "There is an updated version of Anolis Resourcer available. Would you like to download it?", "Anolis Resourcer", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+				
+				if( r == DialogResult.Yes ) {
+					
+					System.Diagnostics.Process.Start( downloadLink );
+					
+				}
+				
+			} else if( updBuild == thisBuild ) {
+				
+				MessageBox.Show(window, "You already have the most recent build of Resourcer", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+				
+			} else {
+				
+				MessageBox.Show(window, "You have a more recent build of Resourcer than is publically available", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+			}
+		
+		}
+		
+#endregion
+		
 #region About
 		
 		private void __aboutLink_Click(Object sender, EventArgs e) {
@@ -232,61 +312,18 @@ namespace Anolis.Resourcer {
 		
 		private void __update_Click(object sender, EventArgs e) {
 			
-			WebClient w = new WebClient();
-			
-			Int32 updBuild;
-			
-			String downloadLink = "http://www.anol.is/download.php";
-			
-			try {
-				String version = w.DownloadString("http://www.anol.is/resourcer/versionInfo.txt");
-				
-				String[] strs = version.Replace("\r", "").Split('\n');
-				if(strs.Length < 2) throw new FormatException("Split version string's length was less than 2");
-				
-				updBuild = Int32.Parse( strs[0] );
-				downloadLink = strs[1];
-			
-			} catch(WebException wex) {
-				
-				MessageBox.Show(this, "Unable to download information about the latest version, the error was: " + wex.Message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-				return;
-				
-			} catch(FormatException fex) {
-				
-				MessageBox.Show(this, "Unable to read information about the latest version, the error was: " + fex.Message, "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-				return;
-				
-			}
-			
-			// get this version
-			Assembly thisAssembly = Assembly.GetAssembly( typeof(OptionsForm) );
-			AssemblyName name = thisAssembly.GetName();
-			Int32 thisBuild = name.Version.Build;
-			
-			if( updBuild > thisBuild ) {
-				
-				DialogResult r = MessageBox.Show(this, "There is an updated version of Anolis Resourcer available. Would you like to download it?", "Anolis Resourcer", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-				
-				if( r == DialogResult.Yes ) {
-					
-					System.Diagnostics.Process.Start( downloadLink );
-					
-				}
-				
-			} else if( updBuild == thisBuild ) {
-				
-				MessageBox.Show(this, "You already have the most recent build of Resourcer", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-				
-			} else {
-				
-				MessageBox.Show(this, "You have a more recent build of Resourcer than is publically available", "Anolis Resourcer", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-			}
-			
+			CheckForUpdates( this );
 		}
 		
 #endregion
 		
+	}
+	
+	public enum OptionsFormPage {
+		None = 0,
+		Settings,
+		About,
+		Legal
 	}
 	
 }

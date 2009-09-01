@@ -18,6 +18,12 @@ namespace Anolis.Core.Source {
 		private FileInfo _file;
 		private Assembly _assembly;
 		
+		private CilResourceSource(Assembly assembly) {
+			
+			_assembly = assembly;
+			_file     = new FileInfo( assembly.Location );
+		}
+		
 		public CilResourceSource(String fileName) {
 			
 			if(fileName == null) throw new ArgumentNullException("fileName");
@@ -39,6 +45,11 @@ namespace Anolis.Core.Source {
 				throw new AnolisException("Failed to load CLR assembly", fex);
 			}
 			
+		}
+		
+		public static CilResourceSource OpenEntryAssembly() {
+			
+			return new CilResourceSource( Assembly.GetEntryAssembly() );
 		}
 		
 		public override ManagedResourceInfo[] GetResourceInfo() {
@@ -65,6 +76,8 @@ namespace Anolis.Core.Source {
 			
 			return _assembly.GetManifestResourceStream( resource.Name );
 		}
+		
+		
 		
 	}
 }

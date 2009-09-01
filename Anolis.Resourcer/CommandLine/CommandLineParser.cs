@@ -22,7 +22,7 @@ namespace Anolis.Resourcer.CommandLine {
 				
 				if( s == null || s.Length == 0 ) continue;
 				
-				if( s.StartsWith("-") || s.StartsWith("--") || s.StartsWith("/") ) {
+				if( s.StartsWith("-") || s.StartsWith("/") ) {
 					flags.Add( new CommandLineFlag(s, i) );
 				} else {
 					
@@ -57,7 +57,10 @@ namespace Anolis.Resourcer.CommandLine {
 		public override String ToString() {
 			
 			StringBuilder sb = new StringBuilder();
-			foreach(String a in Args) sb.Append( a );
+			foreach(String a in Args) {
+				sb.Append( a );
+				sb.Append(" ");
+			}
 			return sb.ToString();
 		}
 		
@@ -96,7 +99,7 @@ namespace Anolis.Resourcer.CommandLine {
 		
 		public String Name { get; private set; }
 		
-		public String Argument { get; private set; }
+		public String Argument { get; set; }
 		
 	}
 	

@@ -64,6 +64,7 @@ namespace Anolis.Resourcer {
 			this.__mFileNew         .Click += new EventHandler(__mFileNew_Click);
 			this.__mFileOpen        .Click += new EventHandler(__mFileOpen_Click);
 			this.__mFileSave        .Click += new EventHandler(__mFileSave_Click);
+			this.__mFileClose       .Click += new EventHandler(__mFileClose_Click);
 			this.__mFileBackup      .Click += new EventHandler(__mFileBackup_Click);
 			this.__mFileRevert      .Click += new EventHandler(__mFileRevert_Click);
 			this.__mFileExit        .Click += new EventHandler(__mFileExit_Click);
@@ -87,10 +88,20 @@ namespace Anolis.Resourcer {
 			
 			this.__mToolsBatch      .Click += new EventHandler(__mToolsBatch_Click);
 			this.__mToolsOptions    .Click += new EventHandler(__mToolsOptions_Click);
+			this.__mToolsPending    .Click += new EventHandler(__mToolsPending_Click);
 			
 			this.__mHelpTopics      .Click += new EventHandler(__mHelpTopics_Click);
 			this.__mHelpUpdates     .Click += new EventHandler(__mHelpUpdates_Click);
 			this.__mHelpAbout       .Click += new EventHandler(__mHelpAbout_Click);
+			
+			this.__t.ContextMenu = __c;
+
+			this.__c.Popup += new EventHandler(__c_Popup);
+			
+			this.__cToolbar         .Click += new EventHandler(__cToolbar_Click);
+			this.__cToolbarLarge    .Click += new EventHandler(__cToolbarLarge_Click);
+			this.__cToolbarSmall    .Click += new EventHandler(__cToolbarSmall_Click);
+			this.__cMenu            .Click += new EventHandler(__cMenu_Click);
 			
 #endregion
 			
@@ -388,9 +399,9 @@ namespace Anolis.Resourcer {
 		
 		private void ToolbarUpdate(Boolean updateSourceDetails, Boolean updateDataDetails, Boolean updateToolbarShape) {
 			
-			MenubarUpdate();
-			
 			Boolean isReadOnly = (CurrentSource == null) ? true : CurrentSource.IsReadOnly;
+			
+			MenubarUpdate(isReadOnly);
 			
 			if( updateSourceDetails ) {
 				
@@ -691,7 +702,32 @@ namespace Anolis.Resourcer {
 	
 	#region Main Menu
 		
-		private void MenubarUpdate() {
+		private void MenubarUpdate(Boolean isReadOnly) {
+			
+			////////////////////////
+			// Enable/Disable
+			
+			__mFileSave  .Enabled = !isReadOnly;
+			__mFileBackup.Enabled = !isReadOnly;
+			__mFileRevert.Enabled = !isReadOnly;
+			__mFileClose .Enabled = CurrentSource != null;
+			
+			__mToolsPending.Enabled = !isReadOnly;
+			
+			__mActionImport .Enabled = !isReadOnly;
+			__mActionExport .Enabled = this.CurrentData != null;
+			__mActionReplace.Enabled = !isReadOnly;
+			__mActionDelete .Enabled = !isReadOnly;
+			__mActionCancel .Enabled = !isReadOnly;
+			
+			if( !isReadOnly ) {
+				
+				__mActionReplace.Enabled = this.CurrentData != null;
+				__mActionExport .Enabled = this.CurrentData != null;
+				__mActionDelete .Enabled = this.CurrentData != null && this.CurrentData.Lang.Action != Anolis.Core.Data.ResourceDataAction.Delete;
+				__mActionCancel .Enabled = this.CurrentData != null && this.CurrentData.Lang.Action != Anolis.Core.Data.ResourceDataAction.None;
+				
+			}
 			
 			////////////////////////
 			// MRU
@@ -742,6 +778,11 @@ namespace Anolis.Resourcer {
 		private void __mFileSave_Click(object sender, EventArgs e) {
 			
 			SourceSave();
+		}
+		
+		private void __mFileClose_Click(object sender, EventArgs e) {
+			
+			SourceUnload();
 		}
 		
 		private void __mFileBackup_Click(object sender, EventArgs e) {
@@ -893,23 +934,68 @@ namespace Anolis.Resourcer {
 			SourceBatchProcessShow();
 		}
 		
+		private void __mToolsPending_Click(object sender, EventArgs e) {
+			
+			SavePendingOperationsShow();
+		}
+		
 		#endregion
 		
 		#region Help
 		
 		private void __mHelpAbout_Click(object sender, EventArgs e) {
 			
+			OptionsAboutShow();
 		}
 		
 		private void __mHelpUpdates_Click(object sender, EventArgs e) {
 			
+			OptionsUpdateShow();
 		}
 		
 		private void __mHelpTopics_Click(object sender, EventArgs e) {
 			
+			HelpShow();
 		}
 		
 		#endregion
+		
+	#endregion
+	
+	#region ToolbarContext Menu
+		
+		private void __c_Popup(object sender, EventArgs e) {
+			
+			__cMenu   .Checked = __menu.MenuItems[0].Visible; // need to test first child, can't check actual menu's visiblity
+			__cToolbar.Checked = __t.Visible;
+			
+			__cToolbarSmall.Checked = Settings.Settings.Default.Toolbar24;
+			__cToolbarLarge.Checked = !__cToolbarSmall.Checked;
+			
+			if( !__t.Visible                 ) __cMenu   .Enabled = false;
+			if( !__menu.MenuItems[0].Visible ) __cToolbar.Enabled = false;
+			
+		}
+		
+		private void __cMenu_Click(object sender, EventArgs e) {
+			
+			__mViewMenus_Click(sender, e);
+		}
+		
+		private void __cToolbarSmall_Click(object sender, EventArgs e) {
+			
+			__mViewToolbarSmall_Click(sender, e);
+		}
+		
+		private void __cToolbarLarge_Click(object sender, EventArgs e) {
+			
+			__mViewToolbarLarge_Click(sender, e);
+		}
+		
+		private void __cToolbar_Click(object sender, EventArgs e) {
+			
+			__mViewToolbar_Click(sender, e);
+		}
 		
 	#endregion
 	

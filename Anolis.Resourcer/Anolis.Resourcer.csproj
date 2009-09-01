@@ -65,6 +65,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
@@ -397,6 +398,7 @@
     <Content Include="Resources\TextViewer\Endian.png" />
     <Content Include="Resources\TextViewer\Font.png" />
     <Content Include="Resources\TextViewer\WordWrap.png" />
+    <None Include="_help\Help.htm" />
     <None Include="Resources\Toolbar\ResCan.png" />
     <None Include="Resources\Toolbar\ResCan24.png" />
     <None Include="Resources\Toolbar\GenOpt24.png" />

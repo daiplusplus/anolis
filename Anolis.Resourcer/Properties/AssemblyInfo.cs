@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Anolis")]
-[assembly: AssemblyCopyright("Copyright David Rees and the Anolis Team ©  2008")]
+[assembly: AssemblyCopyright("Copyright David Rees 2008, 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,7 +30,7 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.8.*")]
-[assembly: AssemblyFileVersion("0.8.9")]
+[assembly: AssemblyVersion("0.9.*")]
+[assembly: AssemblyFileVersion("0.9.0")]
 
 [assembly: CLSCompliant(false)]
