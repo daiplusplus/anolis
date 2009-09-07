@@ -662,7 +662,7 @@ namespace Anolis.Resourcer {
 			
 			ReplaceResourceForm form = new ReplaceResourceForm();
 			form.InitialResource = CurrentData;
-			form.LoadReplacement( newDataFilename );
+			form.PopulatePath( newDataFilename );
 			
 			if( form.ShowDialog() != DialogResult.OK ) return;
 			ResourceData newData = form.ReplacementResource;

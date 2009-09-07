@@ -29,7 +29,7 @@
 			this.@__exportDirectory = new System.Windows.Forms.TextBox();
 			this.@__exportBrowse = new System.Windows.Forms.Button();
 			this.@__exportNonvisual = new System.Windows.Forms.CheckBox();
-			this.@__exportCommonplace = new System.Windows.Forms.CheckBox();
+			this.@__exportSkipCommonplace = new System.Windows.Forms.CheckBox();
 			this.@__exportNonvisualSize = new System.Windows.Forms.CheckBox();
 			this.@__exportNonvisualSizeNum = new System.Windows.Forms.NumericUpDown();
 			this.@__exportNonvisualSizeLbl = new System.Windows.Forms.Label();
@@ -58,6 +58,7 @@
 			this.@__error = new System.Windows.Forms.ErrorProvider(this.components);
 			this.@__bw = new System.ComponentModel.BackgroundWorker();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
+			this.@__exportLongNames = new System.Windows.Forms.CheckBox();
 			this.@__optionsGrp.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.@__exportNonvisualSizeNum)).BeginInit();
 			this.@__sourceGrp.SuspendLayout();
@@ -67,20 +68,22 @@
 			// 
 			// __optionsGrp
 			// 
-			this.@__optionsGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+			this.@__optionsGrp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.@__optionsGrp.Controls.Add(this.@__exportLongNames);
 			this.@__optionsGrp.Controls.Add(this.@__exportDirectoryLbl);
 			this.@__optionsGrp.Controls.Add(this.@__exportDirectory);
 			this.@__optionsGrp.Controls.Add(this.@__exportBrowse);
 			this.@__optionsGrp.Controls.Add(this.@__exportNonvisual);
-			this.@__optionsGrp.Controls.Add(this.@__exportCommonplace);
+			this.@__optionsGrp.Controls.Add(this.@__exportSkipCommonplace);
 			this.@__optionsGrp.Controls.Add(this.@__exportNonvisualSize);
 			this.@__optionsGrp.Controls.Add(this.@__exportNonvisualSizeNum);
 			this.@__optionsGrp.Controls.Add(this.@__exportNonvisualSizeLbl);
 			this.@__optionsGrp.Controls.Add(this.@__exportIconSubimages);
 			this.@__optionsGrp.Location = new System.Drawing.Point(12, 186);
 			this.@__optionsGrp.Name = "__optionsGrp";
-			this.@__optionsGrp.Size = new System.Drawing.Size(589, 143);
+			this.@__optionsGrp.Size = new System.Drawing.Size(589, 163);
 			this.@__optionsGrp.TabIndex = 1;
 			this.@__optionsGrp.TabStop = false;
 			this.@__optionsGrp.Text = "Export Options";
@@ -124,16 +127,18 @@
 			this.@__exportNonvisual.Text = "Export non-visual resources";
 			this.@__exportNonvisual.UseVisualStyleBackColor = true;
 			// 
-			// __exportCommonplace
+			// __exportSkipCommonplace
 			// 
-			this.@__exportCommonplace.AutoSize = true;
-			this.@__exportCommonplace.Enabled = false;
-			this.@__exportCommonplace.Location = new System.Drawing.Point(116, 68);
-			this.@__exportCommonplace.Name = "__exportCommonplace";
-			this.@__exportCommonplace.Size = new System.Drawing.Size(295, 17);
-			this.@__exportCommonplace.TabIndex = 14;
-			this.@__exportCommonplace.Text = "Export commonplace non-visual resources (e.g. Versions)\r\n";
-			this.@__exportCommonplace.UseVisualStyleBackColor = true;
+			this.@__exportSkipCommonplace.AutoSize = true;
+			this.@__exportSkipCommonplace.Checked = true;
+			this.@__exportSkipCommonplace.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.@__exportSkipCommonplace.Enabled = false;
+			this.@__exportSkipCommonplace.Location = new System.Drawing.Point(116, 68);
+			this.@__exportSkipCommonplace.Name = "__exportSkipCommonplace";
+			this.@__exportSkipCommonplace.Size = new System.Drawing.Size(227, 17);
+			this.@__exportSkipCommonplace.TabIndex = 14;
+			this.@__exportSkipCommonplace.Text = "Skip Version, MUI, and Manifest resources";
+			this.@__exportSkipCommonplace.UseVisualStyleBackColor = true;
 			// 
 			// __exportNonvisualSize
 			// 
@@ -180,9 +185,9 @@
 			this.@__exportIconSubimages.AutoSize = true;
 			this.@__exportIconSubimages.Location = new System.Drawing.Point(116, 114);
 			this.@__exportIconSubimages.Name = "__exportIconSubimages";
-			this.@__exportIconSubimages.Size = new System.Drawing.Size(221, 17);
+			this.@__exportIconSubimages.Size = new System.Drawing.Size(238, 17);
 			this.@__exportIconSubimages.TabIndex = 7;
-			this.@__exportIconSubimages.Text = "Export Icon/Cursor Subimages (as PNGs)";
+			this.@__exportIconSubimages.Text = "Export Icon and Cursor subimages (as PNGs)";
 			this.@__exportIconSubimages.UseVisualStyleBackColor = true;
 			// 
 			// __sourceDirBrowse
@@ -324,7 +329,7 @@
 			// 
 			this.@__process.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__process.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.@__process.Location = new System.Drawing.Point(445, 451);
+			this.@__process.Location = new System.Drawing.Point(445, 471);
 			this.@__process.Name = "__process";
 			this.@__process.Size = new System.Drawing.Size(75, 23);
 			this.@__process.TabIndex = 3;
@@ -333,13 +338,13 @@
 			// 
 			// __progGrp
 			// 
-			this.@__progGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+			this.@__progGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.@__progGrp.Controls.Add(this.@__progSourceLbl);
 			this.@__progGrp.Controls.Add(this.@__progSource);
 			this.@__progGrp.Controls.Add(this.@__progOverallLbl);
 			this.@__progGrp.Controls.Add(this.@__progOverall);
-			this.@__progGrp.Location = new System.Drawing.Point(12, 335);
+			this.@__progGrp.Location = new System.Drawing.Point(12, 355);
 			this.@__progGrp.Name = "__progGrp";
 			this.@__progGrp.Size = new System.Drawing.Size(589, 107);
 			this.@__progGrp.TabIndex = 2;
@@ -387,7 +392,7 @@
 			this.@__close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.@__close.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.@__close.Location = new System.Drawing.Point(526, 451);
+			this.@__close.Location = new System.Drawing.Point(526, 471);
 			this.@__close.Name = "__close";
 			this.@__close.Size = new System.Drawing.Size(75, 23);
 			this.@__close.TabIndex = 4;
@@ -399,6 +404,16 @@
 			this.@__error.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
 			this.@__error.ContainerControl = this;
 			// 
+			// __exportLongNames
+			// 
+			this.@__exportLongNames.AutoSize = true;
+			this.@__exportLongNames.Location = new System.Drawing.Point(116, 137);
+			this.@__exportLongNames.Name = "__exportLongNames";
+			this.@__exportLongNames.Size = new System.Drawing.Size(262, 17);
+			this.@__exportLongNames.TabIndex = 19;
+			this.@__exportLongNames.Text = "Include resource Type and Language in filenames";
+			this.@__exportLongNames.UseVisualStyleBackColor = true;
+			// 
 			// BatchProcessForm
 			// 
 			this.AcceptButton = this.@__process;
@@ -406,7 +421,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
 			this.CancelButton = this.@__close;
-			this.ClientSize = new System.Drawing.Size(613, 485);
+			this.ClientSize = new System.Drawing.Size(613, 505);
 			this.Controls.Add(this.@__sourceGrp);
 			this.Controls.Add(this.@__optionsGrp);
 			this.Controls.Add(this.@__progGrp);
@@ -456,7 +471,7 @@
 		private System.Windows.Forms.ErrorProvider __error;
 		private System.ComponentModel.BackgroundWorker __bw;
 		private System.Windows.Forms.CheckBox __exportIconSubimages;
-		private System.Windows.Forms.CheckBox __exportCommonplace;
+		private System.Windows.Forms.CheckBox __exportSkipCommonplace;
 		private System.Windows.Forms.CheckBox __exportNonvisualSize;
 		private System.Windows.Forms.Label __exportNonvisualSizeLbl;
 		private System.Windows.Forms.NumericUpDown __exportNonvisualSizeNum;
@@ -467,5 +482,6 @@
 		private System.Windows.Forms.TextBox __sourceFile;
 		private System.Windows.Forms.Button __sourceFileBrowse;
 		private System.Windows.Forms.OpenFileDialog __ofd;
+		private System.Windows.Forms.CheckBox __exportLongNames;
 	}
 }

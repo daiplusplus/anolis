@@ -137,9 +137,9 @@
 			this.@__repSubclass.AutoSize = true;
 			this.@__repSubclass.Location = new System.Drawing.Point(69, 109);
 			this.@__repSubclass.Name = "__repSubclass";
-			this.@__repSubclass.Size = new System.Drawing.Size(122, 13);
+			this.@__repSubclass.Size = new System.Drawing.Size(123, 13);
 			this.@__repSubclass.TabIndex = 4;
-			this.@__repSubclass.Text = "UnknownResourceData";
+			this.@__repSubclass.Text = "Resource not yet loaded";
 			// 
 			// __repSubclassLbl
 			// 
@@ -184,6 +184,7 @@
 			// 
 			this.@__ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.@__ok.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.@__ok.Enabled = false;
 			this.@__ok.Location = new System.Drawing.Point(200, 263);
 			this.@__ok.Name = "__ok";
 			this.@__ok.Size = new System.Drawing.Size(75, 23);

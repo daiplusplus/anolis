@@ -13,10 +13,7 @@ namespace Anolis.Resourcer.CommandLine {
 	
 	public class BatchProcess {
 		
-		private BatchReport _report;
-		
 		public BatchProcess() {
-			_report = new BatchReport();
 			Log = new Log();
 		}
 		
@@ -83,9 +80,7 @@ namespace Anolis.Resourcer.CommandLine {
 			Log.Clear();
 			
 			Cancel  = false;
-			_report = null;
 			Options = options;
-			
 		}
 		
 		private FileInfo[] GetFiles() {
@@ -231,9 +226,21 @@ namespace Anolis.Resourcer.CommandLine {
 								
 								if( !Directory.Exists( directory ) ) Directory.CreateDirectory( directory );
 								
-								String filename = Path.Combine( directory, Anolis.Core.Utility.Miscellaneous.FSSafeResPath( data.Lang.ResourcePath ) ) + data.RecommendedExtension;
+								////////////////////////////////
 								
-								data.Save( filename );
+								String fileName;
+								
+								if( Options.ExportLongNames || name.Langs.Count > 1 ) {
+									fileName = Miscellaneous.FSSafeResPath( lang.ResourcePath );
+								} else {
+									fileName = Miscellaneous.FSSafeResPath( name.Identifier.FriendlyName );
+								}
+								
+								fileName = Path.Combine( directory, fileName ) + data.RecommendedExtension;
+								
+								fileName = Anolis.Core.Packages.PackageUtility.GetUnusedFileName( fileName );
+								
+								data.Save( fileName );
 								
 							}
 							
@@ -278,9 +285,14 @@ namespace Anolis.Resourcer.CommandLine {
 			/////////////////////////////////
 			// Certain commonplace resources might not be exported
 			
-			if(data is VersionResourceData)   return Options.ExportNonVisual && Options.ExportCommonRes;
-			if(data is SgmlResourceData && data.Lang.Name.Type.Identifier.KnownType == Win32ResourceType.Manifest)
-				return Options.ExportNonVisual && Options.ExportCommonRes;
+			if( Options.ExportCommonRes ) {
+				
+				if(data is VersionResourceData) return true;
+				
+				if(data is SgmlResourceData && data.Lang.Name.Type.Identifier.KnownType == Win32ResourceType.Manifest) return true;
+				
+				if(data.Lang.Name.Type.Identifier.StringId == "MUI") return true;
+			}
 			
 			/////////////////////////////////
 			// Then check size
@@ -295,21 +307,21 @@ namespace Anolis.Resourcer.CommandLine {
 	
 	public class BatchOptions {
 		
-		public BatchSourceMode SourceMode    { get; set; }
+		public BatchSourceMode SourceMode       { get; set; }
 		
-		public FileInfo      SourceFile      { get; set; }
+		public FileInfo      SourceFile          { get; set; }
 		public ResourceSourceFactory SourceFileFactory { get; set; }
 		
-		public DirectoryInfo SourceDirectory { get; set; }
-		public String        SourceFilter    { get; set; }
-		public Boolean       SourceRecurse   { get; set; }
+		public DirectoryInfo SourceDirectory     { get; set; }
+		public String        SourceFilter        { get; set; }
+		public Boolean       SourceRecurse       { get; set; }
 		
-		public DirectoryInfo ExportDirectory { get; set; }
-		public Boolean       ExportNonVisual { get; set; }
-		public Boolean       ExportCommonRes { get; set; }
-		public Boolean       ExportIcons     { get; set; }
+		public DirectoryInfo ExportDirectory     { get; set; }
+		public Boolean       ExportNonVisual     { get; set; }
+		public Boolean       ExportCommonRes     { get; set; }
+		public Boolean       ExportIcons         { get; set; }
 		public Int32         ExportNonVisualSize { get; set; } // size in bytes
-		
+		public Boolean       ExportLongNames     { get; set; }
 	}
 	
 	public enum BatchSourceMode {

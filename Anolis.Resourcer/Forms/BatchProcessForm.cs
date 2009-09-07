@@ -58,15 +58,15 @@ namespace Anolis.Resourcer {
 		
 		private void LoadOptionsFromSettings() {
 			
-			__sourceDir.Text = S.Default.BatchSource;
-			__sourceFilter.Text    = S.Default.BatchFilter;
+			__sourceDir      .Text = S.Default.BatchSource;
+			__sourceFilter   .Text = S.Default.BatchFilter;
 			__exportDirectory.Text = S.Default.BatchExport;
 			
-			__exportNonvisual.Checked      = S.Default.BatchExportNonVis;
-			__exportCommonplace.Checked    = S.Default.BatchExportNonVisCommon;
-			__exportNonvisualSize.Checked  = S.Default.BatchExportNonVisSize;
-			__exportNonvisualSizeNum.Value = S.Default.BatchExportNonVisSizeKB;
-			__exportIconSubimages.Checked  = S.Default.BatchExportSubimage;
+			__exportNonvisual       .Checked = S.Default.BatchExportNonVis;
+			__exportSkipCommonplace .Checked = !S.Default.BatchExportNonVisCommon;
+			__exportNonvisualSize   .Checked = S.Default.BatchExportNonVisSize;
+			__exportNonvisualSizeNum.Value   = S.Default.BatchExportNonVisSizeKB;
+			__exportIconSubimages   .Checked = S.Default.BatchExportSubimage;
 		}
 		
 		private void SaveOptionsToSettings() {
@@ -76,7 +76,7 @@ namespace Anolis.Resourcer {
 			S.Default.BatchExport = __exportDirectory.Text;
 			
 			S.Default.BatchExportNonVis       = __exportNonvisual.Checked;
-			S.Default.BatchExportNonVisCommon = __exportCommonplace.Checked;
+			S.Default.BatchExportNonVisCommon = __exportSkipCommonplace.Checked;
 			S.Default.BatchExportNonVisSize   = __exportNonvisualSize.Checked;
 			S.Default.BatchExportNonVisSizeKB = (uint)__exportNonvisualSizeNum.Value;
 			S.Default.BatchExportSubimage     = __exportIconSubimages.Checked;
@@ -106,8 +106,8 @@ namespace Anolis.Resourcer {
 		
 		private void __exportNonvisual_CheckedChanged(object sender, EventArgs e) {
 			
-			__exportCommonplace  .Enabled = (sender as CheckBox).Checked;
-			__exportNonvisualSize.Enabled = (sender as CheckBox).Checked;
+			__exportSkipCommonplace.Enabled = (sender as CheckBox).Checked;
+			__exportNonvisualSize  .Enabled = (sender as CheckBox).Checked;
 		}
 		
 		private void __exportNonvisualSize_EnabledCheckedChanged(object sender, EventArgs e) {
@@ -373,10 +373,11 @@ namespace Anolis.Resourcer {
 			}
 			
 			options.ExportDirectory     = new DirectoryInfo( __exportDirectory.Text );	
-			options.ExportCommonRes     = __exportCommonplace.Checked;
+			options.ExportCommonRes     = !__exportSkipCommonplace.Checked;
 			options.ExportNonVisualSize = (Int32)__exportNonvisualSizeNum.Value * 1024;
 			options.ExportNonVisual     = __exportNonvisual.Checked;
 			options.ExportIcons         = __exportIconSubimages.Checked;
+			options.ExportLongNames     = __exportLongNames.Checked;
 			
 			__bw.RunWorkerAsync( options );
 		}
