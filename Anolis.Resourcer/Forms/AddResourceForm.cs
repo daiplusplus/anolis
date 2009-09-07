@@ -27,7 +27,9 @@ namespace Anolis.Resourcer {
 			PopulateWin32Types(true);
 			
 			PopulateLanguages(true);
-
+			
+			SetDetailsEnabled(false);
+			
 			this.__continue  .Click += new EventHandler(__continue_Click);
 			this.__fileBrowse.Click += new EventHandler(__fileBrowse_Click);
 			this.__langSort  .Click += new EventHandler(__langSort_Click);
@@ -36,7 +38,6 @@ namespace Anolis.Resourcer {
 			this.__ok        .Click += new EventHandler(__ok_Click);
 			
 			this.__nameAuto.CheckedChanged += new EventHandler(__nameAuto_CheckedChanged);
-			
 		}
 		
 		private void __nameAuto_CheckedChanged(Object sender, EventArgs e) {

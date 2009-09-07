@@ -103,8 +103,8 @@ namespace Anolis.Resourcer {
 			this.@__mActionCancel = new System.Windows.Forms.MenuItem();
 			this.@__mTools = new System.Windows.Forms.MenuItem();
 			this.@__mToolsBatch = new System.Windows.Forms.MenuItem();
-			this.@__mToolsOptions = new System.Windows.Forms.MenuItem();
 			this.@__mToolsPending = new System.Windows.Forms.MenuItem();
+			this.@__mToolsOptions = new System.Windows.Forms.MenuItem();
 			this.@__mHelp = new System.Windows.Forms.MenuItem();
 			this.@__mHelpTopics = new System.Windows.Forms.MenuItem();
 			this.@__mHelpUpdates = new System.Windows.Forms.MenuItem();
@@ -528,7 +528,7 @@ namespace Anolis.Resourcer {
 			this.@__dropTarget.DropDataReplaceEnabled = true;
 			this.@__dropTarget.Location = new System.Drawing.Point(200, 100);
 			this.@__dropTarget.Name = "__dropTarget";
-			this.@__dropTarget.Size = new System.Drawing.Size(376, 93);
+			this.@__dropTarget.Size = new System.Drawing.Size(388, 107);
 			this.@__dropTarget.TabIndex = 0;
 			this.@__dropTarget.Visible = false;
 			// 
@@ -731,15 +731,15 @@ namespace Anolis.Resourcer {
 			this.@__mToolsBatch.Index = 0;
 			this.@__mToolsBatch.Text = "Batch Export...";
 			// 
-			// __mToolsOptions
-			// 
-			this.@__mToolsOptions.Index = 2;
-			this.@__mToolsOptions.Text = "Options...";
-			// 
 			// __mToolsPending
 			// 
 			this.@__mToolsPending.Index = 1;
 			this.@__mToolsPending.Text = "Pending Operations...";
+			// 
+			// __mToolsOptions
+			// 
+			this.@__mToolsOptions.Index = 2;
+			this.@__mToolsOptions.Text = "Options...";
 			// 
 			// __mHelp
 			// 

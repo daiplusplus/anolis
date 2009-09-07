@@ -27,7 +27,9 @@
 			this.@__dataAdd = new System.Windows.Forms.CheckBox();
 			this.@__dataReplace = new System.Windows.Forms.CheckBox();
 			this.@__layout = new System.Windows.Forms.TableLayoutPanel();
+			this.@__grp = new System.Windows.Forms.GroupBox();
 			this.@__layout.SuspendLayout();
+			this.@__grp.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// __sourceOpen
@@ -38,7 +40,7 @@
 			this.@__sourceOpen.Image = global::Anolis.Resourcer.Resources.Toolbar_SrcOpen;
 			this.@__sourceOpen.Location = new System.Drawing.Point(3, 3);
 			this.@__sourceOpen.Name = "__sourceOpen";
-			this.@__sourceOpen.Size = new System.Drawing.Size(123, 83);
+			this.@__sourceOpen.Size = new System.Drawing.Size(121, 82);
 			this.@__sourceOpen.TabIndex = 0;
 			this.@__sourceOpen.Text = "Open as Source";
 			this.@__sourceOpen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -51,9 +53,9 @@
 			this.@__dataAdd.Appearance = System.Windows.Forms.Appearance.Button;
 			this.@__dataAdd.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.@__dataAdd.Image = global::Anolis.Resourcer.Resources.Toolbar_ResAdd;
-			this.@__dataAdd.Location = new System.Drawing.Point(132, 3);
+			this.@__dataAdd.Location = new System.Drawing.Point(130, 3);
 			this.@__dataAdd.Name = "__dataAdd";
-			this.@__dataAdd.Size = new System.Drawing.Size(123, 83);
+			this.@__dataAdd.Size = new System.Drawing.Size(121, 82);
 			this.@__dataAdd.TabIndex = 1;
 			this.@__dataAdd.Text = "Add as Data";
 			this.@__dataAdd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -66,9 +68,9 @@
 			this.@__dataReplace.Appearance = System.Windows.Forms.Appearance.Button;
 			this.@__dataReplace.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.@__dataReplace.Image = global::Anolis.Resourcer.Resources.Toolbar_ResRep;
-			this.@__dataReplace.Location = new System.Drawing.Point(261, 3);
+			this.@__dataReplace.Location = new System.Drawing.Point(257, 3);
 			this.@__dataReplace.Name = "__dataReplace";
-			this.@__dataReplace.Size = new System.Drawing.Size(123, 83);
+			this.@__dataReplace.Size = new System.Drawing.Size(122, 82);
 			this.@__dataReplace.TabIndex = 2;
 			this.@__dataReplace.Text = "Replace Current Data";
 			this.@__dataReplace.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -85,12 +87,23 @@
 			this.@__layout.Controls.Add(this.@__dataReplace, 2, 0);
 			this.@__layout.Controls.Add(this.@__dataAdd, 1, 0);
 			this.@__layout.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.@__layout.Location = new System.Drawing.Point(0, 0);
+			this.@__layout.Location = new System.Drawing.Point(3, 16);
 			this.@__layout.Name = "__layout";
 			this.@__layout.RowCount = 1;
 			this.@__layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.@__layout.Size = new System.Drawing.Size(387, 89);
+			this.@__layout.Size = new System.Drawing.Size(382, 88);
 			this.@__layout.TabIndex = 3;
+			// 
+			// __grp
+			// 
+			this.@__grp.Controls.Add(this.@__layout);
+			this.@__grp.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.@__grp.Location = new System.Drawing.Point(0, 0);
+			this.@__grp.Name = "__grp";
+			this.@__grp.Size = new System.Drawing.Size(388, 107);
+			this.@__grp.TabIndex = 4;
+			this.@__grp.TabStop = false;
+			this.@__grp.Text = "Drop your file onto a button to perform an operation";
 			// 
 			// DropTarget
 			// 
@@ -98,10 +111,11 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.Controls.Add(this.@__layout);
+			this.Controls.Add(this.@__grp);
 			this.Name = "DropTarget";
-			this.Size = new System.Drawing.Size(387, 89);
+			this.Size = new System.Drawing.Size(388, 107);
 			this.@__layout.ResumeLayout(false);
+			this.@__grp.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -112,5 +126,6 @@
 		private System.Windows.Forms.CheckBox __dataAdd;
 		private System.Windows.Forms.CheckBox __dataReplace;
 		private System.Windows.Forms.TableLayoutPanel __layout;
+		private System.Windows.Forms.GroupBox __grp;
 	}
 }

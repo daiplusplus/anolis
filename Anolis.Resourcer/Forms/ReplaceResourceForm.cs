@@ -52,7 +52,16 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		public void LoadReplacement(String fileName) {
+		public void PopulatePath(String fileName) {
+			
+			__repFilename.Text = fileName;
+		}
+		
+		private void LoadReplacement(String fileName) {
+			
+			__repFilename.Enabled = false;
+			__repLoad    .Enabled = false;
+			__browse     .Enabled = false;
 			
 			if( !System.IO.File.Exists( fileName ) ) {
 				
@@ -79,6 +88,8 @@ namespace Anolis.Resourcer {
 				
 				__repSubclass.Text = _replacement.GetType().Name;
 			}
+			
+			__ok.Enabled = true;
 			
 		}
 		
