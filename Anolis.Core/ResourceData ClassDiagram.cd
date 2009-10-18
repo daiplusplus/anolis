@@ -31,7 +31,7 @@
   <Class Name="Anolis.Core.Data.IconDirectoryResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="4.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAAAAAAEhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAQAAQABAAAAAAAAAAAAhAAAAA=</HashCode>
       <FileName>Core\Data\Directory\IconDirectoryResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -45,14 +45,14 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABAAAAACAgAAIAAAAAAABAEAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAoAAAAAAABAEAAAAAAA=</HashCode>
       <FileName>Core\Data\Directory\IconDirectoryResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.BmpImageResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="7.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAEAAAAEhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAQAAQABAAAAAAEAAAAAhAAAAA=</HashCode>
       <FileName>Core\Data\Image\BmpImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -73,7 +73,7 @@
   <Class Name="Anolis.Core.Data.GifImageResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="9.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAEAAAAEhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAQAAQABAAAAAAEAAAAAhAAAAA=</HashCode>
       <FileName>Core\Data\Image\GifImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -91,20 +91,6 @@
       <FileName>Core\Data\Image\GifImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Anolis.Core.Data.IconImageResourceDataFactory" Collapsed="true">
-    <Position X="7.5" Y="6.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAABAAAQAAQABAAAAAAAAAAAEhAAAAA=</HashCode>
-      <FileName>Core\Data\Image\IconImageResourceData.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Anolis.Core.Data.CursorImageResourceDataFactory" Collapsed="true">
-    <Position X="8.5" Y="6.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAABAAAQAAQABAAAAAAAAAAAEhAAAAA=</HashCode>
-      <FileName>Core\Data\Image\IconImageResourceData.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Anolis.Core.Data.IconCursorImageResourceData" Collapsed="true">
     <Position X="4" Y="6.75" Width="2.25" />
     <InheritanceLine Type="Anolis.Core.Data.ImageResourceData" FixedToPoint="true">
@@ -116,7 +102,7 @@
     </InheritanceLine>
     <TypeIdentifier>
       <HashCode>CQAAAAAAACAAAAAAAAAAAAgQAIAAQRCAABAAIAEAAAA=</HashCode>
-      <FileName>Core\Data\Image\IconImageResourceData.cs</FileName>
+      <FileName>Core\Data\Image\IconCursorImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.ImageResourceData" Collapsed="true">
@@ -129,7 +115,7 @@
   <Class Name="Anolis.Core.Data.JpegImageResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="8.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAEAAAAEhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAQAAQABAAAAAAEAAAAAhAAAAA=</HashCode>
       <FileName>Core\Data\Image\JpegImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -150,7 +136,7 @@
   <Class Name="Anolis.Core.Data.PngImageResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="10.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAEAAAAEhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAQAAQABAAAAAAEAAAAAhAAAAA=</HashCode>
       <FileName>Core\Data\Image\PngImageResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -171,14 +157,14 @@
   <Class Name="Anolis.Core.Data.ResourceDataFactory" Collapsed="true">
     <Position X="9.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAABAAAAAEAQBAAARAMYABAAAACEEAAAAEpAABAA=</HashCode>
+      <HashCode>AAAAAABAAAAAEAQBAAARAMYABAAAACEEAAAAEpAABAA=</HashCode>
       <FileName>Core\Data\ResourceDataFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.UnknownResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="1.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAEAAAAEhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAQAAQABAAAAAAEAAAAAhAAAAA=</HashCode>
       <FileName>Core\Data\Unknown\UnknownResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -195,14 +181,6 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Core\Data\Directory\DirectoryResourceData.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="Anolis.Core.Data.IconDirectoryMember" BaseTypeListCollapsed="true">
-    <Position X="13.5" Y="2.75" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAhAAAgggAQEgAAAAAIAAAAAIAAAAAIAAAAABAA=</HashCode>
-      <FileName>Core\Data\Directory\IconDirectoryResourceData.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Anolis.Core.Data.MediaResourceData" Collapsed="true">
     <Position X="2" Y="11.75" Width="2" />
@@ -228,21 +206,21 @@
   <Class Name="Anolis.Core.Data.RiffMediaResourceDataFactory" Collapsed="true">
     <Position X="7.5" Y="12.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAABAAAAAAQABAAAAAAEAAAAEhAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAABAAAQAAQABAAAAAAEAAAAAhAAAAA=</HashCode>
       <FileName>Core\Data\Multimedia\MediaResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.VersionResourceData" Collapsed="true">
     <Position X="2" Y="13.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>CEAAAAAAAACAAIAAAAAAAAwAAYAAAQAAABAAAAAAAAA=</HashCode>
+      <HashCode>CEAACAAAAACAAIAAAAAAAAwAAYCAAUAAABAAAAAAAAA=</HashCode>
       <FileName>Core\Data\Windows\VersionResourceData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Anolis.Core.Data.ResourceData" Collapsed="true">
     <Position X="0.5" Y="0.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAIAIBCAAEAAAAAEAAAgABYCAAAAABBAAABAAAAA=</HashCode>
+      <HashCode>AAIAAIAIBCAgEAAAAAEBAAgABYCAAAAABBAAAhAAAAA=</HashCode>
       <FileName>Core\Data\ResourceData.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
