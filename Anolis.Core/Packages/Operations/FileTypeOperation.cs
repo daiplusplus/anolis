@@ -41,6 +41,10 @@ namespace Anolis.Core.Packages.Operations {
 			get { return "File type"; }
 		}
 		
+		public override String ToString() {
+			return OperationName + " : " + TypeExtension;
+		}
+		
 		public override void Execute() {
 			
 			FileAssociations assoc = FileAssociations.GetAssociations();

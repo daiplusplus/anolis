@@ -34,6 +34,10 @@ namespace Anolis.Core.Packages.Operations {
 			get { return "Cursor scheme"; }
 		}
 		
+		public override String ToString() {
+			return OperationName + " : " + this.Name;
+		}
+		
 		public override Boolean Merge(Operation operation) {
 			
 			CursorSchemeOperation other = operation as CursorSchemeOperation;

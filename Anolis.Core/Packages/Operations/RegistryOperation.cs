@@ -170,5 +170,10 @@ namespace Anolis.Core.Packages.Operations {
 		public override bool Merge(Operation operation) {
 			return false;
 		}
+		
+		public override String ToString() {
+			return OperationName + ": " + this.RegKey + "\\" + this.RegName;
+		}
+		
 	}
 }

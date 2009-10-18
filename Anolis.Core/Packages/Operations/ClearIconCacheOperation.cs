@@ -52,5 +52,6 @@ namespace Anolis.Core.Packages.Operations {
 		public override void Write(System.Xml.XmlElement parent) {
 			CreateElement(parent, "clearIconCache");
 		}
+		
 	}
 }
