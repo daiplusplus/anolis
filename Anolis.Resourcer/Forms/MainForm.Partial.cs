@@ -15,6 +15,8 @@ using Path     = System.IO.Path;
 using File     = System.IO.File;
 
 using FileResourceSource = Anolis.Core.Source.FileResourceSource;
+using System.Text;
+using System.IO;
 
 namespace Anolis.Resourcer {
 	
@@ -23,17 +25,20 @@ namespace Anolis.Resourcer {
 	public partial class MainForm {
 		
 		private TypeViewerList _viewers;
-		private Mru _mru;
-		private Settings.Settings _settings;
+		private Mru            _mru;
+		private ARSettings     _settings;
+		
+		private Finder   _currentFind;
 		
 		private void MainFormInit() {
 			
-			_settings = Anolis.Resourcer.Settings.Settings.Default;
+			_settings = ARSettings.Default;
 			
 			if( _settings.MruList == null ) _settings.MruList = new StringCollection();
 			
-			_viewers = new TypeViewerList();
-			_mru     = new Mru( _settings.MruCount, _settings.MruList, StringComparison.InvariantCultureIgnoreCase );
+			_findForm = new FindForm();
+			_viewers  = new TypeViewerList();
+			_mru      = new Mru( _settings.MruCount, _settings.MruList, StringComparison.InvariantCultureIgnoreCase );
 			
 			/////////////////
 			
@@ -507,6 +512,15 @@ namespace Anolis.Resourcer {
 			
 		}
 		
+		private void SourcePropertiesShow() {
+			
+			FileResourceSource sourceFile = CurrentSource as FileResourceSource;
+			if( sourceFile == null ) return;
+			
+			NativeMethods.ShowProperties( sourceFile.FileInfo.FullName );
+			
+		}
+		
 #endregion
 		
 #region ResourceData
@@ -959,6 +973,38 @@ namespace Anolis.Resourcer {
 		
 #endregion
 		
+#region Find
+		
+		
+		
+		private void FindShow() {
+			
+			_findForm.Show(this);
+		}
+		
+		private void FindNext() {
+			
+			if( _currentFind != null ) {
+				
+				ResourceLang lang = _currentFind.FindNext();
+				if( lang != null ) {
+					
+					DataLoad( lang );
+					
+					__mEditFindNext.Enabled = true;
+					
+				} else {
+					
+					__mEditFindNext.Enabled = false;
+					
+					MessageBox.Show("No matches found");
+				}
+				
+			}
+			
+		}
+		
+#endregion
 		
 #region Misc
 		

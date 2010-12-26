@@ -13,9 +13,9 @@ namespace Anolis.Resourcer.Settings {
 	//  The SettingsSaving event is raised before the setting values are saved.
 	
 	//[SettingsProvider(typeof(Anolis.Resourcer.Settings.RegistrySettingsProvider))]
-	internal sealed partial class Settings {
+	internal sealed partial class ARSettings {
 		
-		public Settings() {
+		public ARSettings() {
 			
 			
 			

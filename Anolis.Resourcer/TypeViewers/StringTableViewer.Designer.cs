@@ -42,6 +42,7 @@
 			this.@__dgv.AllowUserToAddRows = false;
 			this.@__dgv.AllowUserToDeleteRows = false;
 			this.@__dgv.AllowUserToOrderColumns = true;
+			this.@__dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.@__dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.@__dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.@__gvColId,

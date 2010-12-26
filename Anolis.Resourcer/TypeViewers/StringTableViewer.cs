@@ -28,7 +28,7 @@ namespace Anolis.Resourcer.TypeViewers {
 				
 				DataGridViewRow dgvRow = __dgv.Rows[i];
 				
-				Int32 prefHeight = dgvRow.GetPreferredHeight(i, DataGridViewAutoSizeRowMode.AllCellsExceptHeader, true);
+				Int32 prefHeight = dgvRow.GetPreferredHeight(i, DataGridViewAutoSizeRowMode.AllCellsExceptHeader, false);
 				
 				dgvRow.Height = prefHeight;
 			}

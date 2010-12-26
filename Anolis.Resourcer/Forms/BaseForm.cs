@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using Th = System.Threading;
+using Anolis.Resourcer.Settings;
 
 namespace Anolis.Resourcer {
 	
@@ -15,7 +16,7 @@ namespace Anolis.Resourcer {
 			
 			this.StartPosition = FormStartPosition.CenterParent;
 			
-			if( Settings.Settings.Default.Gimmicks ) {
+			if( ARSettings.Default.Gimmicks ) {
 				
 				FadeInit();
 				
@@ -33,7 +34,7 @@ namespace Anolis.Resourcer {
 			get {
 				CreateParams paras = base.CreateParams;
 				
-				if( Settings.Settings.Default.Gimmicks )
+				if( ARSettings.Default.Gimmicks )
 					paras.ClassStyle |= CS_DROPSHADOW;
 				
 				return paras;

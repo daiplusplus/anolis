@@ -70,6 +70,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLine\BatchProcessor.cs" />
@@ -93,6 +94,12 @@
     </Compile>
     <Compile Include="Forms\FactoryOptionsForm.Designer.cs">
       <DependentUpon>FactoryOptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FindForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FindForm.Designer.cs">
+      <DependentUpon>FindForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Cultures.cs" />
@@ -173,6 +180,9 @@
     <EmbeddedResource Include="Forms\FactoryOptionsForm.resx">
       <DependentUpon>FactoryOptionsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FindForm.resx">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -234,10 +244,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Settings\ARSettings.Designer.cs" />
     <Compile Include="Settings\FileAssociationManager.cs" />
     <Compile Include="Settings\Mru.cs" />
     <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Settings\ARSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>ARSettings.settings</DependentUpon>
+    </Compile>
     <Compile Include="TypeViewers\AnimationViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -328,6 +342,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Settings\ARSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>ARSettings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -354,6 +372,7 @@
     <None Include="Resources\ListView\NavBackUp.png" />
     <None Include="Resources\ListView\NavUpOver.png" />
     <None Include="Resources\ListView\Details.png" />
+    <None Include="Resources\ListView\NavNext.png" />
     <Content Include="Resources\MainIcon.ico" />
     <Content Include="Resources\ResourceTypes\Accelerator16.png" />
     <Content Include="Resources\ResourceTypes\Accelerator32.png" />
@@ -390,7 +409,6 @@
     <Content Include="Resources\TextViewer\Endian.png" />
     <Content Include="Resources\TextViewer\Font.png" />
     <Content Include="Resources\TextViewer\WordWrap.png" />
-    <None Include="Settings\ARSettings.settings" />
     <None Include="_help\Help.htm" />
     <None Include="Resources\Toolbar\ResCan.png" />
     <None Include="Resources\Toolbar\ResCan24.png" />

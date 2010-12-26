@@ -80,7 +80,7 @@ namespace Anolis.Resourcer.Settings {
 			while(_entries.Count > Capacity) _entries.RemoveAt( Capacity );
 		}
 		
-		public void Save(Settings s) {
+		public void Save(ARSettings s) {
 			s.MruCount = this.Items.Length;
 			s.MruList.Clear();
 			s.MruList.AddRange( Items );
