@@ -234,14 +234,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Settings\ARSettings.Designer.cs" />
     <Compile Include="Settings\FileAssociationManager.cs" />
     <Compile Include="Settings\Mru.cs" />
     <Compile Include="Settings\Settings.cs" />
-    <Compile Include="Settings\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="TypeViewers\AnimationViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -332,10 +328,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Settings\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -398,6 +390,7 @@
     <Content Include="Resources\TextViewer\Endian.png" />
     <Content Include="Resources\TextViewer\Font.png" />
     <Content Include="Resources\TextViewer\WordWrap.png" />
+    <None Include="Settings\ARSettings.settings" />
     <None Include="_help\Help.htm" />
     <None Include="Resources\Toolbar\ResCan.png" />
     <None Include="Resources\Toolbar\ResCan24.png" />
