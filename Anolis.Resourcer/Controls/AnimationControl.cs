@@ -216,7 +216,7 @@ namespace Anolis.Resourcer.Controls {
 			if( !IsHandleCreated || !IsOpen ) return;
 			
 			UInt32 a = (uint)repetitions;
-			Int32 b = NativeMethods.MakeLong(fromFrame, toFrame);
+			Int32 b = NativeMethods.MakeInt32(fromFrame, toFrame);
 			
 			SendMessage(AnimationControlMessage.Play, a, b );
 			

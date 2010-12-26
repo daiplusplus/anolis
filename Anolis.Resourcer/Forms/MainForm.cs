@@ -7,6 +7,7 @@ using Cult = System.Globalization.CultureInfo;
 
 using Anolis.Core;
 using Anolis.Resourcer.Controls;
+using ARSettings = Anolis.Resourcer.Settings.ARSettings;
 
 namespace Anolis.Resourcer {
 	
@@ -14,6 +15,8 @@ namespace Anolis.Resourcer {
 		
 		private ResourceDataView _viewData;
 		private ResourceListView _viewList;
+		
+		private FindForm _findForm;
 		
 		public MainForm() {
 			InitializeComponent();
@@ -38,6 +41,8 @@ namespace Anolis.Resourcer {
 			
 			ToolStripManager.Renderer = new Anolis.Resourcer.Controls.ToolStripImprovedSystemRenderer();
 			
+#region Toolstrip Events
+			
 			this.__tSrcNew.Click            += new EventHandler(__tSrcNew_Click);
 			this.__tSrcOpen.ButtonClick     += new EventHandler(__tSrcOpen_ButtonClick);
 			this.__tSrcOpen.DropDownOpening += new EventHandler(__tSrcOpen_DropDownOpening);
@@ -54,6 +59,8 @@ namespace Anolis.Resourcer {
 			this.__tResCan.Click            += new EventHandler(__tResCan_Click);
 			this.__tGenOpt.Click            += new EventHandler(__tGenOptions_Click);
 			
+#endregion
+			
 			this.__tree.NodeMouseClick += new TreeNodeMouseClickEventHandler(__tree_NodeMouseClick);
 			this.__tree.BeforeCollapse += new TreeViewCancelEventHandler(__tree_BeforeCollapse);
 			this.__tree.AfterSelect         += new TreeViewEventHandler(__tree_AfterSelect);
@@ -67,11 +74,14 @@ namespace Anolis.Resourcer {
 			this.__mFileClose       .Click += new EventHandler(__mFileClose_Click);
 			this.__mFileBackup      .Click += new EventHandler(__mFileBackup_Click);
 			this.__mFileRevert      .Click += new EventHandler(__mFileRevert_Click);
+			this.__mFileProperties.Click += new EventHandler(__mFileProperties_Click);
 			this.__mFileExit        .Click += new EventHandler(__mFileExit_Click);
 			
 			this.__mEditCut         .Click += new EventHandler(__mEditCut_Click);
 			this.__mEditCopy        .Click += new EventHandler(__mEditCopy_Click);
 			this.__mEditPaste       .Click += new EventHandler(__mEditPaste_Click);
+			this.__mEditFind        .Click += new EventHandler(__mEditFind_Click);
+			this.__mEditFindNext     .Click += new EventHandler(__mEditFindNext_Click);
 			this.__mEditSelectAll   .Click += new EventHandler(__mEditSelectAll_Click);
 			
 			this.__mViewToolbar     .Click += new EventHandler(__mViewToolbar_Click);
@@ -104,14 +114,16 @@ namespace Anolis.Resourcer {
 			this.__cMenu            .Click += new EventHandler(__cMenu_Click);
 			
 #endregion
+
+			this._findForm.FindNextClicked += new EventHandler(_findForm_FindNextClicked);
 			
 			//this.__treeStateImages.Images.Add( "Add", Resources.Tree_Add );
 			//this.__treeStateImages.Images.Add( "Upd", Resources.Tree_Edit );
 			//this.__treeStateImages.Images.Add( "Del", Resources.Tree_Delete );
 			
 			_history = new System.Collections.Generic.Stack<NavigateItem>();
-			__navBack.Click += new EventHandler(__navBack_Click);
-			__navUp.Click += new EventHandler(__navUp_Click);
+			this.__navBack.Click += new EventHandler(__navBack_Click);
+			this.__navUp.Click += new EventHandler(__navUp_Click);
 			this.__tree.ImageList = MainForm.TypeImages16;
 			
 			_viewData = new ResourceDataView();
@@ -154,7 +166,7 @@ namespace Anolis.Resourcer {
 			
 			e.Cancel = !SourceUnload();
 			
-			Mru.Save( Settings.Settings.Default );
+			Mru.Save( ARSettings.Default );
 		}
 		
 #region UI Events
@@ -452,7 +464,7 @@ namespace Anolis.Resourcer {
 				
 				this.SuspendLayout();
 				
-				Boolean is24 = Settings.Settings.Default.Toolbar24;
+				Boolean is24 = ARSettings.Default.Toolbar24;
 				
 				__t.ImageScalingSize         = is24 ? new System.Drawing.Size(24, 24)   : new System.Drawing.Size(48, 48);
 				
@@ -711,6 +723,7 @@ namespace Anolis.Resourcer {
 			__mFileBackup.Enabled = !isReadOnly;
 			__mFileRevert.Enabled = !isReadOnly;
 			__mFileClose .Enabled = CurrentSource != null;
+			__mFileProperties.Enabled = CurrentSource as Anolis.Core.Source.FileResourceSource != null;
 			
 			__mToolsPending.Enabled = !isReadOnly;
 			
@@ -755,12 +768,12 @@ namespace Anolis.Resourcer {
 			////////////////////////
 			// View Menu
 			
-			__mViewToolbar.Checked      = Settings.Settings.Default.ToolbarVisible;
+			__mViewToolbar.Checked      = ARSettings.Default.ToolbarVisible;
 			
-			__mViewToolbarSmall.Checked = Settings.Settings.Default.Toolbar24;
+			__mViewToolbarSmall.Checked = ARSettings.Default.Toolbar24;
 			__mViewToolbarLarge.Checked = !__mViewToolbarSmall.Checked;
 			
-			__mViewMenus.Checked        = Settings.Settings.Default.MenuVisible;
+			__mViewMenus.Checked        = ARSettings.Default.MenuVisible;
 		}
 		
 		#region File
@@ -795,6 +808,11 @@ namespace Anolis.Resourcer {
 			SourceRevert();
 		}
 		
+		private void __mFileProperties_Click(object sender, EventArgs e) {
+			
+			SourcePropertiesShow();
+		}
+		
 		private void __mFileExit_Click(object sender, EventArgs e) {
 			
 			if( SourceUnload() ) {
@@ -807,11 +825,7 @@ namespace Anolis.Resourcer {
 		
 		#region Edit
 		
-		private void __mEditSelectAll_Click(object sender, EventArgs e) {
-			
-		}
-		
-		private void __mEditPaste_Click(object sender, EventArgs e) {
+		private void __mEditCut_Click(object sender, EventArgs e) {
 			
 		}
 		
@@ -819,9 +833,24 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		private void __mEditCut_Click(object sender, EventArgs e) {
+		private void __mEditPaste_Click(object sender, EventArgs e) {
 			
 		}
+		
+		private void __mEditFind_Click(object sender, EventArgs e) {
+			
+			FindShow();
+		}
+		
+		private void __mEditFindNext_Click(object sender, EventArgs e) {
+			
+			FindNext();
+		}
+		
+		private void __mEditSelectAll_Click(object sender, EventArgs e) {
+			
+		}
+		
 		
 		#endregion
 		
@@ -831,7 +860,7 @@ namespace Anolis.Resourcer {
 			
 			Boolean useGimmicks = !__mViewEffects.Checked;
 			
-			Settings.Settings.Default.Gimmicks = useGimmicks;
+			ARSettings.Default.Gimmicks = useGimmicks;
 			
 			__mViewEffects.Checked = useGimmicks;
 		}
@@ -857,7 +886,7 @@ namespace Anolis.Resourcer {
 			
 			if( __mViewToolbarSmall.Checked ) return; // don't bother re-setting it
 			
-			Settings.Settings.Default.Toolbar24 = true;
+			ARSettings.Default.Toolbar24 = true;
 			
 			ToolbarUpdate(false, false, true);
 			
@@ -869,7 +898,7 @@ namespace Anolis.Resourcer {
 			
 			if( __mViewToolbarLarge.Checked ) return; // don't bother re-setting it
 			
-			Settings.Settings.Default.Toolbar24 = false;
+			ARSettings.Default.Toolbar24 = false;
 			
 			ToolbarUpdate(false, false, true);
 			
@@ -969,7 +998,7 @@ namespace Anolis.Resourcer {
 			__cMenu   .Checked = __menu.MenuItems[0].Visible; // need to test first child, can't check actual menu's visiblity
 			__cToolbar.Checked = __t.Visible;
 			
-			__cToolbarSmall.Checked = Settings.Settings.Default.Toolbar24;
+			__cToolbarSmall.Checked = ARSettings.Default.Toolbar24;
 			__cToolbarLarge.Checked = !__cToolbarSmall.Checked;
 			
 			if( !__t.Visible                 ) __cMenu   .Enabled = false;
@@ -999,7 +1028,24 @@ namespace Anolis.Resourcer {
 		
 	#endregion
 	
+	#region Find Events
+		
+		private void _findForm_FindNextClicked(object sender, EventArgs e) {
+			
+			FindForm form = sender as FindForm;
+			
+			if( _currentFind == null || _currentFind.FindText != form.FindText ) {
+				
+				_currentFind = new Finder( CurrentSource, form.FindText, form.FindOptions );
+			}
+				
+			FindNext();
+			
+		}
+		
+	#endregion
+	
 #endregion
-
+	
 	}
 }

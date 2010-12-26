@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using S = Anolis.Resourcer.Settings.Settings;
+using S = Anolis.Resourcer.Settings.ARSettings;
 using Anolis.Resourcer.CommandLine;
 
 using System.Configuration;

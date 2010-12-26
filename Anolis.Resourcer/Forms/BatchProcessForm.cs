@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 using Anolis.Resourcer.CommandLine;
 
-using S = Anolis.Resourcer.Settings.Settings;
+using S = Anolis.Resourcer.Settings.ARSettings;
 using Anolis.Core.Source;
 
 namespace Anolis.Resourcer {

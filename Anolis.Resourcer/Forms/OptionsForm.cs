@@ -46,8 +46,8 @@ namespace Anolis.Resourcer {
 			
 		}
 		
-		private Settings.Settings S {
-			get { return Settings.Settings.Default; }
+		private static ARSettings S {
+			get { return ARSettings.Default; }
 		}
 		
 		public MainForm MainForm { get; set; }

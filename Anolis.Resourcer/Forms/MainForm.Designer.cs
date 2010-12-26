@@ -44,6 +44,7 @@ namespace Anolis.Resourcer {
 			this.@__nav = new System.Windows.Forms.ToolStrip();
 			this.@__navBack = new System.Windows.Forms.ToolStripButton();
 			this.@__navUp = new System.Windows.Forms.ToolStripButton();
+			this.@__navNext = new System.Windows.Forms.ToolStripButton();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
 			this.@__sfd = new System.Windows.Forms.SaveFileDialog();
 			this.@__status = new System.Windows.Forms.StatusStrip();
@@ -88,6 +89,9 @@ namespace Anolis.Resourcer {
 			this.@__mEditCut = new System.Windows.Forms.MenuItem();
 			this.@__mEditCopy = new System.Windows.Forms.MenuItem();
 			this.@__mEditPaste = new System.Windows.Forms.MenuItem();
+			this.@__mEditFind = new System.Windows.Forms.MenuItem();
+			this.@__mEditFindNext = new System.Windows.Forms.MenuItem();
+			this.menuItem1 = new System.Windows.Forms.MenuItem();
 			this.@__mEditSelectAll = new System.Windows.Forms.MenuItem();
 			this.@__mView = new System.Windows.Forms.MenuItem();
 			this.@__mViewToolbar = new System.Windows.Forms.MenuItem();
@@ -114,6 +118,7 @@ namespace Anolis.Resourcer {
 			this.@__cToolbarLarge = new System.Windows.Forms.MenuItem();
 			this.@__cToolbarSmall = new System.Windows.Forms.MenuItem();
 			this.@__cMenu = new System.Windows.Forms.MenuItem();
+			this.@__mFileProperties = new System.Windows.Forms.MenuItem();
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSrcMruSep1 = new System.Windows.Forms.ToolStripSeparator();
@@ -160,7 +165,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __mFileSep2
 			// 
-			@__mFileSep2.Index = 8;
+			@__mFileSep2.Index = 9;
 			@__mFileSep2.Text = "-";
 			// 
 			// __mViewSep1
@@ -206,7 +211,7 @@ namespace Anolis.Resourcer {
 			this.@__tree.Location = new System.Drawing.Point(0, 25);
 			this.@__tree.Name = "__tree";
 			this.@__tree.ShowRootLines = false;
-			this.@__tree.Size = new System.Drawing.Size(150, 353);
+			this.@__tree.Size = new System.Drawing.Size(162, 353);
 			this.@__tree.StateImageList = this.@__stateImages;
 			this.@__tree.TabIndex = 3;
 			// 
@@ -229,7 +234,7 @@ namespace Anolis.Resourcer {
 			this.@__split.Panel1.Controls.Add(this.@__tree);
 			this.@__split.Panel1.Controls.Add(this.@__nav);
 			this.@__split.Size = new System.Drawing.Size(635, 378);
-			this.@__split.SplitterDistance = 150;
+			this.@__split.SplitterDistance = 162;
 			this.@__split.TabIndex = 4;
 			// 
 			// __nav
@@ -237,10 +242,11 @@ namespace Anolis.Resourcer {
 			this.@__nav.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.@__nav.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.@__navBack,
-            this.@__navUp});
+            this.@__navUp,
+            this.@__navNext});
 			this.@__nav.Location = new System.Drawing.Point(0, 0);
 			this.@__nav.Name = "__nav";
-			this.@__nav.Size = new System.Drawing.Size(150, 25);
+			this.@__nav.Size = new System.Drawing.Size(162, 25);
 			this.@__nav.TabIndex = 4;
 			// 
 			// __navBack
@@ -261,6 +267,15 @@ namespace Anolis.Resourcer {
 			this.@__navUp.Name = "__navUp";
 			this.@__navUp.Size = new System.Drawing.Size(40, 22);
 			this.@__navUp.Text = "Up";
+			// 
+			// __navNext
+			// 
+			this.@__navNext.Enabled = false;
+			this.@__navNext.Image = global::Anolis.Resourcer.Resources.NavNextUp;
+			this.@__navNext.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.@__navNext.Name = "__navNext";
+			this.@__navNext.Size = new System.Drawing.Size(50, 22);
+			this.@__navNext.Text = "Next";
 			// 
 			// __status
 			// 
@@ -554,6 +569,7 @@ namespace Anolis.Resourcer {
             this.@__mFileSave,
             this.@__mFileBackup,
             this.@__mFileRevert,
+            this.@__mFileProperties,
             @__mFileSep2,
             this.@__mFileExit});
 			this.@__mFile.Text = "&File";
@@ -599,7 +615,7 @@ namespace Anolis.Resourcer {
 			// 
 			// __mFileExit
 			// 
-			this.@__mFileExit.Index = 9;
+			this.@__mFileExit.Index = 10;
 			this.@__mFileExit.Text = "Exit";
 			// 
 			// __mEdit
@@ -610,6 +626,9 @@ namespace Anolis.Resourcer {
             this.@__mEditCopy,
             this.@__mEditPaste,
             @__mEditSep1,
+            this.@__mEditFind,
+            this.@__mEditFindNext,
+            this.menuItem1,
             this.@__mEditSelectAll});
 			this.@__mEdit.Text = "&Edit";
 			// 
@@ -634,10 +653,28 @@ namespace Anolis.Resourcer {
 			this.@__mEditPaste.Shortcut = System.Windows.Forms.Shortcut.CtrlV;
 			this.@__mEditPaste.Text = "Paste";
 			// 
+			// __mEditFind
+			// 
+			this.@__mEditFind.Index = 4;
+			this.@__mEditFind.Shortcut = System.Windows.Forms.Shortcut.CtrlF;
+			this.@__mEditFind.Text = "Find...";
+			// 
+			// __mEditFindNext
+			// 
+			this.@__mEditFindNext.Enabled = false;
+			this.@__mEditFindNext.Index = 5;
+			this.@__mEditFindNext.Shortcut = System.Windows.Forms.Shortcut.F3;
+			this.@__mEditFindNext.Text = "Find Next";
+			// 
+			// menuItem1
+			// 
+			this.menuItem1.Index = 6;
+			this.menuItem1.Text = "-";
+			// 
 			// __mEditSelectAll
 			// 
 			this.@__mEditSelectAll.Enabled = false;
-			this.@__mEditSelectAll.Index = 4;
+			this.@__mEditSelectAll.Index = 7;
 			this.@__mEditSelectAll.Shortcut = System.Windows.Forms.Shortcut.CtrlA;
 			this.@__mEditSelectAll.Text = "Select All";
 			// 
@@ -797,6 +834,11 @@ namespace Anolis.Resourcer {
 			this.@__cMenu.Index = 4;
 			this.@__cMenu.Text = "Show Menu";
 			// 
+			// __mFileProperties
+			// 
+			this.@__mFileProperties.Index = 8;
+			this.@__mFileProperties.Text = "Properties...";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -907,6 +949,11 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.MenuItem __cToolbarLarge;
 		private System.Windows.Forms.MenuItem __cToolbarSmall;
 		private System.Windows.Forms.MenuItem __cMenu;
+		private System.Windows.Forms.MenuItem __mEditFind;
+		private System.Windows.Forms.MenuItem __mEditFindNext;
+		private System.Windows.Forms.MenuItem menuItem1;
+		private System.Windows.Forms.ToolStripButton __navNext;
+		private System.Windows.Forms.MenuItem __mFileProperties;
 	}
 }
 
