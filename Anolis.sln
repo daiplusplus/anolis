@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Resources", "Anolis.Core\Anolis.Resources.csproj", "{967BF434-D4F9-41E3-8B82-433987DEB4A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Resources", "Anolis.Resources\Anolis.Resources.csproj", "{967BF434-D4F9-41E3-8B82-433987DEB4A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Resourcer", "Anolis.Resourcer\Anolis.Resourcer.csproj", "{A651602A-6FF5-4DCC-A1FE-4A794F412A36}"
 EndProject
@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.ImageTools", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.PEInfo", "Anolis.Tools.PEInfo\Anolis.Tools.PEInfo.csproj", "{FF3A57DA-CB94-4163-9969-01C7FFDFB221}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Packages", "Anolis.Core.Packages\Anolis.Packages.csproj", "{2D62D22E-9DD3-4F42-818D-7F63A04E2AF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Packages", "Anolis.Packages\Anolis.Packages.csproj", "{2D62D22E-9DD3-4F42-818D-7F63A04E2AF6}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
