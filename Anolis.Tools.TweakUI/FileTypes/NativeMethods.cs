@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace Anolis.FileTypes {
+namespace Anolis.Tools.TweakUI.FileTypes {
 	
 	internal static class NativeMethods {
 		

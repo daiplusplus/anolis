@@ -35,7 +35,7 @@ namespace Anolis.Resourcer {
 					
 				}
 				
-				if( _currentCulture == null ) throw new Anolis.Core.AnolisException("CurrentCulture not found");
+				if( _currentCulture == null ) throw new AnolisException("CurrentCulture not found");
 				
 				_culturesByName = new ListBoxItem<CultureInfo>[ culturesList.Length ];
 				_culturesByLcid = new ListBoxItem<CultureInfo>[ culturesList.Length ];

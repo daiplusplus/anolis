@@ -43,6 +43,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileTypes\ColumnHeader2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FileTypes\ExtensionEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FileTypes\ExtensionEditor.Designer.cs">
+      <DependentUpon>ExtensionEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileTypes\FileTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileTypes\FileTypeForm.Designer.cs">
+      <DependentUpon>FileTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileTypes\NativeMethods.cs" />
+    <Compile Include="FileTypes\TypeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FileTypes\TypeEditor.Designer.cs">
+      <DependentUpon>TypeEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -52,28 +74,55 @@
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FileTypes\ExtensionEditor.resx">
+      <DependentUpon>ExtensionEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileTypes\FileTypeForm.resx">
+      <DependentUpon>FileTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileTypes\TypeEditor.resx">
+      <DependentUpon>TypeEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="ThumbsDB\ThumbnailForm.resx">
+      <DependentUpon>ThumbnailForm.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
+    <EmbeddedResource Include="ThumbsDB\ThumbnailItem.resx">
+      <DependentUpon>ThumbnailItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="FileTypes\app.manifest" />
     <Compile Include="ShellSettings.cs" />
+    <Compile Include="ThumbsDB\ThumbnailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThumbsDB\ThumbnailForm.Designer.cs">
+      <DependentUpon>ThumbnailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThumbsDB\ThumbDBLib\FileObject.cs" />
+    <Compile Include="ThumbsDB\ThumbDBLib\FileObjectCollection.cs" />
+    <Compile Include="ThumbsDB\ThumbDBLib\IBaseStorageWrapper.cs" />
+    <Compile Include="ThumbsDB\ThumbDBLib\Interop.cs" />
+    <Compile Include="ThumbsDB\ThumbDBLib\IStorageWrapper.cs" />
+    <Compile Include="ThumbsDB\ThumbDBLib\ITStorageWrapper.cs" />
+    <Compile Include="ThumbsDB\ThumbDBLib\ThumbDB.cs" />
+    <Compile Include="ThumbsDB\ThumbnailItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ThumbsDB\ThumbnailItem.Designer.cs">
+      <DependentUpon>ThumbnailItem.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Anolis.Core.Packages\Anolis.Packages.csproj">
+      <Project>{2D62D22E-9DD3-4F42-818D-7F63A04E2AF6}</Project>
+      <Name>Anolis.Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Anolis.Core\Anolis.Resources.csproj">
+      <Project>{967BF434-D4F9-41E3-8B82-433987DEB4A6}</Project>
+      <Name>Anolis.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

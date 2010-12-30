@@ -3,8 +3,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-using Log  = Anolis.Core.Utility.Log;
-using Pesi = Anolis.Core.Packages.PackageExecutionSettingsInfo;
+using Pesi = Anolis.Packages.PackageExecutionSettingsInfo;
 
 namespace Anolis.Installer.Pages {
 	

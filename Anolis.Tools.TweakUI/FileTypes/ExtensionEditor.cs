@@ -5,9 +5,10 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-using Anolis.Core.Utility;
 
-namespace Anolis.FileTypes {
+using Anolis.Packages.Utility;
+
+namespace Anolis.Tools.TweakUI.FileTypes {
 	
 	public partial class ExtensionEditor : UserControl {
 		

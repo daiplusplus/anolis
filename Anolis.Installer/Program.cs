@@ -4,7 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using Anolis.Core;
-using Anolis.Core.Packages;
+using Anolis.Packages;
 using Anolis.Installer.Pages;
 
 using W3b.Wizards;

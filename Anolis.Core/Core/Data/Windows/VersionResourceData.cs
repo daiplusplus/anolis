@@ -110,7 +110,7 @@ namespace Anolis.Core.Data {
 								
 								VSFixedFileInfo ffi = new VSFixedFileInfo( ffiBytes );
 								
-								if(ffi.dwSignature != 0xFEEF04BD) throw new InvalidOperationException("Unrecognised VS_VERSIONINFO Signature");
+								if(ffi.Signature != 0xFEEF04BD) throw new InvalidOperationException("Unrecognised VS_VERSIONINFO Signature");
 								
 								Dictionary<String,String> ffiDict = FfiToDict( ffi );
 								
@@ -167,24 +167,24 @@ namespace Anolis.Core.Data {
 			
 			Dictionary<String,String> d = new Dictionary<String,String>();
 			
-			d.Add("Signature"        , GetUInt32String( ffi.dwSignature     ) );
-			d.Add("StrucVersion"     , GetUInt32String( ffi.dwStrucVersion  ) );
-			d.Add("FileVersionMS"    , GetUInt32String( ffi.dwFileVersionMS ) );
-			d.Add("FileVersionLS"    , GetUInt32String( ffi.dwFileVersionLS ) );
+			d.Add("Signature"        , GetUInt32String( ffi.Signature     ) );
+			d.Add("StrucVersion"     , GetUInt32String( ffi.StrucVersion  ) );
+			d.Add("FileVersionMS"    , GetUInt32String( ffi.FileVersionMS ) );
+			d.Add("FileVersionLS"    , GetUInt32String( ffi.FileVersionLS ) );
 			d.Add("FileVersion"      , null );
-			d.Add("ProductVersionMS" , GetUInt32String( ffi.dwProductVersionMS ) );
-			d.Add("ProductVersionLS" , GetUInt32String( ffi.dwProductVersionLS ) );
+			d.Add("ProductVersionMS" , GetUInt32String( ffi.ProductVersionMS ) );
+			d.Add("ProductVersionLS" , GetUInt32String( ffi.ProductVersionLS ) );
 			d.Add("ProductVersion"   , null );
 			
-			d.Add("FileFlagsMask"    , GetUInt32String( ffi.dwFileFlagsMask ) );
-			d.Add("FileFlags"        , ffi.dwFileFlags.ToString() );
-			d.Add("FileOS"           , ffi.dwFileOS.ToString() );
-			d.Add("FileType"         , ffi.dwFileType.ToString() );
-			d.Add("FileSubType"      , GetUInt32String( ffi.dwFileSubType ) );
-			d.Add("FileSubTypeDriver", ffi.dwFileSubTypeDriver.ToString() );
-			d.Add("FileSubTypeFont"  , ffi.dwFileSubTypeFont.ToString() );
-			d.Add("FileDateMS"       , GetUInt32String( ffi.dwFileDateMS ) );
-			d.Add("FileDateLS"       , GetUInt32String( ffi.dwFileDateLS ) );
+			d.Add("FileFlagsMask"    , GetUInt32String( ffi.FileFlagsMask ) );
+			d.Add("FileFlags"        , ffi.FileFlags.ToString() );
+			d.Add("FileOS"           , ffi.FileOS.ToString() );
+			d.Add("FileType"         , ffi.FileType.ToString() );
+			d.Add("FileSubType"      , GetUInt32String( ffi.FileSubType ) );
+			d.Add("FileSubTypeDriver", ffi.FileSubTypeDriver.ToString() );
+			d.Add("FileSubTypeFont"  , ffi.FileSubTypeFont.ToString() );
+			d.Add("FileDateMS"       , GetUInt32String( ffi.FileDateMS ) );
+			d.Add("FileDateLS"       , GetUInt32String( ffi.FileDateLS ) );
 			d.Add("FileDate"         , null );
 			
 			return d;

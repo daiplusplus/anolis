@@ -34,6 +34,8 @@ namespace Anolis.Resourcer {
 			System.Windows.Forms.MenuItem @__mActionSep1;
 			System.Windows.Forms.MenuItem @__mEditSep1;
 			System.Windows.Forms.MenuItem @__cSep1;
+			System.Windows.Forms.MenuItem @__mToolsSep2;
+			System.Windows.Forms.MenuItem @__mToolsSep1;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.@__sSep1 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.@__sSep2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -84,6 +86,7 @@ namespace Anolis.Resourcer {
 			this.@__mFileSave = new System.Windows.Forms.MenuItem();
 			this.@__mFileBackup = new System.Windows.Forms.MenuItem();
 			this.@__mFileRevert = new System.Windows.Forms.MenuItem();
+			this.@__mFileProperties = new System.Windows.Forms.MenuItem();
 			this.@__mFileExit = new System.Windows.Forms.MenuItem();
 			this.@__mEdit = new System.Windows.Forms.MenuItem();
 			this.@__mEditCut = new System.Windows.Forms.MenuItem();
@@ -118,7 +121,7 @@ namespace Anolis.Resourcer {
 			this.@__cToolbarLarge = new System.Windows.Forms.MenuItem();
 			this.@__cToolbarSmall = new System.Windows.Forms.MenuItem();
 			this.@__cMenu = new System.Windows.Forms.MenuItem();
-			this.@__mFileProperties = new System.Windows.Forms.MenuItem();
+			this.@__mToolsStringEditor = new System.Windows.Forms.MenuItem();
 			@__tSep1 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSep2 = new System.Windows.Forms.ToolStripSeparator();
 			@__tSrcMruSep1 = new System.Windows.Forms.ToolStripSeparator();
@@ -129,6 +132,8 @@ namespace Anolis.Resourcer {
 			@__mActionSep1 = new System.Windows.Forms.MenuItem();
 			@__mEditSep1 = new System.Windows.Forms.MenuItem();
 			@__cSep1 = new System.Windows.Forms.MenuItem();
+			@__mToolsSep2 = new System.Windows.Forms.MenuItem();
+			@__mToolsSep1 = new System.Windows.Forms.MenuItem();
 			this.@__split.Panel1.SuspendLayout();
 			this.@__split.SuspendLayout();
 			this.@__nav.SuspendLayout();
@@ -613,6 +618,11 @@ namespace Anolis.Resourcer {
 			this.@__mFileRevert.Index = 7;
 			this.@__mFileRevert.Text = "Revert...";
 			// 
+			// __mFileProperties
+			// 
+			this.@__mFileProperties.Index = 8;
+			this.@__mFileProperties.Text = "Properties...";
+			// 
 			// __mFileExit
 			// 
 			this.@__mFileExit.Index = 10;
@@ -759,7 +769,10 @@ namespace Anolis.Resourcer {
 			this.@__mTools.Index = 4;
 			this.@__mTools.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.@__mToolsBatch,
+            @__mToolsSep1,
             this.@__mToolsPending,
+            this.@__mToolsStringEditor,
+            @__mToolsSep2,
             this.@__mToolsOptions});
 			this.@__mTools.Text = "&Tools";
 			// 
@@ -770,12 +783,12 @@ namespace Anolis.Resourcer {
 			// 
 			// __mToolsPending
 			// 
-			this.@__mToolsPending.Index = 1;
+			this.@__mToolsPending.Index = 2;
 			this.@__mToolsPending.Text = "Pending Operations...";
 			// 
 			// __mToolsOptions
 			// 
-			this.@__mToolsOptions.Index = 2;
+			this.@__mToolsOptions.Index = 5;
 			this.@__mToolsOptions.Text = "Options...";
 			// 
 			// __mHelp
@@ -834,10 +847,20 @@ namespace Anolis.Resourcer {
 			this.@__cMenu.Index = 4;
 			this.@__cMenu.Text = "Show Menu";
 			// 
-			// __mFileProperties
+			// __mToolsStringEditor
 			// 
-			this.@__mFileProperties.Index = 8;
-			this.@__mFileProperties.Text = "Properties...";
+			this.@__mToolsStringEditor.Index = 3;
+			this.@__mToolsStringEditor.Text = "String Table Editor...";
+			// 
+			// __mToolsSep2
+			// 
+			@__mToolsSep2.Index = 4;
+			@__mToolsSep2.Text = "-";
+			// 
+			// __mToolsSep1
+			// 
+			@__mToolsSep1.Index = 1;
+			@__mToolsSep1.Text = "-";
 			// 
 			// MainForm
 			// 
@@ -954,6 +977,7 @@ namespace Anolis.Resourcer {
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.ToolStripButton __navNext;
 		private System.Windows.Forms.MenuItem __mFileProperties;
+		private System.Windows.Forms.MenuItem __mToolsStringEditor;
 	}
 }
 

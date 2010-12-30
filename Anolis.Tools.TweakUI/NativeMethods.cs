@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Anolis.TweakUI {
+namespace Anolis.Tools.TweakUI {
 	
 	internal static class NativeMethods {
 		

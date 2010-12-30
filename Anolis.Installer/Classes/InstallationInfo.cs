@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-using Anolis.Core.Packages;
+using Anolis.Packages;
 
 using W3b.Wizards;
 

@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
 using System.Reflection;
+using System.IO;
+using Microsoft.Win32;
 
 namespace Anolis.Resourcer.Controls {
 	
@@ -11,6 +13,52 @@ namespace Anolis.Resourcer.Controls {
 		
 		// Shame a lot of the methods are private rather than protected.
 		// Here's to Lutz Roeder's Reflector
+		
+		private Boolean _aero;
+		
+		public ToolStripImprovedSystemRenderer() {
+			
+			_aero = IsUsingAero();
+			
+			SystemEvents.UserPreferenceChanged += new UserPreferenceChangedEventHandler(SystemEvents_UserPreferenceChanged);
+		}
+		
+		private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e) {
+			
+			_aero = IsUsingAero();
+		}
+		
+		protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e) {
+			
+			ToolStrip toolStrip = e.ToolStrip;
+			if( toolStrip is BindingNavigator || toolStrip is MenuStrip || toolStrip is StatusStrip || toolStrip is ToolStripDropDown ) {
+				base.OnRenderToolStripBorder(e);
+				return;
+			}
+			
+			if( _aero ) {
+				
+				Pen topBorder = new Pen( Color.FromArgb( 250, 250, 250 ) );
+				Pen botBorder = new Pen( Color.FromArgb( 169, 185, 202 ) );
+				
+				Point tl = new Point( 0                         ,                           0 );
+				Point tr = new Point( e.AffectedBounds.Width - 1,                           0 );
+				Point bl = new Point( 0                         , e.AffectedBounds.Height - 1 );
+				Point br = new Point( e.AffectedBounds.Width - 1, e.AffectedBounds.Height - 1 );
+				
+				e.Graphics.DrawLine( topBorder, tl, tr );
+				
+				e.Graphics.DrawLine( botBorder, bl, br );
+				
+				topBorder.Dispose();
+				botBorder.Dispose();
+				
+			} else {
+				
+				base.OnRenderToolStripBorder(e);
+			}
+				
+		}
 		
 		protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e) {
 			
@@ -47,7 +95,31 @@ namespace Anolis.Resourcer.Controls {
 //					visualStyleRenderer.SetParameters(VisualStyleElement.Rebar.Band.Normal); // this is not implemented in WinForms, for shame. Refer to RebarRenderer
 //					visualStyleRenderer.DrawBackground(g, affectedBounds);
 					
-					RebarRenderer.DrawBackground(g, affectedBounds);
+					if( _aero ) {
+						
+						// the Aero toolbar background image is ugly, ugly, ugly
+						// so here's a Camifox-inspired background gradient
+						
+						// unfortunately the gradient makes use of midpoints, which GDI doesn't support
+						// so use a PNG
+						
+						Bitmap aeroBg = Resources.Toolbar_Aero;
+						
+						Rectangle affectedBoundsSameHeight = affectedBounds;
+						affectedBoundsSameHeight.Height = aeroBg.Height;
+						
+						g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+//						g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+						g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+						g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+						g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+						
+						g.DrawImage( aeroBg, affectedBoundsSameHeight );
+						
+					} else {
+						
+						RebarRenderer.DrawBackground(g, affectedBounds);
+					}
 					
 				} else {
 					FillBackground(g, affectedBounds, !ToolStripManager.VisualStylesEnabled ? e.BackColor : SystemColors.MenuBar);
@@ -92,6 +164,28 @@ namespace Anolis.Resourcer.Controls {
 				
 				e.Graphics.Clear(e.BackColor);
 			}
+		}
+		
+		public static Boolean IsUsingAero() {
+			
+			Type vsiType = typeof(VisualStyleInformation);
+			PropertyInfo pi;
+			
+			try {
+				pi = vsiType.GetProperty("ThemeFilename", BindingFlags.Static | BindingFlags.NonPublic, null, typeof(String), new Type[0], null);
+			} catch(AmbiguousMatchException) {
+				return false;
+			}
+			
+			if( pi == null ) return false;
+			
+			String fileName = (String)pi.GetValue(null, null);
+			
+			if( String.IsNullOrEmpty( fileName ) ) return false;
+			
+			fileName = Path.GetFileName( fileName );
+			
+			return String.Equals( "aero.msstyles", fileName, StringComparison.OrdinalIgnoreCase );
 		}
 		
 #region Reflected Properties

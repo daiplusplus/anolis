@@ -1,4 +1,4 @@
-﻿namespace Anolis.FileTypes {
+﻿namespace Anolis.Tools.TweakUI.FileTypes {
 	partial class TypeEditor {
 		/// <summary> 
 		/// Required designer variable.

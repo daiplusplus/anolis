@@ -6,7 +6,6 @@ using Anolis.Core;
 using Anolis.Core.Data;
 using Anolis.Core.Source;
 using System.IO;
-
 using Anolis.Core.Utility;
 
 namespace Anolis.Resourcer.CommandLine {
@@ -185,81 +184,93 @@ namespace Anolis.Resourcer.CommandLine {
 		
 		private void ProcessFile(FileInfo file) {
 			
-			ResourceSource source;
-			Int32 nofNames = 0;
+			Int32 nofNames;
+			
+			using(ResourceSource source = OpenSource(file, out nofNames)) {
+				
+				if( source == null ) return;
+				
+				// now process it
+				Int32 i = 1;
+				foreach(ResourceType type in source.AllTypes) {
+					
+					foreach(ResourceName name in type.Names) {
+						
+						foreach(ResourceLang lang in name.Langs) {
+							
+							try {
+								
+								// such as it is, you need to load ALL the resource data to determine its type as ResourceType is unreliable
+								ResourceData data = lang.Data;
+								
+								if( ShouldExportData( data ) ) {
+									
+									// one directory per file
+									// get the path of the file relative to the root directory being searched
+									String relativeName = file.FullName.Substring( Options.SourceDirectory.FullName.Length );
+									if( relativeName.StartsWith("\\") ) relativeName = relativeName.Substring( 1 );
+									
+									String directory = Path.Combine( Options.ExportDirectory.FullName, relativeName );
+									
+									if( !Directory.Exists( directory ) ) Directory.CreateDirectory( directory );
+									
+									////////////////////////////////
+									
+									String fileName;
+									
+									if( Options.ExportLongNames || name.Langs.Count > 1 ) {
+										fileName = Miscellaneous.FSSafeResPath( lang.ResourcePath );
+									} else {
+										fileName = Miscellaneous.FSSafeResPath( name.Identifier.FriendlyName );
+									}
+									
+									fileName = Path.Combine( directory, fileName ) + data.RecommendedExtension;
+									
+									fileName = Miscellaneous.GetUnusedFileName( fileName );
+									
+									data.Save( fileName );
+									
+								}
+								
+							} catch(Exception ex) {
+								
+								Log.Add( LogSeverity.Error, "Couldn't save " + file.FullName + lang.ResourcePath + ", Exception: " + ex.Message );
+								
+							}
+							
+							
+						}//lang
+						
+						OnMinorProgressChanged( i++, nofNames, name.Identifier.FriendlyName );
+						
+					}//name
+					
+				}//type
+				
+				Log.Add( LogSeverity.Info, "Processed " + file.FullName + " OK" );
+			}//using
+		}
+		
+		private ResourceSource OpenSource(FileInfo file, out int nofNames) {
+			
+			nofNames = 0;
 			
 			try {
 				
-				source = ResourceSource.Open( file.FullName, true, ResourceSourceLoadMode.LazyLoadData );
+				ResourceSource source = ResourceSource.Open( file.FullName, true, ResourceSourceLoadMode.LazyLoadData );
 				
 				// quickly get a count of all the names
 				foreach(ResourceType type in source.AllTypes) foreach(ResourceName name in type.Names) nofNames++;
-			
+				
+				return source;
+				
 			} catch(AnolisException aex) {
 				
 				Log.Add( LogSeverity.Error, "Couldn't open " + file.FullName + ", " + aex.Message );
 				
-				return;
+				return null;
 			}
 			
-			// now process it
-			Int32 i = 1;
-			foreach(ResourceType type in source.AllTypes) {
-				
-				foreach(ResourceName name in type.Names) {
-					
-					foreach(ResourceLang lang in name.Langs) {
-						
-						try {
-							
-							// such as it is, you need to load ALL the resource data to determine its type as ResourceType is unreliable
-							ResourceData data = lang.Data;
-							
-							if( ShouldExportData( data ) ) {
-								
-								// one directory per file
-								// get the path of the file relative to the root directory being searched
-								String relativeName = file.FullName.Substring( Options.SourceDirectory.FullName.Length );
-								if( relativeName.StartsWith("\\") ) relativeName = relativeName.Substring( 1 );
-								
-								String directory = Path.Combine( Options.ExportDirectory.FullName, relativeName );
-								
-								if( !Directory.Exists( directory ) ) Directory.CreateDirectory( directory );
-								
-								////////////////////////////////
-								
-								String fileName;
-								
-								if( Options.ExportLongNames || name.Langs.Count > 1 ) {
-									fileName = Miscellaneous.FSSafeResPath( lang.ResourcePath );
-								} else {
-									fileName = Miscellaneous.FSSafeResPath( name.Identifier.FriendlyName );
-								}
-								
-								fileName = Path.Combine( directory, fileName ) + data.RecommendedExtension;
-								
-								fileName = Anolis.Core.Packages.PackageUtility.GetUnusedFileName( fileName );
-								
-								data.Save( fileName );
-								
-							}
-							
-						} catch(Exception ex) {
-							
-							Log.Add( LogSeverity.Error, "Couldn't save " + file.FullName + lang.ResourcePath + ", Exception: " + ex.Message );
-							
-						}
-						
-						
-					}//lang
-					
-					OnMinorProgressChanged( i++, nofNames, name.Identifier.FriendlyName );
-					
-				}//name
-				
-			}//type
-			
-			Log.Add( LogSeverity.Info, "Processed " + file.FullName + " OK" );
 		}
 		
 		private Boolean ShouldExportData(ResourceData data) {

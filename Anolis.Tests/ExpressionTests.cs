@@ -2,9 +2,9 @@
 using System.Text;
 using System.Collections.Generic;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Anolis.Packages;
 
-using Anolis.Core.Packages;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Anolis.Test.Expressions {
 	

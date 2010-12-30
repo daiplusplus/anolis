@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 
-using Anolis.Core.Packages;
+using Anolis.Packages;
 
 using Env  = Anolis.Core.Utility.Environment;
 using Cult = System.Globalization.CultureInfo;

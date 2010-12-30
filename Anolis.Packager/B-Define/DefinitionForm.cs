@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml;
 
-using Anolis.Core.Packages;
-using Anolis.Core.Packages.Operations;
+using Anolis.Packages;
+using Anolis.Packages.Operations;
 
 using Cult = System.Globalization.CultureInfo;
 

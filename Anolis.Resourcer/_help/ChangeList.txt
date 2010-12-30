@@ -1,0 +1,17 @@
+Anolis Resourcer Changelist
+----------------------------
+
+Release XXX - 201X-XX-XX
+
+Issues fixed:
+* Batch extraction now unloads ResourceSource files after processing, which frees up memory and should prevent Win32Exceptions from being thrown unnecessarily (see http://anolis.codeplex.com/Thread/View.aspx?ThreadId=226755 ).
+
+Improvements:
+* When running on Windows Vista or Windows 7 with the Aero theme enabled, the toolbar now gets a much nicer background gradient that isn't as visually offensive as the Windows default. The gradient is the same as the one used in the Camifox theme for Firefox.
+
+TODO:
+* Embed UPX
+* Redo Win32 ResourceSource to read PE file directly, and extract the resources that way (see PE/COFF specification), and so detect UPX and perform UPX first
+* Fix up Dialog and Menu viewers, and get them to edit them too
+* Unified string table editor
+* Aero style Back/Up/Next buttons

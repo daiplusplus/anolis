@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Anolis.Core {
+namespace Anolis {
 
-	[System.Serializable]
+	[Serializable]
 	public class AnolisException : Exception {
 		
 		public AnolisException() {

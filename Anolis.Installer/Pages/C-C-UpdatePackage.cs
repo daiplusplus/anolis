@@ -1,20 +1,16 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Net;
-using System.Text;
 using System.Windows.Forms;
 
-using W3b.Wizards;
 using W3b.Wizards.WindowsForms;
 
-using Anolis.Core.Packages;
+using Anolis.Packages;
 using Anolis.Core.Utility;
 
-
 using Cult = System.Globalization.CultureInfo;
+using Anolis.Packages.Utility;
 
 namespace Anolis.Installer.Pages {
 	

@@ -20,6 +20,12 @@ namespace Anolis.Resourcer {
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
 				
+				if( args.Length > 0 && args[0] == "DEBUG" ) {
+					
+					DebuggerForm form = new DebuggerForm();
+					form.ShowDialog();
+				}
+				
 				try {
 					
 					///////////////////////////////

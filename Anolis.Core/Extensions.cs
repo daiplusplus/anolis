@@ -23,7 +23,7 @@ namespace System.Runtime.CompilerServices {
 	
 }
 
-namespace Anolis.Core {
+namespace Anolis {
 	
 	public static class Extensions {
 		

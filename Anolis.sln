@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Core", "Anolis.Core\Anolis.Core.csproj", "{967BF434-D4F9-41E3-8B82-433987DEB4A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Resources", "Anolis.Core\Anolis.Resources.csproj", "{967BF434-D4F9-41E3-8B82-433987DEB4A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Resourcer", "Anolis.Resourcer\Anolis.Resourcer.csproj", "{A651602A-6FF5-4DCC-A1FE-4A794F412A36}"
 EndProject
@@ -27,9 +27,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.TweakUI", "Ano
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.ImageTools", "Anolis.Tools.ImageTools\Anolis.Tools.ImageTools.csproj", "{D91DE542-5202-4334-BC23-19DE4F36AB95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Tools.PEInfo", "Anolis.Tools.PEInfo\Anolis.Tools.PEInfo.csproj", "{FF3A57DA-CB94-4163-9969-01C7FFDFB221}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anolis.Packages", "Anolis.Core.Packages\Anolis.Packages.csproj", "{2D62D22E-9DD3-4F42-818D-7F63A04E2AF6}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 10
+		SccNumberOfProjects = 12
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/TFS03
 		SccLocalPath0 = .
@@ -39,27 +43,33 @@ Global
 		SccProjectUniqueName2 = Anolis.Console\\Anolis.Console.csproj
 		SccProjectName2 = Anolis.Console
 		SccLocalPath2 = Anolis.Console
-		SccProjectUniqueName3 = Anolis.Core\\Anolis.Core.csproj
-		SccProjectName3 = Anolis.Core
-		SccLocalPath3 = Anolis.Core
-		SccProjectUniqueName4 = Anolis.IconEditor\\Anolis.IconEditor.csproj
-		SccProjectName4 = Anolis.IconEditor
-		SccLocalPath4 = Anolis.IconEditor
-		SccProjectUniqueName5 = Anolis.Installer\\Anolis.Installer.csproj
-		SccProjectName5 = Anolis.Installer
-		SccLocalPath5 = Anolis.Installer
-		SccProjectUniqueName6 = Anolis.Packager\\Anolis.Packager.csproj
-		SccProjectName6 = Anolis.Packager
-		SccLocalPath6 = Anolis.Packager
-		SccProjectUniqueName7 = Anolis.Resourcer\\Anolis.Resourcer.csproj
-		SccProjectName7 = Anolis.Resourcer
-		SccLocalPath7 = Anolis.Resourcer
-		SccProjectUniqueName8 = Anolis.Tests\\Anolis.Tests.csproj
-		SccProjectName8 = Anolis.Tests
-		SccLocalPath8 = Anolis.Tests
-		SccProjectUniqueName9 = Anolis.Tools.TweakUI\\Anolis.Tools.TweakUI.csproj
-		SccProjectName9 = Anolis.Tools.TweakUI
-		SccLocalPath9 = Anolis.Tools.TweakUI
+		SccProjectUniqueName3 = Anolis.IconEditor\\Anolis.IconEditor.csproj
+		SccProjectName3 = Anolis.IconEditor
+		SccLocalPath3 = Anolis.IconEditor
+		SccProjectUniqueName4 = Anolis.Installer\\Anolis.Installer.csproj
+		SccProjectName4 = Anolis.Installer
+		SccLocalPath4 = Anolis.Installer
+		SccProjectUniqueName5 = Anolis.Packager\\Anolis.Packager.csproj
+		SccProjectName5 = Anolis.Packager
+		SccLocalPath5 = Anolis.Packager
+		SccProjectUniqueName6 = Anolis.Resourcer\\Anolis.Resourcer.csproj
+		SccProjectName6 = Anolis.Resourcer
+		SccLocalPath6 = Anolis.Resourcer
+		SccProjectUniqueName7 = Anolis.Tests\\Anolis.Tests.csproj
+		SccProjectName7 = Anolis.Tests
+		SccLocalPath7 = Anolis.Tests
+		SccProjectUniqueName8 = Anolis.Tools.TweakUI\\Anolis.Tools.TweakUI.csproj
+		SccProjectName8 = Anolis.Tools.TweakUI
+		SccLocalPath8 = Anolis.Tools.TweakUI
+		SccProjectUniqueName9 = Anolis.Tools.PEInfo\\Anolis.Tools.PEInfo.csproj
+		SccProjectName9 = Anolis.Tools.PEInfo
+		SccLocalPath9 = Anolis.Tools.PEInfo
+		SccProjectUniqueName10 = Anolis.Core.Packages\\Anolis.Packages.csproj
+		SccProjectName10 = Anolis.Core.Packages
+		SccLocalPath10 = Anolis.Core.Packages
+		SccProjectUniqueName11 = Anolis.Core\\Anolis.Resources.csproj
+		SccProjectName11 = Anolis.Core
+		SccLocalPath11 = Anolis.Core
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Anolis.vsmdi
@@ -128,6 +138,18 @@ Global
 		{D91DE542-5202-4334-BC23-19DE4F36AB95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D91DE542-5202-4334-BC23-19DE4F36AB95}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D91DE542-5202-4334-BC23-19DE4F36AB95}.Release|x86.ActiveCfg = Release|Any CPU
+		{FF3A57DA-CB94-4163-9969-01C7FFDFB221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF3A57DA-CB94-4163-9969-01C7FFDFB221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF3A57DA-CB94-4163-9969-01C7FFDFB221}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FF3A57DA-CB94-4163-9969-01C7FFDFB221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF3A57DA-CB94-4163-9969-01C7FFDFB221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF3A57DA-CB94-4163-9969-01C7FFDFB221}.Release|x86.ActiveCfg = Release|Any CPU
+		{2D62D22E-9DD3-4F42-818D-7F63A04E2AF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D62D22E-9DD3-4F42-818D-7F63A04E2AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D62D22E-9DD3-4F42-818D-7F63A04E2AF6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2D62D22E-9DD3-4F42-818D-7F63A04E2AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D62D22E-9DD3-4F42-818D-7F63A04E2AF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D62D22E-9DD3-4F42-818D-7F63A04E2AF6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

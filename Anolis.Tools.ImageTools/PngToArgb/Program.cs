@@ -5,20 +5,11 @@ using System.IO;
 
 namespace Anolis.Tools.PngToArgb {
 	
-	public class Program {
+	public class PngToArgb {
 		
-		public static void Main(String[] args) {
+		public static void Process(String directory) {
 			
-			String dir;
-			
-			if( args.Length >0 ) {
-				dir = args[0];
-			} else {
-				Console.WriteLine("Path?");
-				dir = Console.ReadLine();
-			}
-			
-			ProcessDirectory( new DirectoryInfo( dir ) );
+			ProcessDirectory( new DirectoryInfo( directory ) );
 			
 		}
 		

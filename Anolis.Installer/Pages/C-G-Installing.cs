@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-using Anolis.Core.Packages;
+using Anolis.Packages;
 using Anolis.Core.Utility;
 
 using W3b.Wizards.WindowsForms;

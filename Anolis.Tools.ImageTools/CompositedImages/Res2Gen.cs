@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-using Anolis.Core.Packages;
 using Anolis.Core.Utility;
 
 namespace Anolis.Tools.CompositedImages {

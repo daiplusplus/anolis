@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Text;
 using System.Xml;
-using Anolis.Core;
-using Anolis.Core.Packages;
+
 using Anolis.Core.Utility;
+using Anolis.Packages.Utility;
 
 namespace Anolis.Packager {
 	

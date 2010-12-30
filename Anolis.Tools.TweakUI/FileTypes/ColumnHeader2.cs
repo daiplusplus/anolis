@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace Anolis.FileTypes {
+namespace Anolis.Tools.TweakUI.FileTypes {
 	
 	public class ColumnHeader2 : ColumnHeader {
 		
