@@ -66,6 +66,10 @@ namespace Anolis.Resourcer {
 			this.__tree.AfterSelect         += new TreeViewEventHandler(__tree_AfterSelect);
 			this.__treeMenu.Opening         += new System.ComponentModel.CancelEventHandler(__treeMenu_Opening);
 			
+			this.KeyDown += new KeyEventHandler(MainForm_KeyDown);
+			this.KeyUp   += new KeyEventHandler(MainForm_KeyUp);
+			this.KeyPreview = true;
+			
 #region Menu Events
 			
 			this.__mFileNew         .Click += new EventHandler(__mFileNew_Click);
@@ -74,14 +78,14 @@ namespace Anolis.Resourcer {
 			this.__mFileClose       .Click += new EventHandler(__mFileClose_Click);
 			this.__mFileBackup      .Click += new EventHandler(__mFileBackup_Click);
 			this.__mFileRevert      .Click += new EventHandler(__mFileRevert_Click);
-			this.__mFileProperties.Click += new EventHandler(__mFileProperties_Click);
+			this.__mFileProperties  .Click += new EventHandler(__mFileProperties_Click);
 			this.__mFileExit        .Click += new EventHandler(__mFileExit_Click);
 			
 			this.__mEditCut         .Click += new EventHandler(__mEditCut_Click);
 			this.__mEditCopy        .Click += new EventHandler(__mEditCopy_Click);
 			this.__mEditPaste       .Click += new EventHandler(__mEditPaste_Click);
 			this.__mEditFind        .Click += new EventHandler(__mEditFind_Click);
-			this.__mEditFindNext     .Click += new EventHandler(__mEditFindNext_Click);
+			this.__mEditFindNext    .Click += new EventHandler(__mEditFindNext_Click);
 			this.__mEditSelectAll   .Click += new EventHandler(__mEditSelectAll_Click);
 			
 			this.__mViewToolbar     .Click += new EventHandler(__mViewToolbar_Click);
@@ -105,7 +109,7 @@ namespace Anolis.Resourcer {
 			this.__mHelpAbout       .Click += new EventHandler(__mHelpAbout_Click);
 			
 			this.__t.ContextMenu = __c;
-
+			
 			this.__c.Popup += new EventHandler(__c_Popup);
 			
 			this.__cToolbar         .Click += new EventHandler(__cToolbar_Click);
@@ -114,12 +118,8 @@ namespace Anolis.Resourcer {
 			this.__cMenu            .Click += new EventHandler(__cMenu_Click);
 			
 #endregion
-
-			this._findForm.FindNextClicked += new EventHandler(_findForm_FindNextClicked);
 			
-			//this.__treeStateImages.Images.Add( "Add", Resources.Tree_Add );
-			//this.__treeStateImages.Images.Add( "Upd", Resources.Tree_Edit );
-			//this.__treeStateImages.Images.Add( "Del", Resources.Tree_Delete );
+			this._findForm.FindNextClicked += new EventHandler(_findForm_FindNextClicked);
 			
 			_history = new System.Collections.Generic.Stack<NavigateItem>();
 			this.__navBack.Click += new EventHandler(__navBack_Click);
@@ -129,7 +129,7 @@ namespace Anolis.Resourcer {
 			_viewData = new ResourceDataView();
 			_viewList = new ResourceListView();
 			
-			_viewList.ItemActivated += new EventHandler<ResourceListViewEventArgs>(_viewList_ItemActivated);
+			_viewList.ItemActivated       += new EventHandler<ResourceListViewEventArgs>(_viewList_ItemActivated);
 			_viewList.SelectedItemChanged += new EventHandler<ResourceListViewEventArgs>(_viewList_SelectedItemChanged);
 		}
 		
@@ -714,16 +714,67 @@ namespace Anolis.Resourcer {
 	
 	#region Main Menu
 		
+		protected override bool IsInputKey(Keys keyData) {
+			if( keyData == Keys.Alt ) return true;
+			return base.IsInputKey(keyData);
+		}
+		
+		private void MainForm_KeyUp(object sender, KeyEventArgs e) {
+			if( e.KeyCode != Keys.Alt ) return;
+			
+			if( _menuBarVisibleTemporarily ) {
+				MenuBarVisible = false;
+				_menuBarVisibleTemporarily = false;
+			}
+		}
+		
+		private Boolean _menuBarVisibleTemporarily;
+		
+		private void MainForm_KeyDown(object sender, KeyEventArgs e) {
+			if( e.KeyCode != Keys.Alt ) return; // for some reason pressing Alt (on my computer) causes Keys.LButton|Keys.ShiftKey to be the value of e.KeyCode
+			
+			if( !MenuBarVisible ) {
+				MenuBarVisible = true;
+				_menuBarVisibleTemporarily = true;
+			}
+		}
+		
+		private Boolean MenuBarVisible {
+			get {
+				return __menu.MenuItems[0].Visible;
+			}
+			set {
+				foreach(MenuItem item in __menu.MenuItems) item.Visible = value;
+			}
+		}
+		
 		private void MenubarUpdate(Boolean isReadOnly) {
 			
 			////////////////////////
 			// Enable/Disable
+			
+			////////////////////////
+			// File
 			
 			__mFileSave  .Enabled = !isReadOnly;
 			__mFileBackup.Enabled = !isReadOnly;
 			__mFileRevert.Enabled = !isReadOnly;
 			__mFileClose .Enabled = CurrentSource != null;
 			__mFileProperties.Enabled = CurrentSource as Anolis.Core.Source.FileResourceSource != null;
+			
+			////////////////////////
+			// Edit
+			
+			
+			
+			////////////////////////
+			// View
+			
+			////////////////////////
+			// Tools
+			
+			////////////////////////
+			// Actions
 			
 			__mToolsPending.Enabled = !isReadOnly;
 			

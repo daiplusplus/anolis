@@ -4,9 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 
-using Anolis.Core.Utility;
+using Anolis.Packages.Utility;
 
-namespace Anolis.FileTypes {
+namespace Anolis.Tools.TweakUI.FileTypes {
 	
 	public partial class TypeEditor : UserControl {
 		

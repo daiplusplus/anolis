@@ -5,12 +5,10 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-using Anolis.Core.Packages;
+using Anolis.Packages;
+using Anolis.Packages.Utility;
 
-using Log         = Anolis.Core.Utility.Log;
-using LogItem     = Anolis.Core.Utility.LogItem;
-using LogSeverity = Anolis.Core.Utility.LogSeverity;
-using Env         = Anolis.Core.Utility.Environment;
+using Env = Anolis.Core.Utility.Environment;
 
 namespace Anolis.Installer {
 	

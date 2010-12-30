@@ -5,7 +5,7 @@ using System.Text;
 
 using Cult = System.Globalization.CultureInfo;
 
-namespace Anolis.Core.Utility {
+namespace Anolis {
 	
 	public class Log : Collection<LogItem> {
 		

@@ -5,16 +5,19 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Anolis.Tools.TweakUI.FileTypes;
+using Anolis.Tools.TweakUI.ThumbsDB;
 
-namespace Anolis.TweakUI {
+namespace Anolis.Tools.TweakUI {
 	
 	public partial class MainForm : Form {
 		
 		public MainForm() {
 			InitializeComponent();
 			
-			
 			this.Load += new EventHandler(MainForm_Load);
+			this.__toolsThumbs.Click += new EventHandler(__toolsThumbs_Click);
+			this.__toolsTypes.Click += new EventHandler(__toolsTypes_Click);
 		}
 		
 		private void MainForm_Load(object sender, EventArgs e) {
@@ -34,8 +37,8 @@ namespace Anolis.TweakUI {
 					__sis24.Checked = true;
 					break;
 				default:
-					__sisCustom.Checked = true;
-					__sisCustomTxt.Text = size.ToString();
+					__sisCustomRad.Checked = true;
+					__sisCustom.Value = size;
 					break;
 			}
 			
@@ -54,12 +57,23 @@ namespace Anolis.TweakUI {
 					__lis48.Checked = true;
 					break;
 				default:
-					__lisCustom.Checked = true;
-					__lisCustomTxt.Text = size.ToString();
+					__lisCustomRad.Checked = true;
+					__lisCustom.Value = size;
 					break;
 			}
+		}
+		
+		private void __toolsTypes_Click(object sender, EventArgs e) {
 			
+			FileTypeForm form = new FileTypeForm();
+			form.ShowDialog(this);
 			
+		}
+		
+		private void __toolsThumbs_Click(object sender, EventArgs e) {
+			
+			ThumbnailForm form = new ThumbnailForm();
+			form.ShowDialog(this);
 			
 		}
 		

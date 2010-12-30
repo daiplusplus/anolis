@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-using Anolis.Core.Packages;
-using Anolis.Core.Packages.Operations;
+using Anolis.Packages;
+using Anolis.Packages.Operations;
 using W3b.Wizards.WindowsForms;
 
 using Cult = System.Globalization.CultureInfo;

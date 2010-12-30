@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 
 using Anolis.Core.Utility;
+using Anolis.Packages.Utility;
 
 namespace Anolis.Installer.Pages {
 	
@@ -79,7 +80,7 @@ namespace Anolis.Installer.Pages {
 				
 			} else {
 				
-				if( __restore.Enabled = __restoreDesc.Enabled = Anolis.Core.Utility.SystemRestore.IsSystemRestoreAvailable() ) {
+				if( __restore.Enabled = __restoreDesc.Enabled = SystemRestore.IsSystemRestoreAvailable() ) {
 					
 					__restore.Checked  = PackageInfo.SystemRestore;
 					

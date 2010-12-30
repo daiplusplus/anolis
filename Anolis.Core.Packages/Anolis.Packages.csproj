@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2D62D22E-9DD3-4F42-818D-7F63A04E2AF6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Anolis.Packages</RootNamespace>
+    <AssemblyName>Anolis.Packages</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.XML" />
+    <Reference Include="W3b.TarLzma, Version=0.8.3578.32139, Culture=neutral, PublicKeyToken=afbbd1ad3e927857, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_ref\W3b.TarLzma\W3b.TarLzma.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Archives\PackageArchive.cs" />
+    <Compile Include="Archives\TarLzmaPackageArchive.cs" />
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="Expression.cs" />
+    <Compile Include="Group.cs" />
+    <Compile Include="Native\NativeMethods.cs" />
+    <Compile Include="Operations\ClearIconCacheOperation.cs" />
+    <Compile Include="Operations\CursorSchemeOperation.cs" />
+    <Compile Include="Operations\DirectoryOperation.cs" />
+    <Compile Include="Operations\ExtraOperation.cs" />
+    <Compile Include="Operations\Extras\BootScreenExtraOperation.cs" />
+    <Compile Include="Operations\Extras\CustomExtraOperation.cs" />
+    <Compile Include="Operations\Extras\RegistryExtraOperation.cs" />
+    <Compile Include="Operations\Extras\RunOnceExtraOperation.cs" />
+    <Compile Include="Operations\Extras\ScreensaverExtraOperation.cs" />
+    <Compile Include="Operations\Extras\VisualStyleExtraOperation.cs" />
+    <Compile Include="Operations\Extras\WallpaperExtraOperation.cs" />
+    <Compile Include="Operations\FileOperation.cs" />
+    <Compile Include="Operations\FileTypeOperation.cs" />
+    <Compile Include="Operations\Operation.cs" />
+    <Compile Include="Operations\PatchOperation.cs" />
+    <Compile Include="Operations\ProgramOperation.cs" />
+    <Compile Include="Operations\RegistryOperation.cs" />
+    <Compile Include="Operations\ResPatchOperation.cs" />
+    <Compile Include="Operations\SystemParameterOperation.cs" />
+    <Compile Include="Operations\UninstallationOperation.cs" />
+    <Compile Include="Operations\UxThemeOperation.cs" />
+    <Compile Include="Package.cs" />
+    <Compile Include="PackageBase.cs" />
+    <Compile Include="PackageCDImage.cs" />
+    <Compile Include="PackageExecution.cs" />
+    <Compile Include="PackageItem.cs" />
+    <Compile Include="Native\NativeTypes.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\BinaryPatcher.cs" />
+    <Compile Include="Utility\BootIni.cs" />
+    <Compile Include="Utility\FileType.cs" />
+    <Compile Include="Utility\PackageUtility.cs" />
+    <Compile Include="Presets.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\SystemRestore.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Packages.cd" />
+    <None Include="Xml\PackageSchema.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Anolis.Core\Anolis.Resources.csproj">
+      <Project>{967BF434-D4F9-41E3-8B82-433987DEB4A6}</Project>
+      <Name>Anolis.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

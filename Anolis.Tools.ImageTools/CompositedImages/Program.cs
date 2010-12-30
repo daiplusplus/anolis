@@ -9,6 +9,9 @@ using System.IO;
 
 namespace Anolis.Tools.CompositedImages {
 	
+	// this class is used internally to assist in creating the XML package definition for xpize
+	// feel free to use it if you can figure it out
+	
 	public class Program {
 		
 		const String _generatorMetaRoot = @"D:\Users\David\My Documents\Visual Studio Projects\Anolis\_resources\xpize\_source\Generator\";

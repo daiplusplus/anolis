@@ -8,9 +8,9 @@ using System.Windows.Forms;
 using W3b.Wizards.WindowsForms;
 
 using Anolis.Core;
-using Anolis.Core.Packages.Operations;
+using Anolis.Packages.Operations;
 using Anolis.Core.Utility;
-using Anolis.Core.Packages;
+using Anolis.Packages;
 using System.IO;
 
 namespace Anolis.Installer.Pages {

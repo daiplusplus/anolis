@@ -5,7 +5,7 @@ using Microsoft.Win32;
 using N    = System.Globalization.NumberStyles;
 using Cult = System.Globalization.CultureInfo;
 
-namespace Anolis.TweakUI {
+namespace Anolis.Tools.TweakUI {
 	
 	public static class ShellSettings {
 		

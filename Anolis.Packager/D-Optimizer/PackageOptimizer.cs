@@ -35,7 +35,7 @@ namespace Anolis.Packager {
 			List<String> ret = new List<String>();
 			
 			XmlReaderSettings settings = new XmlReaderSettings();
-			settings.Schemas.Add( Anolis.Core.Packages.Package.PackageSchema );
+			settings.Schemas.Add( Anolis.Packages.Package.PackageSchema );
 			settings.ValidationEventHandler += new ValidationEventHandler( delegate(Object sender, ValidationEventArgs ve) {
 				
 				String line = ve.Message;

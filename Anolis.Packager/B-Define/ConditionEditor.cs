@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using Anolis.Core;
-using Anolis.Core.Packages;
+using Anolis.Packages;
 using System.Threading;
 
 namespace Anolis.Packager {
@@ -150,7 +150,7 @@ namespace Anolis.Packager {
 			__dbgOpStack .Items.Clear();
 			__dbgValStack.Items.Clear();
 			
-			foreach(Operator op in state.OperatorStack) __dbgOpStack .Items.Add( Anolis.Core.Packages.Expression.OperatorSymbols[ op ] );
+			foreach(Operator op in state.OperatorStack) __dbgOpStack .Items.Add( Anolis.Packages.Expression.OperatorSymbols[ op ] );
 			foreach(Double   db in state.ValueStack   ) __dbgValStack.Items.Add( db );
 			
 			__dbgVal.Text = state.Value.ToString();

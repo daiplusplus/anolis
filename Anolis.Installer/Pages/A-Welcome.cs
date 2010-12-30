@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
+using Anolis.Packages.Utility;
 using W3b.Wizards.WindowsForms;
 
 namespace Anolis.Installer.Pages {
@@ -92,7 +90,7 @@ namespace Anolis.Installer.Pages {
 			///////////////////////
 			// Pending Operations
 			
-			if( !PackageInfo.IgnoreCondition && Anolis.Core.Packages.PackageUtility.HasPendingRestart() ) {
+			if( !PackageInfo.IgnoreCondition && PackageUtility.HasPendingRestart() ) {
 				
 				String message;
 				if( InstallerResources.IsCustomized ) {

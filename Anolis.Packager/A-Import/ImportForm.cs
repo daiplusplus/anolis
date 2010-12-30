@@ -6,8 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using Anolis.Core.Packages;
-using Anolis.Core.Packages.Operations;
+using Anolis.Packages;
+using Anolis.Packages.Operations;
 using System.IO;
 
 namespace Anolis.Packager {

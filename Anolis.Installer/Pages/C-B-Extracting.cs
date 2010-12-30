@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-using Anolis.Core.Packages;
+using Anolis.Packages;
 using W3b.Wizards.WindowsForms;
 
 namespace Anolis.Installer.Pages {

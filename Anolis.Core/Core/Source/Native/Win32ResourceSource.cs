@@ -3,10 +3,10 @@ using System.IO;
 
 using Anolis.Core.Data;
 using Anolis.Core.Native;
+using Anolis.Core.Utility;
 
 using Cult    = System.Globalization.CultureInfo;
 using Marshal = System.Runtime.InteropServices.Marshal;
-using Anolis.Core.Utility;
 
 namespace Anolis.Core.Source {
 	
@@ -21,7 +21,7 @@ namespace Anolis.Core.Source {
 			
 			using(FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write)) {
 				
-				Byte[] emptyDll = Resources.Win32EmptyPE;
+				Byte[] emptyDll = Anolis.Core.Resources.Win32EmptyPE;
 				
 				fs.Write( emptyDll, 0, emptyDll.Length );
 			}

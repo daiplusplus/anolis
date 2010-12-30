@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using Anolis.Core;
-using Anolis.Core.Packages;
+using Anolis.Packages;
 
 using W3b.Wizards.WindowsForms;
 

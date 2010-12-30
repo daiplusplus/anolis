@@ -1,7 +1,7 @@
 ﻿using System;
 
 using W3b.Wizards.WindowsForms;
-using Anolis.Core.Packages;
+using Anolis.Packages;
 
 
 namespace Anolis.Installer.Pages {

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
-using Anolis.Core;
-using Anolis.Core.Packages;
+
 using Anolis.Core.Utility;
+using Anolis.Packages.Utility;
+
 using W3b.Wizards;
 using W3b.Wizards.WindowsForms;
 

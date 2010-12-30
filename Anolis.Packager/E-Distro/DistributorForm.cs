@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
 
-using Anolis.Core.Source;
-using Cult = System.Globalization.CultureInfo;
-using Anolis.Core.Packages;
-using System.Drawing;
+using Anolis.Packages.Utility;
 
+using Cult = System.Globalization.CultureInfo;
 
 namespace Anolis.Packager {
 	

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Windows.Forms;
+
+using Anolis.Core.Utility;
+using Anolis.Packages.Utility;
 
 using W3b.Wizards.WindowsForms;
-using System.Windows.Forms;
-using Anolis.Core.Packages;
-using Anolis.Core.Utility;
 
 namespace Anolis.Installer.Pages {
 	

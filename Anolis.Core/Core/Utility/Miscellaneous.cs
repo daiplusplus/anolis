@@ -1,17 +1,12 @@
 ﻿using System;
-using System.IO;
-using System.Runtime.InteropServices;
 using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
-using System.Diagnostics;
-
-using Anolis.Core.Source;
-using Anolis.Core.Native;
-
-using Sfh     = Microsoft.Win32.SafeHandles.SafeFileHandle;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
+using System.Reflection;
+using System.Security.Principal;
+using System.Text;
+using Anolis.Core.Native;
 
 namespace Anolis.Core.Utility {
 	
@@ -125,117 +120,8 @@ namespace Anolis.Core.Utility {
 			return RemoveIllegalFileNameChars( path, '_' );
 		}
 		
-		public static void GrantFile(String fileName) {
-			
-			if( Environment.OSVersion.Version.Major >= 6 ) {
-				
-				RunProcHiddenSync("takeown", "/f " + fileName, 500);
-				
-				RunProcHiddenSync("icacls", fileName + " /grant %username%:F", 500);
-				
-				RunProcHiddenSync("icacls", fileName + " /grant *S-1-1-0:(F)", 500);
-				
-			} else if( Environment.OSVersion.Version.Major == 5) {
-				
-				WfpResult result = NativeMethods.SetSfcFileException( 0, fileName, -1 );
-				if( result != WfpResult.Success ) { // throw?
-					
-				}
-				
-			}
-			
-		}
-		
-		/// <summary>Starts a process and waits for it to exit. If it hasn't quit by the timeout (and if the timeout is specified in negative units) the process is terminated, otherwise the program resumes, leaving the started process running</summary>
-		/// <returns>true if the process finished within the timeout period. False if the process was killed.</returns>
-		public static ProcessStartState RunProcHiddenSync(String processFileName, String arguments, Int32 timeout) {
-			
-			ProcessStartInfo procStart = new ProcessStartInfo(processFileName, arguments);
-			procStart.CreateNoWindow = true;
-			procStart.WindowStyle    = ProcessWindowStyle.Hidden;
-			
-			try {
-				Process proc = Process.Start( procStart );
-				
-				if( !proc.WaitForExit( Math.Abs( timeout ) ) ) {
-					
-					if( timeout < 0 ) {
-						
-						proc.Kill();
-						return ProcessStartState.WasTerminated;
-						
-					} else return ProcessStartState.StillRunning;
-				}
-				
-			} catch(Win32Exception wex) {
-				
-				throw new AnolisException("Could not launch process: " + wex.Message, wex);
-			}
-			
-			return ProcessStartState.FinishedWithinTimeout;
-		}
-		
-		public static void RunProcHiddenAsync(String processFileName, String arguments) {
-			
-			ProcessStartInfo procStart = new ProcessStartInfo(processFileName, arguments);
-			procStart.CreateNoWindow = true;
-			procStart.WindowStyle    = ProcessWindowStyle.Hidden;
-			
-			try {
-				Process proc = Process.Start( procStart );
-				
-			} catch(Win32Exception wex) {
-				
-				throw new AnolisException("Could not launch process: " + wex.Message, wex);
-			}
-		}
-		
-		internal static MachineType GetMachineType(String fileName) {
-			
-			Pair<DosHeader,NTHeader> headers = GetPEHeaders(fileName);
-			
-			if( headers == null ) return MachineType.Unknown;
-			
-			DosHeader dos = headers.X;
-			NTHeader  nt  = headers.Y;
-			
-			if( dos.e_magic  != DosHeader.DosMagic   ) return MachineType.Unknown;
-			if( nt.Signature != NTHeader.NTSignature ) return MachineType.Unknown;
-			
-			MachineType type = nt.FileHeader.Machine;
-			
-			return type;
-		}
-		
-		internal static Pair<DosHeader,NTHeader> GetPEHeaders(String fileName) {
-			
-			Byte[] fileData = new Byte[0x400]; // need only the first 0x400 bytes
-			using(FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read)) {
-				
-				if( fs.Read(fileData, 0, 0x400) != 0x400 ) return null;
-			}
-			
-			////////////////////////////
-			
-			IntPtr p = Marshal.AllocHGlobal( 0x400 );
-			Marshal.Copy( fileData, 0, p, 0x400 );
-			
-			DosHeader dos = (DosHeader)Marshal.PtrToStructure( p, typeof(DosHeader) );
-			
-			IntPtr ntp = new IntPtr( p.ToInt64() + dos.e_lfanew );
-			
-			NTHeader nt = (NTHeader)Marshal.PtrToStructure( ntp, typeof(NTHeader) );
-			
-			Marshal.FreeHGlobal( p );
-			
-			Pair<DosHeader,NTHeader> ret = new Pair<DosHeader,NTHeader>( dos, nt );
-			
-			return ret;
-			
-		}
-		
 		/// <summary>When a PE is modified, even by Win32's resource functions, the checksum value in the PE header remains unchanged. This method corrects the checksum header value.</summary>
-		public static void CorrectPEChecksum(String fileName) {
+		public unsafe static void CorrectPEChecksum(String fileName) {
 			
 			try {
 				
@@ -248,17 +134,26 @@ namespace Anolis.Core.Utility {
 					
 					UInt32 size = NativeMethods.GetFileSize( map.FileHandle, IntPtr.Zero );
 					
+					// CheckSumMappedFile parses the file passed in and returns a pointer to the start of the NTHeader
 					IntPtr pNTHeader = NativeMethods.CheckSumMappedFile( pData, size, ref oldChecksum, ref newChecksum );
 					
-					// don't worry about NTHeader being different for x64 vs. x86 PE files as the CheckSum field has the same offset in both cases
-					// also, the x86 version is smaller than the x64 version, so you can use it to overwrite a x64 version without having to worry about access violations
+					// the Checksum field is always located at the same offset of the NTHeader, regardless of whether it's a PE or PE+ headered image file.
 					
-					NTHeader ntHeader = (NTHeader)Marshal.PtrToStructure( pNTHeader, typeof(NTHeader) );
-					ntHeader.OptionalHeader.CheckSum = newChecksum;
+					// -------------------------------------------------
+					// | Section     | Offset from 'PE00' | Size       |
+					// -------------------------------------------------
+					// | PE Sig      |  0                 |   4        |
+					// | FileHeader  |  4                 |  20        |
+					// | Optional    | 24                 |  96 or 112 |
+					// -------------------------------------------------
 					
-					Marshal.StructureToPtr( ntHeader, pNTHeader, false );
+					// CheckSum is 64 bytes away from the start of the OptionalHeader
+					// Therefore it's 64 + 24
 					
-				}
+					UInt32* p = (UInt32*)pNTHeader.ToPointer() + ( (64 + 24) / sizeof(UInt32));
+					*p = newChecksum;
+				
+				} // close the FileMapping and commit the memory changes to disk
 				
 			} catch(Win32Exception wex) {
 				
@@ -281,6 +176,36 @@ namespace Anolis.Core.Utility {
 			}
 			
 			return image;
+		}
+		
+		public static Boolean IsElevatedAdministrator {
+			get {
+				WindowsIdentity identity = WindowsIdentity.GetCurrent();
+				WindowsPrincipal principal = new WindowsPrincipal(identity);
+				return principal.IsInRole(WindowsBuiltInRole.Administrator);
+			}
+		}
+		
+		public static String GetUnusedFileName(String suspectPath) {
+			
+			if( !File.Exists( suspectPath ) ) return suspectPath;
+			
+			String dir = Path.GetDirectoryName( suspectPath ),
+			       nom = Path.GetFileNameWithoutExtension( suspectPath ),
+			       ext = Path.GetExtension( suspectPath );
+			
+			Int32 i = 1;
+			
+			while( File.Exists( suspectPath ) ) {
+				
+				suspectPath = Path.Combine( dir, nom );
+				suspectPath += " (" + i++ + ')';
+				suspectPath += ext;
+				
+			}
+			
+			return suspectPath;
+			
 		}
 		
 #if NEVER
@@ -434,12 +359,6 @@ namespace Anolis.Core.Utility {
 		
 #endregion
 		
-	}
-	
-	public enum ProcessStartState {
-		FinishedWithinTimeout,
-		WasTerminated,
-		StillRunning
 	}
 	
 }
