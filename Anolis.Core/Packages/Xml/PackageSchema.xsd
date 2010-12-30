@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PackageSchema13" targetNamespace="http://anol.is/schemas/PackageSchema13.xsd" xmlns="http://anol.is/schemas/PackageSchema13.xsd" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xml:lang="en">
+	
+	<xs:element name="package">
+		<xs:complexType>
+			<xs:sequence>
+				
+				<!-- Defined Presets -->
+				<xs:element ref="presets" minOccurs="0" maxOccurs="1" />
+				
+				<!-- The root group -->
+				<xs:element name="group" type="itemGroup" minOccurs="1" maxOccurs="1" />
+				
+			</xs:sequence>
+			
+			<!-- <package> attributes. Doesn't use common attribs -->
+			
+			<xs:attribute name="id"            type="xs:ID"      use="optional" />
+			<xs:attribute name="name"          type="xs:string"  use="required" />
+			<xs:attribute name="condition"     type="xs:string"  use="optional" />
+			<xs:attribute name="conditionDesc" type="xs:string"  use="optional" />
+			
+			<xs:attribute name="version"       type="xs:decimal" use="required" />
+			<xs:attribute name="attribution"   type="xs:string"  use="required" />
+			<xs:attribute name="website"       type="xs:anyURI"  use="optional" />
+			<xs:attribute name="updateUri"     type="xs:anyURI"  use="optional" />
+			<xs:attribute name="feedbackUri"   type="xs:anyURI"  use="optional" />
+			
+			<xs:attribute name="releaseNotes"  type="xs:anyURI"  use="optional" />
+			
+		</xs:complexType>
+	</xs:element><!-- /package -->
+	
+	<xs:element name="presets">
+		<xs:complexType>
+			<xs:sequence>
+				
+				<xs:element ref="preset" minOccurs="0" maxOccurs="unbounded" />
+				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="preset">
+		<xs:complexType>
+			
+			<xs:attribute name="id"          type="xs:ID"     use="optional" />
+			<xs:attribute name="name"        type="xs:string" use="required" />
+			
+			<xs:attribute name="bmpGroup"    type="xs:IDREF" use="required" />
+			<xs:attribute name="welcome"     type="xs:IDREF" use="required" />
+			<xs:attribute name="wallpaper"   type="xs:IDREF" use="required" />
+			<xs:attribute name="visualStyle" type="xs:IDREF" use="required" />
+			
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:complexType name="itemGroup">
+		
+		<xs:sequence maxOccurs="unbounded" minOccurs="0">
+			
+			<xs:choice>
+				
+				<xs:element name="group" type="itemGroup" minOccurs="0" maxOccurs="unbounded" />
+				
+				<!-- Simple Operations -->
+				
+				<xs:element name="cursorScheme" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<xs:sequence minOccurs="1" maxOccurs="unbounded">
+							
+							<xs:element name="cursor">
+								<xs:complexType>
+									
+									<!-- <cursor /> attributes -->
+									<xs:attribute name="type" type="cursorType" use="required" />
+									<xs:attribute name="src"  type="xs:anyURI"  use="required" />
+									
+								</xs:complexType>
+							</xs:element>
+							
+						</xs:sequence>
+						
+						<!-- <cursorScheme /> attributes -->
+						<xs:attributeGroup ref="common" />
+						<xs:attribute name="schemeName" type="xs:string" use="required" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="registry" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<!-- <registry /> attributes -->
+						<xs:attributeGroup ref="common" />
+						
+						<xs:attribute name="key"   type="xs:string"    use="required" />
+						<xs:attribute name="vname" type="xs:string"    use="required" />
+						<xs:attribute name="value" type="xs:string"    use="required" />
+						<xs:attribute name="type"  type="registryType" use="required" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="fileType" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<!-- <fileType /> attributes -->
+						<xs:attributeGroup ref="common" />
+						
+						<xs:attribute name="typeExt"      type="xs:string"  use="required" />
+						<xs:attribute name="friendlyName" type="xs:string"  use="required" />
+						<xs:attribute name="icon"         type="xs:anyURI"  use="required" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="systemParameter" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<!-- <systemParameter /> attributes -->
+						<xs:attributeGroup ref="common" />
+						
+						<xs:attribute name="spiAction" type="xs:string" use="required" />
+						<xs:attribute name="uiParam"   type="xs:string" use="optional" />
+						<xs:attribute name="pvParam"   type="xs:string" use="optional" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="uxtheme" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						
+						<!-- <uxtheme /> attributes -->
+						<xs:attributeGroup ref="common" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="uninstallation" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						
+						<!-- <uninstallation /> attributes -->
+						<xs:attributeGroup ref="common" />
+						
+						<xs:attribute name="displayIcon" type="xs:anyURI" use="required" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="clearIconCache" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						
+						<!-- <uninstallation /> attributes -->
+						<xs:attributeGroup ref="common" />
+					</xs:complexType>
+				</xs:element>
+				
+				<!-- ################################# -->
+				<!-- Path Operations -->
+				<!-- ################################# -->
+				
+				<xs:element name="patch" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							
+							<xs:element name="res" maxOccurs="unbounded">
+								<xs:complexType>
+									
+									<!-- <res /> attributes -->
+									<xs:attribute name="type" type="xs:string"      use="required" />
+									<xs:attribute name="name" type="xs:string"      use="required" />
+									<xs:attribute name="lang" type="xs:unsignedInt" use="optional" />
+									<xs:attribute name="src"  type="xs:anyURI"      use="required" />
+									<xs:attribute name="add"  type="xs:boolean"     use="optional" />
+									
+								</xs:complexType>
+							</xs:element>
+							
+						</xs:sequence>
+						
+						<!-- <patch /> attributes -->
+						<xs:attributeGroup ref="common" />
+						<xs:attribute name="conditionHash" type="xs:base64Binary" use="optional" />
+						<xs:attribute name="path"          type="xs:anyURI"       use="required" />
+						<xs:attribute name="i386path"      type="xs:string"       use="optional" />
+						
+						<!-- <xs:attribute name="saveTo"        type="xs:anyURI" use="optional" /> -->
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="file" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<!-- <file /> attributes -->
+						<xs:attributeGroup ref="common" />
+						<xs:attribute name="conditionHash" type="xs:base64Binary" use="optional" />
+						<xs:attribute name="operation"     type="fileOperation"   use="required" />
+						<xs:attribute name="path"          type="xs:anyURI"       use="required" />
+						<xs:attribute name="src"           type="xs:anyURI"       use="optional" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="directory" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<!-- <directory /> attributes -->
+						<xs:attributeGroup ref="common" />
+						<xs:attribute name="path"          type="xs:anyURI"       use="required" />
+						<xs:attribute name="src"           type="xs:anyURI"       use="required" />
+						<xs:attribute name="overwrite"     type="xs:boolean"      use="optional" />
+						
+					</xs:complexType>
+				</xs:element>
+					
+				<xs:element name="extra" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<!-- <extra /> attributes -->
+						<xs:attributeGroup ref="common" />
+						<xs:attribute name="type"        type="extraType"  use="required" />
+						<xs:attribute name="path"        type="xs:anyURI"  use="required" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="program" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						
+						<!-- <extra /> attributes -->
+						<xs:attributeGroup ref="common" />
+						<xs:attribute name="path"        type="xs:anyURI"  use="required" />
+						
+						<xs:attribute name="arguments"   type="xs:anyURI"  use="optional" />
+						<xs:attribute name="timeout"     type="xs:integer" use="optional" />
+						
+						<xs:attribute name="uninstall"     type="xs:anyURI"  use="optional" />
+						<xs:attribute name="uninstallArgs" type="xs:anyURI"  use="optional" />
+						
+					</xs:complexType>
+				</xs:element>
+				
+			</xs:choice>
+			
+		</xs:sequence>
+		
+		<!-- <group> attributes -->
+		<xs:attributeGroup ref="common" />
+		
+		<xs:attribute name="isResGroup" type="xs:boolean" use="optional" />
+		
+	</xs:complexType>
+	
+	<!-- Common Attributes -->
+	<xs:attributeGroup name="common">
+		
+		<xs:attribute name="id"         type="xs:ID"      use="optional" />
+		<xs:attribute name="name"       type="xs:string"  use="optional" />
+		
+		<xs:attribute name="desc"       type="xs:string"  use="optional" />
+		<xs:attribute name="descImg"    type="xs:anyURI"  use="optional" />
+		<xs:attribute name="previewImg" type="xs:anyURI"  use="optional" />
+		
+		<xs:attribute name="enabled"    type="xs:boolean" use="optional" />
+		<xs:attribute name="hidden"     type="xs:boolean" use="optional" />
+		
+		<xs:attribute name="condition"  type="xs:string"  use="optional" />
+		
+	</xs:attributeGroup>
+	
+	<!-- Additional Types -->
+	
+	<xs:simpleType name="extraType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="wallpaper" />
+			<xs:enumeration value="bootscreen" />
+			<xs:enumeration value="visualStyle" />
+			<xs:enumeration value="screensaver" />
+			<xs:enumeration value="registry" />
+			<xs:enumeration value="custom" />
+			<xs:enumeration value="runOnce" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="fileOperation">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="copy" />
+			<xs:enumeration value="replace" />
+			<xs:enumeration value="delete" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="registryType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="REG_SZ" />
+			<xs:enumeration value="REG_EXPAND_SZ" />
+			<xs:enumeration value="REG_BINARY" />
+			<xs:enumeration value="REG_DWORD" />
+			<xs:enumeration value="REG_MULTI_SZ" />
+			<xs:enumeration value="REG_BINARY" />
+			<xs:enumeration value="REG_QWORD" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="cursorType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AppStarting" />
+			<xs:enumeration value="Arrow" />
+			<xs:enumeration value="Help" />
+			<xs:enumeration value="Crosshair" />
+			<xs:enumeration value="Hand" />
+			<xs:enumeration value="IBeam" />
+			<xs:enumeration value="No" />
+			<xs:enumeration value="NWPen" />
+			<xs:enumeration value="SizeAll" />
+			<xs:enumeration value="SizeNESW" />
+			<xs:enumeration value="SizeNS" />
+			<xs:enumeration value="SizeNWSE" />
+			<xs:enumeration value="SizeWE" />
+			<xs:enumeration value="UpArrow" />
+			<xs:enumeration value="Wait" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>
