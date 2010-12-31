@@ -33,7 +33,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Anolis.Core.Utility {
+namespace Anolis.Packages.Utility {
 
 	public class ShellLink : IDisposable {
 		
@@ -124,7 +124,6 @@ namespace Anolis.Core.Utility {
 			void SetPath([MarshalAs(UnmanagedType.LPStr)] string pszFile);
 		}
 		
-		
 		[ComImportAttribute()]
 		[GuidAttribute("000214F9-0000-0000-C000-000000000046")]
 		[InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
@@ -214,67 +213,12 @@ namespace Anolis.Core.Utility {
 			public uint dwHighDateTime;
 		}
 		
-		/// <summary>Flags determining how the links with missing targets are resolved.</summary>
-		[Flags]
-		public enum EShellLinkResolveFlags : uint {
-			/// <summary>Allow any match during resolution.  Has no effect on ME/2000 or above, use the other flags instead.</summary>
-			SLR_ANY_MATCH = 0x2,
-			/// <summary>
-			/// Call the Microsoft Windows Installer. </summary>
-			SLR_INVOKE_MSI = 0x80,
-			/// <summary>
-			/// Disable distributed link tracking. By default, 
-			/// distributed link tracking tracks removable media 
-			/// across multiple devices based on the volume name. 
-			/// It also uses the UNC path to track remote file 
-			/// systems whose drive letter has changed. Setting 
-			/// SLR_NOLINKINFO disables both types of tracking.</summary>
-			SLR_NOLINKINFO = 0x40,
-			/// <summary>
-			/// Do not display a dialog box if the link cannot be resolved. 
-			/// When SLR_NO_UI is set, a time-out value that specifies the 
-			/// maximum amount of time to be spent resolving the link can 
-			/// be specified in milliseconds. The function returns if the 
-			/// link cannot be resolved within the time-out duration. 
-			/// If the timeout is not set, the time-out duration will be 
-			/// set to the default value of 3,000 milliseconds (3 seconds). </summary>										    
-			SLR_NO_UI = 0x1,
-			/// <summary>Not documented in SDK. Assume same as SLR_NO_UI but intended for applications without a hWnd.</summary>
-			SLR_NO_UI_WITH_MSG_PUMP = 0x101,
-			/// <summary>Do not update the link information. </summary>
-			SLR_NOUPDATE = 0x8,
-			/// <summary>Do not execute the search heuristics. </summary>																																																																																																																																																																																																														
-			SLR_NOSEARCH = 0x10,
-			/// <summary>Do not use distributed link tracking. </summary>
-			SLR_NOTRACK = 0x20,
-			/// <summary>If the link object has changed, update its path and list 
-			/// of identifiers. If SLR_UPDATE is set, you do not need to 
-			/// call IPersistFile::IsDirty to determine whether or not 
-			/// the link object has changed. </summary>
-			SLR_UPDATE = 0x4
-		}
-		
 		// Use Unicode (W) under NT, otherwise use ANSI		
 		private IShellLinkW linkW;
 		private IShellLinkA linkA;
 		private string shortcutFile = "";
 		
 #endregion
-		
-		[Flags]
-		public enum WindowMode : uint {
-			Hide           = 0,
-			Normal         = 1,
-			Minimized      = 2,
-			Maximized      = 3,
-			ShowNoActivate = 4,
-			Show           = 5,
-			Minimize       = 6,
-			ShowMinimizedNoActivate = 7,
-			ShowNA         = 8,
-			Restore        = 9,
-			ShowDefault    = 10
-		}
 		
 		/// <summary>Creates an instance of the Shell Link object.</summary>
 		public ShellLink() {
@@ -293,11 +237,23 @@ namespace Anolis.Core.Utility {
 		
 		~ShellLink() {
 			// Call dispose just in case it hasn't happened yet
-			Dispose();
+			Dispose(false);
 		}
 		
 		/// <summary>Dispose the object, releasing the COM ShellLink object</summary>
 		public void Dispose() {
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		
+		protected virtual void Dispose(Boolean disposing) {
+			
+			if( disposing ) {
+				// free managed resources
+				
+			}
+			// free native resources
+			
 			if(linkW != null) {
 				Marshal.ReleaseComObject(linkW);
 				linkW = null;
@@ -306,12 +262,8 @@ namespace Anolis.Core.Utility {
 				Marshal.ReleaseComObject(linkA);
 				linkA = null;
 			}
+			
 		}
-		
-//		public String ShortCutFile {
-//			get { return this.shortcutFile; }
-//			set { this.shortcutFile = value; }
-//		}
 		
 		/// <summary>Gets the path to the file containing the icon for this shortcut.</summary>
 		public string IconPath {
@@ -356,14 +308,11 @@ namespace Anolis.Core.Utility {
 			set {
 				StringBuilder iconPath = new StringBuilder(260, 260);
 				int iconIndex = 0;
-				if(linkA == null) {
+				if( linkW != null ) {
 					linkW.GetIconLocation(iconPath, iconPath.Capacity, out iconIndex);
-				} else {
-					linkA.GetIconLocation(iconPath, iconPath.Capacity, out iconIndex);
-				}
-				if(linkA == null) {
 					linkW.SetIconLocation(iconPath.ToString(), value);
 				} else {
+					linkA.GetIconLocation(iconPath, iconPath.Capacity, out iconIndex);
 					linkA.SetIconLocation(iconPath.ToString(), value);
 				}
 			}
@@ -452,7 +401,7 @@ namespace Anolis.Core.Utility {
 		}
 		
 		/// <summary>Gets/sets the initial display mode when the shortcut is run</summary>
-		public WindowMode DisplayMode {
+		public ShellLinkWindowMode DisplayMode {
 			get {
 				uint cmd = 0;
 				if(linkA == null) {
@@ -460,7 +409,7 @@ namespace Anolis.Core.Utility {
 				} else {
 					linkA.GetShowCmd(out cmd);
 				}
-				return (WindowMode)cmd;
+				return (ShellLinkWindowMode)cmd;
 			}
 			set {
 				if(linkA == null) {
@@ -514,7 +463,7 @@ namespace Anolis.Core.Utility {
 		/// <param name="linkFile">The shortcut file (.lnk) to load</param>
 		public void Open(string linkFile) {
 			
-			Open(linkFile, IntPtr.Zero, (EShellLinkResolveFlags.SLR_ANY_MATCH | EShellLinkResolveFlags.SLR_NO_UI), 1);
+			Open(linkFile, IntPtr.Zero, (ShellLinkResolutionBehavior.AnyMatch | ShellLinkResolutionBehavior.NoUI), 1);
 		}
 		
 		/// <summary>Loads a shortcut from the specified file, and allows flags controlling
@@ -522,9 +471,9 @@ namespace Anolis.Core.Utility {
 		/// <param name="linkFile">The shortcut file (.lnk) to load</param>
 		/// <param name="hWnd">The window handle of the application's UI, if any</param>
 		/// <param name="resolveFlags">Flags controlling resolution behaviour</param>
-		public void Open(string linkFile, IntPtr hWnd, EShellLinkResolveFlags resolveFlags) {
+		public void Open(string linkFile, IntPtr hWnd, ShellLinkResolutionBehavior resolutionBehavior) {
 			
-			Open(linkFile, hWnd, resolveFlags, 1);
+			Open(linkFile, hWnd, resolutionBehavior, 1);
 		}
 		
 		/// <summary>Loads a shortcut from the specified file, and allows flags controlling
@@ -534,15 +483,17 @@ namespace Anolis.Core.Utility {
 		/// <param name="hWnd">The window handle of the application's UI, if any</param>
 		/// <param name="resolveFlags">Flags controlling resolution behaviour</param>
 		/// <param name="timeOut">Timeout if SLR_NO_UI is specified, in ms.</param>
-		public void Open(string linkFile, IntPtr hWnd, EShellLinkResolveFlags resolveFlags, ushort timeOut) {
+		public void Open(string linkFile, IntPtr hWnd, ShellLinkResolutionBehavior resolutionBehavior, ushort timeOut) {
 			
 			uint flags;
 			
-			if((resolveFlags & EShellLinkResolveFlags.SLR_NO_UI)
-				== EShellLinkResolveFlags.SLR_NO_UI) {
-				flags = (uint)((int)resolveFlags | (timeOut << 16));
+			if((resolutionBehavior & ShellLinkResolutionBehavior.NoUI) == ShellLinkResolutionBehavior.NoUI) {
+				
+				flags = (uint)((int)resolutionBehavior | (timeOut << 16));
+				
 			} else {
-				flags = (uint)resolveFlags;
+				
+				flags = (uint)resolutionBehavior;
 			}
 			
 			if(linkA == null) {
@@ -572,6 +523,55 @@ namespace Anolis.Core.Utility {
 		
 #endregion
 		
+	}
+	
+	/// <summary>Flags determining how the links with missing targets are resolved.</summary>
+	[Flags]
+	public enum ShellLinkResolutionBehavior : uint {
+		None = 0,
+		
+		/// <summary>Do not display a dialog box if the link cannot be resolved. When SLR_NO_UI is set, a time-out value that specifies the maximum amount of time to be spent resolving the link can 
+		/// be specified in milliseconds. The function returns if the link cannot be resolved within the time-out duration. If the timeout is not set, the time-out duration will be set to the default value of 3,000 milliseconds (3 seconds). </summary>										    
+		NoUI = 0x01,
+		
+		/// <summary>Allow any match during resolution.  Has no effect on ME/2000 or above, use the other flags instead.</summary>
+		AnyMatch = 0x02,
+		
+		/// <summary>If the link object has changed, update its path and list of identifiers. If SLR_UPDATE is set, you do not need to call IPersistFile::IsDirty to determine whether or not the link object has changed. </summary>
+		Update = 0x04,
+		
+		/// <summary>Do not update the link information. </summary>
+		NoUpdate = 0x08,
+		
+		/// <summary>Do not execute the search heuristics. </summary>
+		NoSearch = 0x10,
+		
+		/// <summary>Do not use distributed link tracking. </summary>
+		NoDistributedLinkTracking = 0x20,
+		
+		/// <summary>Disable distributed link tracking. By default, distributed link tracking tracks removable media across multiple devices based on the volume name. 
+		/// It also uses the UNC path to track remote file systems whose drive letter has changed. Setting SLR_NOLINKINFO disables both types of tracking.</summary>
+		NoLinkInfo = 0x40,
+		
+		/// <summary>Call the Microsoft Windows Installer. </summary>
+		InvokeMsi = 0x80,
+		
+		/// <summary>Undocumented. Assume same as SLR_NO_UI but intended for applications without a hWnd.</summary>
+		NoUIWithMessagePump = 0x101
+	}
+	
+	public enum ShellLinkWindowMode : uint {
+		Hide           = 0,
+		Normal         = 1,
+		Minimized      = 2,
+		Maximized      = 3,
+		ShowNoActivate = 4,
+		Show           = 5,
+		Minimize       = 6,
+		ShowMinimizedNoActivate = 7,
+		ShowNA         = 8,
+		Restore        = 9,
+		ShowDefault    = 10
 	}
 
 }

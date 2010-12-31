@@ -200,7 +200,7 @@ namespace Anolis.Packager {
 					try {
 						
 						CompositedImage img = new CompositedImage( attributeValue, root );
-						foreach(Layer layer in img.Layers) {
+						foreach(CompositedLayer layer in img.Layers) {
 							
 							String fn = layer.ImageFileName.Substring( root.FullName.Length + 1 ).ToLowerInvariant();
 							

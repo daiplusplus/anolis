@@ -313,7 +313,7 @@ namespace Anolis.Packager {
 				
 				__compLayers.Items.Add("Final Image");
 				
-				foreach(Layer layer in image.Layers) {
+				foreach(CompositedLayer layer in image.Layers) {
 					
 					__compLayers.Items.Add( layer );
 				}
@@ -339,7 +339,7 @@ namespace Anolis.Packager {
 					
 				} else {
 					
-					Layer layer = (Layer)obj;
+					CompositedLayer layer = (CompositedLayer)obj;
 				
 					LoadLayer( layer );
 				}
@@ -355,7 +355,7 @@ namespace Anolis.Packager {
 			
 		}
 		
-		private void LoadLayer(Layer layer) {
+		private void LoadLayer(CompositedLayer layer) {
 			
 			if( layer == null ) {
 				

@@ -16,9 +16,8 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Anolis.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -119,7 +118,6 @@
     <None Include="Core\Utility\Quantization\OctreeQuantizer.cs" />
     <None Include="Core\Utility\Quantization\PaletteQuantizer.cs" />
     <None Include="Core\Utility\Quantization\Quantizer.cs" />
-    <Compile Include="Core\Utility\ShellLink.cs" />
     <Compile Include="Core\Utility\RateCalculator.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Core\Native\NativeTypes.cs" />
@@ -136,6 +134,7 @@
     <None Include="Properties\legalGpl.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Anolis.snk" />
     <None Include="ResourceData ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>

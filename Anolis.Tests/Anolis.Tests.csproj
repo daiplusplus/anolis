@@ -44,11 +44,11 @@
     <Compile Include="ExpressionTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Anolis.Core.Packages\Anolis.Packages.csproj">
+    <ProjectReference Include="..\Anolis.Packages\Anolis.Packages.csproj">
       <Project>{2D62D22E-9DD3-4F42-818D-7F63A04E2AF6}</Project>
       <Name>Anolis.Packages</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Anolis.Core\Anolis.Resources.csproj">
+    <ProjectReference Include="..\Anolis.Resources\Anolis.Resources.csproj">
       <Project>{967BF434-D4F9-41E3-8B82-433987DEB4A6}</Project>
       <Name>Anolis.Resources</Name>
     </ProjectReference>

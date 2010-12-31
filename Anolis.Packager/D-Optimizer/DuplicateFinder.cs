@@ -272,7 +272,7 @@ namespace Anolis.Packager {
 			Boolean isUpdated = false;
 			
 			CompositedImage img = new CompositedImage( compExpr, _root );
-			foreach(Layer layer in img.Layers) {
+			foreach(CompositedLayer layer in img.Layers) {
 				
 				String nonDupeFn = _reverse.FileIsDuplicate( layer.ImageRelativeFileName );
 				if( nonDupeFn != null ) {

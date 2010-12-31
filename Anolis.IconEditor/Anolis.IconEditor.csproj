@@ -71,7 +71,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Anolis.Core\Anolis.Resources.csproj">
+    <ProjectReference Include="..\Anolis.Resources\Anolis.Resources.csproj">
       <Project>{967BF434-D4F9-41E3-8B82-433987DEB4A6}</Project>
       <Name>Anolis.Resources</Name>
     </ProjectReference>

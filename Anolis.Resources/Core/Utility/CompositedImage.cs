@@ -17,10 +17,10 @@ namespace Anolis.Core.Utility {
 	
 	public class CompositedImage {
 		
-		private Collection<Layer> _layers;
+		private Collection<CompositedLayer> _layers;
 		
 		public CompositedImage() {
-			_layers = new Collection<Layer>();
+			_layers = new Collection<CompositedLayer>();
 		}
 		
 		/// <param name="compositionExpression">Must be in the form "comp:width,height[,bpp];Path\To\Image1.bmp,x,y[,width,height[,opacity]];Path\To\Image2.bmp,x,y[,opacity[,width,height]]"</param>
@@ -83,7 +83,7 @@ namespace Anolis.Core.Utility {
 				
 				String layerExpr = layers[i];
 				
-				Layer l = new Layer( layerExpr, root );
+				CompositedLayer l = new CompositedLayer( layerExpr, root );
 				
 				_layers.Add( l );
 			}
@@ -106,7 +106,7 @@ namespace Anolis.Core.Utility {
 				
 				for(int i=0;i<_layers.Count;i++) {
 					
-					Layer l = _layers[i];
+					CompositedLayer l = _layers[i];
 					Rectangle rect;
 					
 					if( i == 0 ) {
@@ -229,7 +229,7 @@ namespace Anolis.Core.Utility {
 		
 		public Size Dimensions { get; set; }
 		
-		public Collection<Layer> Layers {
+		public Collection<CompositedLayer> Layers {
 			get { return _layers; }
 		}
 		
@@ -244,7 +244,7 @@ namespace Anolis.Core.Utility {
 			sb.Append( this.Dimensions.Height );
 			
 			// Layers
-			foreach(Layer layer in Layers) {
+			foreach(CompositedLayer layer in Layers) {
 				sb.Append(";");
 				sb.Append( layer.ToString() );
 			}
@@ -254,9 +254,9 @@ namespace Anolis.Core.Utility {
 		
 	}
 	
-	public class Layer {
+	public class CompositedLayer {
 		
-		internal Layer(String layerExpression, DirectoryInfo root) {
+		internal CompositedLayer(String layerExpression, DirectoryInfo root) {
 			
 			String[] components = layerExpression.Split(',');
 			
