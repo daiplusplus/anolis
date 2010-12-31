@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
-using System.Runtime.InteropServices;
-using System.Security.Permissions;
-using System.Text;
-using Microsoft.Win32.SafeHandles;
-using Anolis.Core.Native;
-using System.IO;
 using System.ComponentModel;
+using System.IO;
+using System.Security.Permissions;
+
+using Anolis.Core.Native;
+using Microsoft.Win32.SafeHandles;
 
 namespace Anolis.Core.Utility {
 	
