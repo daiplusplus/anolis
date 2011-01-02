@@ -1,0 +1,3928 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FxCopProject Version="1.36" Name="My FxCop Project">
+ <ProjectOptions>
+  <SharedProject>True</SharedProject>
+  <Stylesheet Apply="False">c:\program files (x86)\microsoft .net tools\fxcop\1.36\Xml\FxCopReport.xsl</Stylesheet>
+  <SaveMessages>
+   <Project Status="Active, Excluded" NewOnly="False" />
+   <Report Status="Active" NewOnly="False" />
+  </SaveMessages>
+  <ProjectFile Compress="True" DefaultTargetCheck="True" DefaultRuleCheck="True" SaveByRuleGroup="" Deterministic="True" />
+  <EnableMultithreadedLoad>True</EnableMultithreadedLoad>
+  <EnableMultithreadedAnalysis>True</EnableMultithreadedAnalysis>
+  <SourceLookup>True</SourceLookup>
+  <AnalysisExceptionsThreshold>10</AnalysisExceptionsThreshold>
+  <RuleExceptionsThreshold>1</RuleExceptionsThreshold>
+  <Spelling Locale="en-US" />
+  <OverrideRuleVisibilities>False</OverrideRuleVisibilities>
+  <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
+  <SearchGlobalAssemblyCache>False</SearchGlobalAssemblyCache>
+  <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
+  <IgnoreGeneratedCode>False</IgnoreGeneratedCode>
+ </ProjectOptions>
+ <Targets>
+  <Target Name="$(ProjectDir)/Anolis.Packages/bin/Debug/Anolis.Packages.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/Anolis.Resources/bin/Debug/Anolis.Resources.dll" Analyze="True" AnalyzeAllChildren="True" />
+ </Targets>
+ <Rules>
+  <RuleFiles>
+   <RuleFile Name="$(FxCopDir)\Rules\DesignRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\GlobalizationRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\InteroperabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\MobilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\NamingRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PerformanceRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PortabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\UsageRules.dll" Enabled="True" AllRulesEnabled="True" />
+  </RuleFiles>
+  <Groups />
+  <Settings />
+ </Rules>
+ <FxCopReport Version="1.36">
+  <Namespaces>
+   <Namespace Name="Anolis">
+    <Messages>
+     <Message Id="Anolis" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+      <Issue Name="Namespace">
+       <Item>Anolis</Item>
+       <Item>Anolis</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="Anolis.Core.Data">
+    <Messages>
+     <Message Id="Anolis" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+      <Issue Name="Namespace">
+       <Item>Anolis</Item>
+       <Item>Anolis.Core.Data</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="Anolis.Core.Native">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2010-12-30 22:32:31Z">
+      <Issue>
+       <Item>Anolis.Core.Native</Item>
+      </Issue>
+     </Message>
+     <Message Id="Anolis" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+      <Issue Name="Namespace">
+       <Item>Anolis</Item>
+       <Item>Anolis.Core.Native</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="Anolis.Core.Source">
+    <Messages>
+     <Message Id="Anolis" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+      <Issue Name="Namespace">
+       <Item>Anolis</Item>
+       <Item>Anolis.Core.Source</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="Anolis.Core.Utility">
+    <Messages>
+     <Message Id="Anolis" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+      <Issue Name="Namespace">
+       <Item>Anolis</Item>
+       <Item>Anolis.Core.Utility</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="Anolis.Packages.Native">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2010-12-30 22:32:31Z">
+      <Issue>
+       <Item>Anolis.Packages.Native</Item>
+      </Issue>
+     </Message>
+     <Message Id="Anolis" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+      <Issue Name="Namespace">
+       <Item>Anolis</Item>
+       <Item>Anolis.Packages.Native</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="Anolis.Packages.Operations">
+    <Messages>
+     <Message Id="Anolis" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+      <Issue Name="Namespace">
+       <Item>Anolis</Item>
+       <Item>Anolis.Packages.Operations</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="Anolis.Packages.Utility">
+    <Messages>
+     <Message Id="Anolis" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+      <Issue Name="Namespace">
+       <Item>Anolis</Item>
+       <Item>Anolis.Packages.Utility</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="Anolis.Packages.Utility.BinaryPatch">
+    <Messages>
+     <Message Id="Anolis" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+      <Issue Name="Namespace">
+       <Item>Anolis</Item>
+       <Item>Anolis.Packages.Utility.BinaryPatch</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+  </Namespaces>
+  <Targets>
+   <Target Name="$(ProjectDir)/Anolis.Packages/bin/Debug/Anolis.Packages.dll">
+    <Modules>
+     <Module Name="anolis.packages.dll">
+      <Messages>
+       <Message Id="Anolis" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+        <Issue Name="Assembly">
+         <Item>Anolis</Item>
+         <Item>'Anolis.Packages.dll'</Item>
+        </Issue>
+       </Message>
+       <Message TypeName="MarkAssembliesWithClsCompliant" Category="Microsoft.Design" CheckId="CA1014" Created="2010-12-30 22:32:31Z">
+        <Issue>
+         <Item>'Anolis.Packages.dll'</Item>
+        </Issue>
+       </Message>
+       <Message TypeName="MarkAssembliesWithNeutralResourcesLanguage" Category="Microsoft.Performance" CheckId="CA1824" Created="2010-12-30 22:32:31Z">
+        <Issue>
+         <Item>'Anolis.Packages.dll'</Item>
+        </Issue>
+       </Message>
+      </Messages>
+      <Namespaces>
+       <Namespace Name="Anolis.Packages">
+        <Types>
+         <Type Name="CDImage">
+          <Members>
+           <Member Name="#_comp">
+            <Messages>
+             <Message TypeName="DoNotDeclareReadOnlyMutableReferenceTypes" Category="Microsoft.Security" CheckId="CA2104" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'CDImage._comp'</Item>
+               <Item>'CDImage.FileSearchComparer'</Item>
+              </Issue>
+             </Message>
+             <Message Id="comp" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>comp</Item>
+               <Item>'CDImage._comp'</Item>
+               <Item>Comp</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>'CDImage._comp'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetFiles(System.String,System.Boolean)">
+            <Messages>
+             <Message Id="Nonexistant" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'CDImage.GetFiles(string, bool)'</Item>
+               <Item>Nonexistant</Item>
+               <Item>'includeNonexistantFiles'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Expression">
+          <Members>
+           <Member Name="#_precedence">
+            <Messages>
+             <Message Id="Member" TypeName="PreferJaggedArraysOverMultidimensional" Category="Microsoft.Performance" CheckId="CA1814" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'Expression._precedence'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#CurrentOperatorStack">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'Expression.CurrentOperatorStack'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#CurrentValueStack">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'Expression.CurrentValueStack'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#OperatorSymbols">
+            <Messages>
+             <Message TypeName="DoNotDeclareReadOnlyMutableReferenceTypes" Category="Microsoft.Security" CheckId="CA2104" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'Expression.OperatorSymbols'</Item>
+               <Item>'Dictionary&lt;Operator, string&gt;'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Reduce()">
+            <Messages>
+             <Message Id="result" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'Expression.Reduce()'</Item>
+               <Item>'result'</Item>
+               <Item>'bool'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Group">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Package,Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'Group.Group(Package, Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GroupCollection">
+          <Members>
+           <Member Name="#_parent">
+            <Messages>
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'GroupCollection._parent'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="NT5CDImage">
+          <Members>
+           <Member Name="#FindFiles(System.IO.FileInfo[],System.String,System.IO.FileInfo&amp;,System.IO.FileInfo&amp;)">
+            <Messages>
+             <Message Id="2#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'verbatim'</Item>
+              </Issue>
+             </Message>
+             <Message Id="3#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'compressed'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#OperatingSystem">
+            <Accessors>
+             <Accessor Name="#get_OperatingSystem()">
+              <Messages>
+               <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Created="2010-12-30 22:32:31Z" FixCategory="Breaking">
+                <Issue Name="PropertyGetter" Level="Warning">
+                 <Item>'NT5CDImage.OperatingSystem.get()'</Item>
+                 <Item>'FileNotFoundException'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="OperationCollection">
+          <Members>
+           <Member Name="#_parent">
+            <Messages>
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'OperationCollection._parent'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Operator">
+          <Messages>
+           <Message Id="Operator" TypeName="IdentifiersShouldNotMatchKeywords" Category="Microsoft.Naming" CheckId="CA1716" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>'Operator'</Item>
+             <Item>Operator</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#CGE">
+            <Messages>
+             <Message Id="CGE" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>CGE</Item>
+               <Item>'Operator.CGE'</Item>
+               <Item>Cge</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#CLE">
+            <Messages>
+             <Message Id="CLE" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>CLE</Item>
+               <Item>'Operator.CLE'</Item>
+               <Item>Cle</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Cmm">
+            <Messages>
+             <Message Id="Cmm" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Cmm</Item>
+               <Item>'Operator.Cmm'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#CoE">
+            <Messages>
+             <Message Id="Co" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Co</Item>
+               <Item>'Operator.CoE'</Item>
+               <Item>CO</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#CoG">
+            <Messages>
+             <Message Id="Co" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Co</Item>
+               <Item>'Operator.CoG'</Item>
+               <Item>CO</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#CoL">
+            <Messages>
+             <Message Id="Co" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Co</Item>
+               <Item>'Operator.CoL'</Item>
+               <Item>CO</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#CoN">
+            <Messages>
+             <Message Id="Co" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Co</Item>
+               <Item>'Operator.CoN'</Item>
+               <Item>CO</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Eof">
+            <Messages>
+             <Message Id="Eof" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Eof</Item>
+               <Item>'Operator.Eof'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Mul">
+            <Messages>
+             <Message Id="Mul" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Mul</Item>
+               <Item>'Operator.Mul'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Neg">
+            <Messages>
+             <Message Id="Neg" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Neg</Item>
+               <Item>'Operator.Neg'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PaL">
+            <Messages>
+             <Message Id="Pa" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Pa</Item>
+               <Item>'Operator.PaL'</Item>
+               <Item>PA</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PaR">
+            <Messages>
+             <Message Id="Pa" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Pa</Item>
+               <Item>'Operator.PaR'</Item>
+               <Item>PA</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Val">
+            <Messages>
+             <Message Id="Val" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Val</Item>
+               <Item>'Operator.Val'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Package">
+          <Members>
+           <Member Name="#ConditionDesc">
+            <Messages>
+             <Message Id="Desc" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Desc</Item>
+               <Item>'Package.ConditionDesc'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Execute(Anolis.Packages.PackageExecutionSettings)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'Package.Execute(PackageExecutionSettings)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PackageArchive">
+          <Members>
+           <Member Name="#GetPackage()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'PackageArchive.GetPackage()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PackageBase">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Package,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'PackageBase.PackageBase(Package, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PackageExecutionSettings">
+          <Members>
+           <Member Name="#LiteMode">
+            <Messages>
+             <Message Id="Lite" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Lite</Item>
+               <Item>'PackageExecutionSettings.LiteMode'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PackageExecutionSettingsInfo">
+          <Members>
+           <Member Name="#LiteMode">
+            <Messages>
+             <Message Id="Lite" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Lite</Item>
+               <Item>'PackageExecutionSettingsInfo.LiteMode'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PackageItem">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Package,Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'PackageItem.PackageItem(Package, Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#AddAttribute(System.Xml.XmlElement,System.String,System.String)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'PackageItem.AddAttribute(XmlElement, string, string)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#CreateElement(System.Xml.XmlElement,System.String)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'PackageItem.CreateElement(XmlElement, string)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+              <Issue Name="Xml">
+               <Item>'PackageItem.CreateElement(XmlElement, string)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#CreateElement(System.Xml.XmlElement,System.String,System.String[])">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'PackageItem.CreateElement(XmlElement, string, params string[])'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+              <Issue Name="Xml">
+               <Item>'PackageItem.CreateElement(XmlElement, string, params string[])'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Write(System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'PackageItem.Write(XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PackageSubclass">
+          <Members>
+           <Member Name="#LzmaTarball">
+            <Messages>
+             <Message Id="Lzma" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Lzma</Item>
+               <Item>'PackageSubclass.LzmaTarball'</Item>
+              </Issue>
+             </Message>
+             <Message Id="Tarball" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Tarball</Item>
+               <Item>'PackageSubclass.LzmaTarball'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PackageValidationException">
+          <Messages>
+           <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Created="2010-12-30 22:32:31Z">
+            <Issue>
+             <Item>'PackageValidationException'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Preset">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'Preset.Preset(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetPackageItems(Anolis.Packages.Group,System.Collections.Generic.List`1&lt;Anolis.Packages.Group&gt;&amp;,System.Collections.Generic.List`1&lt;Anolis.Packages.Operations.ResPatchOperation&gt;&amp;,System.Collections.Generic.List`1&lt;Anolis.Packages.Operations.WallpaperExtraOperation&gt;&amp;,System.Collections.Generic.List`1&lt;Anolis.Packages.Operations.VisualStyleExtraOperation&gt;&amp;)">
+            <Messages>
+             <Message Id="1#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'bmps'</Item>
+              </Issue>
+             </Message>
+             <Message Id="2#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'rops'</Item>
+              </Issue>
+             </Message>
+             <Message Id="3#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'wops'</Item>
+              </Issue>
+             </Message>
+             <Message Id="4#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'vops'</Item>
+              </Issue>
+             </Message>
+             <Message Id="bmps" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Preset.GetPackageItems(Group, out List&lt;Group&gt;, out List&lt;ResPatchOperation&gt;, out List&lt;WallpaperExtraOperation&gt;, out List&lt;VisualStyleExtraOperation&gt;)'</Item>
+               <Item>bmps</Item>
+               <Item>'bmps'</Item>
+              </Issue>
+             </Message>
+             <Message Id="rops" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Preset.GetPackageItems(Group, out List&lt;Group&gt;, out List&lt;ResPatchOperation&gt;, out List&lt;WallpaperExtraOperation&gt;, out List&lt;VisualStyleExtraOperation&gt;)'</Item>
+               <Item>rops</Item>
+               <Item>'rops'</Item>
+              </Issue>
+             </Message>
+             <Message Id="vops" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Preset.GetPackageItems(Group, out List&lt;Group&gt;, out List&lt;ResPatchOperation&gt;, out List&lt;WallpaperExtraOperation&gt;, out List&lt;VisualStyleExtraOperation&gt;)'</Item>
+               <Item>vops</Item>
+               <Item>'vops'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TarLzmaPackageArchive">
+          <Messages>
+           <Message Id="Lzma" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Lzma</Item>
+             <Item>'TarLzmaPackageArchive'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Anolis.Packages.Native">
+        <Types>
+         <Type Name="NativeMethods">
+          <Members>
+           <Member Name="#GetShortPathName(System.String,System.Text.StringBuilder,System.UInt32)">
+            <Messages>
+             <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Parameter">
+               <Item>'lpszLongPath'</Item>
+              </Issue>
+             </Message>
+             <Message Id="1" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Parameter">
+               <Item>'lpszShortPath'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SfcIsFileProtected(System.String)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'NativeMethods.SfcIsFileProtected(string)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Created="2010-12-30 22:32:31Z">
+              <Issue Name="ParameterImplicitAnsi">
+               <Item>'filename'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SystemParametersInfo(Anolis.Packages.Native.SpiAction,System.UInt32,System.String)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'NativeMethods.SystemParametersInfo(SpiAction, uint, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SpiAction">
+          <Messages>
+           <Message TypeName="EnumStorageShouldBeInt32" Category="Microsoft.Design" CheckId="CA1028" Created="2010-12-30 22:32:31Z">
+            <Issue Name="NotIntegral">
+             <Item>'SpiAction'</Item>
+             <Item>'uint'</Item>
+            </Issue>
+           </Message>
+           <Message Id="Spi" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Spi</Item>
+             <Item>'SpiAction'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#SetActiveWndTrkTimeout">
+            <Messages>
+             <Message Id="Trk" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Trk</Item>
+               <Item>'SpiAction.SetActiveWndTrkTimeout'</Item>
+              </Issue>
+             </Message>
+             <Message Id="Wnd" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Wnd</Item>
+               <Item>'SpiAction.SetActiveWndTrkTimeout'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SetActiveWndTrkZOrder">
+            <Messages>
+             <Message Id="Trk" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Trk</Item>
+               <Item>'SpiAction.SetActiveWndTrkZOrder'</Item>
+              </Issue>
+             </Message>
+             <Message Id="Wnd" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Wnd</Item>
+               <Item>'SpiAction.SetActiveWndTrkZOrder'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Anolis.Packages.Operations">
+        <Types>
+         <Type Name="BootScreenExtraOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'BootScreenExtraOperation.BootScreenExtraOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Backup(Anolis.Packages.Group)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'BootScreenExtraOperation.Backup(Group)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ClearIconCacheOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'ClearIconCacheOperation.ClearIconCacheOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Backup(Anolis.Packages.Group)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'ClearIconCacheOperation.Backup(Group)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="CursorSchemeOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'CursorSchemeOperation.CursorSchemeOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Backup(Anolis.Packages.Group)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'CursorSchemeOperation.Backup(Group)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#BackupDeleteScheme(Anolis.Packages.Group,Anolis.Packages.Operations.CursorSchemeOperation+CursorScheme)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'CursorSchemeOperation.BackupDeleteScheme(Group, CursorSchemeOperation.CursorScheme)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="CursorSchemeOperation+CursorScheme">
+          <Members>
+           <Member Name="#.ctor(System.String,System.String)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'CursorSchemeOperation.CursorScheme.CursorScheme(string, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="CursorSchemeOperation+CursorType">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2010-12-30 22:32:31Z">
+            <Issue>
+             <Item>'CursorSchemeOperation.CursorType'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="CustomExtraOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'CustomExtraOperation.CustomExtraOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="DirectoryOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.String,System.String,Anolis.Packages.Operations.FileOperationType)">
+            <Messages>
+             <Message Id="dest" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'DirectoryOperation.DirectoryOperation(Group, string, string, FileOperationType)'</Item>
+               <Item>dest</Item>
+               <Item>'destPath'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'DirectoryOperation.DirectoryOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ExtraFile">
+          <Members>
+           <Member Name="#GetFile()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'ExtraFile.GetFile()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ExtraOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Operations.ExtraType,Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'ExtraOperation.ExtraOperation(ExtraType, Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Create(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'ExtraOperation.Create(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#MakeRegOp(Anolis.Packages.Group,System.String,System.String)">
+            <Messages>
+             <Message Id="Op" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Op</Item>
+               <Item>'ExtraOperation.MakeRegOp(Group, string, string)'</Item>
+               <Item>OP</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="FileOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.String,System.String,Anolis.Packages.Operations.FileOperationType)">
+            <Messages>
+             <Message Id="dest" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'FileOperation.FileOperation(Group, string, string, FileOperationType)'</Item>
+               <Item>dest</Item>
+               <Item>'destPath'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'FileOperation.FileOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Write(System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="element" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'FileOperation.Write(XmlElement)'</Item>
+               <Item>'element'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="FileTypeOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'FileTypeOperation.FileTypeOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#BackupPart2(Anolis.Packages.Group,System.Collections.Generic.List`1&lt;System.String&gt;,System.Collections.Generic.List`1&lt;System.String&gt;,System.Collections.Generic.List`1&lt;System.String&gt;)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'FileTypeOperation.BackupPart2(Group, List&lt;string&gt;, List&lt;string&gt;, List&lt;string&gt;)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Operation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'Operation.Operation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#FromElement(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'Operation.FromElement(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PatchOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'PatchOperation.PatchOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PatchResource">
+          <Members>
+           <Member Name="#Type">
+            <Messages>
+             <Message TypeName="PropertyNamesShouldNotMatchGetMethods" Category="Microsoft.Naming" CheckId="CA1721" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue Name="BaseType">
+               <Item>'PatchResource.Type'</Item>
+               <Item>'object.GetType()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PathOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'PathOperation.PathOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ProgramOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'ProgramOperation.ProgramOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="RegistryExtraOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'RegistryExtraOperation.RegistryExtraOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Backup(Anolis.Packages.Group)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-12-30 22:32:31Z" FixCategory="DependsOnFix">
+              <Issue>
+               <Item>'RegistryExtraOperation.Backup(Group)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="backupGroup" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2010-12-30 22:32:31Z" FixCategory="DependsOnFix">
+              <Issue>
+               <Item>'backupGroup'</Item>
+               <Item>'RegistryExtraOperation.Backup(Group)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="RegistryOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'RegistryOperation.RegistryOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Write(System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="element" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'RegistryOperation.Write(XmlElement)'</Item>
+               <Item>'element'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResPatchOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'ResPatchOperation.ResPatchOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="RunOnceExtraOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'RunOnceExtraOperation.RunOnceExtraOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ScreensaverExtraOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'ScreensaverExtraOperation.ScreensaverExtraOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Backup(Anolis.Packages.Group,System.Collections.Generic.List`1&lt;System.String&gt;)">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'List&lt;string&gt;'</Item>
+               <Item>'ScreensaverExtraOperation.Backup(Group, List&lt;string&gt;)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#InstallCDImage(System.String)">
+            <Messages>
+             <Message Id="system32" TypeName="DoNotHardcodeLocaleSpecificStrings" Category="Microsoft.Globalization" CheckId="CA1302" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>system32</Item>
+               <Item>'ScreensaverExtraOperation.InstallCDImage(string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SystemParameterOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'SystemParameterOperation.SystemParameterOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Backup(Anolis.Packages.Group)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'SystemParameterOperation.Backup(Group)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetGetterAction(Anolis.Packages.Native.SpiAction)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'SystemParameterOperation.GetGetterAction(SpiAction)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PVParam">
+            <Messages>
+             <Message Id="Param" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Param</Item>
+               <Item>'SystemParameterOperation.PVParam'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SpiAction">
+            <Messages>
+             <Message Id="Spi" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Spi</Item>
+               <Item>'SystemParameterOperation.SpiAction'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#UIParam">
+            <Messages>
+             <Message Id="Param" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Param</Item>
+               <Item>'SystemParameterOperation.UIParam'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="UninstallationOperation">
+          <Messages>
+           <Message Id="Uninstallation" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Uninstallation</Item>
+             <Item>'UninstallationOperation'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'UninstallationOperation.UninstallationOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Backup(Anolis.Packages.Group,System.String)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'UninstallationOperation.Backup(Group, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Execute()">
+            <Messages>
+             <Message Id="System.DateTime.ToString(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'DateTime.ToString(string)'</Item>
+               <Item>'UninstallationOperation.Execute()'</Item>
+               <Item>'DateTime.ToString(string, IFormatProvider)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="UXThemeOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'UXThemeOperation.UXThemeOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="VisualStyleExtraOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'VisualStyleExtraOperation.VisualStyleExtraOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#MakeActive(System.String)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'VisualStyleExtraOperation.MakeActive(string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="WallpaperExtraOperation">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Group,System.Xml.XmlElement)">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'WallpaperExtraOperation.WallpaperExtraOperation(Group, XmlElement)'</Item>
+               <Item>'XmlElement'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Anolis.Packages.Utility">
+        <Types>
+         <Type Name="BootIni">
+          <Messages>
+           <Message Id="Ini" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Ini</Item>
+             <Item>'BootIni'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#.ctor(System.String)">
+            <Messages>
+             <Message Id="Ini" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'BootIni.BootIni(string)'</Item>
+               <Item>Ini</Item>
+               <Item>'bootIniPath'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#FromDefaultBootIni()">
+            <Messages>
+             <Message Id="Ini" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Ini</Item>
+               <Item>'BootIni.FromDefaultBootIni()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BootIniOSEntry">
+          <Messages>
+           <Message Id="Ini" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Ini</Item>
+             <Item>'BootIniOSEntry'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="FileAssociations">
+          <Members>
+           <Member Name="#_extComp">
+            <Messages>
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'FileAssociations._extComp'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetAssociations()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-12-30 22:32:31Z">
+              <Issue Certainty="50">
+               <Item>'FileAssociations.GetAssociations()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="FileBase">
+          <Members>
+           <Member Name="#.ctor(Anolis.Packages.Utility.FileAssociations)">
+            <Messages>
+             <Message Id="assocs" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'FileBase.FileBase(FileAssociations)'</Item>
+               <Item>assocs</Item>
+               <Item>'assocs'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ParentAssocs">
+            <Messages>
+             <Message Id="Assocs" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Assocs</Item>
+               <Item>'FileBase.ParentAssocs'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="FileExtension">
+          <Messages>
+           <Message TypeName="OverrideMethodsOnComparableTypes" Category="Microsoft.Design" CheckId="CA1036" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Equals">
+             <Item>'FileExtension'</Item>
+            </Issue>
+            <Issue Name="Operator">
+             <Item>'FileExtension'</Item>
+             <Item>!=</Item>
+            </Issue>
+            <Issue Name="Operator">
+             <Item>'FileExtension'</Item>
+             <Item>&lt;</Item>
+            </Issue>
+            <Issue Name="Operator">
+             <Item>'FileExtension'</Item>
+             <Item>==</Item>
+            </Issue>
+            <Issue Name="Operator">
+             <Item>'FileExtension'</Item>
+             <Item>&gt;</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="FileType">
+          <Messages>
+           <Message TypeName="OverrideMethodsOnComparableTypes" Category="Microsoft.Design" CheckId="CA1036" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Equals">
+             <Item>'FileType'</Item>
+            </Issue>
+            <Issue Name="Operator">
+             <Item>'FileType'</Item>
+             <Item>!=</Item>
+            </Issue>
+            <Issue Name="Operator">
+             <Item>'FileType'</Item>
+             <Item>&lt;</Item>
+            </Issue>
+            <Issue Name="Operator">
+             <Item>'FileType'</Item>
+             <Item>==</Item>
+            </Issue>
+            <Issue Name="Operator">
+             <Item>'FileType'</Item>
+             <Item>&gt;</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#EditFlags">
+            <Messages>
+             <Message Id="Flags" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberNoAlternate">
+               <Item>Flags</Item>
+               <Item>'FileType.EditFlags'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="FileTypeEditFlags">
+          <Messages>
+           <Message TypeName="EnumStorageShouldBeInt32" Category="Microsoft.Design" CheckId="CA1028" Created="2010-12-30 22:32:31Z">
+            <Issue Name="NotIntegral">
+             <Item>'FileTypeEditFlags'</Item>
+             <Item>'uint'</Item>
+            </Issue>
+           </Message>
+           <Message Id="Flags" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2010-12-30 22:32:31Z">
+            <Issue Name="TypeNoAlternate">
+             <Item>Flags</Item>
+             <Item>'FileTypeEditFlags'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#NoEditDesc">
+            <Messages>
+             <Message Id="Desc" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Desc</Item>
+               <Item>'FileTypeEditFlags.NoEditDesc'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#NoEditDflt">
+            <Messages>
+             <Message Id="Dflt" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Dflt</Item>
+               <Item>'FileTypeEditFlags.NoEditDflt'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PackageUtility">
+          <Members>
+           <Member Name="#AddPfroEntry(System.IO.DirectoryInfo)">
+            <Messages>
+             <Message Id="Pfro" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Pfro</Item>
+               <Item>'PackageUtility.AddPfroEntry(DirectoryInfo)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#AddPfroEntry(System.String,System.String)">
+            <Messages>
+             <Message Id="Pfro" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Pfro</Item>
+               <Item>'PackageUtility.AddPfroEntry(string, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetSysWow64File(System.String)">
+            <Messages>
+             <Message Id="System.String.StartsWith(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'PackageUtility.GetSysWow64File(string)'</Item>
+               <Item>'string.StartsWith(string)'</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#RunProcHiddenAsync(System.String,System.String)">
+            <Messages>
+             <Message Id="proc" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'PackageUtility.RunProcHiddenAsync(string, string)'</Item>
+               <Item>'proc'</Item>
+               <Item>'Process'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ShellLink">
+          <Members>
+           <Member Name="#CreateShellLink(System.String,System.String,System.String)">
+            <Messages>
+             <Message Id="lnk" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:53:20Z">
+              <Issue Name="MemberParameter">
+               <Item>'ShellLink.CreateShellLink(string, string, string)'</Item>
+               <Item>lnk</Item>
+               <Item>'lnkFileName'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#HotKey">
+            <Messages>
+             <Message Id="HotKey" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2010-12-30 22:53:20Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>HotKey</Item>
+               <Item>'ShellLink.HotKey'</Item>
+               <Item>Hotkey</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Open(System.String,System.IntPtr,Anolis.Packages.Utility.ShellLinkResolutionBehavior)">
+            <Messages>
+             <Message Id="Wnd" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:53:20Z">
+              <Issue Name="MemberParameter">
+               <Item>'ShellLink.Open(string, IntPtr, ShellLinkResolutionBehavior)'</Item>
+               <Item>Wnd</Item>
+               <Item>'hWnd'</Item>
+              </Issue>
+             </Message>
+             <Message Id="h" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:53:20Z">
+              <Issue Name="MemberParameter">
+               <Item>'ShellLink.Open(string, IntPtr, ShellLinkResolutionBehavior)'</Item>
+               <Item>h</Item>
+               <Item>'hWnd'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Open(System.String,System.IntPtr,Anolis.Packages.Utility.ShellLinkResolutionBehavior,System.UInt16)">
+            <Messages>
+             <Message Id="timeOut" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2010-12-30 22:53:20Z">
+              <Issue Name="MemberParameterShouldBeDiscreteTerm">
+               <Item>'ShellLink.Open(string, IntPtr, ShellLinkResolutionBehavior, ushort)'</Item>
+               <Item>timeOut</Item>
+               <Item>'timeOut'</Item>
+               <Item>timeout</Item>
+              </Issue>
+             </Message>
+             <Message Id="Wnd" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:53:20Z">
+              <Issue Name="MemberParameter">
+               <Item>'ShellLink.Open(string, IntPtr, ShellLinkResolutionBehavior, ushort)'</Item>
+               <Item>Wnd</Item>
+               <Item>'hWnd'</Item>
+              </Issue>
+             </Message>
+             <Message Id="h" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:53:20Z">
+              <Issue Name="MemberParameter">
+               <Item>'ShellLink.Open(string, IntPtr, ShellLinkResolutionBehavior, ushort)'</Item>
+               <Item>h</Item>
+               <Item>'hWnd'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#shortcutFile">
+            <Messages>
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2010-12-30 22:53:20Z">
+              <Issue>
+               <Item>'ShellLink.shortcutFile'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ShellLinkResolutionBehavior">
+          <Messages>
+           <Message TypeName="DoNotMarkEnumsWithFlags" Category="Microsoft.Usage" CheckId="CA2217" Created="2010-12-30 22:53:20Z">
+            <Issue>
+             <Item>'ShellLinkResolutionBehavior'</Item>
+             <Item>0x100</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="EnumStorageShouldBeInt32" Category="Microsoft.Design" CheckId="CA1028" Created="2010-12-30 22:53:20Z">
+            <Issue Name="NotIntegral">
+             <Item>'ShellLinkResolutionBehavior'</Item>
+             <Item>'uint'</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="FlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1714" Created="2010-12-30 22:53:20Z">
+            <Issue>
+             <Item>'ShellLinkResolutionBehavior'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#InvokeMsi">
+            <Messages>
+             <Message Id="Msi" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:53:20Z">
+              <Issue Name="Member">
+               <Item>Msi</Item>
+               <Item>'ShellLinkResolutionBehavior.InvokeMsi'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ShellLinkWindowMode">
+          <Messages>
+           <Message TypeName="EnumStorageShouldBeInt32" Category="Microsoft.Design" CheckId="CA1028" Created="2010-12-30 22:53:20Z">
+            <Issue Name="NotIntegral">
+             <Item>'ShellLinkWindowMode'</Item>
+             <Item>'uint'</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="EnumsShouldHaveZeroValue" Category="Microsoft.Design" CheckId="CA1008" Created="2010-12-30 22:53:20Z" FixCategory="Breaking">
+            <Issue Name="FlagsRename">
+             <Item>'ShellLinkWindowMode'</Item>
+             <Item>'ShellLinkWindowMode.Hide'</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="FlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1714" Created="2010-12-30 22:53:20Z">
+            <Issue>
+             <Item>'ShellLinkWindowMode'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="SystemRestoreEventType">
+          <Messages>
+           <Message TypeName="EnumsShouldHaveZeroValue" Category="Microsoft.Design" CheckId="CA1008" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+            <Issue Name="NotFlagsNoZeroValue">
+             <Item>'SystemRestoreEventType'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="SystemRestoreType">
+          <Members>
+           <Member Name="#ApplicationCancelled">
+            <Messages>
+             <Message Id="Cancelled" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Cancelled</Item>
+               <Item>'SystemRestoreType.ApplicationCancelled'</Item>
+               <Item>Canceled</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Anolis.Packages.Utility.BinaryPatch">
+        <Types>
+         <Type Name="Patch">
+          <Members>
+           <Member Name="#Entries">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'Patch.Entries'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#File">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'Patch.File'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PatchEntry">
+          <Members>
+           <Member Name="#Bytes">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'PatchEntry.Bytes'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Matches">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'PatchEntry.Matches'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Offset">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'PatchEntry.Offset'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Status">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'PatchEntry.Status'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PatchFinder">
+          <Members>
+           <Member Name="#GetPatchStatus()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-12-30 22:32:31Z">
+              <Issue Certainty="50">
+               <Item>'PatchFinder.GetPatchStatus()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#OnMatch(System.Byte[],System.Int32,Anolis.Packages.Utility.BinaryPatch.SearchCriteria)">
+            <Messages>
+             <Message Id="i" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'PatchFinder.OnMatch(byte[], int, SearchCriteria)'</Item>
+               <Item>'i'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SearchCriteria">
+          <Members>
+           <Member Name="#MagicIndex">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'SearchCriteria.MagicIndex'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PatchBytes">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'SearchCriteria.PatchBytes'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SearchBegin">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'SearchCriteria.SearchBegin'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SearchEnd">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'SearchCriteria.SearchEnd'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignBytes">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'SearchCriteria.SignBytes'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignIndexen">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'SearchCriteria.SignIndexen'</Item>
+              </Issue>
+             </Message>
+             <Message Id="Indexen" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Indexen</Item>
+               <Item>'SearchCriteria.SignIndexen'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="UXThemeVi32Finder">
+          <Messages>
+           <Message Id="Vi" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Vi</Item>
+             <Item>'UXThemeVi32Finder'</Item>
+             <Item>VI</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#OnMatch(System.Byte[],System.Int32,Anolis.Packages.Utility.BinaryPatch.SearchCriteria)">
+            <Messages>
+             <Message Id="i+33" TypeName="OperationsShouldNotOverflow" Category="Microsoft.Usage" CheckId="CA2233" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>i+33</Item>
+               <Item>'UXThemeVi32Finder.OnMatch(byte[], int, SearchCriteria)'</Item>
+              </Issue>
+              <Issue>
+               <Item>i+33</Item>
+               <Item>'UXThemeVi32Finder.OnMatch(byte[], int, SearchCriteria)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="i+34" TypeName="OperationsShouldNotOverflow" Category="Microsoft.Usage" CheckId="CA2233" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>i+34</Item>
+               <Item>'UXThemeVi32Finder.OnMatch(byte[], int, SearchCriteria)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="i+36" TypeName="OperationsShouldNotOverflow" Category="Microsoft.Usage" CheckId="CA2233" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>i+36</Item>
+               <Item>'UXThemeVi32Finder.OnMatch(byte[], int, SearchCriteria)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="UXThemeVi64Finder">
+          <Messages>
+           <Message Id="Vi" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Vi</Item>
+             <Item>'UXThemeVi64Finder'</Item>
+             <Item>VI</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#OnMatch(System.Byte[],System.Int32,Anolis.Packages.Utility.BinaryPatch.SearchCriteria)">
+            <Messages>
+             <Message Id="i+15" TypeName="OperationsShouldNotOverflow" Category="Microsoft.Usage" CheckId="CA2233" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>i+15</Item>
+               <Item>'UXThemeVi64Finder.OnMatch(byte[], int, SearchCriteria)'</Item>
+              </Issue>
+              <Issue>
+               <Item>i+15</Item>
+               <Item>'UXThemeVi64Finder.OnMatch(byte[], int, SearchCriteria)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/Anolis.Resources/bin/Debug/Anolis.Resources.dll">
+    <Modules>
+     <Module Name="anolis.resources.dll">
+      <Messages>
+       <Message Id="Anolis" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+        <Issue Name="Assembly">
+         <Item>Anolis</Item>
+         <Item>'Anolis.Resources.dll'</Item>
+        </Issue>
+       </Message>
+      </Messages>
+      <Namespaces>
+       <Namespace Name="Anolis">
+        <Types>
+         <Type Name="AnolisException">
+          <Messages>
+           <Message Id="Anolis" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Anolis</Item>
+             <Item>'AnolisException'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Extensions">
+          <Members>
+           <Member Name="#Align2(System.IO.BinaryReader)">
+            <Messages>
+             <Message Id="rdr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Extensions.Align2(this BinaryReader)'</Item>
+               <Item>rdr</Item>
+               <Item>'rdr'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Align2(System.IO.BinaryWriter)">
+            <Messages>
+             <Message Id="wtr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Extensions.Align2(this BinaryWriter)'</Item>
+               <Item>wtr</Item>
+               <Item>'wtr'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Align4(System.IO.BinaryReader)">
+            <Messages>
+             <Message Id="rdr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Extensions.Align4(this BinaryReader)'</Item>
+               <Item>rdr</Item>
+               <Item>'rdr'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Align4(System.IO.BinaryWriter)">
+            <Messages>
+             <Message Id="wtr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Extensions.Align4(this BinaryWriter)'</Item>
+               <Item>wtr</Item>
+               <Item>'wtr'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Clone`2(System.Collections.Generic.Dictionary`2&lt;!!0,!!1&gt;)">
+            <Messages>
+             <Message Id="dict" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Extensions.Clone&lt;TKey, TValue&gt;(this Dictionary&lt;TKey, TValue&gt;)'</Item>
+               <Item>dict</Item>
+               <Item>'dict'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetDirectory(System.IO.DirectoryInfo,System.String)">
+            <Messages>
+             <Message TypeName="ConsiderPassingBaseTypesAsParameters" Category="Microsoft.Design" CheckId="CA1011" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'directory'</Item>
+               <Item>'Extensions.GetDirectory(this DirectoryInfo, string)'</Item>
+               <Item>'DirectoryInfo'</Item>
+               <Item>'FileSystemInfo'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetFile(System.IO.DirectoryInfo,System.String)">
+            <Messages>
+             <Message TypeName="ConsiderPassingBaseTypesAsParameters" Category="Microsoft.Design" CheckId="CA1011" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'directory'</Item>
+               <Item>'Extensions.GetFile(this DirectoryInfo, string)'</Item>
+               <Item>'DirectoryInfo'</Item>
+               <Item>'FileSystemInfo'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Left(System.String,System.Int32)">
+            <Messages>
+             <Message Id="str" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Extensions.Left(this string, int)'</Item>
+               <Item>str</Item>
+               <Item>'str'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LeftFR(System.String,System.Int32)">
+            <Messages>
+             <Message Id="str" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Extensions.LeftFR(this string, int)'</Item>
+               <Item>str</Item>
+               <Item>'str'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ReadIdentifier(System.IO.BinaryReader)">
+            <Messages>
+             <Message Id="rdr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Extensions.ReadIdentifier(this BinaryReader)'</Item>
+               <Item>rdr</Item>
+               <Item>'rdr'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ReadSZString(System.IO.BinaryReader)">
+            <Messages>
+             <Message Id="rdr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Extensions.ReadSZString(this BinaryReader)'</Item>
+               <Item>rdr</Item>
+               <Item>'rdr'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Right(System.String,System.Int32)">
+            <Messages>
+             <Message Id="str" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Extensions.Right(this string, int)'</Item>
+               <Item>str</Item>
+               <Item>'str'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Tok(System.String,System.Int32&amp;)">
+            <Messages>
+             <Message Id="1#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Created="2010-12-30 22:32:31Z">
+              <Issue Certainty="50">
+               <Item>'start'</Item>
+              </Issue>
+             </Message>
+             <Message Id="Tok" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Tok</Item>
+               <Item>'Extensions.Tok(this string, ref int)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="str" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Extensions.Tok(this string, ref int)'</Item>
+               <Item>str</Item>
+               <Item>'str'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToStringInvariant(System.Byte)">
+            <Messages>
+             <Message Id="n" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Extensions.ToStringInvariant(this byte)'</Item>
+               <Item>'n'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToStringInvariant(System.Double)">
+            <Messages>
+             <Message Id="n" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Extensions.ToStringInvariant(this double)'</Item>
+               <Item>'n'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToStringInvariant(System.Int16)">
+            <Messages>
+             <Message Id="n" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Extensions.ToStringInvariant(this short)'</Item>
+               <Item>'n'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToStringInvariant(System.Int32)">
+            <Messages>
+             <Message Id="n" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Extensions.ToStringInvariant(this int)'</Item>
+               <Item>'n'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToStringInvariant(System.Int64)">
+            <Messages>
+             <Message Id="n" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Extensions.ToStringInvariant(this long)'</Item>
+               <Item>'n'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToStringInvariant(System.SByte)">
+            <Messages>
+             <Message Id="n" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Extensions.ToStringInvariant(this sbyte)'</Item>
+               <Item>'n'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToStringInvariant(System.Single)">
+            <Messages>
+             <Message Id="n" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Extensions.ToStringInvariant(this float)'</Item>
+               <Item>'n'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToStringInvariant(System.UInt16)">
+            <Messages>
+             <Message Id="n" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Extensions.ToStringInvariant(this ushort)'</Item>
+               <Item>'n'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToStringInvariant(System.UInt32)">
+            <Messages>
+             <Message Id="n" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Extensions.ToStringInvariant(this uint)'</Item>
+               <Item>'n'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToStringInvariant(System.UInt64)">
+            <Messages>
+             <Message Id="n" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Extensions.ToStringInvariant(this ulong)'</Item>
+               <Item>'n'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#VersionTryParse(System.String,System.Version&amp;)">
+            <Messages>
+             <Message Id="1#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'version'</Item>
+              </Issue>
+             </Message>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Extensions.VersionTryParse(string, out Version)'</Item>
+               <Item>'s'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#WriteSZString(System.IO.BinaryWriter,System.String)">
+            <Messages>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Extensions.WriteSZString(this BinaryWriter, string)'</Item>
+               <Item>'s'</Item>
+              </Issue>
+             </Message>
+             <Message Id="wtr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'Extensions.WriteSZString(this BinaryWriter, string)'</Item>
+               <Item>wtr</Item>
+               <Item>'wtr'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Log">
+          <Messages>
+           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2010-12-30 22:32:31Z">
+            <Issue>
+             <Item>'Log'</Item>
+             <Item>Collection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="LogItem">
+          <Members>
+           <Member Name="#Write(System.IO.TextWriter)">
+            <Messages>
+             <Message Id="wtr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'LogItem.Write(TextWriter)'</Item>
+               <Item>wtr</Item>
+               <Item>'wtr'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Write(System.Text.StringBuilder)">
+            <Messages>
+             <Message Id="System.IO.StringWriter.#ctor(System.Text.StringBuilder)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'StringWriter.StringWriter(StringBuilder)'</Item>
+               <Item>'LogItem.Write(StringBuilder)'</Item>
+               <Item>'StringWriter.StringWriter(StringBuilder, IFormatProvider)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Anolis.Core">
+        <Types>
+         <Type Name="FactoryBase">
+          <Members>
+           <Member Name="#AssemblyFileNames">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'FactoryBase.AssemblyFileNames'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="FactoryOptions">
+          <Messages>
+           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2010-12-30 22:32:31Z">
+            <Issue>
+             <Item>'FactoryOptions'</Item>
+             <Item>Dictionary</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Created="2010-12-30 22:32:31Z">
+            <Issue>
+             <Item>'FactoryOptions'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#Item[System.String]">
+            <Accessors>
+             <Accessor Name="#set_Item(System.String,System.Object)">
+              <Messages>
+               <Message TypeName="DoNotHideBaseClassMethods" Category="Microsoft.Design" CheckId="CA1061" Created="2010-12-30 22:32:31Z">
+                <Issue>
+                 <Item>'FactoryOptions.this.set(string, object)'</Item>
+                 <Item>'Dictionary&lt;string, FactoryOptionValue&gt;.this.set(string, FactoryOptionValue)'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="FactoryOptionValue">
+          <Members>
+           <Member Name="#Category">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'FactoryOptionValue.Category'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Description">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'FactoryOptionValue.Description'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Value">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'FactoryOptionValue.Value'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ValueType">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'FactoryOptionValue.ValueType'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResourceIdentifier">
+          <Members>
+           <Member Name="#CreateFromString(System.String)">
+            <Messages>
+             <Message Id="string" TypeName="IdentifiersShouldNotContainTypeNames" Category="Microsoft.Naming" CheckId="CA1720" Created="2010-12-30 22:32:31Z">
+              <Issue Name="LanguageIndependentMemberParameter">
+               <Item>'ResourceIdentifier.CreateFromString(string)'</Item>
+               <Item>String</Item>
+               <Item>'ambiguousString'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResourceLangEnumerable">
+          <Messages>
+           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2010-12-30 22:32:31Z">
+            <Issue>
+             <Item>'ResourceLangEnumerable'</Item>
+             <Item>Collection</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="ResourceName">
+          <Members>
+           <Member Name="#Langs">
+            <Messages>
+             <Message Id="Langs" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Langs</Item>
+               <Item>'ResourceName.Langs'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Type">
+            <Messages>
+             <Message TypeName="PropertyNamesShouldNotMatchGetMethods" Category="Microsoft.Naming" CheckId="CA1721" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue Name="BaseType">
+               <Item>'ResourceName.Type'</Item>
+               <Item>'object.GetType()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResourceNameCollection">
+          <Members>
+           <Member Name="#Item[Anolis.Core.ResourceIdentifier]">
+            <Messages>
+             <Message TypeName="UseIntegralOrStringArgumentForIndexers" Category="Microsoft.Design" CheckId="CA1043" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'ResourceNameCollection.this[ResourceIdentifier]'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResourceSource">
+          <Members>
+           <Member Name="#AllActiveLangs">
+            <Messages>
+             <Message Id="Langs" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Langs</Item>
+               <Item>'ResourceSource.AllActiveLangs'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#AllLangs">
+            <Messages>
+             <Message Id="Langs" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Langs</Item>
+               <Item>'ResourceSource.AllLangs'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#AllLoadedLangs">
+            <Messages>
+             <Message Id="Langs" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Langs</Item>
+               <Item>'ResourceSource.AllLoadedLangs'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Name">
+            <Messages>
+             <Message TypeName="PropertyNamesShouldNotMatchGetMethods" Category="Microsoft.Naming" CheckId="CA1721" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue Name="SameType">
+               <Item>'ResourceSource.Name'</Item>
+               <Item>'ResourceSource.GetName(ResourceTypeIdentifier, ResourceIdentifier)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResourceSourceInfo">
+          <Messages>
+           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2010-12-30 22:32:31Z">
+            <Issue>
+             <Item>'ResourceSourceInfo'</Item>
+             <Item>Dictionary</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Created="2010-12-30 22:32:31Z">
+            <Issue>
+             <Item>'ResourceSourceInfo'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="ResourceTypeCollection">
+          <Members>
+           <Member Name="#Item[Anolis.Core.ResourceTypeIdentifier]">
+            <Messages>
+             <Message TypeName="UseIntegralOrStringArgumentForIndexers" Category="Microsoft.Design" CheckId="CA1043" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'ResourceTypeCollection.this[ResourceTypeIdentifier]'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResourceTypeIdentifier">
+          <Members>
+           <Member Name="#CreateFromString(System.String,System.Boolean)">
+            <Messages>
+             <Message Id="string" TypeName="IdentifiersShouldNotContainTypeNames" Category="Microsoft.Naming" CheckId="CA1720" Created="2010-12-30 22:32:31Z">
+              <Issue Name="LanguageIndependentMemberParameter">
+               <Item>'ResourceTypeIdentifier.CreateFromString(string, bool)'</Item>
+               <Item>String</Item>
+               <Item>'ambiguousString'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetTypeFriendlyName(System.Int32)">
+            <Messages>
+             <Message Id="integer" TypeName="IdentifiersShouldNotContainTypeNames" Category="Microsoft.Naming" CheckId="CA1720" Created="2010-12-30 22:32:31Z">
+              <Issue Name="LanguageSpecificMemberParameter">
+               <Item>'ResourceTypeIdentifier.GetTypeFriendlyName(int)'</Item>
+               <Item>integer</Item>
+               <Item>'integerId'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Win32ResourceType">
+          <Members>
+           <Member Name="#DlgInclude">
+            <Messages>
+             <Message Id="Dlg" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Dlg</Item>
+               <Item>'Win32ResourceType.DlgInclude'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Anolis.Core.Data">
+        <Types>
+         <Type Name="BmpImageResourceData">
+          <Members>
+           <Member Name="#.ctor(Anolis.Core.Utility.Dib,Anolis.Core.ResourceLang,System.Byte[])">
+            <Messages>
+             <Message Id="rawData" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'rawData'</Item>
+               <Item>'BmpImageResourceData.BmpImageResourceData(Dib, ResourceLang, byte[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Image">
+            <Accessors>
+             <Accessor Name="#get_Image()">
+              <Messages>
+               <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Created="2010-12-30 22:32:31Z" FixCategory="Breaking">
+                <Issue Name="PropertyGetter" Level="Warning">
+                 <Item>'BmpImageResourceData.Image.get()'</Item>
+                 <Item>'ResourceDataException'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="DirectoryResourceDataFactory">
+          <Members>
+           <Member Name="#GetMergeOptions()">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-12-30 22:32:31Z" FixCategory="DependsOnFix">
+              <Issue>
+               <Item>'DirectoryResourceDataFactory.GetMergeOptions()'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-12-30 22:32:31Z">
+              <Issue Certainty="50">
+               <Item>'DirectoryResourceDataFactory.GetMergeOptions()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GifImageResourceDataFactory">
+          <Members>
+           <Member Name="#FromFile(System.IO.Stream,System.String)">
+            <Messages>
+             <Message Id="extension" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'extension'</Item>
+               <Item>'GifImageResourceDataFactory.FromFile(Stream, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="IconCursorImageResourceData">
+          <Members>
+           <Member Name="#GetImage(System.Drawing.Icon)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'IconCursorImageResourceData.GetImage(Icon)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="IconCursorImageResourceDataFactory">
+          <Members>
+           <Member Name="#FromFileData(Anolis.Core.ResourceLang,System.Byte[],System.Boolean)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-12-30 22:32:31Z" FixCategory="DependsOnFix">
+              <Issue>
+               <Item>'IconCursorImageResourceDataFactory.FromFileData(ResourceLang, byte[], bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ImageResourceDataSaveFormat">
+          <Members>
+           <Member Name="#Exif">
+            <Messages>
+             <Message Id="Exif" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Exif</Item>
+               <Item>'ImageResourceDataSaveFormat.Exif'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Png">
+            <Messages>
+             <Message Id="Png" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Png</Item>
+               <Item>'ImageResourceDataSaveFormat.Png'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="JpegImageResourceDataFactory">
+          <Members>
+           <Member Name="#FromFile(System.IO.Stream,System.String)">
+            <Messages>
+             <Message Id="extension" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'extension'</Item>
+               <Item>'JpegImageResourceDataFactory.FromFile(Stream, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PngImageResourceData">
+          <Messages>
+           <Message Id="Png" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Png</Item>
+             <Item>'PngImageResourceData'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#HasPngSignature(System.Byte[])">
+            <Messages>
+             <Message Id="Png" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Png</Item>
+               <Item>'PngImageResourceData.HasPngSignature(byte[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PngImageResourceDataFactory">
+          <Messages>
+           <Message Id="Png" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Png</Item>
+             <Item>'PngImageResourceDataFactory'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#FromFile(System.IO.Stream,System.String)">
+            <Messages>
+             <Message Id="extension" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'extension'</Item>
+               <Item>'PngImageResourceDataFactory.FromFile(Stream, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResourceData">
+          <Members>
+           <Member Name="#GetRecommendedTypeId()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'ResourceData.GetRecommendedTypeId()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#RawData">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'ResourceData.RawData'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#RecommendedTypeId">
+            <Messages>
+             <Message TypeName="PropertyNamesShouldNotMatchGetMethods" Category="Microsoft.Naming" CheckId="CA1721" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue Name="SameType">
+               <Item>'ResourceData.RecommendedTypeId'</Item>
+               <Item>'ResourceData.GetRecommendedTypeId()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SaveFileFilters">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'ResourceData.SaveFileFilters'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SupportedFilters">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'ResourceData.SupportedFilters'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResourceDataFactory">
+          <Members>
+           <Member Name="#_type">
+            <Messages>
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'ResourceDataFactory._type'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResourceDataTagDictionary">
+          <Messages>
+           <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Created="2010-12-30 22:32:31Z">
+            <Issue>
+             <Item>'ResourceDataTagDictionary'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="RiffMediaResourceDataFactory">
+          <Members>
+           <Member Name="#FromFile(System.IO.Stream,System.String)">
+            <Messages>
+             <Message Id="extension" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'extension'</Item>
+               <Item>'RiffMediaResourceDataFactory.FromFile(Stream, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SgmlResourceData">
+          <Members>
+           <Member Name="#Document">
+            <Messages>
+             <Message Id="System.Xml.XmlNode" TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Xml">
+               <Item>'SgmlResourceData.Document'</Item>
+               <Item>'XmlDocument'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SgmlResourceDataFactory">
+          <Members>
+           <Member Name="#FromFileToAdd(System.IO.Stream,System.String,System.UInt16,Anolis.Core.ResourceSource)">
+            <Messages>
+             <Message Id="2#" TypeName="ParameterNamesShouldMatchBaseDeclaration" Category="Microsoft.Naming" CheckId="CA1725" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'SgmlResourceDataFactory.FromFileToAdd(Stream, string, ushort, ResourceSource)'</Item>
+               <Item>'lang'</Item>
+               <Item>'langId'</Item>
+               <Item>'ResourceDataFactory.FromFileToAdd(Stream, string, ushort, ResourceSource)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="VersionItem">
+          <Members>
+           <Member Name="#Children">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'VersionItem.Children'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Type">
+            <Messages>
+             <Message TypeName="PropertyNamesShouldNotMatchGetMethods" Category="Microsoft.Naming" CheckId="CA1721" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue Name="BaseType">
+               <Item>'VersionItem.Type'</Item>
+               <Item>'object.GetType()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="VersionResourceData">
+          <Members>
+           <Member Name="#GetFixedFileInfo()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-12-30 22:32:31Z">
+              <Issue Certainty="50">
+               <Item>'VersionResourceData.GetFixedFileInfo()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetStringTable()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-12-30 22:32:31Z">
+              <Issue Certainty="50">
+               <Item>'VersionResourceData.GetStringTable()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Anolis.Core.Native">
+        <Types>
+         <Type Name="FileMapAccess">
+          <Messages>
+           <Message TypeName="DoNotMarkEnumsWithFlags" Category="Microsoft.Usage" CheckId="CA2217" Created="2010-12-30 22:32:31Z">
+            <Issue>
+             <Item>'FileMapAccess'</Item>
+             <Item>0x8, 0x10</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="EnumStorageShouldBeInt32" Category="Microsoft.Design" CheckId="CA1028" Created="2010-12-30 22:32:31Z">
+            <Issue Name="NotIntegral">
+             <Item>'FileMapAccess'</Item>
+             <Item>'uint'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#fileMapExecute">
+            <Messages>
+             <Message Id="file" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>file</Item>
+               <Item>'FileMapAccess.fileMapExecute'</Item>
+               <Item>File</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="FileMapProtection">
+          <Messages>
+           <Message TypeName="EnumStorageShouldBeInt32" Category="Microsoft.Design" CheckId="CA1028" Created="2010-12-30 22:32:31Z">
+            <Issue Name="NotIntegral">
+             <Item>'FileMapProtection'</Item>
+             <Item>'uint'</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="FlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1714" Created="2010-12-30 22:32:31Z">
+            <Issue>
+             <Item>'FileMapProtection'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="MenuTemplateItemOptions">
+          <Messages>
+           <Message TypeName="EnumStorageShouldBeInt32" Category="Microsoft.Design" CheckId="CA1028" Created="2010-12-30 22:32:31Z">
+            <Issue Name="NotIntegral">
+             <Item>'MenuTemplateItemOptions'</Item>
+             <Item>'ushort'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#Greyed">
+            <Messages>
+             <Message Id="Greyed" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="Member">
+               <Item>Greyed</Item>
+               <Item>'MenuTemplateItemOptions.Greyed'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="NativeMethods">
+          <Members>
+           <Member Name="#DeleteObject(System.IntPtr)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'NativeMethods.DeleteObject(IntPtr)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#DestroyCursor(System.IntPtr)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'NativeMethods.DestroyCursor(IntPtr)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#EnumResourceLanguagesEx(System.IntPtr,System.IntPtr,System.IntPtr,Anolis.Core.Native.NativeMethods+EnumResLangProc,System.IntPtr,Anolis.Core.Native.NativeMethods+MuiResourceFlags,System.UInt16)">
+            <Messages>
+             <Message TypeName="PInvokeEntryPointsShouldExist" Category="Microsoft.Interoperability" CheckId="CA1400" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'NativeMethods.EnumResourceLanguagesEx(IntPtr, IntPtr, IntPtr, NativeMethods.EnumResLangProc, IntPtr, NativeMethods.MuiResourceFlags, ushort)'</Item>
+               <Item>'Kernel32.dll'</Item>
+               <Item>EnumResourceLanguagesEx</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#EnumResourceNamesEx(System.IntPtr,System.IntPtr,Anolis.Core.Native.NativeMethods+EnumResNameProc,System.IntPtr,Anolis.Core.Native.NativeMethods+MuiResourceFlags,System.UInt16)">
+            <Messages>
+             <Message TypeName="PInvokeEntryPointsShouldExist" Category="Microsoft.Interoperability" CheckId="CA1400" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'NativeMethods.EnumResourceNamesEx(IntPtr, IntPtr, NativeMethods.EnumResNameProc, IntPtr, NativeMethods.MuiResourceFlags, ushort)'</Item>
+               <Item>'Kernel32.dll'</Item>
+               <Item>EnumResourceNamesEx</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#EnumResourceTypesEx(System.IntPtr,Anolis.Core.Native.NativeMethods+EnumResTypeProc,System.IntPtr,Anolis.Core.Native.NativeMethods+MuiResourceFlags,System.UInt16)">
+            <Messages>
+             <Message TypeName="PInvokeEntryPointsShouldExist" Category="Microsoft.Interoperability" CheckId="CA1400" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'NativeMethods.EnumResourceTypesEx(IntPtr, NativeMethods.EnumResTypeProc, IntPtr, NativeMethods.MuiResourceFlags, ushort)'</Item>
+               <Item>'Kernel32.dll'</Item>
+               <Item>EnumResourceTypesEx</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LoadImage(System.IntPtr,System.IntPtr,Anolis.Core.Native.NativeMethods+LoadImageType,System.Int32,System.Int32,Anolis.Core.Native.NativeMethods+LoadImageFlags)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'NativeMethods.LoadImage(IntPtr, IntPtr, NativeMethods.LoadImageType, int, int, NativeMethods.LoadImageFlags)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LoadLibrary(System.String)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'NativeMethods.LoadLibrary(string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResResourceHeader">
+          <Members>
+           <Member Name="#.ctor(System.IO.BinaryReader)">
+            <Messages>
+             <Message Id="cruftBytes" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'ResResourceHeader.ResResourceHeader(BinaryReader)'</Item>
+               <Item>'cruftBytes'</Item>
+               <Item>'byte[]'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SafeFileMappingHandle">
+          <Members>
+           <Member Name="#.ctor(System.IntPtr,System.Boolean)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'SafeFileMappingHandle.SafeFileMappingHandle(IntPtr, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="VSFixedFileInfo">
+          <Members>
+           <Member Name="#.ctor(System.IO.BinaryReader)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'VSFixedFileInfo.VSFixedFileInfo(BinaryReader)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Anolis.Core.Native.Gdi">
+        <Types>
+         <Type Name="BitmapCoreHeader">
+          <Members>
+           <Member Name="#.ctor(System.IO.BinaryReader)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'BitmapCoreHeader.BitmapCoreHeader(BinaryReader)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BitmapInfoHeader">
+          <Members>
+           <Member Name="#.ctor(System.IO.BinaryReader)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'BitmapInfoHeader.BitmapInfoHeader(BinaryReader)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BitmapV4Header">
+          <Members>
+           <Member Name="#.ctor(System.IO.BinaryReader)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'BitmapV4Header.BitmapV4Header(BinaryReader)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BitmapV5Header">
+          <Members>
+           <Member Name="#.ctor(System.IO.BinaryReader)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'BitmapV5Header.BitmapV5Header(BinaryReader)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Anolis.Core.Source">
+        <Types>
+         <Type Name="CilResourceSource">
+          <Messages>
+           <Message Id="Cil" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Cil</Item>
+             <Item>'CilResourceSource'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="ResourceSourceFactory">
+          <Members>
+           <Member Name="#CreateNew(System.String)">
+            <Messages>
+             <Message TypeName="IdentifiersShouldNotHaveIncorrectSuffix" Category="Microsoft.Naming" CheckId="CA1711" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberNewerVersion">
+               <Item>New</Item>
+               <Item>'ResourceSourceFactory.CreateNew(string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#CreateNew(System.String,System.Boolean,Anolis.Core.ResourceSourceLoadMode)">
+            <Messages>
+             <Message TypeName="IdentifiersShouldNotHaveIncorrectSuffix" Category="Microsoft.Naming" CheckId="CA1711" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberNewerVersion">
+               <Item>New</Item>
+               <Item>'ResourceSourceFactory.CreateNew(string, bool, ResourceSourceLoadMode)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetFactories()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'ResourceSourceFactory.GetFactories()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResResourceSource">
+          <Members>
+           <Member Name="#Reload()">
+            <Messages>
+             <Message Id="headerSize" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'ResResourceSource.Reload()'</Item>
+               <Item>'headerSize'</Item>
+               <Item>'int'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ResResourceSource+ResResource">
+          <Members>
+           <Member Name="#HeaderLength">
+            <Accessors>
+             <Accessor Name="#get_HeaderLength()">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+                <Issue>
+                 <Item>'ResResourceSource.ResResource.HeaderLength.get()'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="#HeaderOffset">
+            <Accessors>
+             <Accessor Name="#get_HeaderOffset()">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-12-30 22:32:31Z">
+                <Issue>
+                 <Item>'ResResourceSource.ResResource.HeaderOffset.get()'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="Anolis.Core.Utility">
+        <Types>
+         <Type Name="CompositedImage">
+          <Messages>
+           <Message Id="Composited" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Composited</Item>
+             <Item>'CompositedImage'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="CompositedLayer">
+          <Messages>
+           <Message Id="Composited" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Type">
+             <Item>Composited</Item>
+             <Item>'CompositedLayer'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#MakeString(System.String,System.Int32,System.Int32,System.Nullable`1&lt;System.Byte&gt;,System.Drawing.Size)">
+            <Messages>
+             <Message Id="coord" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'CompositedLayer.MakeString(string, int, int, byte?, Size)'</Item>
+               <Item>coord</Item>
+               <Item>'coordX'</Item>
+              </Issue>
+              <Issue Name="MemberParameter">
+               <Item>'CompositedLayer.MakeString(string, int, int, byte?, Size)'</Item>
+               <Item>coord</Item>
+               <Item>'coordY'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Dib">
+          <Members>
+           <Member Name="#WidthBytes(System.UInt32)">
+            <Messages>
+             <Message Id="bits+31" TypeName="OperationsShouldNotOverflow" Category="Microsoft.Usage" CheckId="CA2233" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>bits+31</Item>
+               <Item>'Dib.WidthBytes(uint)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="FileMapMode">
+          <Messages>
+           <Message TypeName="EnumsShouldHaveZeroValue" Category="Microsoft.Design" CheckId="CA1008" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+            <Issue Name="NotFlagsNoZeroValue">
+             <Item>'FileMapMode'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="FileMapping">
+          <Members>
+           <Member Name="#Dispose()">
+            <Messages>
+             <Message TypeName="OverrideLinkDemandsShouldBeIdenticalToBase" Category="Microsoft.Security" CheckId="CA2123" Created="2010-12-30 22:32:31Z">
+              <Issue Name="OverrideOnly">
+               <Item>'FileMapping.Dispose()'</Item>
+               <Item>'IDisposable.Dispose()'</Item>
+               <Item>[SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="IconGroup">
+          <Members>
+           <Member Name="#.ctor(System.IO.Stream)">
+            <Messages>
+             <Message Id="ico" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameter">
+               <Item>'IconGroup.IconGroup(Stream)'</Item>
+               <Item>ico</Item>
+               <Item>'icoStream'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Type">
+            <Messages>
+             <Message TypeName="PropertyNamesShouldNotMatchGetMethods" Category="Microsoft.Naming" CheckId="CA1721" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+              <Issue Name="BaseType">
+               <Item>'IconGroup.Type'</Item>
+               <Item>'object.GetType()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="IconImage">
+          <Messages>
+           <Message TypeName="OverrideMethodsOnComparableTypes" Category="Microsoft.Design" CheckId="CA1036" Created="2010-12-30 22:32:31Z">
+            <Issue Name="Equals">
+             <Item>'IconImage'</Item>
+            </Issue>
+            <Issue Name="Operator">
+             <Item>'IconImage'</Item>
+             <Item>!=</Item>
+            </Issue>
+            <Issue Name="Operator">
+             <Item>'IconImage'</Item>
+             <Item>&lt;</Item>
+            </Issue>
+            <Issue Name="Operator">
+             <Item>'IconImage'</Item>
+             <Item>==</Item>
+            </Issue>
+            <Issue Name="Operator">
+             <Item>'IconImage'</Item>
+             <Item>&gt;</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#ImageData">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'IconImage.ImageData'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Miscellaneous">
+          <Members>
+           <Member Name="#InstantiateTypes`1(System.Reflection.Assembly,System.Type)">
+            <Messages>
+             <Message TypeName="GenericMethodsShouldProvideTypeParameter" Category="Microsoft.Design" CheckId="CA1004" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'Miscellaneous.InstantiateTypes&lt;T&gt;(Assembly, Type)'</Item>
+               <Item>'T'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsAssembly(System.String)">
+            <Messages>
+             <Message Id="name" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-12-30 22:32:31Z">
+              <Issue>
+               <Item>'Miscellaneous.IsAssembly(string)'</Item>
+               <Item>'name'</Item>
+               <Item>'AssemblyName'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Pair`2">
+          <Messages>
+           <Message Id="X" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+            <Issue Name="TypeTypeParameterMoreMeaningfulName">
+             <Item>'Pair&lt;TX, TY&gt;'</Item>
+             <Item>'TX'</Item>
+            </Issue>
+           </Message>
+           <Message Id="Y" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+            <Issue Name="TypeTypeParameterMoreMeaningfulName">
+             <Item>'Pair&lt;TX, TY&gt;'</Item>
+             <Item>'TY'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#.ctor(!0,!1)">
+            <Messages>
+             <Message Id="x" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Pair&lt;TX, TY&gt;.Pair(TX, TY)'</Item>
+               <Item>'x'</Item>
+              </Issue>
+             </Message>
+             <Message Id="y" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Pair&lt;TX, TY&gt;.Pair(TX, TY)'</Item>
+               <Item>'y'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#X">
+            <Messages>
+             <Message Id="X" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberMoreMeaningfulName">
+               <Item>'Pair&lt;TX, TY&gt;.X'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Y">
+            <Messages>
+             <Message Id="Y" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberMoreMeaningfulName">
+               <Item>'Pair&lt;TX, TY&gt;.Y'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="RateCalculator">
+          <Members>
+           <Member Name="#GetRate()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-12-30 22:32:31Z">
+              <Issue Certainty="50">
+               <Item>'RateCalculator.GetRate()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetTimeRemaining()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-12-30 22:32:31Z">
+              <Issue Certainty="50">
+               <Item>'RateCalculator.GetTimeRemaining()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Triple`3">
+          <Messages>
+           <Message TypeName="AvoidExcessiveParametersOnGenericTypes" Category="Microsoft.Design" CheckId="CA1005" Created="2010-12-30 22:32:31Z">
+            <Issue>
+             <Item>'Triple&lt;TX, TY, TZ&gt;'</Item>
+            </Issue>
+           </Message>
+           <Message Id="X" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+            <Issue Name="TypeTypeParameterMoreMeaningfulName">
+             <Item>'Triple&lt;TX, TY, TZ&gt;'</Item>
+             <Item>'TX'</Item>
+            </Issue>
+           </Message>
+           <Message Id="Y" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+            <Issue Name="TypeTypeParameterMoreMeaningfulName">
+             <Item>'Triple&lt;TX, TY, TZ&gt;'</Item>
+             <Item>'TY'</Item>
+            </Issue>
+           </Message>
+           <Message Id="Z" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z" FixCategory="NonBreaking">
+            <Issue Name="TypeTypeParameterMoreMeaningfulName">
+             <Item>'Triple&lt;TX, TY, TZ&gt;'</Item>
+             <Item>'TZ'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#.ctor(!0,!1,!2)">
+            <Messages>
+             <Message Id="x" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Triple&lt;TX, TY, TZ&gt;.Triple(TX, TY, TZ)'</Item>
+               <Item>'x'</Item>
+              </Issue>
+             </Message>
+             <Message Id="y" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Triple&lt;TX, TY, TZ&gt;.Triple(TX, TY, TZ)'</Item>
+               <Item>'y'</Item>
+              </Issue>
+             </Message>
+             <Message Id="z" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Triple&lt;TX, TY, TZ&gt;.Triple(TX, TY, TZ)'</Item>
+               <Item>'z'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Z">
+            <Messages>
+             <Message Id="Z" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-12-30 22:32:31Z">
+              <Issue Name="MemberMoreMeaningfulName">
+               <Item>'Triple&lt;TX, TY, TZ&gt;.Z'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+      <Resources>
+       <Resource Name="Anolis.Resources.Properties.Resources.resources">
+        <Messages>
+         <Message Id="Anolis" TypeName="ResourceStringsShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1703" Created="2010-12-30 22:32:31Z">
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Anolis</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Anolis</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Anolis</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Anolis</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Anolis</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Anolis</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Anolis</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Anolis</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Anolis</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Anolis</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Anolis</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Anolis</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+         </Message>
+         <Message Id="Groot" TypeName="ResourceStringsShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1703" Created="2010-12-30 22:32:31Z">
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Groot</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+         </Message>
+         <Message Id="Resourcer" TypeName="ResourceStringsShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1703" Created="2010-12-30 22:32:31Z">
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Resourcer</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Resourcer</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>Resourcer</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+         </Message>
+         <Message Id="hexbox" TypeName="ResourceStringsShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1703" Created="2010-12-30 22:32:31Z">
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>hexbox</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+         </Message>
+         <Message Id="ookii" TypeName="ResourceStringsShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1703" Created="2010-12-30 22:32:31Z">
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>ookii</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+         </Message>
+         <Message Id="sourceforge" TypeName="ResourceStringsShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1703" Created="2010-12-30 22:32:31Z">
+          <Issue Name="StringResource">
+           <Item>'Anolis.Resources.Properties.Resources.resx'</Item>
+           <Item>LegalOverview</Item>
+           <Item>sourceforge</Item>
+           <Item>=======================================&#xD;&#xA;         Licensing Overview&#xD;&#xA;=======================================&#xD;&#xA;&#xD;&#xA;Anolis.Core and Anolis.Resourcer licensed under the GNU GPL v2 license.&#xD;&#xA;&#xD;&#xA;Code Copyright 2008-2009 David Rees&#xD;&#xA;&#xD;&#xA;Anolis.Core makes use of LZMA Compression, which is placed in the Public ...</Item>
+          </Issue>
+         </Message>
+        </Messages>
+       </Resource>
+      </Resources>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+  <Rules>
+   <Rule TypeName="AvoidExcessiveParametersOnGenericTypes" Category="Microsoft.Design" CheckId="CA1005">
+    <Resolution Name="Default">Consider a design where {0} has no more than 2 type parameters.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020">
+    <Resolution Name="Default">Consider merging the types defined in '{0}' with another namespace.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021">
+    <Resolution Name="Default">Consider a design that does not require that {0} be an out parameter.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811">
+    <Resolution Name="Default">{0} appears to have no upstream public or protected callers.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823">
+    <Resolution Name="Default">It appears that field {0} is never used or is only ever assigned to. Use this field or remove it.</Resolution>
+   </Rule>
+   <Rule TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702">
+    <Resolution Name="MemberParameterShouldBeDiscreteTerm">In member {0}, the compound word '{1}' in parameter name {2} exists as a discrete term. If your usage is intended to be single word, case it as '{3}' or strip the first token entirely if it represents any sort of Hungarian notation.</Resolution>
+    <Resolution Name="MemberShouldBeDiscreteTerm">The compound word '{0}' in member name {1} exists as a discrete term. If your usage is intended to be single word, case it as '{2}' or strip the first token entirely if it represents any sort of Hungarian notation.</Resolution>
+   </Rule>
+   <Rule TypeName="ConsiderPassingBaseTypesAsParameters" Category="Microsoft.Design" CheckId="CA1011">
+    <Resolution Name="Default">Consider changing the type of parameter {0} in {1} from {2} to its base type {3}. This method appears to only require base class members in its implementation. Suppress this violation if there is a compelling reason to require the more derived type in the method signature.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031">
+    <Resolution Name="Default">Modify {0} to catch a more specific exception than {1} or rethrow the exception.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotDeclareReadOnlyMutableReferenceTypes" Category="Microsoft.Security" CheckId="CA2104">
+    <Resolution Name="Default">Remove the read-only designation from {0} or change the field to one that is an immutable reference type. If the reference type {1} is, in fact, immutable, exclude this message.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051">
+    <Resolution Name="Default">Because field {0} is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002">
+    <Resolution Name="Default">Change {0} in {1} to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotHardcodeLocaleSpecificStrings" Category="Microsoft.Globalization" CheckId="CA1302">
+    <Resolution Name="Default">If the literal '{0}' used in method {1} refers to a special system location, replace it with a call to Environment.GetFolderPath.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotHideBaseClassMethods" Category="Microsoft.Design" CheckId="CA1061">
+    <Resolution Name="Default">Change or remove {0} because it hides a more specific base class method: {1}.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotMarkEnumsWithFlags" Category="Microsoft.Usage" CheckId="CA2217">
+    <Resolution Name="Default">{0} is marked with FlagsAttribute but a discrete member cannot be found for every settable bit that is used across the range of enum values. Remove FlagsAttribute from the type or define new members for the following (currently missing) values: {1}</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045">
+    <Resolution Name="Default">Consider a design that does not require that {0} be a reference parameter.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065">
+    <Resolution Name="PropertyGetter">{0} creates an exception of type {1}, an exception type that should not be raised in a property. If this exception instance might be raised, use a different exception type, convert this property into a method, or change this property's logic so that it no longer raises an exception.</Resolution>
+   </Rule>
+   <Rule TypeName="EnumStorageShouldBeInt32" Category="Microsoft.Design" CheckId="CA1028">
+    <Resolution Name="NotIntegral">If possible, make the underlying type of {0} Int32 instead of {1}. Otherwise consider Byte, Int16, or Int64.</Resolution>
+   </Rule>
+   <Rule TypeName="EnumsShouldHaveZeroValue" Category="Microsoft.Design" CheckId="CA1008">
+    <Resolution Name="FlagsRename">In enum {0}, change the name of {1} to 'None'.</Resolution>
+    <Resolution Name="NotFlagsNoZeroValue">Add a member to {0} that has a value of zero with a suggested name of 'None'.</Resolution>
+   </Rule>
+   <Rule TypeName="FlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1714">
+    <Resolution Name="Default">If enumeration name {0} is singular, change it to a plural form.</Resolution>
+   </Rule>
+   <Rule TypeName="GenericMethodsShouldProvideTypeParameter" Category="Microsoft.Design" CheckId="CA1004">
+    <Resolution Name="Default">Consider a design where {0} doesn't require explicit type parameter {1} in any call to it.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709">
+    <Resolution Name="Member">Correct the casing of '{0}' in member name {1} by changing it to '{2}'.</Resolution>
+    <Resolution Name="Type">Correct the casing of '{0}' in type name {1} by changing it to '{2}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704">
+    <Resolution Name="Assembly">Correct the spelling of '{0}' in assembly name {1}.</Resolution>
+    <Resolution Name="Member">Correct the spelling of '{0}' in member name {1} or remove it entirely if it represents any sort of Hungarian notation.</Resolution>
+    <Resolution Name="MemberMoreMeaningfulName">Consider providing a more meaningful name than member name {0}.</Resolution>
+    <Resolution Name="MemberParameter">In method {0}, correct the spelling of '{1}' in parameter name {2} or remove it entirely if it represents any sort of Hungarian notation.</Resolution>
+    <Resolution Name="MemberParameterMoreMeaningfulName">In method {0}, consider providing a more meaningful name than parameter name {1}.</Resolution>
+    <Resolution Name="Namespace">Correct the spelling of '{0}' in namespace name '{1}'.</Resolution>
+    <Resolution Name="Type">Correct the spelling of '{0}' in type name {1}.</Resolution>
+    <Resolution Name="TypeTypeParameterMoreMeaningfulName">On type {0}, consider providing a more meaningful name than generic type parameter name {1}.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710">
+    <Resolution Name="Default">Rename {0} to end in '{1}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldNotContainTypeNames" Category="Microsoft.Naming" CheckId="CA1720">
+    <Resolution Name="LanguageIndependentMemberParameter">In member {0}, consider replacing the data type identifier '{1}' in parameter name {2} with a more generic term, such as 'value'.</Resolution>
+    <Resolution Name="LanguageSpecificMemberParameter">In member {0}, consider replacing the language-specific data type identifier '{1}' in parameter name {2} with a more generic term, such as 'value'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707">
+    <Resolution Name="Member">Remove the underscores from member name {0}.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldNotHaveIncorrectSuffix" Category="Microsoft.Naming" CheckId="CA1711">
+    <Resolution Name="MemberNewerVersion">Either replace the suffix '{0}' in member name {1} with the suggested numeric alternate '2' or provide a more meaningful suffix that distinguishes it from the member it replaces.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldNotMatchKeywords" Category="Microsoft.Naming" CheckId="CA1716">
+    <Resolution Name="Type">Rename type {0} so that it no longer conflicts with the reserved language keyword '{1}'. Using a reserved keyword as the name of a type makes it harder for consumers in other languages to use the type.</Resolution>
+   </Rule>
+   <Rule TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240">
+    <Resolution Name="Default">Add an implementation of GetObjectData to type {0}.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkAssembliesWithClsCompliant" Category="Microsoft.Design" CheckId="CA1014">
+    <Resolution Name="Default">Mark {0} with CLSCompliant(true) because it exposes externally visible types.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkAssembliesWithNeutralResourcesLanguage" Category="Microsoft.Performance" CheckId="CA1824">
+    <Resolution Name="Default">Because assembly {0} contains a ResX-based resource file, mark it with the NeutralResourcesLanguage attribute, specifying the language of the resources within the assembly. This could improve lookup performance the first time a resource is retrieved.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237">
+    <Resolution Name="Default">Add [Serializable] to {0} as this type implements ISerializable.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822">
+    <Resolution Name="Default">The 'this' parameter (or 'Me' in Visual Basic) of {0} is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Resolution>
+   </Rule>
+   <Rule TypeName="MembersShouldNotExposeCertainConcreteTypes" Category="Microsoft.Design" CheckId="CA1059">
+    <Resolution Name="Xml">Modify member {0} so that it no longer exposes the concrete type {1}. Use IXPathNavigable to represent XML data sources.</Resolution>
+   </Rule>
+   <Rule TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034">
+    <Resolution Name="Default">Do not nest type {0}. Alternatively, change its accessibility so that it is not externally visible.</Resolution>
+   </Rule>
+   <Rule TypeName="OperationsShouldNotOverflow" Category="Microsoft.Usage" CheckId="CA2233">
+    <Resolution Name="Default">Correct the potential overflow in the operation '{0}' in {1}.</Resolution>
+   </Rule>
+   <Rule TypeName="OverrideLinkDemandsShouldBeIdenticalToBase" Category="Microsoft.Security" CheckId="CA2123">
+    <Resolution Name="OverrideOnly">Override {0} has the following LinkDemand that is not present on base method {1}: {2}. If possible, apply the same LinkDemand to the base method. Otherwise, replace it with a full Demand or remove it entirely.</Resolution>
+   </Rule>
+   <Rule TypeName="OverrideMethodsOnComparableTypes" Category="Microsoft.Design" CheckId="CA1036">
+    <Resolution Name="Equals">{0} should override Equals since it implements IComparable.</Resolution>
+    <Resolution Name="Operator">{0} should define operator '{1}' since it implements IComparable.</Resolution>
+   </Rule>
+   <Rule TypeName="PInvokeEntryPointsShouldExist" Category="Microsoft.Interoperability" CheckId="CA1400">
+    <Resolution Name="Default">Correct the declaration of {0} so that it correctly points to an existing entry point in {1}. The unmanaged entry point name currently linked to is {2}.</Resolution>
+   </Rule>
+   <Rule TypeName="ParameterNamesShouldMatchBaseDeclaration" Category="Microsoft.Naming" CheckId="CA1725">
+    <Resolution Name="Default">In member {0}, change parameter name {1} to {2} in order to match the identifier as it has been declared in {3}.</Resolution>
+   </Rule>
+   <Rule TypeName="PreferJaggedArraysOverMultidimensional" Category="Microsoft.Performance" CheckId="CA1814">
+    <Resolution Name="Default">{0} is a multidimensional array. Replace it with a jagged array if possible.</Resolution>
+   </Rule>
+   <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
+    <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>
+   </Rule>
+   <Rule TypeName="PropertyNamesShouldNotMatchGetMethods" Category="Microsoft.Naming" CheckId="CA1721">
+    <Resolution Name="BaseType">The property name {0} is confusing given the existence of inherited method {1}. Rename or remove this property.</Resolution>
+    <Resolution Name="SameType">The property name {0} is confusing given the existence of method {1}. Rename or remove one of these members.</Resolution>
+   </Rule>
+   <Rule TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804">
+    <Resolution Name="Default">{0} declares a variable, {1}, of type {2}, which is never used or is only assigned to. Use this variable or remove it.</Resolution>
+   </Rule>
+   <Rule TypeName="ResourceStringsShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1703">
+    <Resolution Name="StringResource">In resource {0}, referenced by name '{1}', correct the spelling of '{2}' in string value '{3}'.</Resolution>
+   </Rule>
+   <Rule TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801">
+    <Resolution Name="Default">Parameter {0} of {1} is never used. Remove the parameter or use it in the method body.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305">
+    <Resolution Name="Default">Because the behavior of {0} could vary based on the current user's locale settings, replace this call in {1} with a call to {2}. If the result of {2} will be displayed to the user, specify 'CultureInfo.CurrentCulture' as the 'IFormatProvider' parameter. Otherwise, if the result will be stored and accessed by software, such as when it is persisted to disk or to a database, specify 'CultureInfo.InvariantCulture'.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101">
+    <Resolution Name="Parameter">To reduce security risk, marshal parameter {0} as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Resolution>
+    <Resolution Name="ParameterImplicitAnsi">To reduce security risk, marshal parameter {0} as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, and set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307">
+    <Resolution Name="Default">{0} makes a call to {1} that does not explicitly provide a StringComparison. This should be replaced with a call to {2}.</Resolution>
+   </Rule>
+   <Rule TypeName="UseIntegralOrStringArgumentForIndexers" Category="Microsoft.Design" CheckId="CA1043">
+    <Resolution Name="Default">Use an integral value or string as the parameter to indexer {0}.</Resolution>
+   </Rule>
+   <Rule TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726">
+    <Resolution Name="Member">Replace the term '{0}' in member name {1} with the preferred alternate '{2}'.</Resolution>
+    <Resolution Name="MemberNoAlternate">Replace the term '{0}' in member name {1} with an appropriate alternate or remove it entirely.</Resolution>
+    <Resolution Name="TypeNoAlternate">Replace the term '{0}' in type name {1} with an appropriate alternate or remove it entirely.</Resolution>
+   </Rule>
+   <Rule TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024">
+    <Resolution Name="Default">Change {0} to a property if appropriate.</Resolution>
+   </Rule>
+  </Rules>
+ </FxCopReport>
+</FxCopProject>

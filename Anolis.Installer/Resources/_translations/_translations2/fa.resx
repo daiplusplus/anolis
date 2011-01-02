@@ -1,0 +1,476 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="A_Message" xml:space="preserve">
+    <value>این ویزارد به شما کمک میکند به طور مستقیم و گام به گام برای نصب بسته انولیس
+
+برای ادامه بروی بعدی کلیک نمایید</value>
+  </data>
+  <data name="A_Title" xml:space="preserve">
+    <value>  خوش امدید به بسته نصب انو الیس</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>نصب کنید این بسته را بر روی مکان انولیس یا هر جای دیگر از رایانه.این بسته میتواند نصب شود بروی پوشه ای386</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>نصب بسته</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>دانلود تولس بنابراین شما میتواید به اسانی بسته مورد نظر خد را بسازید یا توسعه دهید</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>ساختن بسته برای خودم یا تعمیم دادن</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>بازگردانی فایلها به قبل از وضعیت پتچ شده. شما احتیاج دارید نسخه پشتیبان از از دایرکتوری که ایجاد شده در مدت نصب</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>اندو تغییرات ایجاد شده توسط بسته نصب</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>انتخاب عملیات برای انجام دادن</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>انتخاب تاسک</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>یک بسته ارشیو (*.anop) بر روی رایانه من</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>یک بسته جاسازی شده در لین برنامه نصب</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>یک بسته تعریف شده فایل (package.xml) بر روی کامپیوتر من</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>بسته را میتوانید نصب کنید بروی رایانه وفایل های سیستمی یا یا جاسازی شده در برنامه نصب</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>انتخاب بسته برای نصب</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>وقوع یک خطا در مدتی که قصد استخراج بستهرا داشتید</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>مستقیما بسته</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>ایتمهای انتخاب شده در بر ندارد هیچ یک از ا'{0}'طلاعات شریک با ان</value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>نصب</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}% کامل - {1}</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>مقصد دایرکتوری</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>ایجاد انا الیس در گروه نرمافزاری در استارت منو</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>برای همه یوزرها</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>فقط برای من</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>پایان</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>نصب با دقت انجام شد رایانه شما حالا ریستارت میشود
+بستن همه پنجره های باز قبل از ادامه سعی نکید برای باز کردن نرم افزار دیگر</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>.نصب با موفقیت انجام شد</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>ریستارت</value>
+  </data>
+  <data name="F_Title" xml:space="preserve">
+    <value>نصب کامل شد</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>عملیات حذف با موفقیت انجام شد.رایانه شما حالا ریستارت میشود
+
+بستن همه پنجره های باز قبل از ادامه سعی نکید برای باز کردن نرم افزار دیگر.</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>ایجاد انینستال نسخه پشتیبان دایرکوری توصیه میشود</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>شما باید ایجاد کنید دایرکتوری نسخه پشتیبان اگر شما استفاده میکنید از ویژگی انینستال</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>نصب بر روی این رایانه</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>نصب بر روی I386</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>ایجاد سیستم ریستور پوینت توصه میشود</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>اضافه کردن یک لایه محافظ.یادداشت این همیشه محافظت نمیکند از تغییرات دوباره ایجاد شده بروی ویندوز فایل در پروگرام فایل</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>.بسته ممکن است بروز شده باشد پس از بررسی ان. حالا بررسی کنید برای بروز رسانی</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>بررسی بسته برای بروز رسانی</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>لطفا منتظر بمانید در مدت در حال نصب بسته برا نصب شدن</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>شما میتوانید انتخاب کنید یا نه نصب نکردن این قسمت</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>تغییرات در سته</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>انتخاب دایرکتوری نسخه پشتیبان و دیگر گزینه ها</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>گزینه های نصب</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>شما انتخاب کردید بسته را بر نصب</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>در حال نصب بسته</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>fa</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>فارسی</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - {1}KB of {2}KB دانلود at {3}KBps</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>بررسی بسته برای بروزرسانی</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>بررسی برای بروز رسانی ناموفق بود:نمیتوانید دانلود کنید اطلاعات بروز شده را</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>یک نسخه بروز({0}) از لین بسته وجد دارد اگر دوست دارید دانلود کنید</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>یک نسخه بروز({0}) از این بسته موجد میباشد اما اگر شما احتیاج ارید دانلود کنید به صورت دستی.مشاهده کنید وب سایت رابرای دانلود و اطلاعات بیشتر</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>شما باید جدید ترین نسخه ({0}) از این بسته</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>.نصب با موفقیت انجام شد</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>لغو</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>بعدی</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>قبلی</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>مرور هر یک از یادداشت های نوشته شده توسط مولف بسته</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>تبصره انتشار بسته</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>مطالعه نصب انا الیس</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>{0} تبصره انتشار بسته</value>
+  </data>
+  <data name="C_F_pathInvalidBackup" xml:space="preserve">
+    <value>مسیر معییشده برای نسخه پشتیبان معتبر صحیح نمی باشد</value>
+  </data>
+  <data name="C_F_pathInvalidI386" xml:space="preserve">
+    <value>معتبر نمیباشد I386 مسیر معین شده </value>
+  </data>
+  <data name="C_F_pathExistsBackup" xml:space="preserve">
+    <value>محل دایرکت وری نسخه پشتیبان از قبل وجود داشت و محتوی فایل بود.نسخه پشتیبان باید ایجاد شود در پوشهای که قبلا خالی بوده ا وجود نداشته</value>
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
+    <value>بسته ارشیو معین شده وجد ندارد در بسته فایلهای تعرعف شده</value>
+  </data>
+  <data name="C_C_skipCheckLbl" xml:space="preserve">
+    <value>.شما میتوانید اسکیپ کنید بررسی برای بروز رسانی را در هر زمانی</value>
+  </data>
+  <data name="A_Message_Cus" xml:space="preserve">
+    <value>این ویزارد به شما کمک میکند به طور مستقیم و گام به گام برای نصب بسته   {0}
+
+برای ادامه بر روی بعدی کلیک کنید</value>
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value>خوش امدید به{0}</value>
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value> (I386) نصب  {0} بروی پوشه </value>
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value> نصب   {0}</value>
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value>دانلود تولس بنابراین شما میتواید به اسانی بسته مورد نظر خد را بسازید یا توسعه دهید به طور دلخواه  {0}</value>
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value>اندو تغییرات ایجاد شده با  {0}</value>
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value>وقوع یک خطا در مدتی که قصد استخراج بستهرا داشتید    {0}</value>
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value>لطفا منتظر بمانید در مدت پری پر شدن نصب{0} برای نصب شدن کامل</value>
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value>مرور هر یک از یادداشت های ایجاد شده با   {0}</value>
+  </data>
+  <data name="C_G_Subtitle_Cus" xml:space="preserve">
+    <value>{0} ان نصب شده است</value>
+  </data>
+  <data name="C_A_anopFilenameLbl" xml:space="preserve">
+    <value>نام فایل</value>
+  </data>
+  <data name="C_A_packFilenameLbl" xml:space="preserve">
+    <value>نام فایل</value>
+  </data>
+  <data name="C_B_statusLbl" xml:space="preserve">
+    <value>...در حال</value>
+  </data>
+  <data name="C_C_statusLbl" xml:space="preserve">
+    <value>...در حال</value>
+  </data>
+  <data name="C_F_i386Lbl" xml:space="preserve">
+    <value>روت سی دی</value>
+  </data>
+  <data name="D_A_toolsLbl" xml:space="preserve">
+    <value>.تولس دانلود شده شامل ریسورس ها یک ریسورس ادیتور قدرتمند بسته که استفاده شده در بسته فایلها و سفارشی شده نصب و تولسهای گوناگون دیگر در بر دارد لایت ایکون ادیتور</value>
+  </data>
+  <data name="E_A_dirLbl" xml:space="preserve">
+    <value>دایرکتوری</value>
+  </data>
+  <data name="C_A_anopBrowse" xml:space="preserve">
+    <value>...جستجو</value>
+  </data>
+  <data name="C_A_packBrowse" xml:space="preserve">
+    <value>...جستجو</value>
+  </data>
+  <data name="C_B_Title" xml:space="preserve">
+    <value>بسته در حال</value>
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value> {0}در حال</value>
+  </data>
+  <data name="C_C_downloadInfo" xml:space="preserve">
+    <value>مشاهده وب پیج بسته</value>
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value> مشاهده {0} 's وب پیج</value>
+  </data>
+  <data name="C_C_downloadNo" xml:space="preserve">
+    <value>خیر</value>
+  </data>
+  <data name="C_C_downloadYes" xml:space="preserve">
+    <value>بله</value>
+  </data>
+  <data name="C_F_backupBrowse" xml:space="preserve">
+    <value>...جستجو</value>
+  </data>
+  <data name="C_F_i386Browse" xml:space="preserve">
+    <value>...جستجو</value>
+  </data>
+  <data name="C_G_statusLbl" xml:space="preserve">
+    <value>...در حال</value>
+  </data>
+  <data name="D_A_destBrowse" xml:space="preserve">
+    <value>...جستجو</value>
+  </data>
+  <data name="D_A_Subtitle" xml:space="preserve">
+    <value>انتخاب کنید یک دایرکتوری برا ی قرار دادن تولس دانلود شده وتنظیم دیگر گزینه ها</value>
+  </data>
+  <data name="D_A_Title" xml:space="preserve">
+    <value>مقصد دایرکتوری و گزینه های نصب</value>
+  </data>
+  <data name="D_B_status" xml:space="preserve">
+    <value>...در حال</value>
+  </data>
+  <data name="D_B_Subtitle" xml:space="preserve">
+    <value>در حال دانلود تولس اناالیس</value>
+  </data>
+  <data name="D_B_Title" xml:space="preserve">
+    <value>در حال دانلود</value>
+  </data>
+  <data name="E_A_browse" xml:space="preserve">
+    <value>...جستجو</value>
+  </data>
+  <data name="E_A_sysRes" xml:space="preserve">
+    <value>ایجاد سیستم ریستور پوینت توصه میشود</value>
+  </data>
+  <data name="E_A_sysResDesc" xml:space="preserve">
+    <value>اضافه کردن یک لایه محافظ.یادداشت این همیشه محافظت نمیکند از تغییرات دوباره ایجاد شده بروی ویندوز فایل در پروگرام فایل</value>
+  </data>
+  <data name="E_A_Title" xml:space="preserve">
+    <value>انتخاب دایرکتوری نسخه پشتیبان</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>انتخاب دایرکتوری برای ریکاور از</value>
+  </data>
+  <data name="C_A_notFileExists" xml:space="preserve">
+    <value>فایل "{0}" وجود ندارد</value>
+  </data>
+  <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
+    <value>انتخاب کنید بسته جاسازی شده را قبل از ادامه</value>
+  </data>
+  <data name="C_B_conditionError" xml:space="preserve">
+    <value>در اینجا در خلال ارزیابی و سازوگاری رایانه شما خطا روی داد لطفا با سازنده بسته ارتباط برقرار کنید</value>
+  </data>
+  <data name="E_A_notValidDirectory" xml:space="preserve">
+    <value>دایرکتوری تعیین شده در بر نداردانیستالر معتبر بسته</value>
+  </data>
+  <data name="G_Title" xml:space="preserve">
+    <value>...منتظر بمانید</value>
+  </data>
+  <data name="G_WaitMessage" xml:space="preserve">
+    <value>در حال راه اندازی مجدد رایانه</value>
+  </data>
+  <data name="Wiz_CancelConfirm" xml:space="preserve">
+    <value>ایا مطمن هستید لغو کنید نصب برنامه را؟</value>
+  </data>
+  <data name="A_DisableAV" xml:space="preserve">
+    <value>قبل از ادامه دادن لطفا ویندوز دفندر و انتی ویروستان را غیر فعال کنید زیرا ان سرعت نصب را کاهش میدهد</value>
+  </data>
+  <data name="Lang_RTL" xml:space="preserve">
+    <value>1</value>
+  </data>
+</root>

@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>Avanti</value>
+  </data>
+  <data name="Wiz_Back" xml:space="preserve">
+    <value>Indietro</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="A_Message" xml:space="preserve">
+    <value>Questa procedura ti guiderà attraverso i passaggi necessari per installare un pacchetto Anolis
+
+Per continuare, premere Avanti</value>
+  </data>
+  <data name="A_Title" xml:space="preserve">
+    <value>Benvenuto nell'Installatore Pacchetti Anolis</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>Installa un pacchetto collocato in questa distribuzione Anolis o in un altra posizione su questo PC. Il pacchetto può essere installato anche in una cartella di installazione dei file (I386).</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>Installa un pacchetto</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>Scarica gli strumenti per creare facilmente il tuo pacchetto o distribuzione personale.</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>Crea il tuo pacchetto o distribuzione personale</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>Ripristina i file al loro stato precedente. Ti servirà la cartella di backup creata durante l'installazione.</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>Annulla modifiche fatte da questa distribuzione</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>Scegli un'operazione da effettuare</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>Seleziona un'attività</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>Un pacchetto esterno (*.anop) su questo computer</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>Un pacchetto incorporato in questo installatore</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>Un file di definizione del pacchetto (package.xml) su questo computer</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>Il pacchetto da installare può essere sia nel filesystem di questo computer o incorporato nell'installatore</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>Seleziona un pacchetto da installare</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>Si è verificato un errore nel tentativo di estrarre il pacchetto</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>Allocazione Pacchetto</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>L'oggetto selezionato '{0}' non fornisce alcuna informazione</value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>Installa</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}% completo - {1}</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>Cartella di destinazione</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>Crea un gruppo di programmi Anolis nel menu Start</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>Per tutti gli utenti</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>Solo per me</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>Fine</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>L'installazione è stata completata con successo. Il computer verrà ora riavviato.
+
+Chiudere tutte le applicazioni aperte prima di continuare. Non cercare di aprire alcuna nuova applicazione.</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>L'installazione è stata completata con successo.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>Riavvia</value>
+  </data>
+  <data name="F_Title" xml:space="preserve">
+    <value>Installazione Completata</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>La disinstallazione è stata completata con successo. Il computer verrà ora riavviato.
+
+Chiudere tutte le applicazioni aperte prima di continuare. Non cercare di aprire alcuna nuova applicazione.</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>Crea una cartella di backup per la disinstallazione (Consigliato)</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>E' necessario creare una cartella di backup se mai vorrai disinstallare questo apcchetto in futuro.</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>Installa su questo Computer</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>Installa in I386</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>Crea un punto di ripristino del sistema (Consigliato)</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>Un livello di sicurezza in più. Si avvisa comunque che questo non sempre protegge da modifiche fatte a dei file non di sistema nella cartella Programmi</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>{0} potrebbe essere stato aggiornato da quando l'hai ottenuto. Vuoi controllare se ci sono aggiornamenti?</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>Ricerca Aggiornamenti del Pacchetto</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>Attendi mentre l'installatore prepara il pacchetto per l'installazione</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>Puoi scegliere se installare o meno i singoli componenti di questo pacchetto</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>Modifica Pacchetto</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>Seleziona una cartella di Backup ed altre opzioni</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>Opzioni di Installazione</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>Il pacchetto selezionato è in fase di installazione</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>Installazione Pacchetto</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value>Smiley89</value>
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>it</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>Italiano</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Flags\it.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

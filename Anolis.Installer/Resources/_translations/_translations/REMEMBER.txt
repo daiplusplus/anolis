@@ -1,0 +1,1 @@
+Often translations use local encoding and not UTF-8 (like the Spanish v2 one)

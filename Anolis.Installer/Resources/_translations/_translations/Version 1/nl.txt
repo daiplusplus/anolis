@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="A_Message" xml:space="preserve">
+    <value>Deze wizard helpt u bij het installeren van een Anolis pakket.
+
+Klik op volgende om door te gaan.</value>
+  </data>
+  <data name="A_Title" xml:space="preserve">
+    <value>Welkom bij de Anolis Pakket Installatie.</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>Installeert een pakket uit deze Anolis distributie of van een andere locatie op uw computer. Het pakket kan eventueel naar een map met setup bestanden (I386) geïnstalleerd worden.</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>Installeer een pakket</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>Download hulpmiddelen zodat u gemakkelijk uw eigen pakket of distributie kunt maken.</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>Maak uw eigen pakket of distributie</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>Herstelt bestanden naar de status van voor het toepassen van een patch. Hiervoor heeft u de backup map die tijdens de installatie is aangemaakt nodig.</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>Maak wijzigen aangebracht door deze distributie ongedaan</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>Kies de actie die u wilt uitvoeren.</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>Kies een taak</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>Een pakket archief (*.anop) op deze computer</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>Een pakket dat in deze installatie is ingesloten</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>Een pakket definitie bestand (*.xml) op deze computer</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>Het pakket kan zich op het bestandssysteem van deze computer bevinden, of in deze installatie zijn ingesloten.</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>Kies een pakket om te installeren</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>Er is een fout opgetreden bij het uitpakken van het pakket.</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>Laden van het pakket</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>Er is geen informatie geassocieerd met het geselecteerde onderdeel '{0}'.</value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>Installeren</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}% voltooid - {1}</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>Installatie map</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>Creëer een Anolis map in het menu Start</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>Voor alle gebruikers</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>Alleen voor de huidige gebruiker</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>Voltooien</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>De installatie is met succes voltooid. Uw computer moet nu opnieuw opstarten.
+
+Sluit alle programma's voordat u verder gaat. Probeer geen geen nieuwe programma's te starten.</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>De installatie is met succes voltooid.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>Opnieuw opstarten</value>
+  </data>
+  <data name="F_Title" xml:space="preserve">
+    <value>Installatie voltooid</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>Het ongedaan maken van de installatie is met succes voltooid. Uw computer moet nu opnieuw opstarten.
+
+Sluit alle programma's voordat u verder gaat. Probeer geen geen nieuwe programma's te starten.</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>Creëer een backup map voor deïnstallatie (aanbevolen)</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>Een backup map is vereist als u dit pakket in de toekomst wilt verwijderen.</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>Installeer op deze computer</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>Installeer naar setup map (I386)</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>Maak een herstelpunt voor systeem herstellen (aanbevolen)</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>Dit geeft u extra bescherming. Let op dat dit niet altijd bescherming biedt tegen wijzigingen in niet-Windows bestanden in Program Files.</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>Een bijgewerkte versie van het pakket is mogelijk beschikbaar. Bezig met controleren op updates.</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>Controleren op updates voor het pakket</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>Een ogenblik geduld terwijl het pakket wordt voorbereid voor installatie.</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>U kunt kiezen welke onderdelen van dit pakket u wilt installeren.</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>Pakket wijzigen.</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>Kies een backup map en andere opties.</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>Installatie opties</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>Het geselecteerde pakket wordt geïnstalleerd.</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>Pakket installeren</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value>Sven Groot</value>
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value>http://ookii.org</value>
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>nl</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>Nederlands</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - {1}KB van {2}KB gedownload met {3}KB/s</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>Controleren op updates voor het pakket</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>Controleren op updates is mislukt: kon de update informatie niet downloaden.</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>Een nieuwe versie ({0}) van dit pakket is beschikbaar. Wilt u deze nu downloaden?</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>Een nieuwe versie ({0}) van dit pakket is beschikbaar, maar u moet deze handmatig downloaden. Klik op "Pakket webpagina bezoeken" voor meer informatie.</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>U heeft de nieuwste versie ({0}) van dit pakket..</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>De installatie is met succes voltooid.</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>Vorige</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>Volgende</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Flags\nl.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

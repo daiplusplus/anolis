@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="A_Message" xml:space="preserve">
+    <value>這個精靈將會導引您整個Anolis封包的安裝程序
+
+要繼續, 請按下一步</value>
+  </data>
+  <data name="A_title" xml:space="preserve">
+    <value>歡迎使用Anolis封包安裝程式</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>安裝程序至預設位置或指定資料夾, 也可以安裝在系統檔案夾(I386)內.</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>開始安裝</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>下載指定元件後就可以輕易地創造您自己的封包</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>創造屬於自己的Anolis封包</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>為了能夠可以復原相關檔案至更新前的狀態, 您需要在安裝過程中選取一個資料夾作備份之用</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>復原變更</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>請選擇要執行的工作</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>選擇一個工作</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>在我的電腦上的一個封包檔(*.anop)</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>嵌入安裝程式中的一個封包</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>在我的電腦上的一個封包定義檔案(package.xml)</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>所安裝的封包可以是電腦上的檔案系統或被嵌入在安裝程式內</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>選擇一個要安裝的封包</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>從封包解壓縮時發生了一個錯誤</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>封包說明</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>所選的項目 '{0}' 沒有任何相關的資訊存在</value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>安裝</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}% 已完成 - {1}</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>目的地資料夾</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>建立Anolis資料夾在開始程式集裏</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>供所有使用者</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>只供這個使用者</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>安裝程式已經完成. 現在將會重新啟動電腦.
+
+請關閉所有正在運行的應用程式. 也不要再運行任何新的程序.</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>程式已經成功地被安裝.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>重新啟動電腦</value>
+  </data>
+  <data name="F_title" xml:space="preserve">
+    <value>安裝完成</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>移除程式已經完成. 現在將會重新啟動電腦.
+
+請關閉所有正在運行的應用程式. 也不要再運行任何新的程序.</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>建立移除備份資料夾 (建議)</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>假如您打算將來移除這個封包, 您必須建立一個移除備份資料夾</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>安裝在這電腦上</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>安裝在\I386</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>建立系統還原點 (建議)</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>一層附加的保護層. 請注意這並不會一定能保障對於在Program Files下的非系統檔案所造成的修改</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>這個封包可能已經被更新. 現在正檢查更新.</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>檢查封包的更新</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>安裝程式正準備安裝封包. 請稍候...</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>您可以選擇是否安裝這個封包的元件</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>修改封包</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>選擇一個備份資料夾及其他的選項</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>安裝選項</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>正進行安裝您所選取的封包</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>封包正進行安裝</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>zh</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>英文</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - {1}KB of {2}KB 下載速度 {3}KBps</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>檢查封包的更新</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>檢查更新失敗: 不能下載更新資訊</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>這個封包有版本 ({0}) 的更新. 請問您想現在就下載嗎?</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>這個封包有版本 ({0}) 的更新, 但您需要手動手載. 詳細請檢查封包網站上的資訊.</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>您安裝的封包版本 ({0}) 已經是最新的.</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>程式已經成功地被安裝.</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>上一步</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>閱讀任何這個封包作者的發行公告</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>封包的發行公告</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>Anolis安裝程式讀我檔案</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>{0} 封包的發行公告</value>
+  </data>
+  <data name="C_F_pathInvalidBackup" xml:space="preserve">
+    <value>所選定的備份路徑並不正確</value>
+  </data>
+  <data name="C_F_pathInvalidI386" xml:space="preserve">
+    <value>所選定的I386路徑並不正確</value>
+  </data>
+  <data name="C_F_pathExistsBackup" xml:space="preserve">
+    <value>所選定的備份資料夾已經存在其他檔案. 備份必須建立在一個空的資料夾或一個仍未建立的資料夾.</value>
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
+    <value>所選定的封包檔並不包含一個封包定義檔.</value>
+  </data>
+  <data name="C_C_skipCheckLbl" xml:space="preserve">
+    <value>您可以在任何時間下按下一步以略過檢查更新.</value>
+  </data>
+  <data name="A_Message_Cus" xml:space="preserve">
+    <value>這個精靈將會導引您整個 {0}的安裝程序
+
+要繼續, 請按下一步</value>
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value>歡迎來到 {0}</value>
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value>安裝 {0} 在這電腦上或在一個安裝資料夾 (I386).</value>
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value>安裝 {0}</value>
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value>下載指定元件後就可以輕易地創造出就如{0}一個您自己的封包</value>
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value>復原 {0}所造成的變更</value>
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value>從 {0}封包解壓縮時發生了一個錯誤</value>
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value>P安裝程式正準備 {0}的安裝. 請稍候...</value>
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value>閱讀任何有關 {0}的發行公告</value>
+  </data>
+  <data name="C_G_Subtitle_Cus" xml:space="preserve">
+    <value>正在安裝{0}</value>
+  </data>
+  <data name="C_A_anopFilenameLbl" xml:space="preserve">
+    <value>檔案名稱</value>
+  </data>
+  <data name="C_A_packFilenameLbl" xml:space="preserve">
+    <value>檔案名稱</value>
+  </data>
+  <data name="C_B_statusLbl" xml:space="preserve">
+    <value>正在準備...</value>
+  </data>
+  <data name="C_C_statusLbl" xml:space="preserve">
+    <value>正在準備...</value>
+  </data>
+  <data name="C_F_i386Lbl" xml:space="preserve">
+    <value>光碟的根目錄</value>
+  </data>
+  <data name="D_A_toolsLbl" xml:space="preserve">
+    <value>可供下載的指定元件包括Resourcer(一個功能強大的資源修改器), Packager(用作建立封包檔案及自定安裝程式)和一系列的工具包括一個細小的圖示修改器.</value>
+  </data>
+  <data name="E_A_dirLbl" xml:space="preserve">
+    <value>目錄</value>
+  </data>
+  <data name="C_A_anopBrowse" xml:space="preserve">
+    <value>瀏覽...</value>
+  </data>
+  <data name="C_A_packBrowse" xml:space="preserve">
+    <value>瀏覽...</value>
+  </data>
+  <data name="C_B_Title" xml:space="preserve">
+    <value>正準備封包</value>
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value>正準備安裝 {0}</value>
+  </data>
+  <data name="C_C_downloadInfo" xml:space="preserve">
+    <value>訪問封包的網站</value>
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value>訪問 {0} 的網站</value>
+  </data>
+  <data name="C_C_downloadNo" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="C_C_downloadYes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="C_F_backupBrowse" xml:space="preserve">
+    <value>瀏覽...</value>
+  </data>
+  <data name="C_F_i386Browse" xml:space="preserve">
+    <value>瀏覽...</value>
+  </data>
+  <data name="C_G_statusLbl" xml:space="preserve">
+    <value>正在準備...</value>
+  </data>
+  <data name="D_A_destBrowse" xml:space="preserve">
+    <value>瀏覽...</value>
+  </data>
+  <data name="D_A_Subtitle" xml:space="preserve">
+    <value>選擇一個目錄用來放置已下載的工具元件及其他設定</value>
+  </data>
+  <data name="D_A_Title" xml:space="preserve">
+    <value>目的地資料夾及安裝設定</value>
+  </data>
+  <data name="D_B_status" xml:space="preserve">
+    <value>正在準備...</value>
+  </data>
+  <data name="D_B_Subtitle" xml:space="preserve">
+    <value>現在正下載Anolis工具元件</value>
+  </data>
+  <data name="D_B_Title" xml:space="preserve">
+    <value>下載中</value>
+  </data>
+  <data name="E_A_browse" xml:space="preserve">
+    <value>瀏覽...</value>
+  </data>
+  <data name="E_A_sysRes" xml:space="preserve">
+    <value>建立系統還原點 (建議)</value>
+  </data>
+  <data name="E_A_sysResDesc" xml:space="preserve">
+    <value>一層附加的保護層. 請注意這並不會一定能保障對於在Program Files下的非系統檔案所造成的修改</value>
+  </data>
+  <data name="E_A_Title" xml:space="preserve">
+    <value>選擇備份資料夾</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>選擇用來還原的資料夾</value>
+  </data>
+  <data name="A_DisableAV" xml:space="preserve">
+    <value>在繼續之前，請先把Windows Defender及其他防毒軟體等會令安裝減慢的程式關閉。</value>
+  </data>
+  <data name="C_A_notFileExists" xml:space="preserve">
+    <value>檔案 "{0}" 不存在</value>
+  </data>
+  <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
+    <value>繼續前請先選擇一內嵌包裝</value>
+  </data>
+  <data name="C_B_conditionError" xml:space="preserve">
+    <value>在評估包裝於您系統上的適用性時發生錯誤，請聯繫包裝的作者</value>
+  </data>
+  <data name="E_A_notValidDirectory" xml:space="preserve">
+    <value>指定的資料夾中找不到適用的反安裝檔案</value>
+  </data>
+  <data name="G_Title" xml:space="preserve">
+    <value>請等待片刻</value>
+  </data>
+  <data name="G_WaitMessage" xml:space="preserve">
+    <value>現正重新啟動您的電腦</value>
+  </data>
+  <data name="Wiz_CancelConfirm" xml:space="preserve">
+    <value>您確定要取消安裝？</value>
+  </data>
+</root>

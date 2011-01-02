@@ -12,6 +12,7 @@ namespace Anolis.Tools.PEInfo {
 		// Note:
 		// Paragraph =  16 bytes
 		// Block     = 512 bytes
+		// 1 Block  == 1 Page
 		
 		/// <summary>'MZ' magic number of the file.</summary>
 		public UInt16 Magic; // must equal 0x4D 0x5A == 'MZ'
@@ -28,7 +29,7 @@ namespace Anolis.Tools.PEInfo {
 		/// <summary>Maximum number of paragraphs of additional memory. Normally, the OS reserves all the remaining conventional memory for your program, but you can limit it with this field.</summary>
 		public UInt16 NofParagraphsInMemoryMaximum;
 		/// <summary>Relative value of the stack segment. This value is added to the segment the program was loaded at, and the result is used to initialize the SS register.</summary>
-		public UInt16 RelativeStack;
+		public UInt16 InitialSS;
 		/// <summary>Initial value of the SP register.</summary>
 		public UInt16 InitialSP;
 		/// <summary>Word checksum. If set properly, the 16-bit sum of all words in the file should be zero. Usually, this isn't filled in.</summary>
@@ -42,13 +43,26 @@ namespace Anolis.Tools.PEInfo {
 		/// <summary>Overlay number. Normally zero, meaning that it's the main program.</summary>
 		public UInt16 OverlayNumber;
 		
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst=4)]
+		public UInt16[] Reserved1;
+		
+		public UInt16 OemIdentifier;
+		public UInt16 OemInformation;
+		
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst=10)]
+		public UInt16[] Reserved2;
+		
+		/// <summary>File address of New Executable header (also used for PE). This is at offset 0x3C from the beginning of this struct.</summary>
+		public UInt32 NewExeHeaderAddress;
+		
 		public DosRelocationTableEntry[] RelocationTable;
 		
 		public DosHeader(BinaryReader rdr) {
 			
 			Magic                         = rdr.ReadUInt16();
 			
-			if( Magic != 0x5A4D ) throw new FormatException("The specified stream is not a DOS Executable.");
+			if( Magic != 0x5A4D )
+				throw new FormatException("The specified stream is not a DOS Executable.");
 			
 			LastBlockBytes                = rdr.ReadUInt16();
 			NofBlocks                     = rdr.ReadUInt16();
@@ -56,13 +70,18 @@ namespace Anolis.Tools.PEInfo {
 			NofParagraphsInHeader         = rdr.ReadUInt16();
 			NofParagraphsInMemoryRequired = rdr.ReadUInt16();
 			NofParagraphsInMemoryMaximum  = rdr.ReadUInt16();
-			RelativeStack                 = rdr.ReadUInt16();
+			InitialSS                     = rdr.ReadUInt16();
 			InitialSP                     = rdr.ReadUInt16();
 			Checksum                      = rdr.ReadUInt16();
 			InitialIP                     = rdr.ReadUInt16();
 			InitialCS                     = rdr.ReadUInt16();
 			RelocationTableOffset         = rdr.ReadUInt16();
 			OverlayNumber                 = rdr.ReadUInt16();
+			Reserved1                     = rdr.ReadUInt16Array( 4 );
+			OemIdentifier                 = rdr.ReadUInt16();
+			OemInformation                = rdr.ReadUInt16();
+			Reserved2                     = rdr.ReadUInt16Array( 10 );
+			NewExeHeaderAddress           = rdr.ReadUInt32();
 			
 			RelocationTable = new DosRelocationTableEntry[ NofRelocationEntries ];
 			if( RelocationTable.Length > 0 ) {

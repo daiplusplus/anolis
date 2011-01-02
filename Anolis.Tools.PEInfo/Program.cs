@@ -9,10 +9,13 @@ namespace Anolis.Tools.PEInfo {
 		[STAThread]
 		public static Int32 Main(String[] args) {
 			
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.EnableVisualStyles();
+//			Application.SetCompatibleTextRenderingDefault(false);
+//			Application.EnableVisualStyles();
+//			
+//			Application.Run( new MainForm() );
 			
-			Application.Run( new MainForm() );
+			PEResourceSource source = new PEResourceSource( args[0] );
+			source.GetResources();
 			
 			return 0;
 		}//main

@@ -1,0 +1,592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="A_cultureLbl" xml:space="preserve">
+    <value>Γλώσσα εγκατάστασης</value>
+  </data>
+  <data name="A_DeletingTemporaryFiles" xml:space="preserve">
+    <value>Διαγραφή προσωρινών αρχείων</value>
+  </data>
+  <data name="A_DisableAV" xml:space="preserve">
+    <value>Πρίν συνεχίσετε, παρακαλώ απενεργοποιήστε τον Windows Defender ή οποιοδήποτε άλλο πρόγραμμα καταπολέμησης ιών καθώς επιβραδύνουν την διαδικασία εγκατάστασης.</value>
+  </data>
+  <data name="A_notes" xml:space="preserve">
+    <value>Αυτός ο οδηγός θα σας καθοδηγήσει στα βήματα που απαιτούνται για την εγκατάσταση ενός  πακέτου Anolis
+
+Για να συνεχίσετε, πιέστε Επόμενο</value>
+  </data>
+  <data name="A_Notes_Cus" xml:space="preserve">
+    <value>Αυτός ο οδηγός θα σας καθοδηγήσει στα βήματα που απαιτούνται για να εγκαταστήσετε το {0}
+
+Για να συνεχίσετε, πιέστε Επόμενο</value>
+  </data>
+  <data name="A_PendingOperations" xml:space="preserve">
+    <value>Το πρόγραμμα εγκατάστασης Anolis εντόπισε ότι ένα προηγούμενο πρόγραμμα εγκατάστασης έχει κάνει αλλαγές οι οποίες θα λάβουν χώρα μόλις γίνει επανεκκίνηση του υπολογιστή. Κάντε επανεκκίνηση πριν ξανά τρέξετε το Πρόγραμμα Εγκατάστασης Anolis.</value>
+  </data>
+  <data name="A_PendingOperations_Cus" xml:space="preserve">
+    <value>Το {0} εντόπισε ότι ένα προηγούμενο πρόγραμμα εγκατάστασης έχει κάνει αλλαγές οι οποίες θα λάβουν χώρα μόλις γίνει επανεκκίνηση του υπολογιστή. Κάντε επανεκκίνηση πριν ξανά τρέξετε το {0}</value>
+  </data>
+  <data name="A_title" xml:space="preserve">
+    <value>Καλωσήρθατε στο Πρόγραμμα Εγκατάστασης Πακέτων Anolis</value>
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value>Καλωσήρθατε στο  {0}</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>Εγκαθιστά ένα πακέτο της τρέχουσας διανομής Anolis ή από οποιαδήποτε τοποθεσία του υπολογιστή. Τι πακέτο μπορεί να ενσωματωθεί σε ένα φάκελο εγκατάστασης (I386).</value>
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value>Εγκαθιστά {0} σε αυτόν τον υπολογιστή ή σε φάκελο εγκατάστασης (I386)</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>Εγκατάσταση ενός πακέτου</value>
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value>Εγκατάσταση {0}</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>Επέλεξε μια λειτουργία να εκτελεστεί</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>Επέλεξε μια διεργασία</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>Λήψη εργαλείων ώστε να μπορέσετε εύκολα να δημιουργήσετε δικά σας πακέτα ή διανομές</value>
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value>Λήψη εργαλείων ώστε να μπορέσετε εύκολα να δημιουργήσετε δικά σας πακέτα ή διανομές σαν το {0}</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>Δημιουργήστε δικό σας πακέτο ή διανομή</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>Αποκαθιστά τα αρχεία στην κατάσταση που ήταν πρίν την αλλαγή. Θα χρειαστείτε τον φάκελο εφεδρείας που δημιουργήθηκε κατά την εγκατάσταση</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>Αναιρεί αλλαγές που συνέβησαν από την εγκατάσταση ενός πακέτου</value>
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value>Αναιρεί αλλαγές που συνέβησαν από  {0}</value>
+  </data>
+  <data name="C_A_anopBrowse" xml:space="preserve">
+    <value>Περιήγηση...</value>
+  </data>
+  <data name="C_A_anopFilenameLbl" xml:space="preserve">
+    <value>Όνομα αρχείου</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>Πακέτο  (*.anop) στον υπολογιστή μου</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>Πακέτο ενσωματωμένο στο πρόγραμμα εγκατάστασης</value>
+  </data>
+  <data name="C_A_notFileExists" xml:space="preserve">
+    <value>Το αρχείο "{0}" δεν υπάρχει</value>
+  </data>
+  <data name="C_A_packBrowse" xml:space="preserve">
+    <value>Περιήγηση...</value>
+  </data>
+  <data name="C_A_packFilenameLbl" xml:space="preserve">
+    <value>Όνομα αρχείου</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>Αρχείο προσδιορισμού πακέτων (package.xml) στον υπολογιστή μου</value>
+  </data>
+  <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
+    <value>Επιλέξτε ένα ενσωματωμένο πακέτο πριν συνεχίσετε</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>Το πακέτο προς εγκατάσταση μπορεί να βρίσκεται είτε στο σύστημα αρχείων του υπολογιστή (filesystem) ή ενσωματωμένο στο πρόγραμμα εγκατάστασης</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>Επιλέξτε πακέτο προς εγκατάσταση</value>
+  </data>
+  <data name="C_B_conditionError" xml:space="preserve">
+    <value>Εμφανίστηκε πρόβλημα κατά την διαδικασία αξιολόγησης της καταλληλότητας του πακέτου για τον υπολογιστή σας. Επικοινωνήστε με τον εκδότη του πακέτου.</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>Παρουσιάστηκε πρόβλημα κατά την προσπάθεια αποσυμπίεσης του πακέτου</value>
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value>Παρουσιάστηκε πρόβλημα κατά την προσπάθεια αποσυμπίεσης του {0}</value>
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
+    <value>Το καθορισμένο αρχείο πακέτων δεν περιείχε αρχείο ορισμού πακέτων. Μάλλον επιλέξατε λάθος αρχείο ή είναι κατεστραμμένο.</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>Το πακέτο εγκαθίσταται</value>
+  </data>
+  <data name="C_B_statusLbl" xml:space="preserve">
+    <value>Προετοιμασία...</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>Παρακαλώ περιμένετε καθώς το πρόγραμμα εγκατάστασης προετοιμάζει το πακέτο προς εγκατάσταση</value>
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value>Παρακαλώ περιμένετε καθώς το πρόγραμμα εγκατάστασης προετοιμάζει  το {0} προς εγκατάσταση</value>
+  </data>
+  <data name="C_B_Title" xml:space="preserve">
+    <value>Προετοιμασία Πακέτου</value>
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value>Προετοιμασία {0}</value>
+  </data>
+  <data name="C_C_downloadInfo" xml:space="preserve">
+    <value>Επίσκεψη Ιστοτόπου Πακέτων</value>
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value>Επισκεφθείτε τον Ιστότοπο του {0}</value>
+  </data>
+  <data name="C_C_downloadNo" xml:space="preserve">
+    <value>Όχι</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - Ελήφθησαν {1}KB από {2}KB στα {3}KB το δευτερόλεπτο</value>
+  </data>
+  <data name="C_C_downloadYes" xml:space="preserve">
+    <value>Ναι</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>Έλεγχος για ενημέρωση των πακέτων</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>Ο έλεγχος για ενημερώσεις απέτυχε : αδυναμία λήψης πληροφοριών ενημέρωσης</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>Μία ανανεωμένη έκδοση  ({0}) αυτού του πακέτου είναι διαθέσιμη. Θέλετε να γίνει λήψη ;</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>Μία ανανεωμένη έκδοση  ({0}) αυτού του πακέτου είναι διαθέσιμη, αλλά πρέπει να την κατεβάσετε χειροκίνητα. Πιέστε στο "Επίσκεψη Ιστοτόπου Πακέτων" για περισσότερες πληροφορίες.</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>Έχετε την τελευταία έκδοση ({0}) του πακέτου αυτού.</value>
+  </data>
+  <data name="C_C_sfdTitle" xml:space="preserve">
+    <value>Αποθήκευση ληφθέντος πακέτου σε...</value>
+  </data>
+  <data name="C_C_skipCheckLbl" xml:space="preserve">
+    <value>Μπορείτε ανα πάσα στιγμή να προσπεράσετε τον έλεγχο ενημέρωσης πατώντας Επόμενο.</value>
+  </data>
+  <data name="C_C_statusLbl" xml:space="preserve">
+    <value>Προετοιμασία...</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>Το πακέτο μπορεί να έχει ανανεωθεί από τότε που το λάβατε. Έλεγχος για ενημερώσεις.</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>Έλεγχος για Ενημερώσεις</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>Readme του Προγράμματος εγκατάστασης Anolis</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>Σημειώσεις Πακέτου {0}</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>Ανασκόπηση πιθανών σημειώσεων από τον εκδότη του πακέτου</value>
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value>Ανασκόπηση πιθανών σημειώσεων από τον {0}</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>Σημειώσεις Πακέτου</value>
+  </data>
+  <data name="C_E_Disabled" xml:space="preserve">
+    <value>Ανενεργό</value>
+  </data>
+  <data name="C_E_Enabled" xml:space="preserve">
+    <value>Ενεργοποιημένο</value>
+  </data>
+  <data name="C_E_Explicit" xml:space="preserve">
+    <value>Σαφές</value>
+  </data>
+  <data name="C_E_Inherit" xml:space="preserve">
+    <value>Διαδοχικό</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>Το επιλεγμένο αντικείμενο '{0}' δεν έχει πληροφορίες σχετικές με αυτό</value>
+  </data>
+  <data name="C_E_NullItem" xml:space="preserve">
+    <value>Αλυσιτελές αντικείμενο</value>
+  </data>
+  <data name="C_E_simple" xml:space="preserve">
+    <value>Απλό</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>Μπορείτε να επιλέξετε αν θα εγκατασταθούν ή όχι στοιχεία από αυτό το πακέτο</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>Τροποποίηση Πακέτου</value>
+  </data>
+  <data name="C_E_Unnamed" xml:space="preserve">
+    <value>Χωρίς όνομα</value>
+  </data>
+  <data name="C_E_UnnamedGroup" xml:space="preserve">
+    <value>Ανώνυμη ομάδα</value>
+  </data>
+  <data name="C_E1_advanced" xml:space="preserve">
+    <value>Προχωρημένο</value>
+  </data>
+  <data name="C_E1_bitmapsLbl" xml:space="preserve">
+    <value>Bitmaps</value>
+  </data>
+  <data name="C_E1_Custom" xml:space="preserve">
+    <value>Παραμετροποιημένο</value>
+  </data>
+  <data name="C_E1_logonLbl" xml:space="preserve">
+    <value>Οθόνη Υποδοχής</value>
+  </data>
+  <data name="C_E1_logonPreview" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="C_E1_Presets" xml:space="preserve">
+    <value>Προκαθορισμένα θέματα</value>
+  </data>
+  <data name="C_E1_previewLbl" xml:space="preserve">
+    <value>Περιοχή Προεπισκόπησης</value>
+  </data>
+  <data name="C_E1_Subtitle" xml:space="preserve">
+    <value>Μπορείτε να καθορίσετε την εμφάνιση του υπολογιστή σας μετά την εγκατάσταση</value>
+  </data>
+  <data name="C_E1_Title" xml:space="preserve">
+    <value>Καθορίστε επιλογές θεματοποίησης</value>
+  </data>
+  <data name="C_E1_visualStylesLbl" xml:space="preserve">
+    <value>Οπτικό στύλ</value>
+  </data>
+  <data name="C_E1_wallpaperLbl" xml:space="preserve">
+    <value>Ταπετσαρία</value>
+  </data>
+  <data name="C_F_advanced" xml:space="preserve">
+    <value>Επιλογές για προχωρημένους</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>Δημιουργία φακέλου εφεδρείας για μελλοντική απεγκατάσταση (Συνιστάτε)</value>
+  </data>
+  <data name="C_F_backupBrowse" xml:space="preserve">
+    <value>Περιήγηση...</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>Απαιτείτε η δημιουργία φακέλου εφεδρείας αν σκοπεύετε να απεγκαταστήσετε το πακέτο στο μέλλον</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>Εγκατάσταση σε αυτόν τον υπολογιστή</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>Εγκατάσταση σε φάκελο Ι386</value>
+  </data>
+  <data name="C_F_i386Browse" xml:space="preserve">
+    <value>Περιήγηση...</value>
+  </data>
+  <data name="C_F_i386Lbl" xml:space="preserve">
+    <value>Αρχικός φάκελος δίσκου (СD)</value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>Εγκατάσταση</value>
+  </data>
+  <data name="C_F_pathExistsBackup" xml:space="preserve">
+    <value>Ο καθορισμένος φάκελος εφεδρείας υπάρχει ήδη και περιέχει αρχεία. Εφεδρείες πρέπει να δημιουργηθούν είτε σε έναν άδειο φάκελο είτε σε ένα φάκελο που δεν υπάρχει (θα δημιουργηθεί αυτόματα)</value>
+  </data>
+  <data name="C_F_pathInvalidBackup" xml:space="preserve">
+    <value>Η καθορισμένη διαδρομή για την εφεδρεία δεν είναι έγκυρη</value>
+  </data>
+  <data name="C_F_pathInvalidI386" xml:space="preserve">
+    <value>Η καθορισμένη διαδρομή για τον φάκελο Ι386 δεν είναι έγκυρη</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>Διαλέξτε φάκελο εφεδρείας και άλλες επιλογές</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>Επιλογές Εγκατάστασης</value>
+  </data>
+  <data name="C_F2_feedback" xml:space="preserve">
+    <value>Αναφορά λεπτομερειών διαδικασίας εγκατάστασης</value>
+  </data>
+  <data name="C_F2_feedbackDesc" xml:space="preserve">
+    <value>Ανώνυμες πληροφορίες από την διαδικασία εγκατάστασης (όπως λειτουργικό σύστημα, γλώσσα και τυχών σφάλματα) θα αποσταλούν στον  δημιουργό του πακέτου για να βοηθήσουν την μελλοντική αναβάθμιση του πακέτου. </value>
+  </data>
+  <data name="C_F2_lite" xml:space="preserve">
+    <value>"Lite" εγκατάσταση για μη-Αγγλικά Windows</value>
+  </data>
+  <data name="C_F2_liteDesc" xml:space="preserve">
+    <value>Αν εγκαταστήσετε εικονίδια 128x128 (ή μεγαλύτερα) σε μη-Αγγλικές εκδόσεις των Windows, κάποια αρχεία συστήματος μπορεί να μην συμπεριφέρονται σωστά και να προκαλέσουν προβλήματα συμβατότητας με διάφορες εφαρμογές. Επιλέγοντας αυτό εμποδίζεται την εγκατάσταση εικονιδίων μεγέθους 128x128.</value>
+  </data>
+  <data name="C_F2_ok" xml:space="preserve">
+    <value>Εντάξει</value>
+  </data>
+  <data name="C_F2_restore" xml:space="preserve">
+    <value>Δημιουργεία Σημείου Επαναφοράς συστήματος (System Restore Point)(Συνιστάτε)</value>
+  </data>
+  <data name="C_F2_restoreDesc" xml:space="preserve">
+    <value>H Επαναφορά Συστήματος παρέχει ένα επιπρόσθετο επίπεδο προστασίας για το πρόγραμμα απεγκατάστασης. Να σημειωθεί ότι αυτό δεν σας προστατεύει πάντα από τροποποιήσεις σε μη-Windows αρχεία στον φάκελο Program Files</value>
+  </data>
+  <data name="C_F2_RestoreDescNA" xml:space="preserve">
+    <value>Η Επαναφορά Συστήματος δεν είναι διαθέσιμη στο σύστημά σας και δεν μπορεί να ενεργοποιηθεί σε αυτή την εγκατάσταση.</value>
+  </data>
+  <data name="C_F2_Title" xml:space="preserve">
+    <value>Επιλογές Εγκατάστασης για Προχωρημένους</value>
+  </data>
+  <data name="C_G_cleanup" xml:space="preserve">
+    <value>Συγύρισμα μετά την εγκατάσταση</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}%  έτοιμο - {1}</value>
+  </data>
+  <data name="C_G_statusLbl" xml:space="preserve">
+    <value>Προετοιμασία...</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>Γίνεται εγκατάσταση του πακέτου που επιλέξατε</value>
+  </data>
+  <data name="C_G_Subtitle_Cus" xml:space="preserve">
+    <value>Γίνεται εγκατάσταση του πακέτου {0}</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>Γίνεται εγκατάσταση του Πακέτου</value>
+  </data>
+  <data name="C_G_Title_Cus" xml:space="preserve">
+    <value>Γίνεται εγκατάσταση του {0}</value>
+  </data>
+  <data name="D_A_destBrowse" xml:space="preserve">
+    <value>Περιήγηση...</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>Φάκελος προορισμού</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>Δημιουργεία ομάδας Anolis στο μενού "Έναρξη"</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>Για όλους τους χρήστες</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>Μόνο για μένα</value>
+  </data>
+  <data name="D_A_Subtitle" xml:space="preserve">
+    <value>Επιλέξτε τον φάκελο στον οποίο θα τοποθετηθούν τα ληφθέντα εργαλεία και ρυθμίστε διάφορες επιλογές</value>
+  </data>
+  <data name="D_A_Title" xml:space="preserve">
+    <value>Φάκελος Προορισμού και Επιλογές Εγκατάστασης</value>
+  </data>
+  <data name="D_A_toolsLbl" xml:space="preserve">
+    <value>Ανάμεσα στα εργαλεία προς λήψη συμπεριλαμβάνετε και ο Resourcer, ένα ισχυρό εργαλείο επεξεργασίας πόρων, o Packager, που χρησιμοποιείται για την δημιουργία των τελικών πακέτων και προγραμμάτων εγκατάστασης, και διάφορα άλλα εργαλεία όπως έναν μικρό εργαλείο επεξεργασίας εικονιδίων.</value>
+  </data>
+  <data name="D_B_downloadFailed" xml:space="preserve">
+    <value>Αποτυχία λήψης</value>
+  </data>
+  <data name="D_B_status" xml:space="preserve">
+    <value>Προετοιμασία...</value>
+  </data>
+  <data name="D_B_statusLbl" xml:space="preserve">
+    <value>Προετοιμασία...</value>
+  </data>
+  <data name="D_B_Subtitle" xml:space="preserve">
+    <value>Γίνεται λήψη των εργαλείων Anolis</value>
+  </data>
+  <data name="D_B_Title" xml:space="preserve">
+    <value>Γίνεται λήψη</value>
+  </data>
+  <data name="E_A_browse" xml:space="preserve">
+    <value>Περιήγηση...</value>
+  </data>
+  <data name="E_A_dirLbl" xml:space="preserve">
+    <value>Κατάλογος</value>
+  </data>
+  <data name="E_A_FbdDescription" xml:space="preserve">
+    <value>Επιλέξτε φάκελο εφεδρείας από τον οποίο θα γίνει επαναφορά</value>
+  </data>
+  <data name="E_A_feedbackLbl" xml:space="preserve">
+    <value>Γιατί απεγκαθιστάτε αυτό το πακέτο; Η γνώμη σας θα σταλεί στον δημιουργό του για να το βελτιώσει στο μέλλον.</value>
+  </data>
+  <data name="E_A_feedbackLbl_Cus" xml:space="preserve">
+    <value>Γιατί απεγκαθιστάτε το {0}; Η γνώμη σας θα σταλεί στον {1} για να βελτιώσει το {0} στο μέλλον.</value>
+  </data>
+  <data name="E_A_notValidDirectory" xml:space="preserve">
+    <value>Ο καθορισμένος φάκελος δεν περιέχει κάποιο έγκυρο πακέτο απεγκατάστασης</value>
+  </data>
+  <data name="E_A_Subtitle" xml:space="preserve">
+    <value>Επιλέξτε φάκελο από τον οποίο θα γίνει επαναφορά</value>
+  </data>
+  <data name="E_A_sysRes" xml:space="preserve">
+    <value>Δημιουργία Σημείου Επαναφοράς συστήματος (System Restore Point)(Συνιστάτε)</value>
+  </data>
+  <data name="E_A_sysResDesc" xml:space="preserve">
+    <value>Ένα πρόσθετο επίπεδο προστασίας. Να σημειωιθεί οτι αυτό δεν σας προστατεύει πάντα από τροποποιήσεις σε μη-Windows αρχεία στον φάκελο Program Files</value>
+  </data>
+  <data name="E_A_Title" xml:space="preserve">
+    <value>Επιλέξτε Κατάλογο Εφεδρείας</value>
+  </data>
+  <data name="E_A_uninstallationLanguage" xml:space="preserve">
+    <value>Γλώσσα απεγκατάστασης</value>
+  </data>
+  <data name="E_A_uninstallButton" xml:space="preserve">
+    <value>Απεγκατάσταση</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>Επιλέξτε τον κατάλογο από τον οποίο θα γίνει η ανάκτηση την εφεδρείας</value>
+  </data>
+  <data name="E_B_Subtitle_Cus" xml:space="preserve">
+    <value>Απεγκατάσταση του {0}</value>
+  </data>
+  <data name="E_B_Title" xml:space="preserve">
+    <value>Απεγκατάσταση Πακέτου</value>
+  </data>
+  <data name="E_B_Title_Cus" xml:space="preserve">
+    <value>Απεγκατάσταση {0}</value>
+  </data>
+  <data name="F_aborted" xml:space="preserve">
+    <value>Η εγκατάσταση ματαιώθηκε</value>
+  </data>
+  <data name="F_abortedDesc" xml:space="preserve">
+    <value>Η εγκατάσταση ματαιώθηκε λόγο μίας εξαίρεσης</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>Τέλος</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>Η εγκατάσταση ολοκληρώθηκε επιτυχώς.</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>Η εγκατάσταση ολοκληρώθηκε επιτυχώς. Θα γίνει επανεκκίνηση του υπολογιστή.
+
+Κλείστε όλες τις εφαρμογές πριν συνεχίσετε. Μήν επιχειρήσετε να ανοίξετε άλλη εφαρμογή.</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>Η εγκατάσταση ολοκληρώθηκε επιτυχώς.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>Επανεκκίνηση</value>
+  </data>
+  <data name="F_title" xml:space="preserve">
+    <value>Η εγκατάσταση ολοκληρώθηκε</value>
+  </data>
+  <data name="F_TitleUninstall" xml:space="preserve">
+    <value>Η απεγκατάσταση ολοκληρώθηκε</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>Η απεγκατάσταση ολοκληρώθηκε επιτυχώς.</value>
+  </data>
+  <data name="F_uninstallationCompleteRestart" xml:space="preserve">
+    <value>Η απεγκατάσταση ολοκληρώθηκε επιτυχώς. Θα γίνει επανεκκίνηση του υπολογιστή.
+
+Κλείστε όλες τις εφαρμογές πριν συνεχίσετε. Μήν επιχειρήσετε να ανοίξετε άλλη εφαρμογή.</value>
+  </data>
+  <data name="G_restarting" xml:space="preserve">
+    <value>Γίνεται επανεκκίνηση του υπολογιστή</value>
+  </data>
+  <data name="G_Title" xml:space="preserve">
+    <value>Παρακαλώ περιμένετε...</value>
+  </data>
+  <data name="G2_ErrorMessage" xml:space="preserve">
+    <value>Πληροφορίες από την διαδικασία εγκατάστασης δεν μπόρεσαν να σταλούν λόγο :</value>
+  </data>
+  <data name="G2_ErrorTitle" xml:space="preserve">
+    <value>Βλάβης</value>
+  </data>
+  <data name="G2_status" xml:space="preserve">
+    <value>Γίνεται αποστολή των πληροφοριών από την διαδικασία εγκατάστασης.</value>
+  </data>
+  <data name="G2_Title" xml:space="preserve">
+    <value>Παρακαλώ περιμένετε...</value>
+  </data>
+  <data name="G2_UnknownError" xml:space="preserve">
+    <value>Άγνωστη βλάβη</value>
+  </data>
+  <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Flags\gr.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>gr-el</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>Ελληνικά</value>
+  </data>
+  <data name="Lang_RTL" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>Άκυρο</value>
+  </data>
+  <data name="Wiz_CancelConfirm" xml:space="preserve">
+    <value>Είστε σίγουροι ότι θέλετε να ακυρώσετε την εγκατάσταση;</value>
+  </data>
+  <data name="Wiz_Defaults" xml:space="preserve">
+    <value>Προεπιλογές</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>Επόμενο</value>
+  </data>
+  <data name="Wiz_OK" xml:space="preserve">
+    <value>Εντάξει</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>Πίσω</value>
+  </data>
+  <data name="X_Bootscreen" xml:space="preserve">
+    <value>Οθόνη εκκίνησης (Bootscreen)</value>
+  </data>
+  <data name="X_CursorScheme" xml:space="preserve">
+    <value>Δείκτες ποντικιού</value>
+  </data>
+  <data name="X_Screensaver" xml:space="preserve">
+    <value>Προφύλαξη οθόνης</value>
+  </data>
+</root>

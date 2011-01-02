@@ -18,6 +18,8 @@ namespace Anolis.Tools.PEInfo {
 			
 			this.__openBrowse.Click += new EventHandler(__openBrowse_Click);
 			this.__openLoad.Click += new EventHandler(__openLoad_Click);
+			
+			__openAs.SelectedIndex = 2;
 		}
 		
 		private void __openBrowse_Click(object sender, EventArgs e) {
@@ -35,7 +37,14 @@ namespace Anolis.Tools.PEInfo {
 			
 			_f = OpenFile( __openFileName.Text );
 			
-			__grid.SelectedObject = new List<Object>(); // _f;
+//			__grid.SelectedObject = new List<Object>(); // _f;
+			
+			PEFile pe = _f as PEFile;
+			if( pe != null ) {
+				
+				__pe.PEFile = pe;
+			}
+			
 		}
 		
 		private Object OpenFile(String fileName) {

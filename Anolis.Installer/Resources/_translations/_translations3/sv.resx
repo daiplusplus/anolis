@@ -1,0 +1,534 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Lang_RTL" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="A_Message" xml:space="preserve">
+    <value>Den här guiden kommer leda dig genom alla steg i installationen av Anolis paketet.
+
+För att fortsätta, tryck på Nästa</value>
+  </data>
+  <data name="A_Title" xml:space="preserve">
+    <value>Välkommen till Anolis Paket-installeraren</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>Installerar ett paket som finns i den här Anolis distributionen eller någon annanstans på den här datorn. Paketet kan installeras i en installations-mapp (I386).</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>Installera ett paket</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>Laddar ner verktyg så att du lätt kan göra ditt eget paket eller distribution</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>Gör mitt eget paket eller distribution</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>Återställer filer till deras tidigare status (innan installationen). Du kommer behöva back-up mappen som blev skapad under installationen</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>Ångra ändringar gjorda av en paket-installation</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>Välj en aktivitet att genomföra</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>Välj en aktivitet</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>Ett paket arkiv (*.anop) på den här datorn</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>Ett paket inbyggt i den här installationen</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>En paket-definitons fil (package.xml) på den här datorn</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>Paketet som ska installeras kan antingen installeras  till den här datorns filsystem eller implenteras i den här installationen</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>Välj ett paket att installera</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>Ett fel uppstod under försöket att extrahera paketet</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>Exemplifierar paket</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>Det valda paketet '{0}' har ingen information förknippad med det</value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>Installera</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}% färdigt - {1}</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>Installationsmapp (sökväg)</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>Skapa en Anolis program grupp i startmenyn</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>För alla användare</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>Bara för mig</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>Slutför</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>Installationen har slutförst. Din dator kommer nu att startas om.
+
+Stäng alla öppna program innan du fortsätter, och öppna inte fler program.</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>Installationen har slutförts.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>Starta om</value>
+  </data>
+  <data name="F_Title" xml:space="preserve">
+    <value>Installation Slutförd</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>Avnstallationen har slutförts.</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>Skapa en Back-Up för avinstallation (Rekommenderas)</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>Du måste skapa en Back-Up om du vill kunna avinstallera paketet i framtiden</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>Installera på den här datorn</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>Installera till en Windows Installations CD (I386)</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>Skapa systemåterställningspunkt (Rekommenderas)</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>Ett tillagt extra-skydd. Observera att det inte alltid skyddar mot modifieringar av icke-Windows original filer under Program</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>Det kan finnas uppdateringar för paketet. Söker nu efter uppdateringar.</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>Söker efter paketuppdateringar</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>Var vänlig vänta medan paketet förbereds för installation</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>Du kan välja om du vill eller inte vill installera komponenter från detta paket</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>Modifiera Paket</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>Välj Back-Up mapp och andra inställningar</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>Installations Inställningar</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>Det valda paketet installeras</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>Installerar Paket</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value>Translated by CEoCEo, Watertrue</value>
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>sv</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>Svenska</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - {1}KB av {2}KB laddas ner i {3}KBps</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>Letar efter uppdatering till paketet</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>Misslyckades att söka efter uppdateringar: kunde inte ladda ner uppdaterings-information</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>En uppdaterad version ({0}) av det här paketet är tillgängligt. Vill du ladda ner det nu?</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>En uppdaterad version ({0}) av det här paketet är tillgängligt, men du måste ladda ner det manuellt. Tryck på "Besök Paketets hemsida" för mer information.</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>Du har den senaste versionen ({0}) av det här paketet.</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>Installationen har slutförts.</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>Nästa</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>Tillbaka</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>Granska publiceringsinfo gjord av paketets upphovsman.</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>Paketets publiceringsinfo</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>Anolis Installerarens "Readme"</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>{0} paketets publiceringsinfo</value>
+  </data>
+  <data name="C_F_pathInvalidBackup" xml:space="preserve">
+    <value>Den valda sökvägen är inte giltig</value>
+  </data>
+  <data name="C_F_pathInvalidI386" xml:space="preserve">
+    <value>Den valda I386-sökvägen är inte giltig</value>
+  </data>
+  <data name="C_F_pathExistsBackup" xml:space="preserve">
+    <value>Den valda Back-Up mappen existerar och innehåller redan filer. Back-Uper måste skapas antingen till en tom mapp, eller en mapp som inte har skapats ännu.</value>
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
+    <value>Det valda paketarkivet innehöll ingen paket-definitions fil.</value>
+  </data>
+  <data name="C_C_skipCheckLbl" xml:space="preserve">
+    <value>Du kan avbryta uppdaterings kontrollen när som helst genom att trycka på Nästa.</value>
+  </data>
+  <data name="A_Message_Cus" xml:space="preserve">
+    <value>Den här guiden kommer leda dig genom alla steg i installationen av {0}
+
+För att fortsätta, tryck på Nästa</value>
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value>Välkommen till {0}-installeraren</value>
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value>Installerar {0} på den här datorn eller till en installations (I386) mapp.</value>
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value>Installera {0}</value>
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value>Laddar ner verktyg så att du lätt kan göra ditt eget paket eller distribution, så lätt som {0}</value>
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value>Ångra ändringar gjorda av {0}</value>
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value>Ett fel uppstod under försöket att extrahera {0}</value>
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value>Var vänlig vänta medan {0} förbereds för installation</value>
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value>Granska publiceringsinfo gjord av {0}</value>
+  </data>
+  <data name="C_G_Subtitle_Cus" xml:space="preserve">
+    <value>{0} installeras</value>
+  </data>
+  <data name="C_A_anopFilenameLbl" xml:space="preserve">
+    <value>Filnamn</value>
+  </data>
+  <data name="C_A_packFilenameLbl" xml:space="preserve">
+    <value>Filnamn</value>
+  </data>
+  <data name="C_B_statusLbl" xml:space="preserve">
+    <value>Förbereder...</value>
+  </data>
+  <data name="C_C_statusLbl" xml:space="preserve">
+    <value>Förbereder...</value>
+  </data>
+  <data name="C_F_i386Lbl" xml:space="preserve">
+    <value>Roten till CD</value>
+  </data>
+  <data name="D_A_toolsLbl" xml:space="preserve">
+    <value>De nedladdningsbara verktygen innehåller en Resourcer, en kraftfull Resource-ändrare; Paket-skapare, som används för att skapa dina paket filer och skräddarsydda installerare; och många andra verktyg inklusive en liten ikon-ändrare.</value>
+  </data>
+  <data name="E_A_dirLbl" xml:space="preserve">
+    <value>Sökväg</value>
+  </data>
+  <data name="C_A_anopBrowse" xml:space="preserve">
+    <value>Bläddra...</value>
+  </data>
+  <data name="C_A_packBrowse" xml:space="preserve">
+    <value>Bläddra...</value>
+  </data>
+  <data name="C_B_Title" xml:space="preserve">
+    <value>Förbereder Paket</value>
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value>Förbereder {0}</value>
+  </data>
+  <data name="C_C_downloadInfo" xml:space="preserve">
+    <value>Besök paketets hemsida</value>
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value>Besök{0}s hemsida</value>
+  </data>
+  <data name="C_C_downloadNo" xml:space="preserve">
+    <value>Nej</value>
+  </data>
+  <data name="C_C_downloadYes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="C_F_backupBrowse" xml:space="preserve">
+    <value>Bläddra...</value>
+  </data>
+  <data name="C_F_i386Browse" xml:space="preserve">
+    <value>Bläddra...</value>
+  </data>
+  <data name="C_G_statusLbl" xml:space="preserve">
+    <value>Förbereder...</value>
+  </data>
+  <data name="D_A_destBrowse" xml:space="preserve">
+    <value>Bläddra...</value>
+  </data>
+  <data name="D_A_Subtitle" xml:space="preserve">
+    <value>Välj mapp som ska innehålla nedladdade verktyg och för att välja andra inställningar</value>
+  </data>
+  <data name="D_A_Title" xml:space="preserve">
+    <value>Destinationsmapp och Installations inställningar</value>
+  </data>
+  <data name="D_B_status" xml:space="preserve">
+    <value>Förbereder...</value>
+  </data>
+  <data name="D_B_Subtitle" xml:space="preserve">
+    <value>Laddar nu ner Anolis-verktygen</value>
+  </data>
+  <data name="D_B_Title" xml:space="preserve">
+    <value>Laddar ner</value>
+  </data>
+  <data name="E_A_browse" xml:space="preserve">
+    <value>Bläddra...</value>
+  </data>
+  <data name="E_A_sysRes" xml:space="preserve">
+    <value>Skapa systemåterställningspunkt (Rekommenderas)</value>
+  </data>
+  <data name="E_A_sysResDesc" xml:space="preserve">
+    <value>Ett tillagt extra-skydd. Observera att det inte alltid skyddar mot modifieringar av icke-Windows original filer under Program-mappen</value>
+  </data>
+  <data name="E_A_Title" xml:space="preserve">
+    <value>Välj Back-Up sökväg</value>
+  </data>
+  <data name="E_A_Subtitle" xml:space="preserve">
+    <value>Välj sökväg att återställa ifrån</value>
+  </data>
+  <data name="G_Title" xml:space="preserve">
+    <value>Var god vänta...</value>
+  </data>
+  <data name="G_WaitMessage" xml:space="preserve">
+    <value>Startar nu om datorn</value>
+  </data>
+  <data name="Wiz_CancelConfirm" xml:space="preserve">
+    <value>Är du säker på att avsluta installationen?</value>
+  </data>
+  <data name="C_A_notFileExists" xml:space="preserve">
+    <value>Filen "{0}" kunde inte hittas</value>
+  </data>
+  <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
+    <value>Välj ett inkluderat paket innan du fortsätter</value>
+  </data>
+  <data name="C_B_conditionError" xml:space="preserve">
+    <value>Det inträffade ett fel under försöket att utvärdera paketens lämplighet för datorn. Kontakta upphovsmannen till paketet.</value>
+  </data>
+  <data name="E_A_notValidDirectory" xml:space="preserve">
+    <value>Den valda katalogen inehåller inte ett giltigt avinstallationspaket.</value>
+  </data>
+  <data name="Lang_RTL" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="A_DisableAV" xml:space="preserve">
+    <value>Avaktivera Windows Defender och anti-virus program innan du fortsätter, då installationsprocessen kan ta längre tid att slutföra.</value>
+  </data>
+  <data name="C_C_sfdTitle" xml:space="preserve">
+    <value>Spara nerladdade paketet till...</value>
+  </data>
+  <data name="D_B_downloadFailed" xml:space="preserve">
+    <value>Nerladdningen misslyckades</value>
+  </data>
+  <data name="A_DeletingTemporaryFiles" xml:space="preserve">
+    <value>Raderar temporära filer</value>
+  </data>
+  <data name="F_uninstallationCompleteRestart" xml:space="preserve">
+    <value>Avnstallationen har slutförts. Din dator kommer nu att startas om.
+
+Stäng alla öppna program innan du fortsätter, och öppna inte fler program.</value>
+  </data>
+  <data name="F_aborted" xml:space="preserve">
+    <value>Installationen avbröts</value>
+  </data>
+  <data name="F_abortedDesc" xml:space="preserve">
+    <value>Installationen avbröts på grund av ett undantagsfel</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>Avinstallerar paketet</value>
+  </data>
+  <data name="E_B_Subtitle_Cus" xml:space="preserve">
+    <value>Avinstallerar {0}</value>
+  </data>
+  <data name="E_B_Title" xml:space="preserve">
+    <value>Avinstallerar paketet</value>
+  </data>
+  <data name="X_Bootscreen" xml:space="preserve">
+    <value>Bootscreen</value>
+  </data>
+  <data name="X_CursorScheme" xml:space="preserve">
+    <value>Muspekare</value>
+  </data>
+  <data name="X_Presets" xml:space="preserve">
+    <value>Förinställda Scheman</value>
+  </data>
+  <data name="X_ResourceBitmaps" xml:space="preserve">
+    <value>Bitmappar</value>
+  </data>
+  <data name="X_Screensaver" xml:space="preserve">
+    <value>Skärmsläckare</value>
+  </data>
+  <data name="X_Subtitle" xml:space="preserve">
+    <value>Du kan utseendemässigt skräddarsy din dator efter installationen</value>
+  </data>
+  <data name="X_Title" xml:space="preserve">
+    <value>Välj inställningar för tema</value>
+  </data>
+  <data name="X_VisualStyle" xml:space="preserve">
+    <value>Visuell Stil</value>
+  </data>
+  <data name="X_Wallpaper" xml:space="preserve">
+    <value>Skrivbordsbakgrund</value>
+  </data>
+</root>

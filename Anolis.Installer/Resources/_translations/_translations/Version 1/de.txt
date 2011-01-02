@@ -1,0 +1,153 @@
+by "PjotC"
+
+<data name="Gen_NextButton" xml:space="preserve">
+<value>Weiter</value>
+</data>
+<data name="Gen_BackButton" xml:space="preserve">
+<value>Zurück</value>
+</data>
+<data name="Gen_CancelButton" xml:space="preserve">
+<value>Abbrechen</value>
+</data>
+<data name="A_Message" xml:space="preserve">
+<value>Dieser Assistent wird Sie durch die Schritte begleiten, welche bei der Installation eines Anolis Paketes nötig sind.
+
+Auf 'Weiter' klicken, um fortzufahren.</value>
+</data>
+<data name="A_Title" xml:space="preserve">
+<value>Willkommen zur Anolis Paket-Installation</value>
+</data>
+<assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+<data name="B_installBlurb" xml:space="preserve">
+<value>Installiert ein Paket aus dieser Anolis-Distribution oder von einer anderen Stelle dieses Rechners. Das Paket kann auch in ein Image (im Verzeichnis 'I386') für eine Windows-Installations-CD eingebunden werden.</value>
+</data>
+<data name="B_installRad" xml:space="preserve">
+<value>Installiere ein Paket</value>
+</data>
+<data name="B_toolsBlurb" xml:space="preserve">
+<value>Läd Werkzeuge, um damit eigene Pakete oder Distributionen erstellen zu können.</value>
+</data>
+<data name="B_toolsRad" xml:space="preserve">
+<value>Erstelle eigenes Paket/Distribution</value>
+</data>
+<data name="B_uninstallBlurb" xml:space="preserve">
+<value>Stellt vorherigen Zustand der Dateien wieder her. Es wird dabei das Sicherungs-Verzeichnis benötigt, welches während der Installation angelegt wurde.</value>
+</data>
+<data name="B_uninstallRad" xml:space="preserve">
+<value>Mache Änderungen dieser Distribution rückgängig.</value>
+</data>
+<data name="B_Subtitle" xml:space="preserve">
+<value>Wähle die Operation, welche ausgeführt werden soll</value>
+</data>
+<data name="B_Title" xml:space="preserve">
+<value>Wähle eine Aufgabe</value>
+</data>
+<data name="C_A_anopRad" xml:space="preserve">
+<value>Ein Paket-Arichiv (*.anop) auf diesem Rechner</value>
+</data>
+<data name="C_A_embedRad" xml:space="preserve">
+<value>Ein Paket, eingebunden in dieser Installationsroutine</value>
+</data>
+<data name="C_A_packRad" xml:space="preserve">
+<value>Eine Paket-Definitions-Datei (package.xml) auf diesem Rechner</value>
+</data>
+<data name="C_A_Subtitle" xml:space="preserve">
+<value>Das zu installierende Paket kann entweder im Dateisystem dieses Rechners vorliegen oder in dieser Installationsroutine eingebunden sein.</value>
+</data>
+<data name="C_A_Title" xml:space="preserve">
+<value>Wähle das zu installierende Paket</value>
+</data>
+<data name="C_B_error" xml:space="preserve">
+<value>Ein Fehler trat beim Versuch auf, ein Paket zu entpacken.</value>
+</data>
+<data name="C_B_instantiating" xml:space="preserve">
+<value>Paket laden</value>
+</data>
+<data name="C_D_noInfo" xml:space="preserve">
+<value>Das ausgewählte Element '{0}' besitzt keine Informationen</value>
+</data>
+<data name="C_E_installButton" xml:space="preserve">
+<value>Installiere</value>
+</data>
+<data name="C_F_status" xml:space="preserve">
+<value>{0}% abgeschossen - {1}</value>
+</data>
+<data name="D_A_destLbl" xml:space="preserve">
+<value>Zielverzeichnis</value>
+</data>
+<data name="D_A_progGroup" xml:space="preserve">
+<value>Erstelle Anolis-Verknüpfung im Startmenü</value>
+</data>
+<data name="D_A_progGroupAll" xml:space="preserve">
+<value>Für alle Nutzer</value>
+</data>
+<data name="D_A_progGroupMe" xml:space="preserve">
+<value>Nur für mich</value>
+</data>
+<data name="F_finishButton" xml:space="preserve">
+<value>Ende</value>
+</data>
+<data name="F_installationComplete" xml:space="preserve">
+<value>Die Installation wurde erfolgreich abgeschlossen. Der Rechner wird neu gestartet.
+
+Schließen Sie alle geöffneten Anwendungen bevor Sie fortfahen. Versuchen Sie nicht eine weitere Anwendung zu öffnen.</value>
+</data>
+<data name="F_installTools" xml:space="preserve">
+<value>Installation wurde erfolgreich abgeschlossen.</value>
+</data>
+<data name="F_restartButton" xml:space="preserve">
+<value>Neustart</value>
+</data>
+<data name="F_Title" xml:space="preserve">
+<value>Installation abgeschlossen</value>
+</data>
+<data name="F_uninstallationComplete" xml:space="preserve">
+<value>Die Deinstallation wurde erfolgreich abgeschlossen. Der Rechner wird neu gestartet.
+
+Schließen Sie alle geöffneten Anwendungen bevor Sie fortfahen. Versuchen Sie nicht eine weitere Anwendung zu öffnen.</value>
+</data>
+<data name="C_E_backup" xml:space="preserve">
+<value>Erstelle Sicherungs-Verzeichnis für Deinstallation (empfohlen)</value>
+</data>
+<data name="C_E_backupDesc" xml:space="preserve">
+<value>Es muss ein Sicherungs-Verzeichnis angelegt werden, wenn die Möglichkeit bestehen soll, dass dieses Paket jemals wieder deinstalliert werden kann.</value>
+</data>
+<data name="C_E_comp" xml:space="preserve">
+<value>Installiere auf diesem Rechner</value>
+</data>
+<data name="C_E_i386" xml:space="preserve">
+<value>Installiere nach i386</value>
+</data>
+<data name="C_E_sysRes" xml:space="preserve">
+<value>Erstelle einen System-Wiederherstellungs-Punkt (empfohlen)</value>
+</data>
+<data name="C_E_sysResDesc" xml:space="preserve">
+<value>Eine zusätzliche Sicherungsschicht. Beachte: dies schützt nicht immer gegen Modifikationen von Nicht-Windows-Dateien im Ordner 'Programme'</value>
+</data>
+<data name="C_C_Subtitle" xml:space="preserve">
+<value>{0} wurde seit dessen Installation eventuell aktualisiert. Soll geprüft werden, ob neuere Versionen vorliegen?</value>
+</data>
+<data name="C_C_Title" xml:space="preserve">
+<value>Prüfen, ob Aktualisierungen für dieses Paket verfügbar sind</value>
+</data>
+<data name="C_B_Subtitle" xml:space="preserve">
+<value>Bitte warten - die Installationsroutine bereitet das Paket für die Installation vor</value>
+</data>
+<data name="C_D_Subtitle" xml:space="preserve">
+<value>Sie können wählen, welche Komponenten dieses Pakets installiert werden sollen</value>
+</data>
+<data name="C_D_Title" xml:space="preserve">
+<value>Ändere Paket</value>
+</data>
+<data name="C_E_Subtitle" xml:space="preserve">
+<value>Wähle ein Sicherungs-Verzeichnis und andere Optionen</value>
+</data>
+<data name="C_E_Title" xml:space="preserve">
+<value>Installations-Einstellungen</value>
+</data>
+<data name="C_F_Subtitle" xml:space="preserve">
+<value>Das ausgewählte Paket wurde installiert</value>
+</data>
+<data name="C_F_Title" xml:space="preserve">
+<value>Installiere Pakete</value>
+</data>

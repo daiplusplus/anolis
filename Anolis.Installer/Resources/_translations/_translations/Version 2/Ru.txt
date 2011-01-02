@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="A_Message" xml:space="preserve">
+    <value>Этот мастер поможет вам установить пакет Anolis или интегрировать его в дистрибутив Windows.
+
+Для продолжения нажмите кнопку "Далее"</value>
+  </data>
+  <data name="A_Title" xml:space="preserve">
+    <value>Вас приветствует мастер установки пакета Anolis</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Background.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Banner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Banner.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>Устанавливает отдельный или включенный в этот дистрибутив пакет Anolis, либо интегрирует его в дистрибутив Windows (папка i386).</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>Установить пакет</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>Загружает программы для создания своего собственного пакета или дистрибутива.</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>Создать свой собственный пакет или дистрибутив.</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>Вернуть измененные файлы в исходное состояние. Вам потребуется резервная папка, созданая при установке.</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>Откатить изменения, внесенные установкой пакета.</value>
+  </data>
+  <data name="Package" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Package.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>Пожалуйста, выберите действие.</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>Выберите действие</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>Пакет (*.anop) на этом компьютере</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>Пакет, включенный в этот дистрибутив</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>Файл описания пакета (package.xml) на этом компьютере</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>Пакет для установки может быть извлечен из этого дистрибутива или расположен отдельно на этом компьютере.</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>Выберите пакет для установки</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>В процессе извлечения пакета произошла ошибка</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>Установка пакета</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>Выбранный элемент "{0}" не содержит никакой связанной информации</value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>Установка</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}% завершено - {1}</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>Папка для установки</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>Создать папку в меню "Пуск" для размещения ярлыков Anolis</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>Для всех пользователей</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>Только для меня</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>Установка успешно завершена. Теперь компьютер необходимо перезагрузить.
+
+Пожалуйста, закройте все приложения и не запускайте новые.</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>Установка успешно завершена.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>Рестарт</value>
+  </data>
+  <data name="F_Title" xml:space="preserve">
+    <value>Установка завершена</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>Удаление успешно завершено. Теперь компьютер необходимо перезагрузить.
+
+Пожалуйста, закройте все приложения и не запускайте новые.</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>Создать резервную папку для удаления пакета (Рекомендуется)</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>Чтобы иметь возможность в будущем при желании удалить пакет, необходимо создать резервную папку</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>Установить на этот компьютер</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>Интегрировать в дистрибутив Windows (папка i386)</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>Создать точку восстановления системы (Рекомендуется)</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>Дополнительный уровень защиты. Однако, он не всегда защищает от изменений в файлах, не относящихся к Windows</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>Возможно, пакет был обновлен после того, как он был загружен. Идет поиск обновлений.</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>Идет поиск обновлений пакета</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>Идет подготовка пакета к установке. Пожалуйста, подождите.</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>Выберите компоненты пакета, которые вы хотите установить.</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>Выбор компонентов пакета</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>Выберите резервную папку и другие настройки.</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>Настройки установки</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>Идет установка выбранного пакета.</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>Установка пакета</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Flags\ru.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>ru</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - {1}КБ из {2}КБ получено на скорости {3}КБ/с</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>Поиск обновлений пакета</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>Ошибка: не удалось получить информацию об обновлениях</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>Доступна новая версия этого пакета ({0}). Хотите ли вы загрузить её?</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>Доступна новая версия этого пакета ({0}), но её можно загрузить только вручную, для этого щелкните 'Посетить веб-сайт пакета'.</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>У вас последняя версия этого пакета ({0}).</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>Установка успешно завершена.</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="EULA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EULA.rtf;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>Прочитайте описание пакета, составленное его автором</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>Описание пакета</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>Описание дистрибутива Anolis</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>Описание пакета {0}</value>
+  </data>
+  <data name="C_F_pathInvalidBackup" xml:space="preserve">
+    <value>Указанная резервная папка не существует</value>
+  </data>
+  <data name="C_F_pathInvalidI386" xml:space="preserve">
+    <value>Указанная папка i386 не существует</value>
+  </data>
+  <data name="C_F_pathExistsBackup" xml:space="preserve">
+    <value>Указанная резервная папка уже существует и содержит файлы. Резервная папка либо должна быть пустой, либо еще не существовать.</value>
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
+    <value>Указанный пакет не содержит файла описания.</value>
+  </data>
+  <data name="C_C_skipCheckLbl" xml:space="preserve">
+    <value>Вы можете пропустить поиск обновлений в любой момент, нажав кнопку "Далее".</value>
+  </data>
+  <data name="A_Message_Cus" xml:space="preserve">
+    <value>Этот мастер поможет вам установить {0}
+
+Для продолжения нажмите "Далее"</value>
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value>Вас приветствует {0}</value>
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value>Устанавливает {0} на этот компьютер, либо интегрирует его в дистрибутив Windows (папка i386).</value>
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value>Установить {0}</value>
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value>Загружает программы для создания своего собственного пакета или дистрибутива как {0}</value>
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value>Откатить изменения, внесенные установкой {0}</value>
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value>В процессе извлечения {0} произошла ошибка</value>
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value>Идет подготовка {0} к установке. Пожалуйста, подождите.</value>
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value>Прочитайте описание {0}, составленное его автором</value>
+  </data>
+  <data name="C_G_Subtitle_Cus" xml:space="preserve">
+    <value>Идет установка {0}</value>
+  </data>
+  <data name="C_A_anopFilenameLbl" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="C_A_packFilenameLbl" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="C_B_statusLbl" xml:space="preserve">
+    <value>Подготовка...</value>
+  </data>
+  <data name="C_C_statusLbl" xml:space="preserve">
+    <value>Подготовка...</value>
+  </data>
+  <data name="C_F_i386Lbl" xml:space="preserve">
+    <value>Папка i386</value>
+  </data>
+  <data name="D_A_toolsLbl" xml:space="preserve">
+    <value>Набор программ включает в себя Resourcer, мощный редактор ресурсов; Packager, который используется для создания своих пакетов и дистрибутивов; редактор значков и другие инструменты.</value>
+  </data>
+  <data name="E_A_dirLbl" xml:space="preserve">
+    <value>Папка</value>
+  </data>
+  <data name="C_A_anopBrowse" xml:space="preserve">
+    <value>Найти...</value>
+  </data>
+  <data name="C_A_packBrowse" xml:space="preserve">
+    <value>Найти...</value>
+  </data>
+  <data name="C_B_Title" xml:space="preserve">
+    <value>Подготовка пакета</value>
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value>подготовка {0}</value>
+  </data>
+  <data name="C_C_downloadInfo" xml:space="preserve">
+    <value>Посетить веб-сайт пакета</value>
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value>Посетить веб-сайт {0}</value>
+  </data>
+  <data name="C_C_downloadNo" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="C_C_downloadYes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="C_F_backupBrowse" xml:space="preserve">
+    <value>Найти...</value>
+  </data>
+  <data name="C_F_i386Browse" xml:space="preserve">
+    <value>Найти...</value>
+  </data>
+  <data name="C_G_statusLbl" xml:space="preserve">
+    <value>Подготовка...</value>
+  </data>
+  <data name="D_A_destBrowse" xml:space="preserve">
+    <value>Найти...</value>
+  </data>
+  <data name="D_A_Subtitle" xml:space="preserve">
+    <value>Выберите папку для загрузки программ и задайте другие настройки</value>
+  </data>
+  <data name="D_A_Title" xml:space="preserve">
+    <value>Папка для загрузки и другие настройки</value>
+  </data>
+  <data name="D_B_status" xml:space="preserve">
+    <value>Подготовка...</value>
+  </data>
+  <data name="D_B_Subtitle" xml:space="preserve">
+    <value>Идет загрузка инструментов Anolis</value>
+  </data>
+  <data name="D_B_Title" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="E_A_browse" xml:space="preserve">
+    <value>Найти...</value>
+  </data>
+  <data name="E_A_sysRes" xml:space="preserve">
+    <value>Создать точку восстановления системы (Рекомендуется)</value>
+  </data>
+  <data name="E_A_sysResDesc" xml:space="preserve">
+    <value>Дополнительный уровень защиты. Однако, он не всегда защищает от изменений в файлах, не относящихся к Windows</value>
+  </data>
+  <data name="E_A_Title" xml:space="preserve">
+    <value>Выберите резервную папку</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>Выберите резервную папку с файлами для восстановления</value>
+  </data>
+</root>

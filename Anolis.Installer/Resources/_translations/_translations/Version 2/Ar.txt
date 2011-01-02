@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="A_Message" xml:space="preserve">
+    <value>Anolis هذا المعالج سوف يقوم بإرشادك خلال الخطوات المتخذة في تركيب حزمة 
+
+أن يواصل ، اضغط التالي</value>
+  </data>
+  <data name="A_Title" xml:space="preserve">
+    <value>مرحبا بكم في لباقة Anolis المثبت</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Background.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Banner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Banner.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>تثبيت (i386) حزمة الكائنة في هذه  التوزيع أو في أماكن أخرى في هذا الكمبيوتر  مجموعة يمكن تركيبها عAnolisلى إعداد ملفات مجلد.</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>تثبيت حزمة</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>تنزيل الأدوات بحيث يمكنك بسهولة جعل مجموعة خاصة بك أو التوزيع</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>جعل بلدي أو مجموعة التوزيع</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>يسترد الملفات قبل لاصلاح الوضع. وسوف تحتاج إلى دليل الاحتياطية التي أنشئت خلال تركيب</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>التراجع عن التغييرات التي أجرتها مجموعة التركيب</value>
+  </data>
+  <data name="Package" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Package.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>عملية الاختيار لأداء</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>اختيار فريق العمل</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>مجموعة ارشيف (*. anop) على جهاز الكمبيوتر الخاص بي</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>مجموعة ما يتضمنه هذا المثبت</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>مجموعة ملف التعريف (package.xml) على جهاز الكمبيوتر الخاص بي</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>مجموعة لتركيب يمكن أن يكون في هذا الملف أو الكمبيوتر جزءا لا يتجزأ من هذا المثبت</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>اختر لتثبيت حزمة</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>حدث خطأ في حين تحاول انتزاع مجموعة</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>Instantiating باقة</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>العنصر المحدد '(0)' ليس لديها أي معلومات المرتبطة به</value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>تثبيت</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}% كامل - {1}</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>دليل المقصد</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>إنشاء مجموعة Anolis البرنامج في بداية القائمة</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>لجميع المستخدمين</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>بالنسبة لي فقط</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>الانتهاء</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>وقد تم الانتهاء من تركيب بنجاح. جهاز الكمبيوتر الخاص بك الآن من جديد.
+
+اغلاق جميع التطبيقات المفتوحة قبل المتابعة. لا تحاول فتح اي طلبات جديدة.</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>وقد تم الانتهاء من تركيب بنجاح.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>استئناف</value>
+  </data>
+  <data name="F_Title" xml:space="preserve">
+    <value>تركيب كاملة</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>إلغاء التثبيت قد اكتملت بنجاح. جهاز الكمبيوتر الخاص بك الآن من جديد.
+
+اغلاق جميع التطبيقات المفتوحة قبل المتابعة. لا تحاول فتح اي طلبات جديدة.</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>إنشاء الدليل إلغاء التثبيت الاحتياطية (الموصى به)</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>يجب إنشاء نسخة احتياطية دليل على الاطلاق اذا كنت ترغب في إلغاء تثبيت هذه الحزمة في المستقبل</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>لتثبيت هذا الكمبيوتر</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>لتثبيت i386</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>إنشاء نقاط استعادة النظام (الموصى به)</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>طبقة إضافية للحماية. علما أن هذا لا تحمي دائما ضد التعديلات التي أدخلت على ملفات ويندوز من غير قيد ملفات البرنامج</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>الصفقة قد تم تحديثها منذ كنت حصلت عليه. الآن لاستكمال التحقق.</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>فحص لباقة والمستجدات</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>الرجاء الانتظار في الوقت الذي تستعد فيه مجموعة المثبت لتثبيته</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>يمكنك اختيار أم لا لتثبيت عناصر هذه المجموعة</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>تعديل سلة</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>دليل اختيار الاحتياطية وغيرها من الخيارات</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>تركيب الخيارات</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>اخترتها صفقة يتم تركيبها</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>تثبيت حزمة</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Flags\en.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>ar</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>Arabic</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - {1}KB of {2}KB تحميل at {3}KBps</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>من أجل التحقق من استكمال صفقة</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>تأكد فشل التحديثات : لا يمكن تحميل تحديث معلومات</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>نسخة محدثة) (0) من هذه الصفقة. هل تود تحميله الآن؟</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>نسخة محدثة ({0}) هذه المجموعة هي المتاحة ، وإنما تحتاج إلى تحميل البرنامج يدويا. انقر فوق صفحة ويب باقة زيارة لمزيد من المعلومات.</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>لديك أحدث إصدار ({0}) من هذه المجموعة.</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>وقد تم الانتهاء من تركيب بنجاح.</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>الغاء</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>خلف</value>
+  </data>
+  <data name="EULA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EULA.rtf;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>إعادة النظر في أي ملاحظات الإصدار التي قدمتها مجموعة مؤلف</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>مجموعة ملاحظات الإصدار</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>Anolis المثبت إقرأني</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>{0} مجموعة ملاحظات الإصدار</value>
+  </data>
+  <data name="C_F_pathInvalidBackup" xml:space="preserve">
+    <value>دعم المسار المحدد غير صالح</value>
+  </data>
+  <data name="C_F_pathInvalidI386" xml:space="preserve">
+    <value>I386 المسار المحدد غير صالح</value>
+  </data>
+  <data name="C_F_pathExistsBackup" xml:space="preserve">
+    <value>دليل الدعم المحددة موجودة بالفعل ، ويحتوي على الملفات. النسخ الاحتياطي يجب أن يكون إما فارغة أو دليل ودليل على أن لا وجود له حتى الآن.</value>
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
+    <value>ارشيف مجموعة محددة لا تتضمن مجموعة تعريف الملف.</value>
+  </data>
+  <data name="C_C_skipCheckLbl" xml:space="preserve">
+    <value>يمكنك تخطي التحقق من التحديث من خلال النقر على زر التالي في أي وقت.</value>
+  </data>
+  <data name="A_Message_Cus" xml:space="preserve">
+    <value>هذا المعالج سوف يقوم بإرشادك خلال الخطوات المتخذة في تركيب (0)
+
+أن يواصل ، اضغط التالي</value>
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value>ترحيب ل {0}</value>
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value>بتثبيت {0} على هذا الكمبيوتر أو على إعداد ملفات (i386) مجلد.</value>
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value>تثبيت {0}</value>
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value>تنزيل الأدوات بحيث يمكنك بسهولة جعل مجموعة خاصة بك أو توزيع مثل (0)</value>
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value>التراجع عن التغييرات التي أجراها {0}</value>
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value>دث خطأ في حين تحاول انتزاع (0) </value>
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value>الرجاء الانتظار في الوقت الذي تستعد فيه المثبت {0} لتثبيته</value>
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value>إعادة النظر في أي ملاحظات الإصدار الذي أدلى به {0}</value>
+  </data>
+  <data name="C_G_Subtitle_Cus" xml:space="preserve">
+    <value>{0} ويجري تركيب</value>
+  </data>
+  <data name="C_A_anopFilenameLbl" xml:space="preserve">
+    <value>اسم الملف</value>
+  </data>
+  <data name="C_A_packFilenameLbl" xml:space="preserve">
+    <value>اسم الملف</value>
+  </data>
+  <data name="C_B_statusLbl" xml:space="preserve">
+    <value>...إعداد</value>
+  </data>
+  <data name="C_C_statusLbl" xml:space="preserve">
+    <value>...إعداد</value>
+  </data>
+  <data name="C_F_i386Lbl" xml:space="preserve">
+    <value>روت لمؤتمر نزع السلاح</value>
+  </data>
+  <data name="D_A_toolsLbl" xml:space="preserve">
+    <value>وقد تشمل أدوات تنزيل Resourcer ، مصدرا قويا لتحرير ؛ المغلف ، الذي يستخدم في صنع الفعلي الخاص بك مجموعة من الملفات والتركيب حسب الطلب ، ومختلف الأدوات الأخرى بما فيها الضوء على أيقونة التحرير.</value>
+  </data>
+  <data name="E_A_dirLbl" xml:space="preserve">
+    <value>دليل</value>
+  </data>
+  <data name="C_A_anopBrowse" xml:space="preserve">
+    <value>...تصفح</value>
+  </data>
+  <data name="C_A_packBrowse" xml:space="preserve">
+    <value>...تصفح</value>
+  </data>
+  <data name="C_B_Title" xml:space="preserve">
+    <value>تستعد باقة</value>
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value>إعداد {0}</value>
+  </data>
+  <data name="C_C_downloadInfo" xml:space="preserve">
+    <value>زيارة مجموعة صفحة ويب</value>
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value>زيارة {0} 'ق صفحة ويب</value>
+  </data>
+  <data name="C_C_downloadNo" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="C_C_downloadYes" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+  <data name="C_F_backupBrowse" xml:space="preserve">
+    <value>...تصفح</value>
+  </data>
+  <data name="C_F_i386Browse" xml:space="preserve">
+    <value>...تصفح</value>
+  </data>
+  <data name="C_G_statusLbl" xml:space="preserve">
+    <value>...إعداد</value>
+  </data>
+  <data name="D_A_destBrowse" xml:space="preserve">
+    <value>...تصفح</value>
+  </data>
+  <data name="D_A_Subtitle" xml:space="preserve">
+    <value>اختر الدليل الذي وضع مجموعة من الأدوات وتحميل خيارات أخرى</value>
+  </data>
+  <data name="D_A_Title" xml:space="preserve">
+    <value>والمقصد دليل خيارات التثبيت</value>
+  </data>
+  <data name="D_B_status" xml:space="preserve">
+    <value>...إعداد</value>
+  </data>
+  <data name="D_B_Subtitle" xml:space="preserve">
+    <value>الآن تنزيل الأدوات Anolis</value>
+  </data>
+  <data name="D_B_Title" xml:space="preserve">
+    <value>تنزيل</value>
+  </data>
+  <data name="E_A_browse" xml:space="preserve">
+    <value>...تصفح</value>
+  </data>
+  <data name="E_A_sysRes" xml:space="preserve">
+    <value>إنشاء نقاط استعادة النظام (الموصى به)</value>
+  </data>
+  <data name="E_A_sysResDesc" xml:space="preserve">
+    <value>طبقة إضافية للحماية. علما أن هذا لا تحمي دائما ضد التعديلات التي أدخلت على ملفات ويندوز من غير قيد ملفات البرنامج</value>
+  </data>
+  <data name="E_A_Title" xml:space="preserve">
+    <value>دليل اختيار النسخ الاحتياطي</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>اختر الدليل على الشفاء</value>
+  </data>
+</root>
