@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="A_Message" xml:space="preserve">
+    <value>Este asistente te guiará durante la instalación de un paquete Anolis
+
+Presiona Siguiente para continuar</value>
+  </data>
+  <data name="A_Title" xml:space="preserve">
+    <value>Bienvenido al Instalador de Paquetes Anolis</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Background.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Banner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Banner.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>Instalar un paquete contenido en esta distribución o en cualquier directorio de esta computadora. El paquete puede ser instalado en la carpeta de los archivos de instalación (I386).</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>Instalar un paquete</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>Descarga herramientas para crear fácilmente tu propio paquete o distribución</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>Crear un paquete o distribución propia</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>Restaurar archivo a su estado antes del parchado. Necesitarás el directorio de respaldo que se creó durante la instalación</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>Deshacer los cambios hechos por la instalación del paquete</value>
+  </data>
+  <data name="Package" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Package.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>Selecciona la acción a realizar</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>Selecciona una tarea</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>Un paquete (*.anop) en mi computadora</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>Un paquete contenido en este isntalador</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>Un archivo definidor de paquete (package.xml) en mi computadora</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>El paquete a instalar puede también estar en el sistema de ficheros de esta computadora o contenido en este instalador</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>Selecciona el paquete a instalar</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>Un error ha ocurrido mientras se intentaba extraer el paquete</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>Pidiendo paquete</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>El ítem seleccionado '{0}' no tiene ninguna información asociada con ello</value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>Instalar</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}% completado - {1}</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>Directorio de destino</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>Crear un grupo del programa Anolis en el menú inicio</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>Para todos los usuarios</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>Solo para mi</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>Finalizar</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>La instalación se completo exitosamente. Ahora se reiniciará tu computadora.
+
+Cierra todas las aplicaciones antes de continuar. No intentes abrir ninguna nueva aplicación.</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>La instalación se completo exitosamente.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
+  <data name="F_Title" xml:space="preserve">
+    <value>Installación completa</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>La desinstalación se completo exitosamente. Ahora se reiniciará tu computadora.
+
+Cierra todas las aplicaciones antes de continuar. No intentes abrir ninguna nueva aplicación.</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>Crear un directorio de respaldo (Recomendado)</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>Debes de crear un directorio de respaldo si quieres desisnstalar este paquete en el futuro</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>Instalar en esta computadora</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>Instalar en I386</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>Crear un punto de restauración de sistema (Recomendado)</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>Una capa de protección añadida. Ten en cuenta que esto no simpre te protege ante modificaciones hechas a archivos que no pertenecen a Windows dentro de Archivos de programa</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>El paquete pudo ser actualizado antes de que lo adquirieras. comprobando actualizaciones.</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>Comprobando actualizaciones del paquete</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>Espera por favor mientras el asistente prepara el paquete para su instalación</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>Puedes elegir entre instalar o no los componentes de este paquete</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>Modificar Paquete</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>Seleccionar directorio de la copia de seguridad y otras opciones</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>Opciones de Intalación</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>El paquete que seleccionaste esta siendo instalado</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>Instalando Paquete</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Flags\en.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>es</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>Español (Nicaragua)</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - {1}KB of {2}KB downloaded at {3}KBps</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>Comprobando actualizaciones del paquete</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>Comprobación de actualización fallida: no se puede descargar la información</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>Está disponible una versión actualizada ({0}) de este paquete. Te gustaría descargarla ahora?</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>Está disponible una versión actualizada ({0}) de este paquete, pero debes descargarla manualmente. Para más información da click en visitar página web del Paquete.</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>Tienes la última versión ({0}) de este paquete.</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>La Instalación se completó con éxito.</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>Atrás</value>
+  </data>
+  <data name="EULA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\EULA.rtf;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>Revisa las notas de lanzamiento hechas por el autor del paquete</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>Notas de Lanzamiento del Paquete</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>Instalador Anolis Léeme</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>{0} Notas de Lanzamiento del Paquete</value>
+  </data>
+  <data name="C_F_pathInvalidBackup" xml:space="preserve">
+    <value>La ruta de la copia de seguridad especificada no es válida</value>
+  </data>
+  <data name="C_F_pathInvalidI386" xml:space="preserve">
+    <value>La ruta I386 especificada no es válida</value>
+  </data>
+  <data name="C_F_pathExistsBackup" xml:space="preserve">
+    <value>La ruta de la copia de seguridad especificada ya existe y contiene archivos. La copia de seguridad debe hacerse en un directorio vacío o uno que todavía no exista.</value>
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
+    <value>El paquete especificado no contiene un archivo definidor de paquete.</value>
+  </data>
+  <data name="C_C_skipCheckLbl" xml:space="preserve">
+    <value>Puedes omitir la comprobación de actualizaciones en cualquier momento presionando Siquiente.</value>
+  </data>
+  <data name="A_Message_Cus" xml:space="preserve">
+    <value>Este asistente te guiará durante la instacion de {0}
+
+Presiona Siguiente para continuar</value>
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value>Bienvenido a {0}</value>
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value>Instalar {0} en esta computadora o en la carpeta de archivos de configuración(I386).</value>
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value>Instalar {0}</value>
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value>Descarga herramientas para crear fácilmente tu propio paquete o distribución como {0}</value>
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value>Deshacer cambios hechos por {0}</value>
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value>Un error ha ocurrido mientras se intentaba extraer {0}</value>
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value>Espera por favor mientras el asistente prepara {0} para su isntalación</value>
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value>Revisar las notas de lanzamiento hechas por {0}</value>
+  </data>
+  <data name="C_G_Subtitle_Cus" xml:space="preserve">
+    <value>{0} se está instalando</value>
+  </data>
+  <data name="C_A_anopFilenameLbl" xml:space="preserve">
+    <value>Nombre del Archivo</value>
+  </data>
+  <data name="C_A_packFilenameLbl" xml:space="preserve">
+    <value>Nombre del Archivo</value>
+  </data>
+  <data name="C_B_statusLbl" xml:space="preserve">
+    <value>Preparando...</value>
+  </data>
+  <data name="C_C_statusLbl" xml:space="preserve">
+    <value>Preparando...</value>
+  </data>
+  <data name="C_F_i386Lbl" xml:space="preserve">
+    <value>Raíz de CD</value>
+  </data>
+  <data name="D_A_toolsLbl" xml:space="preserve">
+    <value>Los archivos descargables incluyen Resourcer, un poderozo editor; Packager, que se usó para crear los archivos de tu paquete actual y su instalador personalizado; y muchas otras herramientas incluyendo un liviano editor de iconos.</value>
+  </data>
+  <data name="E_A_dirLbl" xml:space="preserve">
+    <value>Directorio</value>
+  </data>
+  <data name="C_A_anopBrowse" xml:space="preserve">
+    <value>Buscar...</value>
+  </data>
+  <data name="C_A_packBrowse" xml:space="preserve">
+    <value>Buscar...</value>
+  </data>
+  <data name="C_B_Title" xml:space="preserve">
+    <value>Preparando el Paquete</value>
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value>Preparando {0}</value>
+  </data>
+  <data name="C_C_downloadInfo" xml:space="preserve">
+    <value>Visita la Página web del paquete</value>
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value>Visita la Página web de {0}</value>
+  </data>
+  <data name="C_C_downloadNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="C_C_downloadYes" xml:space="preserve">
+    <value>Si</value>
+  </data>
+  <data name="C_F_backupBrowse" xml:space="preserve">
+    <value>Buscar...</value>
+  </data>
+  <data name="C_F_i386Browse" xml:space="preserve">
+    <value>Buscar...</value>
+  </data>
+  <data name="C_G_statusLbl" xml:space="preserve">
+    <value>Preparando...</value>
+  </data>
+  <data name="D_A_destBrowse" xml:space="preserve">
+    <value>Buscar...</value>
+  </data>
+  <data name="D_A_Subtitle" xml:space="preserve">
+    <value>Selecciona un directorio para colocar las herramientas descargadas y and establecer otras opciones</value>
+  </data>
+  <data name="D_A_Title" xml:space="preserve">
+    <value>Directorio de Destino y Opciones de Instalación</value>
+  </data>
+  <data name="D_B_status" xml:space="preserve">
+    <value>Preparando...</value>
+  </data>
+  <data name="D_B_Subtitle" xml:space="preserve">
+    <value>Descargando las Herramientas de Anolis</value>
+  </data>
+  <data name="D_B_Title" xml:space="preserve">
+    <value>Descargando</value>
+  </data>
+  <data name="E_A_browse" xml:space="preserve">
+    <value>Buscar...</value>
+  </data>
+  <data name="E_A_sysRes" xml:space="preserve">
+    <value>Crear un punto de restauración de sistema (Recomendado)</value>
+  </data>
+  <data name="E_A_sysResDesc" xml:space="preserve">
+    <value>Una capa de protección añadida. Ten en cuenta que esto no simpre te protege ante modificaciones hechas a archivos que no pertenecen a Windows dentro de Archivos de programa</value>
+  </data>
+  <data name="E_A_Title" xml:space="preserve">
+    <value>Seleccionar directorio de Copia de Seguridad</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>Seleccionar el directorio donde se recuperará</value>
+  </data>
+</root>

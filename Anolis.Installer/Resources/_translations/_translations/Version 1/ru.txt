@@ -1,0 +1,153 @@
+﻿by Vladimir Krilov
+
+  <data name="Gen_NextButton" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="Gen_BackButton" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Gen_CancelButton" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="A_Message" xml:space="preserve">
+    <value>Этот мастер поможет вам установить пакет Anolis на ваш компьютер или интегрировать его в дистрибутив Windows.
+
+Для продолжения нажмите кнопку "Далее"</value>
+  </data>
+  <data name="A_Title" xml:space="preserve">
+    <value>Вас приветствует мастер установки пакета Anolis</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>Устанавливает пакет, включенный в этот дистрибутив Anolis или расположенный отдельно на этом компьютере. При желании, пакет может быть интегрирован в дистрибутив Windows (в папку i386).</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>Установить пакет</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>Скачивает программы для создания своего собственного пакета или дистрибутива.</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>Создать свой собственный пакет или дистрибутив.</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>Вернуть измененные файлы в исходное состояние. Вам потребуется резервная папка, которая была создана в процессе установки.</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>Откатить изменения, внесенные установкой пакета.</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>Пожалуйста, выберите операцию.</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>Выберите операцию</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>Пакет (*.anop) на этом компьютере</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>Пакет, включенный в этот дистрибутив</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>Файл описания пакета (package.xml) на этом компьютере</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>Пакет для установки может быть извлечен из этого дистрибутива или расположен отдельно на этом компьютере.</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>Выберите пакет для установки</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>В процессе извлечения пакета произошла ошибка</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>Установка пакета</value>
+  </data>
+  <data name="C_D_noInfo" xml:space="preserve">
+    <value>Выбранный элемент "{0}" не содержит никакой связанной информации</value>
+  </data>
+  <data name="C_E_installButton" xml:space="preserve">
+    <value>Установить</value>
+  </data>
+  <data name="C_F_status" xml:space="preserve">
+    <value>{0}% завершено - {1}</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>Папка для установки</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>Создать папку в меню "Пуск" для размещения ярлыков Anolis</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>Для всех пользователей</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>Только для меня</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>Завершить</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>Установка успешно завершена. Теперь компьютер необходимо перезагрузить.
+
+Пожалуйста, закройте все приложения и не запускайте новые.</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>Установка успешно завершена.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>Перезагрузить</value>
+  </data>
+  <data name="F_Title" xml:space="preserve">
+    <value>Установка завершена</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>Удаление успешно завершено. Теперь компьютер необходимо перезагрузить.
+
+Пожалуйста, закройте все приложения и не запускайте новые.</value>
+  </data>
+  <data name="C_E_backup" xml:space="preserve">
+    <value>Создать резервную папку для удаления пакета (Рекомендуется)</value>
+  </data>
+  <data name="C_E_backupDesc" xml:space="preserve">
+    <value>Чтобы иметь возможность в будущем при желании удалить пакет, необходимо создать резервную папку</value>
+  </data>
+  <data name="C_E_comp" xml:space="preserve">
+    <value>Установить на этот компьютер</value>
+  </data>
+  <data name="C_E_i386" xml:space="preserve">
+    <value>Интегрировать в дистрибутив Windows (i386)</value>
+  </data>
+  <data name="C_E_sysRes" xml:space="preserve">
+    <value>Создать точку восстановления системы (Рекомендуется)</value>
+  </data>
+  <data name="C_E_sysResDesc" xml:space="preserve">
+    <value>Дополнительный уровень защиты. Имейте в виду, что он не всегда защищает от изменений в файлах, не относящихся к Windows</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>Возможно, пакет {0} был обновлен после того, как он был скачан. Хотите ли вы проверить наличие обновлений?</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>Идет проверка наличия обновлений пакета</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>Идет подготовка пакета к установке. Пожалуйста, подождите.</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>Выберите компоненты пакета, которые вы хотите установить.</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>Выбор компонентов пакета</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>Выберите резервную папку и другие настройки.</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>Настройки установки</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>Идет установка выбранного пакета.</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>Установка пакета</value>
+  </data>

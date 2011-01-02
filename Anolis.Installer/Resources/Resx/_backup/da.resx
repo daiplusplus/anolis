@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="A_DisableAV" xml:space="preserve">
+    <value>Før du forsætter, slå venligst Windows Defender og andre anti-virus programmer fra da de sløver installations processen.</value>
+  </data>
+  <data name="A_notes" xml:space="preserve">
+    <value>Denne guide vil føre dig igennem trinene involveret i at installere Anolis pakken.
+
+For at forsætte, tryk Næste.</value>
+  </data>
+  <data name="A_Notes_Cus" xml:space="preserve">
+    <value>Denne guide vil føre dig igennem trinene involveret i at installere {0}
+
+For at forsætte, tryk Næste.</value>
+  </data>
+  <data name="A_title" xml:space="preserve">
+    <value>Velkommen til Anolis pakke installatøren</value>
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value>Velkommen til {0}</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>Installerer en pakke i denne Anolis distribution eller et andet sted på computeren. Pakken kan blive installeret til en setup fil (I386) mappe.</value>
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value>Installerer {0} på denne computer eller en installering (I386)mappe</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>Installer en pakke</value>
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value>Installer {0}</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>Vælg en opgave at udføre</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>Vælg en opgave</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>Download værktøjer så du nemt kan lave dine egne pakker eller distributioner</value>
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value>Download værktøjer så du nemt kan lave dine egne pakker eller distributioner ligesom {0}</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>Lav din egen pakke eller distribution</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>Gendanner filer til deres tideligere status. Du bliver nød at lave en backup af mappen der var lavet under installationen</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>Tilbagerul ændringer lavet af denne distribution</value>
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value>Tilbagerul ændringer lavet af {0}</value>
+  </data>
+  <data name="C_A_anopBrowse" xml:space="preserve">
+    <value>Gennemse</value>
+  </data>
+  <data name="C_A_anopFilenameLbl" xml:space="preserve">
+    <value>Fil navn</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>Et arkiv (*.anop) på min computer</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>En pakke indlagt i denne installatør</value>
+  </data>
+  <data name="C_A_notFileExists" xml:space="preserve">
+    <value>Filen "{0}" eksisterer  ikke.</value>
+  </data>
+  <data name="C_A_packBrowse" xml:space="preserve">
+    <value>Gennemse...</value>
+  </data>
+  <data name="C_A_packFilenameLbl" xml:space="preserve">
+    <value>Filnavn</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>En pakke definition fil (package.xml) på min computer</value>
+  </data>
+  <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
+    <value>Vælg em indbygget pakke for at forsætte. </value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>Pakken for at installere kan enden være på denne computer's fil-system eller indlagt i denne installatør</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>Vælg en pakke at installere</value>
+  </data>
+  <data name="C_B_conditionError" xml:space="preserve">
+    <value>Der opstod en fejl under evalueringen af pakken's tilpashed for din computer. Kontakt venligst pakken's ejer.</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>Der skete en fejl under udpakningen af pakken</value>
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value>Der skete en fejl under udpakningen af {0}</value>
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
+    <value>Den specificerede pakke indeholdte ikke en pakke definitions fil.</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>Istandsætter pakken</value>
+  </data>
+  <data name="C_B_statusLbl" xml:space="preserve">
+    <value>Klargører.</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>Vent venligst mens installatøren forbereder pakken for installation</value>
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value>Vent venligst mens installatøren forbereder {0} for installation</value>
+  </data>
+  <data name="C_B_Title" xml:space="preserve">
+    <value>Klargører pakken</value>
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value>Klargører {0}</value>
+  </data>
+  <data name="C_C_downloadInfo" xml:space="preserve">
+    <value>Besøg pakkens hjemmeside.</value>
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value>Besøg {0}'s hjemmeside</value>
+  </data>
+  <data name="C_C_downloadNo" xml:space="preserve">
+    <value>Nej</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - {1}KB af {2}KB downloadet ved {3}KBps</value>
+  </data>
+  <data name="C_C_downloadYes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>Tjekker for pakke opdateringer</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>Kunne ikke tjekke for opdateringer: Kunne ikke downloade opdaterings informationer</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>En opdateret version ({0}) af denne pakke er tilgængelig. Vil du downloade den nu?</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>En opdateret version ({0}) af denne pakke er tilgængelig, men du kan kun hente den manuelt. Klik Besøg pakke hjemmeside for mere information</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>Du har den seneste version ({0}) af denne pakke</value>
+  </data>
+  <data name="C_C_skipCheckLbl" xml:space="preserve">
+    <value>Du kan undgå opdaterings tjekket ved at trykke Næste når som helst.</value>
+  </data>
+  <data name="C_C_statusLbl" xml:space="preserve">
+    <value>Klargører..</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>Denne pakke kan have været opdateret siden du fik den. Checker nu for opdateringer.</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>Tjekker for pakke opdateringer</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>Anolis installations Læs Mig</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>{0} Pakke udgivelses notater</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>Gennemse alle udgivelses notater lavet af pakken's forfatter</value>
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value>Gennemse alle udgivelses notater lavet af {0}</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>Pakke udgivelses notater</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>Det valgte produkt '{0}'</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>Du kan vælge om du vil installere komponenter af pakken eller ej</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>Rediger pakke</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>Lav afinstallerings backup mappe (Anbefalet)</value>
+  </data>
+  <data name="C_F_backupBrowse" xml:space="preserve">
+    <value>Gennemse...</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>Du skal lave en backup mappe hvis du nogensinde ønsker at afinstallere denne pakke i fremtiden</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>Installer på denne computer</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>Installer til I386</value>
+  </data>
+  <data name="C_F_i386Browse" xml:space="preserve">
+    <value>Gennemse...</value>
+  </data>
+  <data name="C_F_i386Lbl" xml:space="preserve">
+    <value>CD rod</value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>Installer</value>
+  </data>
+  <data name="C_F_pathExistsBackup" xml:space="preserve">
+    <value>Den specificerede backup mappe findes allerede og indeholder filer. Backups skal laves til enden en tom mappe eller en mappe der ikke allerede findes.</value>
+  </data>
+  <data name="C_F_pathInvalidBackup" xml:space="preserve">
+    <value>Den specificerede backup sti er ikke korrekt</value>
+  </data>
+  <data name="C_F_pathInvalidI386" xml:space="preserve">
+    <value>Den specificerede I386 sti er ikke korrekt</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>Vælg et backup mappe og andre muligheder</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>Lav et System gendannelses punkt (Anbefalet)</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>Et ekstra lag af sikkerhed. Læg mærke til at dette vil ikke altid forhindre imod ændringer lavet til ikke-Windows filer under Programmer</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>Installations muligheder</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}% færdig - {1}</value>
+  </data>
+  <data name="C_G_statusLbl" xml:space="preserve">
+    <value>Forbereder...</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>Din valge pakke er ved at blive installeret</value>
+  </data>
+  <data name="C_G_Subtitle_Cus" xml:space="preserve">
+    <value>{0} er ved at blive installeret</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>Installerer pakke</value>
+  </data>
+  <data name="D_A_destBrowse" xml:space="preserve">
+    <value>Gennemse...</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>Destination mappe</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>Lav et Anolis program gruppe i start menuen</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>For all users</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>Kun for mig</value>
+  </data>
+  <data name="D_A_Subtitle" xml:space="preserve">
+    <value>Vælg en mappe at downloade værktøjer og ændre andre instillinger.</value>
+  </data>
+  <data name="D_A_Title" xml:space="preserve">
+    <value>Destinations mappe og installations instillinger.</value>
+  </data>
+  <data name="D_A_toolsLbl" xml:space="preserve">
+    <value>Den downloaded pakke indeholder Resourcer, en kraftfuld resource editor; Packager, hvilket er brugt til at lave dine pakke filer og egne installatører; og andre værktøjer inklusiv en lille ikon editor.</value>
+  </data>
+  <data name="D_B_status" xml:space="preserve">
+    <value>Forbereder. </value>
+  </data>
+  <data name="D_B_Subtitle" xml:space="preserve">
+    <value>Downloader nu Anolis værktøjerne</value>
+  </data>
+  <data name="D_B_Title" xml:space="preserve">
+    <value>Downloader</value>
+  </data>
+  <data name="E_A_browse" xml:space="preserve">
+    <value>Vælg mappe</value>
+  </data>
+  <data name="E_A_dirLbl" xml:space="preserve">
+    <value>Mappe</value>
+  </data>
+  <data name="E_A_notValidDirectory" xml:space="preserve">
+    <value>Den valgte mappe indeholder ikke en afinstallerings pakke.</value>
+  </data>
+  <data name="E_A_sysRes" xml:space="preserve">
+    <value>Lav et system gendannelses punkt (Anbefalet)</value>
+  </data>
+  <data name="E_A_sysResDesc" xml:space="preserve">
+    <value>Et ekstra lag af beskytellese. Dette vil dog ikke beskytte imod ændringer lavet til ikke-Windows filer under Programmer.</value>
+  </data>
+  <data name="E_A_Title" xml:space="preserve">
+    <value>Vælg din backup mappe</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>Vælg en mappe at gendanne fra</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>Færdig</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>Installeringen er udført.</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>Installeringen er udført. Din computer vil nu blive genstartet
+
+Luk alle åbne programmer før du forsætter. Prøv ikke at åbne flere programmer</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>Installationen er blevet udført.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>Genstart</value>
+  </data>
+  <data name="F_title" xml:space="preserve">
+    <value>Installering færdig.</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>Afinstalleringen er udført.</value>
+  </data>
+  <data name="F_uninstallationCompleteRestart" xml:space="preserve">
+    <value>Din computer vil nu blive genstartet
+
+Luk alle åbne programmer før du forsætter. Prøv ikke at åbne flere programmer</value>
+  </data>
+  <data name="G_restarting" xml:space="preserve">
+    <value>Genstart venligst din computer</value>
+  </data>
+  <data name="G_Title" xml:space="preserve">
+    <value>Vent venligst</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value>Charlie Erisken</value>
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>da</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>Dansk</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Wiz_CancelConfirm" xml:space="preserve">
+    <value>Er du sikker på at du vil stoppe installationen?</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>Næste</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>Tilbage</value>
+  </data>
+  <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Flags\da.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

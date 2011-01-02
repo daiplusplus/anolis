@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="A_Message" xml:space="preserve">
+    <value>Denne guide vil hjælpe dig igennem trinene involveret i installation af Anolis pakken.
+
+For at forsætte, tryk Næste</value>
+  </data>
+  <data name="A_Title" xml:space="preserve">
+    <value>Velkommen til Anolis pakke installatøren</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>Installerer en pakke i denne Anolis distribution eller et andet sted på computeren. Pakken kan blive installeret til en setup fil (I386) mappe.</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>Installer en pakke</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>Download værktøjer så du nemt kan lave dine egne pakker eller distributioner</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>Lav din egen pakke eller distribution</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>Gendanner filer til deres tideligere status. Du bliver nød at lave en backup af mappen der var lavet under installationen</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>Tilbagerul ændringer lavet af denne distribution</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>Vælg en opgave at udføre</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>Vælg en opgave</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>Et arkiv (*.anop) på min computer</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>En pakke indlagt i denne installatør</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>En pakke definition fil (package.xml) på min computer</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>Pakken for at installere kan enden være på denne computer's fil-system eller indlagt i denne installatør</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>Vælg en pakke at installere</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>Der skete en fejl under udpakningen af pakken</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>Istandsætter pakken</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>Det valgte produkt '{0}'</value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>Installer</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}% færdig - {1}</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>Destination mappe</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>Lav et Anolis program gruppe i start menuen</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>For all users</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>Kun for mig</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>Færdig</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>Installeringen er udført. Din computer vil nu blive genstartet
+
+Luk alle åbne programmer før du forsætter. Prøv ikke at åbne flere programmer</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>Installationen er blevet udført.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>Genstart</value>
+  </data>
+  <data name="F_Title" xml:space="preserve">
+    <value>Installering færdig.</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>Afinstalleringen er udført. Din computer vil nu blive genstartet
+
+Luk alle åbne programmer før du forsætter. Prøv ikke at åbne flere programmer</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>Lav afinstallerings backup mappe (Anbefalet)</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>Du skal lave en backup mappe hvis du nogensinde ønsker at afinstallere denne pakke i fremtiden</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>Installer på denne computer</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>Installer til I386</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>Lav et System gendannelses punkt (Anbefalet)</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>Et ekstra lag af sikkerhed. Læg mærke til at dette vil ikke altid forhindre imod ændringer lavet til ikke-Windows filer under Programmer</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>Denne pakke kan have været opdateret siden du fik den. Checker nu for opdateringer.</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>Tjekker for pakke opdateringer</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>Vent venligst mens installatøren forbereder pakken for installation</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>Du kan vælge om du vil installere komponenter af pakken eller ej</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>Rediger pakke</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>Vælg et backup mappe og andre muligheder</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>Installations muligheder</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>Din valge pakke er ved at blive installeret</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>Installerer pakke</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>da</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>Dansk</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - {1}KB af {2}KB downloadet ved {3}KBps</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>Tjekker for pakke opdateringer</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>Kunne ikke tjekke for opdateringer: Kunne ikke downloade opdaterings informationer</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>En opdateret version ({0}) af denne pakke er tilgængelig. Vil du downloade den nu?</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>En opdateret version ({0}) af denne pakke er tilgængelig, men du kan kun hente den manuelt. Klik Besøg pakke hjemmeside for mere information</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>Du har den seneste version ({0}) af denne pakke</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>Installeringen er udført.</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>Næste</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>Tilbage</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>Gennemse alle udgivelses notater lavet af pakken's forfatter</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>Pakke udgivelses notater</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>Anolis installations Læs Mig</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>{0} Pakke udgivelses notater</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="C_F_pathInvalidBackup" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_F_pathInvalidI386" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_F_pathExistsBackup" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_C_skipCheckLbl" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="A_Message_Cus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="C_G_Subtitle_Cus" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_A_anopFilenameLbl" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_A_packFilenameLbl" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_B_statusLbl" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_C_statusLbl" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_F_i386Lbl" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="D_A_toolsLbl" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="E_A_dirLbl" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_A_anopBrowse" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_A_packBrowse" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_B_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="C_C_downloadInfo" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="C_C_downloadNo" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_C_downloadYes" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_F_backupBrowse" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_F_i386Browse" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="C_G_statusLbl" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="D_A_destBrowse" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="D_A_Subtitle" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="D_A_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="D_B_status" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="D_B_Subtitle" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="D_B_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="E_A_browse" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="E_A_sysRes" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="E_A_sysResDesc" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="E_A_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="E_B_Subtitle" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Flags\dk.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

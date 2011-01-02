@@ -56,28 +56,38 @@ namespace Anolis.Tools.PEInfo {
 		
 		/// <summary>Number of movable entries in the Entry Table.</summary>
 		public UInt16  NofEntryTableMovableEntries; // blargh
-		/// <summary>Logical sector alignment shift count, log(base 2) of the segment sector size (default 9).</summary>
+		/// <summary>Logical sector alignment shift count, log(base 2) of the segment sector size (default 9). Also phrased as "Segment alignment shift count".</summary>
 		public UInt16  Alignment;
-		/// <summary>Number of resource entries.</summary>
-		public UInt16  NofResourceentries;
+		/// <summary>Number of resource entries. Also phrased as "Count of resource segments".</summary>
+		public UInt16  NofResourceEntries;
 		/// <summary>Executable type, used by loader.</summary>
 		public NEExecutableType ExecutableType;
 		
-		// The following are undocumented, info gleaned from eXeScope
+		// The following are documented in WinNT.h and not the Win3.x Specifications
+		// TODO: Do they say the header is smaller? What follows the header if it has less fields?
 		
-		public Byte    MiscFlags;
+		/// <summary>Other .EXE flags</summary>
+		public Byte    OtherFlags;
+		/// <summary>Fast Load area offset. Also documented as "Offset to return thunks" in WinNT.h.</summary>
 		public UInt16  FastLoadOffset;
+		/// <summary>Size of the Fast Load area. Also documented as "Offset to segment ref. bytes" in WinNT.h.</summary>
 		public UInt16  FastLoadSize;
-		public UInt16  Reserved;
+		/// <summary>Minimum code swap area size. Also documented as "Reserved" in the Windows 3.x documentation.</summary>
+		public UInt16  SwapArea;
 		
-		/// <summary>Windows minor version number.</summary>
+		/// <summary>Expected Windows minor version number.</summary>
 		public Byte    WindowsRevision;
-		/// <summary>Windows major version number.</summary>
+		/// <summary>Expected Windows major version number.</summary>
 		public Byte    WindowsVersion;
 		
 		public NEHeader(BinaryReader rdr) {
 			
 			Magic                 = rdr.ReadUInt16();
+			
+			if( Magic != 0x4E45 )
+				throw new FormatException("The specified stream is not an NE Executable.");
+				
+			
 			LinkerVersion         = rdr.ReadByte();
 			LinkerRevision        = rdr.ReadByte();
 			EntryTableOffset      = rdr.ReadUInt16();
@@ -106,13 +116,13 @@ namespace Anolis.Tools.PEInfo {
 			
 			NofEntryTableMovableEntries = rdr.ReadUInt16();
 			Alignment                   = rdr.ReadUInt16();
-			NofResourceentries          = rdr.ReadUInt16();
+			NofResourceEntries          = rdr.ReadUInt16();
 			ExecutableType              = (NEExecutableType)rdr.ReadByte();
 			
-			MiscFlags       = rdr.ReadByte();
+			OtherFlags      = rdr.ReadByte();
 			FastLoadOffset  = rdr.ReadUInt16();
 			FastLoadSize    = rdr.ReadUInt16();
-			Reserved        = rdr.ReadUInt16();
+			SwapArea        = rdr.ReadUInt16();
 			WindowsRevision = rdr.ReadByte();
 			WindowsVersion  = rdr.ReadByte();
 		}

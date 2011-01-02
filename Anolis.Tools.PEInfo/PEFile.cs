@@ -11,12 +11,19 @@ namespace Anolis.Tools.PEInfo {
 	[StructLayout(LayoutKind.Sequential)]
 	public struct CoffFileHeader {
 		
+		/// <summary>The number that identifies the type of target machine.</summary>
 		public Machine Machine;
+		/// <summary>The number of sections. This indicates the size of the section table, which immediately follows the headers.</summary>
 		public UInt16  NofSections;
+		/// <summary>The low 32 bits of the number of seconds since 00:00 January 1, 1970 (a C run-time time_t value), that indicates when the file was created.</summary>
 		public UInt32  DateTimeStamp;
+		/// <summary>The file offset of the COFF symbol table, or zero if no COFF symbol table is present. This value should be zero for an image because COFF debugging information is deprecated.</summary>
 		public UInt32  SymbolTableOffset;
+		/// <summary>The file offset of the COFF symbol table, or zero if no COFF symbol table is present. This value should be zero for an image because COFF debugging information is deprecated.</summary>
 		public UInt32  NofSymbols;
+		/// <summary>The size of the optional header, which is required for executable files but not for object files. This value should be zero for an object file.</summary>
 		public UInt16  SizeOfOptionalHeader;
+		/// <summary>The flags that indicate the attributes of the file.</summary>
 		public CoffFileCharacteristics Characteristics;
 		
 		public CoffFileHeader(BinaryReader rdr) {
@@ -40,12 +47,17 @@ namespace Anolis.Tools.PEInfo {
 	}
 	
 	public enum Machine : ushort {
+		
 		/// <summary>The contents of this field are assumed to be applicable to any machine type.</summary>
 		Unknown   = 0x0000,
 		/// <summary>Matsushita AM33.</summary>
 		AM33      = 0x01D3,
 		/// <summary>x64.</summary>
 		Amd64     = 0x8664,
+		/// <summary>Alpha_AXP</summary>
+		Alpha     = 0x0184,
+		/// <summary>Alpha64 aka AXP64.</summary>
+		Alpha64   = 0x0284,
 		/// <summary>ARM little endian.</summary>
 		Arm       = 0x01C0,
 		/// <summary>ARMv7 (or higher) Thumb mode only.</summary>
@@ -68,20 +80,30 @@ namespace Anolis.Tools.PEInfo {
 		PowerPC   = 0x01F0,
 		/// <summary>Power PC with floating point support.</summary>
 		PowerPCFP = 0x01F1,
+		/// <summary>MIPS little-endian.</summary>
+		R3000     = 0x0162,
 		/// <summary>MIPS little endian.</summary>
 		R4000     = 0x0166,
+		/// <summary>MIPS little-endian.</summary>
+		R10000    = 0x0168,
 		/// <summary>Hitachi SH3.</summary>
 		SH3       = 0x01A2,
 		/// <summary>Hitachi SH3 DSP.</summary>
 		SH3Dsp    = 0x01A3,
-		/// <summary>Hitachi SH4.</summary>
+		/// <summary>Hitachi SH3 E Little-endian</summary>
+		SH3E      = 0x01A4,
+		/// <summary>Hitachi SH4. Little-endian.</summary>
 		SH4       = 0x01A6,
 		/// <summary>Hitachi SH5.</summary>
 		SH5       = 0x01A8,
 		/// <summary>ARM or Thumb (“interworking”).</summary>
 		Thumb     = 0x01C2,
 		/// <summary>MIPS little-endian WCE v2.</summary>
-		WceMipsV2 = 0x0169
+		WceMipsV2 = 0x0169,
+		/// <summary>Infineon TriCore.</summary>
+		TriCore   = 0x0520,
+		Cef       = 0x0CEF,
+		Cee       = 0xC0EE
 	}
 	
 	[Flags]
@@ -368,7 +390,7 @@ namespace Anolis.Tools.PEInfo {
 		/// <summary>The size of the local heap space to commit.</summary>
 		public UInt64 SizeOfHeapCommit;
 		/// <summary>Reserved, must be zero.</summary>
-		public UInt32 LoaderFlags;
+		public LoaderFlags LoaderFlags;
 		/// <summary>The number of data-directory entries in the remainder of the optional header. Each describes a location and size.</summary>
 		public UInt32 NumberOfRvaAndSizes;
 		
@@ -393,7 +415,7 @@ namespace Anolis.Tools.PEInfo {
 			SizeOfStackCommit           = rdr.ReadUInt64();
 			SizeOfHeapReserve           = rdr.ReadUInt64();
 			SizeOfHeapCommit            = rdr.ReadUInt64();
-			LoaderFlags                 = rdr.ReadUInt32();
+			LoaderFlags                 = (LoaderFlags)rdr.ReadUInt32();
 			NumberOfRvaAndSizes         = rdr.ReadUInt32();
 		}
 	}
@@ -404,16 +426,20 @@ namespace Anolis.Tools.PEInfo {
 		ImportTable           =  1,
 		ResourceTable         =  2,
 		ExceptionTable        =  3,
+		/// <summary>Also known as the Security Directory.</summary>
 		CertificateTable      =  4,
 		BaseRelocationTable   =  5,
 		Debug                 =  6,
+		/// <summary>Architecture-specific data.</summary>
 		Architecture          =  7,
+		/// <summary>RVA of Global Pointer.</summary>
 		GlobalPointer         =  8,
 		TlsTable              =  9,
 		LoadConfigTable       = 10,
 		BoundImport           = 11,
-		Iat                   = 12,
+		ImportAddressTable    = 12,
 		DelayImportDescriptor = 13,
+		/// <summary>Also known as the COM Runtime Descriptor, possibly before the CLR had a name?</summary>
 		ClrRuntimeHeader      = 14,
 		Reserved              = 15
 		
@@ -437,6 +463,8 @@ namespace Anolis.Tools.PEInfo {
 		WindowsGui           = 2,
 		/// <summary>The Windows character subsystem.</summary>
 		WindowsCui           = 3,
+		/// <summary>The OS/2 character subsystem (Only applies to OS/2 v1.x images).</summary>
+		OS2Cui               = 5,
 		/// <summary>The Posix character subsystem.</summary>
 		PosixCui             = 7,
 		/// <summary>Windows CE.</summary>
@@ -456,7 +484,16 @@ namespace Anolis.Tools.PEInfo {
 	[Flags]
 	public enum DllCharacteristics : ushort {
 		None                = 0x0000,
-		// 1, 2, 4, and 8, and 0x1000 are Reserved, but I don't see the point in marking them
+		
+		/// <summary>Call DLL initialization function when the DLL is first loaded into the process' address space.</summary>
+		CallOnDllLoad       = 0x0001,
+		/// <summary>Call DLL initialization function when a thread terminates.</summary>
+		CallOnThreadExit    = 0x0002,
+		/// <summary>Call DLL initialization function when a thread starts up.</summary>
+		CallOnThreadStartUp = 0x0004,
+		/// <summary>Call DLL initialization function when the DLL exits.</summary>
+		CallOnDllExit       = 0x0008,
+		
 		/// <summary>DLL can be relocated at load time.</summary>
 		DynamicBase         = 0x0040,
 		/// <summary>Code Integrity checks are enforced.</summary>
@@ -469,10 +506,22 @@ namespace Anolis.Tools.PEInfo {
 		NoSeh               = 0x0400,
 		/// <summary>Do not bind the image.</summary>
 		NoBind              = 0x0800,
+		/// <summary>Reserved.</summary>
+		Reserved            = 0x1000,
 		/// <summary>A WDM driver.</summary>
 		WdmDriver           = 0x2000,
 		/// <summary>Terminal Server aware.</summary>
 		TerminalServerAware = 0x8000
+	}
+	
+	[Flags]
+	public enum LoaderFlags : uint {
+		/// <summary>No special loader behavior is defined.</summary>
+		None           = 0x0,
+		/// <summary>Invoke a breakpoint instruction before starting the process.</summary>
+		BreakOnStart   = 0x1,
+		/// <summary>Invoke a debugger on the process after it's been loaded.</summary>
+		InvokeDebugger = 0x2
 	}
 	
 #endregion
@@ -518,7 +567,12 @@ namespace Anolis.Tools.PEInfo {
 		}
 		
 		public String NameString {
-			get { return Encoding.UTF8.GetString( Name ); } 
+			get {
+				// for some reason, Array.IndexOf always returns -1 when working with byte[]
+				int nullIdx = Name.Length;
+				for(int i=Name.Length-1;i>=0;i--) if( Name[i] == 0 ) nullIdx = i;
+				return Encoding.UTF8.GetString( Name, 0, nullIdx );
+			} 
 		}
 		
 	}
@@ -529,18 +583,20 @@ namespace Anolis.Tools.PEInfo {
 		
 		/// <summary>The section should not be padded to the next boundary. This flag is obsolete and is replaced by IMAGE_SCN_ALIGN_1BYTES. This is valid only for object files.</summary>
 		TypeNoPadding = 0x8,
+		
 		/// <summary>The section contains executable code.</summary>
 		ContainsCode = 0x20,
 		/// <summary>The section contains initialized data.</summary>
 		ContainsInitializedData = 0x40,
 		/// <summary>The section contains uninitialized data.</summary>
 		ContainsUninitializedData = 0x80,
+		
 		/// <summary>Reserved for future use.</summary>
-		LinkOther = 0x100,
+		LinkOther  = 0x0100,
 		/// <summary>The section contains comments or other information. The .drectve section has this type. This is valid for object files only.</summary>
-		LinkInfo  = 0x200,
+		LinkInfo   = 0x0200,
 		/// <summary>The section will not become part of the image. This is valid only for object files.</summary>
-		LinkRemove = 0x800,
+		LinkRemove = 0x0800,
 		/// <summary>The section contains COMDAT data. For more information, see section 5.5.6, “COMDAT Sections (Object Only).” This is valid only for object files.</summary>
 		LinkComdat = 0x1000,
 		
@@ -609,9 +665,11 @@ namespace Anolis.Tools.PEInfo {
 	
 	public class PEFile {
 		
+		public UInt64 ImageLength;
+		
 		public DosHeader DosHeader;
-		public UInt16    PEOffset;
-		public Byte[]    PESignature;
+		public UInt32    PEOffset;
+		public Byte[]    PESignature; // The PESignature is not part of the Standard COFF Header, despite appearing right before it.
 		
 		public CoffFileHeader            CoffFileHeader;
 		
@@ -625,66 +683,100 @@ namespace Anolis.Tools.PEInfo {
 		
 		public PEFile(String fileName) {
 			
+			ImageLength = (UInt64)new FileInfo( fileName ).Length;
+			
 			using(FileStream fs = new FileStream( fileName, FileMode.Open, FileAccess.Read, FileShare.Read, 0x400, FileOptions.None ) ) {
 				
-				BinaryReader rdr = new BinaryReader(fs);
-				
-				////////////////////////////////////
-				// The DOS Stub and PE Offset marker
-				
-				DosHeader = new DosHeader( rdr );
-				
-				// jump to 0x3C to get the offset of the start of the PE
-				rdr.BaseStream.Seek( 0x3C, SeekOrigin.Begin );
-				
-				PEOffset = rdr.ReadUInt16();
-				
-				rdr.BaseStream.Seek( PEOffset, SeekOrigin.Begin );
-				
-				////////////////////////////////////
-				// The COFF File Header
-				
-				PESignature = rdr.ReadBytes(4);
-				
-				
-				CoffFileHeader = new CoffFileHeader( rdr );
-				
-				long offsetEndOfCoffFileHeader = rdr.BaseStream.Position;
-				
-				////////////////////////////////////
-				// The Optional Header
-				
-				PE32Magic magic = (PE32Magic)rdr.ReadUInt16();
-				switch(magic) {
-					case PE32Magic.PE32:
-						OptionalHeader32 = new CoffOptionalHeader32( magic, rdr );
-						break;
-					case PE32Magic.PE32Plus:
-						OptionalHeader32Plus = new CoffOptionalHeader32Plus( magic, rdr );
-						break;
-					case PE32Magic.RomImage:
-					default:
-						OptionalHeader = rdr.ReadBytes( CoffFileHeader.SizeOfOptionalHeader );
-						break;
-				}
-				
-				long offsetEndOfOptionalHeader = rdr.BaseStream.Position;
-				
-				// by now we're at the end of the Optional Header, but let's make sure
-				
-				if( offsetEndOfOptionalHeader != offsetEndOfCoffFileHeader + CoffFileHeader.SizeOfOptionalHeader ) {
-					// error condition
-				}
-				
-				///////////////////////////////
-				// The Section Table
-				
-				SectionTable = new SectionTableEntry[ CoffFileHeader.NofSections ];
-				for(int i=0;i<SectionTable.Length;i++) {
+				Load( fs );
+			}
+			
+		}
+		
+		public PEFile(UInt64 length, Stream stream) {
+			
+			ImageLength = length;
+			
+			Load( stream );
+		}
+		
+		private void Load(Stream stream) {
+			
+			BinaryReader rdr = new BinaryReader(stream);
+			
+			////////////////////////////////////
+			// The DOS Stub and PE Offset marker
+			
+			DosHeader = new DosHeader( rdr );
+			
+			PEOffset = DosHeader.NewExeHeaderAddress; // this is at 0x3C
+			
+			rdr.BaseStream.Seek( PEOffset, SeekOrigin.Begin );
+			
+			////////////////////////////////////
+			// The COFF File Header
+			
+			PESignature = rdr.ReadBytes(4);
+			
+			if( !IsPESignature( PESignature ) )
+				throw new FormatException("The specified file does not contain a PE signature.");
+			
+			CoffFileHeader = new CoffFileHeader( rdr );
+			
+			long offsetEndOfCoffFileHeader = rdr.BaseStream.Position;
+			
+			////////////////////////////////////
+			// The Optional Header
+			
+			PE32Magic magic = (PE32Magic)rdr.ReadUInt16();
+			switch(magic) {
+				case PE32Magic.PE32:
 					
-					SectionTable[i] = new SectionTableEntry( rdr );
-				}
+					// Ensure the Optional Header is big enough for the minimum amount of data
+					// Standard fields: 28 bytes
+					// Windows fields: 68 bytes
+					// Total: 92 bytes
+					if( CoffFileHeader.SizeOfOptionalHeader < 96 ) {
+						String msg = String.Format("The specified file's declared Optional Header size of {0} bytes is smaller than the minimum of 96 required bytes.", CoffFileHeader.SizeOfOptionalHeader);
+						throw new FormatException(msg);
+					}
+					
+					OptionalHeader32 = new CoffOptionalHeader32( magic, rdr );
+					
+					break;
+				case PE32Magic.PE32Plus:
+					
+					// Standard fields: 24 bytes
+					// Windows fields: 88 bytes
+					// Total: 112 bytes
+					if( CoffFileHeader.SizeOfOptionalHeader < 112 ) {
+						String msg = String.Format("The specified file's declared Optional Header size of {0} bytes is smaller than the minimum of 112 required bytes.", CoffFileHeader.SizeOfOptionalHeader);
+						throw new FormatException(msg);
+					}
+					
+					OptionalHeader32Plus = new CoffOptionalHeader32Plus( magic, rdr );
+					
+					break;
+				case PE32Magic.RomImage:
+				default:
+					OptionalHeader = rdr.ReadBytes( CoffFileHeader.SizeOfOptionalHeader );
+					break;
+			}
+			
+			long offsetEndOfOptionalHeader = rdr.BaseStream.Position;
+			
+			// by now we're at the end of the Optional Header, but let's make sure
+			
+			if( offsetEndOfOptionalHeader != offsetEndOfCoffFileHeader + CoffFileHeader.SizeOfOptionalHeader ) {
+				// error condition
+			}
+			
+			///////////////////////////////
+			// The Section Table
+			
+			SectionTable = new SectionTableEntry[ CoffFileHeader.NofSections ];
+			for(int i=0;i<SectionTable.Length;i++) {
 				
+				SectionTable[i] = new SectionTableEntry( rdr );
 			}
 			
 		}
@@ -700,6 +792,67 @@ namespace Anolis.Tools.PEInfo {
 				signature[2] == 0x00 &&
 				signature[3] == 0x00;
 			
+		}
+		
+		/// <summary>Converts a Relative Virtual Address to a location in the file.</summary>
+		/// <param name="section">This is the section that contains the destination of the file pointer and virtual address. This can be null if the RVA points to a part of the image not within a section (e.g. part of the DOS/COFF/PE headers) or beyond the sections. This is a very rare occurence and might possibly be illegal.</param>
+		/// <returns>An offset from the beginning of the image file.</returns>
+		public UInt32 RvaToFileOffset(UInt32 rva, out SectionTableEntry? section) {
+			
+			// Virtual addresses are defined by the PE's Sections
+			// So use that information to do the conversion
+			
+			// First off, get the SectionTableEntry that contains the RVA
+			
+			section = GetSectionEntry( rva );
+			
+			if( section == null ) {
+				// if the RVA points to something outside of a section then it's a file offset, apparently
+				// http://www.reverse-engineering.net/viewtopic.php?f=7&t=3312
+				
+				return rva;
+				
+			}
+			
+			if( ImageBase > UInt32.MaxValue )
+				throw new NotSupportedException("PE File's ImageBase address is beyond 32 bits and is not currently supported.");
+			
+			/////////////////////////////////
+			
+			// NOTE: This method of calculating the file offset is the same as used in PELib, it seems the other templated approach I saw online (that uses ImageBase) is incorrect.
+			
+			UInt32 rvaFromSectionStart = rva - section.Value.VirtualAddress;
+			UInt32 fileOffset          = section.Value.PointerToRawData + rvaFromSectionStart;
+			
+			return fileOffset;
+		}
+		
+		/// <summary>Gets the SectionTableEntry that contains the specified RVA.</summary>
+		private SectionTableEntry? GetSectionEntry(UInt32 rva) {
+			
+			for(int i=0;i<this.SectionTable.Length;i++) {
+				
+				SectionTableEntry sectionEntry = this.SectionTable[i];
+				
+				UInt32 maxSize = Math.Max( sectionEntry.VirtualSize, sectionEntry.SizeOfRawData ); // this also solves the Watcom Linker issue where VirtualSize == 0
+				
+				// Is the RVA within this section?
+				if( rva >= sectionEntry.VirtualAddress && rva < sectionEntry.VirtualAddress + maxSize ) {
+					
+					return sectionEntry;
+				}
+				
+			}
+			
+			return null;
+		}
+		
+		private UInt64 ImageBase {
+			get {
+				if(      this.OptionalHeader32     != null ) return this.OptionalHeader32.Value.WindowsFields.ImageBase;
+				else if( this.OptionalHeader32Plus != null ) return this.OptionalHeader32Plus.Value.WindowsFields.ImageBase;
+				return 0;
+			}
 		}
 		
 	}

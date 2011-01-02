@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="F_abortedDesc" xml:space="preserve">
+    <value>การติดตั้งถูกยกเลิกเนื่องจาก unhandled exception</value>
+  </data>
+  <data name="A_Message" xml:space="preserve">
+    <value>ตัวช่วยติดตั้งนี้จะแนะนำขั้นตอนในการติดตั้งแพ็กเกจ Anolis ให้กับคุณ
+
+กดปุ่ม ต่อไป เพื่อดำเนินการต่อ</value>
+  </data>
+  <data name="A_title" xml:space="preserve">
+    <value>ยินดีต้อนรับสู่การติดตั้งแพ็กเกจ Anolis</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>ติดตั้งแพ็กเกจที่มากับ Anolis ดิสทริบิวชันนี้หรือเลือกแพ็กเกจที่อยู่ในเครื่อง คุณสามารถติดตั้งแพ็กเกจลงในโฟลเดอร์ที่เก็บไฟล์เซ็ตอัพ (I386)</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>ติดตั้งแพ็กเกจ</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>ดาวน์โหลดชุดเครื่องมือสำหรับสร้างแพ็กเกจหรือดิสทริบิวชันของคุณเอง</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>สร้างแพ็กเกจหรือดิสทริบิวชันของฉันเอง</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>กู้คืนไฟล์ที่ถูกแก้ไข คุณจำเป็นต้องมีไดเร็กทอรีสำรองข้อมูลที่สร้างไว้ตั้งแต่ตอนทำการติดตั้ง</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>ยกเลิกการเปลี่ยนแปลงที่เกิดจากการติดตั้งแพ็กเกจ</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>เลือกการดำเนินการ</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>เลือกงาน</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>แพ็กเกจ (*.anop) ที่อยู่ในเครื่อง</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>แพ็กเกจที่มากับตัวติดตั้งนี้</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>ไฟล์กำหนดค่าแพ็กเกจ (package.xml) ที่อยู่ในคอมพิวเตอร์เครื่องนี้</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>แพ็กเกจที่จะติดตั้งอาจเป็นไฟล์ที่อยู่ในคอมพิวเตอร์ หรืออาจมาพร้อมกับตัวติดตั้งนี้</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>เลือกแพ็กเกจที่จะติดตั้ง</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>มีข้อผิดพลาดในระหว่างการขยายแพ็กเกจ</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>กำลังเริ่มการทำงานของแพ็กเกจ</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>ไม่มีข้อมูลเกี่ยวกับไอเท็มที่เลือก '{0}' </value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>ติดตั้ง</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>เสร็จสิ้น {0}% - {1}</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>ไดเร็กทอรีปลายทาง</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>สร้างโฟลเดอร์ Anolis ในเมนู Start</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>สำหรับผู้ใช้ทุกคน</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>สำหรับฉันเท่านั้น</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>เสร็จสิ้น</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>การติดตั้งเสร็จสมบูรณ์ คอมพิวเตอร์ของคุณจะรีสตาร์ท
+
+กรุณาปิดโปรแกรมที่เปิดอยู่ทั้งหมดก่อนดำเนินการต่อ</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>การติดตั้งเสร็จสมบูรณ์</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>รีสตาร์ท</value>
+  </data>
+  <data name="F_title" xml:space="preserve">
+    <value>การติดตั้งเสร็จสมบูรณ์</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>การถอนการติดตั้งเสร็จสมบูรณ์</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>สร้างไดเร็กทอรีสำรองข้อมูลสำหรับถอนการติดตั้ง (แนะนำให้สร้าง)</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>คุณต้องสร้างไดเร็กทอรีสำรองข้อมูลหากต้องการถอนการติดตั้งในภายหลัง</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>ติดตั้งลงในคอมพิวเตอร์เครื่องนี้</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>ติดตั้งเพื่อทำซีดีสำหรับติดตั้งวินโดวส์ (I386)</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>สร้าง System Restore Point (แนะนำให้สร้าง)</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>เป็นการเพิ่มระดับการป้องกันอีกชั้นหนึ่ง อย่างไรก็ตามนี่อาจไม่สามารถป้องกันการแก้ไขไฟล์ที่ไม่ใช่ของวินโดวส์ที่อยู่ใน Program Files ได้</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>แพ็กเกจนี้อาจมีการปรับรุ่นตั้งแต่ที่คุณดาวน์โหลดมา กำลังตรวจสอบรุ่นล่าสุด</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>กำลังตรวจสอบรุ่นของแพ็กเกจ</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>กรุณารอสักครู่ กำลังเตรียมแพ็กเกจสำหรับการติดตั้ง</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>คุณสามารถเลือกติดตั้งส่วนที่ต้องการในแพ็กเกจนี้</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>แก้ไขแพ็กเกจ</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>กำหนดไดเร็กทอรีสำรองข้อมูลและตัวเลือกอื่นๆ</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>ตัวเลือกในการติดตั้ง</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>กำลังติดตั้งแพ็กเกจที่คุณเลือก</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>กำลังติดตั้งแพ็กเกจ</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value>แปลโดย kong</value>
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value>http://suksit.com</value>
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>th</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>ภาษาไทย</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - {1}KB จาก {2}KB ที่ความเร็ว {3}KBps</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>กำลังตรวจสอบรุ่นของแพ็กเกจ</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>การตรวจสอบล้มเหลว: ไม่สามารถดาวน์โหลดข้อมูลรุ่นของแพ็กเกจ</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>แพ็กเกจนี้มีรุ่นที่ใหม่กว่า ({0}) คุณต้องการดาวน์โหลดตอนนี้เลยหรือไม่?</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>แพ็กเกจนี้มีรุ่นที่ใหม่กว่า ({0}) แต่คุณต้องดาวน์โหลดด้วยตนเอง คลิก ไปที่หน้าเว็บไซต์ของแพ็กเกจ เพื่อดูข้อมูลเพิ่มเติม</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>แพ็กเกจที่คุณมีอยู่เป็นรุ่นล่าสุด ({0})</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>การติดตั้งเสร็จสมบูรณ์</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>ต่อไป</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>ย้อนกลับ</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>อ่านบันทึกประจำรุ่นของผู้สร้างแพ็กเกจ</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>บันทึกประจำรุ่นของแพ็กเกจ</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>ไฟล์ Readme ของตัวติดตั้ง Anolis</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>บันทึกประจำรุ่นของแพ็กเกจ {0} </value>
+  </data>
+  <data name="C_F_pathInvalidBackup" xml:space="preserve">
+    <value>พาธที่ใช้ในการสำรองข้อมูลไม่ถูกต้อง</value>
+  </data>
+  <data name="C_F_pathInvalidI386" xml:space="preserve">
+    <value>พาธที่ไปยังไดเร็กทอรีนอกสุดของ CD ไม่ถูกต้อง</value>
+  </data>
+  <data name="C_F_pathExistsBackup" xml:space="preserve">
+    <value>ไดเร็กทอรีสำรองข้อมูลที่เลือกมีไฟล์อยู่แล้ว การสำรองข้อมูลต้องทำในไดเร็กทอรีว่าง หรือสร้างไดเร็กทอรีขึ้นใหม่</value>
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
+    <value>แพ็กเกจที่เลือกไม่มีไฟล์กำหนดค่าแพ็กเกจ</value>
+  </data>
+  <data name="C_C_skipCheckLbl" xml:space="preserve">
+    <value>คุณสามารถยกเลิกการตรวจสอบรุ่นของแพ็กเกจโดยคลิกที่ปุ่ม ต่อไป ได้ทันที</value>
+  </data>
+  <data name="A_Message_Cus" xml:space="preserve">
+    <value>ตัวช่วยติดตั้งนี้จะแนะนำขั้นตอนในการติดตั้ง {0} ให้กับคุณ
+
+กดปุ่ม ต่อไป เพื่อดำเนินการต่อ</value>
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value>ยินดีต้อนรับสู่การติดตั้ง {0}</value>
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value>ติดตั้ง {0} ลงในคอมพิวเตอร์เครื่องนี้ หรือติดตั้งลงในโฟลเดอร์ที่เก็บไฟล์เซ็ตอัพ (I386)</value>
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value>ติดตั้ง {0}</value>
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value>ดาวน์โหลดชุดเครื่องมือสำหรับสร้างแพ็กเกจหรือดิสทริบิวชันของคุณเอง เหมือน {0}</value>
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value>ยกเลิกการเปลี่ยนแปลงที่เกิดจาก {0}</value>
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value>มีข้อผิดพลาดในระหว่างการขยาย {0}</value>
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value>กรุณารอสักครู่ กำลังเตรียม {0} สำหรับการติดตั้ง</value>
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value>อ่านบันทึกประจำรุ่นของ {0}</value>
+  </data>
+  <data name="C_G_Subtitle_Cus" xml:space="preserve">
+    <value>กำลังติดตั้ง {0}</value>
+  </data>
+  <data name="C_A_anopFilenameLbl" xml:space="preserve">
+    <value>ชื่อไฟล์</value>
+  </data>
+  <data name="C_A_packFilenameLbl" xml:space="preserve">
+    <value>ชื่อไฟล์</value>
+  </data>
+  <data name="C_B_statusLbl" xml:space="preserve">
+    <value>กำลังเตรียม...</value>
+  </data>
+  <data name="C_C_statusLbl" xml:space="preserve">
+    <value>กำลังเตรียม...</value>
+  </data>
+  <data name="C_F_i386Lbl" xml:space="preserve">
+    <value>ไดเร็กทอรีนอกสุดของ CD</value>
+  </data>
+  <data name="D_A_toolsLbl" xml:space="preserve">
+    <value>ชุดเครื่องมือที่มีให้ดาวน์โหลดได้แก่ Resourcer โปรแกรมแก้ไข resource อันทรงพลัง; Packager สำหรับใช้สร้างไฟล์แพ็กเกจและตัวติดตั้งที่ปรับแต่งแล้ว; และเครื่องมืออื่นๆ อีกมากมายเช่นโปรแกรมแก้ไขไอคอนอย่างง่าย</value>
+  </data>
+  <data name="E_A_dirLbl" xml:space="preserve">
+    <value>ไดเร็กทอรี</value>
+  </data>
+  <data name="C_A_anopBrowse" xml:space="preserve">
+    <value>เลือก...</value>
+  </data>
+  <data name="C_A_packBrowse" xml:space="preserve">
+    <value>เลือก...</value>
+  </data>
+  <data name="C_B_Title" xml:space="preserve">
+    <value>กำลังเตรียมแพ็กเกจ</value>
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value>กำลังเตรียม {0}</value>
+  </data>
+  <data name="C_C_downloadInfo" xml:space="preserve">
+    <value>ไปที่หน้าเว็บไซต์ของแพ็กเกจ</value>
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value>ไปที่หน้าเว็บไซต์ของ {0}</value>
+  </data>
+  <data name="C_C_downloadNo" xml:space="preserve">
+    <value>ไม่</value>
+  </data>
+  <data name="C_C_downloadYes" xml:space="preserve">
+    <value>ใช่</value>
+  </data>
+  <data name="C_F_backupBrowse" xml:space="preserve">
+    <value>เลือก...</value>
+  </data>
+  <data name="C_F_i386Browse" xml:space="preserve">
+    <value>เลือก...</value>
+  </data>
+  <data name="C_G_statusLbl" xml:space="preserve">
+    <value>กำลังเตรียม...</value>
+  </data>
+  <data name="D_A_destBrowse" xml:space="preserve">
+    <value>เลือก...</value>
+  </data>
+  <data name="D_A_Subtitle" xml:space="preserve">
+    <value>เลือกไดเร็กทอรีสำหรับเก็บชุดเครื่องมือที่ดาวน์โหลดมา และตัวเลือกอื่นๆ</value>
+  </data>
+  <data name="D_A_Title" xml:space="preserve">
+    <value>ไดเร็กทอรีปลายทาง และตัวเลือกในการติดตั้ง</value>
+  </data>
+  <data name="D_B_status" xml:space="preserve">
+    <value>กำลังเตรียม...</value>
+  </data>
+  <data name="D_B_Subtitle" xml:space="preserve">
+    <value>กำลังดาวน์โหลดชุดเครื่องมือ Anolis</value>
+  </data>
+  <data name="D_B_Title" xml:space="preserve">
+    <value>กำลังดาวน์โหลด</value>
+  </data>
+  <data name="E_A_browse" xml:space="preserve">
+    <value>เลือก...</value>
+  </data>
+  <data name="E_A_sysRes" xml:space="preserve">
+    <value>สร้าง System Restore Point (แนะนำให้สร้าง)</value>
+  </data>
+  <data name="E_A_sysResDesc" xml:space="preserve">
+    <value>เป็นการเพิ่มระดับการป้องกันอีกชั้นหนึ่ง อย่างไรก็ตามนี่อาจไม่สามารถป้องกันการแก้ไขไฟล์ที่ไม่ใช่ของวินโดวส์ที่อยู่ใน Program Files ได้</value>
+  </data>
+  <data name="E_A_Title" xml:space="preserve">
+    <value>เลือกไดเร็กทอรีสำรองข้อมูล</value>
+  </data>
+  <data name="E_A_Subtitle" xml:space="preserve">
+    <value>เลือกไดเร็กทอรีที่เก็บข้อมูลที่สำรองไว้</value>
+  </data>
+  <data name="G_Title" xml:space="preserve">
+    <value>กรุณารอสักครู่...</value>
+  </data>
+  <data name="G_WaitMessage" xml:space="preserve">
+    <value>กำลังรีสตาร์ทคอมพิวเตอร์ของคุณ</value>
+  </data>
+  <data name="Wiz_CancelConfirm" xml:space="preserve">
+    <value>คุณต้องการยกเลิกการติดตั้ง?</value>
+  </data>
+  <data name="C_A_notFileExists" xml:space="preserve">
+    <value>ไม่พบไฟล์ "{0}"</value>
+  </data>
+  <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
+    <value>เลือกแพ็กเกจที่มากับตัวติดตั้งนี้ ก่อนดำเนินการต่อ</value>
+  </data>
+  <data name="C_B_conditionError" xml:space="preserve">
+    <value>มีข้อผิดพลาดในระหว่างการตรวจสอบความเข้ากันได้ของแพ็กเกจกับคอมพิวเตอร์ของคุณ กรุณาติดต่อผู้สร้างแพ็กเกจ</value>
+  </data>
+  <data name="E_A_notValidDirectory" xml:space="preserve">
+    <value>ไม่มีแพ็กเกจสำหรับถอนการติดตั้งในไดเร็กทอรีที่ระบุ</value>
+  </data>
+  <data name="Lang_RTL" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="A_DisableAV" xml:space="preserve">
+    <value>เพื่อความรวดเร็วในการติดตั้งกรุณาปิดการทำงานของ Windows Defender หรือโปรแกรมป้องกันไวรัสก่อนดำเนินการต่อ</value>
+  </data>
+  <data name="C_C_sfdTitle" xml:space="preserve">
+    <value>บันทึกแพ็กเกจที่ดาวน์โหลดมาไว้ที่...</value>
+  </data>
+  <data name="D_B_downloadFailed" xml:space="preserve">
+    <value>การดาวน์โหลดล้มเหลว</value>
+  </data>
+  <data name="A_DeletingTemporaryFiles" xml:space="preserve">
+    <value>กำลังลบไฟล์ชั่วคราว</value>
+  </data>
+  <data name="F_uninstallationCompleteRestart" xml:space="preserve">
+    <value>การถอนการติดตั้งเสร็จสมบูรณ์ คอมพิวเตอร์ของคุณกำลังจะรีสตาร์ท
+
+กรุณาปิดโปรแกรมที่เปิดอยู่ทั้งหมดก่อนดำเนินการต่อ</value>
+  </data>
+  <data name="F_aborted" xml:space="preserve">
+    <value>ยกเลิกการติดตั้ง</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>กำลังถอนการติดตั้งแพ็กเกจของคุณ</value>
+  </data>
+  <data name="E_B_Subtitle_Cus" xml:space="preserve">
+    <value>กำลังถอนการติดตั้ง {0}</value>
+  </data>
+  <data name="E_B_Title" xml:space="preserve">
+    <value>กำลังถอนการติดตั้งแพ็กเกจ</value>
+  </data>
+  <data name="X_Bootscreen" xml:space="preserve">
+    <value>หน้าจอบูท</value>
+  </data>
+  <data name="X_CursorScheme" xml:space="preserve">
+    <value>ตัวชี้เมาส์</value>
+  </data>
+  <data name="C_E1_Presets" xml:space="preserve">
+    <value>รูปแบบที่ปรับแต่งไว้ล่วงหน้า</value>
+  </data>
+  <data name="C_E1_bitmapsLbl" xml:space="preserve">
+    <value>ภาพบิตแมพ</value>
+  </data>
+  <data name="X_Screensaver" xml:space="preserve">
+    <value>โปรแกรมรักษาจอภาพ</value>
+  </data>
+  <data name="C_E1_Subtitle" xml:space="preserve">
+    <value>คุณสามารถปรับแต่งการแสดงผลของคอมพิวเตอร์ของคุณหลังการติดตั้ง</value>
+  </data>
+  <data name="C_E1_Title" xml:space="preserve">
+    <value>ตัวเลือกเกี่ยวกับธีม</value>
+  </data>
+  <data name="C_E1_wallpaperLbl" xml:space="preserve">
+    <value>ภาพพื้นหลัง</value>
+  </data>
+</root>

@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="A_DisableAV" xml:space="preserve">
+    <value>Cyn i chi mynd yn ych flaen, plis trowch rhyw Anti-Virus sydd genych chi i ffwrdd, ac hefyd Windows Defender - mae nhw'n arafy'r proses.</value>
+  </data>
+  <data name="A_notes" xml:space="preserve">
+    <value>Pwyswch nesaf i llwytho Anolis.</value>
+  </data>
+  <data name="A_Notes_Cus" xml:space="preserve">
+    <value>Cewch cerdded trwy'r llwythiad nawr - {0}
+
+To continue, press Next</value>
+  </data>
+  <data name="A_title" xml:space="preserve">
+    <value>Croeso i llwythiad Anolis.</value>
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value>Croeso i'r {0}</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>	Mae hyn yn llwytho paced sydd yn fersiwn hon o Anolis, neu rhyw le ar y cyfrifiadyr yma. Fedrith a paced cael ei llwytho i ffeil ddechrau (I386).</value>
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value>Llwytho {0} ar y chyfrifiadur hon, neu i ffolder (I386)</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>Llwytho paced</value>
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value>Llwytho {0}</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>Dewisiwch rhywbeth i wneud</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>Dewisiwch Tasg</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>Llwytho'r offer sydd angen i wneud paced neu ddosbarthiad eich hyn.</value>
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value>Llwytho offer a chewch wneud paced nei ddosbarthiad eich yn, fel {0}</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>Creu paced neu ddosbarthiad eich hyn</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>Llwytho ffeiliau i'r fordd yr oeddet cyn iddyn nhw cael ei newid. Fydd angen a ffeil a cafodd ei chreu pan llwythodd chi Anolis.</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>Dadwneud newidiadau cafodd wneud gan llwytho paced.</value>
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value>Dadwneud newidiadau chafodd wneud gan {0}</value>
+  </data>
+  <data name="C_A_anopBrowse" xml:space="preserve">
+    <value>Edrych...</value>
+  </data>
+  <data name="C_A_anopFilenameLbl" xml:space="preserve">
+    <value>Enw'r ffeil</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>Archif paced (*.anop) ar fy'n ngyfrifiadur.</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>Paced sydd yn y llwythiad yma</value>
+  </data>
+  <data name="C_A_notFileExists" xml:space="preserve">
+    <value>Dydi "{0}" ddim yna.</value>
+  </data>
+  <data name="C_A_packBrowse" xml:space="preserve">
+    <value>Edrych...</value>
+  </data>
+  <data name="C_A_packFilenameLbl" xml:space="preserve">
+    <value>Enw'r ffeil</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>Paced ddiffiniad (paced.xml) ar fy ngyfrifiadur.</value>
+  </data>
+  <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
+    <value>Dewisiwch paced cyn is chi mynd yn eich flaen</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>Fedrith y paced i llwytho fod yn y system ffeilio y chyfrifiaur yma neu yn y llwythiad yma.</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>Dewisiwch paced i llwytho</value>
+  </data>
+  <data name="C_B_conditionError" xml:space="preserve">
+    <value>Aeth rhywbeth yn anghywir wrth trio gweld os ydis paced yn gweithio. Gofynnwch i awdyr y paced.</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>Ddigwyddith rhywbeth i'ch paced, ac gafodd o ddim i llwytho.</value>
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value>Aeth rhywbeth yn anghywir wrth trio creu {0}</value>
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
+    <value>Does yna ddim ffeil ddiffiniad paced yn y paced hon.</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>Llwytho'r paced</value>
+  </data>
+  <data name="C_B_statusLbl" xml:space="preserve">
+    <value>Paratoi...</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>Aroswch tra maer llwythwr yn ddechrau'r paced am llwythiad.</value>
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value>Aroswch tra mae'r llwythiad yn paratoi {0} am llwytho.</value>
+  </data>
+  <data name="C_B_Title" xml:space="preserve">
+    <value>Paratoi'r Paced</value>
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value>Paratoi {0}</value>
+  </data>
+  <data name="C_C_downloadInfo" xml:space="preserve">
+    <value>Wefan Paced</value>
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value>Ewch at wefan {0}</value>
+  </data>
+  <data name="C_C_downloadNo" xml:space="preserve">
+    <value>Na</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - {1}KB of {2}KB wedi'w llwytho - {3}KBps</value>
+  </data>
+  <data name="C_C_downloadYes" xml:space="preserve">
+    <value>Iawn</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>Edrych am pacedi ddiweddaraf</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>Edrych am pecedi ddiweddaraf wedi'w canslo: doedd ddim modd llwytho'r ddata.</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>Mae yna fersiwn newydd ({0}) o'r paced yma ar gael. Oes eisiau llwytho fe?</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>Mae yna fersiwn newydd ({0}) o'r paced yma ar gael, ond mae'n rhaid i chi llwytho fe eich hyn. Cliciwch Wefan Paced am mwy o ddata.</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>Mae gen y chi y versiwn ({0}) ddiweddaref o'r paced yma.</value>
+  </data>
+  <data name="C_C_skipCheckLbl" xml:space="preserve">
+    <value>Chewch scipio llwytho fersiwn newydd gan clicio'r bwtwm Nesaf am rhyw dro.</value>
+  </data>
+  <data name="C_C_statusLbl" xml:space="preserve">
+    <value>Paratoi...</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>Ella mae'r paced wedi'w newid ers i chi llwytho fe. Edrych am paced ddiweddaraf.</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>Edrych am paced ddiweddaraf</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>Ddarllenwch am Llwythiad Anolis</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>{0} Nodiadau Paced</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>Ddarllenwch nodiadau awdur y paced</value>
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value>Ddarllenwch nodiadau am {0}</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>Nodiadau'r Paced</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>Dydi'r item '{0}' ddim efo ddata sydd yn cyfarwydd ato</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>Fedrwch dewis os oes eisiau llwytho rhannau o'r paced.</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>Newidiwch Paced</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>Creu ffeil dadlwythiad (Awgrymiadol)</value>
+  </data>
+  <data name="C_F_backupBrowse" xml:space="preserve">
+    <value>Edrych...</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>Fydd angen creu ffeil back-up os ydych fyth eisiau dadlwytho'r paced yn y dyfodol.</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>Llwytho i'r cyfrifiadyr yma</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>Llwytho i I386</value>
+  </data>
+  <data name="C_F_i386Browse" xml:space="preserve">
+    <value>Edrych...</value>
+  </data>
+  <data name="C_F_i386Lbl" xml:space="preserve">
+    <value>CD Root</value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>Llwytho</value>
+  </data>
+  <data name="C_F_pathExistsBackup" xml:space="preserve">
+    <value>Mae yna rhywbeth yma yn barod. Mae'n rhaid i back-ups cael ei chreu mewn ffeil gwag neu ffeil sydd heb ei chreu eto.</value>
+  </data>
+  <data name="C_F_pathInvalidBackup" xml:space="preserve">
+    <value>Dydi'r ffeilyma ddim yn iawn!</value>
+  </data>
+  <data name="C_F_pathInvalidI386" xml:space="preserve">
+    <value>Dydi ffeil I386 yma ddim yn iawn!</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>Dewisiwch ffeil back-up ac opsiynnau eraill</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>Creu 'System Restore Point'(Awgrymiadol)</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>Rhag ofn. Dydi hyn ddim bob tro yn gweithio yn erbyn newidiadau sydd wedi'w wneud i ffeiliau sydd ddim byd i wneud efo 'Windows' o dan 'Program Files'</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>Opsiynnau Llwytho</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}% wedi'w cwbwlhau - {1}</value>
+  </data>
+  <data name="C_G_statusLbl" xml:space="preserve">
+    <value>Paratoi...</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>Mae'r paced a ddewiswyd yn cael ei llwytho</value>
+  </data>
+  <data name="C_G_Subtitle_Cus" xml:space="preserve">
+    <value>Mae {0} yn cael ei llwytho</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>Llwytho'r Paced</value>
+  </data>
+  <data name="D_A_destBrowse" xml:space="preserve">
+    <value>Edrych...</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>Lle i rhoi'r ffeil:</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>Creu ffeil Anolis yn y 'Start' menu</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>I pawb</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>I mi</value>
+  </data>
+  <data name="D_A_Subtitle" xml:space="preserve">
+    <value>Dewisiwch lle i rhoi'r offer a llwythiad, ac opsiynnau eraill.</value>
+  </data>
+  <data name="D_A_Title" xml:space="preserve">
+    <value>Lle i rhoi'r ffeiliau, ac opsiynnau'r llwythiad</value>
+  </data>
+  <data name="D_A_toolsLbl" xml:space="preserve">
+    <value>Offer ar gael sydd Resourcer, newidiadwyd pacedi pwerys; Packager, sydd angen i creu pacedi ac llwythiadwyr eich hyn; ac llawer o offer eraill.</value>
+  </data>
+  <data name="D_B_status" xml:space="preserve">
+    <value>Paratoi...</value>
+  </data>
+  <data name="D_B_Subtitle" xml:space="preserve">
+    <value>Llwytho offer Anolis...</value>
+  </data>
+  <data name="D_B_Title" xml:space="preserve">
+    <value>Dadlwytho</value>
+  </data>
+  <data name="E_A_browse" xml:space="preserve">
+    <value>Edrych...</value>
+  </data>
+  <data name="E_A_dirLbl" xml:space="preserve">
+    <value>Ffeil</value>
+  </data>
+  <data name="E_A_notValidDirectory" xml:space="preserve">
+    <value>Dydi'r ffeil yma ddim yn dal paced llwytho wir.</value>
+  </data>
+  <data name="E_A_sysRes" xml:space="preserve">
+    <value>Creu 'System Restore Point' (Awgrymiadol)</value>
+  </data>
+  <data name="E_A_sysResDesc" xml:space="preserve">
+    <value>Rhag ofn. Dydi hyn ddim bob tro yn gweithio yn erbyn newidiadau sydd wedi'w wneud i ffeiliau sydd ddim byd i wneud efo 'Windows' o dan 'Program Files'</value>
+  </data>
+  <data name="E_A_Title" xml:space="preserve">
+    <value>Dewisiwch ffeil back-up</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>Dewisiwch ffeil i ail-ddechrau o.</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>Orffen</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>Llwythiad wedi'w orffen heb broblemau.</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>Mae'r llwythiad wedi'w orffen heb problemau. Fydd eich cyfrifiadur yn ail-ddechrau nawr.
+
+Clewch pob peth cyn orffen. Peidiwch ac agor rhywbeth arall.</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>Mae llwythiad wedi'w orffen heb problemau.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>Ail-ddecreuwch</value>
+  </data>
+  <data name="F_title" xml:space="preserve">
+    <value>Mae llwythiad wedi'w cwbwlhau.</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>Dadlwythiad wedi'w orffen heb problemau.</value>
+  </data>
+  <data name="F_uninstallationCompleteRestart" xml:space="preserve">
+    <value>Fydd eich cyfrifiadur yn ail-ddechrau nawr.
+
+Clewch pob peth cyn orffen. Peidiwch ac agor rhywbeth arall.</value>
+  </data>
+  <data name="G_restarting" xml:space="preserve">
+    <value>Ail-ddechrau eich cyfrifiadur nawr</value>
+  </data>
+  <data name="G_Title" xml:space="preserve">
+    <value>Aroswch...</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value>Lloyd Humphreys</value>
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value>http://lloydhumphreys.com</value>
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>cy</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>Cymraeg</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>Canslo</value>
+  </data>
+  <data name="Wiz_CancelConfirm" xml:space="preserve">
+    <value>Ydych yn sicr for chi eisiau canslo'r llywthiad?</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>Nesaf</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>Yn Ol</value>
+  </data>
+  <data name="Lang_Flag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Flags\cy.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

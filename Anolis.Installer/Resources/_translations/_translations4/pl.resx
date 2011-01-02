@@ -1,0 +1,476 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="A_Message" xml:space="preserve">
+    <value>Instalator przeprowadzi cię przez wszystkie kroki instalacji pakietu Anolis
+
+Aby kontynuować wciśnij Dalej</value>
+  </data>
+  <data name="A_title" xml:space="preserve">
+    <value>Witamy w instalatorze pakietu Anolis</value>
+  </data>
+  <data name="B_installBlurb" xml:space="preserve">
+    <value>Instaluje pakiet z tej dystrybucji Anolis lub z innego pliku w tym komputerze. Pakiet może zostać zainstalowany w folderze instalacyjnym windows (I386).</value>
+  </data>
+  <data name="B_installRad" xml:space="preserve">
+    <value>Instaluj pakiet</value>
+  </data>
+  <data name="B_toolsBlurb" xml:space="preserve">
+    <value>Pobiera dodatki, dzięki którym możesz łatwo stworzyć własny pakiet lub dystrybucję</value>
+  </data>
+  <data name="B_toolsRad" xml:space="preserve">
+    <value>Utwórz mój własny pakiet lub dystrybucje</value>
+  </data>
+  <data name="B_uninstallBlurb" xml:space="preserve">
+    <value>Przywraca pliki do stanu sprzed instalacji. Będziesz potrzebował folderu z kopiami plików, utworzonego podczas instalacji</value>
+  </data>
+  <data name="B_uninstallRad" xml:space="preserve">
+    <value>Cofnij zmiany dokonane podczas instalacji</value>
+  </data>
+  <data name="B_Subtitle" xml:space="preserve">
+    <value>Wybierz operację</value>
+  </data>
+  <data name="B_Title" xml:space="preserve">
+    <value>Wybierz zadanie</value>
+  </data>
+  <data name="C_A_anopRad" xml:space="preserve">
+    <value>Pakiet (*.anop) znajdujący się na tym komputerze</value>
+  </data>
+  <data name="C_A_embedRad" xml:space="preserve">
+    <value>Pakiet zawarty w tym instalatorze</value>
+  </data>
+  <data name="C_A_packRad" xml:space="preserve">
+    <value>Plik definicji pakietu (package.xml) znajdujący się na tym komputerze</value>
+  </data>
+  <data name="C_A_Subtitle" xml:space="preserve">
+    <value>Pakiet instalacyjny może znajdować się na dysku twardym tego komputera lub może być zawarty W tym instalatorze</value>
+  </data>
+  <data name="C_A_Title" xml:space="preserve">
+    <value>Wybierz pakiet do zainstalowania</value>
+  </data>
+  <data name="C_B_error" xml:space="preserve">
+    <value>Podczas rozpakowywania pakietu wystąpił błąd</value>
+  </data>
+  <data name="C_B_instantiating" xml:space="preserve">
+    <value>Przygotowanie pakietu</value>
+  </data>
+  <data name="C_E_noInfo" xml:space="preserve">
+    <value>Żadna informacja nie jest powiązaba z wybraną pozycją '{0}' </value>
+  </data>
+  <data name="C_F_installButton" xml:space="preserve">
+    <value>Instaluj</value>
+  </data>
+  <data name="C_G_status" xml:space="preserve">
+    <value>{0}% ukończone - {1}</value>
+  </data>
+  <data name="D_A_destLbl" xml:space="preserve">
+    <value>Katalog docelowy</value>
+  </data>
+  <data name="D_A_progGroup" xml:space="preserve">
+    <value>Utwórz grupę Anolis w Menu Start</value>
+  </data>
+  <data name="D_A_progGroupAll" xml:space="preserve">
+    <value>Dla wszystkich użytkowników</value>
+  </data>
+  <data name="D_A_progGroupMe" xml:space="preserve">
+    <value>Tylko dla mnie</value>
+  </data>
+  <data name="F_finishButton" xml:space="preserve">
+    <value>Zakończ</value>
+  </data>
+  <data name="F_installationCompleteRestart" xml:space="preserve">
+    <value>Instalacja zakończyła się pomyślnie. Komputer zostanie uruchomiony ponownie.
+
+Zamknij wszystkie uruchomione progamy przed kontynuacją. Nie uruchamiaj żadnych nowych programów.</value>
+  </data>
+  <data name="F_installTools" xml:space="preserve">
+    <value>Instalacja zakończyła się pomyślnie.</value>
+  </data>
+  <data name="F_restartButton" xml:space="preserve">
+    <value>Restartuj</value>
+  </data>
+  <data name="F_title" xml:space="preserve">
+    <value>Instalacja zakończona</value>
+  </data>
+  <data name="F_uninstallationComplete" xml:space="preserve">
+    <value>Deinstalacja zakończyła się pomyślnie.</value>
+  </data>
+  <data name="C_F_backup" xml:space="preserve">
+    <value>Utwórz kopie plików (Zalecane)</value>
+  </data>
+  <data name="C_F_backupDesc" xml:space="preserve">
+    <value>Musisz utworzyć kopie plików aby móc odinstalować ten pakiet w przyszłości</value>
+  </data>
+  <data name="C_F_comp" xml:space="preserve">
+    <value>Instaluj na tym komputerzy</value>
+  </data>
+  <data name="C_F_i386" xml:space="preserve">
+    <value>Integruj z plikami instalacyjnymi windows (I386)</value>
+  </data>
+  <data name="C_F_sysRes" xml:space="preserve">
+    <value>Utwórz punkt przywracania systemu (Zalecane)</value>
+  </data>
+  <data name="C_F_sysResDesc" xml:space="preserve">
+    <value>Dodatkowy poziom ochrony. Pamiętaj, że to nie zawsze chroni przed modyfikacją plików w katalogu Program Files</value>
+  </data>
+  <data name="C_C_Subtitle" xml:space="preserve">
+    <value>Pakiet może wymagać aktualizacji. Wyszukiwanie aktualizacji.</value>
+  </data>
+  <data name="C_C_Title" xml:space="preserve">
+    <value>Sprawdzanie aktualizacji pakietu</value>
+  </data>
+  <data name="C_B_Subtitle" xml:space="preserve">
+    <value>Zaczekaj aż instalator przygotuje pakiet do instalacji</value>
+  </data>
+  <data name="C_E_Subtitle" xml:space="preserve">
+    <value>Możesz wybrać które komponenty tego pakietu zainstalować</value>
+  </data>
+  <data name="C_E_Title" xml:space="preserve">
+    <value>Modyfikuj pakiet</value>
+  </data>
+  <data name="C_F_Subtitle" xml:space="preserve">
+    <value>Wybierz folder kopii zapasowej i inne opcje</value>
+  </data>
+  <data name="C_F_Title" xml:space="preserve">
+    <value>Opcje instalacji</value>
+  </data>
+  <data name="C_G_Subtitle" xml:space="preserve">
+    <value>Pakiet, który wybrałeś jest teraz instalowany</value>
+  </data>
+  <data name="C_G_Title" xml:space="preserve">
+    <value>Instaluję pakiet</value>
+  </data>
+  <data name="Lang_Attribution" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_AttributionUri" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Lang_Lcid" xml:space="preserve">
+    <value>pl</value>
+  </data>
+  <data name="Lang_Name" xml:space="preserve">
+    <value>Polski</value>
+  </data>
+  <data name="C_C_downloadProgress" xml:space="preserve">
+    <value>{0}% - {1}KB of {2}KB pobrane z prędkością {3}KBps</value>
+  </data>
+  <data name="C_C_infoChecking" xml:space="preserve">
+    <value>Sprawdzanie uaktualnień pakietu</value>
+  </data>
+  <data name="C_C_infoFailed" xml:space="preserve">
+    <value>Sprawdzanie uaktualnień nieudane: nie mogę pobrać informacji</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableAutomatic" xml:space="preserve">
+    <value>Zaktualizowana wersja ({0}) tego pakietu jest dostępna. Czy chcesz ją teraz pobrać?</value>
+  </data>
+  <data name="C_C_infoUpdateAvailableManual" xml:space="preserve">
+    <value>Zaktualizowana wersja ({0}) tego pakietu jest dostępna, ale musisz ją pobrać ręcznie. Kliknij Odwiedź stronę www pakietu aby uzyskać więcej informacji.</value>
+  </data>
+  <data name="C_C_infoUpdateLatest" xml:space="preserve">
+    <value>Masz najnowszą wersję ({0}) tego pakietu.</value>
+  </data>
+  <data name="F_installationComplete" xml:space="preserve">
+    <value>Instalacja zakończona pomyślnie.</value>
+  </data>
+  <data name="Wiz_Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="Wiz_Next" xml:space="preserve">
+    <value>Dalej</value>
+  </data>
+  <data name="Wiz_Prev" xml:space="preserve">
+    <value>Wstecz</value>
+  </data>
+  <data name="C_D_Subtitle" xml:space="preserve">
+    <value>Przejrzyj informacje autora pakieu</value>
+  </data>
+  <data name="C_D_Title" xml:space="preserve">
+    <value>Informacje o pakiecie</value>
+  </data>
+  <data name="C_D_installerNotes" xml:space="preserve">
+    <value>Instalator Anolis - informacje</value>
+  </data>
+  <data name="C_D_packageNotes" xml:space="preserve">
+    <value>{0} Informacje o pakiecie</value>
+  </data>
+  <data name="C_F_pathInvalidBackup" xml:space="preserve">
+    <value>Wybrana lokalizacja kopii zapasowej jest niewłaściwa</value>
+  </data>
+  <data name="C_F_pathInvalidI386" xml:space="preserve">
+    <value>Wybrana lokalizacja katalogu I386 jest niewłaściwa</value>
+  </data>
+  <data name="C_F_pathExistsBackup" xml:space="preserve">
+    <value>Wybrana lokalizacja kopii zapasowej już istnieje i zawiera pliki. Kopia musi zostać utworzona w pustym folderze lub należy utworzyć nowy folder.</value>
+  </data>
+  <data name="C_B_errorPackageXmlNotFound" xml:space="preserve">
+    <value>Wybrany pakiet nie zawiera pliku definicji.</value>
+  </data>
+  <data name="C_C_skipCheckLbl" xml:space="preserve">
+    <value>Możesz pominąć sprawdzanie uaktualnień klikając przycisk Dalej w dowolnym momencie.</value>
+  </data>
+  <data name="A_Message_Cus" xml:space="preserve">
+    <value>Instalator przeprowadzi cię przez wszystkie kroki instalacji {0}
+
+Aby kontynuować, wciśnij Dalej</value>
+  </data>
+  <data name="A_Title_Cus" xml:space="preserve">
+    <value>Witamy w {0}</value>
+  </data>
+  <data name="B_installBlurb_Cus" xml:space="preserve">
+    <value>Instaluje {0} na tym komputerze lub integruje z plikami instalacyjnymi windows (I386).</value>
+  </data>
+  <data name="B_installRad_Cus" xml:space="preserve">
+    <value>Instaluj {0}</value>
+  </data>
+  <data name="B_toolsBlurb_Cus" xml:space="preserve">
+    <value>Pobiera dodatki, dzięki którym możesz łatwo stworzyć własny pakiet lub dystrybucję taką jak {0}</value>
+  </data>
+  <data name="B_uninstallRad_Cus" xml:space="preserve">
+    <value>Cofnij zmiany dokonane przez {0}</value>
+  </data>
+  <data name="C_B_error_Cus" xml:space="preserve">
+    <value>&gt;Podczas rozpakowywania {0} wystąpił błąd</value>
+  </data>
+  <data name="C_B_Subtitle_Cus" xml:space="preserve">
+    <value>Zaczekaj aż instalator przygotuje {0} do instalacji</value>
+  </data>
+  <data name="C_D_Subtitle_Cus" xml:space="preserve">
+    <value>Przejżyj informacje o {0}</value>
+  </data>
+  <data name="C_G_Subtitle_Cus" xml:space="preserve">
+    <value>{0} jest instalowany</value>
+  </data>
+  <data name="C_A_anopFilenameLbl" xml:space="preserve">
+    <value>Nazwa pliku</value>
+  </data>
+  <data name="C_A_packFilenameLbl" xml:space="preserve">
+    <value>Nazwa pliku</value>
+  </data>
+  <data name="C_B_statusLbl" xml:space="preserve">
+    <value>Przygotowuję...</value>
+  </data>
+  <data name="C_C_statusLbl" xml:space="preserve">
+    <value>Przygotowuję...</value>
+  </data>
+  <data name="C_F_i386Lbl" xml:space="preserve">
+    <value>Katalog główny CD\DVD</value>
+  </data>
+  <data name="D_A_toolsLbl" xml:space="preserve">
+    <value>Dodatki, które możesz pobrać to Resourcer, potężny Resource Editor; Packager, używany do tworzenia pakietów instalacyjnych i własnych instalatorów; oraz wiele innych dadatkówa, min. edytor ikon.</value>
+  </data>
+  <data name="E_A_dirLbl" xml:space="preserve">
+    <value>Katalog</value>
+  </data>
+  <data name="C_A_anopBrowse" xml:space="preserve">
+    <value>Przeglądaj...</value>
+  </data>
+  <data name="C_A_packBrowse" xml:space="preserve">
+    <value>Przeglądaj...</value>
+  </data>
+  <data name="C_B_Title" xml:space="preserve">
+    <value>Przygotowuję pakiet</value>
+  </data>
+  <data name="C_B_Title_Cus" xml:space="preserve">
+    <value>Przygotowuję {0}</value>
+  </data>
+  <data name="C_C_downloadInfo" xml:space="preserve">
+    <value>Odwiedź stronę www pakietu</value>
+  </data>
+  <data name="C_C_downloadInfo_Cus" xml:space="preserve">
+    <value>Odwiedź stronę www {0} </value>
+  </data>
+  <data name="C_C_downloadNo" xml:space="preserve">
+    <value>Nie</value>
+  </data>
+  <data name="C_C_downloadYes" xml:space="preserve">
+    <value>Tak</value>
+  </data>
+  <data name="C_F_backupBrowse" xml:space="preserve">
+    <value>Przeglądaj...</value>
+  </data>
+  <data name="C_F_i386Browse" xml:space="preserve">
+    <value>Przeglądaj...</value>
+  </data>
+  <data name="C_G_statusLbl" xml:space="preserve">
+    <value>Przygotowuję...</value>
+  </data>
+  <data name="D_A_destBrowse" xml:space="preserve">
+    <value>Przeglądaj...</value>
+  </data>
+  <data name="D_A_Subtitle" xml:space="preserve">
+    <value>Wybierz folder, do którego chesz zapisać pobrane dodatki i ustaw inne opcje</value>
+  </data>
+  <data name="D_A_Title" xml:space="preserve">
+    <value>Katalog docelowy i opcje instalacji</value>
+  </data>
+  <data name="D_B_status" xml:space="preserve">
+    <value>Przygotowuję...</value>
+  </data>
+  <data name="D_B_Subtitle" xml:space="preserve">
+    <value>Pobieram dodatki Anolis</value>
+  </data>
+  <data name="D_B_Title" xml:space="preserve">
+    <value>Pobieranie</value>
+  </data>
+  <data name="E_A_browse" xml:space="preserve">
+    <value>Przeglądaj...</value>
+  </data>
+  <data name="E_A_sysRes" xml:space="preserve">
+    <value>Utwórz punkt przywracania systemu (Zalecane)</value>
+  </data>
+  <data name="E_A_sysResDesc" xml:space="preserve">
+    <value>Dodatkowy poziom ochrony. Pamiętaj, że to nie zawsze chroni przed modyfikacją plików w katalogu Program Files</value>
+  </data>
+  <data name="E_A_Title" xml:space="preserve">
+    <value>Wybierz katalog kopii zapasowej</value>
+  </data>
+  <data name="E_B_Subtitle" xml:space="preserve">
+    <value>Wybierz katalog, z którego chcesz przywrócić pliki</value>
+  </data>
+  <data name="A_DisableAV" xml:space="preserve">
+    <value>Prosze wylaczyc Windows Defender i programy anti-wirusowe, jesli chcesz kontynuowac installacja. Programy moga zwolnic installcje.</value>
+  </data>
+  <data name="C_A_notFileExists" xml:space="preserve">
+    <value>Plik "{0}" nie istnieje.</value>
+  </data>
+  <data name="C_A_selectEmbeddedPackageFirst" xml:space="preserve">
+    <value>Prosze wybrac pakiet.</value>
+  </data>
+  <data name="C_B_conditionError" xml:space="preserve">
+    <value>Wystapil blad podczas ewaluacji pakietu dla twojego komputera.Prosze skontaktowac sie z autorem pakietu.</value>
+  </data>
+  <data name="E_A_notValidDirectory" xml:space="preserve">
+    <value>Wybrany folder nie zawiera poprawnego pakietu do de-installcji.</value>
+  </data>
+  <data name="G_Title" xml:space="preserve">
+    <value>Prosze czekac.</value>
+  </data>
+  <data name="G_WaitMessage" xml:space="preserve">
+    <value>Trwa restart systemu.</value>
+  </data>
+  <data name="Wiz_CancelConfirm" xml:space="preserve">
+    <value>Czy na pewna chcesz zakonczyc installcje?</value>
+  </data>
+  <data name="F_uninstallationCompleteRestart" xml:space="preserve">
+    <value>Deinstalacja zakończyła się pomyślnie. Komputer zostanie uruchomiony ponownie.
+
+Zamknij wszystkie uruchomione progamy przed kontynuacją. Nie uruchamiaj żadnych nowych programów.</value>
+  </data>
+</root>
