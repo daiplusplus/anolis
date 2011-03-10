@@ -84,7 +84,7 @@ namespace Anolis.Tools.PEInfo {
 			
 			Magic                 = rdr.ReadUInt16();
 			
-			if( Magic != 0x4E45 )
+			if( Magic != 0x454E )
 				throw new FormatException("The specified stream is not an NE Executable.");
 				
 			

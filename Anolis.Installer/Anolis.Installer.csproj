@@ -308,6 +308,7 @@
     <EmbeddedResource Include="Pages\C-F2-InstallationOptionsForm.resx">
       <DependentUpon>C-F2-InstallationOptionsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ILMerge Release.cmd" />
     <None Include="Resources\Compressed\ar.resources.gz" />
     <None Include="Resources\Compressed\cy.resources.gz" />
     <None Include="Resources\Compressed\da.resources.gz" />

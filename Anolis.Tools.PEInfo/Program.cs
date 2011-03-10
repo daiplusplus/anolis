@@ -14,8 +14,12 @@ namespace Anolis.Tools.PEInfo {
 //			
 //			Application.Run( new MainForm() );
 			
-			PEResourceSource source = new PEResourceSource( args[0] );
-			source.GetResources();
+//			PEResourceSource source = new PEResourceSource( args[0] );
+//			source.GetResources();
+			
+			String thunk16 = @"D:\Users\David\My Documents\Visual Studio Projects\Solutions\Anolis Private\_notes\ResourceSource Formats\NE\EXE Files\twunk_16.exe";
+			
+			NEFile ne = new NEFile( thunk16 );
 			
 			return 0;
 		}//main

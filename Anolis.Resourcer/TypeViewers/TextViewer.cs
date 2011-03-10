@@ -18,33 +18,22 @@ namespace Anolis.Resourcer.TypeViewers {
 			this.__toolsFont.Click += new EventHandler(__toolsFont_Click);
 			this.__toolsWrap.CheckedChanged += new EventHandler(__toolsWrap_CheckedChanged);
 			
-			Encoding = Encoding.UTF8;
+			AddEncodingMenuItems();
 			
-			this.__toolsEncAscii  .Tag = Encoding.ASCII;
-			this.__toolsEncUtf7   .Tag = Encoding.UTF7;
-			this.__toolsEncUtf8   .Tag = new UTF8Encoding(false);
-			this.__toolsEncUtf8Bom.Tag = Encoding.UTF8; // new UTF8Encoding(true);
-			this.__toolsEncUtf16LE.Tag = Encoding.Unicode;
-			this.__toolsEncUtf16BE.Tag = Encoding.BigEndianUnicode;
-			this.__toolsEncUtf32  .Tag = Encoding.UTF32;
-			
-			this.__toolsEncoding.DropDownItemClicked += new ToolStripItemClickedEventHandler(__toolsEncoding_DropDownItemClicked);
-			
+			__toolsEnc_Click( __toolsEncUtf8, EventArgs.Empty ); // set UTF-8 as the default encoding
 		}
 		
-		private void __toolsEncoding_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e) {
+		private void AddEncodingMenuItems() {
 			
-			ToolStripMenuItem clickedItem = e.ClickedItem as ToolStripMenuItem;
-			clickedItem.Checked = true;
+			__toolsEncAscii.Click += new EventHandler(__toolsEnc_Click); __toolsEncAscii.Tag = new ASCIIEncoding();
+			__toolsEncUtf7 .Click += new EventHandler(__toolsEnc_Click); __toolsEncUtf7 .Tag = new UTF7Encoding();
+			__toolsEncUtf8 .Click += new EventHandler(__toolsEnc_Click); __toolsEncUtf8 .Tag = new UTF8Encoding();
+			__toolsEncUtf16.Click += new EventHandler(__toolsEnc_Click); __toolsEncUtf16.Tag = new Object();
+			__toolsEncUtf32.Click += new EventHandler(__toolsEnc_Click); __toolsEncUtf32.Tag = new Object();
 			
-			// uncheck all other items
-			foreach(ToolStripMenuItem item in __toolsEncoding.DropDownItems) if( item != clickedItem ) item.Checked = false;
-			
-			Encoding = clickedItem.Tag as Encoding;
-			
-			__toolsEncoding.Text = clickedItem.Text;
-			
-			if( _data != null ) RenderResource( _data );
+			__toolsEncodingBE .Click += new EventHandler(__toolsEncodingOptions_Click);
+			__toolsEncodingLE .Click += new EventHandler(__toolsEncodingOptions_Click);
+			__toolsEncodingBom.Click += new EventHandler(__toolsEncodingOptions_Click);
 		}
 		
 		public override void RenderResource(ResourceData resourceData) {
@@ -63,7 +52,7 @@ namespace Anolis.Resourcer.TypeViewers {
 			}
 			
 			try {
-				__text.Text = Encoding.GetString( data );
+				__text.Text = TextEncoding.GetString( data );
 			
 			} catch(EncoderFallbackException fex) {
 				
@@ -81,8 +70,11 @@ namespace Anolis.Resourcer.TypeViewers {
 			get { return "Raw Text (with Encoding) Viewer"; }
 		}
 		
-		private Encoding Encoding {
-			set { __toolsEncoding.Tag = value; }
+		private Encoding TextEncoding {
+			set {
+				__toolsEncoding.Tag = value;
+				if( _data != null ) RenderResource( _data );
+			}
 			get { return __toolsEncoding.Tag as Encoding; }
 		}
 		
@@ -99,6 +91,64 @@ namespace Anolis.Resourcer.TypeViewers {
 		private void __toolsWrap_CheckedChanged(object sender, EventArgs e) {
 			
 			__text.WordWrap = __toolsWrap.Checked;
+		}
+		
+		private void __toolsEncodingOptions_Click(object sender, EventArgs e) {
+			
+			ToolStripMenuItem mi = sender as ToolStripMenuItem;
+			if( mi == null ) return;
+			
+			__toolsEncodingBE.Checked = mi == __toolsEncodingBE;
+			__toolsEncodingLE.Checked = mi == __toolsEncodingLE;
+			
+			if( this.TextEncoding is UTF32Encoding ) {
+				
+				this.TextEncoding = new UTF32Encoding( __toolsEncodingBE.Checked, __toolsEncodingBom.Checked );
+				
+			} else if( this.TextEncoding is UnicodeEncoding ) {
+				
+				this.TextEncoding = new UnicodeEncoding( __toolsEncodingBE.Checked, __toolsEncodingBom.Checked );
+			}
+		}
+		
+		private void __toolsEnc_Click(object sender, EventArgs e) {
+			
+			ToolStripMenuItem se = sender as ToolStripMenuItem;
+			
+			// uncheck all the others except this one
+			foreach(ToolStripItem item in __toolsEncoding.DropDownItems) {
+				if( item.Tag == null ) continue;
+				ToolStripMenuItem mi = item as ToolStripMenuItem;
+				if( mi == null ) continue;
+				
+				mi.Checked = item == se;
+			}
+			
+			__toolsEncodingBE .Enabled = !(se.Tag is Encoding);
+			__toolsEncodingLE .Enabled = !(se.Tag is Encoding);
+			__toolsEncodingBom.Enabled = !(se.Tag is Encoding);
+			
+			// and set the encoding, of course
+			
+			if( se.Tag is Encoding ) {
+				
+				this.TextEncoding = se.Tag as Encoding;
+				
+			} else {
+				
+				if( se == __toolsEncUtf16 ) {
+					
+					this.TextEncoding = new UnicodeEncoding( __toolsEncodingBE.Checked, __toolsEncodingBom.Checked );
+					
+				} else if( se == __toolsEncUtf32 ) {
+					
+					this.TextEncoding = new UTF32Encoding( __toolsEncodingBE.Checked, __toolsEncodingBom.Checked );
+				}
+				
+			}
+			
+			__toolsEncoding.Text = se.Text;
+			
 		}
 		
 #endregion
