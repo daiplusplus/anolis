@@ -765,7 +765,7 @@ namespace Anolis.Resourcer {
 			////////////////////////
 			// Edit
 			
-			
+			__mEditFind.Enabled = CurrentSource != null;
 			
 			////////////////////////
 			// View

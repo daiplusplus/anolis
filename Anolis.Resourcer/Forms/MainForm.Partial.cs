@@ -979,6 +979,8 @@ namespace Anolis.Resourcer {
 		
 		private void FindShow() {
 			
+			if( this.CurrentSource == null ) return;
+			
 			_findForm.Show(this);
 		}
 		

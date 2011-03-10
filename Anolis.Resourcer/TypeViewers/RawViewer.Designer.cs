@@ -38,6 +38,7 @@
 			this.@__hex.LineInfoVisible = true;
 			this.@__hex.Location = new System.Drawing.Point(0, 0);
 			this.@__hex.Name = "__hex";
+			this.@__hex.ReadOnly = true;
 			this.@__hex.SelectionBackColor = System.Drawing.SystemColors.Highlight;
 			this.@__hex.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			this.@__hex.ShadowSelectionColor = System.Drawing.SystemColors.Highlight;
