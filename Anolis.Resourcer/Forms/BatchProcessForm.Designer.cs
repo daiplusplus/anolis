@@ -25,6 +25,7 @@
 		private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			this.@__optionsGrp = new System.Windows.Forms.GroupBox();
+			this.@__exportLongNames = new System.Windows.Forms.CheckBox();
 			this.@__exportDirectoryLbl = new System.Windows.Forms.Label();
 			this.@__exportDirectory = new System.Windows.Forms.TextBox();
 			this.@__exportBrowse = new System.Windows.Forms.Button();
@@ -58,7 +59,6 @@
 			this.@__error = new System.Windows.Forms.ErrorProvider(this.components);
 			this.@__bw = new System.ComponentModel.BackgroundWorker();
 			this.@__ofd = new System.Windows.Forms.OpenFileDialog();
-			this.@__exportLongNames = new System.Windows.Forms.CheckBox();
 			this.@__optionsGrp.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.@__exportNonvisualSizeNum)).BeginInit();
 			this.@__sourceGrp.SuspendLayout();
@@ -87,6 +87,16 @@
 			this.@__optionsGrp.TabIndex = 1;
 			this.@__optionsGrp.TabStop = false;
 			this.@__optionsGrp.Text = "Export Options";
+			// 
+			// __exportLongNames
+			// 
+			this.@__exportLongNames.AutoSize = true;
+			this.@__exportLongNames.Location = new System.Drawing.Point(116, 137);
+			this.@__exportLongNames.Name = "__exportLongNames";
+			this.@__exportLongNames.Size = new System.Drawing.Size(259, 17);
+			this.@__exportLongNames.TabIndex = 19;
+			this.@__exportLongNames.Text = "Always include resource language ID in filenames";
+			this.@__exportLongNames.UseVisualStyleBackColor = true;
 			// 
 			// __exportDirectoryLbl
 			// 
@@ -133,7 +143,7 @@
 			this.@__exportSkipCommonplace.Checked = true;
 			this.@__exportSkipCommonplace.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.@__exportSkipCommonplace.Enabled = false;
-			this.@__exportSkipCommonplace.Location = new System.Drawing.Point(116, 68);
+			this.@__exportSkipCommonplace.Location = new System.Drawing.Point(128, 68);
 			this.@__exportSkipCommonplace.Name = "__exportSkipCommonplace";
 			this.@__exportSkipCommonplace.Size = new System.Drawing.Size(227, 17);
 			this.@__exportSkipCommonplace.TabIndex = 14;
@@ -144,7 +154,7 @@
 			// 
 			this.@__exportNonvisualSize.AutoSize = true;
 			this.@__exportNonvisualSize.Enabled = false;
-			this.@__exportNonvisualSize.Location = new System.Drawing.Point(116, 91);
+			this.@__exportNonvisualSize.Location = new System.Drawing.Point(128, 91);
 			this.@__exportNonvisualSize.Name = "__exportNonvisualSize";
 			this.@__exportNonvisualSize.Size = new System.Drawing.Size(232, 17);
 			this.@__exportNonvisualSize.TabIndex = 15;
@@ -154,7 +164,7 @@
 			// __exportNonvisualSizeNum
 			// 
 			this.@__exportNonvisualSizeNum.Enabled = false;
-			this.@__exportNonvisualSizeNum.Location = new System.Drawing.Point(351, 90);
+			this.@__exportNonvisualSizeNum.Location = new System.Drawing.Point(363, 90);
 			this.@__exportNonvisualSizeNum.Maximum = new decimal(new int[] {
             2097152,
             0,
@@ -174,7 +184,7 @@
 			// 
 			this.@__exportNonvisualSizeLbl.AutoSize = true;
 			this.@__exportNonvisualSizeLbl.Enabled = false;
-			this.@__exportNonvisualSizeLbl.Location = new System.Drawing.Point(411, 93);
+			this.@__exportNonvisualSizeLbl.Location = new System.Drawing.Point(423, 93);
 			this.@__exportNonvisualSizeLbl.Name = "__exportNonvisualSizeLbl";
 			this.@__exportNonvisualSizeLbl.Size = new System.Drawing.Size(21, 13);
 			this.@__exportNonvisualSizeLbl.TabIndex = 17;
@@ -403,16 +413,6 @@
 			// 
 			this.@__error.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
 			this.@__error.ContainerControl = this;
-			// 
-			// __exportLongNames
-			// 
-			this.@__exportLongNames.AutoSize = true;
-			this.@__exportLongNames.Location = new System.Drawing.Point(116, 137);
-			this.@__exportLongNames.Name = "__exportLongNames";
-			this.@__exportLongNames.Size = new System.Drawing.Size(262, 17);
-			this.@__exportLongNames.TabIndex = 19;
-			this.@__exportLongNames.Text = "Include resource Type and Language in filenames";
-			this.@__exportLongNames.UseVisualStyleBackColor = true;
 			// 
 			// BatchProcessForm
 			// 

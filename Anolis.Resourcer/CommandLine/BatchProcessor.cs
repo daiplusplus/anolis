@@ -221,7 +221,7 @@ namespace Anolis.Resourcer.CommandLine {
 									if( Options.ExportLongNames || name.Langs.Count > 1 ) {
 										fileName = Miscellaneous.FSSafeResPath( lang.ResourcePath );
 									} else {
-										fileName = Miscellaneous.FSSafeResPath( name.Identifier.FriendlyName );
+										fileName = Miscellaneous.FSSafeResPath( type.Identifier.FriendlyName.Replace("\"", "") + "-" + name.Identifier.FriendlyName.Replace("\"", "") );
 									}
 									
 									fileName = Path.Combine( directory, fileName ) + data.RecommendedExtension;
