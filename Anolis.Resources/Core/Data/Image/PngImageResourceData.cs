@@ -11,9 +11,7 @@ namespace Anolis.Core.Data {
 			if(typeId.KnownType == Win32ResourceType.Html)    return Compatibility.Maybe;
 			if(typeId.KnownType != Win32ResourceType.Custom)  return Compatibility.No;
 			
-			if( String.Equals( typeId.StringId, "PNG"    , StringComparison.OrdinalIgnoreCase)) return Compatibility.Yes;
-			if( String.Equals( typeId.StringId, "PNGF"   , StringComparison.OrdinalIgnoreCase)) return Compatibility.Yes;
-			if( String.Equals( typeId.StringId, "PNGFILE", StringComparison.OrdinalIgnoreCase)) return Compatibility.Yes;
+			if( typeId.StringId.IndexOf("PNG", StringComparison.OrdinalIgnoreCase) > -1 ) return Compatibility.Yes;
 			
 			return Compatibility.Maybe;
 		}
@@ -114,9 +112,6 @@ namespace Anolis.Core.Data {
 			get { return new String[] {
 				"PNG Image (*.png)|*.png",
 				"Convert to Bitmap (*.bmp)|*.bmp",
-				"Convert to EXIF (*.exf)|*.exf",
-				"Convert to GIF (*.gif)|*.gif",
-				"Convert to JPEG (*.jpg)|*.jpg",
 			}; }
 		}
 		

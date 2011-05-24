@@ -180,6 +180,7 @@ namespace Anolis.Core.Data {
 			factories.Add( new GifImageResourceDataFactory() );
 			factories.Add( new JpegImageResourceDataFactory() );
 			factories.Add( new PngImageResourceDataFactory() );
+			factories.Add( new TiffImageResourceDataFactory() );
 			
 			factories.Add( new IconCursorImageResourceDataFactory() );
 			factories.Add( new RiffMediaResourceDataFactory() );
